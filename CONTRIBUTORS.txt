@@ -1,0 +1,7 @@
+Hello! My name is David Cana. I found jtable some days ago and I think it is a great project! Nevertheless I don't like some things about it and I decided to fork it and to make some major changes. The heaviest change is to build all HTML code of forms using ZPT-JS (another project by me!), a template engine similar to ZPT. Other changes will be made later!
+
+Nowadays the list of contributors to this project is:
+    - Halil İbrahim Kalkan and the rest of contributors to jtable (https://github.com/hikalkan/jtable).
+    - David Cana (me!), the main developer of Zcrud.
+
+

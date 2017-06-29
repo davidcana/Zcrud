@@ -1,0 +1,4 @@
+
+
+New in 0.1.0
+- Initial version. Initially a fork of jtable.
