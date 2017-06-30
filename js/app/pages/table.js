@@ -15,18 +15,28 @@ module.exports = function ( optionsToApply ) {
         loadRegistersUsingAjax();
     };
     
+    var configureTemplate = function( templatePath ){
+        //alert( templatePath );
+    };
+    
     //
     var parseTemplate = function( data ){
-        alert( 'parseTemplate!' );
+        //alert( 'parseTemplate!' );
         
         var dictionary = {
             options: options,
             records: data.Records
         };
+        
+        zpt.run({
+            //root: options.target,
+            root: options.body,
+            dictionary: dictionary
+        });
     };
     
     //
-    var loadRegistersUsingAjax = function ( options ) {
+    var loadRegistersUsingAjax = function () {
         
         //Generate URL (with query string parameters) to load records
         var loadUrl = createRecordLoadUrl();
@@ -36,6 +46,7 @@ module.exports = function ( optionsToApply ) {
             url: loadUrl,
             //data: this._lastPostData,
             success: function ( data ) {
+                configureTemplate( options.listTemplate );
                 parseTemplate( data );
             },
             error: function ( data ) {
@@ -76,12 +87,12 @@ module.exports = function ( optionsToApply ) {
     var ajax = function ( ajaxOptions ) {
         
         if ( $.isFunction( options.ajaxFunction ) ) {
-            alert( 'Customized ajax!' );
+            //alert( 'Customized ajax!' );
             options.ajaxFunction( ajaxOptions );
             return;
         }
         
-        alert( 'Standard ajax!' );
+        //alert( 'Standard ajax!' );
         $.ajax( ajaxOptions );
     };
     

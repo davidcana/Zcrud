@@ -1,0 +1,491 @@
+/* jTable metro style theme - Blue
+ * Created by Halil İbrahim Kalkan
+ * http://www.jtable.org
+ */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTRa1RVmPjeKy21_GQJaLlJI.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Open Sans Light Italic'), local('OpenSansLight-Italic'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/PRmiXeptR36kaC0GEAetxrsuoFAk0leveMLeqYtnfAY.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/u-WUoqrET9fUeobQW7jkRT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/xjAJXh38I15wypJXxuGMBtIh4imgI8P11RFo6YPCPC0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSha1RVmPjeKy21_GQJaLlJI.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 600;
+  src: local('Open Sans Semibold Italic'), local('OpenSans-SemiboldItalic'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/PRmiXeptR36kaC0GEAetxmWeb5PoA5ztb49yLyUzH1A.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzBa1RVmPjeKy21_GQJaLlJI.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/PRmiXeptR36kaC0GEAetxoUt79146ZFaIJxILcpzmhI.woff) format('woff');
+}
+div.zcrud-main-container {
+  position: relative;
+}
+div.zcrud-main-container button:hover, 
+div.zcrud-main-container button:active, 
+div.zcrud-main-container button:focus {
+    outline: none;
+}
+div.zcrud-main-container .zcrud-header .zcrud-title {
+  position: relative;
+  text-align: left;
+  font-size: 3em;
+}
+div.zcrud-main-container .zcrud-header .zcrud-title .zcrud-close-button {
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  position: absolute;
+}
+div.zcrud-main-container .zcrud-header .zcrud-toolbar {
+  top: 0px;
+  right: 0px;
+  position: absolute;
+  display: inline-block;
+  margin-right: 5px;
+}
+div.zcrud-main-container .zcrud-header .zcrud-toolbar .zcrud-toolbar-item {
+  position: relative;
+  display: inline-block;
+  margin: 0px 0px 0px 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 2px;
+  vertical-align: bottom;
+}
+div.zcrud-main-container .zcrud-header .zcrud-toolbar .zcrud-toolbar-item .zcrud-toolbar-item-icon {
+  display: inline-block;
+  margin: 2px;
+  vertical-align: middle;
+  width: 16px;
+  height: 16px;
+}
+div.zcrud-main-container .zcrud-header .zcrud-toolbar .zcrud-toolbar-item .zcrud-toolbar-item-text {
+  display: inline-block;
+  margin: 2px;
+  vertical-align: middle;
+}
+div.zcrud-main-container .zcrud-header .zcrud-close-button + .zcrud-toolbar {
+  margin-right: 30px;
+}
+div.zcrud-main-container table.zcrud {
+  width: 100%;
+}
+div.zcrud-main-container table.zcrud thead th {
+  vertical-align: middle;
+  text-align: left;
+}
+div.zcrud-main-container table.zcrud thead th .zcrud-column-header-container .zcrud-column-resize-handler {
+  position: absolute;
+  height: 24px;
+  width: 8px;
+  right: -8px;
+  top: -2px;
+  z-index: 2;
+  cursor: col-resize;
+}
+div.zcrud-main-container table.zcrud thead th.zcrud-command-column-header {
+  text-align: center;
+}
+div.zcrud-main-container table.zcrud thead th.zcrud-column-header-selecting {
+  text-align: center;
+  width: 1%;
+}
+div.zcrud-main-container table.zcrud thead th.zcrud-column-header-selecting input {
+  cursor: pointer;
+}
+div.zcrud-main-container table.zcrud thead th.zcrud-column-header-sortable {
+  cursor: pointer;
+}
+div.zcrud-main-container table.zcrud .zcrud-command-button {
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+  border: none;
+  display: inline;
+}
+div.zcrud-main-container table.zcrud tbody tr > td.zcrud-command-column {
+  text-align: center;
+  vertical-align: middle;
+}
+div.zcrud-main-container table.zcrud tbody tr > td.zcrud-selecting-column {
+  text-align: center;
+  vertical-align: middle;
+}
+div.zcrud-main-container table.zcrud tbody tr > td.zcrud-selecting-column input {
+  cursor: pointer;
+}
+div.zcrud-main-container table.zcrud tbody tr.zcrud-no-data-row {
+  text-align: center;
+}
+div.zcrud-main-container > .zcrud-bottom-panel {
+  position: relative;
+  min-height: 24px;
+  text-align: left;
+}
+div.zcrud-main-container > .zcrud-bottom-panel div.zcrud-right-area {
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  position: absolute;
+}
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list {
+  display: inline-block;
+}
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number,
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space,
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first,
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last,
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous,
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next,
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
+  padding: 2px 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled {
+  cursor: default;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-size-change {
+  margin-left: 5px
+}
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-goto-page {
+  margin-left: 5px;
+}
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-goto-page input[type=text] {
+  width: 22px;
+}
+div.zcrud-main-container > .zcrud-bottom-panel .zcrud-page-info {
+  vertical-align: middle;
+}
+div.zcrud-main-container .zcrud-column-resize-bar {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  position: absolute;
+  display: none;
+  width: 1px;
+  background-color: #000;
+}
+div.zcrud-main-container div.zcrud-column-selection-container {
+  position: absolute;
+  display: none;
+  border: 1px solid #C8C8C8;
+  background: #fff;
+  color: #000;
+  z-index: 101;
+  padding: 5px;
+}
+div.zcrud-main-container div.zcrud-column-selection-container ul.zcrud-column-select-list {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+div.zcrud-main-container div.zcrud-column-selection-container ul.zcrud-column-select-list li {
+  margin: 0px;
+  padding: 2px 0px;
+}
+div.zcrud-main-container div.zcrud-column-selection-container ul.zcrud-column-select-list li label span {
+  position: relative;
+  top: -1px;
+  margin-left: 4px;
+}
+div.zcrud-main-container div.zcrud-column-selection-container ul.zcrud-column-select-list li input[type="checkbox"] {
+  cursor: pointer;
+}
+form.zcrud-dialog-form div.zcrud-input-field-container {
+  padding: 2px 0px 3px 0px;
+  border-bottom: 1px solid #ddd;
+}
+form.zcrud-dialog-form div.zcrud-input-field-container:last-child {
+  border: none;
+}
+form.zcrud-dialog-form div.zcrud-input-label {
+  padding: 2px 3px;
+  font-size: 1.1em;
+  color: #666;
+}
+form.zcrud-dialog-form div.zcrud-input {
+  padding: 2px;
+}
+form.zcrud-dialog-form div.zcrud-date-input {
+  /* No additional style */
+
+}
+form.zcrud-dialog-form div.zcrud-text-input {
+  /* No additional style */
+
+}
+form.zcrud-dialog-form span.zcrud-option-text-clickable {
+  position: relative;
+  top: -2px;
+}
+form.zcrud-dialog-form div.zcrud-textarea-input textarea {
+  width: 300px;
+  min-height: 60px;
+}
+form.zcrud-dialog-form div.zcrud-checkbox-input span,
+form.zcrud-dialog-form div.zcrud-radio-input span {
+  padding-left: 4px;
+}
+form.zcrud-dialog-form div.zcrud-radio-input input,
+form.zcrud-dialog-form div.zcrud-checkbox-input input,
+form.zcrud-dialog-form span.zcrud-option-text-clickable {
+  cursor: pointer;
+}
+div.zcrud-busy-panel-background {
+  opacity: 0.1;
+  filter: alpha(opacity=50);
+  z-index: 998;
+  position: absolute;
+  background-color: #000;
+}
+div.zcrud-busy-panel-background.zcrud-busy-panel-background-invisible {
+  background-color: transparent;
+}
+div.zcrud-busy-message {
+  cursor: wait;
+  z-index: 999;
+  position: absolute;
+  margin: 5px;
+}
+div.zcrud-contextmenu-overlay {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+div.zcrud-main-container {
+  font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  background: #fff;
+  line-height: 1.3;
+}
+div.zcrud-main-container > div.zcrud-title {
+  background-color: #0b67cd;
+  padding-left: 10px;
+}
+div.zcrud-main-container > div.zcrud-title .zcrud-close-button {
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  position: absolute;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  background: url('./close.png') no-repeat;
+  width: 16px;
+  height: 16px;
+}
+div.zcrud-main-container > div.zcrud-title .zcrud-close-button:hover {
+  opacity: 1;
+  filter: alpha(opacity=50);
+}
+div.zcrud-main-container > div.zcrud-title div.zcrud-toolbar {
+  bottom: 0px;
+  right: 0px;
+  position: absolute;
+}
+div.zcrud-main-container > div.zcrud-title div.zcrud-toolbar span.zcrud-toolbar-item {
+  background-color: #1571d7;
+  color: white;
+}
+div.zcrud-main-container .zcrud-new-command-button {
+  background: url('./add.png') no-repeat center;
+  background-size: 16px 16px;
+  height: 30px;  
+  width: 30px;
+}
+div.zcrud-main-container > div.zcrud-title div.zcrud-toolbar span.zcrud-toolbar-item.zcrud-toolbar-item-hover {
+  background-color: #1c78de;
+  padding-bottom: 6px;
+}
+div.zcrud-main-container > table.zcrud {
+  border: 1px solid #2d89ef;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+div.zcrud-main-container > table.zcrud > thead {
+  background-color: #2d89ef;
+}
+div.zcrud-main-container > table.zcrud > thead th {
+  font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1.5em;
+  color: #fff;
+  padding-left: 5px;
+}
+div.zcrud-main-container > table.zcrud > thead th.zcrud-column-header div.zcrud-column-header-container {
+  height: 24px;
+  margin-left: 4px;
+}
+div.zcrud-main-container > table.zcrud > thead th.zcrud-column-header div.zcrud-column-header-container div.zcrud-column-resize-handler {
+  height: 28px;
+}
+div.zcrud-main-container > table.zcrud > thead th.zcrud-column-header div.zcrud-column-header-container span.zcrud-column-header-text {
+  margin-top: 2px;
+}
+div.zcrud-main-container > table.zcrud > thead th.zcrud-column-header-sortable div.zcrud-column-header-container {
+  background: url('./column-sortable.png') no-repeat right;
+}
+div.zcrud-main-container > table.zcrud > thead th.zcrud-column-header-sorted-asc div.zcrud-column-header-container {
+  background: url('./column-asc.png') no-repeat right;
+}
+div.zcrud-main-container > table.zcrud > thead th.zcrud-column-header-sorted-desc div.zcrud-column-header-container {
+  background: url('./column-desc.png') no-repeat right;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr {
+  background-color: #fff;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr > td {
+  border: 1px solid #ddd;
+  padding-left: 5px;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-data-row > td {
+  padding: 4px;
+}
+div.zcrud-main-container .zcrud-edit-command-button {
+  background: url('./edit.png') no-repeat center;
+  background-size: 16px 16px;
+  height: 30px;  
+  width: 30px;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-data-row > td > .zcrud-edit-command-button:hover {
+  opacity: 0.8;
+}
+div.zcrud-main-container table.zcrud .zcrud-delete-command-button {
+  background: url('./delete.png') no-repeat center;
+  background-size: 16px 16px;
+  height: 30px;  
+  width: 30px;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-data-row > td > .zcrud-delete-command-button:hover {
+  opacity: 0.8;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-row-even {
+  background-color: #f9f9f9;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr:hover {
+  background: #e8eaef;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-row-selected {
+  color: #fff;
+  background-color: #4fabff;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-row-created {
+  background-color: #60bcff;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-row-updated {
+  background-color: #60bcff;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-row-deleting {
+  background-color: #e51400;
+  color: #fff;
+}
+div.zcrud-main-container > table.zcrud > tbody > tr.zcrud-child-row > td {
+  padding: 2px;
+  background-color: #fff;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel {
+  background-color: #1c78de;
+  color: #fff;
+  min-height: 22.900000000000002px;
+  font-size: 13px;
+  border: 1px solid #2d89ef;
+  border-top: none;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list {
+  margin: 1px 0px 0px 0px;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
+  background-color: #2d89ef;
+  margin: 1px;
+  padding: 2px 5px;
+  color: #fff;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number:hover,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first:hover,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last:hover,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous:hover,
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next:hover {
+  background-color: #4fabff;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled {
+  opacity: 0.75;
+  filter: alpha(opacity=50);
+  color: #ccc;
+  cursor: default;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled:hover {
+  background-color: #2d89ef;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel span.zcrud-page-info {
+  display: inline-block;
+  padding: 4px;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel span.zcrud-page-size-change {
+  display: inline-block;
+  padding: 2px 0px 2px 0px;
+}
+div.zcrud-main-container > div.zcrud-bottom-panel span.zcrud-goto-page {
+  display: inline-block;
+  padding: 2px 0px 2px 0px;
+}
+form.zcrud-dialog-form {
+  font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+div.zcrud-busy-message {
+  font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border: 1px solid #fff;
+  padding: 5px 5px 5px 58px;
+  color: #fff;
+  background: url('./blue/loading.gif') no-repeat;
+  background-color: #0b67cd;
+  background-position: 8px;
+}
+   

@@ -5,7 +5,8 @@ var zcrud = require( '../../../js/app/main.js' );
 //var Qunit = require( 'qunitjs' );
 
 zcrud.run({
-    root: $( '#departmentsContainer' )[0],
+    body: document.body,
+    target: $( '#departmentsContainer' )[0],
     title: 'Departments',
     actions: {
         listAction:   'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
@@ -24,5 +25,6 @@ zcrud.run({
             title: 'Name',
             width: '90%'
         }
-    }
+    },
+    listTemplate: 'listTemplate'
 });

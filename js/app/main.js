@@ -58,7 +58,12 @@ exports.run = function( userOptions ){
             error: 'Error',
             close: 'Close',
             cannotLoadOptionsFor: 'Can not load options for field {0}'
-        }
+        },
+        
+        //Templates
+        listTemplate: 'listTemplate',
+        createTemplate: 'formTemplate',
+        updateTemplate: 'formTemplate'
     };
     
     /* Normalizes some options for all fields (sets default values).

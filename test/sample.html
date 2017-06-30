@@ -4,127 +4,117 @@
         <meta charset="utf-8">
         <title>Sample page</title>
         
+        <link rel="stylesheet" type="text/css" href="../themes/basic/basic.css" media="all">
+        
         <script src="http://127.0.0.1:9966/sample.js" defer></script>
     </head>
     <body>
         <div id="departmentsContainer" data-muse-macro="listTemplate">
-        
+	        Loading Zcrud contents...
+            <img alt="" src="../themes/basic/loading.gif" />
         </div>
         
-        <div data-mdefine-macro="listTemplate">
-            <div class="zcrud-main-container">
-                <div class="zcrud-busy-panel-background zcrud-busy-panel-background-invisible" 
-                     style="display: block; width: 1839px; height: 83px;"></div>
-                <div class="zcrud-busy-message" style="display: none;"></div>
-                <div class="zcrud-title">
-                    <div class="zcrud-title-text"
-                         data-tcontent="options/title">
-                        The title option
-                    </div>
-                    <div class="zcrud-toolbar">
-                        <span class="zcrud-toolbar-item-add-record">
-                            <span class="zcrud-toolbar-item-icon"></span>
-                            <span class="zcrud-toolbar-item-text">
-                                Add new record
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <table class="zcrud-table">
-                    <thead>
-                        <tr>
-                            <th class="zcrud-column-header" style="width: 9.78396%;">
-                                <div>
-                                    Id
-                                </div>
-                            </th>
-                            <th class="zcrud-column-header" style="width: 88.216%;">
-                                <div>
-                                    Name
-                                </div>
-                            </th>
-                            <th class="zcrud-command-column-header" style="width: 1%;"></th>
-                            <th class="zcrud-command-column-header" style="width: 1%;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-trepeat="record records"
-                            data-record-key="record/key!">
-                            <td data-tcontent="record/id">
-                                1
-                            </td>
-                            <td data-tcontent="record/name">
-                                UPD
-                            </td>
-                            <td>
-                                <button title="Edit Record" class="zcrud-edit-command-button">
-                                    Edit Record
-                                </button>
-                            </td>
-                            <td>
-                                <button title="Delete" class="zcrud-delete-command-button">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="zcrud-column-resize-bar" style="display: none;"></div>
-                <div class="zcrud-column-selection-container"></div>
+        <div data-mdefine-macro="listTemplate" 
+             class="zcrud-main-container" 
+             style="display: none">
+            
+            <div class="zcrud-busy-panel-background" style="display: none"></div>
+            <div class="zcrud-busy-message" style="display: none"></div>
+            <div class="zcrud-header">
+                <span class="zcrud-title"
+                      data-tcontent="options/title">
+                    The title option
+                </span>
+                <span class="zcrud-toolbar">
+                    <button title="New record" class="zcrud-new-command-button"></button>
+                </span>
             </div>
+            <table class="zcrud">
+                <thead>
+                    <tr>
+                        <th class="zcrud-column-header" style="width: 10%">
+                            Id
+                        </th>
+                        <th class="zcrud-column-header" style="width: 90%">
+                            Name
+                        </th>
+                        <th class="zcrud-command-column-header"></th>
+                        <th class="zcrud-command-column-header"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-trepeat="record records"
+                        data-tattributes="data-record-key record/id">
+                        <td data-tcontent="record/id">
+                            1
+                        </td>
+                        <td data-tcontent="record/name">
+                            UPD
+                        </td>
+                        <td>
+                            <button title="Edit record" class="zcrud-edit-command-button"></button>
+                        </td>
+                        <td>
+                            <button title="Delete record" class="zcrud-delete-command-button"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="zcrud-column-resize-bar" style="display: none"></div>
+            <div class="zcrud-column-selection-container" style="display: none"></div>
+
         </div>
         
-        <div data-mdefine-macro="editFormTemplate">
-            <div tabindex="-1">
-                <div>
+        <div data-mdefine-macro="formTemplate" 
+             class="zcrud-main-container" 
+             style="display: none">
+            
+            <div class="zcrud-header">
+                <span>
+                    Edit Record
+                </span>
+                <button type="button" title="Close">
                     <span>
-                        Edit Record
+                        Close
                     </span>
-                    <button type="button" title="Close">
-                        <span>
-                            Close
-                        </span>
-                    </button>
+                </button>
+            </div>
+            <form data-tattributes="id 'zcrud-edit-form'">
+                <input type="hidden"
+                       name="zcRecordKey" 
+                       data-tattributes="id 'Edit-zcRecordKey'; value record/key!" >
+                <div>
+                    <div>
+                        Id
+                    </div>
+                    <div>
+                        <input type="text"
+                               placeholder="" 
+                               name="id" 
+                               data-tattributes="id 'Edit-id'; value record/id">
+                    </div>
                 </div>
                 <div>
-                    <form data-tattributes="id 'zcrud-edit-form'">
-                        <input type="hidden"
-                               name="zcRecordKey" 
-                               data-tattributes="id 'Edit-zcRecordKey'; value record/key!" >
-                        <div>
-                            <div>
-                                Id
-                            </div>
-                            <div>
-                                <input type="text"
-                                       placeholder="" 
-                                       name="id" 
-                                       data-tattributes="id 'Edit-id'; value record/id">
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Name
-                            </div>
-                            <div>
-                                <input type="text"
-                                       placeholder="" 
-                                       id="Edit-name" 
-                                       name="name" 
-                                       data-tattributes="id 'Edit-name'; value record/name">
-                            </div>
-                        </div>
-                    </form>
+                    <div>
+                        Name
+                    </div>
+                    <div>
+                        <input type="text"
+                               placeholder="" 
+                               id="Edit-name" 
+                               name="name" 
+                               data-tattributes="id 'Edit-name'; value record/name">
+                    </div>
                 </div>
-                <div class="zcrud-buttonpane">
-                    <button type="button">
-                        Cancel
-                    </button>
-                    <button type="button" 
-                            data-tattributes="id 'EditDialogSaveButton'">
-                        Save
-                    </button>
-                </div>
+            </form>
+            <div class="zcrud-buttonpane">
+                <button type="button">
+                    Cancel
+                </button>
+                <button type="button" 
+                        data-tattributes="id 'EditDialogSaveButton'">
+                    Save
+                </button>
             </div>
         </div>
     </body>
