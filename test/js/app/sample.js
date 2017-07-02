@@ -6,7 +6,7 @@ var zcrud = require( '../../../js/app/main.js' );
 
 zcrud.run({
     body: document.body,
-    target: $( '#departmentsContainer' )[0],
+    target: $( '#departmentsContainer' ),
     title: 'Departments',
     actions: {
         listAction:   'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',

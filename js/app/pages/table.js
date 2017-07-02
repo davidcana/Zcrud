@@ -17,6 +17,8 @@ module.exports = function ( optionsToApply ) {
     
     var configureTemplate = function( templatePath ){
         //alert( templatePath );
+        options.target.attr(
+            'data-muse-macro', options.listTemplate );
     };
     
     //
@@ -29,7 +31,7 @@ module.exports = function ( optionsToApply ) {
         };
         
         zpt.run({
-            //root: options.target,
+            //root: options.target[0],
             root: options.body,
             dictionary: dictionary
         });
