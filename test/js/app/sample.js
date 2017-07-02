@@ -14,17 +14,20 @@ zcrud.run({
         updateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department',
         deleteAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
     },
-    fields: {
-        id: {
+    fields: [
+        {
+            id: 'id',
             title: 'Id',
             key: true,
             create: true,
             edit: true
         },
-        name: {
+        {
+            id: 'name',
             title: 'Name',
             width: '90%'
         }
-    },
-    listTemplate: 'listTemplate'
+    ],
+    listTemplate: 'listDefaultTemplate'
+    //listTemplate: 'listCustomizedTemplate'
 });
