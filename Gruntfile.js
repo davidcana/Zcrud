@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         compress: {
             main: {
                 options: {
-                    archive: 'dist/<%= pkg.name %>-js_<%= grunt.template.today("yyyy-mm-dd_HHMM") %>.tar.gz',
+                    archive: 'dist/<%= pkg.name %>_<%= grunt.template.today("yyyy-mm-dd_HHMM") %>.tar.gz',
                     pretty: true
                 },
                 expand: true,
@@ -57,6 +57,12 @@ module.exports = function(grunt) {
                         expand: true,
                         src: ['**/*', '!**/*~'],
                         dest: 'js'
+                        }, 
+                        {
+                        cwd: 'themes/',
+                        expand: true,
+                        src: ['**/*', '!**/*~'],
+                        dest: 'themes'
                         },
                         {
                         src: ['changes.txt']
