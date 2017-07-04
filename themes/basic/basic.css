@@ -118,6 +118,7 @@ div.zcrud-main-container table.zcrud thead th .zcrud-column-header-container .zc
 }
 div.zcrud-main-container table.zcrud thead th.zcrud-command-column-header {
   text-align: center;
+  width: 1%;
 }
 div.zcrud-main-container table.zcrud thead th.zcrud-column-header-selecting {
   text-align: center;

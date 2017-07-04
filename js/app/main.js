@@ -69,22 +69,27 @@ exports.run = function( userOptions ){
     /* Normalizes some options for all fields (sets default values).
     *************************************************************************/
     var normalizeFieldsOptions = function () {
-        var self = this;
-        $.each(self.options.fields, function (fieldName, props) {
-            normalizeFieldOptions(fieldName, props);
+        /*
+        $.each( options.fields, function ( fieldName, props ) {
+            normalizeFieldOptions( fieldName, props, options );
         });
+        */
+        for ( var c = 0; c < options.fields.length; c++ ) {
+            var field = options.fields[ c ];
+            normalizeFieldOptions( field.id, field, options );
+        }
     };
 
     /* Normalizes some options for a field (sets default values).
     *************************************************************************/
-    var normalizeFieldOptions = function (fieldName, props) {
-        if (props.listClass == undefined) {
+    var normalizeFieldOptions = function ( fieldName, props, options ) {
+        if ( props.listClass == undefined ) {
             props.listClass = '';
         }
-        if (props.inputClass == undefined) {
+        if ( props.inputClass == undefined ) {
             props.inputClass = '';
         }
-        if (props.placeholder == undefined) {
+        if ( props.placeholder == undefined ) {
             props.placeholder = '';
         }
 
@@ -96,9 +101,15 @@ exports.run = function( userOptions ){
                 props.dependsOn.push($.trim(dependsOnArray[i]));
             }
         }
+        
+        //Set the id
+        if ( props.key ){
+            options.key = props.id;
+        }
     };
     
     var options = $.extend( {}, defaultOptions, userOptions );
+    normalizeFieldsOptions();
     
     var table =  new Table( options );
     table.run();

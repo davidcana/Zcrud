@@ -28,6 +28,7 @@ zcrud.run({
             width: '90%'
         }
     ],
-    listTemplate: 'listDefaultTemplate'
-    //listTemplate: 'listCustomizedTemplate'
+    listTemplate: 'listDefaultTemplate',
+    //listTemplate: 'listCustomizedTemplate',
+    updateTemplate: 'formCustomizedTemplate'
 });
