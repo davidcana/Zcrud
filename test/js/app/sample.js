@@ -30,5 +30,7 @@ zcrud.run({
     ],
     listTemplate: 'listDefaultTemplate',
     //listTemplate: 'listCustomizedTemplate',
-    updateTemplate: 'formCustomizedTemplate'
+    updateTemplate: 'formCustomizedTemplate',
+    createTemplate: 'formCustomizedTemplate',
+    deleteTemplate: 'deleteCustomizedTemplate'
 });

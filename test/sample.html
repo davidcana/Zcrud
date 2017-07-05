@@ -122,19 +122,18 @@
             <div class="zcrud-busy-panel-background" style="display: none"></div>
             <div class="zcrud-busy-message" style="display: none"></div>
             <div class="zcrud-header"> 
-                <span class="zcrud-title"
-                      data-tcontent="options/title">
+                <span class="zcrud-title" data-tcontent="options/title">
                     The title option
                 </span>
-                <span>
-                    Edit Record
+                <span data-tcontent="options/currentForm/title">
+                    Current form title
                 </span>
                 (customized)
             </div>
-            <form data-tattributes="id 'zcrud-edit-form'">
+            <form data-tattributes="id 'zcrud-form'">
                 <input type="hidden"
                        name="zcRecordKey" 
-                       data-tattributes="id 'Edit-zcRecordKey'; value record[ options/key ]" >
+                       data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]" >
                 <div>
                     <div>
                         Id
@@ -143,7 +142,7 @@
                         <input type="text"
                                placeholder="" 
                                name="id" 
-                               data-tattributes="id 'Edit-id'; value record/id">
+                               data-tattributes="id 'zcrud-id'; value record/id">
                     </div>
                 </div>
                 <div>
@@ -153,17 +152,16 @@
                     <div>
                         <input type="text"
                                placeholder="" 
-                               id="Edit-name" 
                                name="name" 
-                               data-tattributes="id 'Edit-name'; value record/name">
+                               data-tattributes="id 'zcrud-name'; value record/name">
                     </div>
                 </div>
             </form>
             <div class="zcrud-buttonpane">
-                <button type="button" data-tattributes="id 'Edit-cancel-button'">
+                <button type="button" data-tattributes="id 'form-cancel-button'">
                     Cancel
                 </button>
-                <button type="button" data-tattributes="id 'Edit-submit-button'">
+                <button type="button" data-tattributes="id 'form-submit-button'">
                     Save
                 </button>
             </div>

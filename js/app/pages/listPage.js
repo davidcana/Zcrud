@@ -6,7 +6,7 @@ module.exports = function ( optionsToApply ) {
     
     var context = require( '../context.js' );
     var pageUtils = require( './pageUtils.js' );
-    var UpdatePage = require( './updatePage.js' );
+    var FormPage = require( './formPage.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
@@ -14,6 +14,7 @@ module.exports = function ( optionsToApply ) {
     var dictionary = undefined;
     var records = {};
     
+    // Main method
     var show = function () {
         
         context.setMainPage( this );
@@ -47,16 +48,10 @@ module.exports = function ( optionsToApply ) {
             records: data.Records
         };
     };
-    /*
-    var configureTemplate = function(){
-        options.target.attr(
-            'data-muse-macro', options.listTemplate );
-    };*/
     
     //
     var buildHTMLAndJavascript = function(){
         
-        //configureTemplate();
         pageUtils.configureTemplate( options, options.listTemplate );
         
         zpt.run({
@@ -90,20 +85,26 @@ module.exports = function ( optionsToApply ) {
     };
     
     var showCreateForm = function( event ){
-        alert( 'showCreateForm' );
+        //alert( 'showCreateForm' );
+        showForm( options, 'create', {} );
     };
     
     var showEditForm = function( event ){
         var key = getKeyFromButton( event );
         //alert( 'showEditForm: ' + records[ key ].name );
-        
-        var updatePage =  new UpdatePage( options );
-        updatePage.setRecord( records[ key ] );
-        updatePage.show();
+        showForm( options, 'update', records[ key ] );
     };
     
     var showDeleteForm = function( event ){
-        alert( 'showDeleteForm: ' + getKeyFromButton( event ) );
+        var key = getKeyFromButton( event );
+        alert( 'showDeleteForm: ' + records[ key ].name );
+        //showForm( options, 'delete', records[ key ] );
+    };
+    
+    var showForm = function( options, type, record ){
+        var formPage =  new FormPage( options, type );
+        formPage.setRecord( record );
+        formPage.show();
     };
     
     var getKeyFromButton = function( event ){
