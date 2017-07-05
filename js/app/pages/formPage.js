@@ -62,7 +62,7 @@ module.exports = function ( optionsToApply, type ) {
     var buildHTMLAndJavascript = function(){
         
         if ( ! record ){
-            throw "No record set in update!";
+            throw "No record set in form!";
         }
         
         pageUtils.configureTemplate( options, template );
