@@ -16,6 +16,8 @@ module.exports = function ( optionsToApply ) {
     
     var show = function () {
         
+        context.setMainPage( this );
+        
         //Generate URL (with query string parameters) to load records
         var loadUrl = createRecordLoadUrl();
 

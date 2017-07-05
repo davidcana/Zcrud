@@ -13,11 +13,19 @@ module.exports = (function() {
         return htmlCache[ id ];
     };
     
-    /* */
-    
+    /* mainPage */
+    var mainPage = undefined;
+    var setMainPage = function( mainPageToApply ){
+        mainPage = mainPageToApply;
+    };
+    var getMainPage = function(){
+        return mainPage;
+    };
     
     return {
         put: put,
-        get: get
+        get: get,
+        setMainPage: setMainPage,
+        getMainPage: getMainPage
     };
 })();

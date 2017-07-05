@@ -74,11 +74,13 @@ module.exports = function ( optionsToApply ) {
     };
     
     var submitForm = function( event ){
-        alert( 'submitForm' );
+        //alert( 'submitForm' );
+        context.getMainPage().show();
     };
 
     var cancelForm = function( event ){
-        alert( 'cancelForm' );
+        //alert( 'cancelForm' );
+        context.getMainPage().show();
     };
     
     return {

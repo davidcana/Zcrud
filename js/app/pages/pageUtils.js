@@ -8,14 +8,6 @@ module.exports = (function() {
         options.target.attr(
             'data-muse-macro', templatePath );
     };
-    /*
-    var mainPage = undefined;
-    var setMainPage() = function( mainPageToApply ){
-        mainPage = mainPageToApply;
-    };
-    var getMainPage() = function(){
-        return mainPage;
-    };*/
     
     return {
         configureTemplate: configureTemplate
