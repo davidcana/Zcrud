@@ -1,11 +1,12 @@
 /* 
-    Class Table 
+    Class ListPage 
 */
 module.exports = function ( optionsToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
-    var SimpleUpdate = require( './simpleUpdate.js' );
+    var pageUtils = require( './pageUtils.js' );
+    var UpdatePage = require( './updatePage.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
@@ -13,25 +14,48 @@ module.exports = function ( optionsToApply ) {
     var dictionary = undefined;
     var records = {};
     
-    //
-    var run = function(){
-        loadRegistersUsingAjax();
+    var show = function () {
+        
+        //Generate URL (with query string parameters) to load records
+        var loadUrl = createRecordLoadUrl();
+
+        //Load data from server using AJAX
+        ajax({
+            url: loadUrl,
+            success: function ( data ) {
+                updateDictionary( data );
+                buildHTMLAndJavascript();
+                buildRecords();
+            },
+            error: function ( data ) {
+                hideBusy();
+                showError( options.messages.serverCommunicationError );
+            }
+        });
     };
     
-    var configureTemplate = function(){
-        options.target.attr(
-            'data-muse-macro', options.listTemplate );
+    var createRecordLoadUrl = function () {
+        return options.actions.listAction;
     };
-    
-    //
-    var parseTemplate = function(){
-        /*
+        
+    var updateDictionary = function( data ){
+        
         dictionary = {
             options: options,
             records: data.Records
         };
+    };
+    /*
+    var configureTemplate = function(){
+        options.target.attr(
+            'data-muse-macro', options.listTemplate );
+    };*/
+    
+    //
+    var buildHTMLAndJavascript = function(){
         
-        buildDictionary( data );*/
+        //configureTemplate();
+        pageUtils.configureTemplate( options, options.listTemplate );
         
         zpt.run({
             //root: options.target[0],
@@ -39,14 +63,6 @@ module.exports = function ( optionsToApply ) {
             dictionary: dictionary,
             callback: addButtonsEvents
         });
-    };
-    
-    var updateDictionary = function( data ){
-        
-        dictionary = {
-            options: options,
-            records: data.Records
-        };
     };
     
     var addButtonsEvents = function() {
@@ -79,9 +95,9 @@ module.exports = function ( optionsToApply ) {
         var key = getKeyFromButton( event );
         //alert( 'showEditForm: ' + records[ key ].name );
         
-        var update =  new SimpleUpdate( options );
-        update.setRecord( records[ key ] );
-        update.run();
+        var updatePage =  new UpdatePage( options );
+        updatePage.setRecord( records[ key ] );
+        updatePage.show();
     };
     
     var showDeleteForm = function( event ){
@@ -92,38 +108,12 @@ module.exports = function ( optionsToApply ) {
         return $( event.target ).parent().parent().attr( 'data-record-key' );
     };
     
+    // Iterate dictionary.records (an array) and put them into records (a map) using the id of each record as the key
     var buildRecords = function(){
         for ( var c = 0; c < dictionary.records.length; c++ ) {
             var record = dictionary.records[ c ];
             records[ record[ options.key ] ] = record;
         }
-    };
-    
-    //
-    var loadRegistersUsingAjax = function () {
-        
-        //Generate URL (with query string parameters) to load records
-        var loadUrl = createRecordLoadUrl();
-
-        //Load data from server using AJAX
-        ajax({
-            url: loadUrl,
-            //data: this._lastPostData,
-            success: function ( data ) {
-                updateDictionary( data );
-                configureTemplate();
-                parseTemplate();
-                buildRecords();
-            },
-            error: function ( data ) {
-                hideBusy();
-                showError( options.messages.serverCommunicationError );
-            }
-        });
-    };
-    
-    var createRecordLoadUrl = function () {
-        return options.actions.listAction;
     };
             
     /* Hides busy indicator and unblocks table UI.
@@ -164,6 +154,6 @@ module.exports = function ( optionsToApply ) {
     
     
     return {
-        run: run
+        show: show
     };
 };

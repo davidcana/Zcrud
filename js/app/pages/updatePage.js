@@ -1,10 +1,11 @@
 /* 
-    Class SimpleUpdate 
+    Class UpdatePage
 */
 module.exports = function ( optionsToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
+    var pageUtils = require( './pageUtils.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
@@ -13,9 +14,9 @@ module.exports = function ( optionsToApply ) {
     var record = undefined;
 
     //
-    var run = function(){
-        configureTemplate();
-        parseTemplate();
+    var show = function(){
+        updateDictionary();
+        buildHTMLAndJavascript();
     };
     
     // Set and get record
@@ -26,20 +27,14 @@ module.exports = function ( optionsToApply ) {
         return record;
     };
     
-    var configureTemplate = function( templatePath ){
-        //alert( templatePath );
-        options.target.attr(
-            'data-muse-macro', options.updateTemplate );
-    };
-    
-    //
-    var parseTemplate = function(){
+    var buildHTMLAndJavascript = function(){
         
         if ( ! record ){
             throw "No record set in update!";
         }
         
-        updateDictionary();
+        //configureTemplate();
+        pageUtils.configureTemplate( options, options.updateTemplate );
         
         zpt.run({
             //root: options.target[0],
@@ -48,6 +43,11 @@ module.exports = function ( optionsToApply ) {
             callback: addButtonsEvents
         });
     };
+    /*
+    var configureTemplate = function(){
+        options.target.attr(
+            'data-muse-macro', options.updateTemplate );
+    };*/
     
     var updateDictionary = function(){
         
@@ -82,7 +82,7 @@ module.exports = function ( optionsToApply ) {
     };
     
     return {
-        run: run,
+        show: show,
         setRecord: setRecord,
         getRecord: getRecord
     };

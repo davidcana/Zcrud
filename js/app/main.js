@@ -3,7 +3,7 @@
 */
 exports.run = function( userOptions ){
     var $ = require( 'jquery' );
-    var Table = require( './pages/table.js' );
+    var ListPage = require( './pages/listPage.js' );
     
     /************************************************************************
     * DEFAULT OPTIONS / EVENTS                                              *
@@ -111,8 +111,8 @@ exports.run = function( userOptions ){
     var options = $.extend( {}, defaultOptions, userOptions );
     normalizeFieldsOptions();
     
-    var table =  new Table( options );
-    table.run();
+    var listPage =  new ListPage( options );
+    listPage.show();
 };
 
 /* I18n and i18nHelp classes */
