@@ -130,34 +130,42 @@
                 </span>
                 (customized)
             </div>
-            <form data-tattributes="id 'zcrud-form'">
+            <form class="zcrud-form">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]" >
-                <div>
+                
+                <div class="zcrud-field">
                     <div>
-                        Id
+                        <label for="zcrud-id">
+                            Id
+                        </label>
                     </div>
-                    <div>
-                        <input type="text"
-                               placeholder="" 
-                               name="id" 
-                               data-tattributes="id 'zcrud-id'; value record/id">
+                    <div class="zcrud-field-help">
+                        The unique id of the department.
                     </div>
+                    <input type="text"
+                           placeholder="" 
+                           name="id" 
+                           data-tattributes="id 'zcrud-id'; value record/id">
                 </div>
-                <div>
+                
+                <div class="zcrud-field">
                     <div>
-                        Name
+                        <label for="zcrud-id">
+                            Name
+                        </label>
                     </div>
-                    <div>
-                        <input type="text"
-                               placeholder="" 
-                               name="name" 
-                               data-tattributes="id 'zcrud-name'; value record/name">
+                    <div class="zcrud-field-help">
+                        The name of the department.
                     </div>
+                    <input type="text"
+                           placeholder="" 
+                           name="name" 
+                           data-tattributes="id 'zcrud-name'; value record/name">
                 </div>
             </form>
-            <div class="zcrud-buttonpane">
+            <div class="zcrud-button-panel">
                 <button type="button" data-tattributes="id 'form-cancel-button'">
                     Cancel
                 </button>
