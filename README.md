@@ -1,4 +1,4 @@
-#What is zCrud?
+# What is zCrud?
 
 zCrud is a javascript API (also works as jQuery plugin) used to create AJAX based CRUD tables without coding HTML or Javascript. It is based on 
  [jTable](http://www.jtable.org) with some major changes:
