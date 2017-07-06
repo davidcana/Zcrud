@@ -1,7 +1,7 @@
 {
   "name": "zcrud",
   "version": "0.1.0-SNAPSHOT",
-  "main": "lib/jquery.jtable.js",
+  "main": "./js/app/main.js",
   "description": "A JQuery plugin to create AJAX based CRUD tables using ZPT-JS as template engine.",
   "keywords": [
     "jquery-plugin",
