@@ -14,6 +14,28 @@ module.exports = function ( optionsToApply ) {
     var dictionary = undefined;
     var records = {};
     
+    //
+    var configure = function(){
+
+        options.currentList = {};
+        options.currentList.fields = buildFields();
+    };
+    
+    var buildFields = function(){
+        var fields = [];
+        
+        for ( var c = 0; c < options.fields.length; c++ ) {
+            var field = options.fields[ c ];
+            
+            if ( field.list == false ) {
+                continue;
+            }
+            fields.push( field );
+        }
+        
+        return fields;
+    };
+    
     // Main method
     var show = function () {
         
@@ -155,6 +177,7 @@ module.exports = function ( optionsToApply ) {
         $.ajax( ajaxOptions );
     };
     
+    configure();
     
     return {
         show: show
