@@ -81,6 +81,9 @@ module.exports = function(grunt) {
                         },
                         {
                         src: ['README.md']
+                        },
+                        {
+                        src: ['TODO.txt']
                         }
                 ]
             }
