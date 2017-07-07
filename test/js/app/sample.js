@@ -36,5 +36,6 @@ zcrud.run({
     //updateTemplate: 'formCustomizedTemplate',
     createTemplate: 'formDefaultTemplate',
     //createTemplate: 'formCustomizedTemplate',
+    //deleteTemplate: 'deleteDefaultTemplate'
     deleteTemplate: 'deleteCustomizedTemplate'
 });

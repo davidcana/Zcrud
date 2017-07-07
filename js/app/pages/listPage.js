@@ -119,8 +119,8 @@ module.exports = function ( optionsToApply ) {
     
     var showDeleteForm = function( event ){
         var key = getKeyFromButton( event );
-        alert( 'showDeleteForm: ' + records[ key ].name );
-        //showForm( options, 'delete', records[ key ] );
+        //alert( 'showDeleteForm: ' + records[ key ].name );
+        showForm( options, 'delete', records[ key ] );
     };
     
     var showForm = function( options, type, record ){

@@ -220,5 +220,63 @@
                 </button>
             </div>
         </div>
+        
+        <div data-mdefine-macro="deleteCustomizedTemplate" 
+             class="zcrud-main-container" 
+             style="display: none">
+            
+            <div class="zcrud-busy-panel-background" style="display: none"></div>
+            <div class="zcrud-busy-message" style="display: none"></div>
+            <div class="zcrud-header"> 
+                <span class="zcrud-title" data-tcontent="options/title">
+                    The title option
+                </span>
+                <span data-tcontent="options/currentForm/title">
+                    Current form title
+                </span>
+                (customized)
+            </div>
+            <form class="zcrud-form">
+                <input type="hidden"
+                       name="zcRecordKey" 
+                       data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]" >
+                
+                <div class="zcrud-field">
+                    <div>
+                        <label for="zcrud-id">
+                            Id
+                        </label>
+                    </div>
+                    <div class="zcrud-field-help">
+                        The unique id of the department.
+                    </div>
+                    <div class="zcrud-property" data-tcontent="record/id">
+                        The id
+                    </div>
+                </div>
+                
+                <div class="zcrud-field">
+                    <div>
+                        <label for="zcrud-id">
+                            Name
+                        </label>
+                    </div>
+                    <div class="zcrud-field-help">
+                        The name of the department.
+                    </div>
+                    <div class="zcrud-property" data-tcontent="record/name">
+                        The name
+                    </div>
+                </div>
+            </form>
+            <div class="zcrud-button-panel">
+                <button type="button" data-tattributes="id 'form-cancel-button'">
+                    Cancel
+                </button>
+                <button type="button" data-tattributes="id 'form-submit-button'">
+                    Delete
+                </button>
+            </div>
+        </div>
     </body>
 </html>
