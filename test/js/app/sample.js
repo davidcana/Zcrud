@@ -21,6 +21,7 @@ zcrud.run({
             key: true,
             create: true,
             edit: true,
+            delete: true,
             description: 'The unique id of the department!'
         },
         {
@@ -36,6 +37,6 @@ zcrud.run({
     //updateTemplate: 'formCustomizedTemplate',
     createTemplate: 'formDefaultTemplate',
     //createTemplate: 'formCustomizedTemplate',
-    //deleteTemplate: 'deleteDefaultTemplate'
-    deleteTemplate: 'deleteCustomizedTemplate'
+    deleteTemplate: 'deleteDefaultTemplate'
+    //deleteTemplate: 'deleteCustomizedTemplate'
 });
