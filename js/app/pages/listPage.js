@@ -45,7 +45,7 @@ module.exports = function ( optionsToApply ) {
         var loadUrl = createRecordLoadUrl();
 
         //Load data from server using AJAX
-        ajax({
+        options.ajax({
             url: loadUrl,
             success: function ( data ) {
                 updateDictionary( data );
@@ -165,6 +165,7 @@ module.exports = function ( optionsToApply ) {
     };
             
     //
+    /*
     var ajax = function ( ajaxOptions ) {
         
         if ( $.isFunction( options.ajaxFunction ) ) {
@@ -175,7 +176,7 @@ module.exports = function ( optionsToApply ) {
         
         //alert( 'Standard ajax!' );
         $.ajax( ajaxOptions );
-    };
+    };*/
     
     configure();
     

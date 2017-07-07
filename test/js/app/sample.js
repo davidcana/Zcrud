@@ -3,6 +3,7 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 //var Qunit = require( 'qunitjs' );
+var testUtils = require( './testUtils' );
 
 zcrud.run({
     body: document.body,
@@ -37,6 +38,8 @@ zcrud.run({
     //updateTemplate: 'formCustomizedTemplate',
     createTemplate: 'formDefaultTemplate',
     //createTemplate: 'formCustomizedTemplate',
-    deleteTemplate: 'deleteDefaultTemplate'
-    //deleteTemplate: 'deleteCustomizedTemplate'
+    deleteTemplate: 'deleteDefaultTemplate',
+    //deleteTemplate: 'deleteCustomizedTemplate',
+    
+    ajax: testUtils.ajax
 });

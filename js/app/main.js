@@ -63,7 +63,10 @@ exports.run = function( userOptions ){
         //Templates
         listTemplate: 'listTemplate',
         createTemplate: 'formTemplate',
-        updateTemplate: 'formTemplate'
+        updateTemplate: 'formTemplate',
+        
+        // AJAX
+        ajax: $.ajax
     };
     
     /* Normalizes some options for all fields (sets default values).
