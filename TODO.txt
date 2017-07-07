@@ -1,0 +1,11 @@
+-Test implementation of AJAX calls.
+
+-Send data via AJAX to server. Implement create, update and delete records.
+
+-Support of type option.
+
+-Support of dependsOn option (cascaded dropdown).
+-Support of options in option lists.
+
+-Support of defaultValue option in create forms.
+-Support of inputClass and listClass option.
