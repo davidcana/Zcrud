@@ -27,22 +27,53 @@ module.exports = function ( optionsToApply, type ) {
             options.currentForm.title = "Create form";
             submitFunction = submitCreateForm;
             cancelFunction = cancelForm;
+            options.currentForm.fields = buildFields(
+                function( field ){
+                    return field.create;
+                });
             break;
         case 'update':
             template = options.updateTemplate;
             options.currentForm.title = "Edit form";
             submitFunction = submitUpdateForm;
             cancelFunction = cancelForm;
+            options.currentForm.fields = buildFields(
+                function( field ){
+                    return field.edit;
+                });
             break;
         case 'delete':
             template = options.deleteTemplate;
             options.currentForm.title = "Delete form";
             submitFunction = submitDeleteForm;
             cancelFunction = cancelForm;
+            options.currentForm.fields = buildFields(
+                function( field ){
+                    return field.delete;
+                });
             break; 
         default:
             throw "Unknown FormPage type: " + type;
         }
+    };
+    
+    var buildFields = function( filterFunction ){
+        var fields = [];
+        
+        for ( var c = 0; c < options.fields.length; c++ ) {
+            var field = options.fields[ c ];
+            var filtered = filterFunction( field );
+            
+            if ( options.key == field.id && ! filtered ) {
+                continue;
+            }
+            if ( filtered == false ){
+                continue;
+            }
+            fields.push( field );
+        }
+        
+        return fields;
     };
     
     // Main method

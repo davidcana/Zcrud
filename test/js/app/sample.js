@@ -20,17 +20,21 @@ zcrud.run({
             title: 'Id',
             key: true,
             create: true,
-            edit: true
+            edit: true,
+            description: 'The unique id of the department!'
         },
         {
             id: 'name',
             title: 'Name',
-            width: '90%'
+            width: '90%',
+            description: 'The name of the department!'
         }
     ],
     listTemplate: 'listDefaultTemplate',
     //listTemplate: 'listCustomizedTemplate',
-    updateTemplate: 'formCustomizedTemplate',
-    createTemplate: 'formCustomizedTemplate',
+    updateTemplate: 'formDefaultTemplate',
+    //updateTemplate: 'formCustomizedTemplate',
+    createTemplate: 'formDefaultTemplate',
+    //createTemplate: 'formCustomizedTemplate',
     deleteTemplate: 'deleteCustomizedTemplate'
 });
