@@ -66,7 +66,12 @@ exports.run = function( userOptions ){
         updateTemplate: 'formTemplate',
         
         // AJAX
-        ajax: $.ajax
+        ajax: $.ajax,
+        defaultFormAJAXOptions: {
+            dataType   : 'json',
+            contentType: 'application/json; charset=UTF-8',
+            type       : 'POST'
+        }
     };
     
     /* Normalizes some options for all fields (sets default values).

@@ -16,6 +16,12 @@ module.exports = function ( optionsToApply, type ) {
     var template = undefined;
     var submitFunction = undefined;
     var cancelFunction = undefined;
+    /*
+    var defaultFormAJAXOptions = {
+        dataType   : 'json',
+        contentType: 'application/json; charset=UTF-8',
+        type       : 'POST'
+    };*/
     
     // Configure instance depending on type parameter
     var configure = function(){
@@ -89,6 +95,14 @@ module.exports = function ( optionsToApply, type ) {
     var getRecord = function(){
         return record;
     };
+    var updateRecord = function(){
+        record = {};
+        
+        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
+            var field = options.currentForm.fields[ c ];
+            record[ field.id ] = $( '#zcrud-' + field.id ).val();
+        }
+    };
     
     var buildHTMLAndJavascript = function(){
         
@@ -132,7 +146,28 @@ module.exports = function ( optionsToApply, type ) {
     
     var submitCreateForm = function( event ){
         //alert( 'submitCreateForm' );
-        context.getMainPage().show();
+        
+        updateRecord();
+        
+        var dataToSend = {
+            command: 'create',
+            records: [ record ]
+        };
+        
+        var thisOptions = {
+            url        : options.actions.createAction,
+            data       : dataToSend,
+            success    : function ( data ) {
+                context.getMainPage().show();
+            },
+            error      : function ( data ) {
+                hideBusy();
+                showError( options.messages.serverCommunicationError );
+            }
+        };
+        
+        options.ajax(
+            $.extend( {}, options.defaultFormAJAXOptions, thisOptions ) );
     };
     
     var submitUpdateForm = function( event ){
@@ -149,7 +184,19 @@ module.exports = function ( optionsToApply, type ) {
         //alert( 'cancelForm' );
         context.getMainPage().show();
     };
-
+    
+    var hideBusy = function () {
+        /*
+        clearTimeout(this._setBusyTimer);
+        this.setBusyTimer = null;
+        this.$busyDiv.hide();
+        this.$busyMessageDiv.html('').hide();*/
+    };
+    
+    var showError = function ( message ) {
+        //this.$errorDialogDiv.html(message).dialog('open');
+    };
+    
     configure();
     
     return {
