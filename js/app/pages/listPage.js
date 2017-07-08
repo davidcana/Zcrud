@@ -48,11 +48,13 @@ module.exports = function ( optionsToApply ) {
         options.ajax({
             url: loadUrl,
             success: function ( data ) {
+                data = options.ajaxPostFilter( data );
                 updateDictionary( data );
                 buildHTMLAndJavascript();
                 buildRecords();
             },
             error: function ( data ) {
+                data = options.ajaxPostFilter( data );
                 hideBusy();
                 showError( options.messages.serverCommunicationError );
             }
@@ -67,7 +69,8 @@ module.exports = function ( optionsToApply ) {
         
         dictionary = {
             options: options,
-            records: data.Records
+            records: data.records
+            //records: data.Records
         };
     };
     

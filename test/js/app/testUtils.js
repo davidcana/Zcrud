@@ -54,17 +54,17 @@ module.exports = (function() {
         
         // Init data
         var dataToSend = {};
-        dataToSend.Result = 'OK';
-        dataToSend.Message = '';
-        dataToSend.Records = [];
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+        dataToSend.records = [];
         
         // Add all records to data
-        //dataToSend.Records = services;
+        //dataToSend.records = services;
         var input = services;
         for ( var id in input ) {
             var service = input[ id ];
             service.id = id;
-            dataToSend.Records.push( service );
+            dataToSend.records.push( service );
         }
         
         return dataToSend;
@@ -74,16 +74,16 @@ module.exports = (function() {
         
         // Init data
         var dataToSend = {};
-        dataToSend.Result = 'OK';
-        dataToSend.Message = '';
-        dataToSend.Records = [];
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+        dataToSend.records = [];
         
         // Add all services to the map of services and to the dataToSend
         var record = data.records;
         for ( var c = 0; c < data.records.length; c++ ) {
             var service = data.records[ c ];
             services[ service.id ] = service;
-            dataToSend.Records.push( service );
+            dataToSend.records.push( service );
         }
         
         return dataToSend;

@@ -17,7 +17,7 @@ module.exports = function ( optionsToApply, type ) {
     var submitFunction = undefined;
     var cancelFunction = undefined;
     /*
-    var defaultFormAJAXOptions = {
+    var defaultFormAjaxOptions = {
         dataType   : 'json',
         contentType: 'application/json; charset=UTF-8',
         type       : 'POST'
@@ -156,18 +156,20 @@ module.exports = function ( optionsToApply, type ) {
         
         var thisOptions = {
             url        : options.actions.createAction,
-            data       : dataToSend,
+            data       : options.ajaxPreFilter( dataToSend ),
             success    : function ( data ) {
+                data = options.ajaxPostFilter( data );
                 context.getMainPage().show();
             },
             error      : function ( data ) {
+                data = options.ajaxPostFilter( data );
                 hideBusy();
                 showError( options.messages.serverCommunicationError );
             }
         };
         
         options.ajax(
-            $.extend( {}, options.defaultFormAJAXOptions, thisOptions ) );
+            $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
     };
     
     var submitUpdateForm = function( event ){

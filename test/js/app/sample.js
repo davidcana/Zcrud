@@ -42,4 +42,15 @@ zcrud.run({
     //deleteTemplate: 'deleteCustomizedTemplate',
     
     ajax: testUtils.ajax
+    /*
+    ajaxPreFilter : function( data ){
+        return data;
+    },
+    ajaxPostFilter : function( data ){
+        return {
+            records: data.Records,
+            result : data.Result,
+            message: data.Message
+        };
+    }*/
 });

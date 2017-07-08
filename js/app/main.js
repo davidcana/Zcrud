@@ -67,10 +67,16 @@ exports.run = function( userOptions ){
         
         // AJAX
         ajax: $.ajax,
-        defaultFormAJAXOptions: {
+        defaultFormAjaxOptions: {
             dataType   : 'json',
             contentType: 'application/json; charset=UTF-8',
             type       : 'POST'
+        },
+        ajaxPreFilter : function( data ){
+            return data;
+        },
+        ajaxPostFilter : function( data ){
+            return data;
         }
     };
     
@@ -110,7 +116,7 @@ exports.run = function( userOptions ){
             }
         }
         
-        //Set the id
+        //Set the key
         if ( props.key ){
             options.key = props.id;
         }
