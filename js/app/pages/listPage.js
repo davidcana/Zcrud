@@ -16,7 +16,6 @@ module.exports = function ( optionsToApply ) {
     
     //
     var configure = function(){
-
         options.currentList = {};
         options.currentList.fields = buildFields();
     };
@@ -37,7 +36,7 @@ module.exports = function ( optionsToApply ) {
     };
     
     // Main method
-    var show = function () {
+    var show = function ( dictionaryExtension ) {
         
         context.showBusy( options );
         context.setMainPage( this );
@@ -50,7 +49,7 @@ module.exports = function ( optionsToApply ) {
             url: loadUrl,
             success: function ( data ) {
                 data = options.ajaxPostFilter( data );
-                updateDictionary( data );
+                updateDictionary( data, dictionaryExtension );
                 buildHTMLAndJavascript();
                 buildRecords();
             },
@@ -64,14 +63,20 @@ module.exports = function ( optionsToApply ) {
     var createRecordLoadUrl = function () {
         return options.actions.listAction;
     };
+    
+    var updateDictionary = function( data, dictionaryExtension ){
         
-    var updateDictionary = function( data ){
-        
-        dictionary = {
+        var thisDictionary = {
             options: options,
             records: data.records
             //records: data.Records
         };
+        
+        if ( dictionaryExtension ){
+            dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
+        } else {
+            dictionary = thisDictionary;
+        }
     };
     
     //

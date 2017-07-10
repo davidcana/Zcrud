@@ -9,10 +9,10 @@ module.exports = (function() {
     var pageUtils = require( './pages/pageUtils.js' );
     
     var defaultConf = {
-        mainContainerDivId: 'zcrud-main-container',
+        /*mainContainerDivId: 'zcrud-main-container',*/
         /*busyDivId: 'zcrud-busy-panel-background',*/
         messageDivId: 'zcrud-message',
-        defaultMessageDelay: 5000,
+        /*defaultMessageDelay: 5000,*/
         busyTemplate: 'busyDefaultTemplate'
     };
     
@@ -35,13 +35,14 @@ module.exports = (function() {
     };
     
     /* mainContainer */
+    /*
     var mainContainerDiv = undefined;
     var getMainContainerDiv = function(){
         if ( ! mainContainerDiv ){
             mainContainerDiv = $( '#' + defaultConf.mainContainerDivId );
         }
         return mainContainerDiv;
-    };
+    };*/
     
     /* message */
     var messageDiv = undefined;
@@ -61,8 +62,6 @@ module.exports = (function() {
         }
         return busyDiv;
     };*/
-    
-    var busyTimer = undefined;
     var showBusy = function ( options ) {
                 
         pageUtils.configureTemplate( options, defaultConf.busyTemplate );
@@ -119,34 +118,38 @@ module.exports = (function() {
     
     /* Shows message with given message.
     *************************************************************************/
+    /*
+    var messageTimer = undefined;
+    var hideMessage = function () {
+        getMessageDiv().html( '' );
+    };
     var showMessage = function ( message, delay ) {
-        
-        var delay = delay || defaultConf.defaultMessageDelay;
-        getMessageDiv().html( message ).show();
-        
-        if ( busyTimer ) {
-            return;
-        }
-
-        var makeVisible = function () {
-            getMessageDiv().html( '' ).hide();
-        };
-        
-        busyTimer = setTimeout( makeVisible, delay );
+        getMessageDiv().html( message );
+        startHideMessageTimer( delay );
     };
     var showError = function ( message, delay ) {
         showMessage( message, delay );
     };
+    var startHideMessageTimer = function ( delay ) {
+        
+        var delay = delay || defaultConf.defaultMessageDelay;
+        
+        if ( messageTimer ) {
+            return;
+        }
+
+        messageTimer = setTimeout( hideMessage, delay );
+    };*/
     
     return {
         put: put,
         get: get,
         setMainPage: setMainPage,
         getMainPage: getMainPage,
-        showBusy: showBusy,
+        showBusy: showBusy
         //hideBusy: hideBusy,
         //isBusy: isBusy,
-        showMessage: showMessage,
-        showError: showError
+        //showMessage: showMessage,
+        //showError: showError
     };
 })();

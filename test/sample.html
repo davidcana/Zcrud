@@ -27,7 +27,6 @@
              class="zcrud-main-container" 
              style="display: none">
             
-            <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header">
                 <span class="zcrud-title"
                       data-tcontent="options/title">
@@ -37,6 +36,17 @@
                 <span class="zcrud-toolbar">
                     <button title="New record" class="zcrud-new-command-button"></button>
                 </span>
+                <div class="zcrud-status">
+                    Status:
+                    <span data-tcondition="status">
+                        <span data-tattributes="id 'zcrud-message'"
+                              data-tcondition="status/message"
+                              data-tcontent="status/message">Operation done!</span>
+                        <span data-tattributes="id 'zcrud-message-time'"
+                              data-tcondition="status/date"
+                              data-tcontent="string:(${status/date})">(14:23)</span>
+                    </span>
+                </div>
             </div>
             <table class="zcrud">
                 <thead>
@@ -75,7 +85,6 @@
              class="zcrud-main-container" 
              style="display: none">
             
-            <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title"
                       data-tcontent="options/title">
@@ -85,6 +94,17 @@
                 <span class="zcrud-toolbar">
                     <button title="New record" class="zcrud-new-command-button"></button>
                 </span>
+                <div class="zcrud-status">
+                    Status:
+                    <span data-tcondition="status">
+                        <span data-tattributes="id 'zcrud-message'"
+                              data-tcondition="status/message"
+                              data-tcontent="status/message">Operation done!</span>
+                        <span data-tattributes="id 'zcrud-message-time'"
+                              data-tcondition="status/date"
+                              data-tcontent="string:(${status/date})">(14:23)</span>
+                    </span>
+                </div>
             </div>
             <table class="zcrud">
                 <thead>

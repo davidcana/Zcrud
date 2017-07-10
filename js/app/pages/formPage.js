@@ -159,7 +159,12 @@ module.exports = function ( optionsToApply, type ) {
             data       : options.ajaxPreFilter( dataToSend ),
             success    : function ( data ) {
                 data = options.ajaxPostFilter( data );
-                context.getMainPage().show();
+                context.getMainPage().show({
+                        status: {
+                            message: options.messages.createSuccess,
+                            date: new Date().toLocaleString()
+                        }
+                });
             },
             error      : function ( data ) {
                 data = options.ajaxPostFilter( data );

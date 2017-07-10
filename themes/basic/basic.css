@@ -481,8 +481,6 @@ form.zcrud-form legend {
 }
 
 /* Busy elements */
-#zcrud-busy-panel {
-}
 #zcrud-busy-message {
   cursor: wait;
   margin: .5em;
