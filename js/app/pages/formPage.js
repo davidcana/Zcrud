@@ -149,6 +149,7 @@ module.exports = function ( optionsToApply, type ) {
         
         submitCreateAndUpdateForms( 
             event, 
+            options.actions.createAction,
             'create', 
             options.messages.createSuccess );
     };
@@ -158,11 +159,12 @@ module.exports = function ( optionsToApply, type ) {
         
         submitCreateAndUpdateForms( 
             event, 
+            options.actions.updateAction,
             'update', 
             options.messages.updateSuccess );
     };
     
-    var submitCreateAndUpdateForms = function( event, command, successMessage ){
+    var submitCreateAndUpdateForms = function( event, url, command, successMessage ){
         //alert( 'submitCreateForm' );
         
         updateRecord();
@@ -173,7 +175,7 @@ module.exports = function ( optionsToApply, type ) {
         };
         
         var thisOptions = {
-            url        : options.actions.createAction,
+            url        : url,
             data       : options.ajaxPreFilter( dataToSend ),
             success    : function ( data ) {
                 data = options.ajaxPostFilter( data );
@@ -196,7 +198,38 @@ module.exports = function ( optionsToApply, type ) {
     
     var submitDeleteForm = function( event ){
         //alert( 'submitDeleteForm' );
-        context.getMainPage().show();
+        //context.getMainPage().show();
+        
+        var key = $( '#zcRecordKey' ).val();
+        var command = 'delete';
+        var url = options.actions.deleteAction;
+        var successMessage = options.messages.deleteSuccess;
+        
+        var dataToSend = {
+            command: command,
+            keys: [ key ]
+        };
+            
+        var thisOptions = {
+            url        : url,
+            data       : options.ajaxPreFilter( dataToSend ),
+            success    : function ( data ) {
+                data = options.ajaxPostFilter( data );
+                context.getMainPage().show({
+                        status: {
+                            message: successMessage,
+                            date: new Date().toLocaleString()
+                        }
+                });
+            },
+            error      : function ( data ) {
+                data = options.ajaxPostFilter( data );
+                context.showError( options.messages.serverCommunicationError );
+            }
+        };
+        
+        options.ajax(
+            $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
     };
     
     var cancelForm = function( event ){

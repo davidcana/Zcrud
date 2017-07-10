@@ -1,6 +1,4 @@
--Send data via AJAX to server. Implement create, update and delete records. (working!)
-
--Support of type option.
+-Support of type option in fields.
 
 -Support of dependsOn option (cascaded dropdown).
 -Support of options in option lists.

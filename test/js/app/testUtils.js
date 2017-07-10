@@ -41,12 +41,6 @@ module.exports = (function() {
                 throw "Unknown command in ajax: " + cmd;
         }
 
-        /*
-        listAction:   'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
-        createAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department',
-        updateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department',
-        deleteAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
-        */
         options.success( dataToSend );
     };
     
@@ -59,7 +53,6 @@ module.exports = (function() {
         dataToSend.records = [];
         
         // Add all records to data
-        //dataToSend.records = services;
         var input = services;
         for ( var id in input ) {
             var service = input[ id ];
@@ -87,7 +80,6 @@ module.exports = (function() {
         dataToSend.records = [];
         
         // Add all services to the map of services and to the dataToSend
-        var record = data.records;
         for ( var c = 0; c < data.records.length; c++ ) {
             var service = data.records[ c ];
             services[ service.id ] = service;
@@ -98,26 +90,38 @@ module.exports = (function() {
     };
     
     var ajaxDelete = function( file, table, data ){
-        var dataToSend = {};
         
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+        dataToSend.records = [];
+        
+        // Add all services to the map of services and to the dataToSend
+        for ( var c = 0; c < data.keys.length; c++ ) {
+            var key = data.keys[ c ];
+            var service = services[ key ];
+            delete services[ key ];
+            dataToSend.records.push( service );
+        }
         return dataToSend;
     };
     
     var parseQueryString = function( query ) {
-        var vars = query.split("&");
+        var vars = query.split( "&" );
         var query_string = {};
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split("=");
+        for ( var i = 0; i < vars.length; i++ ) {
+            var pair = vars[ i ].split( "=" );
             // If first entry with this name
-            if (typeof query_string[pair[0]] === "undefined") {
-                query_string[pair[0]] = decodeURIComponent(pair[1]);
+            if ( typeof query_string[ pair[ 0 ] ] === "undefined" ) {
+                query_string[ pair[ 0 ] ] = decodeURIComponent( pair[ 1 ] );
                 // If second entry with this name
-            } else if (typeof query_string[pair[0]] === "string") {
-                var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
-                query_string[pair[0]] = arr;
+            } else if ( typeof query_string[ pair[ 0 ] ] === "string" ) {
+                var arr = [ query_string[pair[ 0 ]], decodeURIComponent( pair[ 1 ] )];
+                query_string[ pair[ 0 ] ] = arr;
                 // If third or later entry with this name
             } else {
-                query_string[pair[0]].push(decodeURIComponent(pair[1]));
+                query_string[ pair[ 0 ] ].push( decodeURIComponent( pair[ 1 ] ) );
             }
         }
         return query_string;
