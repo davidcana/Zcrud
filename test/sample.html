@@ -10,17 +10,25 @@
     </head>
     <body>
         <div id="departmentsContainer">
-	        Loading Zcrud contents...
-            <img alt="" src="../themes/basic/loading.gif" />
+            <div id="zcrud-busy-message">
+                Starting zCrud...
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="busyDefaultTemplate" 
+             style="display: none">
+            <div data-tattributes="id 'zcrud-message'"></div>
+            <div data-tattributes="id 'zcrud-busy-message'">
+                Loading zCrud contents... Busy!
+            </div>         
         </div>
         
         <div data-mdefine-macro="listDefaultTemplate" 
              class="zcrud-main-container" 
              style="display: none">
             
-            <div class="zcrud-busy-panel-background" style="display: none"></div>
-            <div class="zcrud-busy-message" style="display: none"></div>
-            <div class="zcrud-header"> 
+            <div data-tattributes="id 'zcrud-message'"></div>
+            <div class="zcrud-header">
                 <span class="zcrud-title"
                       data-tcontent="options/title">
                     The title option
@@ -67,8 +75,7 @@
              class="zcrud-main-container" 
              style="display: none">
             
-            <div class="zcrud-busy-panel-background" style="display: none"></div>
-            <div class="zcrud-busy-message" style="display: none"></div>
+            <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title"
                       data-tcontent="options/title">
@@ -119,8 +126,7 @@
              class="zcrud-main-container" 
              style="display: none">
             
-            <div class="zcrud-busy-panel-background" style="display: none"></div>
-            <div class="zcrud-busy-message" style="display: none"></div>
+            <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title" data-tcontent="options/title">
                     The title option
@@ -165,8 +171,7 @@
              class="zcrud-main-container" 
              style="display: none">
             
-            <div class="zcrud-busy-panel-background" style="display: none"></div>
-            <div class="zcrud-busy-message" style="display: none"></div>
+            <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title" data-tcontent="options/title">
                     The title option
@@ -225,8 +230,7 @@
              class="zcrud-main-container" 
              style="display: none">
             
-            <div class="zcrud-busy-panel-background" style="display: none"></div>
-            <div class="zcrud-busy-message" style="display: none"></div>
+            <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title" data-tcontent="options/title">
                     The title option
@@ -271,8 +275,7 @@
              class="zcrud-main-container" 
              style="display: none">
             
-            <div class="zcrud-busy-panel-background" style="display: none"></div>
-            <div class="zcrud-busy-message" style="display: none"></div>
+            <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title" data-tcontent="options/title">
                     The title option

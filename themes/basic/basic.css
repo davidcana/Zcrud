@@ -481,30 +481,18 @@ form.zcrud-form legend {
 }
 
 /* Busy elements */
-div.zcrud-busy-panel-background {
-  opacity: 0.1;
-  filter: alpha(opacity=50);
-  z-index: 998;
-  position: absolute;
-  background-color: #000;
+#zcrud-busy-panel {
 }
-div.zcrud-busy-panel-background.zcrud-busy-panel-background-invisible {
-  background-color: transparent;
-}
-div.zcrud-busy-message {
+#zcrud-busy-message {
   cursor: wait;
-  z-index: 999;
-  position: absolute;
-  margin: 5px;
-}
-div.zcrud-busy-message {
+  margin: .5em;
   font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 1.5em;
   border: 1px solid #fff;
   padding: 5px 5px 5px 58px;
   color: #fff;
-  background: url('./blue/loading.gif') no-repeat;
+  background: url('./loading.gif') no-repeat;
   background-color: #0b67cd;
   background-position: 8px;
 }

@@ -39,6 +39,7 @@ module.exports = function ( optionsToApply ) {
     // Main method
     var show = function () {
         
+        context.showBusy( options );
         context.setMainPage( this );
         
         //Generate URL (with query string parameters) to load records
@@ -55,8 +56,7 @@ module.exports = function ( optionsToApply ) {
             },
             error: function ( data ) {
                 data = options.ajaxPostFilter( data );
-                hideBusy();
-                showError( options.messages.serverCommunicationError );
+                context.showError( options.messages.serverCommunicationError );
             }
         });
     };
@@ -143,43 +143,6 @@ module.exports = function ( optionsToApply ) {
             records[ record[ options.key ] ] = record;
         }
     };
-            
-    /* Hides busy indicator and unblocks table UI.
-    *************************************************************************/
-    var hideBusy = function () {
-        /*
-        clearTimeout(this._setBusyTimer);
-        this.setBusyTimer = null;
-        this.$busyDiv.hide();
-        this.$busyMessageDiv.html('').hide();*/
-    };
-
-    /* Returns true if jTable is busy.
-    *************************************************************************/
-    var isBusy = function () {
-        return false;
-        //return this.$busyMessageDiv.is( ':visible' );
-    };
-    
-    /* Shows error message dialog with given message.
-    *************************************************************************/
-    var showError = function ( message ) {
-        //this.$errorDialogDiv.html(message).dialog('open');
-    };
-            
-    //
-    /*
-    var ajax = function ( ajaxOptions ) {
-        
-        if ( $.isFunction( options.ajaxFunction ) ) {
-            //alert( 'Customized ajax!' );
-            options.ajaxFunction( ajaxOptions );
-            return;
-        }
-        
-        //alert( 'Standard ajax!' );
-        $.ajax( ajaxOptions );
-    };*/
     
     configure();
     

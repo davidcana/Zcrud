@@ -23,11 +23,12 @@ exports.run = function( userOptions ){
         jqueryuiTheme: false,
         unAuthorizedRequestRedirectUrl: null,
 
+        /*
         ajaxSettings: {
             //type: 'POST',
             type: 'GET',
             dataType: 'json'
-        },
+        },*/
 
         toolbar: {
             hoverAnimation: true,
