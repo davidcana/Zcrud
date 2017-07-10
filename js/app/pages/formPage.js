@@ -147,10 +147,28 @@ module.exports = function ( optionsToApply, type ) {
     var submitCreateForm = function( event ){
         //alert( 'submitCreateForm' );
         
+        submitCreateAndUpdateForms( 
+            event, 
+            'create', 
+            options.messages.createSuccess );
+    };
+    
+    var submitUpdateForm = function( event ){
+        //alert( 'submitUpdateForm' );
+        
+        submitCreateAndUpdateForms( 
+            event, 
+            'update', 
+            options.messages.updateSuccess );
+    };
+    
+    var submitCreateAndUpdateForms = function( event, command, successMessage ){
+        //alert( 'submitCreateForm' );
+        
         updateRecord();
         
         var dataToSend = {
-            command: 'create',
+            command: command,
             records: [ record ]
         };
         
@@ -161,25 +179,19 @@ module.exports = function ( optionsToApply, type ) {
                 data = options.ajaxPostFilter( data );
                 context.getMainPage().show({
                         status: {
-                            message: options.messages.createSuccess,
+                            message: successMessage,
                             date: new Date().toLocaleString()
                         }
                 });
             },
             error      : function ( data ) {
                 data = options.ajaxPostFilter( data );
-                hideBusy();
-                showError( options.messages.serverCommunicationError );
+                context.showError( options.messages.serverCommunicationError );
             }
         };
         
         options.ajax(
             $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
-    };
-    
-    var submitUpdateForm = function( event ){
-        //alert( 'submitUpdateForm' );
-        context.getMainPage().show();
     };
     
     var submitDeleteForm = function( event ){
@@ -190,18 +202,6 @@ module.exports = function ( optionsToApply, type ) {
     var cancelForm = function( event ){
         //alert( 'cancelForm' );
         context.getMainPage().show();
-    };
-    
-    var hideBusy = function () {
-        /*
-        clearTimeout(this._setBusyTimer);
-        this.setBusyTimer = null;
-        this.$busyDiv.hide();
-        this.$busyMessageDiv.html('').hide();*/
-    };
-    
-    var showError = function ( message ) {
-        //this.$errorDialogDiv.html(message).dialog('open');
     };
     
     configure();

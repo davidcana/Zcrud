@@ -60,7 +60,8 @@ exports.run = function( userOptions ){
             close: 'Close',
             cannotLoadOptionsFor: 'Can not load options for field {0}',
             
-            createSuccess: 'Record added!'
+            createSuccess: 'Record added!',
+            updateSuccess: 'Record updated!'
         },
         
         //Templates

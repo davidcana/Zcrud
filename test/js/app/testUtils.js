@@ -71,6 +71,14 @@ module.exports = (function() {
     };
     
     var ajaxCreate = function( file, table, data ){
+        return ajaxCreateAndUpdate( file, table, data );
+    };
+    
+    var ajaxUpdate = function( file, table, data ){
+        return ajaxCreateAndUpdate( file, table, data );
+    };
+    
+    var ajaxCreateAndUpdate = function( file, table, data ){
         
         // Init data
         var dataToSend = {};
@@ -85,12 +93,6 @@ module.exports = (function() {
             services[ service.id ] = service;
             dataToSend.records.push( service );
         }
-        
-        return dataToSend;
-    };
-    
-    var ajaxUpdate = function( file, table, data ){
-        var dataToSend = {};
         
         return dataToSend;
     };
