@@ -8,6 +8,8 @@ module.exports = function ( optionsToApply, type ) {
     var pageUtils = require( './pageUtils.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
+    //require( 'jquery-datetimepicker' );
+    require( '../../../lib/datetimepicker/jquery.datetimepicker.js' );
     
     var self = this;
     var options = optionsToApply;
@@ -16,12 +18,6 @@ module.exports = function ( optionsToApply, type ) {
     var template = undefined;
     var submitFunction = undefined;
     var cancelFunction = undefined;
-    /*
-    var defaultFormAjaxOptions = {
-        dataType   : 'json',
-        contentType: 'application/json; charset=UTF-8',
-        type       : 'POST'
-    };*/
     
     // Configure instance depending on type parameter
     var configure = function(){
@@ -88,6 +84,11 @@ module.exports = function ( optionsToApply, type ) {
         buildHTMLAndJavascript();
     };
     
+    //
+    var buildElementId = function( field ){
+        return 'zcrud-' + field.id;
+    }
+    
     // Set and get record
     var setRecord = function( recordToApply ){
         record = recordToApply;
@@ -100,24 +101,29 @@ module.exports = function ( optionsToApply, type ) {
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            record[ field.id ] = $( '#zcrud-' + field.id ).val();
+            record[ field.id ] = $( '#' + buildElementId( field ) ).val();
         }
     };
     
     var buildHTMLAndJavascript = function(){
         
-        if ( ! record ){
-            throw "No record set in form!";
+        try {
+            if ( ! record ){
+                throw "No record set in form!";
+            }
+
+            pageUtils.configureTemplate( options, template );
+
+            zpt.run({
+                //root: options.target[0],
+                root: options.body,
+                dictionary: dictionary,
+                callback: buildJavascript
+            });
+            
+        } catch( e ){
+            alert ( e );    
         }
-        
-        pageUtils.configureTemplate( options, template );
-        
-        zpt.run({
-            //root: options.target[0],
-            root: options.body,
-            dictionary: dictionary,
-            callback: addButtonsEvents
-        });
     };
     
     var updateDictionary = function(){
@@ -126,6 +132,52 @@ module.exports = function ( optionsToApply, type ) {
             options: options,
             record: record
         };
+    };
+    
+    var buildJavascript = function() {
+        addButtonsEvents();
+        addJavascriptOfFields();
+    };
+    
+    var addJavascriptOfFields = function(){
+        
+        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
+            var field = options.currentForm.fields[ c ];
+            
+            switch( field.type ) {
+            case 'date':
+                    //$.datetimepicker.setLocale( 'en' );
+                    
+                    $( '#' + buildElementId( field ) ).datetimepicker({
+                        //inline: false,
+                        
+                        timepicker: false,
+
+                        //format: 'd/m/Y',
+                        formatDate:'d/m/Y'
+                        //value:'2015/04/15 05:03'
+                    });
+                    break;
+            case 'datetime':
+                    $( '#' + buildElementId( field ) ).datetimepicker({
+                        inline: false,
+                        
+                        formatTime:'H:i',
+	                    formatDate:'d/m/Y'
+                    });
+                    break;
+            case 'time':
+                    $( '#' + buildElementId( field ) ).datetimepicker({
+                        inline: false,
+                        
+                        datepicker: false,
+                        
+                        format: 'H:i',
+                        step: 5
+                    });
+                break;
+            }    
+        }
     };
     
     var addButtonsEvents = function() {
@@ -198,7 +250,6 @@ module.exports = function ( optionsToApply, type ) {
     
     var submitDeleteForm = function( event ){
         //alert( 'submitDeleteForm' );
-        //context.getMainPage().show();
         
         var key = $( '#zcRecordKey' ).val();
         var command = 'delete';

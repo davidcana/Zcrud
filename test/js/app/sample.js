@@ -30,6 +30,34 @@ zcrud.run({
             title: 'Name',
             width: '90%',
             description: 'The name of the department!'
+        },
+        {
+            id: 'description',
+            title: 'Description',
+            description: 'The description of the department!',
+            list: false,
+            type: 'textarea'
+        },
+        {
+            id: 'date',
+            title: 'Date',
+            description: 'The date of the department!',
+            list: false,
+            type: 'date'
+        },
+        {
+            id: 'time',
+            title: 'Time',
+            description: 'The time of the department!',
+            list: false,
+            type: 'time'
+        },
+        {
+            id: 'datetime',
+            title: 'Datetime',
+            description: 'The datetime of the department!',
+            list: false,
+            type: 'datetime'
         }
     ],
     listTemplate: 'listDefaultTemplate',

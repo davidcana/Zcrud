@@ -5,6 +5,7 @@
         <title>Zcrud sample page</title>
         
         <link rel="stylesheet" type="text/css" href="../themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../lib/datetimepicker/jquery.datetimepicker.css" media="all">
         
         <script src="http://127.0.0.1:9966/sample.js" defer></script>
     </head>
@@ -63,7 +64,7 @@
                 <tbody>
                     <tr data-trepeat="record records"
                         data-tattributes="data-record-key record[ options/key ]">
-                        <td data-trepeat="field options/fields"
+                        <td data-trepeat="field options/currentList/fields"
                             data-tcontent="record[ field/id ]">
                             Field value
                         </td>
@@ -163,7 +164,7 @@
                 
                 <div class="zcrud-field" 
                      data-trepeat="field options/currentForm/fields"
-                     data-tdefine="id field/id; elementId string:zcrud-${id}">
+                     data-tdefine="id field/id; value record[ id ]; type field/type; elementId string:zcrud-${id}">
                     <div>
                         <label data-tattributes="for elementId" data-tcontent="field/title">
                             The id of the field
@@ -172,9 +173,19 @@
                     <div class="zcrud-field-help" data-tcontent="field/description">
                         The description of this field.
                     </div>
-                    <input type="text"
-                           placeholder="" 
-                           data-tattributes="id elementId; name elementId; value record[ id ]">
+                    
+                    <input data-tcondition="eq: type 'text'"
+                           data-tattributes="id elementId; name elementId; value value"
+                           type="text"
+                           placeholder="">
+                    <textarea data-tcondition="eq: type 'textarea'"
+                              data-tattributes="id elementId; name elementId"
+                              data-tcontent="cond: value value ''"
+                              placeholder="">The textarea value.</textarea>
+                    <input data-tcondition="or: (eq: type 'date') (eq: type 'datetime') (eq: type 'time')"
+                           data-tattributes="id elementId; name elementId; value value"
+                           type="text"
+                           placeholder="">
                 </div>
             </form>
             <div class="zcrud-button-panel">

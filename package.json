@@ -31,7 +31,7 @@
   "dependencies": {
     "zpt": "^0.9.2",
     "jquery": "^2.0.3",
-    "jqueryui": "^1.9.2"
+    "jquery-datetimepicker": "^2.5.4"
   },
   "devDependencies": {
     "beefy": "~2.1.8",
@@ -49,6 +49,9 @@
     "log4javascript": "^1.4.15",
     "qunit-assert-html": "~0.3.2",
     "qunitjs": "~1.19.0"
+  },
+  "browser": {
+    "jquery-datetimepicker": "./node_modules/jquery-datetimepicker/jquery.datetimepicker.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

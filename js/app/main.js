@@ -23,13 +23,6 @@ exports.run = function( userOptions ){
         jqueryuiTheme: false,
         unAuthorizedRequestRedirectUrl: null,
 
-        /*
-        ajaxSettings: {
-            //type: 'POST',
-            type: 'GET',
-            dataType: 'json'
-        },*/
-
         toolbar: {
             hoverAnimation: true,
             hoverAnimationDuration: 60,
@@ -102,6 +95,8 @@ exports.run = function( userOptions ){
     /* Normalizes some options for a field (sets default values).
     *************************************************************************/
     var normalizeFieldOptions = function ( fieldName, props, options ) {
+        
+        // Set '' when undefined
         if ( props.listClass == undefined ) {
             props.listClass = '';
         }
@@ -111,17 +106,22 @@ exports.run = function( userOptions ){
         if ( props.placeholder == undefined ) {
             props.placeholder = '';
         }
-
-        //Convert dependsOn to array if it's a comma seperated lists
-        if (props.dependsOn && $.type(props.dependsOn) === 'string') {
-            var dependsOnArray = props.dependsOn.split(',');
+        
+        // Set defaults when undefined
+        if ( props.type == undefined ) {
+            props.type = 'text';
+        }
+        
+        // Convert dependsOn to array if it's a comma seperated lists
+        if ( props.dependsOn && $.type( props.dependsOn ) === 'string' ) {
+            var dependsOnArray = props.dependsOn.split( ',' );
             props.dependsOn = [];
-            for (var i = 0; i < dependsOnArray.length; i++) {
-                props.dependsOn.push($.trim(dependsOnArray[i]));
+            for ( var i = 0; i < dependsOnArray.length; i++ ) {
+                props.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
             }
         }
         
-        //Set the key
+        // Set the key
         if ( props.key ){
             options.key = props.id;
         }
