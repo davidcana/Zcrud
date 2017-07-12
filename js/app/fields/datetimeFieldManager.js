@@ -30,7 +30,7 @@ var DatetimeFieldManager = function() {
 
                     timepicker: false,
 
-                    //format: 'd/m/Y',
+                    format: 'd/m/Y',
                     formatDate:'d/m/Y'
                     //value:'2015/04/15 05:03'
                 });
