@@ -1,4 +1,4 @@
--Support of type option in fields.
+-Support of type option in fields. (implementing this right now!)
 
 -Support of dependsOn option (cascaded dropdown).
 -Support of options in option lists.
