@@ -19,47 +19,32 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    var addJavascript = function( field, elementId ){
+    var postProcessTemplate = function( field, elementId, options ){
     
         init();
         
+        var defaultFieldOptions = undefined;
         switch( field.type ) {
         case 'date':
-                $( '#' + elementId ).datetimepicker({
-                    //inline: false,
-
-                    timepicker: false,
-
-                    format: 'd/m/Y',
-                    formatDate:'d/m/Y'
-                    //value:'2015/04/15 05:03'
-                });
+                defaultFieldOptions = options.defaultFieldOptions.date;
                 break;
         case 'datetime':
-                $( '#' + elementId ).datetimepicker({
-                    inline: false,
-
-                    formatTime:'H:i',
-                    formatDate:'d/m/Y'
-                });
+                defaultFieldOptions = options.defaultFieldOptions.datetime;
                 break;
         case 'time':
-                $( '#' + elementId ).datetimepicker({
-                    inline: false,
-
-                    datepicker: false,
-
-                    format: 'H:i',
-                    step: 5
-                });
+                defaultFieldOptions = options.defaultFieldOptions.time;
             break;
         default:
             throw 'Unknown type in DatetimeFieldManager: ' + field.type;
         }
+        
+        $( '#' + elementId ).datetimepicker(
+            field.customOptions? $.extend( {}, defaultFieldOptions, field.customOptions ): defaultFieldOptions
+        );
     };
-
+    
     return {
-        addJavascript: addJavascript
+        postProcessTemplate: postProcessTemplate
     };
 }();
 

@@ -43,7 +43,10 @@ zcrud.run({
             title: 'Date',
             description: 'The date of the department!',
             list: false,
-            type: 'date'
+            type: 'date',
+            customOptions:{
+                inline: true
+            }
         },
         {
             id: 'time',
@@ -69,7 +72,7 @@ zcrud.run({
     deleteTemplate: 'deleteDefaultTemplate',
     //deleteTemplate: 'deleteCustomizedTemplate',
     
-    ajax: testUtils.ajax
+    ajax: testUtils.ajax,
     /*
     ajaxPreFilter : function( data ){
         return data;

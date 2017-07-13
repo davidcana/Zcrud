@@ -41,12 +41,12 @@ module.exports = (function() {
         register( require( './datetimeFieldManager.js' ) );
     }();
     
-    var addJavascript = function( field, elementId ){
+    var postProcessTemplate = function( field, elementId, options ){
         
         var fieldManager = fieldManagers[ field.type ];
         
         if ( fieldManager ){
-            fieldManager.addJavascript( field, elementId );
+            fieldManager.postProcessTemplate( field, elementId, options );
         }
     };
     
@@ -54,6 +54,6 @@ module.exports = (function() {
         register: register,
         unregister: unregister,
         registerAll: registerAll,
-        addJavascript: addJavascript
+        postProcessTemplate: postProcessTemplate
     };
 })();

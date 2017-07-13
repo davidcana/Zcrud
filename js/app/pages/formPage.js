@@ -135,14 +135,14 @@ module.exports = function ( optionsToApply, type ) {
     
     var buildJavascript = function() {
         addButtonsEvents();
-        addJavascriptOfFields();
+        postProcessTemplate();
     };
     
-    var addJavascriptOfFields = function(){
+    var postProcessTemplate = function(){
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.addJavascript( field, buildElementId( field ) );
+            fieldBuilder.postProcessTemplate( field, buildElementId( field ), options );
         }
     };
     

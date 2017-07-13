@@ -75,6 +75,28 @@ exports.run = function( userOptions ){
         },
         ajaxPostFilter : function( data ){
             return data;
+        },
+        
+        // Default fields options
+        defaultFieldOptions: {
+            datetime: {
+                inline: false,
+                format: 'd/m/Y H:i',
+                formatTime:'H:i',
+                formatDate:'d/m/Y'
+            },
+            date: {
+                inline: false,
+                timepicker: false,
+                format: 'd/m/Y',
+                formatDate:'d/m/Y'
+            },
+            time: {
+                inline: false,
+                datepicker: false,
+                format: 'H:i',
+                step: 5
+            }
         }
     };
     
