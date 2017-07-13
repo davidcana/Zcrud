@@ -50,9 +50,6 @@
     "qunit-assert-html": "~0.3.2",
     "qunitjs": "~1.19.0"
   },
-  "browser": {
-    "jquery-datetimepicker": "./node_modules/jquery-datetimepicker/jquery.datetimepicker.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd ./test/js/app; beefy *.js ../../../js/app/standalone.js:standalone.js"
