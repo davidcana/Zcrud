@@ -79,8 +79,26 @@ module.exports = function ( optionsToApply, type ) {
     
     // Main method
     var show = function(){
-        updateDictionary();
-        buildHTMLAndJavascript();
+        
+        try {
+            if ( ! record ){
+                throw "No record set in form!";
+            }
+
+            beforeProcessTemplate();
+            
+            pageUtils.configureTemplate( options, template );
+
+            zpt.run({
+                //root: options.target[0],
+                root: options.body,
+                dictionary: dictionary,
+                callback: afterProcessTemplate
+            });
+            
+        } catch( e ){
+            alert ( e );    
+        }
     };
     
     //
@@ -88,7 +106,7 @@ module.exports = function ( optionsToApply, type ) {
         return 'zcrud-' + field.id;
     }
     
-    // Set and get record
+    // Set, get and update record
     var setRecord = function( recordToApply ){
         record = recordToApply;
     };
@@ -104,27 +122,6 @@ module.exports = function ( optionsToApply, type ) {
         }
     };
     
-    var buildHTMLAndJavascript = function(){
-        
-        try {
-            if ( ! record ){
-                throw "No record set in form!";
-            }
-
-            pageUtils.configureTemplate( options, template );
-
-            zpt.run({
-                //root: options.target[0],
-                root: options.body,
-                dictionary: dictionary,
-                callback: buildJavascript
-            });
-            
-        } catch( e ){
-            alert ( e );    
-        }
-    };
-    
     var updateDictionary = function(){
         
         dictionary = {
@@ -132,17 +129,24 @@ module.exports = function ( optionsToApply, type ) {
             record: record
         };
     };
-    
-    var buildJavascript = function() {
-        addButtonsEvents();
-        postProcessTemplate();
-    };
-    
-    var postProcessTemplate = function(){
+        
+    var beforeProcessTemplate = function(){
+        
+        updateDictionary();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.postProcessTemplate( field, buildElementId( field ), options );
+            fieldBuilder.beforeProcessTemplate( field, buildElementId( field ), options );
+        }
+    };
+    
+    var afterProcessTemplate = function(){
+        
+        addButtonsEvents();
+        
+        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
+            var field = options.currentForm.fields[ c ];
+            fieldBuilder.afterProcessTemplate( field, buildElementId( field ), options );
         }
     };
     
