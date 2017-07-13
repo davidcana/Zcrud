@@ -51,7 +51,7 @@ exports.run = function( userOptions ){
             cancel: 'Cancel',
             error: 'Error',
             close: 'Close',
-            cannotLoadOptionsFor: 'Can not load options for field {0}',
+            cannotLoadOptionsFor: 'Can not load options for field ',
             
             createSuccess: 'Record added!',
             updateSuccess: 'Record updated!',

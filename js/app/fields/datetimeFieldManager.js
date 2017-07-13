@@ -19,23 +19,23 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    var beforeProcessTemplate = function( field, elementId, options ){
+    var beforeProcessTemplate = function( field, elementId, options, record ){
     };
     
-    var afterProcessTemplate = function( field, elementId, options ){
+    var afterProcessTemplate = function( field, elementId, options, record ){
     
         init();
         
         var defaultFieldOptions = undefined;
         switch( field.type ) {
         case 'date':
-                defaultFieldOptions = options.defaultFieldOptions.date;
-                break;
+            defaultFieldOptions = options.defaultFieldOptions.date;
+            break;
         case 'datetime':
-                defaultFieldOptions = options.defaultFieldOptions.datetime;
-                break;
+            defaultFieldOptions = options.defaultFieldOptions.datetime;
+            break;
         case 'time':
-                defaultFieldOptions = options.defaultFieldOptions.time;
+            defaultFieldOptions = options.defaultFieldOptions.time;
             break;
         default:
             throw 'Unknown type in DatetimeFieldManager: ' + field.type;

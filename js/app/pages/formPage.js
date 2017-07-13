@@ -85,7 +85,7 @@ module.exports = function ( optionsToApply, type ) {
                 throw "No record set in form!";
             }
 
-            beforeProcessTemplate();
+            beforeProcessTemplate( record );
             
             pageUtils.configureTemplate( options, template );
 
@@ -93,7 +93,9 @@ module.exports = function ( optionsToApply, type ) {
                 //root: options.target[0],
                 root: options.body,
                 dictionary: dictionary,
-                callback: afterProcessTemplate
+                callback: function(){ 
+                    afterProcessTemplate( record ) 
+                }
             });
             
         } catch( e ){
@@ -130,23 +132,23 @@ module.exports = function ( optionsToApply, type ) {
         };
     };
         
-    var beforeProcessTemplate = function(){
+    var beforeProcessTemplate = function( record ){
         
         updateDictionary();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.beforeProcessTemplate( field, buildElementId( field ), options );
+            fieldBuilder.beforeProcessTemplate( field, buildElementId( field ), options, record );
         }
     };
     
-    var afterProcessTemplate = function(){
+    var afterProcessTemplate = function( record ){
         
         addButtonsEvents();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.afterProcessTemplate( field, buildElementId( field ), options );
+            fieldBuilder.afterProcessTemplate( field, buildElementId( field ), options, record );
         }
     };
     

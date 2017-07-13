@@ -39,23 +39,24 @@ module.exports = (function() {
     
     var registerAll = function(){
         register( require( './datetimeFieldManager.js' ) );
+        register( require( './optionListProviderManager.js' ) );
     }();
     
-    var beforeProcessTemplate = function( field, elementId, options ){
+    var beforeProcessTemplate = function( field, elementId, options, record ){
         
         var fieldManager = fieldManagers[ field.type ];
         
         if ( fieldManager ){
-            fieldManager.beforeProcessTemplate( field, elementId, options );
+            fieldManager.beforeProcessTemplate( field, elementId, options, record );
         }
     };
     
-    var afterProcessTemplate = function( field, elementId, options ){
+    var afterProcessTemplate = function( field, elementId, options, record ){
         
         var fieldManager = fieldManagers[ field.type ];
         
         if ( fieldManager ){
-            fieldManager.afterProcessTemplate( field, elementId, options );
+            fieldManager.afterProcessTemplate( field, elementId, options, record );
         }
     };
     
