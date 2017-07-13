@@ -48,11 +48,10 @@ var OptionListProviderManager = function() {
         var optionsList = undefined;
         if ( typeof optionsSource == 'string' ) { //It is an Url to download options
             var cacheKey = 'options_' + fieldName + '_' + optionsSource; //create a unique cache key
+            var mustBuild = false;
             if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
                 //if user calls clearCache() or options are not found in the cache, download options
-                cache[ cacheKey ] = buildOptionsFromArray(
-                    downloadOptions( fieldName, optionsSource, options ) );
-                sortFieldOptions( cache[ cacheKey ], field.optionsSorting );
+                mustBuild = true;
             } else {
                 //found on cache..
                 //if this method (getOptionsForField) is called to get option for a specific value (on funcParams.source == 'list')
@@ -60,15 +59,34 @@ var OptionListProviderManager = function() {
                 if ( funcParams.value != undefined ) {
                     var optionForValue = findOptionByValue( cache[ cacheKey ], funcParams.value );
                     if ( optionForValue.displayText == undefined ) { //this value is not in cached options...
-                        cache[ cacheKey ] = buildOptionsFromArray(
-                            downloadOptions( fieldName, optionsSource, options ) );
-                        sortFieldOptions( cache[ cacheKey ], field.optionsSorting );
+                        mustBuild = true;
                     }
                 }
             }
-            optionsList = cache[ cacheKey ];
             
-        } else if ( $.isArray( optionsSource ) ) { //It is an array of options
+            if ( mustBuild ){
+                optionsList = buildOptionsFromArrayOrObject(
+                    downloadOptions( fieldName, optionsSource, options ),
+                    field );
+                cache[ cacheKey ] = optionsList;
+                sortFieldOptions( cache[ cacheKey ], field.optionsSorting );
+                
+            } else {
+                optionsList = cache[ cacheKey ];
+            }
+            
+        } else {
+            optionsList = buildOptionsFromArrayOrObject( optionsSource, field );
+        }
+
+        field.optionsList = optionsList;
+    };
+    
+    var buildOptionsFromArrayOrObject = function( optionsSource, field ){
+        
+        var optionsList = undefined;
+        
+        if ( $.isArray( optionsSource ) ) { //It is an array of options
             optionsList = buildOptionsFromArray( optionsSource );
             sortFieldOptions( optionsList, field.optionsSorting );
             
@@ -76,8 +94,8 @@ var OptionListProviderManager = function() {
             optionsList = buildOptionsArrayFromObject( optionsSource );
             sortFieldOptions( optionsList, field.optionsSorting );
         }
-
-        field.optionsList = optionsList;
+        
+        return optionsList;
     };
     
     /* Creates array of options from giving options array.

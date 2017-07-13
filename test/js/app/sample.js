@@ -61,6 +61,19 @@ zcrud.run({
             description: 'The datetime of the department!',
             list: false,
             type: 'datetime'
+        },
+        {
+            id: 'phoneType',
+            title: 'Phone type',
+            description: 'The phone type of the department!',
+            list: false,
+            type: 'select',
+            //options: [ 'Home phone', 'Office phone', 'Cell phone' ]
+            options: [
+                { value: '1', displayText: 'Home phone!' }, 
+                { value: '2', displayText: 'Office phone!' }, 
+                { value: '3', displayText: 'Cell phone!' } ]
+            //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         }
     ],
     listTemplate: 'listDefaultTemplate',

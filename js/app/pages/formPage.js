@@ -118,6 +118,7 @@ module.exports = function ( optionsToApply, type ) {
     var updateRecord = function(){
         record = {};
         
+        // TODO Get the value depending on field type and form type
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
             record[ field.id ] = $( '#' + buildElementId( field ) ).val();
