@@ -80,6 +80,38 @@ zcrud.run({
                 { value: '2', displayText: 'Office phone!' }, 
                 { value: '3', displayText: 'Cell phone!' } ]*/
             //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
+        },
+        {
+            id: 'province',
+            title: 'Province',
+            description: 'The province of the department',
+            list: false,
+            type: 'select',
+            options: [ 'Cádiz', 'Málaga' ]
+        },
+        {
+            id: 'city',
+            title: 'City',
+            description: 'The city of the department',
+            list: false,
+            type: 'select',
+            dependsOn: 'province',
+            options: function( data ){
+                if ( ! data.dependedValues.province ){
+                    return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
+                };
+                
+                switch ( data.dependedValues.province ) {
+                case 'Cádiz':
+                    return [ 'Algeciras', 'Tarifa' ];
+                    break;
+                case 'Málaga':
+                    return [ 'Estepona', 'Marbella' ];
+                    break;
+                default:
+                    throw 'Unknown province: ' + data.dependedValues.province;
+                }
+            }
         }
     ],
     listTemplate: 'listDefaultTemplate',
