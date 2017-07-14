@@ -18,15 +18,16 @@ var OptionListProviderManager = function() {
         }
     };
     
-    var beforeProcessTemplate = function( field, elementId, options, record ){
+    //var beforeProcessTemplate = function( field, elementId, options, record ){
+    var beforeProcessTemplate = function( params ){
         init();
         
-        var optionsSource = field.options;
+        var optionsSource = params.field.options;
         var funcParams = {
-            record: record,
-            value: record[ field.id ],
+            record: params.record,
+            value: params.record[ params.field.id ],
             source: 'list',
-            dependedValues: createDependedValuesUsingRecord( record, field.dependsOn )
+            dependedValues: createDependedValuesUsingRecord( params.record, params.field.dependsOn )
         };
         
         // Check if it is a function
@@ -47,7 +48,7 @@ var OptionListProviderManager = function() {
         //Build options according to it's source type
         var optionsList = undefined;
         if ( typeof optionsSource == 'string' ) { //It is an Url to download options
-            var cacheKey = 'options_' + field.id + '_' + optionsSource; //create a unique cache key
+            var cacheKey = 'options_' + params.field.id + '_' + optionsSource; //create a unique cache key
             var mustBuild = false;
             if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
                 //if user calls clearCache() or options are not found in the cache, download options
@@ -66,20 +67,20 @@ var OptionListProviderManager = function() {
             
             if ( mustBuild ){
                 optionsList = buildOptionsFromArrayOrObject(
-                    downloadOptions( field.id, optionsSource, options ),
-                    field );
+                    downloadOptions( params.field.id, optionsSource, params.options ),
+                    params.field );
                 cache[ cacheKey ] = optionsList;
-                sortFieldOptions( cache[ cacheKey ], field.optionsSorting );
+                sortFieldOptions( cache[ cacheKey ], params.field.optionsSorting );
                 
             } else {
                 optionsList = cache[ cacheKey ];
             }
             
         } else {
-            optionsList = buildOptionsFromArrayOrObject( optionsSource, field );
+            optionsList = buildOptionsFromArrayOrObject( optionsSource, params.field );
         }
 
-        field.optionsList = optionsList;
+        params.field.optionsList = optionsList;
     };
     
     var buildOptionsFromArrayOrObject = function( optionsSource, field ){
@@ -237,7 +238,8 @@ var OptionListProviderManager = function() {
         return dependedValues;
     };
     
-    var afterProcessTemplate = function( field, elementId, options, record ){
+    //var afterProcessTemplate = function( field, elementId, options, record ){
+    var afterProcessTemplate = function( params ){
     };
     
     return {

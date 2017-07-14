@@ -139,7 +139,13 @@ module.exports = function ( optionsToApply, type ) {
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.beforeProcessTemplate( field, buildElementId( field ), options, record );
+            //fieldBuilder.beforeProcessTemplate( field, buildElementId( field ), options, record );
+            fieldBuilder.beforeProcessTemplate({
+                field: field, 
+                elementId: buildElementId( field ), 
+                options: options,
+                record: record 
+            });
         }
     };
     
@@ -149,7 +155,13 @@ module.exports = function ( optionsToApply, type ) {
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.afterProcessTemplate( field, buildElementId( field ), options, record );
+            //fieldBuilder.afterProcessTemplate( field, buildElementId( field ), options, record );
+            fieldBuilder.afterProcessTemplate({
+                field: field, 
+                elementId: buildElementId( field ), 
+                options: options,
+                record: record 
+            });
         }
     };
     

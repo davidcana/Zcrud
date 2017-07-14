@@ -19,30 +19,32 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    var beforeProcessTemplate = function( field, elementId, options, record ){
+    //var beforeProcessTemplate = function( field, elementId, options, record ){
+    var beforeProcessTemplate = function( params ){
     };
     
-    var afterProcessTemplate = function( field, elementId, options, record ){
+    //var afterProcessTemplate = function( field, elementId, options, record ){
+    var afterProcessTemplate = function( params ){
     
         init();
         
         var defaultFieldOptions = undefined;
-        switch( field.type ) {
+        switch( params.field.type ) {
         case 'date':
-            defaultFieldOptions = options.defaultFieldOptions.date;
+            defaultFieldOptions = params.options.defaultFieldOptions.date;
             break;
         case 'datetime':
-            defaultFieldOptions = options.defaultFieldOptions.datetime;
+            defaultFieldOptions = params.options.defaultFieldOptions.datetime;
             break;
         case 'time':
-            defaultFieldOptions = options.defaultFieldOptions.time;
+            defaultFieldOptions = params.options.defaultFieldOptions.time;
             break;
         default:
-            throw 'Unknown type in DatetimeFieldManager: ' + field.type;
+            throw 'Unknown type in DatetimeFieldManager: ' + params.field.type;
         }
         
-        $( '#' + elementId ).datetimepicker(
-            field.customOptions? $.extend( {}, defaultFieldOptions, field.customOptions ): defaultFieldOptions
+        $( '#' + params.elementId ).datetimepicker(
+            params.field.customOptions? $.extend( {}, defaultFieldOptions, params.field.customOptions ): defaultFieldOptions
         );
     };
     

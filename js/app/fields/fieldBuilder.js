@@ -42,21 +42,25 @@ module.exports = (function() {
         register( require( './optionListProviderManager.js' ) );
     }();
     
-    var beforeProcessTemplate = function( field, elementId, options, record ){
+    //var beforeProcessTemplate = function( field, elementId, options, record ){
+    var beforeProcessTemplate = function( params ){
         
-        var fieldManager = fieldManagers[ field.type ];
+        var fieldManager = fieldManagers[ params.field.type ];
         
         if ( fieldManager ){
-            fieldManager.beforeProcessTemplate( field, elementId, options, record );
+            //fieldManager.beforeProcessTemplate( field, elementId, options, record );
+            fieldManager.beforeProcessTemplate( params );
         }
     };
     
-    var afterProcessTemplate = function( field, elementId, options, record ){
+    //var afterProcessTemplate = function( field, elementId, options, record ){
+    var afterProcessTemplate = function( params ){
         
-        var fieldManager = fieldManagers[ field.type ];
+        var fieldManager = fieldManagers[ params.field.type ];
         
         if ( fieldManager ){
-            fieldManager.afterProcessTemplate( field, elementId, options, record );
+            //fieldManager.afterProcessTemplate( field, elementId, options, record );
+            fieldManager.afterProcessTemplate( params );
         }
     };
     
