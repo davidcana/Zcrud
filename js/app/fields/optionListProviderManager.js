@@ -47,7 +47,7 @@ var OptionListProviderManager = function() {
         //Build options according to it's source type
         var optionsList = undefined;
         if ( typeof optionsSource == 'string' ) { //It is an Url to download options
-            var cacheKey = 'options_' + fieldName + '_' + optionsSource; //create a unique cache key
+            var cacheKey = 'options_' + field.id + '_' + optionsSource; //create a unique cache key
             var mustBuild = false;
             if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
                 //if user calls clearCache() or options are not found in the cache, download options
@@ -66,7 +66,7 @@ var OptionListProviderManager = function() {
             
             if ( mustBuild ){
                 optionsList = buildOptionsFromArrayOrObject(
-                    downloadOptions( fieldName, optionsSource, options ),
+                    downloadOptions( field.id, optionsSource, options ),
                     field );
                 cache[ cacheKey ] = optionsList;
                 sortFieldOptions( cache[ cacheKey ], field.optionsSorting );
@@ -119,24 +119,24 @@ var OptionListProviderManager = function() {
     
     /* Download options for a field from server.
     *************************************************************************/
-    var downloadOptions = function ( fieldName, url, options ) {
+    var downloadOptions = function ( fieldId, url, options ) {
         var result = [];
 
         var thisOptions = {
             url    : url,
             async  : false,
-            data   : options.ajaxPreFilter( dataToSend ),
+            //data   : options.ajaxPreFilter( dataToSend ),
             success: function ( data ) {
                 data = options.ajaxPostFilter( data );
                 if ( data.result != 'OK' ) {
-                    throw data.message;
+                    throw 'Error downloading options:' + data.message;
                 }
 
                 result = data.options;
             },
             error  : function ( data ) {
                 data = options.ajaxPostFilter( data );
-                throw self.options.messages.cannotLoadOptionsFor + fieldName;
+                throw self.options.messages.cannotLoadOptionsFor + fieldId;
             }
         };
         

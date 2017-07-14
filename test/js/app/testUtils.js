@@ -12,6 +12,9 @@ module.exports = (function() {
         '5': { name: 'Service 5' }
     };
     
+    var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
+    
+    
     var ajax = function( options ){
         
         // Get file, cmd and table
@@ -22,20 +25,43 @@ module.exports = (function() {
         var cmd = parameters.cmd;
         var table = parameters.table;
         
+        // Run AJAX
+        switch ( table ) {
+            case "department":
+                ajaxServices( options, cmd, file, data );
+                break;
+            case "phoneTypes":
+                ajaxPhoneTypes( options );
+                break;
+            default:
+                throw "Unknown table in ajax: " + table;
+        }
+    };
+    
+    var ajaxPhoneTypes = function( options ){
+        options.success({
+            result: 'OK',
+            message: '',
+            options: phoneTypes
+        });
+    };
+    
+    var ajaxServices = function( options, cmd, file, data ){
+        
         // Run command
         var dataToSend = undefined;
         switch ( cmd ) {
             case "LIST":
-                dataToSend = ajaxList( file, table );
+                dataToSend = ajaxServicesList( file );
                 break;
             case "CREATE":
-                dataToSend = ajaxCreate( file, table, data );
+                dataToSend = ajaxServicesCreate( file, data );
                 break;
             case "UPDATE":
-                dataToSend = ajaxUpdate( file, table, data );
+                dataToSend = ajaxServicesUpdate( file, data );
                 break;
             case "DELETE":
-                dataToSend = ajaxDelete( file, table, data );
+                dataToSend = ajaxServicesDelete( file, data );
                 break;
             default:
                 throw "Unknown command in ajax: " + cmd;
@@ -44,7 +70,7 @@ module.exports = (function() {
         options.success( dataToSend );
     };
     
-    var ajaxList = function( file, table ){
+    var ajaxServicesList = function( file ){
         
         // Init data
         var dataToSend = {};
@@ -63,15 +89,15 @@ module.exports = (function() {
         return dataToSend;
     };
     
-    var ajaxCreate = function( file, table, data ){
-        return ajaxCreateAndUpdate( file, table, data );
+    var ajaxServicesCreate = function( file, data ){
+        return ajaxServicesCreateAndUpdate( file, data );
     };
     
-    var ajaxUpdate = function( file, table, data ){
-        return ajaxCreateAndUpdate( file, table, data );
+    var ajaxServicesUpdate = function( file, data ){
+        return ajaxServicesCreateAndUpdate( file, data );
     };
     
-    var ajaxCreateAndUpdate = function( file, table, data ){
+    var ajaxServicesCreateAndUpdate = function( file, data ){
         
         // Init data
         var dataToSend = {};
@@ -89,7 +115,7 @@ module.exports = (function() {
         return dataToSend;
     };
     
-    var ajaxDelete = function( file, table, data ){
+    var ajaxServicesDelete = function( file, data ){
         
         // Init data
         var dataToSend = {};
