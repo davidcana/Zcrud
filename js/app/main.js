@@ -104,8 +104,8 @@ exports.run = function( userOptions ){
     *************************************************************************/
     var normalizeFieldsOptions = function () {
         /*
-        $.each( options.fields, function ( fieldName, props ) {
-            normalizeFieldOptions( fieldName, props, options );
+        $.each( options.fields, function ( fieldId, field ) {
+            normalizeFieldOptions( fieldId, field, options );
         });
         */
         for ( var c = 0; c < options.fields.length; c++ ) {

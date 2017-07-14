@@ -43,24 +43,24 @@ module.exports = (function() {
     }();
     
     //var beforeProcessTemplate = function( field, elementId, options, record ){
-    var beforeProcessTemplate = function( params ){
+    var beforeProcessTemplateForField = function( params ){
         
         var fieldManager = fieldManagers[ params.field.type ];
         
         if ( fieldManager ){
             //fieldManager.beforeProcessTemplate( field, elementId, options, record );
-            fieldManager.beforeProcessTemplate( params );
+            fieldManager.beforeProcessTemplateForField( params );
         }
     };
     
     //var afterProcessTemplate = function( field, elementId, options, record ){
-    var afterProcessTemplate = function( params ){
+    var afterProcessTemplateForField = function( params ){
         
         var fieldManager = fieldManagers[ params.field.type ];
         
         if ( fieldManager ){
             //fieldManager.afterProcessTemplate( field, elementId, options, record );
-            fieldManager.afterProcessTemplate( params );
+            fieldManager.afterProcessTemplateForField( params );
         }
     };
     
@@ -68,7 +68,7 @@ module.exports = (function() {
         register: register,
         unregister: unregister,
         registerAll: registerAll,
-        beforeProcessTemplate: beforeProcessTemplate,
-        afterProcessTemplate: afterProcessTemplate
+        beforeProcessTemplateForField: beforeProcessTemplateForField,
+        afterProcessTemplateForField: afterProcessTemplateForField
     };
 })();

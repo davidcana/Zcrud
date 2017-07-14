@@ -20,11 +20,11 @@ var DatetimeFieldManager = function() {
     };
     
     //var beforeProcessTemplate = function( field, elementId, options, record ){
-    var beforeProcessTemplate = function( params ){
+    var beforeProcessTemplateForField = function( params ){
     };
     
     //var afterProcessTemplate = function( field, elementId, options, record ){
-    var afterProcessTemplate = function( params ){
+    var afterProcessTemplateForField = function( params ){
     
         init();
         
@@ -49,8 +49,8 @@ var DatetimeFieldManager = function() {
     };
     
     return {
-        beforeProcessTemplate: beforeProcessTemplate,
-        afterProcessTemplate: afterProcessTemplate
+        beforeProcessTemplateForField: beforeProcessTemplateForField,
+        afterProcessTemplateForField: afterProcessTemplateForField
     };
 }();
 

@@ -19,7 +19,7 @@ var OptionListProviderManager = function() {
     };
     
     //var beforeProcessTemplate = function( field, elementId, options, record ){
-    var beforeProcessTemplate = function( params ){
+    var beforeProcessTemplateForField = function( params ){
         init();
         
         var optionsSource = params.field.options;
@@ -27,7 +27,8 @@ var OptionListProviderManager = function() {
             record: params.record,
             value: params.record[ params.field.id ],
             source: 'list',
-            dependedValues: createDependedValuesUsingRecord( params.record, params.field.dependsOn )
+            dependedValues: createDependedValuesUsingRecord( params )
+            //dependedValues: createDependedValuesUsingRecord( params.record, params.field.dependsOn, params )
         };
         
         // Check if it is a function
@@ -225,26 +226,66 @@ var OptionListProviderManager = function() {
     
     /* Creates and returns an object that's properties are depended values of a record.
     *************************************************************************/
-    var createDependedValuesUsingRecord = function ( record, dependsOn ) {
+    //params.record, params.field.dependsOn, params
+    //var createDependedValuesUsingRecord = function ( record, dependsOn, params ) {
+    var createDependedValuesUsingRecord = function ( params ) {
+        var dependsOn = params.field.dependsOn;
         if ( ! dependsOn ) {
             return {};
         }
-
+        
+        var record = params.record;
+        var dependentFieldId = params.field.id;
         var dependedValues = {};
         for ( var i = 0; i < dependsOn.length; i++ ) {
-            dependedValues[ dependsOn[ i ] ] = record[ dependsOn[ i ] ];
+            var fieldId = dependsOn[ i ];
+            dependedValues[ fieldId ] = record[ fieldId ];
+            //addDependency( fieldId, dependentFieldId, params );
         }
 
         return dependedValues;
     };
     
+    /* Creates depended values object from given form.
+    *************************************************************************/
+    var createDependedValuesUsingForm = function ( $form, dependsOn ) {
+        if ( ! dependsOn ) {
+            return {};
+        }
+
+        var dependedValues = {};
+
+        for ( var i = 0; i < dependsOn.length; i++ ) {
+            var dependedField = dependsOn[ i ];
+
+            var $dependsOn = $form.find( 'select[name=' + dependedField + ']' );
+            if ( $dependsOn.length <= 0 ) {
+                continue;
+            }
+
+            dependedValues[ dependedField ] = $dependsOn.val();
+        }
+
+        return dependedValues;
+    };
+    
+    var addDependency = function( fieldId, dependentFieldId, params ){
+        
+        // Add dependency
+        var field = params.options.fields[ fieldId ];
+        if ( ! field.dependencies ){
+            field.dependencies = [];
+        }
+        field.dependencies.push( dependentFieldId );
+    };
+    
     //var afterProcessTemplate = function( field, elementId, options, record ){
-    var afterProcessTemplate = function( params ){
+    var afterProcessTemplateForField = function( params ){
     };
     
     return {
-        beforeProcessTemplate: beforeProcessTemplate,
-        afterProcessTemplate: afterProcessTemplate
+        beforeProcessTemplateForField: beforeProcessTemplateForField,
+        afterProcessTemplateForField: afterProcessTemplateForField
     };
 }();
 

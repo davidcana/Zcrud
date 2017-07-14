@@ -140,13 +140,20 @@ module.exports = function ( optionsToApply, type ) {
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
             //fieldBuilder.beforeProcessTemplate( field, buildElementId( field ), options, record );
-            fieldBuilder.beforeProcessTemplate({
+            fieldBuilder.beforeProcessTemplateForField({
                 field: field, 
                 elementId: buildElementId( field ), 
                 options: options,
-                record: record 
+                record: record,
             });
         }
+        
+        /*
+        fieldBuilder.beforeProcessTemplateForRecord({
+            options: options,
+            record: record,
+            beforeProcessTemplateOutput: output;
+        });*/
     };
     
     var afterProcessTemplate = function( record ){
@@ -156,13 +163,19 @@ module.exports = function ( optionsToApply, type ) {
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
             //fieldBuilder.afterProcessTemplate( field, buildElementId( field ), options, record );
-            fieldBuilder.afterProcessTemplate({
+            fieldBuilder.afterProcessTemplateForField({
                 field: field, 
                 elementId: buildElementId( field ), 
                 options: options,
-                record: record 
+                record: record,
             });
         }
+        /*
+        fieldBuilder.afterProcessTemplateForRecord({
+            options: options,
+            record: record,
+            afterProcessTemplate: output
+        });*/
     };
     
     var addButtonsEvents = function() {
