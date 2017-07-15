@@ -127,7 +127,6 @@ var OptionListProviderManager = function() {
         var thisOptions = {
             url    : url,
             async  : false,
-            //data   : options.ajaxPreFilter( dataToSend ),
             success: function ( data ) {
                 data = options.ajaxPostFilter( data );
                 if ( data.result != 'OK' ) {
@@ -226,8 +225,6 @@ var OptionListProviderManager = function() {
     
     /* Creates and returns an object that's properties are depended values of a record.
     *************************************************************************/
-    //params.record, params.field.dependsOn, params
-    //var createDependedValuesUsingRecord = function ( record, dependsOn, params ) {
     var createDependedValuesUsingRecord = function ( params ) {
         var dependsOn = params.field.dependsOn;
         if ( ! dependsOn ) {
@@ -240,7 +237,7 @@ var OptionListProviderManager = function() {
         for ( var i = 0; i < dependsOn.length; i++ ) {
             var fieldId = dependsOn[ i ];
             dependedValues[ fieldId ] = record[ fieldId ];
-            //addDependency( fieldId, dependentFieldId, params );
+            addDependency( fieldId, dependentFieldId, params );
         }
 
         return dependedValues;
@@ -248,6 +245,7 @@ var OptionListProviderManager = function() {
     
     /* Creates depended values object from given form.
     *************************************************************************/
+    /*
     var createDependedValuesUsingForm = function ( $form, dependsOn ) {
         if ( ! dependsOn ) {
             return {};
@@ -267,19 +265,33 @@ var OptionListProviderManager = function() {
         }
 
         return dependedValues;
+    };*/
+    var createDependedValuesUsingForm = function ( field, elementId ) {
+        
+        var dependedValues = {};
+        
+        for ( var i = 0; i < field.dependencies.length; i++ ) {
+            var dependedField = field.dependencies[ i ];
+            dependedValues[ dependedField ] = $( '#' + elementId ).val();
+        }
+        
+        return dependedValues;
     };
     
     var addDependency = function( fieldId, dependentFieldId, params ){
         
-        // Add dependency
         var field = params.options.fields[ fieldId ];
+        
         if ( ! field.dependencies ){
             field.dependencies = [];
         }
-        field.dependencies.push( dependentFieldId );
+        
+        // Add it only if not present yet
+        if ( field.dependencies.indexOf( dependentFieldId ) === -1 ){
+            field.dependencies.push( dependentFieldId );
+        }
     };
     
-    //var afterProcessTemplate = function( field, elementId, options, record ){
     var afterProcessTemplateForField = function( params ){
     };
     

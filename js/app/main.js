@@ -107,47 +107,42 @@ exports.run = function( userOptions ){
         $.each( options.fields, function ( fieldId, field ) {
             normalizeFieldOptions( fieldId, field, options );
         });
-        /*
-        for ( var c = 0; c < options.fields.length; c++ ) {
-            var field = options.fields[ c ];
-            normalizeFieldOptions( field.id, field, options );
-        }*/
     };
 
     /* Normalizes some options for a field (sets default values).
     *************************************************************************/
-    var normalizeFieldOptions = function ( id, props, options ) {
+    var normalizeFieldOptions = function ( id, field, options ) {
         
         // Set id
-        props.id = id;
+        field.id = id;
                 
         // Set the key
-        if ( props.key ){
+        if ( field.key ){
             options.key = id;
         }
         
         // Set '' when undefined
-        if ( props.listClass == undefined ) {
-            props.listClass = '';
+        if ( field.listClass == undefined ) {
+            field.listClass = '';
         }
-        if ( props.inputClass == undefined ) {
-            props.inputClass = '';
+        if ( field.inputClass == undefined ) {
+            field.inputClass = '';
         }
-        if ( props.placeholder == undefined ) {
-            props.placeholder = '';
+        if ( field.placeholder == undefined ) {
+            field.placeholder = '';
         }
         
         // Set defaults when undefined
-        if ( props.type == undefined ) {
-            props.type = 'text';
+        if ( field.type == undefined ) {
+            field.type = 'text';
         }
         
         // Convert dependsOn to array if it's a comma seperated lists
-        if ( props.dependsOn && $.type( props.dependsOn ) === 'string' ) {
-            var dependsOnArray = props.dependsOn.split( ',' );
-            props.dependsOn = [];
+        if ( field.dependsOn && $.type( field.dependsOn ) === 'string' ) {
+            var dependsOnArray = field.dependsOn.split( ',' );
+            field.dependsOn = [];
             for ( var i = 0; i < dependsOnArray.length; i++ ) {
-                props.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
+                field.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
             }
         }
     };

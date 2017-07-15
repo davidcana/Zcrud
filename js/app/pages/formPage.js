@@ -72,19 +72,6 @@ module.exports = function ( optionsToApply, type ) {
             }
             fields.push( field );
         });
-        /*
-        for ( var c = 0; c < options.fields.length; c++ ) {
-            var field = options.fields[ c ];
-            var filtered = filterFunction( field );
-            
-            if ( options.key == field.id && ! filtered ) {
-                continue;
-            }
-            if ( filtered == false ){
-                continue;
-            }
-            fields.push( field );
-        }*/
         
         return fields;
     };
@@ -151,7 +138,6 @@ module.exports = function ( optionsToApply, type ) {
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            //fieldBuilder.beforeProcessTemplate( field, buildElementId( field ), options, record );
             fieldBuilder.beforeProcessTemplateForField({
                 field: field, 
                 elementId: buildElementId( field ), 
@@ -159,13 +145,6 @@ module.exports = function ( optionsToApply, type ) {
                 record: record,
             });
         }
-        
-        /*
-        fieldBuilder.beforeProcessTemplateForRecord({
-            options: options,
-            record: record,
-            beforeProcessTemplateOutput: output;
-        });*/
     };
     
     var afterProcessTemplate = function( record ){
@@ -174,7 +153,6 @@ module.exports = function ( optionsToApply, type ) {
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            //fieldBuilder.afterProcessTemplate( field, buildElementId( field ), options, record );
             fieldBuilder.afterProcessTemplateForField({
                 field: field, 
                 elementId: buildElementId( field ), 
@@ -182,12 +160,6 @@ module.exports = function ( optionsToApply, type ) {
                 record: record,
             });
         }
-        /*
-        fieldBuilder.afterProcessTemplateForRecord({
-            options: options,
-            record: record,
-            afterProcessTemplate: output
-        });*/
     };
     
     var addButtonsEvents = function() {

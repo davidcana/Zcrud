@@ -29,15 +29,6 @@ module.exports = function ( optionsToApply ) {
             }
             fields.push( field );
         });
-        /*
-        for ( var c = 0; c < options.fields.length; c++ ) {
-            var field = options.fields[ c ];
-            
-            if ( field.list == false ) {
-                continue;
-            }
-            fields.push( field );
-        }*/
         
         return fields;
     };
