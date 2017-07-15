@@ -103,20 +103,28 @@ exports.run = function( userOptions ){
     /* Normalizes some options for all fields (sets default values).
     *************************************************************************/
     var normalizeFieldsOptions = function () {
-        /*
+        
         $.each( options.fields, function ( fieldId, field ) {
             normalizeFieldOptions( fieldId, field, options );
         });
-        */
+        /*
         for ( var c = 0; c < options.fields.length; c++ ) {
             var field = options.fields[ c ];
             normalizeFieldOptions( field.id, field, options );
-        }
+        }*/
     };
 
     /* Normalizes some options for a field (sets default values).
     *************************************************************************/
-    var normalizeFieldOptions = function ( fieldName, props, options ) {
+    var normalizeFieldOptions = function ( id, props, options ) {
+        
+        // Set id
+        props.id = id;
+                
+        // Set the key
+        if ( props.key ){
+            options.key = id;
+        }
         
         // Set '' when undefined
         if ( props.listClass == undefined ) {
@@ -141,11 +149,6 @@ exports.run = function( userOptions ){
             for ( var i = 0; i < dependsOnArray.length; i++ ) {
                 props.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
             }
-        }
-        
-        // Set the key
-        if ( props.key ){
-            options.key = props.id;
         }
     };
     

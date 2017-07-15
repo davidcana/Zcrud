@@ -15,9 +15,8 @@ zcrud.run({
         updateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department',
         deleteAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
     },
-    fields: [
-        {
-            id: 'id',
+    fields: {
+        id: {
             title: 'Id',
             key: true,
             create: true,
@@ -25,21 +24,18 @@ zcrud.run({
             delete: true,
             description: 'The unique id of the department!'
         },
-        {
-            id: 'name',
+        name: {
             title: 'Name',
             width: '90%',
             description: 'The name of the department!'
         },
-        {
-            id: 'description',
+        description: {
             title: 'Description',
             description: 'The description of the department!',
             list: false,
             type: 'textarea'
         },
-        {
-            id: 'date',
+        date: {
             title: 'Date',
             description: 'The date of the department!',
             list: false,
@@ -48,22 +44,19 @@ zcrud.run({
                 inline: true
             }
         },
-        {
-            id: 'time',
+        time: {
             title: 'Time',
             description: 'The time of the department!',
             list: false,
             type: 'time'
         },
-        {
-            id: 'datetime',
+        datetime: {
             title: 'Datetime',
             description: 'The datetime of the department!',
             list: false,
             type: 'datetime'
         },
-        {
-            id: 'phoneType',
+        phoneType:{
             title: 'Phone type',
             description: 'The phone type of the department!',
             list: false,
@@ -81,16 +74,14 @@ zcrud.run({
                 { value: '3', displayText: 'Cell phone!' } ]*/
             //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         },
-        {
-            id: 'province',
+        province: {
             title: 'Province',
             description: 'The province of the department',
             list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ]
         },
-        {
-            id: 'city',
+        city: {
             title: 'City',
             description: 'The city of the department',
             list: false,
@@ -113,7 +104,7 @@ zcrud.run({
                 }
             }
         }
-    ],
+    },
     listTemplate: 'listDefaultTemplate',
     //listTemplate: 'listCustomizedTemplate',
     updateTemplate: 'formDefaultTemplate',

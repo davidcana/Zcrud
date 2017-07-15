@@ -61,6 +61,18 @@ module.exports = function ( optionsToApply, type ) {
     var buildFields = function( filterFunction ){
         var fields = [];
         
+        $.each( options.fields, function ( fieldId, field ) {
+            var filtered = filterFunction( field );
+            
+            if ( options.key == field.id && ! filtered ) {
+                return;
+            }
+            if ( filtered == false ){
+                return;
+            }
+            fields.push( field );
+        });
+        /*
         for ( var c = 0; c < options.fields.length; c++ ) {
             var field = options.fields[ c ];
             var filtered = filterFunction( field );
@@ -72,7 +84,7 @@ module.exports = function ( optionsToApply, type ) {
                 continue;
             }
             fields.push( field );
-        }
+        }*/
         
         return fields;
     };

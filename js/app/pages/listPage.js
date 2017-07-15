@@ -23,6 +23,13 @@ module.exports = function ( optionsToApply ) {
     var buildFields = function(){
         var fields = [];
         
+        $.each( options.fields, function ( fieldId, field ) {
+            if ( field.list == false ) {
+                return;
+            }
+            fields.push( field );
+        });
+        /*
         for ( var c = 0; c < options.fields.length; c++ ) {
             var field = options.fields[ c ];
             
@@ -30,7 +37,7 @@ module.exports = function ( optionsToApply ) {
                 continue;
             }
             fields.push( field );
-        }
+        }*/
         
         return fields;
     };
