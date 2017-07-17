@@ -192,6 +192,17 @@
                                 data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
                                 data-tcontent="option/displayText"></option>
                     </select>
+                    <div data-tcondition="eq: type 'radio'"
+                         data-omittag=""
+                         data-tattributes="id elementId; name elementId; value value">
+                        <div data-trepeat="option field/optionsList">
+                            <input type="radio"
+                                   data-tattributes="name elementId;
+                                                     value option/value; 
+                                                     checked cond: (eq: option/value value) 'checked' null">
+                            <span data-treplace="option/displayText">The display text</span>
+                        </div>
+                    </div>
                 </div>
             </form>
             <div class="zcrud-button-panel">

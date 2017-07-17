@@ -60,7 +60,7 @@ zcrud.run({
             title: 'Phone type',
             description: 'The phone type of the department!',
             list: false,
-            type: 'select',
+            type: 'radio',
             options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes'
             /*
             options: function(){

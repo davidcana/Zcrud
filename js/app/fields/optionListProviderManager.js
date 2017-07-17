@@ -324,9 +324,26 @@ var OptionListProviderManager = function() {
         });
     };
     
+    var getValue = function( field, elementId ){
+        
+        switch( field.type ) {
+        case 'radio':
+            return $( 'input[name=' + elementId + ']:checked').val();
+            break;
+        case 'select':
+        case 'optgroup':
+        case 'datalist':
+            return $( '#' + elementId ).val();
+            break;
+        }
+        
+        throw "Unknown field type in optionListProviderManager: " + field.type;
+    };
+    
     return {
         beforeProcessTemplateForField: beforeProcessTemplateForField,
-        afterProcessTemplateForField: afterProcessTemplateForField
+        afterProcessTemplateForField: afterProcessTemplateForField,
+        getValue: getValue
     };
 }();
 

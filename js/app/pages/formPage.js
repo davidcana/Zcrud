@@ -125,7 +125,10 @@ module.exports = function ( optionsToApply, type ) {
         // TODO Get the value depending on field type and form type
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            record[ field.id ] = $( '#' + buildElementId( field ) ).val();
+            record[ field.id ] = fieldBuilder.getValue( 
+                field, 
+                buildElementId( field ) );
+            //record[ field.id ] = $( '#' + buildElementId( field ) ).val();
         }
     };
     
@@ -289,6 +292,7 @@ module.exports = function ( optionsToApply, type ) {
         show: show,
         setRecord: setRecord,
         getRecord: getRecord,
+        buildElementId: buildElementId,
         buildElementIdById: buildElementIdById
     };
 };

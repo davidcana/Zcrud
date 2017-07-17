@@ -42,26 +42,33 @@ module.exports = (function() {
         register( require( './optionListProviderManager.js' ) );
     }();
     
-    //var beforeProcessTemplate = function( field, elementId, options, record ){
     var beforeProcessTemplateForField = function( params ){
         
         var fieldManager = fieldManagers[ params.field.type ];
         
         if ( fieldManager ){
-            //fieldManager.beforeProcessTemplate( field, elementId, options, record );
             fieldManager.beforeProcessTemplateForField( params );
         }
     };
     
-    //var afterProcessTemplate = function( field, elementId, options, record ){
     var afterProcessTemplateForField = function( params ){
         
         var fieldManager = fieldManagers[ params.field.type ];
         
         if ( fieldManager ){
-            //fieldManager.afterProcessTemplate( field, elementId, options, record );
             fieldManager.afterProcessTemplateForField( params );
         }
+    };
+    
+    var getValue = function( field, elementId ){
+        
+        var fieldManager = fieldManagers[ field.type ];
+        
+        if ( fieldManager && $.isFunction( fieldManager.getValue ) ){
+            return fieldManager.getValue( field, elementId );
+        }
+        
+        return $( '#' + elementId ).val();
     };
     
     return {
@@ -69,6 +76,7 @@ module.exports = (function() {
         unregister: unregister,
         registerAll: registerAll,
         beforeProcessTemplateForField: beforeProcessTemplateForField,
-        afterProcessTemplateForField: afterProcessTemplateForField
+        afterProcessTemplateForField: afterProcessTemplateForField,
+        getValue: getValue
     };
 })();
