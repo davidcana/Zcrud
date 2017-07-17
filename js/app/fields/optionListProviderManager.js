@@ -5,6 +5,7 @@
 
 //var context = require( '../context.js' );
 var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
 
 var OptionListProviderManager = function() {
     
@@ -21,15 +22,25 @@ var OptionListProviderManager = function() {
     //var beforeProcessTemplate = function( field, elementId, options, record ){
     var beforeProcessTemplateForField = function( params ){
         init();
-        
-        var optionsSource = params.field.options;
+
+        /*
         var funcParams = {
             record: params.record,
             value: params.record[ params.field.id ],
             source: 'list',
             dependedValues: createDependedValuesUsingRecord( params )
             //dependedValues: createDependedValuesUsingRecord( params.record, params.field.dependsOn, params )
-        };
+        };*/
+        
+        params.dependedValues = createDependedValuesUsingRecord( params );
+        
+        buildOptions( params );
+    };
+    
+    var buildOptions = function( params ){
+        
+        var optionsSource = params.field.options;
+        var funcParams = params;
         
         // Check if it is a function
         if ( $.isFunction( optionsSource ) ) {
@@ -237,47 +248,24 @@ var OptionListProviderManager = function() {
         for ( var i = 0; i < dependsOn.length; i++ ) {
             var fieldId = dependsOn[ i ];
             dependedValues[ fieldId ] = record[ fieldId ];
-            addDependency( fieldId, dependentFieldId, params );
+            //addDependency( fieldId, dependentFieldId, params );
         }
 
         return dependedValues;
     };
     
-    /* Creates depended values object from given form.
-    *************************************************************************/
+    var createDependedValuesUsingForm = function ( field, form ) {
+        
+        var dependedValues = {};
+        
+        for ( var i = 0; i < field.dependsOn.length; i++ ) {
+            var dependedFieldId = field.dependsOn[ i ];
+            dependedValues[ dependedFieldId ] = $( '#' + form.buildElementIdById( dependedFieldId ) ).val();
+        }
+        
+        return dependedValues;
+    };
     /*
-    var createDependedValuesUsingForm = function ( $form, dependsOn ) {
-        if ( ! dependsOn ) {
-            return {};
-        }
-
-        var dependedValues = {};
-
-        for ( var i = 0; i < dependsOn.length; i++ ) {
-            var dependedField = dependsOn[ i ];
-
-            var $dependsOn = $form.find( 'select[name=' + dependedField + ']' );
-            if ( $dependsOn.length <= 0 ) {
-                continue;
-            }
-
-            dependedValues[ dependedField ] = $dependsOn.val();
-        }
-
-        return dependedValues;
-    };*/
-    var createDependedValuesUsingForm = function ( field, elementId ) {
-        
-        var dependedValues = {};
-        
-        for ( var i = 0; i < field.dependencies.length; i++ ) {
-            var dependedField = field.dependencies[ i ];
-            dependedValues[ dependedField ] = $( '#' + elementId ).val();
-        }
-        
-        return dependedValues;
-    };
-    
     var addDependency = function( fieldId, dependentFieldId, params ){
         
         var field = params.options.fields[ fieldId ];
@@ -290,9 +278,50 @@ var OptionListProviderManager = function() {
         if ( field.dependencies.indexOf( dependentFieldId ) === -1 ){
             field.dependencies.push( dependentFieldId );
         }
-    };
+    };*/
     
     var afterProcessTemplateForField = function( params ){
+        
+        if ( ! params.field.dependsOn ){
+            return;
+        }
+        
+        var $thisDropdown = $( '#' + params.elementId );
+        //alert( '$thisDropdown.id: ' + $thisDropdown.attr( 'id' ));
+
+        // Build dictionary
+        var dictionary = params.dictionary;
+        dictionary.field = params.field;
+        dictionary.type = params.field.type;
+        dictionary.value = params.value;
+        
+        //for each dependency
+        $.each( params.field.dependsOn, function ( index, dependsOn ) {
+            
+            var elementId = params.form.buildElementIdById( dependsOn );
+            
+            //find the depended combobox
+            var $dependsOnDropdown = $( '#' + elementId );
+            
+            //when depended combobox changes
+            $dependsOnDropdown.change(function () {
+                //alert( $( this ).val() );
+                
+                //Refresh options
+                params.dependedValues = createDependedValuesUsingForm( params.field, params.form ) ;
+                buildOptions( params );
+                
+                // Refresh template
+                dictionary.elementId = elementId;
+                zpt.run({
+                    root: $thisDropdown[0],
+                    dictionary: dictionary
+                });
+
+                //Thigger change event to refresh multi cascade dropdowns.
+                $thisDropdown.change();
+            });
+        });
     };
     
     return {

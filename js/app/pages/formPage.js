@@ -10,7 +10,7 @@ module.exports = function ( optionsToApply, type ) {
     var zpt = require( 'zpt' );
     var fieldBuilder = require( '../fields/fieldBuilder' );
     
-    var self = this;
+    //var self = this;
     var options = optionsToApply;
     var dictionary = undefined;
     var record = undefined;
@@ -84,7 +84,9 @@ module.exports = function ( optionsToApply, type ) {
                 throw "No record set in form!";
             }
 
-            beforeProcessTemplate( record );
+            var self = this;
+            
+            beforeProcessTemplate( record, self );
             
             pageUtils.configureTemplate( options, template );
 
@@ -93,7 +95,7 @@ module.exports = function ( optionsToApply, type ) {
                 root: options.body,
                 dictionary: dictionary,
                 callback: function(){ 
-                    afterProcessTemplate( record ) 
+                    afterProcessTemplate( record, self ) 
                 }
             });
             
@@ -105,6 +107,9 @@ module.exports = function ( optionsToApply, type ) {
     //
     var buildElementId = function( field ){
         return 'zcrud-' + field.id;
+    }
+    var buildElementIdById = function( id ){
+        return 'zcrud-' + id;
     }
     
     // Set, get and update record
@@ -132,7 +137,7 @@ module.exports = function ( optionsToApply, type ) {
         };
     };
         
-    var beforeProcessTemplate = function( record ){
+    var beforeProcessTemplate = function( record, self ){
         
         updateDictionary();
         
@@ -141,13 +146,17 @@ module.exports = function ( optionsToApply, type ) {
             fieldBuilder.beforeProcessTemplateForField({
                 field: field, 
                 elementId: buildElementId( field ), 
+                value: record[ field.id ],
                 options: options,
                 record: record,
+                source: options.currentForm.type,
+                form: self,
+                dictionary: dictionary
             });
         }
     };
     
-    var afterProcessTemplate = function( record ){
+    var afterProcessTemplate = function( record, self ){
         
         addButtonsEvents();
         
@@ -156,8 +165,12 @@ module.exports = function ( optionsToApply, type ) {
             fieldBuilder.afterProcessTemplateForField({
                 field: field, 
                 elementId: buildElementId( field ), 
+                value: record[ field.id ],
                 options: options,
                 record: record,
+                source: options.currentForm.type,
+                form: self,
+                dictionary: dictionary
             });
         }
     };
@@ -275,6 +288,7 @@ module.exports = function ( optionsToApply, type ) {
     return {
         show: show,
         setRecord: setRecord,
-        getRecord: getRecord
+        getRecord: getRecord,
+        buildElementIdById: buildElementIdById
     };
 };
