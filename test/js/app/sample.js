@@ -110,6 +110,12 @@ zcrud.run({
             list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+        },
+        important: {
+            title: 'Important',
+            description: 'Is important?',
+            list: false,
+            type: 'checkbox'
         }
     },
     listTemplate: 'listDefaultTemplate',

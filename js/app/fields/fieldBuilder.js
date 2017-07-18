@@ -40,6 +40,7 @@ module.exports = (function() {
     var registerAll = function(){
         register( require( './datetimeFieldManager.js' ) );
         register( require( './optionListProviderManager.js' ) );
+        register( require( './checkboxFieldManager.js' ) );
     }();
     
     var beforeProcessTemplateForField = function( params ){

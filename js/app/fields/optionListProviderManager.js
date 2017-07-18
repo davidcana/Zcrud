@@ -323,6 +323,7 @@ var OptionListProviderManager = function() {
     };
 }();
 
+// TODO Implement support of optgroup
 OptionListProviderManager.types = [ 'datalist', 'select', 'optgroup', 'radio' ];
 
 module.exports = OptionListProviderManager;
