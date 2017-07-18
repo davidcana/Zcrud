@@ -288,9 +288,9 @@ var OptionListProviderManager = function() {
                 buildOptions( params );
                 
                 // Refresh template
-                dictionary.elementId = elementId;
+                dictionary.elementId = params.field.elementId;
                 zpt.run({
-                    root: $thisDropdown[0],
+                    root: $thisDropdown[ 0 ],
                     dictionary: dictionary
                 });
 
