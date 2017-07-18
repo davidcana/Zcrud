@@ -1,7 +1,10 @@
--Support of type option in fields. (implementing this right now!)
+zCrud 0.1.0
+-----------
 
--Support of dependsOn option (cascaded dropdown).
--Support of options in option lists.
-
+-Update templates with remote templates.
 -Support of defaultValue option in create forms.
+-Add useful properties to fields (size, maxlength, row, cols, ...).
 -Support of inputClass and listClass option.
+-Verify that HTML is correct.
+-Expose some events to enable validation with forms.
+-Integrate with jquery validation.
