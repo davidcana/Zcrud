@@ -17,6 +17,7 @@ module.exports = function ( optionsToApply, type ) {
     var template = undefined;
     var submitFunction = undefined;
     var cancelFunction = undefined;
+    var recordFunction = undefined;
     
     // Configure instance depending on type parameter
     var configure = function(){
@@ -32,6 +33,9 @@ module.exports = function ( optionsToApply, type ) {
                 function( field ){
                     return field.create;
                 });
+            recordFunction = function(){
+                return record;
+            };
             break;
         case 'update':
             template = options.updateTemplate;
@@ -42,6 +46,9 @@ module.exports = function ( optionsToApply, type ) {
                 function( field ){
                     return field.edit;
                 });
+            recordFunction = function(){
+                return record;
+            };
             break;
         case 'delete':
             template = options.deleteTemplate;
@@ -52,6 +59,10 @@ module.exports = function ( optionsToApply, type ) {
                 function( field ){
                     return field.delete;
                 });
+            /*recordFunction = function(){
+                return record;
+            };*/
+            recordFunction = buildRecordToShow;
             break; 
         default:
             throw "Unknown FormPage type: " + type;
@@ -116,7 +127,7 @@ module.exports = function ( optionsToApply, type ) {
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            record[ field.id ] = fieldBuilder.getValue( field );
+            record[ field.id ] = fieldBuilder.getValueFromForm( field );
         }
     };
     
@@ -124,8 +135,23 @@ module.exports = function ( optionsToApply, type ) {
         
         dictionary = {
             options: options,
-            record: record
+            record: recordFunction()
+            //record: record
         };
+    };
+    
+    var buildRecordToShow = function(){
+        var recordToShow = {};
+        
+        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
+            var field = options.currentForm.fields[ c ];
+            recordToShow[ field.id ] = fieldBuilder.getValueFromRecord( 
+                field, 
+                record, 
+                buildProcessTemplateParams( field ) );
+        }
+        
+        return recordToShow;
     };
     
     var buildProcessTemplateParams = function( field, self ){
@@ -135,7 +161,7 @@ module.exports = function ( optionsToApply, type ) {
             options: options,
             record: record,
             source: options.currentForm.type,
-            form: self,
+            //form: self,
             dictionary: dictionary
         };
     };

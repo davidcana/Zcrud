@@ -70,7 +70,7 @@ zcrud.run({
             /*
             options: [
                 { value: '1', displayText: 'Home phone!' }, 
-                { value: '2', displayText: 'Office phone!' }, 
+                { lue: '2', displayText: 'Office phone!' }, 
                 { value: '3', displayText: 'Cell phone!' } ]*/
             //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         },

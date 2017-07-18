@@ -7,21 +7,13 @@
 var $ = require( 'jquery' );
 
 var CheckboxFieldManager = function() {
-  
-    var beforeProcessTemplateForField = function( params ){
-    };
     
-    var afterProcessTemplateForField = function( params ){
-    };
-    
-    var getValue = function( field ){
+    var getValueFromForm = function( field ){
         return $( '#' + field.elementId ).is( ":checked" );
     };
     
     return {
-        beforeProcessTemplateForField: beforeProcessTemplateForField,
-        afterProcessTemplateForField: afterProcessTemplateForField,
-        getValue: getValue
+        getValueFromForm: getValueFromForm
     };
 }();
 

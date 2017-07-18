@@ -9,19 +9,24 @@ var zpt = require( 'zpt' );
 
 var OptionListProviderManager = function() {
     
-    var initDone = false;
     var cache = {};
     
-    var init = function(){
-        if ( ! initDone ){
-            
-            initDone = true;
+    var beforeProcessTemplateForField = function( params ){
+        
+        switch( params.source ) {
+        case 'create':
+        case 'update':
+            beforeProcessTemplateForFieldInCreateOrUpdate( params );
+            break;
+        case 'delete':
+            // Nothing to do
+            break; 
+        default:
+            throw "Unknown source in OptionListProviderManager: " + params.source;
         }
     };
     
-    var beforeProcessTemplateForField = function( params ){
-        init();
-        
+    var beforeProcessTemplateForFieldInCreateOrUpdate = function( params ){
         params.dependedValues = createDependedValuesUsingRecord( params );
         buildOptions( params );
     };
@@ -255,7 +260,7 @@ var OptionListProviderManager = function() {
         return dependedValues;
     };
     
-    var afterProcessTemplateForField = function( params ){
+    var afterProcessTemplateForFieldInCreateOrUpdate = function( params ){
         
         if ( ! params.field.dependsOn ){
             return;
@@ -300,7 +305,21 @@ var OptionListProviderManager = function() {
         });
     };
     
-    var getValue = function( field ){
+    var afterProcessTemplateForField = function( params ){
+        switch( params.source ) {
+        case 'create':
+        case 'update':
+            afterProcessTemplateForFieldInCreateOrUpdate( params );
+            break;
+        case 'delete':
+            // Nothing to do
+            break; 
+        default:
+            throw "Unknown source in OptionListProviderManager: " + params.source;
+        }
+    };
+    
+    var getValueFromForm = function( field ){
         
         switch( field.type ) {
         case 'radio':
@@ -316,10 +335,44 @@ var OptionListProviderManager = function() {
         throw "Unknown field type in optionListProviderManager: " + field.type;
     };
     
+    var getValueFromRecord = function( field, record, params ){
+        
+        switch( params.source ) {
+        case 'create':
+        case 'update':
+            return record[ field.id ];
+        case 'delete':
+            beforeProcessTemplateForFieldInCreateOrUpdate( params );
+            var tempValue = record[ field.id ];
+            try {
+                var map = getDisplayTextMapFromArrayOptions( field.optionsList );
+                var inMapValue = map[ tempValue ];
+                return inMapValue? inMapValue: tempValue;
+            } catch ( e ){
+                return tempValue;
+            }
+        default:
+            throw "Unknown source in OptionListProviderManager: " + params.source;
+        }
+    };
+    
+    var getDisplayTextMapFromArrayOptions = function( optionsArray ){
+        
+        var map = {};
+        
+        for ( var i = 0; i < optionsArray.length; i++ ) {
+            var option = optionsArray[ i ];
+            map[ option.value ] = option.displayText;
+        }
+        
+        return map;
+    };
+    
     return {
         beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
-        getValue: getValue
+        getValueFromForm: getValueFromForm,
+        getValueFromRecord: getValueFromRecord
     };
 }();
 

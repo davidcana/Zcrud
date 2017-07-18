@@ -47,7 +47,7 @@ module.exports = (function() {
         
         var fieldManager = fieldManagers[ params.field.type ];
         
-        if ( fieldManager ){
+        if ( fieldManager && $.isFunction( fieldManager.beforeProcessTemplateForField ) ){
             fieldManager.beforeProcessTemplateForField( params );
         }
     };
@@ -56,20 +56,31 @@ module.exports = (function() {
         
         var fieldManager = fieldManagers[ params.field.type ];
         
-        if ( fieldManager ){
+        if ( fieldManager && $.isFunction( fieldManager.afterProcessTemplateForField ) ){
             fieldManager.afterProcessTemplateForField( params );
         }
     };
     
-    var getValue = function( field ){
+    var getValueFromForm = function( field ){
         
         var fieldManager = fieldManagers[ field.type ];
         
-        if ( fieldManager && $.isFunction( fieldManager.getValue ) ){
-            return fieldManager.getValue( field );
+        if ( fieldManager && $.isFunction( fieldManager.getValueFromForm ) ){
+            return fieldManager.getValueFromForm( field );
         }
         
         return $( '#' + field.elementId ).val();
+    };
+    
+    var getValueFromRecord = function( field, record, params ){
+        
+        var fieldManager = fieldManagers[ field.type ];
+        
+        if ( fieldManager && $.isFunction( fieldManager.getValueFromRecord ) ){
+            return fieldManager.getValueFromRecord( field, record, params );
+        }
+        
+        return record[ field.id ];
     };
     
     return {
@@ -78,6 +89,7 @@ module.exports = (function() {
         registerAll: registerAll,
         beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
-        getValue: getValue
+        getValueFromForm: getValueFromForm,
+        getValueFromRecord: getValueFromRecord
     };
 })();

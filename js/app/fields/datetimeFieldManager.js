@@ -19,10 +19,22 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    var beforeProcessTemplateForField = function( params ){
+    var afterProcessTemplateForField = function( params ){
+        
+        switch( params.source ) {
+        case 'create':
+        case 'update':
+            afterProcessTemplateForFieldInCreateOrUpdate( params );
+            break;
+        case 'delete':
+            // Nothing to do
+            break; 
+        default:
+            throw "Unknown source in DatetimeFieldManager: " + params.source;
+        }
     };
     
-    var afterProcessTemplateForField = function( params ){
+    var afterProcessTemplateForFieldInCreateOrUpdate = function( params ){
     
         init();
         
@@ -47,7 +59,6 @@ var DatetimeFieldManager = function() {
     };
     
     return {
-        beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField
     };
 }();
