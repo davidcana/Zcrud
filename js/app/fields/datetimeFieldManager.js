@@ -19,11 +19,9 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    //var beforeProcessTemplate = function( field, elementId, options, record ){
     var beforeProcessTemplateForField = function( params ){
     };
     
-    //var afterProcessTemplate = function( field, elementId, options, record ){
     var afterProcessTemplateForField = function( params ){
     
         init();
@@ -43,7 +41,7 @@ var DatetimeFieldManager = function() {
             throw 'Unknown type in DatetimeFieldManager: ' + params.field.type;
         }
         
-        $( '#' + params.elementId ).datetimepicker(
+        $( '#' + params.field.elementId ).datetimepicker(
             params.field.customOptions? $.extend( {}, defaultFieldOptions, params.field.customOptions ): defaultFieldOptions
         );
     };

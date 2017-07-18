@@ -121,20 +121,12 @@ exports.run = function( userOptions ){
             options.key = id;
         }
         
-        // Set '' when undefined
-        if ( field.listClass == undefined ) {
-            field.listClass = '';
-        }
-        if ( field.inputClass == undefined ) {
-            field.inputClass = '';
-        }
-        if ( field.placeholder == undefined ) {
-            field.placeholder = '';
-        }
-        
         // Set defaults when undefined
         if ( field.type == undefined ) {
             field.type = 'text';
+        }
+        if ( field.elementId == undefined ) {
+            field.elementId = 'zcrud-' + id;
         }
         
         // Convert dependsOn to array if it's a comma seperated lists

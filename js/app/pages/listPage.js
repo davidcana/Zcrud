@@ -67,7 +67,6 @@ module.exports = function ( optionsToApply ) {
         var thisDictionary = {
             options: options,
             records: data.records
-            //records: data.Records
         };
         
         if ( dictionaryExtension ){

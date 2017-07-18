@@ -86,7 +86,7 @@ module.exports = function ( optionsToApply, type ) {
 
             var self = this;
             
-            beforeProcessTemplate( record, self );
+            beforeProcessTemplate( self );
             
             pageUtils.configureTemplate( options, template );
 
@@ -95,7 +95,7 @@ module.exports = function ( optionsToApply, type ) {
                 root: options.body,
                 dictionary: dictionary,
                 callback: function(){ 
-                    afterProcessTemplate( record, self ) 
+                    afterProcessTemplate( self ) 
                 }
             });
             
@@ -103,14 +103,6 @@ module.exports = function ( optionsToApply, type ) {
             alert ( e );    
         }
     };
-    
-    //
-    var buildElementId = function( field ){
-        return 'zcrud-' + field.id;
-    }
-    var buildElementIdById = function( id ){
-        return 'zcrud-' + id;
-    }
     
     // Set, get and update record
     var setRecord = function( recordToApply ){
@@ -122,13 +114,9 @@ module.exports = function ( optionsToApply, type ) {
     var updateRecord = function(){
         record = {};
         
-        // TODO Get the value depending on field type and form type
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            record[ field.id ] = fieldBuilder.getValue( 
-                field, 
-                buildElementId( field ) );
-            //record[ field.id ] = $( '#' + buildElementId( field ) ).val();
+            record[ field.id ] = fieldBuilder.getValue( field );
         }
     };
     
@@ -139,42 +127,40 @@ module.exports = function ( optionsToApply, type ) {
             record: record
         };
     };
-        
-    var beforeProcessTemplate = function( record, self ){
+    
+    var buildProcessTemplateParams = function( field, self ){
+        return {
+            field: field, 
+            value: record[ field.id ],
+            options: options,
+            record: record,
+            source: options.currentForm.type,
+            form: self,
+            dictionary: dictionary
+        };
+    };
+    
+    var beforeProcessTemplate = function( field, self ){
         
         updateDictionary();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.beforeProcessTemplateForField({
-                field: field, 
-                elementId: buildElementId( field ), 
-                value: record[ field.id ],
-                options: options,
-                record: record,
-                source: options.currentForm.type,
-                form: self,
-                dictionary: dictionary
-            });
+            fieldBuilder.beforeProcessTemplateForField(
+                buildProcessTemplateParams( field, self )
+            );
         }
     };
     
-    var afterProcessTemplate = function( record, self ){
+    var afterProcessTemplate = function( field, self ){
         
         addButtonsEvents();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
-            fieldBuilder.afterProcessTemplateForField({
-                field: field, 
-                elementId: buildElementId( field ), 
-                value: record[ field.id ],
-                options: options,
-                record: record,
-                source: options.currentForm.type,
-                form: self,
-                dictionary: dictionary
-            });
+            fieldBuilder.afterProcessTemplateForField(
+                buildProcessTemplateParams( field, self )
+            );
         }
     };
     
@@ -291,8 +277,6 @@ module.exports = function ( optionsToApply, type ) {
     return {
         show: show,
         setRecord: setRecord,
-        getRecord: getRecord,
-        buildElementId: buildElementId,
-        buildElementIdById: buildElementIdById
+        getRecord: getRecord
     };
 };

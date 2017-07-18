@@ -60,15 +60,15 @@ module.exports = (function() {
         }
     };
     
-    var getValue = function( field, elementId ){
+    var getValue = function( field ){
         
         var fieldManager = fieldManagers[ field.type ];
         
         if ( fieldManager && $.isFunction( fieldManager.getValue ) ){
-            return fieldManager.getValue( field, elementId );
+            return fieldManager.getValue( field );
         }
         
-        return $( '#' + elementId ).val();
+        return $( '#' + field.elementId ).val();
     };
     
     return {

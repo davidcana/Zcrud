@@ -19,21 +19,10 @@ var OptionListProviderManager = function() {
         }
     };
     
-    //var beforeProcessTemplate = function( field, elementId, options, record ){
     var beforeProcessTemplateForField = function( params ){
         init();
-
-        /*
-        var funcParams = {
-            record: params.record,
-            value: params.record[ params.field.id ],
-            source: 'list',
-            dependedValues: createDependedValuesUsingRecord( params )
-            //dependedValues: createDependedValuesUsingRecord( params.record, params.field.dependsOn, params )
-        };*/
         
         params.dependedValues = createDependedValuesUsingRecord( params );
-        
         buildOptions( params );
     };
     
@@ -248,37 +237,23 @@ var OptionListProviderManager = function() {
         for ( var i = 0; i < dependsOn.length; i++ ) {
             var fieldId = dependsOn[ i ];
             dependedValues[ fieldId ] = record[ fieldId ];
-            //addDependency( fieldId, dependentFieldId, params );
         }
 
         return dependedValues;
     };
     
-    var createDependedValuesUsingForm = function ( field, form ) {
+    var createDependedValuesUsingForm = function ( field, options ) {
         
         var dependedValues = {};
         
         for ( var i = 0; i < field.dependsOn.length; i++ ) {
             var dependedFieldId = field.dependsOn[ i ];
-            dependedValues[ dependedFieldId ] = $( '#' + form.buildElementIdById( dependedFieldId ) ).val();
+            var dependedField = options.fields[ dependedFieldId ];
+            dependedValues[ dependedFieldId ] = $( '#' + dependedField.elementId ).val();
         }
         
         return dependedValues;
     };
-    /*
-    var addDependency = function( fieldId, dependentFieldId, params ){
-        
-        var field = params.options.fields[ fieldId ];
-        
-        if ( ! field.dependencies ){
-            field.dependencies = [];
-        }
-        
-        // Add it only if not present yet
-        if ( field.dependencies.indexOf( dependentFieldId ) === -1 ){
-            field.dependencies.push( dependentFieldId );
-        }
-    };*/
     
     var afterProcessTemplateForField = function( params ){
         
@@ -286,7 +261,7 @@ var OptionListProviderManager = function() {
             return;
         }
         
-        var $thisDropdown = $( '#' + params.elementId );
+        var $thisDropdown = $( '#' + params.field.elementId );
         //alert( '$thisDropdown.id: ' + $thisDropdown.attr( 'id' ));
 
         // Build dictionary
@@ -298,7 +273,8 @@ var OptionListProviderManager = function() {
         //for each dependency
         $.each( params.field.dependsOn, function ( index, dependsOn ) {
             
-            var elementId = params.form.buildElementIdById( dependsOn );
+            var dependsOnField = params.options.fields[ dependsOn ];
+            var elementId = dependsOnField.elementId;
             
             //find the depended combobox
             var $dependsOnDropdown = $( '#' + elementId );
@@ -308,7 +284,7 @@ var OptionListProviderManager = function() {
                 //alert( $( this ).val() );
                 
                 //Refresh options
-                params.dependedValues = createDependedValuesUsingForm( params.field, params.form ) ;
+                params.dependedValues = createDependedValuesUsingForm( params.field, params.options ) ;
                 buildOptions( params );
                 
                 // Refresh template
@@ -324,16 +300,16 @@ var OptionListProviderManager = function() {
         });
     };
     
-    var getValue = function( field, elementId ){
+    var getValue = function( field ){
         
         switch( field.type ) {
         case 'radio':
-            return $( 'input[name=' + elementId + ']:checked').val();
+            return $( 'input[name=' + field.elementId + ']:checked').val();
             break;
         case 'select':
         case 'optgroup':
         case 'datalist':
-            return $( '#' + elementId ).val();
+            return $( '#' + field.elementId ).val();
             break;
         }
         
