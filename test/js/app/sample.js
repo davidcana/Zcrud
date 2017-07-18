@@ -103,6 +103,13 @@ zcrud.run({
                     throw 'Unknown province: ' + data.dependedValues.province;
                 }
             }
+        },
+        browser: {
+            title: 'Browser',
+            description: 'The prefered browser of the department',
+            list: false,
+            type: 'datalist',
+            options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         }
     },
     listTemplate: 'listDefaultTemplate',

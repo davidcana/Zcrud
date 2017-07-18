@@ -203,6 +203,18 @@
                             <span data-treplace="option/displayText">The display text</span>
                         </div>
                     </div>
+                    <div data-tcondition="eq: type 'datalist'"
+                         data-omittag=""
+                         data-tdefine="datalistId string:id-datalist">
+                        <input data-tattributes="id elementId; name elementId; value value; list datalistId"
+                               type="text"
+                               placeholder="">
+                        <datalist data-tattributes="id datalistId">
+                            <option data-trepeat="option field/optionsList"
+                                    data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
+                                    data-tcontent="option/displayText"></option>
+                        </datalist>
+                    </div>
                 </div>
             </form>
             <div class="zcrud-button-panel">
