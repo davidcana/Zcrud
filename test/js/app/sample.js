@@ -118,14 +118,14 @@ zcrud.run({
             type: 'checkbox'
         }
     },
-    listTemplate: 'listDefaultTemplate',
-    //listTemplate: 'listCustomizedTemplate',
-    updateTemplate: 'formDefaultTemplate',
+    listTemplate: "'listDefaultTemplate'",
+    //listTemplate: "'listCustomizedTemplate'",
+    updateTemplate: "'formDefaultTemplate'",
     //updateTemplate: 'formCustomizedTemplate',
-    createTemplate: 'formDefaultTemplate',
-    //createTemplate: 'formCustomizedTemplate',
-    deleteTemplate: 'deleteDefaultTemplate',
-    //deleteTemplate: 'deleteCustomizedTemplate',
+    createTemplate: "'formDefaultTemplate'",
+    //createTemplate: "'formCustomizedTemplate'",
+    deleteTemplate: "'deleteDefaultTemplate'",
+    //deleteTemplate: "'deleteCustomizedTemplate'",
     
     ajax: testUtils.ajax,
     /*

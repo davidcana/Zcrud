@@ -59,9 +59,9 @@ exports.run = function( userOptions ){
         },
         
         //Templates
-        listTemplate: 'listTemplate',
-        createTemplate: 'formTemplate',
-        updateTemplate: 'formTemplate',
+        listTemplate: "'listTemplate'",
+        createTemplate: "'formTemplate'",
+        updateTemplate: "'formTemplate'",
         
         // AJAX
         ajax: $.ajax,

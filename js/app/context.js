@@ -13,7 +13,7 @@ module.exports = (function() {
         /*busyDivId: 'zcrud-busy-panel-background',*/
         messageDivId: 'zcrud-message',
         /*defaultMessageDelay: 5000,*/
-        busyTemplate: 'busyDefaultTemplate'
+        busyTemplate: "'busyDefaultTemplate'"
     };
     
     /* htmlCache */
