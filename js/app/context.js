@@ -13,7 +13,10 @@ module.exports = (function() {
         /*busyDivId: 'zcrud-busy-panel-background',*/
         messageDivId: 'zcrud-message',
         /*defaultMessageDelay: 5000,*/
-        busyTemplate: "'busyDefaultTemplate'"
+        //busyTemplate: "'busyDefaultTemplate'"
+        //busyTemplate: "'busyDefaultTemplate@../templates/misc.html'"
+        //busyTemplate: "'busyDefaultTemplate@misc.html'"
+        busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
     };
     
     /* htmlCache */
@@ -62,14 +65,30 @@ module.exports = (function() {
         }
         return busyDiv;
     };*/
+    /*
+    var buildDeclaredRemotePageUrls = function( templatePath ){
+        
+        var result = [];
+    
+        var index = templatePath.lastIndexOf( '@' );
+        
+        if ( index != -1 ){
+            result.push( templatePath.substring( 1 + index ) );
+        }
+        
+        return result;
+    };*/
     var showBusy = function ( options ) {
-                
-        pageUtils.configureTemplate( options, defaultConf.busyTemplate );
+        
+        var templatePath = defaultConf.busyTemplate;
+            
+        pageUtils.configureTemplate( options, templatePath );
         
         zpt.run({
             //root: options.target[0],
             root: options.body,
             dictionary: {}
+            //declaredRemotePageUrls: buildDeclaredRemotePageUrls( templatePath )
         });
     };
     /*

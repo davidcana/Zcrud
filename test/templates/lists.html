@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of lists</title>
+    </head>
+    <body>
+        <div data-mdefine-macro="listDefaultTemplate" 
+             class="zcrud-main-container" 
+             style="display: none">
+            
+            <div class="zcrud-header">
+                <span class="zcrud-title"
+                      data-tcontent="options/title">
+                    The title option
+                </span>
+                (default)
+                <span class="zcrud-toolbar">
+                    <button title="New record" class="zcrud-new-command-button"></button>
+                </span>
+                <div class="zcrud-status">
+                    Status:
+                    <span data-tcondition="status">
+                        <span data-tattributes="id 'zcrud-message'"
+                              data-tcondition="status/message"
+                              data-tcontent="status/message">Operation done!</span>
+                        <span data-tattributes="id 'zcrud-message-time'"
+                              data-tcondition="status/date"
+                              data-tcontent="string:(${status/date})">(14:23)</span>
+                    </span>
+                </div>
+            </div>
+            <table class="zcrud">
+                <thead>
+                    <tr>
+                        <th data-trepeat="field options/currentList/fields" 
+                            class="zcrud-column-header"
+                            data-tattributes="style cond: field/width (string:width:${field/width}) null">
+                            <span data-treplace="field/title">Field title</span>
+                        </th>
+                        <th class="zcrud-command-column-header"></th>
+                        <th class="zcrud-command-column-header"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-trepeat="record records"
+                        data-tattributes="data-record-key record[ options/key ]">
+                        <td data-trepeat="field options/currentList/fields"
+                            data-tcontent="record[ field/id ]">
+                            Field value
+                        </td>
+                        <td>
+                            <button title="Edit record" class="zcrud-edit-command-button"></button>
+                        </td>
+                        <td>
+                            <button title="Delete record" class="zcrud-delete-command-button"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="zcrud-column-resize-bar" style="display: none"></div>
+            <div class="zcrud-column-selection-container" style="display: none"></div>
+        </div>
+        
+    </body>
+</html>
