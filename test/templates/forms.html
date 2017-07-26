@@ -24,9 +24,9 @@
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]" >
                 
-                <div class="zcrud-field" 
-                     data-trepeat="field options/currentForm/fields"
-                     data-tdefine="id field/id; value record[ id ]; type field/type; elementId string:zcrud-${id}">
+                <div data-trepeat="field options/currentForm/fields"
+                     data-tdefine="id field/id; value record[ id ]; type field/type; elementId string:zcrud-${id}"
+                     data-tattributes="class string:zcrud-field zcrud-field-${id}">
                     <div>
                         <label data-tattributes="for elementId" data-tcontent="field/title">
                             The id of the field

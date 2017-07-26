@@ -34,8 +34,8 @@
                 <thead>
                     <tr>
                         <th data-trepeat="field options/currentList/fields" 
-                            class="zcrud-column-header"
-                            data-tattributes="style cond: field/width (string:width:${field/width}) null">
+                            data-tattributes="style cond: field/width (string:width:${field/width}) null;
+                                              class string:zcrud-column-header zcrud-column-header-${field/id}">
                             <span data-treplace="field/title">Field title</span>
                         </th>
                         <th class="zcrud-command-column-header"></th>
@@ -46,7 +46,8 @@
                     <tr data-trepeat="record records"
                         data-tattributes="data-record-key record[ options/key ]">
                         <td data-trepeat="field options/currentList/fields"
-                            data-tcontent="record[ field/id ]">
+                            data-tcontent="record[ field/id ]"
+                            data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}">
                             Field value
                         </td>
                         <td>
