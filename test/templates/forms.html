@@ -36,51 +36,9 @@
                         The description of this field.
                     </div>
                     
-                    <input data-tcondition="eq: type 'text'"
-                           data-tattributes="id elementId; name elementId; value value"
-                           type="text"
-                           placeholder="">
-                    <textarea data-tcondition="eq: type 'textarea'"
-                              data-tattributes="id elementId; name elementId"
-                              data-tcontent="cond: value value ''"
-                              placeholder="">The textarea value.</textarea>
-                    <input data-tcondition="or: (eq: type 'date') (eq: type 'datetime') (eq: type 'time')"
-                           data-tattributes="id elementId; name elementId; value value"
-                           type="text"
-                           placeholder="">
-                    <select data-tcondition="eq: type 'select'"
-                            data-tattributes="id elementId; name elementId; value value">
-                        <option data-trepeat="option field/optionsList"
-                                data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
-                                data-tcontent="option/displayText"></option>
-                    </select>
-                    <div data-tcondition="eq: type 'radio'"
-                         data-omittag=""
-                         data-tattributes="id elementId; name elementId; value value">
-                        <div data-trepeat="option field/optionsList">
-                            <input type="radio"
-                                   data-tattributes="name elementId;
-                                                     value option/value; 
-                                                     checked cond: (eq: option/value value) 'checked' null">
-                            <span data-treplace="option/displayText">The display text</span>
-                        </div>
+                    <div data-muse-macro="field/template">
+                        The field
                     </div>
-                    <div data-tcondition="eq: type 'datalist'"
-                         data-omittag=""
-                         data-tdefine="datalistId string:id-datalist">
-                        <input data-tattributes="id elementId; name elementId; value value; list datalistId"
-                               type="text"
-                               placeholder="">
-                        <datalist data-tattributes="id datalistId">
-                            <option data-trepeat="option field/optionsList"
-                                    data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
-                                    data-tcontent="option/displayText"></option>
-                        </datalist>
-                    </div>
-                    <input data-tcondition="eq: type 'checkbox'"
-                           data-tattributes="id elementId; name elementId; value value; checked cond: value 'checked' null"
-                           type="checkbox"
-                           placeholder="">
                 </div>
             </form>
             <div class="zcrud-button-panel">

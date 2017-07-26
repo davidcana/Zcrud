@@ -83,6 +83,17 @@ module.exports = (function() {
         return record[ field.id ];
     };
     
+    var getTemplate = function( field, options ){
+        
+        var fieldManager = fieldManagers[ field.type ];
+        
+        if ( fieldManager && $.isFunction( fieldManager.getTemplate ) ){
+            return fieldManager.getTemplate( field );
+        }
+        
+        return options.getDefaultFieldTemplate( field );
+    };
+    
     return {
         register: register,
         unregister: unregister,
@@ -90,6 +101,7 @@ module.exports = (function() {
         beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,
-        getValueFromRecord: getValueFromRecord
+        getValueFromRecord: getValueFromRecord,
+        getTemplate: getTemplate
     };
 })();

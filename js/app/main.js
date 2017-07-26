@@ -4,6 +4,7 @@
 exports.run = function( userOptions ){
     var $ = require( 'jquery' );
     var ListPage = require( './pages/listPage.js' );
+    var fieldBuilder = require( './fields/fieldBuilder.js' );
     
     /************************************************************************
     * DEFAULT OPTIONS / EVENTS                                              *
@@ -78,6 +79,9 @@ exports.run = function( userOptions ){
         },
         
         // Default fields options
+        getDefaultFieldTemplate: function( field ){
+            return field.type + '@templates/fields/basic.html';
+        },
         defaultFieldOptions: {
             datetime: {
                 inline: false,
@@ -127,6 +131,9 @@ exports.run = function( userOptions ){
         }
         if ( field.elementId == undefined ) {
             field.elementId = 'zcrud-' + id;
+        }
+        if ( field.template == undefined ){
+            field.template = fieldBuilder.getTemplate( field, options );
         }
         
         // Convert dependsOn to array if it's a comma seperated lists

@@ -368,11 +368,16 @@ var OptionListProviderManager = function() {
         return map;
     };
     
+    var getTemplate = function( field ){
+        return field.type + '@templates/fields/basic.html'
+    };
+    
     return {
         beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,
-        getValueFromRecord: getValueFromRecord
+        getValueFromRecord: getValueFromRecord,
+        getTemplate: getTemplate
     };
 }();
 

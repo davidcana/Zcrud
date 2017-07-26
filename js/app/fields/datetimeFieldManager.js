@@ -58,8 +58,13 @@ var DatetimeFieldManager = function() {
         );
     };
     
+    var getTemplate = function(){
+        return 'datetime@templates/fields/basic.html';   
+    };
+    
     return {
-        afterProcessTemplateForField: afterProcessTemplateForField
+        afterProcessTemplateForField: afterProcessTemplateForField,
+        getTemplate: getTemplate
     };
 }();
 

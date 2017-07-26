@@ -105,6 +105,7 @@ module.exports = function ( optionsToApply, type ) {
                 //root: options.target[0],
                 root: options.body,
                 dictionary: dictionary,
+                declaredRemotePageUrls: [ 'templates/fields/basic.html' ],
                 callback: function(){ 
                     afterProcessTemplate( self ) 
                 }
