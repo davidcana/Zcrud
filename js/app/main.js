@@ -63,6 +63,7 @@ exports.run = function( userOptions ){
         listTemplate: "'listTemplate'",
         createTemplate: "'formTemplate'",
         updateTemplate: "'formTemplate'",
+        declaredRemotePageUrls: [],
         
         // AJAX
         ajax: $.ajax,
@@ -135,6 +136,7 @@ exports.run = function( userOptions ){
         if ( field.template == undefined ){
             field.template = fieldBuilder.getTemplate( field, options );
         }
+        declareRemotePageUrl( field.template, options );
         
         // Convert dependsOn to array if it's a comma seperated lists
         if ( field.dependsOn && $.type( field.dependsOn ) === 'string' ) {
@@ -142,6 +144,22 @@ exports.run = function( userOptions ){
             field.dependsOn = [];
             for ( var i = 0; i < dependsOnArray.length; i++ ) {
                 field.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
+            }
+        }
+    };
+    
+    // Add to options.declaredRemotePageUrls all not repeated urls
+    var declareRemotePageUrl = function( template, options ){
+        
+        if ( ! template ){
+            return;
+        }
+        
+        var index = template.indexOf( '@' );
+        if ( index != -1 ){
+            var url = template.substring( 1 + index );
+            if ( options.declaredRemotePageUrls.indexOf( url ) == -1 ){
+                options.declaredRemotePageUrls.push( url );
             }
         }
     };
