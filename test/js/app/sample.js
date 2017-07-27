@@ -9,6 +9,7 @@ zcrud.run({
     body: document.body,
     target: $( '#departmentsContainer' ),
     title: 'Departments',
+    entityId: 'department',
     actions: {
         listAction:   'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
         createAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department',
@@ -33,7 +34,8 @@ zcrud.run({
             title: 'Description',
             description: 'The description of the department!',
             list: false,
-            type: 'textarea'
+            type: 'textarea',
+            template: "descriptionTextarea"
         },
         date: {
             title: 'Date',
@@ -119,13 +121,9 @@ zcrud.run({
         }
     },
     listTemplate: "'listDefaultTemplate@templates/lists.html'",
-    //listTemplate: "'listCustomizedTemplate'",
     updateTemplate: "'formDefaultTemplate@templates/forms.html'",
-    //updateTemplate: 'formCustomizedTemplate',
     createTemplate: "'formDefaultTemplate@templates/forms.html'",
-    //createTemplate: "'formCustomizedTemplate'",
     deleteTemplate: "'deleteDefaultTemplate@templates/forms.html'",
-    //deleteTemplate: "'deleteCustomizedTemplate'",
     
     ajax: testUtils.ajax,
     /*

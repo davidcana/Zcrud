@@ -23,13 +23,15 @@ exports.run = function( userOptions ){
         saveUserPreferences: true,
         jqueryuiTheme: false,
         unAuthorizedRequestRedirectUrl: null,
-
         toolbar: {
             hoverAnimation: true,
             hoverAnimationDuration: 60,
             hoverAnimationEasing: undefined,
             items: []
         },
+        
+        // Forms
+        entityId: 'entity',
 
         //Events
         closeRequested: function (event, data) { },

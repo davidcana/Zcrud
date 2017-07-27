@@ -6,8 +6,9 @@
     </head>
     <body>
         <div data-mdefine-macro="formDefaultTemplate" 
-             class="zcrud-main-container" 
-             style="display: none">
+             style="display: none"
+             data-tattributes="class string:zcrud-main-container zcrud-${options/currentForm/type}-form;
+                               id string:${options/entityId}-form">
             
             <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
@@ -52,8 +53,9 @@
         </div>
         
         <div data-mdefine-macro="deleteDefaultTemplate" 
-             class="zcrud-main-container" 
-             style="display: none">
+             class="zcrud-main-container zcrud-delete-form" 
+             style="display: none"
+             data-tattributes="id string:${options/entityId}-form">
             
             <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
