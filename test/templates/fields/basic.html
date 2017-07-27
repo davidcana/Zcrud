@@ -6,25 +6,25 @@
     </head>
     <body>
         <div data-mdefine-macro="text" data-tomit-tag="">
-            <input data-tattributes="id elementId; name elementId; value value"
+            <input data-tattributes="id elementId; name elementId; value value; field/formFieldAttributes"
                    type="text"
                    placeholder="">
         </div>
         
         <div data-mdefine-macro="textarea" data-tomit-tag="">
-            <textarea data-tattributes="id elementId; name elementId"
+            <textarea data-tattributes="id elementId; name elementId; field/formFieldAttributes"
                       data-tcontent="cond: value value ''"
                       placeholder="">The textarea value.</textarea>
         </div>
         
         <div data-mdefine-macro="datetime" data-tomit-tag="">
-            <input data-tattributes="id elementId; name elementId; value value"
+            <input data-tattributes="id elementId; name elementId; value value; field/formFieldAttributes"
                    type="text"
                    placeholder="">
         </div>
             
         <div data-mdefine-macro="select" data-tomit-tag="">
-            <select data-tattributes="id elementId; name elementId; value value">
+            <select data-tattributes="id elementId; name elementId; value value; field/formFieldAttributes">
                 <option data-trepeat="option field/optionsList"
                         data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
                         data-tcontent="option/displayText"></option>
@@ -32,7 +32,7 @@
         </div>
 
         <div data-mdefine-macro="radio" data-tomit-tag=""
-             data-tattributes="id elementId">
+             data-tattributes="id elementId; field/formFieldAttributes">
             <div data-trepeat="option field/optionsList">
                 <input type="radio"
                        data-tattributes="name elementId;
@@ -44,7 +44,7 @@
         
         <div data-mdefine-macro="datalist"
              data-tdefine="datalistId string:${elementId}-datalist">
-            <input data-tattributes="id elementId; name elementId; value value; list datalistId"
+            <input data-tattributes="id elementId; name elementId; value value; list datalistId; field/formFieldAttributes"
                    type="text"
                    placeholder="">
             <datalist data-tattributes="id datalistId">
@@ -55,7 +55,7 @@
         </div>
 
         <div data-mdefine-macro="checkbox" data-tomit-tag="">
-            <input data-tattributes="id elementId; name elementId; value value; checked cond: value 'checked' null"
+            <input data-tattributes="id elementId; name elementId; value value; checked cond: value 'checked' null; field/formFieldAttributes"
                    type="checkbox"
                    placeholder="">
         </div>

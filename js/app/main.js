@@ -139,6 +139,9 @@ exports.run = function( userOptions ){
             field.template = fieldBuilder.getTemplate( field, options );
         }
         declareRemotePageUrl( field.template, options );
+        if ( field.formFieldAttributes == undefined ){
+            field.formFieldAttributes = {};
+        }
         
         // Convert dependsOn to array if it's a comma seperated lists
         if ( field.dependsOn && $.type( field.dependsOn ) === 'string' ) {

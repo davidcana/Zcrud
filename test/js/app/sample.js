@@ -35,7 +35,11 @@ zcrud.run({
             description: 'The description of the department!',
             list: false,
             type: 'textarea',
-            template: "descriptionTextarea"
+            //template: "descriptionTextarea",
+            formFieldAttributes: {
+                rows: 6,
+                cols: 80
+            }
         },
         date: {
             title: 'Date',
