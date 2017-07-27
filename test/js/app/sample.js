@@ -42,7 +42,7 @@ zcrud.run({
             description: 'The date of the department!',
             list: false,
             type: 'date',
-            customOptions:{
+            customOptions: {
                 inline: true
             }
         },
@@ -58,7 +58,7 @@ zcrud.run({
             list: false,
             type: 'datetime'
         },
-        phoneType:{
+        phoneType: {
             title: 'Phone type',
             description: 'The phone type of the department!',
             list: false,
@@ -81,7 +81,8 @@ zcrud.run({
             description: 'The province of the department',
             list: false,
             type: 'select',
-            options: [ 'Cádiz', 'Málaga' ]
+            options: [ 'Cádiz', 'Málaga' ],
+            defaultValue: 'Cádiz'
         },
         city: {
             title: 'City',

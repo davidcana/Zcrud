@@ -3,9 +3,9 @@ zCrud 0.1.0
 
 -Update templates with remote templates. (done!)
 -Support of inputClass and listClass option. (implemented custom template for form fields)
+-Support of defaultValue option in create forms. (done!)
 
--Support of defaultValue option in create forms.
--Add useful properties to fields (size, maxlength, row, cols, ...).
+-Add useful properties to fields (size, maxlength, rows, cols, ...).
 -Verify that HTML is correct.
 -Expose some events to enable validation with forms.
 -Integrate with jquery validation.

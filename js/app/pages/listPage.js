@@ -113,7 +113,7 @@ module.exports = function ( optionsToApply ) {
     
     var showCreateForm = function( event ){
         //alert( 'showCreateForm' );
-        showForm( options, 'create', {} );
+        showForm( options, 'create' );
     };
     
     var showEditForm = function( event ){
@@ -130,7 +130,13 @@ module.exports = function ( optionsToApply ) {
     
     var showForm = function( options, type, record ){
         var formPage =  new FormPage( options, type );
-        formPage.setRecord( record );
+        
+        if ( record ){
+            formPage.setRecord( record );
+        } else {
+            formPage.updateRecordFromDefaultValues();
+        }
+        
         formPage.show();
     };
     

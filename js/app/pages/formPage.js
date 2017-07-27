@@ -124,12 +124,22 @@ module.exports = function ( optionsToApply, type ) {
     var getRecord = function(){
         return record;
     };
-    var updateRecord = function(){
+    var updateRecordFromForm = function(){
         record = {};
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
             record[ field.id ] = fieldBuilder.getValueFromForm( field );
+        }
+    };
+    var updateRecordFromDefaultValues = function(){
+        record = {};
+        
+        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
+            var field = options.currentForm.fields[ c ];
+            if ( field.defaultValue ){
+                record[ field.id ] = field.defaultValue;
+            }
         }
     };
     
@@ -231,7 +241,7 @@ module.exports = function ( optionsToApply, type ) {
     var submitCreateAndUpdateForms = function( event, url, command, successMessage ){
         //alert( 'submitCreateForm' );
         
-        updateRecord();
+        updateRecordFromForm();
         
         var dataToSend = {
             command: command,
@@ -305,6 +315,7 @@ module.exports = function ( optionsToApply, type ) {
     return {
         show: show,
         setRecord: setRecord,
-        getRecord: getRecord
+        getRecord: getRecord,
+        updateRecordFromDefaultValues: updateRecordFromDefaultValues
     };
 };
