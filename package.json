@@ -29,7 +29,7 @@
     "url": "git+https://github.com/davidcana/Zcrud.git"
   },
   "dependencies": {
-    "zpt": "^0.11.0",
+    "zpt": "^0.12.0",
     "jquery": "^2.0.3",
     "jquery-datetimepicker": "^2.5.4"
   },
