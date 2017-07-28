@@ -42,6 +42,9 @@ module.exports = function ( optionsToApply ) {
         //Generate URL (with query string parameters) to load records
         var loadUrl = createRecordLoadUrl();
 
+        // Trigger loadingRecords event
+        //options.events.loadingRecords( options, loadUrl );
+        
         //Load data from server using AJAX
         options.ajax({
             url: loadUrl,

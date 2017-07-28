@@ -142,4 +142,18 @@ zcrud.run({
             message: data.Message
         };
     }*/
+    events: {
+        /*
+        formCreated: function ( options ) { 
+            alert( 'Form created! ' + options.currentForm.type );
+        }*/
+        /*
+        formSubmitting: function ( options, dataToSend ) { 
+            alert( 'Form submit! ' + options.currentForm.type );
+            return false;
+        }*/
+        recordDeleted: function ( event, options, key ) { 
+            alert ( 'recordDeleted! '  + options.currentForm.type + ': ' + key );
+        }
+    }
 });

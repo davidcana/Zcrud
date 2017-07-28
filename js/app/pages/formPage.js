@@ -23,7 +23,7 @@ module.exports = function ( optionsToApply, type ) {
     var configure = function(){
         options.currentForm = {};
         options.currentForm.type = type;
-        switch( type ) {
+        switch ( type ) {
         case 'create':
             template = options.createTemplate;
             options.currentForm.title = "Create form";
@@ -200,6 +200,8 @@ module.exports = function ( optionsToApply, type ) {
                 buildProcessTemplateParams( field, self )
             );
         }
+        
+        options.events.formCreated( options );
     };
     
     var addButtonsEvents = function() {
@@ -253,6 +255,16 @@ module.exports = function ( optionsToApply, type ) {
             data       : options.ajaxPreFilter( dataToSend ),
             success    : function ( data ) {
                 data = options.ajaxPostFilter( data );
+                switch ( command ){
+                    case 'create':
+                        options.events.recordAdded( event, options, record );
+                        break;
+                    case 'update':
+                        options.events.recordUpdated( event, options, record );
+                        break;
+                    default:
+                        throw 'Unknown command in submitCreateAndUpdateForms: ' + command;
+                }
                 context.getMainPage().show({
                         status: {
                             message: successMessage,
@@ -266,8 +278,10 @@ module.exports = function ( optionsToApply, type ) {
             }
         };
         
-        options.ajax(
-            $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+        if ( false != options.events.formSubmitting( options, dataToSend ) ){
+            options.ajax(
+                $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+        }
     };
     
     var submitDeleteForm = function( event ){
@@ -288,6 +302,7 @@ module.exports = function ( optionsToApply, type ) {
             data       : options.ajaxPreFilter( dataToSend ),
             success    : function ( data ) {
                 data = options.ajaxPostFilter( data );
+                options.events.recordDeleted( event, options, key );
                 context.getMainPage().show({
                         status: {
                             message: successMessage,
@@ -301,12 +316,15 @@ module.exports = function ( optionsToApply, type ) {
             }
         };
         
-        options.ajax(
-            $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+        if ( false != options.events.formSubmitting( options, dataToSend ) ){
+            options.ajax(
+                $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+        }
     };
     
     var cancelForm = function( event ){
         //alert( 'cancelForm' );
+        options.events.formClosed( event, options );
         context.getMainPage().show();
     };
     

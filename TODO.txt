@@ -5,7 +5,7 @@ zCrud 0.1.0
 -Support of inputClass and listClass option. (implemented custom template for form fields)
 -Support of defaultValue option in create forms. (done!)
 -Add useful properties to fields (size, maxlength, rows, cols, ...). (all formFieldAttributes in each field is added to the html field)
+-Expose some events: formClosed, formCreated, formSubmitting, recordAdded, recordDeleted and recordUpdated. To enable custom validation with forms use formSubmitting event. (done!)
 
--Expose some events to enable validation with forms.
 -Integrate with jquery validation.
 -Verify that HTML is correct.

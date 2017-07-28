@@ -34,14 +34,21 @@ exports.run = function( userOptions ){
         entityId: 'entity',
 
         //Events
-        closeRequested: function (event, data) { },
-        formCreated: function (event, data) { },
-        formSubmitting: function (event, data) { },
-        formClosed: function (event, data) { },
-        loadingRecords: function (event, data) { },
-        recordsLoaded: function (event, data) { },
-        rowInserted: function (event, data) { },
-        rowsRemoved: function (event, data) { },
+        events: {
+            formClosed: function ( event, options ) { },
+            formCreated: function ( options ) { },
+            formSubmitting: function ( options, dataToSend ) { },
+            //loadingRecords: function ( options, url ) { },
+            recordAdded: function ( event, options, record ) { },
+            recordDeleted: function ( event, options, key ) { },
+            //recordsLoaded: function ( data ) { },
+            recordUpdated: function ( event, options, record ) { }
+            /*
+            rowInserted: function ( data ) { },
+            rowsRemoved: function ( data ) { },
+            rowUpdated: function ( data ) { },
+            selectionChanged: function ( data ) { }*/
+        },
 
         //Localization
         messages: {
@@ -169,9 +176,14 @@ exports.run = function( userOptions ){
         }
     };
     
-    var options = $.extend( {}, defaultOptions, userOptions );
+    // Init options
+    var options = $.extend( true, {}, defaultOptions, userOptions );
     normalizeFieldsOptions();
     
+    // Init  eventsManager
+    //eventsManager.setEvents( options.events );
+    
+    // Create and show list page
     var listPage =  new ListPage( options );
     listPage.show();
 };
