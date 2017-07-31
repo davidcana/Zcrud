@@ -509,6 +509,10 @@ div.zcrud-contextmenu-overlay {
 .valid {
     
 }
+.has-success:after {
+    content: url('./valid-mini.png');
+    vertical-align: bottom;
+}
 .error {
     color: Red;
 }
