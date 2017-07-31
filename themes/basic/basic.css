@@ -504,3 +504,18 @@ div.zcrud-contextmenu-overlay {
   height: 100%;
   z-index: 100;
 }
+
+/* Form validation */
+.valid {
+    
+}
+.error {
+    color: Red;
+}
+.form-error {
+    color: White;
+    background-color: #ff3600;
+    padding: 0 1em 0 1em;
+    border-radius: 10px;
+    font-weight: 600;
+}

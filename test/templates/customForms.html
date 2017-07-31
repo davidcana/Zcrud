@@ -5,7 +5,7 @@
         <title>Templates of forms</title>
     </head>
     <body>
-        <div data-mdefine-macro="formCustomizedTemplate" 
+        <div data-mdefine-macro="formTemplate" 
              class="zcrud-main-container" 
              style="display: none">
             
@@ -19,7 +19,7 @@
                 </span>
                 (customized)
             </div>
-            <form class="zcrud-form">
+            <form class="zcrud-form" id="zcrud-form">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcRecordKey'; value record[ options/key ]" >
@@ -51,7 +51,10 @@
                     <input type="text"
                            placeholder="" 
                            name="name" 
-                           data-tattributes="id 'zcrud-name'; value record/name">
+                           data-tattributes="id 'zcrud-name'; value record/name"
+                           data-validation="length"
+                           data-validation-length="3-12" 
+		                   data-validation-error-msg="Name has to be 3-12 chars">
                 </div>
             </form>
             <div class="zcrud-button-panel">
@@ -64,7 +67,7 @@
             </div>
         </div>
         
-        <div data-mdefine-macro="deleteCustomizedTemplate" 
+        <div data-mdefine-macro="deleteTemplate" 
              class="zcrud-main-container" 
              style="display: none">
             
