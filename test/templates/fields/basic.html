@@ -27,7 +27,7 @@
             <select data-tattributes="id elementId; name elementId; value value; field/formFieldAttributes">
                 <option data-trepeat="option field/optionsList"
                         data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
-                        data-tcontent="option/displayText"></option>
+                        data-tcontent="option/displayText">Label</option>
             </select>
         </div>
 
@@ -50,14 +50,13 @@
             <datalist data-tattributes="id datalistId">
                 <option data-trepeat="option field/optionsList"
                         data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
-                        data-tcontent="option/displayText"></option>
+                        data-tcontent="option/displayText">Label</option>
             </datalist>
         </div>
 
         <div data-mdefine-macro="checkbox" data-tomit-tag="">
             <input data-tattributes="id elementId; name elementId; value value; checked cond: value 'checked' null; field/formFieldAttributes"
-                   type="checkbox"
-                   placeholder="">
+                   type="checkbox">
         </div>
         
     </body>
