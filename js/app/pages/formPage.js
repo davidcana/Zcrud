@@ -6,10 +6,10 @@ module.exports = function ( optionsToApply, type ) {
     
     var context = require( '../context.js' );
     var pageUtils = require( './pageUtils.js' );
+    var fieldBuilder = require( '../fields/fieldBuilder' );
+    var validationManager = require( '../validationManager.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
-    var fieldBuilder = require( '../fields/fieldBuilder' );
-    require( 'jquery-form-validator' );
     
     //var self = this;
     var options = optionsToApply;
@@ -24,6 +24,8 @@ module.exports = function ( optionsToApply, type ) {
     var configure = function(){
         options.currentForm = {};
         options.currentForm.type = type;
+        options.currentForm.id = options.formId;
+        options.currentForm.$form = $( '#' + options.currentForm.id );
         switch ( type ) {
         case 'create':
             template = options.createTemplate;
@@ -193,7 +195,7 @@ module.exports = function ( optionsToApply, type ) {
     
     var afterProcessTemplate = function( field, self ){
                 
-        initFormValidation();
+        validationManager.initFormValidation( options );
         addButtonsEvents();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
@@ -288,56 +290,17 @@ module.exports = function ( optionsToApply, type ) {
             }
         );*/
         
-        if ( formIsValid( dataToSend ) ){
+        if ( validationManager.formIsValid( options, dataToSend ) ){
             options.ajax(
                 $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
         }
     };
     /*
-    var runIfFormIsValid = function( dataToSend, callback ){
-        
-        // Manually load the modules used in this form
-        $.formUtils.loadModules( 'security, date' );
-        
-        $.validate({
-            form : '#zcrud-form',
-            onSuccess : function( $form ) {
-                    if ( false != options.events.formSubmitting( options, dataToSend ) ){
-                        callback();
-                    }
-                }
-        });
-        
-        return $( '#zcrud-form' ).isValid(
-            { }, 
-            {
-                onSuccess : function( $form ) {
-                    if ( false != options.events.formSubmitting( options, dataToSend ) ){
-                        callback();
-                    }
-                }
-            }, 
-            true );
-    };*/
-    
-    var initFormValidation = function(){
-
-        // Manually load the modules used in this form
-        $.formUtils.loadModules( 'security, date' );
-        
-        // Set up form validation
-        var config = {
-            form : '#zcrud-form',
-            borderColorOnError : ''
-        }
-        $.validate( config );
-    };
-    
     var formIsValid = function( dataToSend ){
         
-        return $( '#zcrud-form' ).isValid( {}, {}, true )
+        return $( '#' + options.currentForm.id ).isValid( {}, {}, true )
             && false != options.events.formSubmitting( options, dataToSend );
-    };
+    };*/
     
     var submitDeleteForm = function( event ){
         //alert( 'submitDeleteForm' );

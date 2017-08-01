@@ -29,10 +29,12 @@ exports.run = function( userOptions ){
             hoverAnimationEasing: undefined,
             items: []
         },
+        validate : {},
         
         // Forms
         entityId: 'entity',
-
+        formId: 'zcrud-form',
+        
         //Events
         events: {
             formClosed: function ( event, options ) { },

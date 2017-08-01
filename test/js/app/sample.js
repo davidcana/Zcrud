@@ -125,9 +125,20 @@ zcrud.run({
             type: 'checkbox'
         }
     },
+
+    validation: {
+        modules: 'security, date',
+        rules: {
+            '#zcrud-name': {
+                validation: 'length',
+                length : '3-12'
+            }
+        }
+    },
+    
     listTemplate: "'listDefaultTemplate@templates/lists.html'",
-    //updateTemplate: "'formDefaultTemplate@templates/forms.html'",
-    updateTemplate: "'formTemplate@templates/customForms.html'",
+    updateTemplate: "'formDefaultTemplate@templates/forms.html'",
+    //updateTemplate: "'formTemplate@templates/customForms.html'",
     createTemplate: "'formDefaultTemplate@templates/forms.html'",
     deleteTemplate: "'deleteDefaultTemplate@templates/forms.html'",
     
