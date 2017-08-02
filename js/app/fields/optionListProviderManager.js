@@ -372,12 +372,17 @@ var OptionListProviderManager = function() {
         return field.type + '@templates/fields/basic.html'
     };
     
+    var getLabelFor = function( field ){
+        return field.type == 'radio'? undefined: field.elementId;
+    };
+    
     return {
         beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,
         getValueFromRecord: getValueFromRecord,
-        getTemplate: getTemplate
+        getTemplate: getTemplate,
+        getLabelFor: getLabelFor
     };
 }();
 

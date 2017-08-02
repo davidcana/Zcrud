@@ -5,20 +5,6 @@
         <title>Templates of fields in forms</title>
     </head>
     <body> 
-        <div data-mdefine-macro="fullField" data-tomit-tag="">
-            <div data-mdefine-slot="label">
-                <label data-tattributes="for elementId" data-tcontent="field/title">
-                    The id of the field
-                </label>
-            </div>
-            <div data-mdefine-slot="help" class="zcrud-field-help" data-tcontent="field/description">
-                The description of this field.
-            </div>
-            <div data-mdefine-slot="field">
-                The field itself
-            </div>
-        </div>
-        
         <div data-mdefine-macro="text" data-tomit-tag="">
             <input data-tattributes="id elementId; name elementId; value value; field/formFieldAttributes"
                    type="text"
@@ -41,7 +27,8 @@
             <select data-tattributes="id elementId; name elementId; value value; field/formFieldAttributes">
                 <option data-trepeat="option field/optionsList"
                         data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
-                        data-tcontent="option/displayText">Label</option>
+                        data-tcontent="option/displayText"
+                        label="label"></option>
             </select>
         </div>
 
@@ -64,7 +51,8 @@
             <datalist data-tattributes="id datalistId">
                 <option data-trepeat="option field/optionsList"
                         data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
-                        data-tcontent="option/displayText">Label</option>
+                        data-tcontent="option/displayText"
+                        label="label"></option>
             </datalist>
         </div>
 

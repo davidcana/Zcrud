@@ -94,6 +94,17 @@ module.exports = (function() {
         return options.getDefaultFieldTemplate( field );
     };
     
+    var getLabelFor = function( field, options ){
+        
+        var fieldManager = fieldManagers[ field.type ];
+        
+        if ( fieldManager && $.isFunction( fieldManager.getLabelFor ) ){
+            return fieldManager.getLabelFor( field );
+        }
+        
+        return field.elementId;
+    };
+    
     return {
         register: register,
         unregister: unregister,
@@ -102,6 +113,7 @@ module.exports = (function() {
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,
         getValueFromRecord: getValueFromRecord,
-        getTemplate: getTemplate
+        getTemplate: getTemplate,
+        getLabelFor: getLabelFor
     };
 })();

@@ -1,11 +1,15 @@
 zCrud 0.1.0
 -----------
 
--Update templates with remote templates. (done!)
--Support of inputClass and listClass option. (implemented custom template for form fields)
--Support of defaultValue option in create forms. (done!)
--Add useful properties to fields (size, maxlength, rows, cols, ...). (all formFieldAttributes in each field is added to the html field)
--Expose some events: formClosed, formCreated, formSubmitting, recordAdded, recordDeleted and recordUpdated. To enable custom validation with forms use formSubmitting event. (done!)
--Integrate with jQuery Form Validator. (done!)
+* Update templates with remote templates. (done!)
+* Support of inputClass and listClass option. (implemented custom template for form fields)
+* Support of defaultValue option in create forms. (done!)
+* Add useful properties to fields (size, maxlength, rows, cols, ...). (all formFieldAttributes in each field is added to the html field)
+* Expose some events: formClosed, formCreated, formSubmitting, recordAdded, recordDeleted and recordUpdated. To enable custom validation with forms use formSubmitting event. (done!)
+* Integrate with jQuery Form Validator. (done!)
+* Verify that HTML is correct. (done!)
 
--Verify that HTML is correct.
+
+* Support of server side paging using AJAX.
+* Support of server side sorting using AJAX.
+* Full I18n and L10n support.

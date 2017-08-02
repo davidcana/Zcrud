@@ -470,7 +470,8 @@ form.zcrud-form .zcrud-field-help {
   color: #76797c;
   margin: 0 0 0.2em 0;
 }
-form.zcrud-form label {
+form.zcrud-form label,
+form.zcrud-form div.label {
   font-size: 100%;
   font-weight: bold;
 }

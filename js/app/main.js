@@ -144,6 +144,7 @@ exports.run = function( userOptions ){
         if ( field.elementId == undefined ) {
             field.elementId = 'zcrud-' + id;
         }
+        field.labelFor = fieldBuilder.getLabelFor( field, options );
         if ( field.template == undefined ){
             field.template = fieldBuilder.getTemplate( field, options );
         }
