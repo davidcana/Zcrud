@@ -13,22 +13,19 @@ exports.run = function( userOptions ){
 
         //Options
         actions: {},
-        fields: {},
-        animationsEnabled: true,
-        defaultDateFormat: 'yy-mm-dd',
-        dialogShowEffect: 'fade',
-        dialogHideEffect: 'fade',
-        showCloseButton: false,
-        loadingAnimationDelay: 500,
+        fields: {},        
+        //animationsEnabled: true,
+        //defaultDateFormat: 'yy-mm-dd',
+        //loadingAnimationDelay: 500,
         saveUserPreferences: true,
-        jqueryuiTheme: false,
-        unAuthorizedRequestRedirectUrl: null,
+        //unAuthorizedRequestRedirectUrl: null,
+        /*
         toolbar: {
             hoverAnimation: true,
             hoverAnimationDuration: 60,
             hoverAnimationEasing: undefined,
             items: []
-        },
+        },*/
         validate : {},
         
         // Forms
@@ -113,6 +110,17 @@ exports.run = function( userOptions ){
                 format: 'H:i',
                 step: 5
             }
+        },
+        
+        // Paging
+        paging: {
+            paging: false,
+            //pageList: 'normal', //possible values: 'minimal', 'normal'
+            pageSize: 5,
+            pageSizes: [10, 25, 50, 100],
+            pageSizeChangeArea: true,
+            pageSizeChangeComboboxId: 'zcrud-pageSizeChange',
+            gotoPageArea: 'combobox' //possible values: 'textbox', 'combobox', 'none'
         }
     };
     

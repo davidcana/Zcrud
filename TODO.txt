@@ -11,5 +11,5 @@ zCrud 0.1.0
 
 
 * Support of server side paging using AJAX.
-* Support of server side sorting using AJAX.
 * Full I18n and L10n support.
+* Support of server side sorting using AJAX.
