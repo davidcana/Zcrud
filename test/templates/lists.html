@@ -67,7 +67,9 @@
             </div>
         </div>
         
-        <div data-mdefine-macro="bottomPanel" class="zcrud-bottom-panel">
+        <div data-mdefine-macro="bottomPanel" 
+             class="zcrud-bottom-panel"
+             data-tdefine="component options/paging/component">
             <div class="zcrud-left-area">
                 <span class="zcrud-page-list">
                     <span class="zcrud-page-number-first">&lt;&lt;</span>
@@ -93,13 +95,11 @@
                 </span>
                 <span class="zcrud-page-size-change">
                     <span>Row count: </span>
-                    <select>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="250">250</option>
-                        <option value="500">500</option>
+                    <select data-tdefine="currentPageSize 10">
+                        <option data-trepeat="pageSize component/getPageSizes()"
+                                data-tattributes="value pageSize; selected cond: (eq: pageSize currentPageSize) 'selected' null"
+                                data-tcontent="pageSize"
+                                label="label"></option>
                     </select>
                 </span>
             </div>

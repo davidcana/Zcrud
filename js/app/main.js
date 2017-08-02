@@ -114,10 +114,10 @@ exports.run = function( userOptions ){
         
         // Paging
         paging: {
-            paging: false,
+            isOn: true,
             //pageList: 'normal', //possible values: 'minimal', 'normal'
             pageSize: 5,
-            pageSizes: [10, 25, 50, 100],
+            pageSizes: [10, 25, 50, 100, 250, 500],
             pageSizeChangeArea: true,
             pageSizeChangeComboboxId: 'zcrud-pageSizeChange',
             gotoPageArea: 'combobox' //possible values: 'textbox', 'combobox', 'none'

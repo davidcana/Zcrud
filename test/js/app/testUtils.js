@@ -9,7 +9,14 @@ module.exports = (function() {
         '2': { name: 'Service 2' },
         '3': { name: 'Service 3' },
         '4': { name: 'Service 4' },
-        '5': { name: 'Service 5' }
+        '5': { name: 'Service 5' },
+        '6': { name: 'Service 6' },
+        '7': { name: 'Service 7' },
+        '8': { name: 'Service 8' },
+        '9': { name: 'Service 9' },
+        '10': { name: 'Service 10' },
+        '11': { name: 'Service 11' },
+        '12': { name: 'Service 12' }
     };
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
@@ -52,7 +59,7 @@ module.exports = (function() {
         var dataToSend = undefined;
         switch ( cmd ) {
             case "LIST":
-                dataToSend = ajaxServicesList( file );
+                dataToSend = ajaxServicesList( file, data );
                 break;
             case "CREATE":
                 dataToSend = ajaxServicesCreate( file, data );
@@ -70,21 +77,31 @@ module.exports = (function() {
         options.success( dataToSend );
     };
     
-    var ajaxServicesList = function( file ){
+    var ajaxServicesList = function( file, data ){
         
         // Init data
         var dataToSend = {};
         dataToSend.result = 'OK';
         dataToSend.message = '';
-        dataToSend.records = [];
+        //dataToSend.records = [];
         
         // Add all records to data
         var input = services;
+        var allRecords = [];
         for ( var id in input ) {
             var service = input[ id ];
             service.id = id;
-            dataToSend.records.push( service );
+            allRecords.push( service );
         }
+        
+        // Order them
+        
+        // Page them
+        var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
+        dataToSend.records = allRecords.slice(
+            firstElementIndex, 
+            firstElementIndex + data.pageSize);
+        dataToSend.totalNumberOfRecords = allRecords.length;   
         
         return dataToSend;
     };

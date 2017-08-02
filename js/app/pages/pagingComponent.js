@@ -4,12 +4,14 @@
 module.exports = function( optionsToApply ) {
     "use strict";
     
-    var pageUtils = require( './pages/pageUtils.js' );
+    var pageUtils = require( './pageUtils.js' );
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
     var thisOptions = options.paging;
     var $pageSizeChangeCombobox = thisOptions.pageSizeChangeArea? $( '#' + thisOptions.pageSizeChangeComboboxId ): undefined;
+    
+    var pageNumber = 1; // The current page
     
     var loadPagingSettings = function(){
 
@@ -317,10 +319,27 @@ module.exports = function( optionsToApply ) {
     };
     
     var getPageSizes = function(){
-        return thisOptions.pageSizes
+        return thisOptions.pageSizes;
+    };
+    
+    var addToDataToSend = function( dataToSend ){
+        dataToSend.pageNumber = pageNumber;
+        dataToSend.pageSize = thisOptions.pageSize;
+    };
+    
+    var buildInfo = function(){
+        return {
+            pageNumber: pageNumber,
+            pageSize: thisOptions.pageSize,
+            firstIndex: '',
+            lastIndex: '',
+            totalNumberOfRecords: ''
+        };
     };
     
     return {
-        getPageSizes: getPageSizes
+        getPageSizes: getPageSizes,
+        addToDataToSend: addToDataToSend,
+        buildInfo: buildInfo
     };
 };

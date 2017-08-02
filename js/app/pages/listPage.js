@@ -7,6 +7,7 @@ module.exports = function ( optionsToApply ) {
     var context = require( '../context.js' );
     var pageUtils = require( './pageUtils.js' );
     var FormPage = require( './formPage.js' );
+    var PagingComponent = require( './pagingComponent.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
@@ -14,10 +15,17 @@ module.exports = function ( optionsToApply ) {
     var dictionary = undefined;
     var records = {};
     
+    var components = {};
+    var pagingComponent = undefined;
+    
     //
     var configure = function(){
         options.currentList = {};
         options.currentList.fields = buildFields();
+        
+        pagingComponent = options.paging.isOn? new PagingComponent( options ): undefined;
+        options.paging.component = pagingComponent;
+        components.paging = pagingComponent;
     };
     
     var buildFields = function(){
@@ -31,6 +39,18 @@ module.exports = function ( optionsToApply ) {
         });
         
         return fields;
+    };
+    
+    var buildDataToSend = function(){
+        
+        var data = {};  
+        
+        for ( var id in components ){
+            var component = components[ id ];
+            component.addToDataToSend( data );
+        }
+        
+        return data;
     };
     
     // Main method
@@ -48,6 +68,7 @@ module.exports = function ( optionsToApply ) {
         //Load data from server using AJAX
         options.ajax({
             url: loadUrl,
+            data: buildDataToSend(),
             success: function ( data ) {
                 data = options.ajaxPostFilter( data );
                 updateDictionary( data, dictionaryExtension );
