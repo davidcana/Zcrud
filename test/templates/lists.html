@@ -69,28 +69,31 @@
         
         <div data-mdefine-macro="bottomPanel" 
              class="zcrud-bottom-panel"
-             data-tdefine="component options/paging/component">
+             data-tdefine="component options/paging/component;
+                           pagingInfo component/buildInfo()">
             <div class="zcrud-left-area">
                 <span class="zcrud-page-list">
                     <span class="zcrud-page-number-first">&lt;&lt;</span>
                     <span class="zcrud-page-number-previous">&lt;</span>
-                    <span class="zcrud-page-number">1</span>
+                    <span class="zcrud-page-number zcrud-page-number-active zcrud-page-number-disabled">1</span>
                     <span class="zcrud-page-number">2</span>
                     <span class="zcrud-page-number-space">...</span>
                     <span class="zcrud-page-number">5</span>
-                    <span class="zcrud-page-number zcrud-page-number-active zcrud-page-number-disabled">6</span>
+                    <span class="zcrud-page-number">6</span>
+                    <span class="zcrud-page-number-space">...</span>
+                    <span class="zcrud-page-number">7</span>
+                    <span class="zcrud-page-number">8</span>
                     <span class="zcrud-page-number-next zcrud-page-number-disabled">&gt;</span>
                     <span class="zcrud-page-number-last zcrud-page-number-disabled">&gt;&gt;</span>
                 </span>
                 <span class="zcrud-goto-page">
                     <span>Go to page: </span>
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
+                    <select data-tdefine="goToPageList pagingInfo/goToPageList;
+                                          firstPageInList goToPageList[0]">
+                        <option data-trepeat="pageNumber goToPageList"
+                                data-tattributes="value pageNumber; selected cond: (eq: pageNumber firstPageInList) 'selected' null"
+                                data-tcontent="pageNumber"
+                                label="label"></option>
                     </select>
                 </span>
                 <span class="zcrud-page-size-change">
@@ -104,7 +107,7 @@
                 </span>
             </div>
             <div class="zcrud-right-area">
-                <span class="zcrud-page-info">
+                <span class="zcrud-page-info" data-tcontent="string:Showing ${pagingInfo/first}-${pagingInfo/last} of ${pagingInfo/totalNumberOfRecords}">
                     Showing 126-128 of 128
                 </span>
             </div>

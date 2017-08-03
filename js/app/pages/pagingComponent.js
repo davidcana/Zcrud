@@ -12,6 +12,7 @@ module.exports = function( optionsToApply ) {
     var $pageSizeChangeCombobox = thisOptions.pageSizeChangeArea? $( '#' + thisOptions.pageSizeChangeComboboxId ): undefined;
     
     var pageNumber = 1; // The current page
+    var totalNumberOfRecords = undefined;
     
     var loadPagingSettings = function(){
 
@@ -249,45 +250,6 @@ module.exports = function( optionsToApply ) {
         */
     };
     
-    var calculatePageCount = function () {
-        /*
-        var pageCount = Math.floor(this._totalRecordCount / this.options.pageSize);
-        if (this._totalRecordCount % this.options.pageSize != 0) {
-            ++pageCount;
-        }
-
-        return pageCount;
-        */
-    };
-    
-    /* Calculates page numbers and returns an array of these numbers.
-    *************************************************************************/
-    var calculatePageNumbers = function (pageCount) {
-        /*
-        if (pageCount <= 4) {
-            //Show all pages
-            var pageNumbers = [];
-            for (var i = 1; i <= pageCount; ++i) {
-                pageNumbers.push(i);
-            }
-
-            return pageNumbers;
-        } else {
-            //show first three, last three, current, previous and next page numbers
-            var shownPageNumbers = [1, 2, pageCount - 1, pageCount];
-            var previousPageNo = this._normalizeNumber(this._currentPageNo - 1, 1, pageCount, 1);
-            var nextPageNo = this._normalizeNumber(this._currentPageNo + 1, 1, pageCount, 1);
-
-            this._insertToArrayIfDoesNotExists(shownPageNumbers, previousPageNo);
-            this._insertToArrayIfDoesNotExists(shownPageNumbers, this._currentPageNo);
-            this._insertToArrayIfDoesNotExists(shownPageNumbers, nextPageNo);
-
-            shownPageNumbers.sort(function (a, b) { return a - b; });
-            return shownPageNumbers;
-        }
-        */
-    };
-    
     /* Binds click events of all page links to change the page.
     *************************************************************************/
     var bindClickEventsToPageNumberButtons = function () {
@@ -326,20 +288,136 @@ module.exports = function( optionsToApply ) {
         dataToSend.pageNumber = pageNumber;
         dataToSend.pageSize = thisOptions.pageSize;
     };
+
+    /* Calculates page numbers and returns an array of these numbers.
+    *************************************************************************/
+    var calculatePageNumbers = function (pageCount) {
+        /*
+        if (pageCount <= 4) {
+            //Show all pages
+            var pageNumbers = [];
+            for (var i = 1; i <= pageCount; ++i) {
+                pageNumbers.push(i);
+            }
+
+            return pageNumbers;
+        } else {
+            //show first three, last three, current, previous and next page numbers
+            var shownPageNumbers = [1, 2, pageCount - 1, pageCount];
+            var previousPageNo = this._normalizeNumber(this._currentPageNo - 1, 1, pageCount, 1);
+            var nextPageNo = this._normalizeNumber(this._currentPageNo + 1, 1, pageCount, 1);
+
+            this._insertToArrayIfDoesNotExists(shownPageNumbers, previousPageNo);
+            this._insertToArrayIfDoesNotExists(shownPageNumbers, this._currentPageNo);
+            this._insertToArrayIfDoesNotExists(shownPageNumbers, nextPageNo);
+
+            shownPageNumbers.sort(function (a, b) { return a - b; });
+            return shownPageNumbers;
+        }
+        */
+    };
+    
+    var builPageList = function( numberOfPages, pageStep, pageStart ){
+
+        var pages = [];
+        
+        for ( var c = pageStart; c < numberOfPages; c += pageStep ) {
+            pages.push( pageStart + c );
+        }
+        
+        return pages;
+    };
+    
+    var buildPageListInfo = function( numberOfPages ){
+        
+        var info = {};
+        
+        info.block1OfPages = [];
+        info.block2OfPages = [];
+        info.block3OfPages = [];
+        
+        var maxNumberOfAllShownPages = pageUtils.normalizeNumber( thisOptions.maxNumberOfAllShownPages, 4, 100, 4 );
+        if ( numberOfPages < maxNumberOfAllShownPages ){
+            info.block2OfPages = builPageList( numberOfPages, 1, 1 );
+        } else {
+            info.block1OfPages = builPageList( 
+                pageUtils.normalizeNumber( thisOptions.block1NumberOfPages, 2, 100, 2 ), 
+                1, 
+                1 );
+            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 3, 100, 3 );
+            info.block2OfPages = builPageList( 
+                block2NumberOfPages, 
+                1, 
+                Math.floor( pageNumber / 2 - block2NumberOfPages / 2 ) );
+            info.block3OfPages = builPageList( 
+                pageUtils.normalizeNumber( thisOptions.block3NumberOfPages, 2, 100, 2 ),
+                1, 
+                numberOfPages - 2 );
+        }
+        
+        return info;
+    };
     
     var buildInfo = function(){
+        
+        var firstElementIndex = ( pageNumber - 1 ) * thisOptions.pageSize;
+        var numberOfPages = calculatePageCount();
+        
         return {
             pageNumber: pageNumber,
             pageSize: thisOptions.pageSize,
-            firstIndex: '',
-            lastIndex: '',
-            totalNumberOfRecords: ''
+            first: 1 + firstElementIndex,
+            last: 1 + firstElementIndex + thisOptions.pageSize,
+            totalNumberOfRecords: totalNumberOfRecords,
+            numberOfPages: numberOfPages,
+            goToPageList: builGoToPageList( numberOfPages ),
+            pageListInfo: buildPageListInfo( numberOfPages ),
+            isFirstPage: pageNumber == 1,
+            isLastPage: pageNumber == numberOfPages
         };
+    };
+    
+    var dataFromServer = function( data ){
+        totalNumberOfRecords = data.totalNumberOfRecords;
+    };
+    
+    var builGoToPageList = function( numberOfPages ){
+
+        //Skip some pages is there are too many pages
+        var pageStep = 1;
+        if ( numberOfPages > 10000 ) {
+            pageStep = 100;
+        } else if ( numberOfPages > 5000 ) {
+            pageStep = 10;
+        } else if ( numberOfPages > 2000 ) {
+            pageStep = 5;
+        } else if ( numberOfPages > 1000 ) {
+            pageStep = 2;
+        }
+        
+        var pages = [];
+        
+        for ( var c = pageStep; c <= numberOfPages; c += pageStep ) {
+            pages.push( c );
+        }
+        
+        return pages;
+    };
+    
+    var calculatePageCount = function (){
+
+        var pageCount = Math.floor( totalNumberOfRecords / thisOptions.pageSize );
+        if ( totalNumberOfRecords % thisOptions.pageSize != 0 ) {
+            ++pageCount;
+        }
+
+        return pageCount;
     };
     
     return {
         getPageSizes: getPageSizes,
         addToDataToSend: addToDataToSend,
+        dataFromServer: dataFromServer,
         buildInfo: buildInfo
     };
 };

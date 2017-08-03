@@ -4,6 +4,8 @@
 module.exports = (function() {
     "use strict";
     
+    var services = {};
+    /*
     var services = {
         '1': { name: 'Service 1' },
         '2': { name: 'Service 2' },
@@ -17,7 +19,11 @@ module.exports = (function() {
         '10': { name: 'Service 10' },
         '11': { name: 'Service 11' },
         '12': { name: 'Service 12' }
-    };
+    };*/
+    var numberOfServices = 130;
+    for ( var c = 1; c < numberOfServices; ++c ){
+        services[ c ] = { name: 'Service ' + c };
+    } 
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     
@@ -94,14 +100,19 @@ module.exports = (function() {
             allRecords.push( service );
         }
         
-        // Order them
+        // Sort them
+        // TODO Implement sorting records
         
         // Page them
-        var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
-        dataToSend.records = allRecords.slice(
-            firstElementIndex, 
-            firstElementIndex + data.pageSize);
-        dataToSend.totalNumberOfRecords = allRecords.length;   
+        if ( data.pageNumber && data.pageSize ){
+            var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
+            dataToSend.records = allRecords.slice(
+                firstElementIndex, 
+                firstElementIndex + data.pageSize ); 
+        } else {
+            dataToSend.records = allRecords;
+        }
+        dataToSend.totalNumberOfRecords = allRecords.length;
         
         return dataToSend;
     };

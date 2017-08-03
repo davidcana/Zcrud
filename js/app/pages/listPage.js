@@ -53,6 +53,14 @@ module.exports = function ( optionsToApply ) {
         return data;
     };
     
+    var dataFromServer = function( data ){
+        
+        for ( var id in components ){
+            var component = components[ id ];
+            component.dataFromServer( data );
+        }
+    };
+    
     // Main method
     var show = function ( dictionaryExtension ) {
         
@@ -71,6 +79,7 @@ module.exports = function ( optionsToApply ) {
             data: buildDataToSend(),
             success: function ( data ) {
                 data = options.ajaxPostFilter( data );
+                dataFromServer( data );
                 updateDictionary( data, dictionaryExtension );
                 buildHTMLAndJavascript();
                 buildRecords();
