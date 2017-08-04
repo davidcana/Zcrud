@@ -9,8 +9,8 @@ module.exports = function( optionsToApply ) {
     
     var options = optionsToApply;
     var thisOptions = options.paging;
+    var $pagingComponent = thisOptions.isOn? $( '#pagingComponent' ): undefined;
     var $pageSizeChangeCombobox = thisOptions.pageSizeChangeArea? $( '#' + thisOptions.pageSizeChangeComboboxId ): undefined;
-    
     var pageNumber = 1; // The current page
     var totalNumberOfRecords = undefined;
     
@@ -35,12 +35,12 @@ module.exports = function( optionsToApply ) {
         localStorage.setItem( 'page-size', options.pageSize );
     };
     
-    var addJavascriptForPageSizeChangeCombobox = function(){
+    var bindEventsToPageSizeChangeCombobox = function(){
         
-        if ( ! options.pageSizeChangeArea ) {
+        if ( ! thisOptions.pageSizeChangeArea ) {
             return;
         }
-        
+        /*
         //Select current page size
         $pageSizeChangeCombobox.val( thisOptions.pageSize );
 
@@ -49,6 +49,7 @@ module.exports = function( optionsToApply ) {
             changePageSize(
                 parseInt( $( this ).val() ) );
         });
+        */
     };
     
     var changePageSize = function( pageSize ) {
@@ -84,21 +85,12 @@ module.exports = function( optionsToApply ) {
         */
     };
     
-    var createGotoPageInput = function() {
+    var bindEventsToGoToPage = function() {
         
         if ( ! thisOptions.gotoPageArea || thisOptions.gotoPageArea == 'none' ) {
             return;
         }
         /*
-
-        //Add a span to contain goto page items
-        this._$gotoPageArea = $('<span></span>')
-            .addClass('jtable-goto-page')
-            .appendTo(self._$bottomPanel.find('.jtable-left-area'));
-
-        //Goto page label
-        this._$gotoPageArea.append('<span>' + self.options.messages.gotoPageLabel + ': </span>');
-
         //Goto page input
         if (self.options.gotoPageArea == 'combobox') {
 
@@ -141,62 +133,6 @@ module.exports = function( optionsToApply ) {
         }*/
     };
     
-    var refreshGotoPageInput = function() {
-        
-        if ( ! thisOptions.gotoPageArea || thisOptions.gotoPageArea == 'none' ) {
-            return;
-        }
-        /*
-        if (this._totalRecordCount <= 0) {
-            this._$gotoPageArea.hide();
-        } else {
-            this._$gotoPageArea.show();
-        }
-
-        if (this.options.gotoPageArea == 'combobox') {
-            var oldPageCount = this._$gotoPageInput.data('pageCount');
-            var currentPageCount = this._calculatePageCount();
-            if (oldPageCount != currentPageCount) {
-                this._$gotoPageInput.empty();
-
-                //Skip some pages is there are too many pages
-                var pageStep = 1;
-                if (currentPageCount > 10000) {
-                    pageStep = 100;
-                } else if (currentPageCount > 5000) {
-                    pageStep = 10;
-                } else if (currentPageCount > 2000) {
-                    pageStep = 5;
-                } else if (currentPageCount > 1000) {
-                    pageStep = 2;
-                }
-
-                for (var i = pageStep; i <= currentPageCount; i += pageStep) {
-                    this._$gotoPageInput.append('<option value="' + i + '">' + i + '</option>');
-                }
-
-                this._$gotoPageInput.data('pageCount', currentPageCount);
-            }
-        }
-
-        //same for 'textbox' and 'combobox'
-        this._$gotoPageInput.val(this._currentPageNo);
-        */
-    };
-    
-    var onRecordsLoaded = function (data) {
-        /*
-        if (this.options.paging) {
-            this._totalRecordCount = data.TotalRecordCount;
-            this._createPagingList();
-            this._createPagingInfo();
-            this._refreshGotoPageInput();
-        }
-
-        base._onRecordsLoaded.apply(this, arguments);
-        */
-    };
-    
     var addPagingInfoToUrl = function (url, pageNumber) {
         /*
         if (!this.options.paging) {
@@ -210,64 +146,30 @@ module.exports = function( optionsToApply ) {
         */
     };
     
-    var createPagingList = function () {
-        /*
-        if (this.options.pageSize <= 0) {
-            return;
-        }
-
-        this._$pagingListArea.empty();
-        if (this._totalRecordCount <= 0) {
-            return;
-        }
-
-        var pageCount = this._calculatePageCount();
-
-        this._createFirstAndPreviousPageButtons();
-        if (this.options.pageList == 'normal') {
-            this._createPageNumberButtons(this._calculatePageNumbers(pageCount));
-        }
-        this._createLastAndNextPageButtons(pageCount);
-        this._bindClickEventsToPageNumberButtons();
-        */
-    };
-    
-    var createPageNumberButtons = function (pageNumbers) {
-        /*
-        var previousNumber = 0;
-        for (var i = 0; i < pageNumbers.length; i++) {
-            //Create "..." between page numbers if needed
-            if ((pageNumbers[i] - previousNumber) > 1) {
-                $('<span></span>')
-                    .addClass('jtable-page-number-space')
-                    .html('...')
-                    .appendTo(this._$pagingListArea);
-            }
-
-            this._createPageNumberButton(pageNumbers[i]);
-            previousNumber = pageNumbers[i];
-        }
-        */
-    };
-    
     /* Binds click events of all page links to change the page.
     *************************************************************************/
-    var bindClickEventsToPageNumberButtons = function () {
-        /*
-        var self = this;
-        self._$pagingListArea
-            .find('.jtable-page-number,.jtable-page-number-previous,.jtable-page-number-next,.jtable-page-number-first,.jtable-page-number-last')
-            .not('.jtable-page-number-disabled')
-            .click(function (e) {
+    var bindEventsToPageNumberButtons = function () {
+        $( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
+            .not( '.zcrud-page-number-disabled' )
+            .click( function ( e ) {
                 e.preventDefault();
-                self._changePage($(this).data('pageNumber'));
+                changePage( $( this ).data( 'page') );
             });
-            */
+        /*
+        $pagingComponent
+            //.find( '.zcrud-page-number' )
+            .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
+            .not( '.zcrud-page-number-disabled' )
+            .click( function ( e ) {
+                e.preventDefault();
+                changePage( $( this ).data( 'pageNumber') );
+            });*/
     };
     
     /* Changes current page to given value.
     *************************************************************************/
-    var changePage = function (pageNo) {
+    var changePage = function ( newPageNumber ) {
+        alert( 'changePage: ' + newPageNumber );
         /*
         pageNo = this._normalizeNumber(pageNo, 1, this._calculatePageCount(), 1);
         if (pageNo == this._currentPageNo) {
@@ -280,6 +182,12 @@ module.exports = function( optionsToApply ) {
         */
     };
     
+    var bindEvents = function(){
+        bindEventsToPageNumberButtons();
+        bindEventsToGoToPage();
+        bindEventsToPageSizeChangeCombobox();
+    };
+    
     var getPageSizes = function(){
         return thisOptions.pageSizes;
     };
@@ -288,40 +196,12 @@ module.exports = function( optionsToApply ) {
         dataToSend.pageNumber = pageNumber;
         dataToSend.pageSize = thisOptions.pageSize;
     };
-
-    /* Calculates page numbers and returns an array of these numbers.
-    *************************************************************************/
-    var calculatePageNumbers = function (pageCount) {
-        /*
-        if (pageCount <= 4) {
-            //Show all pages
-            var pageNumbers = [];
-            for (var i = 1; i <= pageCount; ++i) {
-                pageNumbers.push(i);
-            }
-
-            return pageNumbers;
-        } else {
-            //show first three, last three, current, previous and next page numbers
-            var shownPageNumbers = [1, 2, pageCount - 1, pageCount];
-            var previousPageNo = this._normalizeNumber(this._currentPageNo - 1, 1, pageCount, 1);
-            var nextPageNo = this._normalizeNumber(this._currentPageNo + 1, 1, pageCount, 1);
-
-            this._insertToArrayIfDoesNotExists(shownPageNumbers, previousPageNo);
-            this._insertToArrayIfDoesNotExists(shownPageNumbers, this._currentPageNo);
-            this._insertToArrayIfDoesNotExists(shownPageNumbers, nextPageNo);
-
-            shownPageNumbers.sort(function (a, b) { return a - b; });
-            return shownPageNumbers;
-        }
-        */
-    };
     
     var builPageList = function( numberOfPages, pageStep, pageStart ){
 
         var pages = [];
         
-        for ( var c = pageStart; c < numberOfPages; c += pageStep ) {
+        for ( var c = 0; c < ( numberOfPages * pageStep ); c += pageStep ) {
             pages.push( pageStart + c );
         }
         
@@ -337,22 +217,52 @@ module.exports = function( optionsToApply ) {
         info.block3OfPages = [];
         
         var maxNumberOfAllShownPages = pageUtils.normalizeNumber( thisOptions.maxNumberOfAllShownPages, 4, 100, 4 );
+        
+        // Show all pages
         if ( numberOfPages < maxNumberOfAllShownPages ){
-            info.block2OfPages = builPageList( numberOfPages, 1, 1 );
-        } else {
+            info.block1OfPages = builPageList( numberOfPages, 1, 1 );
+        
+        // At first pages            
+        } else if ( pageNumber < maxNumberOfAllShownPages ){
+            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 5, 100, 5 );
+            info.block2OfPages = builPageList( 
+                block2NumberOfPages, 
+                1, 
+                1);
+            var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.pagesOfLastBlock, 2, 100, 2 );
+            info.block3OfPages = builPageList( 
+                block3NumberOfPages,
+                1, 
+                numberOfPages - block3NumberOfPages + 1 );
+            
+        // At last pages
+        } else if ( pageNumber > ( numberOfPages - maxNumberOfAllShownPages ) ){
             info.block1OfPages = builPageList( 
-                pageUtils.normalizeNumber( thisOptions.block1NumberOfPages, 2, 100, 2 ), 
+                pageUtils.normalizeNumber( thisOptions.pagesOfFirstBlock, 2, 100, 2 ), 
                 1, 
                 1 );
             var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 3, 100, 3 );
             info.block2OfPages = builPageList( 
                 block2NumberOfPages, 
                 1, 
-                Math.floor( pageNumber / 2 - block2NumberOfPages / 2 ) );
-            info.block3OfPages = builPageList( 
-                pageUtils.normalizeNumber( thisOptions.block3NumberOfPages, 2, 100, 2 ),
+                numberOfPages - block2NumberOfPages + 1 );
+            
+        // Intermediate
+        } else {
+            info.block1OfPages = builPageList( 
+                pageUtils.normalizeNumber( thisOptions.pagesOfFirstBlock, 2, 100, 2 ), 
                 1, 
-                numberOfPages - 2 );
+                1 );
+            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 3, 100, 3 );
+            info.block2OfPages = builPageList( 
+                block2NumberOfPages, 
+                1, 
+                Math.floor( numberOfPages / 2 - block2NumberOfPages / 2 ) );
+            var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.pagesOfLastBlock, 2, 100, 2 );
+            info.block3OfPages = builPageList( 
+                block3NumberOfPages,
+                1, 
+                numberOfPages - block3NumberOfPages + 1 );
         }
         
         return info;
@@ -418,6 +328,7 @@ module.exports = function( optionsToApply ) {
         getPageSizes: getPageSizes,
         addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
-        buildInfo: buildInfo
+        buildInfo: buildInfo,
+        bindEvents: bindEvents
     };
 };

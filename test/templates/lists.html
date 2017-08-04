@@ -70,21 +70,48 @@
         <div data-mdefine-macro="bottomPanel" 
              class="zcrud-bottom-panel"
              data-tdefine="component options/paging/component;
-                           pagingInfo component/buildInfo()">
+                           pagingInfo component/buildInfo();
+                           currentPageNumber pagingInfo/pageNumber;
+                           pageListInfo pagingInfo/pageListInfo;
+                           block1OfPages pageListInfo/block1OfPages;
+                           block2OfPages pageListInfo/block2OfPages;
+                           block3OfPages pageListInfo/block3OfPages;
+                           firstSuffix cond: pagingInfo/isFirstPage ' zcrud-page-number-disabled' '';
+                           lastSuffix cond: pagingInfo/isLastPage ' zcrud-page-number-disabled' ''"
+             data-tattributes="id 'pagingComponent'">
             <div class="zcrud-left-area">
                 <span class="zcrud-page-list">
-                    <span class="zcrud-page-number-first">&lt;&lt;</span>
-                    <span class="zcrud-page-number-previous">&lt;</span>
-                    <span class="zcrud-page-number zcrud-page-number-active zcrud-page-number-disabled">1</span>
-                    <span class="zcrud-page-number">2</span>
-                    <span class="zcrud-page-number-space">...</span>
-                    <span class="zcrud-page-number">5</span>
-                    <span class="zcrud-page-number">6</span>
-                    <span class="zcrud-page-number-space">...</span>
-                    <span class="zcrud-page-number">7</span>
-                    <span class="zcrud-page-number">8</span>
-                    <span class="zcrud-page-number-next zcrud-page-number-disabled">&gt;</span>
-                    <span class="zcrud-page-number-last zcrud-page-number-disabled">&gt;&gt;</span>
+                    <span data-tattributes="class string:zcrud-page-number-first${firstSuffix}"
+                          data-page="1">&lt;&lt;</span>
+                    <span data-tattributes="class string:zcrud-page-number-previous${firstSuffix};
+                                            data-page (-: currentPageNumber 1)">&lt;</span>
+                    <span data-trepeat="pageNumber block1OfPages" 
+                          data-tdefine="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
+                          data-tattributes="class string:zcrud-page-number${suffix};
+                                            data-page pageNumber"
+                          data-tcontent="pageNumber">
+                          1
+                    </span>
+                    <span class="zcrud-page-number-space" data-tcondition="lt: 0 block1OfPages/length">...</span>
+                    <span data-trepeat="pageNumber block2OfPages" 
+                          data-tdefine="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
+                          data-tattributes="class string:zcrud-page-number${suffix};
+                                            data-page pageNumber"
+                          data-tcontent="pageNumber">
+                          10
+                    </span>
+                    <span class="zcrud-page-number-space" data-tcondition="lt: 0 block2OfPages/length">...</span>
+                    <span data-trepeat="pageNumber block3OfPages" 
+                          data-tdefine="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
+                          data-tattributes="class string:zcrud-page-number${suffix};
+                                            data-page pageNumber"
+                          data-tcontent="pageNumber">
+                          25
+                    </span>
+                    <span data-tattributes="class string:zcrud-page-number-next${lastSuffix};
+                                            data-page (+: currentPageNumber 1)">&gt;</span>
+                    <span data-tattributes="class string:zcrud-page-number-last${lastSuffix};
+                                            data-page pagingInfo/numberOfPages">&gt;&gt;</span>
                 </span>
                 <span class="zcrud-goto-page">
                     <span>Go to page: </span>
@@ -112,6 +139,5 @@
                 </span>
             </div>
         </div>
-        
     </body>
 </html>

@@ -118,12 +118,13 @@ module.exports = function ( optionsToApply ) {
             //root: options.target[0],
             root: options.body,
             dictionary: dictionary,
-            callback: addButtonsEvents
+            callback: bindEvents
         });
     };
     
-    var addButtonsEvents = function() {
+    var bindEvents = function() {
 
+        // Add events of create, edit and delete buttons
         var createButtons = $( '.zcrud-new-command-button' )
             .click(function ( event ) {
                 event.preventDefault();
@@ -142,6 +143,12 @@ module.exports = function ( optionsToApply ) {
                 event.stopPropagation();
                 showDeleteForm( event );
             });
+        
+        // Add events of components
+        for ( var id in components ){
+            var component = components[ id ];
+            component.bindEvents();
+        }
     };
     
     var showCreateForm = function( event ){
