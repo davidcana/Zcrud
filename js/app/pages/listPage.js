@@ -12,6 +12,7 @@ module.exports = function ( optionsToApply ) {
     var zpt = require( 'zpt' );
     
     var options = optionsToApply;
+    
     var dictionary = undefined;
     var records = {};
     

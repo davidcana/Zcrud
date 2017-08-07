@@ -4,15 +4,21 @@
 module.exports = function( optionsToApply ) {
     "use strict";
     
+    var context = require( '../context.js' );
     var pageUtils = require( './pageUtils.js' );
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
+    
     var thisOptions = options.paging;
-    var $pagingComponent = thisOptions.isOn? $( '#pagingComponent' ): undefined;
-    var $pageSizeChangeCombobox = thisOptions.pageSizeChangeArea? $( '#' + thisOptions.pageSizeChangeComboboxId ): undefined;
     var pageNumber = 1; // The current page
     var totalNumberOfRecords = undefined;
+    var pageSize = parseInt( thisOptions.defaultPageSize );
+    var pageSizeLocalStorageId = 'page-size';
+    
+    var loadSettings = function(){
+        loadPagingSettings();
+    };
     
     var loadPagingSettings = function(){
 
@@ -20,9 +26,9 @@ module.exports = function( optionsToApply ) {
             return;
         }
         
-        var pageSize = localStorage.getItem( 'page-size' );
-        if ( pageSize ) {
-            thisOptions.pageSize = pageUtils.normalizeNumber( pageSize, 1, 1000000, thisOptions.pageSize );
+        var localStoragePageSize = localStorage.getItem( pageSizeLocalStorageId );
+        if ( localStoragePageSize ) {
+            pageSize = pageUtils.normalizeNumber( localStoragePageSize, 1, 1000000, thisOptions.defaultPageSize );
         }
     };
     
@@ -32,7 +38,7 @@ module.exports = function( optionsToApply ) {
             return;
         }
 
-        localStorage.setItem( 'page-size', options.pageSize );
+        localStorage.setItem( pageSizeLocalStorageId, pageSize );
     };
     
     var bindEventsToPageSizeChangeCombobox = function(){
@@ -40,35 +46,48 @@ module.exports = function( optionsToApply ) {
         if ( ! thisOptions.pageSizeChangeArea ) {
             return;
         }
-        /*
-        //Select current page size
-        $pageSizeChangeCombobox.val( thisOptions.pageSize );
 
-        //Change page size on combobox change
-        $pageSizeChangeCombobox.change( function() {
+        // Change page size on combobox change
+        $( '#' + thisOptions.pageSizeChangeComboboxId ).change( function() {
             changePageSize(
                 parseInt( $( this ).val() ) );
         });
-        */
     };
     
-    var changePageSize = function( pageSize ) {
+    /* Changes current page to given value.
+    *************************************************************************/
+    var changePage = function ( newPageNumber ) {
         
-        if ( pageSize == thisOptions.pageSize ) {
+        newPageNumber = pageUtils.normalizeNumber( newPageNumber, 1, calculatePageCount(), 1 );
+        if ( newPageNumber == pageNumber ) {
             return;
         }
 
-        thisOptions.pageSize = pageSize;
-        /*
-        //Normalize current page
-        var pageCount = this._calculatePageCount();
-        if (this._currentPageNo > pageCount) {
-            this._currentPageNo = pageCount;
+        pageNumber = parseInt( newPageNumber );
+        //alert( 'changePage: ' + pageNumber );
+        
+        context.getMainPage().show();
+    };
+    
+    var changePageSize = function( newPageSize ) {
+        
+        // If newPageSize is not in pageSizes return
+        if ( -1 == thisOptions.pageSizes.indexOf( newPageSize ) ){
+            return;
         }
-        if (this._currentPageNo <= 0) {
-            this._currentPageNo = 1;
+        
+        if ( newPageSize == pageSize ) {
+            return;
         }
 
+        pageSize = parseInt( newPageSize );
+        pageNumber = 1;
+        //alert( 'changePageSize:' + pageSize );
+        
+        savePagingSettings();
+        context.getMainPage().show();
+        
+        /*
         //if user sets one of the options on the combobox, then select it.
         var $pageSizeChangeCombobox = this._$bottomPanel.find('.jtable-page-size-change select');
         if ($pageSizeChangeCombobox.length > 0) {
@@ -79,9 +98,6 @@ module.exports = function( optionsToApply ) {
                 }
             }
         }
-
-        this._savePagingSettings();
-        this._reloadTable();
         */
     };
     
@@ -90,20 +106,17 @@ module.exports = function( optionsToApply ) {
         if ( ! thisOptions.gotoPageArea || thisOptions.gotoPageArea == 'none' ) {
             return;
         }
-        /*
-        //Goto page input
-        if (self.options.gotoPageArea == 'combobox') {
-
-            self._$gotoPageInput = $('<select></select>')
-                .appendTo(this._$gotoPageArea)
-                .data('pageCount', 1)
-                .change(function() {
-                    self._changePage(parseInt($(this).val()));
-                });
-            self._$gotoPageInput.append('<option value="1">1</option>');
+        
+        // Goto page input
+        if ( thisOptions.gotoPageArea == 'combobox' ) {
+            $( '#' + thisOptions.goToPageComboboxId ).change( function() {
+                changePage(
+                    parseInt( $( this ).val() ) );
+            });
 
         } else { //textbox
-
+            
+            /*
             self._$gotoPageInput = $('<input type="text" maxlength="10" value="' + self._currentPageNo + '" />')
                 .appendTo(this._$gotoPageArea)
                 .keypress(function(event) {
@@ -128,58 +141,22 @@ module.exports = function( optionsToApply ) {
                             event.preventDefault();
                         }
                     }
-                });
+                });*/
 
-        }*/
-    };
-    
-    var addPagingInfoToUrl = function (url, pageNumber) {
-        /*
-        if (!this.options.paging) {
-            return url;
         }
-
-        var jtStartIndex = (pageNumber - 1) * this.options.pageSize;
-        var jtPageSize = this.options.pageSize;
-
-        return (url + (url.indexOf('?') < 0 ? '?' : '&') + 'jtStartIndex=' + jtStartIndex + '&jtPageSize=' + jtPageSize);
-        */
     };
     
     /* Binds click events of all page links to change the page.
     *************************************************************************/
     var bindEventsToPageNumberButtons = function () {
-        $( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
+        
+        $( '#' + thisOptions.pagingComponentId )
+            .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
             .not( '.zcrud-page-number-disabled' )
             .click( function ( e ) {
                 e.preventDefault();
                 changePage( $( this ).data( 'page') );
             });
-        /*
-        $pagingComponent
-            //.find( '.zcrud-page-number' )
-            .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
-            .not( '.zcrud-page-number-disabled' )
-            .click( function ( e ) {
-                e.preventDefault();
-                changePage( $( this ).data( 'pageNumber') );
-            });*/
-    };
-    
-    /* Changes current page to given value.
-    *************************************************************************/
-    var changePage = function ( newPageNumber ) {
-        alert( 'changePage: ' + newPageNumber );
-        /*
-        pageNo = this._normalizeNumber(pageNo, 1, this._calculatePageCount(), 1);
-        if (pageNo == this._currentPageNo) {
-            this._refreshGotoPageInput();
-            return;
-        }
-
-        this._currentPageNo = pageNo;
-        this._reloadTable();
-        */
     };
     
     var bindEvents = function(){
@@ -193,8 +170,8 @@ module.exports = function( optionsToApply ) {
     };
     
     var addToDataToSend = function( dataToSend ){
-        dataToSend.pageNumber = pageNumber;
-        dataToSend.pageSize = thisOptions.pageSize;
+        dataToSend.pageNumber = parseInt( pageNumber);
+        dataToSend.pageSize = parseInt( pageSize );
     };
     
     var builPageList = function( numberOfPages, pageStep, pageStart ){
@@ -236,7 +213,7 @@ module.exports = function( optionsToApply ) {
                 numberOfPages - block3NumberOfPages + 1 );
             
         // At last pages
-        } else if ( pageNumber > ( numberOfPages - maxNumberOfAllShownPages ) ){
+        } else if ( pageNumber > ( 1 + numberOfPages - maxNumberOfAllShownPages ) ){
             info.block1OfPages = builPageList( 
                 pageUtils.normalizeNumber( thisOptions.pagesOfFirstBlock, 2, 100, 2 ), 
                 1, 
@@ -257,7 +234,7 @@ module.exports = function( optionsToApply ) {
             info.block2OfPages = builPageList( 
                 block2NumberOfPages, 
                 1, 
-                Math.floor( numberOfPages / 2 - block2NumberOfPages / 2 ) );
+                Math.floor( pageNumber - block2NumberOfPages / 2 + 1 ) );
             var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.pagesOfLastBlock, 2, 100, 2 );
             info.block3OfPages = builPageList( 
                 block3NumberOfPages,
@@ -270,14 +247,14 @@ module.exports = function( optionsToApply ) {
     
     var buildInfo = function(){
         
-        var firstElementIndex = ( pageNumber - 1 ) * thisOptions.pageSize;
+        var firstElementIndex = ( pageNumber - 1 ) * pageSize;
         var numberOfPages = calculatePageCount();
         
         return {
             pageNumber: pageNumber,
-            pageSize: thisOptions.pageSize,
+            pageSize: pageSize,
             first: 1 + firstElementIndex,
-            last: 1 + firstElementIndex + thisOptions.pageSize,
+            last: 1 + firstElementIndex + pageSize,
             totalNumberOfRecords: totalNumberOfRecords,
             numberOfPages: numberOfPages,
             goToPageList: builGoToPageList( numberOfPages ),
@@ -316,19 +293,31 @@ module.exports = function( optionsToApply ) {
     
     var calculatePageCount = function (){
 
-        var pageCount = Math.floor( totalNumberOfRecords / thisOptions.pageSize );
-        if ( totalNumberOfRecords % thisOptions.pageSize != 0 ) {
+        var pageCount = Math.floor( totalNumberOfRecords / pageSize );
+        if ( totalNumberOfRecords % pageSize != 0 ) {
             ++pageCount;
         }
 
         return pageCount;
     };
+
+    var getPageSize = function(){
+        return pageSize;
+    };
+    
+    var getThisOptions = function(){
+        return thisOptions;
+    };
+        
+    loadSettings();
     
     return {
         getPageSizes: getPageSizes,
         addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
         buildInfo: buildInfo,
-        bindEvents: bindEvents
+        bindEvents: bindEvents,
+        getPageSize: getPageSize,
+        getThisOptions: getThisOptions
     };
 };
