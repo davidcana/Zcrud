@@ -30,6 +30,8 @@ exports.run = function( userOptions ){
         
         // Forms
         entityId: 'entity',
+        listId: 'zcrud-list',
+        listTbodyId: 'zcrud-list-tbody',
         formId: 'zcrud-form',
         
         //Events
@@ -201,7 +203,7 @@ exports.run = function( userOptions ){
     
     // Create and show list page
     var listPage =  new ListPage( options );
-    listPage.show();
+    listPage.show( true );
 };
 
 /* I18n and i18nHelp classes */

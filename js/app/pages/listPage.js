@@ -22,6 +22,8 @@ module.exports = function ( optionsToApply ) {
     //
     var configure = function(){
         options.currentList = {};
+        options.currentList.id = options.listId;
+        options.currentList.tbodyId = options.listTbodyId;
         options.currentList.fields = buildFields();
         
         pagingComponent = options.paging.isOn? new PagingComponent( options ): undefined;
@@ -63,9 +65,12 @@ module.exports = function ( optionsToApply ) {
     };
     
     // Main method
-    var show = function ( dictionaryExtension, root ) {
+    var show = function ( showBusy, dictionaryExtension, root ) {
         
-        context.showBusy( options );
+        if ( showBusy ){
+            context.showBusy( options );
+        }
+        
         context.setMainPage( this );
         
         //Generate URL (with query string parameters) to load records
@@ -113,7 +118,9 @@ module.exports = function ( optionsToApply ) {
     //
     var buildHTMLAndJavascript = function( root ){
         
-        pageUtils.configureTemplate( options, options.listTemplate );
+        if ( ! root ){
+            pageUtils.configureTemplate( options, options.listTemplate );
+        }
         
         zpt.run({
             //root: options.target[0],

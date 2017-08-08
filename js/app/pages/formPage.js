@@ -269,11 +269,13 @@ module.exports = function ( optionsToApply, type ) {
                     default:
                         throw 'Unknown command in submitCreateAndUpdateForms: ' + command;
                 }
-                context.getMainPage().show({
+                context.getMainPage().show(
+                    true,
+                    {
                         status: {
                             message: successMessage,
                             date: new Date().toLocaleString()
-                        }
+                    }
                 });
             },
             error      : function ( data ) {
@@ -321,7 +323,9 @@ module.exports = function ( optionsToApply, type ) {
             success    : function ( data ) {
                 data = options.ajaxPostFilter( data );
                 options.events.recordDeleted( event, options, key );
-                context.getMainPage().show({
+                context.getMainPage().show(
+                    true,
+                    {
                         status: {
                             message: successMessage,
                             date: new Date().toLocaleString()
@@ -343,7 +347,7 @@ module.exports = function ( optionsToApply, type ) {
     var cancelForm = function( event ){
         //alert( 'cancelForm' );
         options.events.formClosed( event, options );
-        context.getMainPage().show();
+        context.getMainPage().show( false );
     };
     
     configure();

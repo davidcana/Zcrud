@@ -8,7 +8,7 @@
         <div data-mdefine-macro="listDefaultTemplate" 
              class="zcrud-main-container" 
              style="display: none"
-             data-tattributes="id string:${options/entityId}-list">
+             data-tattributes="id options/currentList/id">
             
             <div class="zcrud-header">
                 <span class="zcrud-title"
@@ -43,7 +43,7 @@
                         <th class="zcrud-command-column-header"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody data-tattributes="id options/currentList/tbodyId">
                     <tr data-trepeat="record records"
                         data-tattributes="data-record-key record[ options/key ]">
                         <td data-trepeat="field options/currentList/fields"

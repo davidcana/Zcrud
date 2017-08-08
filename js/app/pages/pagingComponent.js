@@ -15,6 +15,7 @@ module.exports = function( optionsToApply ) {
     var totalNumberOfRecords = undefined;
     var pageSize = parseInt( thisOptions.defaultPageSize );
     var pageSizeLocalStorageId = 'page-size';
+    var thisPageSize = undefined;
     
     var loadSettings = function(){
         loadPagingSettings();
@@ -54,6 +55,18 @@ module.exports = function( optionsToApply ) {
         });
     };
     
+    var updateList = function(){
+
+        context.getMainPage().show( 
+            true,
+            undefined, 
+            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + thisOptions.pagingComponentId )[0] ] );
+        /*
+        context.getMainPage().show( 
+            undefined, 
+            [ $( '.zcrud-main-container tbody' )[0], $( '.zcrud-main-container .zcrud-bottom-panel' )[0] ] );*/
+    };
+    
     /* Changes current page to given value.
     *************************************************************************/
     var changePage = function ( newPageNumber ) {
@@ -66,7 +79,7 @@ module.exports = function( optionsToApply ) {
         pageNumber = parseInt( newPageNumber );
         //alert( 'changePage: ' + pageNumber );
         
-        context.getMainPage().show();
+        updateList();
     };
     
     var changePageSize = function( newPageSize ) {
@@ -85,7 +98,7 @@ module.exports = function( optionsToApply ) {
         //alert( 'changePageSize:' + pageSize );
         
         savePagingSettings();
-        context.getMainPage().show();
+        updateList();
         
         /*
         //if user sets one of the options on the combobox, then select it.
@@ -296,7 +309,7 @@ module.exports = function( optionsToApply ) {
             pageNumber: pageNumber,
             pageSize: pageSize,
             first: 1 + firstElementIndex,
-            last: 1 + firstElementIndex + pageSize,
+            last: 1 + firstElementIndex + thisPageSize - 1,
             totalNumberOfRecords: totalNumberOfRecords,
             numberOfPages: numberOfPages,
             goToPageList: builGoToPageList( numberOfPages ),
@@ -308,6 +321,7 @@ module.exports = function( optionsToApply ) {
     
     var dataFromServer = function( data ){
         totalNumberOfRecords = data.totalNumberOfRecords;
+        thisPageSize = data.records.length;
     };
     
     var builGoToPageList = function( numberOfPages ){
