@@ -58,7 +58,7 @@ module.exports = function( optionsToApply ) {
     var updateList = function(){
 
         context.getMainPage().show( 
-            true,
+            false,
             undefined, 
             [ $( '#' + options.currentList.tbodyId )[0], $( '#' + thisOptions.pagingComponentId )[0] ] );
         /*
