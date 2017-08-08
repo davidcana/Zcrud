@@ -63,7 +63,7 @@ module.exports = function ( optionsToApply ) {
     };
     
     // Main method
-    var show = function ( dictionaryExtension ) {
+    var show = function ( dictionaryExtension, root ) {
         
         context.showBusy( options );
         context.setMainPage( this );
@@ -82,7 +82,7 @@ module.exports = function ( optionsToApply ) {
                 data = options.ajaxPostFilter( data );
                 dataFromServer( data );
                 updateDictionary( data, dictionaryExtension );
-                buildHTMLAndJavascript();
+                buildHTMLAndJavascript( root );
                 buildRecords();
             },
             error: function ( data ) {
@@ -111,13 +111,13 @@ module.exports = function ( optionsToApply ) {
     };
     
     //
-    var buildHTMLAndJavascript = function(){
+    var buildHTMLAndJavascript = function( root ){
         
         pageUtils.configureTemplate( options, options.listTemplate );
         
         zpt.run({
             //root: options.target[0],
-            root: options.body,
+            root: root || options.body,
             dictionary: dictionary,
             callback: bindEvents
         });
