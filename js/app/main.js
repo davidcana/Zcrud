@@ -123,9 +123,9 @@ exports.run = function( userOptions ){
             pageSizeChangeComboboxId: 'zcrud-pageSizeChange',
             gotoPageArea: 'combobox', //possible values: 'textbox', 'combobox', 'none'
             maxNumberOfAllShownPages: 5,
-            block1NumberOfPages: 2,
+            block1NumberOfPages: 1,
             block2NumberOfPages: 5,
-            block3NumberOfPages: 2
+            block3NumberOfPages: 1
         }
     };
     

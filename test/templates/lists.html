@@ -93,7 +93,7 @@
                           data-tcontent="pageNumber">
                           1
                     </span>
-                    <span class="zcrud-page-number-space" data-tcondition="lt: 0 block1OfPages/length">...</span>
+                    <span class="zcrud-page-number-space" data-tcondition="lt: 0 block2OfPages/length">...</span>
                     <span data-trepeat="pageNumber block2OfPages" 
                           data-tdefine="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
                           data-tattributes="class string:zcrud-page-number${suffix};
@@ -117,10 +117,10 @@
                 <span class="zcrud-goto-page">
                     <span>Go to page: </span>
                     <select data-tdefine="goToPageList pagingInfo/goToPageList;
-                                          firstPageInList goToPageList[0]"
+                                          currentPageNumber pagingInfo/pageNumber"
                             data-tattributes="id thisOptions/goToPageComboboxId">
                         <option data-trepeat="pageNumber goToPageList"
-                                data-tattributes="value pageNumber; selected cond: (eq: pageNumber firstPageInList) 'selected' null"
+                                data-tattributes="value pageNumber; selected cond: (eq: pageNumber currentPageNumber) 'selected' null"
                                 data-tcontent="pageNumber"
                                 label="label"></option>
                     </select>

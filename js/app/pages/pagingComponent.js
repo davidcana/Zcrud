@@ -89,7 +89,7 @@ module.exports = function( optionsToApply ) {
         
         /*
         //if user sets one of the options on the combobox, then select it.
-        var $pageSizeChangeCombobox = this._$bottomPanel.find('.jtable-page-size-change select');
+        var $pageSizeChangeCombobox = this._$bottomPanel.find('.zcrud-page-size-change select');
         if ($pageSizeChangeCombobox.length > 0) {
             if (parseInt($pageSizeChangeCombobox.val()) != pageSize) {
                 var selectedOption = $pageSizeChangeCombobox.find('option[value=' + pageSize + ']');
@@ -201,12 +201,12 @@ module.exports = function( optionsToApply ) {
         
         // At first pages            
         } else if ( pageNumber < maxNumberOfAllShownPages ){
-            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 5, 100, 5 );
+            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 2, 100, 5 );
             info.block2OfPages = builPageList( 
                 block2NumberOfPages, 
                 1, 
                 1);
-            var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.pagesOfLastBlock, 2, 100, 2 );
+            var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.block3NumberOfPages, 0, 100, 2 );
             info.block3OfPages = builPageList( 
                 block3NumberOfPages,
                 1, 
@@ -215,10 +215,10 @@ module.exports = function( optionsToApply ) {
         // At last pages
         } else if ( pageNumber > ( 1 + numberOfPages - maxNumberOfAllShownPages ) ){
             info.block1OfPages = builPageList( 
-                pageUtils.normalizeNumber( thisOptions.pagesOfFirstBlock, 2, 100, 2 ), 
+                pageUtils.normalizeNumber( thisOptions.block1NumberOfPages, 0, 100, 2 ), 
                 1, 
                 1 );
-            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 3, 100, 3 );
+            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 2, 100, 3 );
             info.block2OfPages = builPageList( 
                 block2NumberOfPages, 
                 1, 
@@ -227,7 +227,7 @@ module.exports = function( optionsToApply ) {
         // Intermediate
         } else {
             info.block1OfPages = builPageList( 
-                pageUtils.normalizeNumber( thisOptions.pagesOfFirstBlock, 2, 100, 2 ), 
+                pageUtils.normalizeNumber( thisOptions.block1NumberOfPages, 0, 100, 2 ), 
                 1, 
                 1 );
             var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 3, 100, 3 );
@@ -235,14 +235,56 @@ module.exports = function( optionsToApply ) {
                 block2NumberOfPages, 
                 1, 
                 Math.floor( pageNumber - block2NumberOfPages / 2 + 1 ) );
-            var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.pagesOfLastBlock, 2, 100, 2 );
+            var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.block3NumberOfPages, 0, 100, 2 );
             info.block3OfPages = builPageList( 
                 block3NumberOfPages,
                 1, 
                 numberOfPages - block3NumberOfPages + 1 );
         }
         
+        mixBlocksOfPages( info );
+        
         return info;
+    };
+    
+    var mixBlocksOfPages = function( info ){
+        
+        // Mix block 2 and block 3
+        var mix = mix2BlocksOfPages( info.block2OfPages, info.block3OfPages );
+        if ( mix ){
+            info.block2OfPages = mix;
+            info.block3OfPages = [];
+        }
+        
+        // Mix block 1 and block 2
+        mix = mix2BlocksOfPages( info.block1OfPages, info.block2OfPages );
+        if ( mix ){
+            info.block1OfPages = mix;
+            info.block2OfPages = [];
+        }
+    };
+    
+    var mix2BlocksOfPages = function( block1, block2 ){
+        
+        // Return block2 if block1 is empty
+        if ( block1.length == 0 ){
+            return block2;
+        }
+        
+        // Check blocks are not contigous
+        if ( 1 + block1[ block1.length - 1 ] < block2[ 0 ] ){
+            return undefined;
+        }
+        
+        // Check blocks are contigous: concat them
+        if ( 1 + block1[ block1.length - 1 ] == block2[ 0 ] ){
+            return block1.concat( block2 );
+        }
+
+        // Blocks overlap: mix them
+        return block1.concat( block2.filter( function ( item ) {
+            return block1.indexOf( item ) < 0;
+        }));
     };
     
     var buildInfo = function(){
