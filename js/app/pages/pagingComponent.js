@@ -129,7 +129,7 @@ module.exports = function( optionsToApply ) {
             });
 
         } else { //textbox
-            
+            // TODO Implement this
             /*
             self._$gotoPageInput = $('<input type="text" maxlength="10" value="' + self._currentPageNo + '" />')
                 .appendTo(this._$gotoPageArea)

@@ -82,7 +82,7 @@ zcrud.run({
         },
         province: {
             title: 'Province',
-            description: 'The province of the department',
+            description: 'The province of the department!',
             list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
@@ -90,7 +90,7 @@ zcrud.run({
         },
         city: {
             title: 'City',
-            description: 'The city of the department',
+            description: 'The city of the department!',
             list: false,
             type: 'select',
             dependsOn: 'province',
@@ -113,14 +113,14 @@ zcrud.run({
         },
         browser: {
             title: 'Browser',
-            description: 'The prefered browser of the department',
+            description: 'The prefered browser of the department!',
             list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
             title: 'Important',
-            description: 'Is important?',
+            description: 'Is important???',
             list: false,
             type: 'checkbox'
         }

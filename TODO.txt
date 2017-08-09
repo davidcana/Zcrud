@@ -8,8 +8,8 @@ zCrud 0.1.0
 * Expose some events: formClosed, formCreated, formSubmitting, recordAdded, recordDeleted and recordUpdated. To enable custom validation with forms use formSubmitting event. (done!)
 * Integrate with jQuery Form Validator. (done!)
 * Verify that HTML is correct. (done!)
+* Support of server side paging using AJAX. (done!)
 
-
-* Support of server side paging using AJAX.
 * Full I18n and L10n support.
 * Support of server side sorting using AJAX.
+* Support of server side filtering using AJAX.

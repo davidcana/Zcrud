@@ -1,0 +1,17 @@
+{
+    "/CONF/": {
+        "language": "en",
+        "locale": "en-US"
+    },
+    
+    "_list": "",
+    "Status:": "Status:",
+    "Go to page:": "Go to page:",
+    "Row count:": "Row count:",
+    "pagingMessage": "Showing #-# of #",
+    
+    "_form": "",
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "Delete": "Delete"
+}

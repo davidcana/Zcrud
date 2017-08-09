@@ -1,0 +1,31 @@
+{
+    "/CONF/": {
+        "language": "en",
+        "locale": "en-US"
+    },
+    
+    "_fields": "",
+    "id_title": "Id",
+    "id_description": "The unique id of the department",
+    "name_title": "Name",
+    "name_description": "The name of the department",
+    "description_title": "Description",
+    "description_description": "The description of the department",
+    "date_title": "Date",
+    "date_description": "The date of the department",
+    "time_title": "Time",
+    "time_description": "The time of the department",
+    "datetime_title": "Datetime",
+    "datetime_description": "The datetime of the department",
+    "phoneType_title": "Phone type",
+    "phoneType_description": "The phone type of the department",
+    "province_title": "Province",
+    "province_description": "The province of the department",
+    "city_title": "City",
+    "city_description": "The city of the department",
+    "browser_title": "Browser",
+    "browser_description": "The prefered browser of the department",
+    "important_title": "Important",
+    "important_description": "Is important?"
+    
+}

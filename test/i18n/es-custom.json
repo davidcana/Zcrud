@@ -1,0 +1,31 @@
+{
+    "/CONF/": {
+        "language": "es",
+        "locale": "es-ES"
+    },
+    
+    "_fields": "",
+    "id_title": "Id",
+    "id_description": "El identificador del departamento",
+    "name_title": "Nombre",
+    "name_description": "El nombre del departamento",
+    "description_title": "Descripción",
+    "description_description": "La descripción del departamento",
+    "date_title": "Fecha",
+    "date_description": "La fecha del departamento",
+    "time_title": "Hora",
+    "time_description": "La hora del departamento",
+    "datetime_title": "Fecha/hora",
+    "datetime_description": "La fecha/hora del departamento",
+    "phoneType_title": "Tipo de teléfono",
+    "phoneType_description": "El tipo de teléfono del departamento",
+    "province_title": "Provincia",
+    "province_description": "La provincia del departamento",
+    "city_title": "Ciudad",
+    "city_description": "La ciudad del departamento",
+    "browser_title": "Navegador",
+    "browser_description": "El navegador preferido del departamento",
+    "important_title": "Importante",
+    "important_description": "¿Es importante?"
+    
+}
