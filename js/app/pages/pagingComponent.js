@@ -1,5 +1,5 @@
 /* 
-    pagingComponent singleton class
+    pagingComponent class
 */
 module.exports = function( optionsToApply ) {
     "use strict";
@@ -49,34 +49,33 @@ module.exports = function( optionsToApply ) {
         }
 
         // Change page size on combobox change
-        $( '#' + thisOptions.pageSizeChangeComboboxId ).change( function() {
-            changePageSize(
-                parseInt( $( this ).val() ) );
-        });
+        $( '#' + thisOptions.pageSizeChangeComboboxId )
+            .off() // Remove previous event handlers
+            .change( function() {
+                changePageSize(
+                    parseInt( $( this ).val() ) );
+            });
     };
     
     var updateList = function(){
-
+        //context.getMainPage().show( false );
+        
         context.getMainPage().show( 
             false,
             undefined, 
             [ $( '#' + options.currentList.tbodyId )[0], $( '#' + thisOptions.pagingComponentId )[0] ] );
-        /*
-        context.getMainPage().show( 
-            undefined, 
-            [ $( '.zcrud-main-container tbody' )[0], $( '.zcrud-main-container .zcrud-bottom-panel' )[0] ] );*/
     };
     
     /* Changes current page to given value.
     *************************************************************************/
     var changePage = function ( newPageNumber ) {
         
-        newPageNumber = pageUtils.normalizeNumber( newPageNumber, 1, calculatePageCount(), 1 );
+        newPageNumber = pageUtils.normalizeNumber( parseInt( newPageNumber ), 1, calculatePageCount(), 1 );
         if ( newPageNumber == pageNumber ) {
             return;
         }
 
-        pageNumber = parseInt( newPageNumber );
+        pageNumber = newPageNumber;
         //alert( 'changePage: ' + pageNumber );
         
         updateList();
@@ -122,7 +121,9 @@ module.exports = function( optionsToApply ) {
         
         // Goto page input
         if ( thisOptions.gotoPageArea == 'combobox' ) {
-            $( '#' + thisOptions.goToPageComboboxId ).change( function() {
+            $( '#' + thisOptions.goToPageComboboxId )
+                .off() // Remove previous event handlers
+                .change( function() {
                 changePage(
                     parseInt( $( this ).val() ) );
             });
@@ -166,6 +167,7 @@ module.exports = function( optionsToApply ) {
         $( '#' + thisOptions.pagingComponentId )
             .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
             .not( '.zcrud-page-number-disabled' )
+            .off() // Remove previous event handlers
             .click( function ( e ) {
                 e.preventDefault();
                 changePage( $( this ).data( 'page') );

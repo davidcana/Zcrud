@@ -21,6 +21,7 @@ module.exports = function ( optionsToApply ) {
     
     //
     var configure = function(){
+        
         options.currentList = {};
         options.currentList.id = options.listId;
         options.currentList.tbodyId = options.listTbodyId;
@@ -65,40 +66,32 @@ module.exports = function ( optionsToApply ) {
     };
     
     // Main method
-    var show = function ( showBusy, dictionaryExtension, root ) {
+    var show = function ( showBusyFull, dictionaryExtension, root ) {
         
-        if ( showBusy ){
-            context.showBusy( options );
-        }
-        
+        context.showBusy( options, showBusyFull );
         context.setMainPage( this );
-        
-        //Generate URL (with query string parameters) to load records
-        var loadUrl = createRecordLoadUrl();
 
         // Trigger loadingRecords event
         //options.events.loadingRecords( options, loadUrl );
         
         //Load data from server using AJAX
         options.ajax({
-            url: loadUrl,
+            url: options.actions.listAction,
             data: buildDataToSend(),
             success: function ( data ) {
                 data = options.ajaxPostFilter( data );
                 dataFromServer( data );
                 updateDictionary( data, dictionaryExtension );
+                context.hideBusy( options, showBusyFull );
                 buildHTMLAndJavascript( root );
                 buildRecords();
             },
             error: function ( data ) {
                 data = options.ajaxPostFilter( data );
+                context.hideBusy( options, showBusyFull );
                 context.showError( options.messages.serverCommunicationError );
             }
         });
-    };
-    
-    var createRecordLoadUrl = function () {
-        return options.actions.listAction;
     };
     
     var updateDictionary = function( data, dictionaryExtension ){

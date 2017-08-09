@@ -10,12 +10,9 @@ module.exports = (function() {
     
     var defaultConf = {
         /*mainContainerDivId: 'zcrud-main-container',*/
-        /*busyDivId: 'zcrud-busy-panel-background',*/
-        messageDivId: 'zcrud-message',
+        busyDivId: 'zcrud-busy',
+        //messageDivId: 'zcrud-message',
         /*defaultMessageDelay: 5000,*/
-        //busyTemplate: "'busyDefaultTemplate'"
-        //busyTemplate: "'busyDefaultTemplate@../templates/misc.html'"
-        //busyTemplate: "'busyDefaultTemplate@misc.html'"
         busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
     };
     
@@ -48,23 +45,23 @@ module.exports = (function() {
     };*/
     
     /* message */
+    /*
     var messageDiv = undefined;
     var getMessageDiv = function(){
         if ( ! messageDiv ){
             messageDiv = $( '#' + defaultConf.messageDivId );
         }
         return messageDiv;
-    };
+    };*/
     
     /* busy */
-    /*
     var busyDiv = undefined;
     var getBusyDiv = function(){
         if ( ! busyDiv ){
             busyDiv = $( '#' + defaultConf.busyDivId );
         }
         return busyDiv;
-    };*/
+    };
     /*
     var buildDeclaredRemotePageUrls = function( templatePath ){
         
@@ -78,18 +75,30 @@ module.exports = (function() {
         
         return result;
     };*/
-    var showBusy = function ( options ) {
+    var showBusy = function ( options, fullVersion ) {
         
-        var templatePath = defaultConf.busyTemplate;
-            
-        pageUtils.configureTemplate( options, templatePath );
+        if ( fullVersion ){
+            var templatePath = defaultConf.busyTemplate;
+
+            pageUtils.configureTemplate( options, templatePath );
+
+            zpt.run({
+                //root: options.target[0],
+                root: options.body,
+                dictionary: {}
+            });
+            return;
+        }
         
-        zpt.run({
-            //root: options.target[0],
-            root: options.body,
-            dictionary: {}
-            //declaredRemotePageUrls: buildDeclaredRemotePageUrls( templatePath )
-        });
+        getBusyDiv().show();
+    };
+    var hideBusy = function ( options, fullVersion ) {
+
+        if ( fullVersion ){
+            return;
+        }
+
+        getBusyDiv().hide();
     };
     /*
     var showBusy = function ( message, delay ) {
@@ -165,8 +174,8 @@ module.exports = (function() {
         get: get,
         setMainPage: setMainPage,
         getMainPage: getMainPage,
-        showBusy: showBusy
-        //hideBusy: hideBusy,
+        showBusy: showBusy,
+        hideBusy: hideBusy
         //isBusy: isBusy,
         //showMessage: showMessage,
         //showError: showError
