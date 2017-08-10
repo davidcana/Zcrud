@@ -95,11 +95,15 @@ module.exports = function ( optionsToApply ) {
     };
     
     var updateDictionary = function( data, dictionaryExtension ){
-        
+        /*
         var thisDictionary = {
             options: options,
             records: data.records
-        };
+        };*/
+        var thisDictionary = $.extend( {
+                options: options,
+                records: data.records
+            }, options.dictionary );
         
         if ( dictionaryExtension ){
             dictionary = $.extend( {}, thisDictionary, dictionaryExtension );

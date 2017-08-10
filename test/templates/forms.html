@@ -8,7 +8,8 @@
         <div data-mdefine-macro="formDefaultTemplate" 
              style="display: none"
              data-tattributes="class string:zcrud-main-container zcrud-${options/currentForm/type}-form;
-                               id string:${options/entityId}-form">
+                               id string:${options/entityId}-form"
+             data-idomain="services common">
             
             <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
@@ -29,11 +30,11 @@
                      data-tdefine="id field/id; value record[ id ]; elementId field/elementId"
                      data-tattributes="class string:zcrud-field zcrud-field-${id}">
                     <div>
-                        <label data-tattributes="for field/labelFor" data-tcontent="field/title">
+                        <label data-tattributes="for field/labelFor" data-tcontent="field/title || tr:string:${id}_title">
                             The id of the field
                         </label>
                     </div>
-                    <div class="zcrud-field-help" data-tcontent="field/description">
+                    <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
                         The description of this field.
                     </div>
                     
@@ -43,10 +44,14 @@
                 </div>
             </form>
             <div class="zcrud-button-panel">
-                <button type="button" data-tattributes="id 'form-cancel-button'">
+                <button type="button" 
+                        data-tattributes="id 'form-cancel-button'"
+                        data-tcontent="tr:'Cancel'">
                     Cancel
                 </button>
-                <button type="button" data-tattributes="id 'form-submit-button'">
+                <button type="button" 
+                        data-tattributes="id 'form-submit-button'"
+                        data-tcontent="tr:'Save'">
                     Save
                 </button>
             </div>
@@ -55,7 +60,8 @@
         <div data-mdefine-macro="deleteDefaultTemplate" 
              class="zcrud-main-container zcrud-delete-form" 
              style="display: none"
-             data-tattributes="id string:${options/entityId}-form">
+             data-tattributes="id string:${options/entityId}-form"
+             data-idomain="services common">
             
             <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
@@ -73,11 +79,12 @@
                        data-tattributes="id 'zcRecordKey'; value record[ options/key ]" >
                 
                 <div class="zcrud-field"
-                     data-trepeat="field options/currentForm/fields">
-                    <div data-tcontent="field/title" class="label">
+                     data-trepeat="field options/currentForm/fields"
+                     data-tdefine="id field/id">
+                    <div data-tcontent="field/title || tr:string:${id}_title" class="label">
                         The name of the field
                     </div>
-                    <div class="zcrud-field-help" data-tcontent="field/description">
+                    <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
                         The description of this field.
                     </div>
                     <div class="zcrud-property" data-tcontent="record[ field/id ]">
@@ -86,10 +93,14 @@
                 </div>
             </form>
             <div class="zcrud-button-panel">
-                <button type="button" data-tattributes="id 'form-cancel-button'">
+                <button type="button" 
+                        data-tattributes="id 'form-cancel-button'"
+                        data-tcontent="tr:'Cancel'">
                     Cancel
                 </button>
-                <button type="button" data-tattributes="id 'form-submit-button'">
+                <button type="button" 
+                        data-tattributes="id 'form-submit-button'"
+                        data-tcontent="tr:'Delete'">
                     Delete
                 </button>
             </div>

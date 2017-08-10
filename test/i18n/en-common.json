@@ -1,0 +1,21 @@
+{
+    "/CONF/": {
+        "language": "en",
+        "locale": "en-US"
+    },
+    
+    "_list": "",
+    "Status:": "Status:",
+    "Go to page:": "Go to page:",
+    "Row count:": "Row count:",
+    "pagingMessage": "Showing {first}-{last} of {total}",
+    
+    "_form": "",
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "Delete": "Delete",
+    "createSuccess": "Record added!",
+    "updateSuccess": "Record updated!",
+    "deleteSuccess": "Record deleted!",
+    "serverCommunicationError": "An error occured while communicating to the server!"
+}

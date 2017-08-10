@@ -3,6 +3,7 @@
 */
 exports.run = function( userOptions ){
     var $ = require( 'jquery' );
+    var zpt = require( 'zpt' );
     var ListPage = require( './pages/listPage.js' );
     var fieldBuilder = require( './fields/fieldBuilder.js' );
     
@@ -128,6 +129,19 @@ exports.run = function( userOptions ){
             block1NumberOfPages: 1,
             block2NumberOfPages: 5,
             block3NumberOfPages: 1
+        },
+        
+        // Dictionary
+        dictionary: {},
+        
+        // I18n and L10n
+        i18n: {
+            language: 'es',
+            filesPath: 'i18n',
+            files: { 
+                en: [ 'en-common.json', 'en-services.json' ],
+                es: [ 'es-common.json', 'es-services.json' ] 
+            }
         }
     };
     
@@ -194,16 +208,57 @@ exports.run = function( userOptions ){
         }
     };
     
+    var buildI18nEntryId = function( fileName ){
+        
+        // Remove -
+        var index = fileName.indexOf( '-' );
+        var tmp = index == -1? fileName: fileName.substr( 1 + index );
+        
+        // Remove .
+        index = tmp.indexOf( '.' );
+        return index == -1? tmp: tmp.substr( 0, index );
+    };
+    
+    // Register in options.dictionary I18n instances
+    var initI18n = function( callback ){
+        
+        // Build the list of file paths
+        var filePaths = [];
+        var fileNames = options.i18n.files[ options.i18n.language ];
+        for ( var c = 0; c < fileNames.length; c++ ) {
+            var fileName = fileNames[ c ];
+            var filePath = options.i18n.filesPath? options.i18n.filesPath + '/' + fileName: fileName;
+            filePaths.push( filePath ); 
+        }
+        
+        // Load them, build the I18n instances and register them in the options.dictionary
+        zpt.i18nHelper.loadAsync( filePaths , function( i18nMap ){
+            for ( var c = 0; c < filePaths.length; c++ ) {
+                var filePath = filePaths[ c ];
+                var fileName = fileNames[ c ];
+                var i18n =  new zpt.I18n( options.i18n.language, i18nMap[ filePath ] );
+                options.dictionary[ buildI18nEntryId( fileName ) ] = i18n;
+            }
+            callback();
+        });
+    };
+    
+    // Create and show list page
+    var showListPage = function(){
+        var listPage =  new ListPage( options );
+        //context.setMainPage( listPage );
+        listPage.show( true );
+    };
+    
     // Init options
     var options = $.extend( true, {}, defaultOptions, userOptions );
     normalizeFieldsOptions();
     
-    // Init  eventsManager
-    //eventsManager.setEvents( options.events );
-    
-    // Create and show list page
+    // Init I18n
+    initI18n( showListPage );
+    /*
     var listPage =  new ListPage( options );
-    listPage.show( true );
+    listPage.show( true );*/
 };
 
 /* I18n and i18nHelp classes */

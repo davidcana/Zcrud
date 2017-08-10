@@ -1,0 +1,21 @@
+{
+    "/CONF/": {
+        "language": "es",
+        "locale": "es-ES"
+    },
+    
+    "_list": "",
+    "Status:": "Estado:",
+    "Go to page:": "Ir a página:",
+    "Row count:": "Registros por página:",
+    "pagingMessage": "Mostrando {first}-{last} de {total}",
+    
+    "_form": "",
+    "Cancel": "Cancelar",
+    "Save": "Guardar",
+    "Delete": "Eliminar",
+    "createSuccess": "¡Registro añadido!",
+    "updateSuccess": "¡Registro actualizado!",
+    "deleteSuccess": "¡Registro eliminado!",
+    "serverCommunicationError": "¡Ha ocurrido un error comunicándose con el servidor!"
+}

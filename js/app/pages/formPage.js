@@ -147,12 +147,15 @@ module.exports = function ( optionsToApply, type ) {
     };
     
     var updateDictionary = function(){
-        
+        /*
         dictionary = {
             options: options,
             record: recordFunction()
-            //record: record
-        };
+        };*/
+        dictionary = $.extend( {
+            options: options,
+            record: recordFunction()
+        }, options.dictionary );
     };
     
     var buildRecordToShow = function(){

@@ -18,21 +18,21 @@ zcrud.run({
     },
     fields: {
         id: {
-            title: 'Id',
+            //title: 'Id',
+            //description: 'The unique id of the department!',
             key: true,
             create: true,
             edit: true,
-            delete: true,
-            description: 'The unique id of the department!'
+            delete: true
         },
         name: {
-            title: 'Name',
-            width: '90%',
-            description: 'The name of the department!'
+            //title: 'Name',
+            //description: 'The name of the department!',
+            width: '90%'
         },
         description: {
-            title: 'Description',
-            description: 'The description of the department!',
+            //title: 'Description',
+            //description: 'The description of the department!',
             list: false,
             type: 'textarea',
             //template: "descriptionTextarea",
@@ -42,8 +42,8 @@ zcrud.run({
             }
         },
         date: {
-            title: 'Date',
-            description: 'The date of the department!',
+            //title: 'Date',
+            //description: 'The date of the department!',
             list: false,
             type: 'date',
             customOptions: {
@@ -51,20 +51,20 @@ zcrud.run({
             }
         },
         time: {
-            title: 'Time',
-            description: 'The time of the department!',
+            //title: 'Time',
+            //description: 'The time of the department!',
             list: false,
             type: 'time'
         },
         datetime: {
-            title: 'Datetime',
-            description: 'The datetime of the department!',
+            //title: 'Datetime',
+            //description: 'The datetime of the department!',
             list: false,
             type: 'datetime'
         },
         phoneType: {
-            title: 'Phone type',
-            description: 'The phone type of the department!',
+            //title: 'Phone type',
+            //description: 'The phone type of the department!',
             list: false,
             type: 'radio',
             options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes'
@@ -81,16 +81,16 @@ zcrud.run({
             //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         },
         province: {
-            title: 'Province',
-            description: 'The province of the department!',
+            //title: 'Province',
+            //description: 'The province of the department!',
             list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            title: 'City',
-            description: 'The city of the department!',
+            //title: 'City',
+            //description: 'The city of the department!',
             list: false,
             type: 'select',
             dependsOn: 'province',
@@ -112,15 +112,15 @@ zcrud.run({
             }
         },
         browser: {
-            title: 'Browser',
-            description: 'The prefered browser of the department!',
+            //title: 'Browser',
+            //description: 'The prefered browser of the department!',
             list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            title: 'Important',
-            description: 'Is important???',
+            //title: 'Important',
+            //description: 'Is important???',
             list: false,
             type: 'checkbox'
         }
