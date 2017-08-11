@@ -26,6 +26,11 @@
     "browser_title": "Browser",
     "browser_description": "The prefered browser of the department",
     "important_title": "Important",
-    "important_description": "Is important?"
+    "important_description": "Is important?",
+    
+    "_options": "",
+    "homePhone_option": "Home phone",
+    "officePhone_option": "Office phone",
+    "cellPhone_option": "Cell phone"
     
 }

@@ -26,6 +26,10 @@
     "browser_title": "Navegador",
     "browser_description": "El navegador preferido del departamento",
     "important_title": "Importante",
-    "important_description": "¿Es importante?"
+    "important_description": "¿Es importante?",
     
+    "_options": "",
+    "homePhone_option": "Teléfono doméstico",
+    "officePhone_option": "Teléfono del trabajo",
+    "cellPhone_option": "Teléfono móvil"
 }

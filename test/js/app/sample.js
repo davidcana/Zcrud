@@ -67,7 +67,11 @@ zcrud.run({
             //description: 'The phone type of the department!',
             list: false,
             type: 'radio',
-            options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes'
+            translateOptions: true,
+            //options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes',
+            options: function(){
+                return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
+            }
             /*
             options: function(){
                 return [ 'Home phone!', 'Office phone!', 'Cell phone!!!' ];
@@ -166,6 +170,15 @@ zcrud.run({
         }*/
         recordDeleted: function ( event, options, key ) { 
             alert ( 'recordDeleted! '  + options.currentForm.type + ': ' + key );
+        }
+    },
+    
+    // I18n and L10n
+    i18n: {
+        language: 'es',
+        files: { 
+            en: [ 'en-common.json', 'en-services.json' ],
+            es: [ 'es-common.json', 'es-services.json' ] 
         }
     }
 });
