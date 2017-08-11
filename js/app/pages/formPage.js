@@ -234,7 +234,7 @@ module.exports = function ( optionsToApply, type ) {
             event, 
             options.actions.createAction,
             'create', 
-            options.messages.createSuccess );
+            'createSuccess' );
     };
     
     var submitUpdateForm = function( event ){
@@ -244,7 +244,7 @@ module.exports = function ( optionsToApply, type ) {
             event, 
             options.actions.updateAction,
             'update', 
-            options.messages.updateSuccess );
+            'updateSuccess' );
     };
     
     var submitCreateAndUpdateForms = function( event, url, command, successMessage ){
@@ -283,7 +283,7 @@ module.exports = function ( optionsToApply, type ) {
             },
             error      : function ( data ) {
                 data = options.ajaxPostFilter( data );
-                context.showError( options.messages.serverCommunicationError );
+                context.showError( 'serverCommunicationError', true );
             }
         };
         
@@ -313,7 +313,7 @@ module.exports = function ( optionsToApply, type ) {
         var key = $( '#zcRecordKey' ).val();
         var command = 'delete';
         var url = options.actions.deleteAction;
-        var successMessage = options.messages.deleteSuccess;
+        var successMessage = 'deleteSuccess';
         
         var dataToSend = {
             command: command,
@@ -337,7 +337,7 @@ module.exports = function ( optionsToApply, type ) {
             },
             error      : function ( data ) {
                 data = options.ajaxPostFilter( data );
-                context.showError( options.messages.serverCommunicationError );
+                context.showError( 'serverCommunicationError', true );
             }
         };
         

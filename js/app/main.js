@@ -53,6 +53,7 @@ exports.run = function( userOptions ){
         },
 
         //Localization
+        /*
         messages: {
             serverCommunicationError: 'An error occured while communicating to the server.',
             loadingMessage: 'Loading records...',
@@ -68,7 +69,7 @@ exports.run = function( userOptions ){
             createSuccess: 'Record added!',
             updateSuccess: 'Record updated!',
             deleteSuccess: 'Record deleted!'
-        },
+        },*/
         
         //Templates
         listTemplate: "'listTemplate'",

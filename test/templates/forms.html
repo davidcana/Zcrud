@@ -13,13 +13,15 @@
             
             <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
-                <span class="zcrud-title" data-tcontent="options/title">
+                <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
                     The title option
                 </span>
-                <span data-tcontent="options/currentForm/title">
+                <span data-tcontent="tr: options/currentForm/title">
                     Current form title
                 </span>
-                (default)
+                <span data-tcontent="tr:'(default)'">
+                    (default)
+                </span>
             </div>
             <form class="zcrud-form" data-tattributes="id options/currentForm/id">
                 <input type="hidden"
@@ -65,13 +67,15 @@
             
             <div data-tattributes="id 'zcrud-message'"></div>
             <div class="zcrud-header"> 
-                <span class="zcrud-title" data-tcontent="options/title">
+                <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
                     The title option
                 </span>
-                <span data-tcontent="options/currentForm/title">
+                <span data-tcontent="tr: options/currentForm/title">
                     Current form title
                 </span>
-                (default)
+                <span data-tcontent="tr:'(default)'">
+                    (default)
+                </span>
             </div>
             <form class="zcrud-form" data-tattributes="id options/currentForm/id">
                 <input type="hidden"

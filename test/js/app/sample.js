@@ -8,7 +8,7 @@ var testUtils = require( './testUtils' );
 zcrud.run({
     body: document.body,
     target: $( '#departmentsContainer' ),
-    title: 'Departments',
+    //title: 'Departments',
     entityId: 'department',
     actions: {
         listAction:   'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
@@ -142,7 +142,6 @@ zcrud.run({
     
     listTemplate: "'listDefaultTemplate@templates/lists.html'",
     updateTemplate: "'formDefaultTemplate@templates/forms.html'",
-    //updateTemplate: "'formTemplate@templates/customForms.html'",
     createTemplate: "'formDefaultTemplate@templates/forms.html'",
     deleteTemplate: "'deleteDefaultTemplate@templates/forms.html'",
     
@@ -168,9 +167,10 @@ zcrud.run({
             alert( 'Form submit! ' + options.currentForm.type );
             return false;
         }*/
+        /*
         recordDeleted: function ( event, options, key ) { 
             alert ( 'recordDeleted! '  + options.currentForm.type + ': ' + key );
-        }
+        }*/
     },
     
     // I18n and L10n

@@ -169,15 +169,26 @@ module.exports = (function() {
         messageTimer = setTimeout( hideMessage, delay );
     };*/
     
+    var translate = function( message ){
+        // TODO Implement this!
+        return message;
+    };
+    
+    var showError = function ( message, mustTranslate ) {
+        var translated = mustTranslate? translate( message ): message;
+        alert( translated );
+    };
+    
     return {
         put: put,
         get: get,
         setMainPage: setMainPage,
         getMainPage: getMainPage,
         showBusy: showBusy,
-        hideBusy: hideBusy
+        hideBusy: hideBusy,
         //isBusy: isBusy,
         //showMessage: showMessage,
-        //showError: showError
+        translate: translate,
+        showError: showError
     };
 })();

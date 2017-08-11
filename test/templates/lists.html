@@ -13,19 +13,21 @@
             
             <div class="zcrud-header">
                 <span class="zcrud-title"
-                      data-tcontent="options/title">
+                      data-tcontent="options/title || tr:'general_entityName'">
                     The title option
                 </span>
-                (default)
+                <span data-tcontent="tr:'(default)'">
+                    (default)
+                </span>
                 <span class="zcrud-toolbar">
                     <button title="New record" class="zcrud-new-command-button"></button>
                 </span>
                 <div class="zcrud-status">
-                    <span data-tcontent="tr:'Status:'">Status:</span>
+                    <span data-tcontent="tr: 'Status:'">Status:</span>
                     <span data-tcondition="status">
                         <span data-tattributes="id 'zcrud-message'"
                               data-tcondition="status/message"
-                              data-tcontent="status/message">Operation done!</span>
+                              data-tcontent="tr: status/message">Operation done!</span>
                         <span data-tattributes="id 'zcrud-message-time'"
                               data-tcondition="status/date"
                               data-tcontent="string:(${status/date})">(14:23)</span>

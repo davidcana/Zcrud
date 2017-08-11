@@ -4,6 +4,9 @@
         "locale": "en-US"
     },
     
+    "_general": "",
+    "general_entityName": "Departments",
+    
     "_fields": "",
     "id_title": "Id",
     "id_description": "The unique id of the department",

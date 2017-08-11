@@ -11,11 +11,16 @@
     "pagingMessage": "Showing {first}-{last} of {total}",
     
     "_form": "",
+    "Create form": "Create form",
+    "Edit form": "Edit form",
+    "Delete form": "Delete form",
+    "(default)": "(default)",
+    "(customized)": "(customized)",
     "Cancel": "Cancel",
     "Save": "Save",
     "Delete": "Delete",
     "createSuccess": "Record added!",
     "updateSuccess": "Record updated!",
     "deleteSuccess": "Record deleted!",
-    "serverCommunicationError": "An error occured while communicating to the server!"
+    "serverCommunicationError": "An error occurred while communicating to the server!"
 }

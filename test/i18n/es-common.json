@@ -11,6 +11,11 @@
     "pagingMessage": "Mostrando {first}-{last} de {total}",
     
     "_form": "",
+    "Create form": "Formulario de alta",
+    "Edit form": "Formulario de modificación",
+    "Delete form": "Formulario de eliminación",
+    "(default)": "(predeterminado)",
+    "(customized)": "(personalizado)",
     "Cancel": "Cancelar",
     "Save": "Guardar",
     "Delete": "Eliminar",
