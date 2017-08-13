@@ -139,6 +139,7 @@ exports.run = function( userOptions ){
         i18n: {
             language: 'en',
             filesPath: 'i18n',
+            i18nArrayVarName: 'i18nArray',
             files: {}
         }
     };
@@ -205,7 +206,7 @@ exports.run = function( userOptions ){
             }
         }
     };
-    
+    /*
     var buildI18nEntryId = function( fileName ){
         
         // Remove -
@@ -215,7 +216,7 @@ exports.run = function( userOptions ){
         // Remove .
         index = tmp.indexOf( '.' );
         return index == -1? tmp: tmp.substr( 0, index );
-    };
+    };*/
     
     // Register in options.dictionary I18n instances
     var initI18n = function( callback ){
@@ -231,12 +232,15 @@ exports.run = function( userOptions ){
         
         // Load them, build the I18n instances and register them in the options.dictionary
         zpt.i18nHelper.loadAsync( filePaths , function( i18nMap ){
+            var i18nArray = [];
             for ( var c = 0; c < filePaths.length; c++ ) {
                 var filePath = filePaths[ c ];
                 var fileName = fileNames[ c ];
                 var i18n =  new zpt.I18n( options.i18n.language, i18nMap[ filePath ] );
-                options.dictionary[ buildI18nEntryId( fileName ) ] = i18n;
+                i18nArray.push( i18n );
+                //options.dictionary[ buildI18nEntryId( fileName ) ] = i18n;
             }
+            options.dictionary[ options.i18n.i18nArrayVarName ] = i18nArray;
             callback();
         });
     };
