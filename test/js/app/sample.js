@@ -47,7 +47,7 @@ zcrud.run({
             list: false,
             type: 'date',
             customOptions: {
-                inline: true
+                inline: false
             }
         },
         time: {

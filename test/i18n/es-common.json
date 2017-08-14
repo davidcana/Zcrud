@@ -4,6 +4,9 @@
         "locale": "es-ES"
     },
     
+    "_general": "",
+    "dayOfWeekStart": "1",
+    
     "_list": "",
     "Status:": "Estado:",
     "Go to page:": "Ir a página:",

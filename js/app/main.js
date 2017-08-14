@@ -6,6 +6,7 @@ exports.run = function( userOptions ){
     var zpt = require( 'zpt' );
     var ListPage = require( './pages/listPage.js' );
     var fieldBuilder = require( './fields/fieldBuilder.js' );
+    var context = require( './context.js' );
     
     /************************************************************************
     * DEFAULT OPTIONS / EVENTS                                              *
@@ -99,14 +100,14 @@ exports.run = function( userOptions ){
             datetime: {
                 inline: false,
                 format: 'd/m/Y H:i',
-                formatTime:'H:i',
-                formatDate:'d/m/Y'
+                //formatTime:'H:i',
+                //formatDate:'d/m/Y'
             },
             date: {
                 inline: false,
                 timepicker: false,
                 format: 'd/m/Y',
-                formatDate:'d/m/Y'
+                //formatDate:'d/m/Y'
             },
             time: {
                 inline: false,
@@ -240,7 +241,8 @@ exports.run = function( userOptions ){
                 i18nArray.push( i18n );
                 //options.dictionary[ buildI18nEntryId( fileName ) ] = i18n;
             }
-            options.dictionary[ options.i18n.i18nArrayVarName ] = i18nArray;
+            //options.dictionary[ options.i18n.i18nArrayVarName ] = i18nArray;
+            context.setI18nArray( i18nArray, options );
             callback();
         });
     };

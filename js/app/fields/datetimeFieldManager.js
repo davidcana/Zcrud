@@ -6,14 +6,16 @@
 //var context = require( '../context.js' );
 var $ = require( 'jquery' );
 require( '../../../lib/datetimepicker/jquery.datetimepicker.js' );
+var context = require( '../context.js' );
 
 var DatetimeFieldManager = function() {
     
     var initDone = false;
     
-    var init = function(){
+    var init = function( options ){
         if ( ! initDone ){
-            $.datetimepicker.setLocale( 'en' );
+            //$.datetimepicker.setLocale( 'en' );
+            $.datetimepicker.setLocale( options.i18n.language );
             
             initDone = true;
         }
@@ -36,7 +38,7 @@ var DatetimeFieldManager = function() {
     
     var afterProcessTemplateForFieldInCreateOrUpdate = function( params ){
     
-        init();
+        init( params.options );
         
         var defaultFieldOptions = undefined;
         switch( params.field.type ) {
@@ -53,9 +55,21 @@ var DatetimeFieldManager = function() {
             throw 'Unknown type in DatetimeFieldManager: ' + params.field.type;
         }
         
-        $( '#' + params.field.elementId ).datetimepicker(
-            params.field.customOptions? $.extend( {}, defaultFieldOptions, params.field.customOptions ): defaultFieldOptions
-        );
+        $( '#' + params.field.elementId ).datetimepicker( 
+            buildDatetimepickerOptions( params, defaultFieldOptions ) );
+    };
+    
+    var buildDatetimepickerOptions = function( params, defaultFieldOptions ) {
+        
+        var datetimepickerOptions = 
+            params.field.customOptions? 
+            $.extend( {}, defaultFieldOptions, params.field.customOptions ): 
+            defaultFieldOptions;
+        
+        //datetimepickerOptions.dayOfWeekStart = 1;
+        datetimepickerOptions.dayOfWeekStart = context.translate( 'dayOfWeekStart' );
+        
+        return datetimepickerOptions;
     };
     
     var getTemplate = function(){

@@ -168,14 +168,21 @@ module.exports = (function() {
 
         messageTimer = setTimeout( hideMessage, delay );
     };*/
-    
-    var translate = function( message ){
-        // TODO Implement this!
-        return message;
+    var i18nArray = undefined;
+    var setI18nArray = function( i18nArrayToApply, options ){
+        i18nArray = i18nArrayToApply;
+        options.dictionary[ options.i18n.i18nArrayVarName ] = i18nArray;
+    };
+    var translate = function( id, params, format, subformat ){
+        return zpt.i18nHelper.tr( i18nArray, id, params, format || 'string', subformat );
+        //return id;
     };
     
-    var showError = function ( message, mustTranslate ) {
-        var translated = mustTranslate? translate( message ): message;
+    var showError = function ( message, mustTranslate, params, format, subformat ) {
+        var translated = 
+            mustTranslate? 
+            translate( message, params, format, subformat ): 
+            message;
         alert( translated );
     };
     
@@ -188,6 +195,7 @@ module.exports = (function() {
         hideBusy: hideBusy,
         //isBusy: isBusy,
         //showMessage: showMessage,
+        setI18nArray: setI18nArray,
         translate: translate,
         showError: showError
     };

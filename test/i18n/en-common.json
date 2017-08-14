@@ -4,6 +4,9 @@
         "locale": "en-US"
     },
     
+    "_general": "",
+    "dayOfWeekStart": "0",
+    
     "_list": "",
     "Status:": "Status:",
     "Go to page:": "Go to page:",
