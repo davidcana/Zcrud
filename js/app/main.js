@@ -99,20 +99,17 @@ exports.run = function( userOptions ){
         defaultFieldOptions: {
             datetime: {
                 inline: false,
-                format: 'd/m/Y H:i',
                 //formatTime:'H:i',
                 //formatDate:'d/m/Y'
             },
             date: {
                 inline: false,
                 timepicker: false,
-                format: 'd/m/Y',
                 //formatDate:'d/m/Y'
             },
             time: {
                 inline: false,
                 datepicker: false,
-                format: 'H:i',
                 step: 5
             }
         },
@@ -142,6 +139,13 @@ exports.run = function( userOptions ){
             filesPath: 'i18n',
             i18nArrayVarName: 'i18nArray',
             files: {}
+        },
+        
+        // Date and time stuff
+        dateTime: {
+            "datetimeFormat": "m/d/Y H:i",
+            "dateFormat": "m/d/Y",
+            "timeFormat": "H:i"
         }
     };
     

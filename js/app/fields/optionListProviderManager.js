@@ -336,7 +336,7 @@ var OptionListProviderManager = function() {
     };
     
     var getValueFromRecord = function( field, record, params ){
-        
+
         switch( params.source ) {
         case 'create':
         case 'update':

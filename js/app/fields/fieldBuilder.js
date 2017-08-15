@@ -61,12 +61,12 @@ module.exports = (function() {
         }
     };
     
-    var getValueFromForm = function( field ){
+    var getValueFromForm = function( field, options ){
         
         var fieldManager = fieldManagers[ field.type ];
         
         if ( fieldManager && $.isFunction( fieldManager.getValueFromForm ) ){
-            return fieldManager.getValueFromForm( field );
+            return fieldManager.getValueFromForm( field, options );
         }
         
         return $( '#' + field.elementId ).val();

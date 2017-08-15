@@ -6,6 +6,9 @@
     
     "_general": "",
     "dayOfWeekStart": "0",
+    "datetimeFormat": "m/d/Y H:i",
+    "dateFormat": "m/d/Y",
+    "timeFormat": "H:i",
     
     "_list": "",
     "Status:": "Status:",

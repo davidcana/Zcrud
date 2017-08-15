@@ -175,7 +175,7 @@ zcrud.run({
     
     // I18n and L10n
     i18n: {
-        language: 'es',
+        language: 'en',
         files: { 
             en: [ 'en-common.json', 'en-services.json' ],
             es: [ 'es-common.json', 'es-services.json' ] 
