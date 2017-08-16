@@ -30,6 +30,8 @@
     "browser_description": "The prefered browser of the department",
     "important_title": "Important",
     "important_description": "Is important?",
+    "number_title": "Number",
+    "number_description": "The number of the department",
     
     "_options": "",
     "homePhone_option": "Home phone",

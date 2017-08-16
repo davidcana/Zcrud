@@ -127,6 +127,9 @@ zcrud.run({
             //description: 'Is important???',
             list: false,
             type: 'checkbox'
+        },
+        number: {
+            list: false
         }
     },
 
@@ -135,7 +138,11 @@ zcrud.run({
         rules: {
             '#zcrud-name': {
                 validation: 'length',
-                length : '3-12'
+                length: '3-12'
+            },
+            '#zcrud-number': {
+                validation: 'number',
+                allowing: 'float'
             }
         }
     },

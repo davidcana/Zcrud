@@ -30,6 +30,8 @@
     "browser_description": "El navegador preferido del departamento",
     "important_title": "Importante",
     "important_description": "¿Es importante?",
+    "number_title": "Número",
+    "number_description": "El número del departamento",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

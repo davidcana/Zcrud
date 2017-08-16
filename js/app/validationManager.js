@@ -6,6 +6,8 @@ module.exports = (function() {
     
     var $ = require( 'jquery' );
     require( 'jquery-form-validator' );
+    var context = require( './context.js' );
+    var errorClass = 'error';
     
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
@@ -29,7 +31,9 @@ module.exports = (function() {
         // Set up form validation
         $.validate({
             form : '#' + options.currentForm.id,
-            borderColorOnError : ''
+            borderColorOnError : '',
+            lang : options.i18n.language,
+            decimalSeparator : context.translate( 'decimalSeparator' )
         });
     };
     
@@ -78,11 +82,17 @@ module.exports = (function() {
     var formIsValid = function( options, dataToSend ){
         
         if ( ! validationOn( options ) ){
-            return true;
+            return false != options.events.formSubmitting( options, dataToSend );
         }
         
+        return ! errorsExist() && false != options.events.formSubmitting( options, dataToSend );
+        /*
         return $( '#' + options.currentForm.id ).isValid( {}, {}, true )
-            && false != options.events.formSubmitting( options, dataToSend );
+            && false != options.events.formSubmitting( options, dataToSend );*/
+    };
+    
+    var errorsExist = function(){
+        return $( '.' + errorClass ).length > 0;
     };
     
     var buildFieldOptions = function( options ){

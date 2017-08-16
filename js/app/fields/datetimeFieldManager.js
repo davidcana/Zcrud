@@ -112,7 +112,7 @@ var DatetimeFieldManager = function() {
         }
         
         var inputFormat = getI18nFormat( field );
-        var outputFormat = options.dateTime[ field.type + "Format" ];
+        var outputFormat = options.serverDataFormat[ field.type ];
         
         return inputFormat === outputFormat? 
             datetimeString: 
@@ -155,7 +155,7 @@ var DatetimeFieldManager = function() {
             return datetimeString;
         }
         
-        var inputFormat = options.dateTime[ field.type + "Format" ];
+        var inputFormat = options.serverDataFormat[ field.type ];
         var outputFormat = getI18nFormat( field );
         
         return inputFormat === outputFormat? 

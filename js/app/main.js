@@ -141,11 +141,12 @@ exports.run = function( userOptions ){
             files: {}
         },
         
-        // Date and time stuff
-        dateTime: {
-            "datetimeFormat": "m/d/Y H:i",
-            "dateFormat": "m/d/Y",
-            "timeFormat": "H:i"
+        // Server data format stuff
+        serverDataFormat: {
+            datetime: 'm/d/Y H:i',
+            date: 'm/d/Y',
+            time: 'H:i',
+            decimalSeparator: '.'
         }
     };
     

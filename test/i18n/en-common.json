@@ -9,6 +9,7 @@
     "datetimeFormat": "m/d/Y H:i",
     "dateFormat": "m/d/Y",
     "timeFormat": "H:i",
+    "decimalSeparator" : ".",
     
     "_list": "",
     "Status:": "Status:",
