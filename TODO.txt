@@ -9,7 +9,7 @@ zCrud 0.1.0
 * Integrate with jQuery Form Validator. (done!)
 * Verify that HTML is correct. (done!)
 * Support of server side paging using AJAX. (done!)
+* Full I18n and L10n support. (done!)
 
-* Full I18n and L10n support.
 * Support of server side sorting using AJAX.
 * Support of server side filtering using AJAX.

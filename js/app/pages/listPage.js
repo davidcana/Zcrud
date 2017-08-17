@@ -8,6 +8,7 @@ module.exports = function ( optionsToApply ) {
     var pageUtils = require( './pageUtils.js' );
     var FormPage = require( './formPage.js' );
     var PagingComponent = require( './pagingComponent.js' );
+    var SortingComponent = require( './sortingComponent.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
@@ -27,9 +28,35 @@ module.exports = function ( optionsToApply ) {
         options.currentList.tbodyId = options.listTbodyId;
         options.currentList.fields = buildFields();
         
+        registerComponent( 
+            'paging',
+            function(){
+                return new PagingComponent( options );
+            }
+        );
+        registerComponent( 
+            'sorting',
+            function(){
+                return new SortingComponent( options );
+            }
+        );
+        /*
         pagingComponent = options.paging.isOn? new PagingComponent( options ): undefined;
         options.paging.component = pagingComponent;
         components.paging = pagingComponent;
+        
+        sortingComponent = options.sorting.isOn? new SortingComponent( options ): undefined;
+        options.sorting.component = sortingComponent;
+        components.sorting = sortingComponent;*/
+    };
+    
+    var registerComponent = function( componentId, constructorFunction ){
+        
+        var thisComponent = options[ componentId ].isOn? constructorFunction(): undefined;
+        if ( thisComponent ){
+            options[ componentId ].component = thisComponent;
+            components[ componentId ] = thisComponent;
+        }
     };
     
     var buildFields = function(){

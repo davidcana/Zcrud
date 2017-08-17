@@ -187,5 +187,15 @@ zcrud.run({
             en: [ 'en-common.json', 'en-services.json' ],
             es: [ 'es-common.json', 'es-services.json' ] 
         }
+    },
+    
+    // Sorting
+    sorting: {
+        isOn: true,
+        default: {
+            fieldId: 'id',
+            type: 'desc'
+        },
+        allowUser: false
     }
 });

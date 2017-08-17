@@ -101,7 +101,8 @@ module.exports = (function() {
         }
         
         // Sort them
-        // TODO Implement sorting records
+        allRecords.sort( 
+            dynamicSort( data.sortFieldId, data.sortType ) );
         
         // Page them
         if ( data.pageNumber && data.pageSize ){
@@ -116,6 +117,15 @@ module.exports = (function() {
         
         return dataToSend;
     };
+    
+    var dynamicSort = function( property, type ) {
+
+        var sortOrder = type && type.toLowerCase() === 'desc'? -1: 1;
+        return function ( a, b ) {
+            var result = ( a [property] < b [property] ) ? -1 : ( a [property] > b [property] ) ? 1 : 0;
+            return result * sortOrder;
+        }
+    }
     
     var ajaxServicesCreate = function( file, data ){
         return ajaxServicesCreateAndUpdate( file, data );

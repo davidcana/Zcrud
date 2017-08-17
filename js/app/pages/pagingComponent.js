@@ -18,10 +18,6 @@ module.exports = function( optionsToApply ) {
     var thisPageSize = undefined;
     
     var loadSettings = function(){
-        loadPagingSettings();
-    };
-    
-    var loadPagingSettings = function(){
 
         if ( ! options.saveUserPreferences ) {
             return;

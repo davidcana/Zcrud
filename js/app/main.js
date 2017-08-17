@@ -141,6 +141,16 @@ exports.run = function( userOptions ){
             files: {}
         },
         
+        // Sorting
+        sorting: {
+            isOn: false,
+            default: {
+                fieldId: undefined,
+                type: undefined
+            },
+            allowUser: false
+        },
+        
         // Server data format stuff
         serverDataFormat: {
             datetime: 'm/d/Y H:i',
