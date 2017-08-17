@@ -16,13 +16,13 @@ module.exports = (function() {
         busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
     };
     
-    /* htmlCache */
-    var htmlCache = {};
+    /* Cache */
+    var cache = {};
     var put = function ( id, data ){
-        htmlCache[ id ] = data;
+        cache[ id ] = data;
     };
     var get = function ( id ){
-        return htmlCache[ id ];
+        return cache[ id ];
     };
     
     /* mainPage */
@@ -186,6 +186,58 @@ module.exports = (function() {
         alert( translated );
     };
     
+    // Form validation language
+    var getFormValidationLanguage = function( lang ){
+    
+        var cacheId = lang + '-formValidationLanguage';
+        var language = get( cacheId );
+        if ( ! language ){
+            language = {
+                errorTitle: translate( 'errorTitle' ),
+                requiredFields: translate( 'requiredFields' ),
+                badTime: translate( 'badTime' ),
+                badEmail: translate( 'badEmail' ),
+                badTelephone: translate( 'badTelephone' ),
+                badSecurityAnswer: translate( 'badSecurityAnswer' ),
+                badDate: translate( 'badDate' ),
+                lengthBadStart: translate( 'lengthBadStart' ),
+                lengthBadEnd: translate( 'lengthBadEnd' ),
+                lengthTooLongStart: translate( 'lengthTooLongStart' ),
+                lengthTooShortStart: translate( 'lengthTooShortStart' ),
+                notConfirmed: translate( 'notConfirmed' ),
+                badDomain: translate( 'badDomain' ),
+                badUrl: translate( 'badUrl' ),
+                badCustomVal: translate( 'badCustomVal' ),
+                andSpaces: translate( 'andSpaces' ),
+                badInt: translate( 'badInt' ),
+                badSecurityNumber: translate( 'badSecurityNumber' ),
+                badUKVatAnswer: translate( 'badUKVatAnswer' ),
+                badStrength: translate( 'badStrength' ),
+                badNumberOfSelectedOptionsStart: translate( 'badNumberOfSelectedOptionsStart' ),
+                badNumberOfSelectedOptionsEnd: translate( 'badNumberOfSelectedOptionsEnd' ),
+                badAlphaNumeric: translate( 'badAlphaNumeric' ),
+                badAlphaNumericExtra: translate( 'badAlphaNumericExtra' ),
+                wrongFileSize: translate( 'wrongFileSize' ),
+                wrongFileType: translate( 'wrongFileType' ),
+                groupCheckedRangeStart: translate( 'groupCheckedRangeStart' ),
+                groupCheckedTooFewStart: translate( 'groupCheckedTooFewStart' ),
+                groupCheckedTooManyStart: translate( 'groupCheckedTooManyStart' ),
+                groupCheckedEnd: translate( 'groupCheckedEnd' ),
+                badCreditCard: translate( 'badCreditCard' ),
+                badCVV: translate( 'badCVV' ),
+                wrongFileDim : translate( 'wrongFileDim' ),
+                imageTooTall : translate( 'imageTooTall' ),
+                imageTooWide : translate( 'imageTooWide' ),                                                                                     imageTooSmall : translate( 'imageTooSmall' ),
+                min : translate( 'min' ),
+                max : translate( 'max' ),
+                imageRatioNotAccepted : translate( 'imageRatioNotAccepted' )
+            };
+            put( cacheId, language );
+        }
+        
+        return language;
+    };
+    
     return {
         put: put,
         get: get,
@@ -197,6 +249,7 @@ module.exports = (function() {
         //showMessage: showMessage,
         setI18nArray: setI18nArray,
         translate: translate,
-        showError: showError
+        showError: showError,
+        getFormValidationLanguage: getFormValidationLanguage
     };
 })();

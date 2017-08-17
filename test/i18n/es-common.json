@@ -31,7 +31,6 @@
     "deleteSuccess": "¡Registro eliminado!",
     "serverCommunicationError": "¡Ha ocurrido un error comunicándose con el servidor!",
     
-
     "_validation": "",
     "errorTitle": "Error en el envío del formulario",
     "requiredFields": "No ha rellenado todos los campos requeridos",
@@ -49,21 +48,21 @@
     "badUrl": "URL incorrecta",
     "badCustomVal": "Valor incorrecto",
     "andSpaces": " y espacios ",
-    "badInt": "El valor introudcido no es un número correcto",
+    "badInt": "El valor introducido no es un número correcto",
     "badSecurityNumber": "El número de la seguridad social es incorrecto",
     "badUKVatAnswer": "El número VAT es incorrecto",
     "badStrength": "La contraseña es demasiado débil",
     "badNumberOfSelectedOptionsStart": "Tiene que elegir al menos ",
     "badNumberOfSelectedOptionsEnd": " opciones",
-    "badAlphaNumeric": "El valor introudicdo sólo puede contener caracteres alfanuméricos ",
+    "badAlphaNumeric": "El valor introducido sólo puede contener caracteres alfanuméricos ",
     "badAlphaNumericExtra": " y ",
     "wrongFileSize": "El fichero es demasiado grande (máximo %s)",
-    "wrongFileType": "Sólo se permiten fichero de tipo %s",
+    "wrongFileType": "Sólo se permiten ficheros de tipo %s",
     "groupCheckedRangeStart": "Por favor, elija entre ",
     "groupCheckedTooFewStart": "Por favor, elija el menos ",
     "groupCheckedTooManyStart": "Por favor, elija un máximo de ",
     "groupCheckedEnd": " item(s)",
-    "badCreditCard": "El número de la trajeta de crédito es incorrecto",
+    "badCreditCard": "El número de la tarjeta de crédito es incorrecto",
     "badCVV": "El número CVV es incorrecto",
     "wrongFileDim" : "Las dimensiones de la imagen son incorrectas,",
     "imageTooTall" : "la imagen no puede ser más alta de",
@@ -72,4 +71,5 @@
     "min" : "mínimo",
     "max" : "máximo",
     "imageRatioNotAccepted" : "El ratio de la imagen es incorrecto"
+    
 }

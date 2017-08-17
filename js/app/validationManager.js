@@ -7,48 +7,8 @@ module.exports = (function() {
     var $ = require( 'jquery' );
     require( 'jquery-form-validator' );
     var context = require( './context.js' );
+    
     var errorClass = 'error';
-    var myLanguage = {
-        errorTitle: 'Form submission failed!',
-        requiredFields: 'You have not answered all required fields',
-        badTime: 'You have not given a correct time',
-        badEmail: 'You have not given a correct e-mail address',
-        badTelephone: 'You have not given a correct phone number',
-        badSecurityAnswer: 'You have not given a correct answer to the security question',
-        badDate: 'You have not given a correct date',
-        lengthBadStart: 'The input value must be between ',
-        lengthBadEnd: ' characters',
-        lengthTooLongStart: 'The input value is longer than ',
-        lengthTooShortStart: 'The input value is shorter than ',
-        notConfirmed: 'Input values could not be confirmed',
-        badDomain: 'Incorrect domain value',
-        badUrl: 'The input value is not a correct URL',
-        badCustomVal: 'The input value is incorrect',
-        andSpaces: ' and spaces ',
-        badInt: 'The input value was not a correct number!!!!!!!!!!',
-        badSecurityNumber: 'Your social security number was incorrect',
-        badUKVatAnswer: 'Incorrect UK VAT Number',
-        badStrength: 'The password isn\'t strong enough',
-        badNumberOfSelectedOptionsStart: 'You have to choose at least ',
-        badNumberOfSelectedOptionsEnd: ' answers',
-        badAlphaNumeric: 'The input value can only contain alphanumeric characters ',
-        badAlphaNumericExtra: ' and ',
-        wrongFileSize: 'The file you are trying to upload is too large (max %s)',
-        wrongFileType: 'Only files of type %s is allowed',
-        groupCheckedRangeStart: 'Please choose between ',
-        groupCheckedTooFewStart: 'Please choose at least ',
-        groupCheckedTooManyStart: 'Please choose a maximum of ',
-        groupCheckedEnd: ' item(s)',
-        badCreditCard: 'The credit card number is not correct',
-        badCVV: 'The CVV number was not correct',
-        wrongFileDim : 'Incorrect image dimensions,',
-        imageTooTall : 'the image can not be taller than',
-        imageTooWide : 'the image can not be wider than',
-        imageTooSmall : 'the image was too small',
-        min : 'min',
-        max : 'max',
-        imageRatioNotAccepted : 'Image ratio is not accepted'
-    };
     
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
@@ -73,8 +33,7 @@ module.exports = (function() {
         $.validate({
             form : '#' + options.currentForm.id,
             borderColorOnError : '',
-            //lang : options.i18n.language,
-            language: myLanguage,
+            language: context.getFormValidationLanguage(),
             decimalSeparator : context.translate( 'decimalSeparator' )
         });
     };
@@ -123,18 +82,13 @@ module.exports = (function() {
     
     var formIsValid = function( options, dataToSend ){
         
+        var eventResult = options.events.formSubmitting( options, dataToSend );
+        
         if ( ! validationOn( options ) ){
-            return false != options.events.formSubmitting( options, dataToSend );
+            return false != eventResult;
         }
         
-        return ! errorsExist() && false != options.events.formSubmitting( options, dataToSend );
-        /*
-        return $( '#' + options.currentForm.id ).isValid( {}, {}, true )
-            && false != options.events.formSubmitting( options, dataToSend );*/
-    };
-    
-    var errorsExist = function(){
-        return $( '.' + errorClass ).length > 0;
+        return $( '.' + errorClass ).length === 0 && false != eventResult;
     };
     
     var buildFieldOptions = function( options ){
