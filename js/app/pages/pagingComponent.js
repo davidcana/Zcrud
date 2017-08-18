@@ -29,7 +29,7 @@ module.exports = function( optionsToApply ) {
         }
     };
     
-    var savePagingSettings = function() {
+    var saveSettings = function() {
         
         if ( ! options.saveUserPreferences ) {
             return;
@@ -92,7 +92,7 @@ module.exports = function( optionsToApply ) {
         pageNumber = 1;
         //alert( 'changePageSize:' + pageSize );
         
-        savePagingSettings();
+        saveSettings();
         updateList();
         
         /*

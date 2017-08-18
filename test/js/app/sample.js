@@ -23,7 +23,8 @@ zcrud.run({
             key: true,
             create: true,
             edit: true,
-            delete: true
+            delete: true,
+            sorting: false
         },
         name: {
             //title: 'Name',
@@ -193,8 +194,8 @@ zcrud.run({
     sorting: {
         isOn: true,
         default: {
-            fieldId: 'id',
-            type: 'desc'
+            fieldId: 'name',
+            type: 'asc'
         },
         allowUser: false
     }

@@ -33,6 +33,7 @@ exports.run = function( userOptions ){
         // Forms
         entityId: 'entity',
         listId: 'zcrud-list',
+        listTableId: 'zcrud-list-table',
         listTbodyId: 'zcrud-list-tbody',
         formId: 'zcrud-form',
         
@@ -195,6 +196,9 @@ exports.run = function( userOptions ){
         declareRemotePageUrl( field.template, options );
         if ( field.formFieldAttributes == undefined ){
             field.formFieldAttributes = {};
+        }
+        if ( field.sorting == undefined ){
+            field.sorting = true;
         }
         
         // Convert dependsOn to array if it's a comma seperated lists

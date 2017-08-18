@@ -32,7 +32,7 @@ module.exports = function( optionsToApply ) {
         }
     };
     
-    var saveSortingSettings = function() {
+    var saveSettings = function() {
         
         if ( ! options.saveUserPreferences ) {
             return;
@@ -41,106 +41,45 @@ module.exports = function( optionsToApply ) {
         localStorage.setItem( sortFieldIdLocalStorageId, sortFieldId );
         localStorage.setItem( sortTypeLocalStorageId, sortType );
     };
-    /*
-    var bindEventsToPageSizeChangeCombobox = function(){
+    
+    var bindEvents = function(){
         
-        if ( ! thisOptions.pageSizeChangeArea ) {
-            return;
-        }
-
-        // Change page size on combobox change
-        $( '#' + thisOptions.pageSizeChangeComboboxId )
+        $( '#' + options.currentList.id )
+            .find( '.zcrud-column-header-sortable' )
             .off() // Remove previous event handlers
-            .change( function() {
-                changePageSize(
-                    parseInt( $( this ).val() ) );
-            });
-    };*/
-    /*
+            .click( function ( e ) {
+                e.preventDefault();
+                //alert( 'Sort!\nfield: ' + $( this ).data( 'sort-field-id' ) + '\ntype: ' + $( this ).data( 'sort-type' ) );
+                changeSort( 
+                    $( this ).data( 'sort-field-id'), 
+                    $( this ).data( 'sort-type' ) );
+        });
+    };
+    
+    var changeSort = function ( formFieldId, formType ) {
+        
+        // Update sortFieldId
+        sortFieldId = formFieldId;
+        
+        // Update sortType
+        if ( ! formType ){
+            sortType = 'asc';
+        } else {
+            sortType = formType == 'asc'? 'desc': 'asc';
+        }
+        
+        //alert( 'changeSort\nfield: ' + sortFieldId + '\ntype: ' + sortType );
+        saveSettings();
+        updateList();
+    };
+    
     var updateList = function(){
         //context.getMainPage().show( false );
         
         context.getMainPage().show( 
             false,
             undefined, 
-            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + thisOptions.pagingComponentId )[0] ] );
-    };*/
-    
-    /* Changes current page to given value.
-    *************************************************************************/
-    /*
-    var changePage = function ( newPageNumber ) {
-        
-        newPageNumber = pageUtils.normalizeNumber( parseInt( newPageNumber ), 1, calculatePageCount(), 1 );
-        if ( newPageNumber == pageNumber ) {
-            return;
-        }
-
-        pageNumber = newPageNumber;
-        //alert( 'changePage: ' + pageNumber );
-        
-        updateList();
-    };*/
-    /*
-    var changePageSize = function( newPageSize ) {
-        
-        // If newPageSize is not in pageSizes return
-        if ( -1 == thisOptions.pageSizes.indexOf( newPageSize ) ){
-            return;
-        }
-        
-        if ( newPageSize == pageSize ) {
-            return;
-        }
-
-        pageSize = parseInt( newPageSize );
-        pageNumber = 1;
-        //alert( 'changePageSize:' + pageSize );
-        
-        savePagingSettings();
-        updateList();
-    };*/
-    /*
-    var bindEventsToGoToPage = function() {
-        
-        if ( ! thisOptions.gotoPageArea || thisOptions.gotoPageArea == 'none' ) {
-            return;
-        }
-        
-        // Goto page input
-        if ( thisOptions.gotoPageArea == 'combobox' ) {
-            $( '#' + thisOptions.goToPageComboboxId )
-                .off() // Remove previous event handlers
-                .change( function() {
-                changePage(
-                    parseInt( $( this ).val() ) );
-            });
-
-        } else { //textbox
-            // TODO Implement this
-        }
-    };*/
-    
-    /* Binds click events of all page links to change the page.
-    *************************************************************************/
-    /*
-    var bindEventsToPageNumberButtons = function () {
-        
-        $( '#' + thisOptions.pagingComponentId )
-            .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
-            .not( '.zcrud-page-number-disabled' )
-            .off() // Remove previous event handlers
-            .click( function ( e ) {
-                e.preventDefault();
-                changePage( $( this ).data( 'page') );
-            });
-    };*/
-    
-    var bindEvents = function(){
-        /*
-        bindEventsToPageNumberButtons();
-        bindEventsToGoToPage();
-        bindEventsToPageSizeChangeCombobox();*/
+            [ $( '#' + options.currentList.tableId )[0] ] );
     };
     
     var addToDataToSend = function( dataToSend ){
@@ -149,21 +88,33 @@ module.exports = function( optionsToApply ) {
     };
     
     var dataFromServer = function( data ){
-        /*
-        totalNumberOfRecords = data.totalNumberOfRecords;
-        thisPageSize = data.records.length;*/
     };
 
     var getThisOptions = function(){
         return thisOptions;
     };
-        
+    
+    var getSortFieldId = function(){
+        return sortFieldId;
+    };
+
+    var getSortType = function(){
+        return sortType;
+    };
+    
+    var getTypeForFieldId = function( fieldId ){
+        return fieldId !== sortFieldId? null: sortType;
+    };
+    
     loadSettings();
     
     return {
         addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
         bindEvents: bindEvents,
-        getThisOptions: getThisOptions
+        getThisOptions: getThisOptions,
+        getSortFieldId: getSortFieldId,
+        getSortType: getSortType,
+        getTypeForFieldId: getTypeForFieldId
     };
 };

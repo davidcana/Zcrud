@@ -25,6 +25,7 @@ module.exports = function ( optionsToApply ) {
         
         options.currentList = {};
         options.currentList.id = options.listId;
+        options.currentList.tableId = options.listTableId;
         options.currentList.tbodyId = options.listTbodyId;
         options.currentList.fields = buildFields();
         

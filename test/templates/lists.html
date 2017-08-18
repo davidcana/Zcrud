@@ -34,12 +34,20 @@
                     </span>
                 </div>
             </div>
-            <table class="zcrud">
+            <table class="zcrud" 
+                   data-tattributes="id options/currentList/tableId"
+                   data-idomain="i18nArray">
                 <thead>
-                    <tr>
+                    <tr data-tdefine="sortingComponent options/sorting/component">
                         <th data-trepeat="field options/currentList/fields" 
+                            data-tdefine="sortingOn and: sortingComponent field/sorting;
+                                          sortablePart cond: sortingOn ' zcrud-column-header-sortable' '';
+                                          sortType cond: sortingComponent sortingComponent/getTypeForFieldId( field/id ) null;
+                                          sortTypePart cond: (and: sortingOn (exists:sortType)) (string: zcrud-column-header-sorted-${sortType}) ''"
                             data-tattributes="style cond: field/width (string:width:${field/width}) null;
-                                              class string:zcrud-column-header zcrud-column-header-${field/id}">
+                                              class string:zcrud-column-header zcrud-column-header-${field/id}${sortablePart}${sortTypePart};
+                                              data-sort-field-id field/id;
+                                              data-sort-type sortType">
                             <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
                         </th>
                         <th class="zcrud-command-column-header"></th>

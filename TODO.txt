@@ -10,6 +10,8 @@ zCrud 0.1.0
 * Verify that HTML is correct. (done!)
 * Support of server side paging using AJAX. (done!)
 * Full I18n and L10n support. (done!)
+* Support of server side sorting using AJAX. (done!)
 
-* Support of server side sorting using AJAX.
 * Support of server side filtering using AJAX.
+* Support of external methods.
+* Support of working as jquery plugin.
