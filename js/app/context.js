@@ -238,6 +238,15 @@ module.exports = (function() {
         return language;
     };
     
+    // options
+    var options = undefined;
+    var setOptions = function( optionsToApply ){
+        options = optionsToApply;
+    };
+    var getOptions = function(){
+        return options;
+    };
+    
     return {
         put: put,
         get: get,
@@ -250,6 +259,8 @@ module.exports = (function() {
         setI18nArray: setI18nArray,
         translate: translate,
         showError: showError,
-        getFormValidationLanguage: getFormValidationLanguage
+        getFormValidationLanguage: getFormValidationLanguage,
+        setOptions: setOptions,
+        getOptions: getOptions
     };
 })();

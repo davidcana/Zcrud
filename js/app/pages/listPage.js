@@ -12,7 +12,7 @@ module.exports = function ( optionsToApply ) {
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
-    var options = optionsToApply;
+    var options = optionsToApply || context.getOptions();
     
     var dictionary = undefined;
     var records = {};

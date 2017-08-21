@@ -1,12 +1,19 @@
-/*
-    run function
+/* 
+
+Public methods of zCrud:
+-----------------------
+
+ - init: Set options and normalize them.
+ - load: Show the list page
+ 
 */
-exports.run = function( userOptions ){
-    var $ = require( 'jquery' );
-    var zpt = require( 'zpt' );
-    var ListPage = require( './pages/listPage.js' );
-    var fieldBuilder = require( './fields/fieldBuilder.js' );
-    var context = require( './context.js' );
+var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
+var fieldBuilder = require( './fields/fieldBuilder.js' );
+var context = require( './context.js' );
+var ListPage = require( './pages/listPage.js' );
+
+exports.init = function( userOptions, callback ){
     
     /************************************************************************
     * DEFAULT OPTIONS / EVENTS                                              *
@@ -239,7 +246,7 @@ exports.run = function( userOptions ){
     };*/
     
     // Register in options.dictionary I18n instances
-    var initI18n = function( callback ){
+    var initI18n = function(){
         
         // Build the list of file paths
         var filePaths = [];
@@ -262,7 +269,10 @@ exports.run = function( userOptions ){
             }
             //options.dictionary[ options.i18n.i18nArrayVarName ] = i18nArray;
             context.setI18nArray( i18nArray, options );
-            callback();
+            context.setOptions( options );
+            if ( callback ){
+                callback();
+            }
         });
     };
     
@@ -278,10 +288,17 @@ exports.run = function( userOptions ){
     normalizeFieldsOptions();
     
     // Init I18n
-    initI18n( showListPage );
+    initI18n();
+    //initI18n( showListPage );
     /*
     var listPage =  new ListPage( options );
     listPage.show( true );*/
+};
+
+exports.load = function( options ){
+    var listPage =  new ListPage( options );
+    //context.setMainPage( listPage );
+    listPage.show( true );
 };
 
 /* I18n and i18nHelp classes */

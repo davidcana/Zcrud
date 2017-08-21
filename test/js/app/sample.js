@@ -4,8 +4,9 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 //var Qunit = require( 'qunitjs' );
 var testUtils = require( './testUtils' );
+var context = require( '../../../js/app/context.js' );
 
-zcrud.run({
+var options = {
     body: document.body,
     target: $( '#departmentsContainer' ),
     //title: 'Departments',
@@ -199,4 +200,8 @@ zcrud.run({
         },
         allowUser: false
     }
+};
+
+zcrud.init( options, function(){
+    zcrud.load();
 });
