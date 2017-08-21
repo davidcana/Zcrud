@@ -13,5 +13,14 @@ zCrud 0.1.0
 * Support of server side sorting using AJAX. (done!)
 
 * Support of server side filtering using AJAX.
-* Support of external methods.
+* Support of external methods:
+    - addRecord
+    - deleteRecord
+    - destroy
+    - getRowByKey
+    - load
+    - reload
+    - showCreateForm
+    - updateRecord
+
 * Support of working as jquery plugin.
