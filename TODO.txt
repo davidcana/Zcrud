@@ -18,9 +18,9 @@ zCrud 0.1.0
     - deleteRecord
     - destroy
     - getRowByKey
-    - load
+    - init (done!)
+    - load (done!)
     - reload
     - showCreateForm
     - updateRecord
-
 * Support of working as jquery plugin.

@@ -203,5 +203,8 @@ var options = {
 };
 
 zcrud.init( options, function(){
-    zcrud.load();
+    //zcrud.load();
+    zcrud.load({
+        name: 'Service 2'
+    });
 });

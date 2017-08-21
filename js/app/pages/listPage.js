@@ -1,7 +1,7 @@
 /* 
     Class ListPage 
 */
-module.exports = function ( optionsToApply ) {
+module.exports = function ( filterToApply, optionsToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -12,6 +12,7 @@ module.exports = function ( optionsToApply ) {
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
+    var filter = filterToApply || {};
     var options = optionsToApply || context.getOptions();
     
     var dictionary = undefined;
@@ -76,6 +77,7 @@ module.exports = function ( optionsToApply ) {
     var buildDataToSend = function(){
         
         var data = {};  
+        data.filter = filter;
         
         for ( var id in components ){
             var component = components[ id ];

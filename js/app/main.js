@@ -60,25 +60,6 @@ exports.init = function( userOptions, callback ){
             rowUpdated: function ( data ) { },
             selectionChanged: function ( data ) { }*/
         },
-
-        //Localization
-        /*
-        messages: {
-            serverCommunicationError: 'An error occured while communicating to the server.',
-            loadingMessage: 'Loading records...',
-            noDataAvailable: 'No data available!',
-            areYouSure: 'Are you sure?',
-            save: 'Save',
-            saving: 'Saving',
-            cancel: 'Cancel',
-            error: 'Error',
-            close: 'Close',
-            cannotLoadOptionsFor: 'Can not load options for field ',
-            
-            createSuccess: 'Record added!',
-            updateSuccess: 'Record updated!',
-            deleteSuccess: 'Record deleted!'
-        },*/
         
         //Templates
         listTemplate: "'listTemplate'",
@@ -233,17 +214,6 @@ exports.init = function( userOptions, callback ){
             }
         }
     };
-    /*
-    var buildI18nEntryId = function( fileName ){
-        
-        // Remove -
-        var index = fileName.indexOf( '-' );
-        var tmp = index == -1? fileName: fileName.substr( 1 + index );
-        
-        // Remove .
-        index = tmp.indexOf( '.' );
-        return index == -1? tmp: tmp.substr( 0, index );
-    };*/
     
     // Register in options.dictionary I18n instances
     var initI18n = function(){
@@ -265,9 +235,7 @@ exports.init = function( userOptions, callback ){
                 var fileName = fileNames[ c ];
                 var i18n =  new zpt.I18n( options.i18n.language, i18nMap[ filePath ] );
                 i18nArray.push( i18n );
-                //options.dictionary[ buildI18nEntryId( fileName ) ] = i18n;
             }
-            //options.dictionary[ options.i18n.i18nArrayVarName ] = i18nArray;
             context.setI18nArray( i18nArray, options );
             context.setOptions( options );
             if ( callback ){
@@ -276,27 +244,16 @@ exports.init = function( userOptions, callback ){
         });
     };
     
-    // Create and show list page
-    var showListPage = function(){
-        var listPage =  new ListPage( options );
-        //context.setMainPage( listPage );
-        listPage.show( true );
-    };
-    
     // Init options
     var options = $.extend( true, {}, defaultOptions, userOptions );
     normalizeFieldsOptions();
     
     // Init I18n
     initI18n();
-    //initI18n( showListPage );
-    /*
-    var listPage =  new ListPage( options );
-    listPage.show( true );*/
 };
 
-exports.load = function( options ){
-    var listPage =  new ListPage( options );
+exports.load = function( filter ){
+    var listPage =  new ListPage( filter );
     //context.setMainPage( listPage );
     listPage.show( true );
 };

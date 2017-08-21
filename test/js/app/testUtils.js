@@ -96,6 +96,9 @@ module.exports = (function() {
         var allRecords = [];
         for ( var id in input ) {
             var service = input[ id ];
+            if ( ! matches( service, data.filter ) ){
+                continue;
+            }
             service.id = id;
             allRecords.push( service );
         }
@@ -116,6 +119,19 @@ module.exports = (function() {
         dataToSend.totalNumberOfRecords = allRecords.length;
         
         return dataToSend;
+    };
+    
+    var matches = function( register, filter ){
+        
+        for ( var filterName in filter ) {
+            var filterValue = filter[ filterName ];
+            var registerValue = register[ filterName ];
+            if ( registerValue.indexOf( filterValue ) == -1 ){
+                return false;
+            }
+        }
+        
+        return true;
     };
     
     var dynamicSort = function( property, type ) {
