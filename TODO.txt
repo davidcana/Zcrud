@@ -20,7 +20,7 @@ zCrud 0.1.0
     - getRowByKey
     - init (done!)
     - load (done!)
-    - reload
+    - reload (done!)
     - showCreateForm
     - updateRecord
 * Support of working as jquery plugin.

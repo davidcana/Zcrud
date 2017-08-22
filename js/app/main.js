@@ -5,7 +5,7 @@ Public methods of zCrud:
 
  - init: Set options and normalize them.
  - load: Show the list page
- 
+ - reload: Show again a list page without configuring options or filters
 */
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
@@ -20,14 +20,12 @@ exports.init = function( userOptions, callback ){
     *************************************************************************/
     var defaultOptions = {
 
-        //Options
+        // Options
         actions: {},
         fields: {},        
         //animationsEnabled: true,
-        //defaultDateFormat: 'yy-mm-dd',
         //loadingAnimationDelay: 500,
         saveUserPreferences: true,
-        //unAuthorizedRequestRedirectUrl: null,
         /*
         toolbar: {
             hoverAnimation: true,
@@ -39,12 +37,8 @@ exports.init = function( userOptions, callback ){
         
         // Forms
         entityId: 'entity',
-        listId: 'zcrud-list',
-        listTableId: 'zcrud-list-table',
-        listTbodyId: 'zcrud-list-tbody',
-        formId: 'zcrud-form',
         
-        //Events
+        // Events
         events: {
             formClosed: function ( event, options ) { },
             formCreated: function ( options ) { },
@@ -61,7 +55,7 @@ exports.init = function( userOptions, callback ){
             selectionChanged: function ( data ) { }*/
         },
         
-        //Templates
+        // Templates
         listTemplate: "'listTemplate'",
         createTemplate: "'formTemplate'",
         updateTemplate: "'formTemplate'",
@@ -87,14 +81,11 @@ exports.init = function( userOptions, callback ){
         },
         defaultFieldOptions: {
             datetime: {
-                inline: false,
-                //formatTime:'H:i',
-                //formatDate:'d/m/Y'
+                inline: false
             },
             date: {
                 inline: false,
-                timepicker: false,
-                //formatDate:'d/m/Y'
+                timepicker: false
             },
             time: {
                 inline: false,
@@ -149,13 +140,30 @@ exports.init = function( userOptions, callback ){
         }
     };
     
-    /* Normalizes some options for all fields (sets default values).
-    *************************************************************************/
-    var normalizeFieldsOptions = function () {
+    var normalizeOptions = function() {
+        
+        normalizeGeneralOptions();
         
         $.each( options.fields, function ( fieldId, field ) {
             normalizeFieldOptions( fieldId, field, options );
         });
+    };
+    
+    // Normalizes some options (sets default values)
+    var normalizeGeneralOptions = function() {
+        
+        if ( options.listId == undefined ){
+            options.listId = 'zcrud-list-' + options.entityId;
+        }
+        if ( options.listTableId == undefined ){
+            options.listTableId = 'zcrud-list-table-' + options.entityId;
+        }
+        if ( options.listTbodyId == undefined ){
+            options.listTbodyId = 'zcrud-list-tbody-' + options.entityId;
+        }
+        if ( options.formId == undefined ){
+            options.formId = 'zcrud-form-' + options.entityId;
+        }
     };
 
     /* Normalizes some options for a field (sets default values).
@@ -199,7 +207,7 @@ exports.init = function( userOptions, callback ){
         }
     };
     
-    // Add to options.declaredRemotePageUrls all not repeated urls
+    // Add to options.declaredRemotePageUrls all non repeated urls
     var declareRemotePageUrl = function( template, options ){
         
         if ( ! template ){
@@ -237,25 +245,35 @@ exports.init = function( userOptions, callback ){
                 i18nArray.push( i18n );
             }
             context.setI18nArray( i18nArray, options );
-            context.setOptions( options );
+            context.putOptions( options.entityId, options );
             if ( callback ){
-                callback();
+                callback( options );
             }
         });
     };
     
     // Init options
     var options = $.extend( true, {}, defaultOptions, userOptions );
-    normalizeFieldsOptions();
+    normalizeOptions();
     
     // Init I18n
     initI18n();
 };
 
-exports.load = function( filter ){
-    var listPage =  new ListPage( filter );
-    //context.setMainPage( listPage );
-    listPage.show( true );
+exports.load = function( options, filter, callback ){
+    var listPage =  new ListPage( options, filter );
+    context.setMainPage( listPage );
+    context.putPage( listPage.getId(), listPage );
+    listPage.show( true, undefined, undefined, callback );
+};
+
+exports.reload = function( listPageId, callback ){
+    var listPage = context.getPage( listPageId  );
+    if ( ! listPage ){
+        alert( 'List page not found in context!' );
+        return;
+    }
+    listPage.show( true, undefined, undefined, callback );
 };
 
 /* I18n and i18nHelp classes */

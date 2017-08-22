@@ -1,7 +1,7 @@
 /* 
     Class ListPage 
 */
-module.exports = function ( filterToApply, optionsToApply ) {
+module.exports = function ( optionsToApply, filterToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -12,8 +12,8 @@ module.exports = function ( filterToApply, optionsToApply ) {
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
+    var options = optionsToApply;
     var filter = filterToApply || {};
-    var options = optionsToApply || context.getOptions();
     
     var dictionary = undefined;
     var records = {};
@@ -42,14 +42,6 @@ module.exports = function ( filterToApply, optionsToApply ) {
                 return new SortingComponent( options );
             }
         );
-        /*
-        pagingComponent = options.paging.isOn? new PagingComponent( options ): undefined;
-        options.paging.component = pagingComponent;
-        components.paging = pagingComponent;
-        
-        sortingComponent = options.sorting.isOn? new SortingComponent( options ): undefined;
-        options.sorting.component = sortingComponent;
-        components.sorting = sortingComponent;*/
     };
     
     var registerComponent = function( componentId, constructorFunction ){
@@ -96,10 +88,10 @@ module.exports = function ( filterToApply, optionsToApply ) {
     };
     
     // Main method
-    var show = function ( showBusyFull, dictionaryExtension, root ) {
+    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
         
         context.showBusy( options, showBusyFull );
-        context.setMainPage( this );
+        //context.setMainPage( this );
 
         // Trigger loadingRecords event
         //options.events.loadingRecords( options, loadUrl );
@@ -115,11 +107,17 @@ module.exports = function ( filterToApply, optionsToApply ) {
                 context.hideBusy( options, showBusyFull );
                 buildHTMLAndJavascript( root );
                 buildRecords();
+                if ( callback ){
+                    callback( true );
+                }
             },
             error: function ( data ) {
                 data = options.ajaxPostFilter( data );
                 context.hideBusy( options, showBusyFull );
                 context.showError( options.messages.serverCommunicationError );
+                if ( callback ){
+                    callback( false );
+                }
             }
         });
     };
@@ -227,9 +225,14 @@ module.exports = function ( filterToApply, optionsToApply ) {
         }
     };
     
+    var getId = function(){
+        return options.listId;      
+    };
+    
     configure();
     
     return {
-        show: show
+        show: show,
+        getId: getId
     };
 };

@@ -114,7 +114,7 @@ module.exports = function ( optionsToApply, type ) {
                 //declaredRemotePageUrls: [ 'templates/fields/basic.html' ],
                 declaredRemotePageUrls: options.declaredRemotePageUrls,
                 callback: function(){ 
-                    afterProcessTemplate( self ) 
+                    afterProcessTemplate( self );
                 }
             });
             

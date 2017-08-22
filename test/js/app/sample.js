@@ -202,9 +202,13 @@ var options = {
     }
 };
 
-zcrud.init( options, function(){
-    //zcrud.load();
-    zcrud.load({
-        name: 'Service 2'
-    });
+zcrud.init( options, function( options ){
+    zcrud.load( options );
+    /*
+    zcrud.load(
+        options,
+        {
+            name: 'Service 2'
+        });
+    */
 });

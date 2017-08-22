@@ -239,12 +239,19 @@ module.exports = (function() {
     };
     
     // options
-    var options = undefined;
-    var setOptions = function( optionsToApply ){
-        options = optionsToApply;
+    var putOptions = function( id, options ){
+        put( 'options_' + id, options );
     };
-    var getOptions = function(){
-        return options;
+    var getOptions = function( id ){
+        return get( 'options_' + id );
+    };
+    
+    // pages
+    var putPage = function( id, page ){
+        put( 'page_' + id, page );
+    };
+    var getPage = function( id ){
+        return get( 'page_' + id );
     };
     
     return {
@@ -260,7 +267,9 @@ module.exports = (function() {
         translate: translate,
         showError: showError,
         getFormValidationLanguage: getFormValidationLanguage,
-        setOptions: setOptions,
-        getOptions: getOptions
+        putOptions: putOptions,
+        getOptions: getOptions,
+        putPage: putPage,
+        getPage: getPage
     };
 })();
