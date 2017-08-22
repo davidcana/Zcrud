@@ -229,11 +229,16 @@ module.exports = function ( optionsToApply, filterToApply ) {
         return options.listId;      
     };
     
+    var getRowByKey = function( key ){
+        return records[ key ];
+    };
+    
     configure();
     
     return {
         show: show,
         getId: getId,
-        showCreateForm: showCreateForm
+        showCreateForm: showCreateForm,
+        getRowByKey: getRowByKey
     };
 };

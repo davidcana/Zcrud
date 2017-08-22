@@ -17,7 +17,7 @@ zCrud 0.1.0
     - addRecord
     - deleteRecord
     - destroy (done!)
-    - getRowByKey
+    - getRowByKey (done!)
     - init (done!)
     - load (done!)
     - reload (done!)

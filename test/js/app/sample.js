@@ -213,6 +213,7 @@ zcrud.init( options, function( options ){
     */
 });
 
-$( '#customNewRecordButton' ).click( function ( event ) {
-    zcrud.showCreateForm( 'zcrud-list-department' );
+$( '#customButton' ).click( function ( event ) {
+    alert( JSON.stringify(
+          zcrud.getRowByKey( 'zcrud-list-department', 1 ) ) );
 });

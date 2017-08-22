@@ -289,6 +289,15 @@ exports.showCreateForm = function( listPageId ){
     listPage.showCreateForm();
 };
 
+exports.getRowByKey = function( listPageId, key ){
+    var listPage = context.getPage( listPageId  );
+    if ( ! listPage ){
+        alert( 'List page not found in context!' );
+        return;
+    }
+    return listPage.getRowByKey( key );
+};
+
 /* I18n and i18nHelp classes */
 //exports.I18n = require( './i18n/i18n.js' );
 //exports.i18nHelper = require( './i18n/i18nHelper.js' );
