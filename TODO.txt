@@ -24,3 +24,6 @@ zCrud 0.1.0
     - showCreateForm (done!)
     - updateRecord
 * Support of working as jquery plugin.
+
+* Write docs.
+* Design tests.
