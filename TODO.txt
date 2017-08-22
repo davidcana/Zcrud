@@ -21,6 +21,6 @@ zCrud 0.1.0
     - init (done!)
     - load (done!)
     - reload (done!)
-    - showCreateForm
+    - showCreateForm (done!)
     - updateRecord
 * Support of working as jquery plugin.

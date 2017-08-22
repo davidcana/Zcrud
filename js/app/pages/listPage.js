@@ -233,6 +233,7 @@ module.exports = function ( optionsToApply, filterToApply ) {
     
     return {
         show: show,
-        getId: getId
+        getId: getId,
+        showCreateForm: showCreateForm
     };
 };
