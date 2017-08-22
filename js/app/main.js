@@ -276,6 +276,10 @@ exports.reload = function( listPageId, callback ){
     listPage.show( true, undefined, undefined, callback );
 };
 
+exports.destroy = function( target ){
+    target.empty();
+};
+
 /* I18n and i18nHelp classes */
 //exports.I18n = require( './i18n/i18n.js' );
 //exports.i18nHelper = require( './i18n/i18nHelper.js' );
