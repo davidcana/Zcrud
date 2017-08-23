@@ -20,6 +20,7 @@ module.exports = (function() {
      - validationOff
      
      - search
+     - records
     */
     var createRecord = function( data, options, event ){
         
@@ -159,6 +160,12 @@ module.exports = (function() {
         var errorFunction = function( dataFromServer ){
             generalErrorFunction( data, options, dataFromServer );
         };
+        
+        if ( data.clientOnly ){
+            successFunction(
+                data.ajaxPreFilterOff? data.records: options.ajaxPreFilter( data.records ) );
+            return;
+        }
         
         //Load data from server using AJAX
         var thisOptions = {
