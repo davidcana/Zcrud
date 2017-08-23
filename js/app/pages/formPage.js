@@ -8,6 +8,7 @@ module.exports = function ( optionsToApply, type ) {
     var pageUtils = require( './pageUtils.js' );
     var fieldBuilder = require( '../fields/fieldBuilder' );
     var validationManager = require( '../validationManager.js' );
+    var crudManager = require( '../crudManager.js' );
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
@@ -111,7 +112,6 @@ module.exports = function ( optionsToApply, type ) {
                 //root: options.target[0],
                 root: options.body,
                 dictionary: dictionary,
-                //declaredRemotePageUrls: [ 'templates/fields/basic.html' ],
                 declaredRemotePageUrls: options.declaredRemotePageUrls,
                 callback: function(){ 
                     afterProcessTemplate( self );
@@ -150,11 +150,7 @@ module.exports = function ( optionsToApply, type ) {
     };
     
     var updateDictionary = function(){
-        /*
-        dictionary = {
-            options: options,
-            record: recordFunction()
-        };*/
+
         dictionary = $.extend( {
             options: options,
             record: recordFunction()
@@ -231,104 +227,26 @@ module.exports = function ( optionsToApply, type ) {
     };
     
     var submitCreateForm = function( event ){
-        //alert( 'submitCreateForm' );
-        
+
         submitCreateAndUpdateForms( 
             event, 
-            options.actions.createAction,
-            'create', 
             'createSuccess' );
     };
     
     var submitUpdateForm = function( event ){
-        //alert( 'submitUpdateForm' );
         
         submitCreateAndUpdateForms( 
             event, 
-            options.actions.updateAction,
-            'update', 
             'updateSuccess' );
     };
     
-    var submitCreateAndUpdateForms = function( event, url, command, successMessage ){
-        //alert( 'submitCreateForm' );
+    var submitCreateAndUpdateForms = function( event, successMessage ){
         
         updateRecordFromForm();
         
-        var dataToSend = {
-            command: command,
-            records: [ record ]
-        };
-        
-        var thisOptions = {
-            url        : url,
-            data       : options.ajaxPreFilter( dataToSend ),
-            success    : function ( data ) {
-                data = options.ajaxPostFilter( data );
-                switch ( command ){
-                    case 'create':
-                        options.events.recordAdded( event, options, record );
-                        break;
-                    case 'update':
-                        options.events.recordUpdated( event, options, record );
-                        break;
-                    default:
-                        throw 'Unknown command in submitCreateAndUpdateForms: ' + command;
-                }
-                context.getMainPage().show(
-                    true,
-                    {
-                        status: {
-                            message: successMessage,
-                            date: new Date().toLocaleString()
-                    }
-                });
-            },
-            error      : function ( data ) {
-                data = options.ajaxPostFilter( data );
-                context.showError( 'serverCommunicationError', true );
-            }
-        };
-        
-        /*
-        runIfFormIsValid(
-            dataToSend,
-            function(){
-                options.ajax( $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
-            }
-        );*/
-        
-        if ( validationManager.formIsValid( options, dataToSend ) ){
-            options.ajax(
-                $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
-        }
-    };
-    /*
-    var formIsValid = function( dataToSend ){
-        
-        return $( '#' + options.currentForm.id ).isValid( {}, {}, true )
-            && false != options.events.formSubmitting( options, dataToSend );
-    };*/
-    
-    var submitDeleteForm = function( event ){
-        //alert( 'submitDeleteForm' );
-        
-        var key = $( '#zcRecordKey' ).val();
-        var command = 'delete';
-        var url = options.actions.deleteAction;
-        var successMessage = 'deleteSuccess';
-        
-        var dataToSend = {
-            command: command,
-            keys: [ key ]
-        };
-            
-        var thisOptions = {
-            url        : url,
-            data       : options.ajaxPreFilter( dataToSend ),
-            success    : function ( data ) {
-                data = options.ajaxPostFilter( data );
-                options.events.recordDeleted( event, options, key );
+        var data = {
+            record: record,
+            success: function( dataFromServer ){
                 context.getMainPage().show(
                     true,
                     {
@@ -336,18 +254,36 @@ module.exports = function ( optionsToApply, type ) {
                             message: successMessage,
                             date: new Date().toLocaleString()
                         }
-                });
+                    });
             },
-            error      : function ( data ) {
-                data = options.ajaxPostFilter( data );
+            error: function( dataFromServer ){
                 context.showError( 'serverCommunicationError', true );
             }
         };
         
-        if ( false != options.events.formSubmitting( options, dataToSend ) ){
-            options.ajax(
-                $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
-        }
+        crudManager.updateRecord( data, options, event );
+    };
+    
+    var submitDeleteForm = function( event ){
+        
+        var data = {
+            key: $( '#zcRecordKey' ).val(),
+            success: function( dataFromServer ){
+                context.getMainPage().show(
+                    true,
+                    {
+                        status: {
+                            message: 'deleteSuccess',
+                            date: new Date().toLocaleString()
+                        }
+                    });
+            },
+            error: function( dataFromServer ){
+                context.showError( 'serverCommunicationError', true );
+            }
+        };
+
+        crudManager.deleteRecord( data, options, event );
     };
     
     var cancelForm = function( event ){

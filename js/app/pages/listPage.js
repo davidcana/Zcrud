@@ -123,11 +123,7 @@ module.exports = function ( optionsToApply, filterToApply ) {
     };
     
     var updateDictionary = function( data, dictionaryExtension ){
-        /*
-        var thisDictionary = {
-            options: options,
-            records: data.records
-        };*/
+
         var thisDictionary = $.extend( {
                 options: options,
                 records: data.records
