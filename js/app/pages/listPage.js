@@ -9,6 +9,8 @@ module.exports = function ( optionsToApply, filterToApply ) {
     var FormPage = require( './formPage.js' );
     var PagingComponent = require( './pagingComponent.js' );
     var SortingComponent = require( './sortingComponent.js' );
+    var crudManager = require( '../crudManager.js' );
+    
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     
@@ -91,6 +93,34 @@ module.exports = function ( optionsToApply, filterToApply ) {
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
         
         context.showBusy( options, showBusyFull );
+        
+        var listData = {
+            search: buildDataToSend(),
+            success: function( data ){
+                dataFromServer( data );
+                updateDictionary( data, dictionaryExtension );
+                context.hideBusy( options, showBusyFull );
+                buildHTMLAndJavascript( root );
+                buildRecords();
+                if ( callback ){
+                    callback( true );
+                }
+            },
+            error: function( dataFromServer ){
+                context.hideBusy( options, showBusyFull );
+                context.showError( options.messages.serverCommunicationError );
+                if ( callback ){
+                    callback( false );
+                }
+            }
+        };
+
+        crudManager.listRecords( listData, options );
+    };
+    /*
+    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
+        
+        context.showBusy( options, showBusyFull );
         //context.setMainPage( this );
 
         // Trigger loadingRecords event
@@ -120,7 +150,7 @@ module.exports = function ( optionsToApply, filterToApply ) {
                 }
             }
         });
-    };
+    };*/
     
     var updateDictionary = function( data, dictionaryExtension ){
 

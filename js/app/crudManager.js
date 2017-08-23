@@ -18,6 +18,8 @@ module.exports = (function() {
      - ajaxPreFilterOff
      - ajaxPostFilterOff
      - validationOff
+     
+     - search
     */
     var createRecord = function( data, options, event ){
         
@@ -46,7 +48,11 @@ module.exports = (function() {
         if ( ! data.ajaxPostFilterOff ) {
             dataFromServer = options.ajaxPostFilter( dataFromServer );
         }
-        eventToThrow( event, options, data.record );
+        
+        if ( eventToThrow ){
+            eventToThrow( event, options, data.record );
+        }
+        
         if ( data.success ){
             data.success( dataFromServer );
         }
@@ -120,6 +126,12 @@ module.exports = (function() {
             generalErrorFunction( data, options, dataFromServer, event, options.events.recordDeleted );
         };
         
+        if ( data.clientOnly ){
+            successFunction(
+                data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ) );
+            return;
+        }
+        
         var thisOptions = {
             url    : data.url || options.actions.deleteAction,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ),
@@ -133,8 +145,31 @@ module.exports = (function() {
         }
     };
     
-    var listRecords = function(){
+    var listRecords = function( data, options ){
+        
+        var dataToSend = data.search;
+        
+        // Trigger loadingRecords event
+        //options.events.loadingRecords( options, loadUrl );
+        
+        var successFunction = function( dataFromServer ){
+            generalSuccessFunction( data, options, dataFromServer );
+        };
 
+        var errorFunction = function( dataFromServer ){
+            generalErrorFunction( data, options, dataFromServer );
+        };
+        
+        //Load data from server using AJAX
+        var thisOptions = {
+            url    : data.url || options.actions.listAction,
+            data   : data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ),
+            success: successFunction,
+            error  : errorFunction
+        };
+        
+        options.ajax(
+            $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
     };
     
     return {
