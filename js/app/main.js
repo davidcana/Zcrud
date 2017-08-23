@@ -276,8 +276,8 @@ exports.reload = function( listPageId, callback ){
     listPage.show( true, undefined, undefined, callback );
 };
 
-exports.destroy = function( target ){
-    target.empty();
+exports.destroy = function( options ){
+    options.target.empty();
 };
 
 exports.showCreateForm = function( listPageId ){
