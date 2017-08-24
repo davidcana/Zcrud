@@ -255,8 +255,12 @@ module.exports = function ( optionsToApply, filterToApply ) {
         return options.listId;      
     };
     
-    var getRowByKey = function( key ){
+    var getRecordByKey = function( key ){
         return records[ key ];
+    };
+    
+    var getOptions = function(){
+        return options;
     };
     
     configure();
@@ -265,6 +269,7 @@ module.exports = function ( optionsToApply, filterToApply ) {
         show: show,
         getId: getId,
         showCreateForm: showCreateForm,
-        getRowByKey: getRowByKey
+        getRecordByKey: getRecordByKey,
+        getOptions: getOptions
     };
 };

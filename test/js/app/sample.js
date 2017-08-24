@@ -208,12 +208,23 @@ zcrud.init( options, function( options ){
     zcrud.load(
         options,
         {
-            name: 'Service 2'
-        });
-    */
+            name: 'Service 11'
+        });*/
 });
 
 $( '#customButton' ).click( function ( event ) {
+    
     alert( JSON.stringify(
-          zcrud.getRowByKey( 'zcrud-list-department', 1 ) ) );
+          zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );
+    /*
+    zcrud.addRecord( 
+        'zcrud-list-department', 
+        {
+            id: '0',
+            name: 'New service!'
+        }, 
+        event );*/
+    /*
+    zcrud.deleteRecord( 
+        'zcrud-list-department', 1, event );*/
 });

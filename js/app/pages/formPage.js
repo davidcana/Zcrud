@@ -1,17 +1,17 @@
 /* 
     Class FormPage
 */
-module.exports = function ( optionsToApply, type ) {
+var context = require( '../context.js' );
+var pageUtils = require( './pageUtils.js' );
+var fieldBuilder = require( '../fields/fieldBuilder' );
+var validationManager = require( '../validationManager.js' );
+var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
+var crudManager = require( '../crudManager.js' );
+
+var FormPage = function ( optionsToApply, type ) {
     "use strict";
-    
-    var context = require( '../context.js' );
-    var pageUtils = require( './pageUtils.js' );
-    var fieldBuilder = require( '../fields/fieldBuilder' );
-    var validationManager = require( '../validationManager.js' );
-    var crudManager = require( '../crudManager.js' );
-    var $ = require( 'jquery' );
-    var zpt = require( 'zpt' );
-    
+
     //var self = this;
     var options = optionsToApply;
     var dictionary = undefined;
@@ -227,63 +227,20 @@ module.exports = function ( optionsToApply, type ) {
     };
     
     var submitCreateForm = function( event ){
-
-        submitCreateAndUpdateForms( 
-            event, 
-            'createSuccess' );
+        
+        updateRecordFromForm();
+        FormPage.createRecord( options, record, event );
     };
     
     var submitUpdateForm = function( event ){
         
-        submitCreateAndUpdateForms( 
-            event, 
-            'updateSuccess' );
-    };
-    
-    var submitCreateAndUpdateForms = function( event, successMessage ){
-        
         updateRecordFromForm();
-        
-        var data = {
-            record: record,
-            success: function( dataFromServer ){
-                context.getMainPage().show(
-                    true,
-                    {
-                        status: {
-                            message: successMessage,
-                            date: new Date().toLocaleString()
-                        }
-                    });
-            },
-            error: function( dataFromServer ){
-                context.showError( 'serverCommunicationError', true );
-            }
-        };
-        
-        crudManager.updateRecord( data, options, event );
+        FormPage.updateRecord( options, record, event );
     };
     
     var submitDeleteForm = function( event ){
         
-        var data = {
-            key: $( '#zcRecordKey' ).val(),
-            success: function( dataFromServer ){
-                context.getMainPage().show(
-                    true,
-                    {
-                        status: {
-                            message: 'deleteSuccess',
-                            date: new Date().toLocaleString()
-                        }
-                    });
-            },
-            error: function( dataFromServer ){
-                context.showError( 'serverCommunicationError', true );
-            }
-        };
-
-        crudManager.deleteRecord( data, options, event );
+        FormPage.deleteRecord( options, $( '#zcRecordKey' ).val(), event );
     };
     
     var cancelForm = function( event ){
@@ -301,3 +258,78 @@ module.exports = function ( optionsToApply, type ) {
         updateRecordFromDefaultValues: updateRecordFromDefaultValues
     };
 };
+
+FormPage.createRecord = function( options, currentRecord, event ){
+
+    var data = FormPage.buildDataForCreateAndUpdate( 
+        currentRecord,
+        event, 
+        'createSuccess' );
+
+    crudManager.createRecord( data, options, event );
+};
+
+FormPage.updateRecord = function( options, currentRecord, event ){
+
+    var data = FormPage.buildDataForCreateAndUpdate( 
+        currentRecord,
+        event, 
+        'updateSuccess' );
+
+    crudManager.updateRecord( data, options, event );
+};
+
+FormPage.buildDataForCreateAndUpdate = function( currentRecord, event, successMessage ){
+
+    var data = {
+        record: currentRecord,
+        success: function( dataFromServer ){
+            context.getMainPage().show(
+                true,
+                {
+                    status: {
+                        message: successMessage,
+                        date: new Date().toLocaleString()
+                    }
+                });
+        },
+        error: function( dataFromServer ){
+            if ( dataFromServer.message ){
+                context.showError( dataFromServer.message, false );
+            } else {
+                context.showError( 'serverCommunicationError', true );
+            }
+        }
+    };
+
+    return data;
+};
+
+
+FormPage.deleteRecord = function( options, key, event ){
+
+    var data = {
+        key: key,
+        success: function( dataFromServer ){
+            context.getMainPage().show(
+                true,
+                {
+                    status: {
+                        message: 'deleteSuccess',
+                        date: new Date().toLocaleString()
+                    }
+                });
+        },
+        error: function( dataFromServer ){
+            if ( dataFromServer.message ){
+                context.showError( dataFromServer.message, false );
+            } else {
+                context.showError( 'serverCommunicationError', true );
+            }
+        }
+    };
+
+    crudManager.deleteRecord( data, options, event );
+};
+
+module.exports = FormPage;

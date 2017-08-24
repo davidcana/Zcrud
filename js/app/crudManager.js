@@ -10,17 +10,14 @@ module.exports = (function() {
     
     /* 
     data format:
-     - record
-     - url
-     - clientOnly
-     - success
-     - error
-     - ajaxPreFilterOff
-     - ajaxPostFilterOff
-     - validationOff
-     
-     - search
-     - records
+        - ajaxPreFilterOff: a function that makes a before sending data filtering
+        - ajaxPostFilterOff: a function that makes an after receiving data filtering
+        - clientOnly: if true the command is not send to the server
+        - error: a function executed whenever there is some error
+        - record: the record to be created
+        - success: a function executed whenever the operation is OK
+        - url: an url that overwrite the default one
+        - validationOff: activate or deactivate record validation
     */
     var createRecord = function( data, options, event ){
         
@@ -33,6 +30,17 @@ module.exports = (function() {
             'create' );
     };
     
+    /* 
+    data format:
+         - ajaxPreFilterOff: a function that makes a before sending data filtering
+         - ajaxPostFilterOff: a function that makes an after receiving data filtering
+         - clientOnly: if true the command is not send to the server
+         - error: a function executed whenever there is some error
+         - record: the record to be created
+         - success: a function executed whenever the operation is OK
+         - url: an url that overwrite the default one
+         - validationOff: activate or deactivate record validation
+    */
     var updateRecord = function( data, options, event ){
         
         createOrUpdateRecord( 
@@ -112,6 +120,16 @@ module.exports = (function() {
         return data.formValidationOff? true: validationManager.formIsValid( options, dataToSend );
     };
     
+    /* 
+    data format:
+         - ajaxPreFilterOff: a function that makes a before sending data filtering
+         - ajaxPostFilterOff: a function that makes an after receiving data filtering
+         - clientOnly: if true the command is not send to the server
+         - error: a function executed whenever there is some error
+         - key: the key of the record to delete
+         - success: a function executed whenever the operation is OK
+         - url: an url that overwrite the default one
+    */
     var deleteRecord = function( data, options, event ){
 
         var dataToSend = {
@@ -146,6 +164,17 @@ module.exports = (function() {
         }
     };
     
+    /* 
+    data format:
+         - ajaxPreFilterOff: a function that makes a before sending data filtering
+         - ajaxPostFilterOff: a function that makes an after receiving data filtering
+         - clientOnly: if true the command is not send to the server
+         - error: a function executed whenever there is some error
+         - records: the list of records (clientOnly must be set to true)
+         - search: a filter that must be matched
+         - success: a function executed whenever the operation is OK
+         - url: an url that overwrite the default one
+    */
     var listRecords = function( data, options ){
         
         var dataToSend = data.search;

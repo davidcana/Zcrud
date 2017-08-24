@@ -3,15 +3,23 @@
 Public methods of zCrud:
 -----------------------
 
+ - addRecord: Add a new record to the table programmatically.
+ - deleteRecord: Delete an existing record from the table programmatically.
+ - destroy: Completely removes table from it's container.
+ - getRecordByKey: Get record by key field's value of the record.
  - init: Set options and normalize them.
  - load: Show the list page
  - reload: Show again a list page without configuring options or filters
+ - showCreateForm: 
+ - updateRecord: 
+ 
 */
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var fieldBuilder = require( './fields/fieldBuilder.js' );
 var context = require( './context.js' );
 var ListPage = require( './pages/listPage.js' );
+var FormPage = require( './pages/formPage.js' );
 
 exports.init = function( userOptions, callback ){
     
@@ -260,17 +268,29 @@ exports.init = function( userOptions, callback ){
     initI18n();
 };
 
+var getListPageFromValue = function( value ){
+    
+    var listPageId = typeof value === 'object'? value.listId: value;
+    var listPage = context.getPage( listPageId  );
+    if ( ! listPage ){
+        alert( 'List page not found in context!' );
+        return false;
+    }
+    return listPage;
+};
+
 exports.load = function( options, filter, callback ){
+    
     var listPage =  new ListPage( options, filter );
     context.setMainPage( listPage );
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
 };
 
-exports.reload = function( listPageId, callback ){
-    var listPage = context.getPage( listPageId  );
+exports.reload = function( value, callback ){
+    
+    var listPage = getListPageFromValue( value );
     if ( ! listPage ){
-        alert( 'List page not found in context!' );
         return;
     }
     listPage.show( true, undefined, undefined, callback );
@@ -280,22 +300,49 @@ exports.destroy = function( options ){
     options.target.empty();
 };
 
-exports.showCreateForm = function( listPageId ){
-    var listPage = context.getPage( listPageId  );
+exports.showCreateForm = function( value ){
+    
+    var listPage = getListPageFromValue( value );
     if ( ! listPage ){
-        alert( 'List page not found in context!' );
         return;
     }
     listPage.showCreateForm();
 };
 
-exports.getRowByKey = function( listPageId, key ){
-    var listPage = context.getPage( listPageId  );
+exports.getRecordByKey = function( value, key ){
+    
+    var listPage = getListPageFromValue( value );
     if ( ! listPage ){
-        alert( 'List page not found in context!' );
         return;
     }
-    return listPage.getRowByKey( key );
+    return listPage.getRecordByKey( key );
+};
+
+exports.addRecord = function( value, record, event ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    FormPage.createRecord( listPage.getOptions(), record, event );
+};
+
+exports.updateRecord = function( value, record, event ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    FormPage.updateRecord( listPage.getOptions(), record, event );
+};
+
+exports.deleteRecord = function( value, key, event ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    FormPage.deleteRecord( listPage.getOptions(), key, event );
 };
 
 /* I18n and i18nHelp classes */

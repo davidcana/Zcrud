@@ -80,7 +80,11 @@ module.exports = (function() {
                 throw "Unknown command in ajax: " + cmd;
         }
 
-        options.success( dataToSend );
+        if ( dataToSend.result == 'OK' ){
+            options.success( dataToSend );
+        } else {
+            options.error( dataToSend );
+        }
     };
     
     var ajaxServicesList = function( file, data ){
@@ -144,14 +148,14 @@ module.exports = (function() {
     }
     
     var ajaxServicesCreate = function( file, data ){
-        return ajaxServicesCreateAndUpdate( file, data );
+        return ajaxServicesCreateAndUpdate( file, data, false );
     };
     
     var ajaxServicesUpdate = function( file, data ){
-        return ajaxServicesCreateAndUpdate( file, data );
+        return ajaxServicesCreateAndUpdate( file, data, true );
     };
     
-    var ajaxServicesCreateAndUpdate = function( file, data ){
+    var ajaxServicesCreateAndUpdate = function( file, data, mustExists ){
         
         // Init data
         var dataToSend = {};
@@ -162,6 +166,18 @@ module.exports = (function() {
         // Add all services to the map of services and to the dataToSend
         for ( var c = 0; c < data.records.length; c++ ) {
             var service = data.records[ c ];
+            
+            var exists = services[ service.id ];
+            if ( exists && ! mustExists ){
+                dataToSend.result = 'Error';
+                dataToSend.message += 'Service with key "' + service.id + '" found trying to create it!';
+                continue;
+            } else if ( ! exists && mustExists ){
+                dataToSend.result = 'Error';
+                dataToSend.message += 'Service with key "' + service.id + '" not found trying to update it!';
+                continue;       
+            }
+            
             services[ service.id ] = service;
             dataToSend.records.push( service );
         }
@@ -181,8 +197,14 @@ module.exports = (function() {
         for ( var c = 0; c < data.keys.length; c++ ) {
             var key = data.keys[ c ];
             var service = services[ key ];
-            delete services[ key ];
-            dataToSend.records.push( service );
+            
+            if ( ! service ){
+                dataToSend.result = 'Error';
+                dataToSend.message += 'Service with key "' + key + '" not found!';
+            } else {
+                delete services[ key ];
+                dataToSend.records.push( service );
+            }
         }
         return dataToSend;
     };
