@@ -2,13 +2,14 @@
 
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
+require( '../../../js/app/jqueryPlugin.js' );
 //var Qunit = require( 'qunitjs' );
 var testUtils = require( './testUtils' );
 var context = require( '../../../js/app/context.js' );
 
 var options = {
     body: document.body,
-    target: $( '#departmentsContainer' ),
+    //target: $( '#departmentsContainer' ),
     //title: 'Departments',
     entityId: 'department',
     actions: {
@@ -202,20 +203,28 @@ var options = {
     }
 };
 
+$( '#departmentsContainer' ).zcrud( 
+    'init',
+    options,
+    function( options ){
+        $( '#departmentsContainer' ).zcrud( 'load', options );
+    }
+);
+/*
 zcrud.init( options, function( options ){
-    zcrud.load( options );
-    /*
+    //zcrud.load( options );
     zcrud.load(
         options,
         {
-            name: 'Service 11'
-        });*/
-});
+            name: 'Service 1'
+        });
+});*/
 
 $( '#customButton' ).click( function ( event ) {
     
     alert( JSON.stringify(
-          zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );
+        $( '#departmentsContainer' ).zcrud( 'getRecordByKey', 'zcrud-list-department', 1 ) ) );
+            //zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );
     /*
     zcrud.addRecord( 
         'zcrud-list-department', 
