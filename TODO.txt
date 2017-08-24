@@ -23,8 +23,9 @@ zCrud 0.1.0
     - updateRecord
 
 
-* Support of server side filtering using AJAX. (in progress!)
-* Support of working as jquery plugin.
+* Support of working as jquery plugin. (in progress!)
+* Support of server side filtering using AJAX.
+* Allows user to select rows.
 
 * Write docs.
 * Design tests.

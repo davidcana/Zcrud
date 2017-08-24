@@ -20,10 +20,10 @@ The next list details the features of jTable and the expected version of zCrud t
 * Exposes some events to enable validation with forms. *(done!)*
 * Built it validation of forms support using [jQuery Form Validator](http://www.formvalidator.net/). *(done!)*
 * All HTML code is valid (w3c compliant). It works on all common browsers. *(done!)*
-* Supports server side sorting and paging using AJAX. *(0.1.0 version)*
-* It can be localized easily. Full I18n and L10n support. *(0.1.0 version)*
+* Supports server side sorting and paging using AJAX. *(done!)*
+* It can be localized easily. Full I18n and L10n support. *(done!)*
+* Allows user to select rows. *(0.1.0 version)*
 * Supports master/child tables. *(0.2.0 version)*
-* Allows user to select rows. *(0.3.0 version)*
 * Allows user to resize columns. *(0.3.0 version)*
 * Allows user to show/hide columns. *(0.3.0 version)*
 * Shows animations for create/delete/edit operations on the table. *(0.4.0 version)*
