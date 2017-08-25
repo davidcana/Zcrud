@@ -21,11 +21,12 @@ zCrud 0.1.0
     - reload
     - showCreateForm
     - updateRecord
+* Support of working as jquery plugin. (done!)
 
 
-* Support of working as jquery plugin. (in progress!)
+* Generate all HTML code inside container (this will make destroy method to work!). (in progress!)
 * Support of server side filtering using AJAX.
-* Allows user to select rows.
+* Allows user to select rows. Implement selectedRows and selectedRows methods
 
 * Write docs.
-* Design tests.
+* Write tests.

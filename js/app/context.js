@@ -253,6 +253,12 @@ module.exports = (function() {
     var getPage = function( id ){
         return get( 'page_' + id );
     };
+
+    var getSelectorString = function( $jqueryObject ){
+        var selector = (typeof($jqueryObject.attr('id')) !== 'undefined' || $jqueryObject.attr('id') !== null) ? '#' + $jqueryObject.attr('id') :  '.' + $jqueryObject.attr('class');
+        //alert(selector);
+        return selector;
+    };
     
     return {
         put: put,
@@ -270,6 +276,7 @@ module.exports = (function() {
         putOptions: putOptions,
         getOptions: getOptions,
         putPage: putPage,
-        getPage: getPage
+        getPage: getPage,
+        getSelectorString: getSelectorString
     };
 })();

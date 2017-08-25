@@ -3,16 +3,15 @@
 Public methods of zCrud:
 -----------------------
 
- - addRecord: Add a new record to the table programmatically.
- - deleteRecord: Delete an existing record from the table programmatically.
+ - addRecord: Add a new record to the table.
+ - deleteRecord: Delete an existing record from the table.
  - destroy: Completely removes table from it's container.
  - getRecordByKey: Get record by key field's value of the record.
  - init: Set options and normalize them.
- - load: Show the list page
- - reload: Show again a list page without configuring options or filters
- - showCreateForm: 
- - updateRecord: 
- 
+ - load: Show the list page.
+ - reload: Show again a list page without configuring options or filters.
+ - showCreateForm: Open a 'create new record' form dialog.
+ - updateRecord: Update an existing record on the table. 
 */
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
@@ -148,6 +147,7 @@ exports.init = function( userOptions, callback ){
         }
     };
     
+    // Normalizes some options (sets default values)
     var normalizeOptions = function() {
         
         normalizeGeneralOptions();
@@ -157,7 +157,7 @@ exports.init = function( userOptions, callback ){
         });
     };
     
-    // Normalizes some options (sets default values)
+    // Normalizes some general options (non related to fields)
     var normalizeGeneralOptions = function() {
         
         if ( options.listId == undefined ){
@@ -174,8 +174,7 @@ exports.init = function( userOptions, callback ){
         }
     };
 
-    /* Normalizes some options for a field (sets default values).
-    *************************************************************************/
+    // Normalizes some options for a field (sets default values)
     var normalizeFieldOptions = function ( id, field, options ) {
         
         // Set id
@@ -253,7 +252,6 @@ exports.init = function( userOptions, callback ){
                 i18nArray.push( i18n );
             }
             context.setI18nArray( i18nArray, options );
-            context.putOptions( options.entityId, options );
             if ( callback ){
                 callback( options );
             }
@@ -266,8 +264,15 @@ exports.init = function( userOptions, callback ){
     
     // Init I18n
     initI18n();
+    
+    // Register options using jquery selector 
+    context.putOptions( 
+        context.getSelectorString( options.target ), 
+        options );
 };
 
+// Returns a listPage instance. Value can be an object (then use its listId property) 
+// or a string (then use it as the listId)
 var getListPageFromValue = function( value ){
     
     var listPageId = typeof value === 'object'? value.listId: value;

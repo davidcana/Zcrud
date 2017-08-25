@@ -2,39 +2,45 @@
 
 var $ = require( 'jquery' );
 var zcrud = require( './main.js' );
+var context = require( './context.js' );
 
 (function ( $ ) {
  
+    var getOptions = function( jqueryObject ){
+        var selectorString = context.getSelectorString( jqueryObject );
+        return context.getOptions( selectorString );
+    };
+    
     $.fn.zcrud = function( action ) {
         "use strict";
 
         switch ( action ){
             case 'addRecord':
-                zcrud.addRecord( arguments[1], arguments[2], arguments[3] );
+                zcrud.addRecord( getOptions( this ), arguments[1], arguments[2] );
                 break;
             case 'deleteRecord':
-                zcrud.deleteRecord( arguments[1], arguments[2], arguments[3] );
+                zcrud.deleteRecord( getOptions( this ), arguments[1], arguments[2] );
                 break;
             case 'destroy':
-                zcrud.destroy( arguments[1] );
+                zcrud.destroy( getOptions( this ) );
                 break;
             case 'getRecordByKey':
-                return zcrud.getRecordByKey( arguments[1], arguments[2] );
+                return zcrud.getRecordByKey( getOptions( this ), arguments[1] );
             case 'init':
                 arguments[1].target = this;
                 zcrud.init( arguments[1], arguments[2] );
                 break;
             case 'load':
-                zcrud.load( arguments[1], arguments[2], arguments[3] );
+                zcrud.load( getOptions( this ), arguments[1], arguments[2] );
                 break;
             case 'reload':
-                zcrud.reload( arguments[1], arguments[2] );
+                zcrud.reload( getOptions( this ), arguments[1] );
                 break;
             case 'showCreateForm':
-                zcrud.showCreateForm( arguments[1] );
+                zcrud.showCreateForm( getOptions( this ) );
                 break;
             case 'updateRecord':
-                zcrud.updateRecord( arguments[1], arguments[2], arguments[3] );
+                zcrud.updateRecord( getOptions( this ), arguments[1], arguments[2] );
                 break;
             default:
                 alert( 'Unknown action: ' + action );

@@ -207,7 +207,7 @@ $( '#departmentsContainer' ).zcrud(
     'init',
     options,
     function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load', options );
+        $( '#departmentsContainer' ).zcrud( 'load' );
     }
 );
 /*
@@ -222,18 +222,19 @@ zcrud.init( options, function( options ){
 
 $( '#customButton' ).click( function ( event ) {
     
-    alert( JSON.stringify(
-        $( '#departmentsContainer' ).zcrud( 'getRecordByKey', 'zcrud-list-department', 1 ) ) );
-            //zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );
+    /*alert( JSON.stringify(
+        $( '#departmentsContainer' ).zcrud( 'getRecordByKey', 1 ) ) );
+            //zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );*/
+    $( '#departmentsContainer' ).zcrud( 'showCreateForm' );
     /*
-    zcrud.addRecord( 
-        'zcrud-list-department', 
+    $( '#departmentsContainer' ).zcrud( 
+        'updateRecord',
         {
-            id: '0',
+            id: '1',
             name: 'New service!'
-        }, 
-        event );*/
+        });*/
     /*
     zcrud.deleteRecord( 
         'zcrud-list-department', 1, event );*/
+    //$( '#departmentsContainer' ).zcrud( 'deleteRecord', 1, event );
 });

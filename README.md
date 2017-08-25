@@ -24,6 +24,7 @@ The next list details the features of jTable and the expected version of zCrud t
 * It can be localized easily. Full I18n and L10n support. *(done!)*
 * Allows user to select rows. *(0.1.0 version)*
 * Supports master/child tables. *(0.2.0 version)*
+* Implement toolbar. *(0.3.0 version)*
 * Allows user to resize columns. *(0.3.0 version)*
 * Allows user to show/hide columns. *(0.3.0 version)*
 * Shows animations for create/delete/edit operations on the table. *(0.4.0 version)*
