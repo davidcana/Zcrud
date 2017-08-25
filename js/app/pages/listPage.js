@@ -1,19 +1,19 @@
 /* 
     Class ListPage 
 */
-module.exports = function ( optionsToApply, filterToApply ) {
+var context = require( '../context.js' );
+var pageUtils = require( './pageUtils.js' );
+var FormPage = require( './formPage.js' );
+var PagingComponent = require( './pagingComponent.js' );
+var SortingComponent = require( './sortingComponent.js' );
+var crudManager = require( '../crudManager.js' );
+var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
+
+var ListPage = function ( optionsToApply, filterToApply ) {
     "use strict";
     
-    var context = require( '../context.js' );
-    var pageUtils = require( './pageUtils.js' );
-    var FormPage = require( './formPage.js' );
-    var PagingComponent = require( './pagingComponent.js' );
-    var SortingComponent = require( './sortingComponent.js' );
-    var crudManager = require( '../crudManager.js' );
-    
-    var $ = require( 'jquery' );
-    var zpt = require( 'zpt' );
-    
+    var self = this;
     var options = optionsToApply;
     var filter = filterToApply || {};
     
@@ -228,7 +228,7 @@ module.exports = function ( optionsToApply, filterToApply ) {
     };
     
     var showForm = function( options, type, record ){
-        var formPage =  new FormPage( options, type );
+        var formPage =  new FormPage( options, type, getId() );
         
         if ( record ){
             formPage.setRecord( record );
@@ -273,3 +273,5 @@ module.exports = function ( optionsToApply, filterToApply ) {
         getOptions: getOptions
     };
 };
+
+module.exports = ListPage;

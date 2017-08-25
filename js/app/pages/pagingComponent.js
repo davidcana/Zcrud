@@ -9,7 +9,6 @@ module.exports = function( optionsToApply ) {
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
-    
     var thisOptions = options.paging;
     var pageNumber = 1; // The current page
     var totalNumberOfRecords = undefined;
@@ -54,9 +53,8 @@ module.exports = function( optionsToApply ) {
     };
     
     var updateList = function(){
-        //context.getMainPage().show( false );
-        
-        context.getMainPage().show( 
+        //context.getListPage( options ).show( false );
+        context.getListPage( options ).show( 
             false,
             undefined, 
             [ $( '#' + options.currentList.tbodyId )[0], $( '#' + thisOptions.pagingComponentId )[0] ] );

@@ -287,7 +287,7 @@ var getListPageFromValue = function( value ){
 exports.load = function( options, filter, callback ){
     
     var listPage =  new ListPage( options, filter );
-    context.setMainPage( listPage );
+    //context.setMainPage( listPage );
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
 };

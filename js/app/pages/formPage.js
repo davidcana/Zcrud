@@ -9,11 +9,12 @@ var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 
-var FormPage = function ( optionsToApply, type ) {
+var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
     "use strict";
 
     //var self = this;
     var options = optionsToApply;
+    var listIdPage = listPageIdToApply;
     var dictionary = undefined;
     var record = undefined;
     var template = undefined;
@@ -246,7 +247,7 @@ var FormPage = function ( optionsToApply, type ) {
     var cancelForm = function( event ){
         //alert( 'cancelForm' );
         options.events.formClosed( event, options );
-        context.getMainPage().show( false );
+        context.getListPage( options ).show( false );
     };
     
     configure();
@@ -284,7 +285,7 @@ FormPage.buildDataForCreateAndUpdate = function( currentRecord, event, successMe
     var data = {
         record: currentRecord,
         success: function( dataFromServer ){
-            context.getMainPage().show(
+            context.getListPage( options ).show(
                 true,
                 {
                     status: {
@@ -305,13 +306,12 @@ FormPage.buildDataForCreateAndUpdate = function( currentRecord, event, successMe
     return data;
 };
 
-
 FormPage.deleteRecord = function( options, key, event ){
 
     var data = {
         key: key,
         success: function( dataFromServer ){
-            context.getMainPage().show(
+            context.getListPage( options ).show(
                 true,
                 {
                     status: {

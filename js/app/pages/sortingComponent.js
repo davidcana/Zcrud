@@ -74,9 +74,8 @@ module.exports = function( optionsToApply ) {
     };
     
     var updateList = function(){
-        //context.getMainPage().show( false );
-        
-        context.getMainPage().show( 
+        //context.getListPage( options ).show( false );
+        context.getListPage( options ).show( 
             false,
             undefined, 
             [ $( '#' + options.currentList.tableId )[0] ] );

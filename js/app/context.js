@@ -26,13 +26,14 @@ module.exports = (function() {
     };
     
     /* mainPage */
+    /*
     var mainPage = undefined;
     var setMainPage = function( mainPageToApply ){
         mainPage = mainPageToApply;
     };
     var getMainPage = function(){
         return mainPage;
-    };
+    };*/
     
     /* mainContainer */
     /*
@@ -260,11 +261,16 @@ module.exports = (function() {
         return selector;
     };
     
+    var getListPage = function( options ){
+        return getPage( options.listId );
+        //return mainPage;
+    };
+    
     return {
         put: put,
         get: get,
-        setMainPage: setMainPage,
-        getMainPage: getMainPage,
+        //setMainPage: setMainPage,
+        //getMainPage: getMainPage,
         showBusy: showBusy,
         hideBusy: hideBusy,
         //isBusy: isBusy,
@@ -277,6 +283,7 @@ module.exports = (function() {
         getOptions: getOptions,
         putPage: putPage,
         getPage: getPage,
-        getSelectorString: getSelectorString
+        getSelectorString: getSelectorString,
+        getListPage: getListPage
     };
 })();
