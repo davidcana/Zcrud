@@ -3,10 +3,20 @@
 */
 module.exports = (function() {
     "use strict";
-        
+    
+    var $ = require( 'jquery' );
+    
+    /*
     var configureTemplate = function( options, templatePath ){
         options.target.attr(
             'data-muse-macro', templatePath );
+    };*/
+    
+    var configureTemplate = function( options, templatePath ){
+        
+        var $containerDiv = $('<div />')
+            .attr( 'data-muse-macro', templatePath );
+        options.target.html( $containerDiv );
     };
     
     /* Normalizes a number between given bounds or sets to a defaultValue

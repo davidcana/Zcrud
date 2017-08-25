@@ -222,10 +222,11 @@ zcrud.init( options, function( options ){
 
 $( '#customButton' ).click( function ( event ) {
     
+    $( '#departmentsContainer' ).zcrud( 'destroy' );
     /*alert( JSON.stringify(
         $( '#departmentsContainer' ).zcrud( 'getRecordByKey', 1 ) ) );
             //zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );*/
-    $( '#departmentsContainer' ).zcrud( 'showCreateForm' );
+    //$( '#departmentsContainer' ).zcrud( 'showCreateForm' );
     /*
     $( '#departmentsContainer' ).zcrud( 
         'updateRecord',
