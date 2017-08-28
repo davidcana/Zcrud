@@ -200,6 +200,13 @@ var options = {
             type: 'asc'
         },
         allowUser: false
+    },
+    
+    // Selecting
+    selecting: {
+        isOn: true,
+        multiple: true,
+        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
     }
 };
 

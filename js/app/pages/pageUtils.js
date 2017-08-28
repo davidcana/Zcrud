@@ -39,6 +39,26 @@ module.exports = (function() {
         return number;
     };
     
+    /* Finds index of an element in an array according to given comparision function
+        *************************************************************************/
+    var findIndexInArray = function ( value, array, compareFunc ) {
+
+        // If not defined, use default comparision
+        if ( ! compareFunc ) {
+            compareFunc = function ( a, b ) {
+                return a == b;
+            };
+        }
+
+        for ( var i = 0; i < array.length; i++ ) {
+            if ( compareFunc( value, array[i] ) ) {
+                return i;
+            }
+        }
+
+        return -1;
+    };
+    
     return {
         configureTemplate: configureTemplate,
         normalizeNumber: normalizeNumber

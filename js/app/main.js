@@ -54,12 +54,12 @@ exports.init = function( userOptions, callback ){
             recordAdded: function ( event, options, record ) { },
             recordDeleted: function ( event, options, key ) { },
             //recordsLoaded: function ( data ) { },
-            recordUpdated: function ( event, options, record ) { }
+            recordUpdated: function ( event, options, record ) { },
             /*
             rowInserted: function ( data ) { },
             rowsRemoved: function ( data ) { },
-            rowUpdated: function ( data ) { },
-            selectionChanged: function ( data ) { }*/
+            rowUpdated: function ( data ) { },*/
+            selectionChanged: function ( data ) { }
         },
         
         // Templates
@@ -115,6 +115,13 @@ exports.init = function( userOptions, callback ){
             block1NumberOfPages: 1,
             block2NumberOfPages: 5,
             block3NumberOfPages: 1
+        },
+        
+        // Selecting
+        selecting: {
+            isOn: false,
+            multiple: true,
+            mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
         },
         
         // Dictionary

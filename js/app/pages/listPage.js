@@ -6,6 +6,7 @@ var pageUtils = require( './pageUtils.js' );
 var FormPage = require( './formPage.js' );
 var PagingComponent = require( './pagingComponent.js' );
 var SortingComponent = require( './sortingComponent.js' );
+var SelectingComponent = require( './selectingComponent.js' );
 var crudManager = require( '../crudManager.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
@@ -44,6 +45,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 return new SortingComponent( options );
             }
         );
+        /*
+        registerComponent( 
+            'selecting',
+            function(){
+                return new SelectingComponent( options );
+            }
+        );*/
     };
     
     var registerComponent = function( componentId, constructorFunction ){

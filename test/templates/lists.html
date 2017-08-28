@@ -35,10 +35,14 @@
                 </div>
             </div>
             <table class="zcrud" 
-                   data-tattributes="id options/currentList/tableId"
-                   data-idomain="i18nArray">
-                <thead>
-                    <tr data-tdefine="sortingComponent options/sorting/component">
+                   data-idomain="i18nArray"
+                   data-tattributes="id options/currentList/tableId">
+                <thead data-tdefine="sortingComponent options/sorting/component;
+                                     selectingCheckbox and: options/selecting/isOn (lt: -1 options/selecting/mode/indexOf('checkbox'))">
+                    <tr>
+                        <th data-tcondition="selectingCheckbox">
+                            <input class="zcrud-select-all-rows" type="checkbox">
+                        </th>
                         <th data-trepeat="field options/currentList/fields" 
                             data-tdefine="sortingOn and: sortingComponent field/sorting;
                                           sortablePart cond: sortingOn ' zcrud-column-header-sortable' '';
@@ -54,9 +58,14 @@
                         <th class="zcrud-command-column-header"></th>
                     </tr>
                 </thead>
-                <tbody data-tattributes="id options/currentList/tbodyId">
+                <tbody data-tattributes="id options/currentList/tbodyId"
+                       data-tdefine="selectingCheckbox and: options/selecting/isOn (lt: -1 options/selecting/mode/indexOf('checkbox'))">
                     <tr data-trepeat="record records"
-                        data-tattributes="data-record-key record[ options/key ]">
+                        data-tattributes="data-record-key record[ options/key ];
+                                          class 'zcrud-data-row'">
+                        <td data-tcondition="selectingCheckbox">
+                            <input class="zcrud-select-row" type="checkbox">
+                        </td>
                         <td data-trepeat="field options/currentList/fields"
                             data-tcontent="record[ field/id ]"
                             data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}">
