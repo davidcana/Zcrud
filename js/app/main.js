@@ -294,7 +294,7 @@ var getListPageFromValue = function( value ){
 exports.load = function( options, filter, callback ){
     
     var listPage =  new ListPage( options, filter );
-    listPage.configure();
+    //listPage.configure();
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
 };

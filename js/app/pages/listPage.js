@@ -14,7 +14,7 @@ var zpt = require( 'zpt' );
 var ListPage = function ( optionsToApply, filterToApply ) {
     "use strict";
     
-    var self = undefined;
+    //var self = undefined;
     var options = optionsToApply;
     var filter = filterToApply || {};
     
@@ -27,8 +27,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     //
     var configure = function(){
         
-        self = this;
-        
+        //self = this;
         options.currentList = {};
         options.currentList.id = options.listId;
         options.currentList.tableId = options.listTableId;
@@ -300,8 +299,22 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return selectionComponent.selectedRecords();
     };
     
-    //configure();
+    var self = {
+        show: show,
+        getId: getId,
+        showCreateForm: showCreateForm,
+        getRecordByKey: getRecordByKey,
+        getOptions: getOptions,
+        selectRows: selectRows,
+        selectedRows: selectedRows,
+        selectedRecords: selectedRecords
+        //configure: configure
+    };
     
+    configure();
+    
+    return self;
+    /*
     return {
         show: show,
         getId: getId,
@@ -312,7 +325,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         selectedRows: selectedRows,
         selectedRecords: selectedRecords,
         configure: configure
-    };
+    };*/
 };
 
 module.exports = ListPage;
