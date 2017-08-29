@@ -294,7 +294,7 @@ var getListPageFromValue = function( value ){
 exports.load = function( options, filter, callback ){
     
     var listPage =  new ListPage( options, filter );
-    //context.setMainPage( listPage );
+    listPage.configure();
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
 };
@@ -357,6 +357,32 @@ exports.deleteRecord = function( value, key, event ){
     FormPage.deleteRecord( listPage.getOptions(), key, event );
 };
 
+exports.selectRows = function( value, rows ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    listPage.selectRows( rows );
+};
+
+exports.selectedRows = function( value ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    return listPage.selectedRows();
+};
+
+exports.selectedRecords = function( value ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    return listPage.selectedRecords();
+};
 /* I18n and i18nHelp classes */
 //exports.I18n = require( './i18n/i18n.js' );
 //exports.i18nHelper = require( './i18n/i18nHelper.js' );

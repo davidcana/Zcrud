@@ -49,18 +49,29 @@ module.exports = (function() {
                 return a == b;
             };
         }
-
+        
         for ( var i = 0; i < array.length; i++ ) {
             if ( compareFunc( value, array[i] ) ) {
                 return i;
             }
         }
-
         return -1;
+        
+        /*
+        var result = -1;
+        array.each( function( index ) {
+            if ( compareFunc( value, $( this ) ) ) {
+                result = index;
+                return false;
+            }
+        });
+        
+        return result;*/
     };
     
     return {
         configureTemplate: configureTemplate,
-        normalizeNumber: normalizeNumber
+        normalizeNumber: normalizeNumber,
+        findIndexInArray: findIndexInArray
     };
 })();

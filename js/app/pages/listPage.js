@@ -14,7 +14,7 @@ var zpt = require( 'zpt' );
 var ListPage = function ( optionsToApply, filterToApply ) {
     "use strict";
     
-    var self = this;
+    var self = undefined;
     var options = optionsToApply;
     var filter = filterToApply || {};
     
@@ -26,6 +26,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     //
     var configure = function(){
+        
+        self = this;
         
         options.currentList = {};
         options.currentList.id = options.listId;
@@ -45,13 +47,12 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 return new SortingComponent( options );
             }
         );
-        /*
         registerComponent( 
             'selecting',
             function(){
-                return new SelectingComponent( options );
+                return new SelectingComponent( options, self );
             }
-        );*/
+        );
     };
     
     var registerComponent = function( componentId, constructorFunction ){
@@ -83,7 +84,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         
         for ( var id in components ){
             var component = components[ id ];
-            component.addToDataToSend( data );
+            if ( component && $.isFunction( component.addToDataToSend ) ){
+                component.addToDataToSend( data );
+            }
         }
         
         return data;
@@ -93,7 +96,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         
         for ( var id in components ){
             var component = components[ id ];
-            component.dataFromServer( data );
+            if ( component && $.isFunction( component.dataFromServer ) ){
+                component.dataFromServer( data );
+            }
         }
     };
     
@@ -271,14 +276,42 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return options;
     };
     
-    configure();
+    var selectRows = function( rows ){
+        var selectionComponent = components[ 'selecting' ];
+        if ( ! selectionComponent ){
+            return;
+        }
+        selectionComponent.selectRows( rows );
+    };
+
+    var selectedRows = function(){
+        var selectionComponent = components[ 'selecting' ];
+        if ( ! selectionComponent ){
+            return;
+        }
+        return selectionComponent.selectedRows();
+    };
+
+    var selectedRecords = function(){
+        var selectionComponent = components[ 'selecting' ];
+        if ( ! selectionComponent ){
+            return;
+        }
+        return selectionComponent.selectedRecords();
+    };
+    
+    //configure();
     
     return {
         show: show,
         getId: getId,
         showCreateForm: showCreateForm,
         getRecordByKey: getRecordByKey,
-        getOptions: getOptions
+        getOptions: getOptions,
+        selectRows: selectRows,
+        selectedRows: selectedRows,
+        selectedRecords: selectedRecords,
+        configure: configure
     };
 };
 

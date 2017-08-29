@@ -23,10 +23,10 @@ zCrud 0.1.0
     - updateRecord
 * Support of working as jquery plugin. (done!)
 * Generate all HTML code inside container (this makes destroy method to work!). (done!)
+* Allows user to select rows. Implement selectRows, selectedRows and selectedRecords methods. (done!)
 
 
-* Allows user to select rows. Implement selectedRows and selectedRows methods. (in progress!)
-* Support of server side filtering using AJAX.
+* Support of server side filtering using AJAX. (in progress!)
 
 * Write docs.
 * Write tests.
