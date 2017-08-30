@@ -22,6 +22,12 @@
                 <span class="zcrud-toolbar">
                     <button title="New record" class="zcrud-new-command-button"></button>
                 </span>
+
+                <div data-muse-macro="'filterPanel@templates/lists.html'"
+                     data-tcondition="options/filtering/isOn">
+                    The filter panel
+                </div>
+                
                 <div class="zcrud-status">
                     <span data-tcontent="tr: 'Status:'">Status:</span>
                     <span data-tcondition="status">
@@ -86,6 +92,32 @@
                 The bottom panel
             </div>
             <div class="zcrud-busy" data-tattributes="id 'zcrud-busy'" style="display: none" class="zcrud-busy"></div>
+        </div>
+        
+        <div data-mdefine-macro="filterPanel" 
+             class="zcrud-filter-panel"
+             data-tdefine="component options/filtering/component;
+                           thisOptions component/getThisOptions()"
+             data-tattributes="id thisOptions/filteringComponentId"
+             data-idomain="i18nArray">
+            
+            <span data-trepeat="field thisOptions/fields"
+                  data-tdefine="id field/id; value ''; elementId field/elementId"
+                  data-tattributes="class string:zcrud-filter-field zcrud-filter-field-${id}">
+                <span>
+                    <label data-tattributes="for field/labelFor" data-tcontent="field/title || tr:string:${id}_title">
+                        The id of the field
+                    </label>
+                </span>
+                <span data-muse-macro="field/template">
+                    The field
+                </span>
+            </span>
+            <button type="button" 
+                    data-tattributes="id 'filter-submit-button'"
+                    data-tcontent="tr:'Filter'">
+                Filter
+            </button>
         </div>
         
         <div data-mdefine-macro="bottomPanel" 

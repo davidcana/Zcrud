@@ -7,6 +7,7 @@ var FormPage = require( './formPage.js' );
 var PagingComponent = require( './pagingComponent.js' );
 var SortingComponent = require( './sortingComponent.js' );
 var SelectingComponent = require( './selectingComponent.js' );
+var FilteringComponent = require( './filteringComponent.js' );
 var crudManager = require( '../crudManager.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
@@ -50,6 +51,12 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             'selecting',
             function(){
                 return new SelectingComponent( options, self );
+            }
+        );
+        registerComponent( 
+            'filtering',
+            function(){
+                return new FilteringComponent( options, self );
             }
         );
     };
@@ -203,6 +210,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             //root: options.target[0],
             root: root || options.body,
             dictionary: dictionary,
+            declaredRemotePageUrls: options.declaredRemotePageUrls,
             callback: bindEvents
         });
     };

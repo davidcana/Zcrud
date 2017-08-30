@@ -26,6 +26,7 @@
     "Cancel": "Cancel",
     "Save": "Save",
     "Delete": "Delete",
+    "Filter": "Filter",
     "createSuccess": "Record added!",
     "updateSuccess": "Record updated!",
     "deleteSuccess": "Record deleted!",

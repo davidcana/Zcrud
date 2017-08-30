@@ -207,6 +207,14 @@ var options = {
         isOn: true,
         multiple: true,
         mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+    },
+    
+    // Filtering
+    filtering: {
+        isOn: true,
+        fields: {
+            name: 'name'
+        }
     }
 };
 

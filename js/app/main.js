@@ -145,6 +145,12 @@ exports.init = function( userOptions, callback ){
             allowUser: false
         },
         
+        // Filtering
+        filtering: {
+            isOn: false,
+            elementIdSuffix: '-filter'
+        },
+        
         // Server data format stuff
         serverDataFormat: {
             datetime: 'm/d/Y H:i',
@@ -203,7 +209,8 @@ exports.init = function( userOptions, callback ){
         if ( field.template == undefined ){
             field.template = fieldBuilder.getTemplate( field, options );
         }
-        declareRemotePageUrl( field.template, options );
+        //declareRemotePageUrl( field.template, options );
+        context.declareRemotePageUrl( field.template, options );
         if ( field.formFieldAttributes == undefined ){
             field.formFieldAttributes = {};
         }
@@ -222,6 +229,7 @@ exports.init = function( userOptions, callback ){
     };
     
     // Add to options.declaredRemotePageUrls all non repeated urls
+    /*
     var declareRemotePageUrl = function( template, options ){
         
         if ( ! template ){
@@ -235,7 +243,7 @@ exports.init = function( userOptions, callback ){
                 options.declaredRemotePageUrls.push( url );
             }
         }
-    };
+    };*/
     
     // Register in options.dictionary I18n instances
     var initI18n = function(){

@@ -266,6 +266,22 @@ module.exports = (function() {
         //return mainPage;
     };
     
+    // Add to options.declaredRemotePageUrls all non repeated urls
+    var declareRemotePageUrl = function( template, options ){
+
+        if ( ! template ){
+            return;
+        }
+
+        var index = template.indexOf( '@' );
+        if ( index != -1 ){
+            var url = template.substring( 1 + index );
+            if ( options.declaredRemotePageUrls.indexOf( url ) == -1 ){
+                options.declaredRemotePageUrls.push( url );
+            }
+        }
+    };
+    
     return {
         put: put,
         get: get,
@@ -284,6 +300,7 @@ module.exports = (function() {
         putPage: putPage,
         getPage: getPage,
         getSelectorString: getSelectorString,
-        getListPage: getListPage
+        getListPage: getListPage,
+        declareRemotePageUrl: declareRemotePageUrl
     };
 })();
