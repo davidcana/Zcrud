@@ -179,10 +179,24 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     //
+    var resetPage = function(){
+        
+        for ( var id in components ){
+            var component = components[ id ];
+            if ( component && $.isFunction( component.resetPage ) ){
+                component.resetPage();
+            }
+        }
+    };
+    
+    //
     var buildHTMLAndJavascript = function( root ){
         
         if ( ! root ){
             pageUtils.configureTemplate( options, options.listTemplate );
+            
+        } else {
+            resetPage();
         }
         
         zpt.run({

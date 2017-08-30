@@ -270,11 +270,17 @@ module.exports = function( optionsToApply, listPageToApply ) {
             selectedRows() );
     };
     
+    var resetPage = function(){
+        getSelectAllCheckbox().prop( 'indeterminate', false );
+        getSelectAllCheckbox().attr( 'checked', false );
+    };
+    
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
         selectRows: selectRows,
         selectedRows: selectedRows,
-        selectedRecords: selectedRecords
+        selectedRecords: selectedRecords,
+        resetPage: resetPage
     };
 };
