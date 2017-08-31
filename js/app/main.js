@@ -157,6 +157,11 @@ exports.init = function( userOptions, callback ){
             date: 'm/d/Y',
             time: 'H:i',
             decimalSeparator: '.'
+        },
+        
+        // Logging
+        logging: {
+            isOn: false
         }
     };
     
@@ -276,6 +281,10 @@ exports.init = function( userOptions, callback ){
     // Init options
     var options = $.extend( true, {}, defaultOptions, userOptions );
     normalizeOptions();
+    
+    // Configure ZPT
+    //zpt.context.getConf().loggingOn = true;
+    zpt.context.getConf().loggingOn = options.logging.isOn;
     
     // Init I18n
     initI18n();

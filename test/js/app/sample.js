@@ -215,6 +215,11 @@ var options = {
         fields: {
             name: 'name'
         }
+    },
+    
+    // Logging
+    logging: {
+        isOn: false
     }
 };
 
