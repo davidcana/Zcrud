@@ -7,6 +7,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var context = require( '../context.js' );
     var $ = require( 'jquery' );
     var pageUtils = require( './pageUtils.js' );
+    var fieldBuilder = require( '../fields/fieldBuilder' );
     
     var options = optionsToApply;
     var listPage = listPageToApply;
@@ -15,6 +16,49 @@ module.exports = function( optionsToApply, listPageToApply ) {
     
     var bindEvents = function(){
 
+        $( '#' + options.listId )
+            .find( '.zcrud-filter-panel .zcrud-filter-submit-button' )
+            .off() // Remove previous event handlers
+            .click( function ( e ) {
+                e.preventDefault();
+                filter();
+        });
+    };
+    
+    var filter = function(){
+        listPage.getComponent( 'paging' ).goToFirstPage();
+        updateList();
+    };
+    
+    var buildFilterRecordFromForm = function(){
+        
+        var record = {};
+
+        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
+            var field = thisOptions.fields[ c ];
+            var value = fieldBuilder.getValueFromForm( field, options );
+            
+            if ( value != undefined && value != '' ){
+                record[ field.id ] = value;
+            }
+        }
+        
+        return record;
+    };
+    
+    var addToDataToSend = function( dataToSend ){
+
+        var filterRecord = buildFilterRecordFromForm();
+        dataToSend.filter = $.extend( true, {}, filterRecord, dataToSend.filter );
+    };
+    
+    var updateList = function(){
+        //listPage.show( false );
+        
+        listPage.show( 
+            false,
+            undefined, 
+            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + options.paging.pagingComponentId )[0] ] );
     };
     
     var getThisOptions = function(){
@@ -51,6 +95,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
-        resetPage: resetPage
+        resetPage: resetPage,
+        addToDataToSend: addToDataToSend
     };
 };

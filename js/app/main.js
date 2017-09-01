@@ -148,6 +148,7 @@ exports.init = function( userOptions, callback ){
         // Filtering
         filtering: {
             isOn: false,
+            filteringComponentId: 'zcrud-filtering',
             elementIdSuffix: '-filter'
         },
         

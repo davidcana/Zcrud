@@ -24,9 +24,9 @@ zCrud 0.1.0
 * Support of working as jquery plugin. (done!)
 * Generate all HTML code inside container (this makes destroy method to work!). (done!)
 * Allows user to select rows. Implement selectRows, selectedRows and selectedRecords methods. (done!)
+* Support of server side filtering using AJAX. (done!)
 
 
-* Support of server side filtering using AJAX. (in progress!)
-
-* Write docs.
-* Write tests.
+* Write docs. (in progress!)
+* Write tests. (in progress!)
+* Support of several instances running at the same web page.

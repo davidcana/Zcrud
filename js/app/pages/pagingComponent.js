@@ -360,7 +360,15 @@ module.exports = function( optionsToApply ) {
     var getThisOptions = function(){
         return thisOptions;
     };
-        
+
+    var setPageNumber = function( pageNumberToSet ){
+        pageNumber = pageNumberToSet;
+    };
+    
+    var goToFirstPage = function(){
+        setPageNumber( 1 );
+    };
+    
     loadSettings();
     
     return {
@@ -370,6 +378,8 @@ module.exports = function( optionsToApply ) {
         buildInfo: buildInfo,
         bindEvents: bindEvents,
         getPageSize: getPageSize,
-        getThisOptions: getThisOptions
+        getThisOptions: getThisOptions,
+        setPageNumber: setPageNumber,
+        goToFirstPage: goToFirstPage
     };
 };

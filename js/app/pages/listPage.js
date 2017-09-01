@@ -321,6 +321,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return selectionComponent.selectedRecords();
     };
     
+    var getComponent = function( id ){
+        return components[ id ];
+    };
+    
     var self = {
         show: show,
         getId: getId,
@@ -329,7 +333,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         getOptions: getOptions,
         selectRows: selectRows,
         selectedRows: selectedRows,
-        selectedRecords: selectedRecords
+        selectedRecords: selectedRecords,
+        getComponent: getComponent
         //configure: configure
     };
     
