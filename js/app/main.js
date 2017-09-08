@@ -40,7 +40,7 @@ exports.init = function( userOptions, callback ){
             hoverAnimationEasing: undefined,
             items: []
         },*/
-        validate : {},
+        validation : {},
         
         // Forms
         entityId: 'entity',
@@ -55,17 +55,23 @@ exports.init = function( userOptions, callback ){
             recordDeleted: function ( event, options, key ) { },
             //recordsLoaded: function ( data ) { },
             recordUpdated: function ( event, options, record ) { },
-            /*
-            rowInserted: function ( data ) { },
-            rowsRemoved: function ( data ) { },
-            rowUpdated: function ( data ) { },*/
             selectionChanged: function ( data ) { }
         },
         
+        // Pages
+        pages: {
+            list: {
+                template: "'listDefaultTemplate@templates/lists.html'"
+            }, create: {
+                template: "'formDefaultTemplate@templates/forms.html'"
+            }, update: {
+                template: "'formDefaultTemplate@templates/forms.html'"
+            }, delete: {
+                template: "'deleteDefaultTemplate@templates/forms.html'"
+            }
+        },
+        
         // Templates
-        listTemplate: "'listTemplate'",
-        createTemplate: "'formTemplate'",
-        updateTemplate: "'formTemplate'",
         declaredRemotePageUrls: [],
         
         // AJAX
@@ -103,14 +109,14 @@ exports.init = function( userOptions, callback ){
         
         // Paging
         paging: {
-            isOn: false,
+            isOn: true,
             pagingComponentId: 'zcrud-paging',
             goToPageComboboxId: 'zcrud-go-to-page-combobox',
             defaultPageSize: 10,
             pageSizes: [10, 25, 50, 100, 250, 500],
             pageSizeChangeArea: true,
             pageSizeChangeComboboxId: 'zcrud-pageSizeChange',
-            gotoPageArea: 'combobox', //possible values: 'textbox', 'combobox', 'none'
+            gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
             maxNumberOfAllShownPages: 5,
             block1NumberOfPages: 1,
             block2NumberOfPages: 5,
@@ -121,7 +127,7 @@ exports.init = function( userOptions, callback ){
         selecting: {
             isOn: false,
             multiple: true,
-            mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+            mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
         },
         
         // Dictionary

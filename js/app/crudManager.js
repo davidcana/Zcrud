@@ -26,7 +26,7 @@ module.exports = (function() {
             options,
             event,
             options.events.recordAdded,
-            data.url || options.actions.createAction,
+            data.url || options.pages.create.action,
             'create' );
     };
     
@@ -48,7 +48,7 @@ module.exports = (function() {
             options,
             event,
             options.events.recordUpdated,
-            data.url || options.actions.updateAction,
+            data.url || options.pages.update.action,
             'update' );
     };
     
@@ -152,7 +152,7 @@ module.exports = (function() {
         }
         
         var thisOptions = {
-            url    : data.url || options.actions.deleteAction,
+            url    : data.url || options.pages.delete.action,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction
@@ -198,7 +198,7 @@ module.exports = (function() {
         
         //Load data from server using AJAX
         var thisOptions = {
-            url    : data.url || options.actions.listAction,
+            url    : data.url || options.pages.list.action,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction

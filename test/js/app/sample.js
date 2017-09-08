@@ -12,12 +12,21 @@ var options = {
     //target: $( '#departmentsContainer' ),
     //title: 'Departments',
     entityId: 'department',
-    actions: {
-        listAction:   'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
-        createAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department',
-        updateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department',
-        deleteAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
+    
+    // Pages
+    pages: {
+        list: {
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department'
+        }, create: {
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
+        }, update: {
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department'
+        }, delete: {
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
+        }
     },
+    
+    // Fields
     fields: {
         id: {
             //title: 'Id',
@@ -149,11 +158,6 @@ var options = {
             }
         }
     },
-    
-    listTemplate: "'listDefaultTemplate@templates/lists.html'",
-    updateTemplate: "'formDefaultTemplate@templates/forms.html'",
-    createTemplate: "'formDefaultTemplate@templates/forms.html'",
-    deleteTemplate: "'deleteDefaultTemplate@templates/forms.html'",
     
     ajax: testUtils.ajax,
     /*

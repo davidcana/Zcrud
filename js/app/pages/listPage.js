@@ -200,7 +200,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var buildHTMLAndJavascript = function( root ){
         
         if ( ! root ){
-            pageUtils.configureTemplate( options, options.listTemplate );
+            pageUtils.configureTemplate( options, options.pages.list.template );
             
         } else {
             resetPage();

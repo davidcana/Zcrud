@@ -30,7 +30,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
         options.currentForm.$form = $( '#' + options.currentForm.id );
         switch ( type ) {
         case 'create':
-            template = options.createTemplate;
+            template = options.pages.create.template;
             options.currentForm.title = "Create form";
             submitFunction = submitCreateForm;
             cancelFunction = cancelForm;
@@ -45,7 +45,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
             recordFunction = buildRecord;
             break;
         case 'update':
-            template = options.updateTemplate;
+            template = options.pages.update.template;
             options.currentForm.title = "Edit form";
             submitFunction = submitUpdateForm;
             cancelFunction = cancelForm;
@@ -59,7 +59,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
             recordFunction = buildRecord;
             break;
         case 'delete':
-            template = options.deleteTemplate;
+            template = options.pages.delete.template;
             options.currentForm.title = "Delete form";
             submitFunction = submitDeleteForm;
             cancelFunction = cancelForm;
@@ -263,6 +263,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
 FormPage.createRecord = function( options, currentRecord, event ){
 
     var data = FormPage.buildDataForCreateAndUpdate( 
+        options,
         currentRecord,
         event, 
         'createSuccess' );
@@ -273,6 +274,7 @@ FormPage.createRecord = function( options, currentRecord, event ){
 FormPage.updateRecord = function( options, currentRecord, event ){
 
     var data = FormPage.buildDataForCreateAndUpdate( 
+        options,
         currentRecord,
         event, 
         'updateSuccess' );
@@ -280,7 +282,7 @@ FormPage.updateRecord = function( options, currentRecord, event ){
     crudManager.updateRecord( data, options, event );
 };
 
-FormPage.buildDataForCreateAndUpdate = function( currentRecord, event, successMessage ){
+FormPage.buildDataForCreateAndUpdate = function( options, currentRecord, event, successMessage ){
 
     var data = {
         record: currentRecord,
