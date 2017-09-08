@@ -103,7 +103,7 @@ exports.init = function( userOptions, callback ){
         
         // Paging
         paging: {
-            isOn: true,
+            isOn: false,
             pagingComponentId: 'zcrud-paging',
             goToPageComboboxId: 'zcrud-go-to-page-combobox',
             defaultPageSize: 10,
