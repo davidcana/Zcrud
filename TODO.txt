@@ -27,6 +27,7 @@ zCrud 0.1.0
 * Support of server side filtering using AJAX. (done!)
 
 
+* Add some logging to make it easy debugging.
 * Write docs. (in progress!)
 * Write tests. (in progress!)
 * Support of several instances running at the same web page.

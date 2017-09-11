@@ -6,6 +6,7 @@ require( '../../../js/app/jqueryPlugin.js' );
 //var Qunit = require( 'qunitjs' );
 var testUtils = require( './testUtils' );
 var context = require( '../../../js/app/context.js' );
+var log4javascript = require( 'log4javascript' );
 
 var options = {
     body: document.body,
@@ -223,7 +224,8 @@ var options = {
     
     // Logging
     logging: {
-        isOn: false
+        isOn: true,
+        level: log4javascript.Level.DEBUG,
     }
 };
 

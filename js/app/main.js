@@ -15,10 +15,12 @@ Public methods of zCrud:
 */
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
+var log = zpt.logHelper;
 var fieldBuilder = require( './fields/fieldBuilder.js' );
 var context = require( './context.js' );
 var ListPage = require( './pages/listPage.js' );
 var FormPage = require( './pages/formPage.js' );
+var log4javascript = require( 'log4javascript' );
 
 exports.init = function( userOptions, callback ){
     
@@ -168,7 +170,8 @@ exports.init = function( userOptions, callback ){
         
         // Logging
         logging: {
-            isOn: false
+            isOn: false,
+            level: log4javascript.Level.ERROR,
         }
     };
     
@@ -292,6 +295,9 @@ exports.init = function( userOptions, callback ){
     // Configure ZPT
     //zpt.context.getConf().loggingOn = true;
     zpt.context.getConf().loggingOn = options.logging.isOn;
+    zpt.context.getConf().loggingLevel = options.logging.level;
+    
+    log.debug( 'Initializing zCrud...' );
     
     // Init I18n
     initI18n();
@@ -300,6 +306,8 @@ exports.init = function( userOptions, callback ){
     context.putOptions( 
         context.getSelectorString( options.target ), 
         options );
+    
+    log.debug( '...zCrud initialized.' );
 };
 
 // Returns a listPage instance. Value can be an object (then use its listId property) 

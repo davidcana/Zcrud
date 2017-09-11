@@ -11,6 +11,7 @@ var FilteringComponent = require( './filteringComponent.js' );
 var crudManager = require( '../crudManager.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
+var log = zpt.logHelper;
 
 var ListPage = function ( optionsToApply, filterToApply ) {
     "use strict";
@@ -111,7 +112,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     // Main method
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
         
-        context.showBusy( options, showBusyFull );
+        log.debug( 'Showing list...' );
+        
+        // TODO Uncomment this when ZPT uses promises 
+        //context.showBusy( options, showBusyFull );
         
         var listData = {
             search: buildDataToSend(),
@@ -135,41 +139,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         };
 
         crudManager.listRecords( listData, options );
+        
+        log.debug( '...showing list finished.' );
     };
-    /*
-    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
-        
-        context.showBusy( options, showBusyFull );
-        //context.setMainPage( this );
-
-        // Trigger loadingRecords event
-        //options.events.loadingRecords( options, loadUrl );
-        
-        //Load data from server using AJAX
-        options.ajax({
-            url: options.actions.listAction,
-            data: buildDataToSend(),
-            success: function ( data ) {
-                data = options.ajaxPostFilter( data );
-                dataFromServer( data );
-                updateDictionary( data, dictionaryExtension );
-                context.hideBusy( options, showBusyFull );
-                buildHTMLAndJavascript( root );
-                buildRecords();
-                if ( callback ){
-                    callback( true );
-                }
-            },
-            error: function ( data ) {
-                data = options.ajaxPostFilter( data );
-                context.hideBusy( options, showBusyFull );
-                context.showError( options.messages.serverCommunicationError );
-                if ( callback ){
-                    callback( false );
-                }
-            }
-        });
-    };*/
     
     var updateDictionary = function( data, dictionaryExtension ){
 
