@@ -293,11 +293,10 @@ exports.init = function( userOptions, callback ){
     normalizeOptions();
     
     // Configure ZPT
-    //zpt.context.getConf().loggingOn = true;
     zpt.context.getConf().loggingOn = options.logging.isOn;
     zpt.context.getConf().loggingLevel = options.logging.level;
     
-    log.debug( 'Initializing zCrud...' );
+    log.info( 'Initializing zCrud...' );
     
     // Init I18n
     initI18n();
@@ -307,7 +306,7 @@ exports.init = function( userOptions, callback ){
         context.getSelectorString( options.target ), 
         options );
     
-    log.debug( '...zCrud initialized.' );
+    log.info( '...zCrud initialized.' );
 };
 
 // Returns a listPage instance. Value can be an object (then use its listId property) 
@@ -324,11 +323,15 @@ var getListPageFromValue = function( value ){
 };
 
 exports.load = function( options, filter, callback ){
+
+    log.info( 'Showing list...' );
     
     var listPage =  new ListPage( options, filter );
     //listPage.configure();
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
+    
+    log.info( '...showing list finished.' );
 };
 
 exports.reload = function( value, callback ){

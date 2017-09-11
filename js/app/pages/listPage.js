@@ -112,8 +112,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     // Main method
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
         
-        log.debug( 'Showing list...' );
-        
         // TODO Uncomment this when ZPT uses promises 
         //context.showBusy( options, showBusyFull );
         
@@ -139,8 +137,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         };
 
         crudManager.listRecords( listData, options );
-        
-        log.debug( '...showing list finished.' );
     };
     
     var updateDictionary = function( data, dictionaryExtension ){

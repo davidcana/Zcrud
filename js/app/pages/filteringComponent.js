@@ -13,6 +13,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var listPage = listPageToApply;
     
     var thisOptions = options.filtering;
+    var filterRecord = undefined;
     
     var bindEvents = function(){
 
@@ -26,6 +27,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     };
     
     var filter = function(){
+        filterRecord = buildFilterRecordFromForm();
         listPage.getComponent( 'paging' ).goToFirstPage();
         updateList();
     };
@@ -48,8 +50,10 @@ module.exports = function( optionsToApply, listPageToApply ) {
     
     var addToDataToSend = function( dataToSend ){
 
-        var filterRecord = buildFilterRecordFromForm();
-        dataToSend.filter = $.extend( true, {}, filterRecord, dataToSend.filter );
+        var extendedFilter = $.extend( true, {}, filterRecord, dataToSend.filter );
+        if ( ! $.isEmptyObject( extendedFilter ) ){
+            dataToSend.filter = extendedFilter;
+        }
     };
     
     var updateList = function(){
