@@ -120,12 +120,12 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             success: function( data ){
                 dataFromServer( data );
                 updateDictionary( data, dictionaryExtension );
-                context.hideBusy( options, showBusyFull );
-                buildHTMLAndJavascript( root );
                 buildRecords();
-                if ( callback ){
+                context.hideBusy( options, showBusyFull );
+                buildHTMLAndJavascript( root, callback, true );
+                /*if ( callback ){
                     callback( true );
-                }
+                }*/
             },
             error: function( dataFromServer ){
                 context.hideBusy( options, showBusyFull );
@@ -165,7 +165,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     //
-    var buildHTMLAndJavascript = function( root ){
+    var buildHTMLAndJavascript = function( root, callback, callbackParam ){
         
         if ( ! root ){
             pageUtils.configureTemplate( options, options.pages.list.template );
@@ -179,7 +179,12 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             root: root || options.body,
             dictionary: dictionary,
             declaredRemotePageUrls: options.declaredRemotePageUrls,
-            callback: bindEvents
+            callback: function(){
+                bindEvents();
+                if ( callback ){
+                    callback( callbackParam );
+                }
+            }
         });
     };
     

@@ -30,6 +30,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/sample.js',
                 dest: 'build/sample.js'
+            },
+            paging: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/paging.js',
+                dest: 'build/paging.js'
             }
         },
         compress: {

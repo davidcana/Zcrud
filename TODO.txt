@@ -25,9 +25,10 @@ zCrud 0.1.0
 * Generate all HTML code inside container (this makes destroy method to work!). (done!)
 * Allows user to select rows. Implement selectRows, selectedRows and selectedRecords methods. (done!)
 * Support of server side filtering using AJAX. (done!)
+* Add some logging to make it easy debugging. (done!)
 
 
-* Add some logging to make it easy debugging.
-* Write docs. (in progress!)
 * Write tests. (in progress!)
+
+* Write docs.
 * Support of several instances running at the same web page.
