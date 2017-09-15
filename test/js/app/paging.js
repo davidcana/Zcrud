@@ -47,19 +47,20 @@ $( '#departmentsContainer' ).zcrud(
             function(){
                 // Run tests
                 QUnit.test( "paging test", function( assert ) {
-                    //assert.equal( true , true );
                     assert.equal( testHelper.countVisibleRows( options ), 10 );
                     assert.equal( testHelper.pagingInfo( options ), 'Showing 1-10 of 129' );
+                    assert.equal( testHelper.getColumnValues( 'id' ), '1/2/3/4/5/6/7/8/9/10' );
+                    assert.equal( testHelper.getColumnValues( 'name' ), 'Service 1/Service 2/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10' );
+                    testHelper.checkPageListInfo( 
+                        assert, 
+                        options,
+                        [ '<<', '<', '1' ],
+                        [ '2', '3', '4', '5', '13', '>', '>>' ]);
 
-                    //$('#myElement').trigger("click")
+                    testHelper.goToPage( options, '2' );
+                    
                     //assert.equal( getAllValues( '.value' ) , 'tool A/tool B/tool C/tool D'  );
                 });
             });
     }
 );
-
-function getAllValues( selector ){
-    return $( selector ).map( function( index, element ) {
-        return this.innerHTML;
-    } ).get().join( '/' );
-}
