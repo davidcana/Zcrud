@@ -5,7 +5,8 @@ var $ = require( 'jquery' );
 
 module.exports = (function() {
     "use strict";
-    
+
+    var defaultSleep = 5000;
     var $currentList = undefined;
     var getCurrentList = function( options ){
         
@@ -59,8 +60,8 @@ module.exports = (function() {
     var checkPageListInfo = function( assert, options, expectedNotActiveArray, expectedActiveArray ){
 
         var info = getPageListInfo( options );
-        assert.deepEqual( info.active, expectedActiveArray, 'Active array list not equals!' );
-        assert.deepEqual( info.notActive, expectedNotActiveArray, 'Not active array list not equals!' );
+        assert.deepEqual( info.active, expectedActiveArray );
+        assert.deepEqual( info.notActive, expectedNotActiveArray );
     };
 
     var goToPage = function( options, pageId ){
@@ -72,12 +73,29 @@ module.exports = (function() {
         $page.trigger( 'click' );
     };
     
+    var pagingTest = function( testOptions ){
+        
+        var assert = testOptions.assert;
+        var options = testOptions.options;
+        
+        if ( testOptions.pageId ){
+            goToPage( options, testOptions.pageId );
+        }
+        
+        assert.equal( countVisibleRows( options ), testOptions.visibleRows );
+        assert.equal( pagingInfo( options ), testOptions.pagingInfo );
+        assert.equal( getColumnValues( 'id' ), testOptions.ids );
+        assert.equal( getColumnValues( 'name' ), testOptions.names );
+        checkPageListInfo( assert, options, testOptions.pageListNotActive, testOptions.pageListActive );
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         pagingInfo: pagingInfo,
         getColumnValues: getColumnValues,
         //getPageListInfo: getPageListInfo,
         checkPageListInfo: checkPageListInfo,
-        goToPage: goToPage
+        goToPage: goToPage,
+        pagingTest: pagingTest
     };
 })();
