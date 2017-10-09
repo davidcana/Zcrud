@@ -90,7 +90,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
             newFilterField.elementId += thisOptions.elementIdSuffix;
             edited.push( newFilterField );
             
-            context.declareRemotePageUrl( newFilterField.template, options );
+            context.declareRemotePageUrl( newFilterField.template, options.declaredRemotePageUrl );
         });
         
         thisOptions.fields = edited;

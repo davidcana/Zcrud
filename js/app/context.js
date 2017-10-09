@@ -266,8 +266,8 @@ module.exports = (function() {
         //return mainPage;
     };
     
-    // Add to options.declaredRemotePageUrls all non repeated urls
-    var declareRemotePageUrl = function( template, options ){
+    // Add to declaredRemotePageUrls all non repeated urls
+    var declareRemotePageUrl = function( template, declaredRemotePageUrls ){
 
         if ( ! template ){
             return;
@@ -276,8 +276,8 @@ module.exports = (function() {
         var index = template.indexOf( '@' );
         if ( index != -1 ){
             var url = template.substring( 1 + index );
-            if ( options.declaredRemotePageUrls.indexOf( url ) == -1 ){
-                options.declaredRemotePageUrls.push( url );
+            if ( declaredRemotePageUrls.indexOf( url ) == -1 ){
+                declaredRemotePageUrls.push( url );
             }
         }
     };

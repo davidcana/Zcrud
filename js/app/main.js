@@ -75,6 +75,7 @@ exports.init = function( userOptions, callback ){
         
         // Templates
         declaredRemotePageUrls: [],
+        busyTemplate: "'busyDefaultTemplate@templates/misc.html'",
         
         // AJAX
         ajax: $.ajax,
@@ -183,6 +184,8 @@ exports.init = function( userOptions, callback ){
         $.each( options.fields, function ( fieldId, field ) {
             normalizeFieldOptions( fieldId, field, options );
         });
+        
+        normalizeGeneralOptionsPostFields();
     };
     
     // Normalizes some general options (non related to fields)
@@ -224,8 +227,7 @@ exports.init = function( userOptions, callback ){
         if ( field.template == undefined ){
             field.template = fieldBuilder.getTemplate( field, options );
         }
-        //declareRemotePageUrl( field.template, options );
-        context.declareRemotePageUrl( field.template, options );
+        context.declareRemotePageUrl( field.template, options.declaredRemotePageUrls );
         if ( field.formFieldAttributes == undefined ){
             field.formFieldAttributes = {};
         }
@@ -243,22 +245,18 @@ exports.init = function( userOptions, callback ){
         }
     };
     
-    // Add to options.declaredRemotePageUrls all non repeated urls
-    /*
-    var declareRemotePageUrl = function( template, options ){
+    var normalizeGeneralOptionsPostFields = function() {
         
-        if ( ! template ){
-            return;
+        // Add remote page URLs to allDeclaredRemotePageUrls array
+        options.allDeclaredRemotePageUrls = options.declaredRemotePageUrls.slice();
+        context.declareRemotePageUrl( options.busyTemplate, options.allDeclaredRemotePageUrls );
+
+        for ( var i in options.pages ) {
+            var template = options.pages[ i ].template;
+            context.declareRemotePageUrl( template, options.allDeclaredRemotePageUrls );
         }
-        
-        var index = template.indexOf( '@' );
-        if ( index != -1 ){
-            var url = template.substring( 1 + index );
-            if ( options.declaredRemotePageUrls.indexOf( url ) == -1 ){
-                options.declaredRemotePageUrls.push( url );
-            }
-        }
-    };*/
+        //alert( JSON.stringify( options.allDeclaredRemotePageUrls ) );
+    };
     
     // Register in options.dictionary I18n instances
     var initI18n = function(){
@@ -277,7 +275,7 @@ exports.init = function( userOptions, callback ){
             var i18nArray = [];
             for ( var c = 0; c < filePaths.length; c++ ) {
                 var filePath = filePaths[ c ];
-                var fileName = fileNames[ c ];
+                //var fileName = fileNames[ c ];
                 var i18n =  new zpt.I18n( options.i18n.language, i18nMap[ filePath ] );
                 i18nArray.push( i18n );
             }
