@@ -123,11 +123,11 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 buildRecords();
                 context.hideBusy( options, showBusyFull );
                 buildHTMLAndJavascript( root, callback, true );
-                /*if ( callback ){
+                if ( callback ){
                     callback( true );
-                }*/
+                }
             },
-            error: function( dataFromServer ){
+            error: function(){
                 context.hideBusy( options, showBusyFull );
                 context.showError( options.messages.serverCommunicationError );
                 if ( callback ){
@@ -165,27 +165,31 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     //
-    var buildHTMLAndJavascript = function( root, callback, callbackParam ){
+    var buildHTMLAndJavascript = function( root ){
         
         if ( ! root ){
-            pageUtils.configureTemplate( options, options.pages.list.template );
+            pageUtils.configureTemplate( options, "'" + options.pages.list.template + "'" );
             
         } else {
             resetPage();
         }
         
-        zpt.run({
+        context.getZPTParser().run({
+        //zpt.run({
             //root: options.target[0],
             root: root || options.body,
-            dictionary: dictionary,
-            declaredRemotePageUrls: options.declaredRemotePageUrls,
+            dictionary: dictionary
+            //declaredRemotePageUrls: options.declaredRemotePageUrls
+            /*
             callback: function(){
                 bindEvents();
                 if ( callback ){
                     callback( callbackParam );
                 }
-            }
+            }*/
         });
+        
+        bindEvents();
     };
     
     var bindEvents = function() {

@@ -63,19 +63,24 @@ exports.init = function( userOptions, callback ){
         // Pages
         pages: {
             list: {
-                template: "'listDefaultTemplate@templates/lists.html'"
+                template: "listDefaultTemplate@templates/lists.html"
+                //template: "'listDefaultTemplate@templates/lists.html'"
             }, create: {
-                template: "'formDefaultTemplate@templates/forms.html'"
+                template: "formDefaultTemplate@templates/forms.html"
+                //template: "'formDefaultTemplate@templates/forms.html'"
             }, update: {
-                template: "'formDefaultTemplate@templates/forms.html'"
+                template: "formDefaultTemplate@templates/forms.html"
+                //template: "'formDefaultTemplate@templates/forms.html'"
             }, delete: {
-                template: "'deleteDefaultTemplate@templates/forms.html'"
+                template: "deleteDefaultTemplate@templates/forms.html"
+                //template: "'formDefaultTemplate@templates/forms.html'"
             }
         },
         
         // Templates
         declaredRemotePageUrls: [],
-        busyTemplate: "'busyDefaultTemplate@templates/misc.html'",
+        //busyTemplate: "'busyDefaultTemplate@templates/misc.html'",
+        busyTemplate: "busyDefaultTemplate@templates/misc.html",
         
         // AJAX
         ajax: $.ajax,
@@ -280,9 +285,18 @@ exports.init = function( userOptions, callback ){
                 i18nArray.push( i18n );
             }
             context.setI18nArray( i18nArray, options );
+            context.initZPT({
+                root: document.body,
+                dictionary: options.dictionary,
+                declaredRemotePageUrls: options.allDeclaredRemotePageUrls,
+                callback: function(){
+                    callback( options );
+                }
+            });
+            /*
             if ( callback ){
                 callback( options );
-            }
+            }*/
         });
     };
     

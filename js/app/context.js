@@ -15,6 +15,7 @@ module.exports = (function() {
         /*defaultMessageDelay: 5000,*/
         busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
     };
+    var zptParser = undefined;
     
     /* Cache */
     var cache = {};
@@ -282,6 +283,16 @@ module.exports = (function() {
         }
     };
     
+    var initZPT = function( zptOptions ){
+
+        zptParser = zpt.buildParser( zptOptions );
+        zptParser.init( zptOptions.callback );
+    };
+    
+    var getZPTParser = function(){
+        return zptParser;
+    };
+    
     return {
         put: put,
         get: get,
@@ -301,6 +312,8 @@ module.exports = (function() {
         getPage: getPage,
         getSelectorString: getSelectorString,
         getListPage: getListPage,
-        declareRemotePageUrl: declareRemotePageUrl
+        declareRemotePageUrl: declareRemotePageUrl,
+        initZPT: initZPT,
+        getZPTParser: getZPTParser
     };
 })();

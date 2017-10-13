@@ -30,7 +30,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
         options.currentForm.$form = $( '#' + options.currentForm.id );
         switch ( type ) {
         case 'create':
-            template = options.pages.create.template;
+            template = "'" + options.pages.create.template + "'";
             options.currentForm.title = "Create form";
             submitFunction = submitCreateForm;
             cancelFunction = cancelForm;
@@ -45,7 +45,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
             recordFunction = buildRecord;
             break;
         case 'update':
-            template = options.pages.update.template;
+            template = "'" + options.pages.update.template + "'";
             options.currentForm.title = "Edit form";
             submitFunction = submitUpdateForm;
             cancelFunction = cancelForm;
@@ -59,7 +59,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
             recordFunction = buildRecord;
             break;
         case 'delete':
-            template = options.pages.delete.template;
+            template =  "'" + options.pages.delete.template + "'";
             options.currentForm.title = "Delete form";
             submitFunction = submitDeleteForm;
             cancelFunction = cancelForm;
@@ -118,6 +118,8 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
                     afterProcessTemplate( self );
                 }
             });
+            
+            //afterProcessTemplate( self );
             
         } catch( e ){
             alert ( e );    
