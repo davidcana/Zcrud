@@ -164,7 +164,8 @@ module.exports = function( optionsToApply ) {
             .off() // Remove previous event handlers
             .click( function ( e ) {
                 e.preventDefault();
-                changePage( $( this ).data( 'page') );
+                changePage( $( this )[ 0 ].getAttribute( 'data-page' ) );
+                //changePage( $( this ).data( 'page') );
             });
     };
     
@@ -227,7 +228,7 @@ module.exports = function( optionsToApply ) {
                 pageUtils.normalizeNumber( thisOptions.block1NumberOfPages, 0, 100, 2 ), 
                 1, 
                 1 );
-            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 2, 100, 3 );
+            block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 2, 100, 3 );
             info.block2OfPages = builPageList( 
                 block2NumberOfPages, 
                 1, 
@@ -239,12 +240,12 @@ module.exports = function( optionsToApply ) {
                 pageUtils.normalizeNumber( thisOptions.block1NumberOfPages, 0, 100, 2 ), 
                 1, 
                 1 );
-            var block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 3, 100, 3 );
+            block2NumberOfPages = pageUtils.normalizeNumber( thisOptions.block2NumberOfPages, 3, 100, 3 );
             info.block2OfPages = builPageList( 
                 block2NumberOfPages, 
                 1, 
                 Math.floor( pageNumber - block2NumberOfPages / 2 + 1 ) );
-            var block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.block3NumberOfPages, 0, 100, 2 );
+            block3NumberOfPages = pageUtils.normalizeNumber( thisOptions.block3NumberOfPages, 0, 100, 2 );
             info.block3OfPages = builPageList( 
                 block3NumberOfPages,
                 1, 

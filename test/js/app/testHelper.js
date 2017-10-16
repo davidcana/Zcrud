@@ -57,6 +57,7 @@ module.exports = (function() {
             
         return info;
     };
+    
     var checkPageListInfo = function( assert, options, expectedNotActiveArray, expectedActiveArray ){
 
         var info = getPageListInfo( options );
@@ -73,13 +74,51 @@ module.exports = (function() {
         $page.trigger( 'click' );
     };
     
+    var getPageByClass  = function( options, cssClass ){
+        return getCurrentList( options ).find( '.zcrud-page-list' ).children().filter( '.' + cssClass );
+    };
+    
+    var goToUsingCombobox = function( options ){
+        getPageByClass( options, 'zcrud-go-to-page-combobox' ).trigger( 'change' );
+    };
+    
+    var goToClass = function( options, cssClass ){
+        getPageByClass( options, cssClass ).trigger( 'click' );
+    };
+    
+    var goToNextPage = function( options ){
+        goToClass( options, 'zcrud-page-number-next' );
+    };
+
+    var goToPreviousPage = function( options ){
+        goToClass( options, 'zcrud-page-number-previous' );
+    };
+    
+    var goToFirstPage = function( options ){
+        goToClass( options, 'zcrud-page-number-first' );
+    };
+    
+    var goToLastPage = function( options ){
+        goToClass( options, 'zcrud-page-number-last' );
+    };
+    
     var pagingTest = function( testOptions ){
         
         var assert = testOptions.assert;
         var options = testOptions.options;
         
-        if ( testOptions.pageId ){
-            goToPage( options, testOptions.pageId );
+        if ( testOptions.action ){
+            if ( testOptions.action.pageId ){
+                goToPage( options, testOptions.action.pageId );
+            } else if ( testOptions.action.nextPage ){
+                goToNextPage( options );
+            } else if ( testOptions.action.previousPage ){
+                goToPreviousPage( options );
+            } else if ( testOptions.action.firstPage ){
+                goToFirstPage( options );
+            } else if ( testOptions.action.lastPage ){
+                goToLastPage( options );
+            }
         }
         
         assert.equal( countVisibleRows( options ), testOptions.visibleRows );
