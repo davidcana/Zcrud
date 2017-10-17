@@ -10,12 +10,9 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {
     paging: {
         isOn: true,
-        pagingComponentId: 'zcrud-paging',
-        goToPageComboboxId: 'zcrud-go-to-page-combobox',
         defaultPageSize: 10,
         pageSizes: [10, 25, 50, 100, 250, 500],
         pageSizeChangeArea: true,
-        pageSizeChangeComboboxId: 'zcrud-pageSizeChange',
         gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
         maxNumberOfAllShownPages: 5,
         block1NumberOfPages: 1,
@@ -46,6 +43,23 @@ $( '#departmentsContainer' ).zcrud(
         // Run tests
         QUnit.test( "paging test", function( assert ) {
             
+            testHelper.multiplePagingTest({
+                options: options,
+                assert: assert,
+                values: [
+                    testHelper.buildValuesList( 1, 10 ),
+                    testHelper.buildValuesList( 11, 20 ),
+                    testHelper.buildValuesList( 21, 30 ),
+                    testHelper.buildValuesList( 11, 20 ),
+                    testHelper.buildValuesList( 1, 10 ),
+                    testHelper.buildValuesList( 121, 129 ),
+                    testHelper.buildValuesList( 71, 80 ),
+                    testHelper.buildValuesList( 1, 25 ),
+                    testHelper.buildValuesList( 26, 50 ),
+                    testHelper.buildValuesList( 1, 10 )
+                ]
+            });
+            /*
             testHelper.pagingTest({
                 options: options,
                 assert: assert,
@@ -120,6 +134,6 @@ $( '#departmentsContainer' ).zcrud(
                 names: 'Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129',
                 pageListNotActive: [ '13', '>', '>>' ],
                 pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ]
-            });
+            });*/
         });
     });

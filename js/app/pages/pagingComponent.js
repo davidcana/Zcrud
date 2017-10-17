@@ -1,7 +1,7 @@
 /* 
     pagingComponent class
 */
-module.exports = function( optionsToApply ) {
+module.exports = function( optionsToApply, listPageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -9,7 +9,23 @@ module.exports = function( optionsToApply ) {
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
+    var listPage = listPageToApply;
+    
     var thisOptions = options.paging;
+    
+    // Init some vars if needed
+    var id = thisOptions.id;
+    if ( id == undefined ){
+        id = 'zcrud-paging-' + options.entityId;
+    }
+    if ( thisOptions.goToPageComboboxId == undefined ){
+        thisOptions.goToPageComboboxId = 'zcrud-go-to-page-combobox-' + options.entityId;
+    }
+    if ( thisOptions.pageSizeChangeComboboxId == undefined ){
+        thisOptions.pageSizeChangeComboboxId = 'zcrud-page-size-change-' + options.entityId;
+    }
+    
+    
     var pageNumber = 1; // The current page
     var totalNumberOfRecords = undefined;
     var pageSize = parseInt( thisOptions.defaultPageSize );
@@ -54,10 +70,11 @@ module.exports = function( optionsToApply ) {
     
     var updateList = function(){
         //context.getListPage( options ).show( false );
-        context.getListPage( options ).show( 
+        //context.getListPage( options ).show( 
+        listPage.show( 
             false,
             undefined, 
-            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + thisOptions.pagingComponentId )[0] ] );
+            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + id )[0] ] );
     };
     
     /* Changes current page to given value.
@@ -158,7 +175,7 @@ module.exports = function( optionsToApply ) {
     *************************************************************************/
     var bindEventsToPageNumberButtons = function () {
         
-        $( '#' + thisOptions.pagingComponentId )
+        $( '#' + id )
             .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
             .not( '.zcrud-page-number-disabled' )
             .off() // Remove previous event handlers
@@ -370,6 +387,10 @@ module.exports = function( optionsToApply ) {
         setPageNumber( 1 );
     };
     
+    var getId = function(){
+        return id;
+    };
+    
     loadSettings();
     
     return {
@@ -381,6 +402,7 @@ module.exports = function( optionsToApply ) {
         getPageSize: getPageSize,
         getThisOptions: getThisOptions,
         setPageNumber: setPageNumber,
-        goToFirstPage: goToFirstPage
+        goToFirstPage: goToFirstPage,
+        getId: getId
     };
 };

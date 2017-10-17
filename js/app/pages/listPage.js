@@ -39,13 +39,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         registerComponent( 
             'paging',
             function(){
-                return new PagingComponent( options );
+                return new PagingComponent( options, self );
             }
         );
         registerComponent( 
             'sorting',
             function(){
-                return new SortingComponent( options );
+                return new SortingComponent( options, self );
             }
         );
         registerComponent( 

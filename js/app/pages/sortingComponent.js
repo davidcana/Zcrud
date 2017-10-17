@@ -1,13 +1,14 @@
 /* 
     sortingComponent class
 */
-module.exports = function( optionsToApply ) {
+module.exports = function( optionsToApply, listPageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
+    var listPage = listPageToApply;
     
     var thisOptions = options.sorting;
     var sortFieldId = thisOptions.default.fieldId;
@@ -44,7 +45,8 @@ module.exports = function( optionsToApply ) {
     
     var bindEvents = function(){
         
-        $( '#' + options.currentList.id )
+        //$( '#' + options.currentList.id )
+        $( '#' + listPage.getId() )
             .find( '.zcrud-column-header-sortable' )
             .off() // Remove previous event handlers
             .click( function ( e ) {
@@ -75,7 +77,8 @@ module.exports = function( optionsToApply ) {
     
     var updateList = function(){
         //context.getListPage( options ).show( false );
-        context.getListPage( options ).show( 
+        //context.getListPage( options ).show( 
+        listPage.show( 
             false,
             undefined, 
             [ $( '#' + options.currentList.tableId )[0] ] );

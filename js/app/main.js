@@ -118,12 +118,9 @@ exports.init = function( userOptions, callback ){
         // Paging
         paging: {
             isOn: true,
-            pagingComponentId: 'zcrud-paging',
-            goToPageComboboxId: 'zcrud-go-to-page-combobox',
             defaultPageSize: 10,
             pageSizes: [10, 25, 50, 100, 250, 500],
             pageSizeChangeArea: true,
-            pageSizeChangeComboboxId: 'zcrud-pageSizeChange',
             gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
             maxNumberOfAllShownPages: 5,
             block1NumberOfPages: 1,

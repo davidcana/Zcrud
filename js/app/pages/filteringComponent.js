@@ -16,8 +16,9 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var filterRecord = undefined;
     
     var bindEvents = function(){
-
-        $( '#' + options.listId )
+        
+        //$( '#' + options.listId )
+        $( '#' + listPage.getId() )
             .find( '.zcrud-filter-panel .zcrud-filter-submit-button' )
             .off() // Remove previous event handlers
             .click( function ( e ) {
@@ -62,7 +63,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
         listPage.show( 
             false,
             undefined, 
-            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + options.paging.pagingComponentId )[0] ] );
+            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + listPage.getComponent( 'paging' ).getId() )[0] ] );
     };
     
     var getThisOptions = function(){
