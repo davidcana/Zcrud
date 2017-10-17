@@ -18,7 +18,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     
     var loadSettings = function(){
 
-        if ( ! options.saveUserPreferences ) {
+        if ( ! options.saveUserPreferences || ! thisOptions.loadFromLocalStorage ) {
             return;
         }
         
@@ -85,8 +85,14 @@ module.exports = function( optionsToApply, listPageToApply ) {
     };
     
     var addToDataToSend = function( dataToSend ){
-        dataToSend.sortFieldId = sortFieldId;
-        dataToSend.sortType = sortType;
+        
+        if ( sortFieldId ){
+            dataToSend.sortFieldId = sortFieldId;
+        }
+        
+        if ( sortType ){
+            dataToSend.sortType = sortType;
+        }
     };
     
     var dataFromServer = function( data ){

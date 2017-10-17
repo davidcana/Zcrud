@@ -149,6 +149,7 @@ exports.init = function( userOptions, callback ){
         // Sorting
         sorting: {
             isOn: false,
+            loadFromLocalStorage: true,
             default: {
                 fieldId: undefined,
                 type: undefined

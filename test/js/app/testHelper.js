@@ -331,6 +331,33 @@ module.exports = (function() {
         return result;
     };
     
+    var buildCustomValuesList = function( ){
+        
+        var ids = '';
+        var services = '';
+        var addSlash = false;
+        for ( var c = 0, j = arguments.length; c < j; c++ ){
+            if ( addSlash ){
+                ids += '/';
+                services += '/';
+            }
+            addSlash = true;
+            var item = arguments[ c ];
+            if ( ! $.isArray( item ) ){
+                ids += item;
+                services += 'Service ' + item;
+            } else {
+                ids += item[ 0 ];
+                services += item[ 1 ];
+            }
+        }
+        
+        var result = [];
+        result.push( ids );
+        result.push( services );
+        return result;
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         pagingInfo: pagingInfo,
@@ -342,6 +369,9 @@ module.exports = (function() {
         multiplePagingTest: multiplePagingTest,
         //buildIdsList: buildIdsList,
         //buildServicesList: buildServicesList,
-        buildValuesList: buildValuesList
+        buildValuesList: buildValuesList,
+        buildCustomValuesList: buildCustomValuesList,
+        getCurrentList: getCurrentList
+        //buildArray: buildArray
     };
 })();

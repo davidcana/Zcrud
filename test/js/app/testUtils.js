@@ -108,8 +108,10 @@ module.exports = (function() {
         }
         
         // Sort them
-        allRecords.sort( 
-            dynamicSort( data.sortFieldId, data.sortType ) );
+        if ( data.sortFieldId && data.sortType ){
+            allRecords.sort( 
+                dynamicSort( data.sortFieldId, data.sortType ) );
+        }
         
         // Page them
         if ( data.pageNumber && data.pageSize ){

@@ -39,6 +39,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/paging.js',
                 dest: 'build/paging.js'
+            },
+            sorting: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/sorting.js',
+                dest: 'build/sorting.js'
             }
         },
         compress: {

@@ -196,8 +196,7 @@ module.exports = {
     sorting: {
         isOn: true,
         default: {
-            fieldId: 'name',
-            type: 'asc'
+
         },
         allowUser: false
     },
