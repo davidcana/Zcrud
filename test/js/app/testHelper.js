@@ -110,6 +110,11 @@ module.exports = (function() {
         $combobox.trigger( 'change' );
     };
     
+    var filtering = function( options, filter ){
+        $( '#zcrud-name-filter' ).val( filter );
+        $( '#zcrud-filtering' ).find( '.zcrud-filter-submit-button' ).trigger( 'click' );
+    };
+    
     var pagingTest = function( testOptions ){
         
         var assert = testOptions.assert;
@@ -130,6 +135,8 @@ module.exports = (function() {
                 goToLastPage( options );
             } else if ( testOptions.action.changeSize ){
                 changeSize( options, testOptions.action.changeSize );
+            } else if ( testOptions.action.filter != undefined ){
+                filtering( options, testOptions.action.filter );
             }
         }
         

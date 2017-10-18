@@ -48,6 +48,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/sorting.js',
                 dest: 'build/sorting.js'
+            },
+            filtering: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/filtering.js',
+                dest: 'build/filtering.js'
             }
         },
         compress: {
