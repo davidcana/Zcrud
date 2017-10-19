@@ -365,6 +365,17 @@ module.exports = (function() {
         return result;
     };
     
+    var keyEvent = function( key, event ){
+        var e = $.Event( event, { which: key } );
+        $( 'body' ).trigger( e );
+    };
+    var keyDown = function( key ){
+        keyEvent( key, 'keydown' );
+    };
+    var keyUp = function( key ){
+        keyEvent( key, 'keyup' );
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         pagingInfo: pagingInfo,
@@ -378,7 +389,8 @@ module.exports = (function() {
         //buildServicesList: buildServicesList,
         buildValuesList: buildValuesList,
         buildCustomValuesList: buildCustomValuesList,
-        getCurrentList: getCurrentList
-        //buildArray: buildArray
+        getCurrentList: getCurrentList,
+        keyDown: keyDown,
+        keyUp: keyUp
     };
 })();

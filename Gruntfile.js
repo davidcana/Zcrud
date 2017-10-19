@@ -57,6 +57,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/filtering.js',
                 dest: 'build/filtering.js'
+            },
+            selecting: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/selecting.js',
+                dest: 'build/selecting.js'
             }
         },
         compress: {

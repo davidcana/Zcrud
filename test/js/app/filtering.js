@@ -8,26 +8,6 @@ var testHelper = require( './testHelper.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {
-    paging: {
-        isOn: true,
-        defaultPageSize: 10,
-        pageSizes: [10, 25, 50, 100, 250, 500],
-        pageSizeChangeArea: true,
-        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-        maxNumberOfAllShownPages: 5,
-        block1NumberOfPages: 1,
-        block2NumberOfPages: 5,
-        block3NumberOfPages: 1
-    },
-
-    selecting: {
-        isOn: false
-    },
-
-    sorting: {
-        isOn: false
-    },
-
     filtering: {
         isOn: true,
         fields: {

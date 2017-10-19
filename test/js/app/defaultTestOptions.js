@@ -183,7 +183,6 @@ module.exports = {
         }*/
     },
     
-    // I18n and L10n
     i18n: {
         language: 'en',
         files: { 
@@ -192,31 +191,30 @@ module.exports = {
         }
     },
     
-    // Sorting
+    paging: {
+        isOn: true,
+        defaultPageSize: 10,
+        pageSizes: [10, 25, 50, 100, 250, 500],
+        pageSizeChangeArea: true,
+        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+        maxNumberOfAllShownPages: 5,
+        block1NumberOfPages: 1,
+        block2NumberOfPages: 5,
+        block3NumberOfPages: 1
+    },
+    
     sorting: {
-        isOn: true,
-        default: {
-
-        },
-        allowUser: false
+        isOn: false
     },
     
-    // Selecting
     selecting: {
-        isOn: true,
-        multiple: true,
-        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+        isOn: false
     },
-    
-    // Filtering
+
     filtering: {
-        isOn: true,
-        fields: {
-            name: 'name'
-        }
+        isOn: false
     },
     
-    // Logging
     logging: {
         isOn: true,
         level: log4javascript.Level.DEBUG,
