@@ -113,13 +113,10 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
                 //root: options.target[0],
                 root: options.body,
                 dictionary: dictionary,
-                declaredRemotePageUrls: options.declaredRemotePageUrls,
-                callback: function(){ 
-                    afterProcessTemplate( self );
-                }
+                declaredRemotePageUrls: options.declaredRemotePageUrls
             });
             
-            //afterProcessTemplate( self );
+            afterProcessTemplate( self );
             
         } catch( e ){
             alert ( e );    
