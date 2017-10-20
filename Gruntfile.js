@@ -66,6 +66,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/selecting.js',
                 dest: 'build/selecting.js'
+            },
+            delete: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/delete.js',
+                dest: 'build/delete.js'
             }
         },
         compress: {

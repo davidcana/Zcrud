@@ -6,19 +6,12 @@ var $ = require( 'jquery' );
 module.exports = (function() {
     "use strict";
 
-    var defaultSleep = 5000;
-    var $currentList = undefined;
     var getCurrentList = function( options ){
-        
-        if ( ! $currentList ){
-            $currentList = $( '#' + options.currentList.id );
-        }
-        return $currentList;
+        return  $( '#' + options.currentList.id );
     };
     
     var countVisibleRows = function( options ){
         return getCurrentList( options ).find( '.zcrud-data-row' ).length;
-        //return $( '#' + options.currentList.id ).find( '.zcrud-data-row' ).length;
     };
     
     var pagingInfo = function( options ){
@@ -375,6 +368,60 @@ module.exports = (function() {
     var keyUp = function( key ){
         keyEvent( key, 'keyup' );
     };
+    /*
+    var $container = $( '#departmentsContainer' );
+    var get$container = function(){
+        if ( ! $container ){
+            $container = $( '#departmentsContainer' );
+        }
+        return $container;
+    };*/
+    /*
+    var $tbody = undefined;
+    var get$tbody = function(){
+        if ( ! $tbody ){
+            $tbody = $( '#zcrud-list-tbody-department' );
+        }
+        return $tbody;
+    };*/
+    
+    var checkRecord = function( assert, key, expectedRecord ){
+        
+        // Check record from zCrud
+        var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
+        //alert( JSON.stringify( record ) );
+        assert.deepEqual( record, expectedRecord );
+        
+        // Check record from table
+        var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+        var id = row.find( "td.zcrud-column-data-id" ).text();
+        var name = row.find( "td.zcrud-column-data-name" ).text();
+        assert.equal( id, expectedRecord.id );
+        assert.equal( name, expectedRecord.name );
+    };
+    
+    var checkNoRecord = function( assert, key ){
+        
+        // Check record from zCrud
+        var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
+        assert.equal( record.length, undefined );
+
+        // Check record from table
+        var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+        assert.equal( row.length, 0 );
+    };
+    
+    var clickListButton = function( key ){
+        
+        var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+        row.find( ".zcrud-delete-command-button" ).trigger( 'click' );
+    };
+    var clickFormCancelButton = function(){
+        $( '#form-cancel-button' ).trigger( 'click' );
+    };
+    var clickFormDeleteButton = function(){
+        $( '#form-submit-button' ).trigger( 'click' );
+    };
     
     return {
         countVisibleRows: countVisibleRows,
@@ -391,6 +438,11 @@ module.exports = (function() {
         buildCustomValuesList: buildCustomValuesList,
         getCurrentList: getCurrentList,
         keyDown: keyDown,
-        keyUp: keyUp
+        keyUp: keyUp,
+        checkRecord: checkRecord,
+        checkNoRecord: checkNoRecord,
+        clickListButton: clickListButton,
+        clickFormCancelButton: clickFormCancelButton,
+        clickFormDeleteButton: clickFormDeleteButton
     };
 })();
