@@ -75,6 +75,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/delete.js',
                 dest: 'build/delete.js'
+            },
+            create: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/create.js',
+                dest: 'build/create.js'
             }
         },
         compress: {

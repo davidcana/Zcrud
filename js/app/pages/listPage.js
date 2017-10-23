@@ -256,6 +256,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     // Iterate dictionary.records (an array) and put them into records (a map) using the id of each record as the key
     var buildRecords = function(){
+        records = {};
         for ( var c = 0; c < dictionary.records.length; c++ ) {
             var record = dictionary.records[ c ];
             records[ record[ options.key ] ] = record;

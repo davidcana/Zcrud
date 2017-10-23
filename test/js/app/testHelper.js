@@ -408,7 +408,7 @@ module.exports = (function() {
         
         // Check record from zCrud
         var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
-        assert.equal( record.length, undefined );
+        assert.equal( record, undefined );
 
         // Check record from table
         var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
@@ -418,16 +418,40 @@ module.exports = (function() {
         assert.equal( testUtils.getService( key ), undefined );
     };
     
-    var clickListButton = function( key ){
-        
+    var clickListButton = function( key, cssClass ){
         var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
-        row.find( ".zcrud-delete-command-button" ).trigger( 'click' );
+        row.find( cssClass ).trigger( 'click' );
+    };
+    var clickDeleteListButton = function( key ){
+        clickListButton( key, '.zcrud-delete-command-button' );
+    };
+    var clickUpdateListButton = function( key ){
+        clickListButton( key, '.zcrud-update-command-button' );
+    };
+    var clickCreateListButton = function(){
+        $( '#zcrud-list-department' ).find( '.zcrud-new-command-button' ).trigger( 'click' );
     };
     var clickFormCancelButton = function(){
         $( '#form-cancel-button' ).trigger( 'click' );
     };
     var clickFormDeleteButton = function(){
         $( '#form-submit-button' ).trigger( 'click' );
+    };
+    
+    var fillForm = function( record ){
+        //var $form = $( '#zcrud-form-department' );
+        $( '#zcrud-id' ).val( record.id );
+        $( '#zcrud-name' ).val( record.name );
+        $( '#zcrud-description' ).val( record.description );
+        $( '#zcrud-date' ).val( record.date );
+        $( '#zcrud-time' ).val( record.time );
+        $( '#zcrud-datetime' ).val( record.datetime );
+        $( '#zcrud-phoneType' ).val( record.phoneType );
+        $( '#zcrud-province' ).val( record.province );
+        $( '#zcrud-city' ).val( record.city );
+        $( '#zcrud-browser' ).val( record.browser );
+        $( '#zcrud-important' ).val( record.important );
+        $( '#zcrud-number' ).val( record.number );
     };
     
     return {
@@ -448,8 +472,11 @@ module.exports = (function() {
         keyUp: keyUp,
         checkRecord: checkRecord,
         checkNoRecord: checkNoRecord,
-        clickListButton: clickListButton,
+        clickDeleteListButton: clickDeleteListButton,
+        clickUpdateListButton: clickUpdateListButton,
+        clickCreateListButton: clickCreateListButton,
         clickFormCancelButton: clickFormCancelButton,
-        clickFormDeleteButton: clickFormDeleteButton
+        clickFormDeleteButton: clickFormDeleteButton,
+        fillForm: fillForm
     };
 })();

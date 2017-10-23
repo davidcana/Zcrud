@@ -17,15 +17,25 @@ $( '#departmentsContainer' ).zcrud(
         $( '#departmentsContainer' ).zcrud( 'load' );
         
         // Run tests
-        QUnit.test( "delete test", function( assert ) {
+        QUnit.test( "create test", function( assert ) {
             
-            // Assert register with key 2 is OK
-            var key = 2;
-            var expectedRecord =  {
-                "name": "Service 2",
-                "id":"2"
+            // Assert register with key 0 not exists
+            var key = 0;
+            var record =  {
+                "id":"0",
+                "name": "Service 0",
+                "description": "Service 0 description",
+                "date": "10/23/2017",
+                "time": "18:50",
+                "datetime": "10/23/2017 20:00",
+                "phoneType": "officePhone_option",
+                "province": "Cádiz",
+                "city": "Tarifa",
+                "browser": "Mozilla Firefox",
+                "important": true,
+                "number": 3
             };
-            testHelper.checkRecord( assert, key, expectedRecord );
+            testHelper.checkNoRecord( assert, key );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
@@ -38,8 +48,10 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             
-            // Go to delete form and cancel
-            testHelper.clickDeleteListButton( key );
+            // Go to create form
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+            /*
             testHelper.clickFormCancelButton();
             testHelper.checkRecord( assert, key, expectedRecord );
             testHelper.pagingTest({
@@ -68,6 +80,6 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            testHelper.checkNoRecord( assert, key );
+            testHelper.checkNoRecord( assert, key );*/
         });
     });
