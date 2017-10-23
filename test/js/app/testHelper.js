@@ -2,6 +2,7 @@
     testHelper singleton class
 */
 var $ = require( 'jquery' );
+var testUtils = require( './testUtils.js' );
 
 module.exports = (function() {
     "use strict";
@@ -398,6 +399,9 @@ module.exports = (function() {
         var name = row.find( "td.zcrud-column-data-name" ).text();
         assert.equal( id, expectedRecord.id );
         assert.equal( name, expectedRecord.name );
+        
+        // Check record from storage
+        assert.deepEqual( testUtils.getService( key ), expectedRecord );
     };
     
     var checkNoRecord = function( assert, key ){
@@ -409,6 +413,9 @@ module.exports = (function() {
         // Check record from table
         var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
         assert.equal( row.length, 0 );
+        
+        // Check record from storage
+        assert.equal( testUtils.getService( key ), undefined );
     };
     
     var clickListButton = function( key ){

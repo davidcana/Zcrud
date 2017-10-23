@@ -231,7 +231,12 @@ module.exports = (function() {
         return query_string;
     }
     
+    var getService = function( key ){
+        return services[ key ];    
+    };
+    
     return {
-        ajax: ajax
+        ajax: ajax,
+        getService: getService
     };
 })();
