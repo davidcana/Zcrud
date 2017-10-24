@@ -31,9 +31,9 @@ $( '#departmentsContainer' ).zcrud(
                 "phoneType": "officePhone_option",
                 "province": "Cádiz",
                 "city": "Tarifa",
-                "browser": "Mozilla Firefox",
+                "browser": "Firefox",
                 "important": true,
-                "number": 3
+                "number": "3"
             };
             testHelper.checkNoRecord( assert, key );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -48,38 +48,22 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             
-            // Go to create form
+            // Go to create form and create record
             testHelper.clickCreateListButton();
             testHelper.fillForm( record );
-            /*
-            testHelper.clickFormCancelButton();
-            testHelper.checkRecord( assert, key, expectedRecord );
+            testHelper.checkForm( assert, record );
+            testHelper.clickFormSubmitButton();
+            values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );
             testHelper.pagingTest({
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 129',
+                pagingInfo: 'Showing 1-10 of 130',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            
-            // Go to delete form and delete record
-            testHelper.clickDeleteListButton( key );
-            testHelper.clickFormDeleteButton();
-            
-            values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 3, 11 ) );
-            testHelper.pagingTest({
-                options: options,
-                assert: assert,
-                visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 128',
-                ids:  values[ 0 ],
-                names: values[ 1 ],
-                pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
-            });
-            testHelper.checkNoRecord( assert, key );*/
+            testHelper.checkRecord( assert, key, record );
         });
     });

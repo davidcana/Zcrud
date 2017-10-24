@@ -434,24 +434,40 @@ module.exports = (function() {
     var clickFormCancelButton = function(){
         $( '#form-cancel-button' ).trigger( 'click' );
     };
-    var clickFormDeleteButton = function(){
+    var clickFormSubmitButton = function(){
         $( '#form-submit-button' ).trigger( 'click' );
     };
     
     var fillForm = function( record ){
-        //var $form = $( '#zcrud-form-department' );
+
         $( '#zcrud-id' ).val( record.id );
         $( '#zcrud-name' ).val( record.name );
         $( '#zcrud-description' ).val( record.description );
         $( '#zcrud-date' ).val( record.date );
         $( '#zcrud-time' ).val( record.time );
         $( '#zcrud-datetime' ).val( record.datetime );
-        $( '#zcrud-phoneType' ).val( record.phoneType );
+        $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
         $( '#zcrud-province' ).val( record.province );
         $( '#zcrud-city' ).val( record.city );
         $( '#zcrud-browser' ).val( record.browser );
-        $( '#zcrud-important' ).val( record.important );
+        $( '#zcrud-important' ).prop( 'checked', record.important );
         $( '#zcrud-number' ).val( record.number );
+    };
+    
+    var checkForm = function( assert, record ){
+
+        assert.equal( $( '#zcrud-id' ).val(), record.id );
+        assert.equal( $( '#zcrud-name' ).val(), record.name );
+        assert.equal( $( '#zcrud-description' ).val(), record.description );
+        assert.equal( $( '#zcrud-date' ).val(), record.date );
+        assert.equal( $( '#zcrud-time' ).val(), record.time );
+        assert.equal( $( '#zcrud-datetime' ).val(), record.datetime );
+        assert.equal( $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked' ), true );
+        assert.equal( $( '#zcrud-province' ).val(), record.province );
+        assert.equal( $( '#zcrud-city' ).val(), record.city );
+        assert.equal( $( '#zcrud-browser' ).val(), record.browser );
+        assert.equal( $( '#zcrud-important' ).prop( 'checked' ), record.important );
+        assert.equal( $( '#zcrud-number' ).val(), record.number );
     };
     
     return {
@@ -476,7 +492,8 @@ module.exports = (function() {
         clickUpdateListButton: clickUpdateListButton,
         clickCreateListButton: clickCreateListButton,
         clickFormCancelButton: clickFormCancelButton,
-        clickFormDeleteButton: clickFormDeleteButton,
-        fillForm: fillForm
+        clickFormSubmitButton: clickFormSubmitButton,
+        fillForm: fillForm,
+        checkForm: checkForm
     };
 })();

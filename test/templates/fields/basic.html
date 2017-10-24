@@ -45,10 +45,9 @@
         
         <div data-mdefine-macro="datalist"
              data-tdefine="datalistId string:${elementId}-datalist">
-            <input data-tattributes="id elementId; name elementId; value value; list datalistId; field/formFieldAttributes"
-                   type="text"
-                   placeholder="">
-            <datalist data-tattributes="id datalistId">
+            <input data-tattributes="id elementId; name elementId; list string:${elementId}-datalist; value value; field/formFieldAttributes"
+                   type="text">
+            <datalist data-tattributes="id string:${elementId}-datalist">
                 <option data-trepeat="option field/optionsList"
                         data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
                         data-tattributes="value option/value;

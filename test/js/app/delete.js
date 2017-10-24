@@ -55,7 +55,7 @@ $( '#departmentsContainer' ).zcrud(
             
             // Go to delete form and delete record
             testHelper.clickDeleteListButton( key );
-            testHelper.clickFormDeleteButton();
+            testHelper.clickFormSubmitButton();
             
             values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 3, 11 ) );
             testHelper.pagingTest({
