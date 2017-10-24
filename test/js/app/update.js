@@ -17,25 +17,15 @@ $( '#departmentsContainer' ).zcrud(
         $( '#departmentsContainer' ).zcrud( 'load' );
         
         // Run tests
-        QUnit.test( "create test", function( assert ) {
+        QUnit.test( "update test", function( assert ) {
             
-            // Assert register with key 0 not exists
-            var key = 0;
+            // Assert register with key 2 exists
+            var key = 2;
             var record =  {
                 "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service 0 description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3"
+                "name": "Service " + key
             };
-            testHelper.checkNoRecord( assert, key );
+            testHelper.checkRecord( assert, key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
@@ -48,29 +38,47 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             
-            // Go to create form and create record
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( record );
-            testHelper.checkForm( assert, record );
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "description": "Service 2 description",
+                "date": "10/23/2017",
+                "time": "18:50",
+                "datetime": "10/23/2017 20:00",
+                "phoneType": "officePhone_option",
+                "province": "Cádiz",
+                "city": "Tarifa",
+                "browser": "Firefox",
+                "important": true,
+                "number": "3"
+            };
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
             
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
-            values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );
+            
+            var valuesList = testHelper.buildValuesList( 1, 10 );
+            valuesList[ 1 ] = valuesList[ 1 ].replace( "/" + record.name + "/", "/" + editedRecord.name + "/" );
+            values = testHelper.buildCustomValuesList( valuesList );
+
             testHelper.pagingTest({
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 130',
+                pagingInfo: 'Showing 1-10 of 129',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            testHelper.checkRecord( assert, key, record );
+            testHelper.checkRecord( assert, key, newRecord );
             
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
-            testHelper.checkForm( assert, record );
+            testHelper.checkForm( assert, newRecord );
             
             // Return to list again and check it
             testHelper.clickFormCancelButton();
@@ -78,12 +86,12 @@ $( '#departmentsContainer' ).zcrud(
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 130',
+                pagingInfo: 'Showing 1-10 of 129',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            testHelper.checkRecord( assert, key, record );
+            testHelper.checkRecord( assert, key, newRecord );
         });
     });

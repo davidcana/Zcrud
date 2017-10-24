@@ -4,5 +4,6 @@ QUnit.testSuites([
     { name: "filtering Test Suite", path: "./filtering.html" },
     { name: "selecting Test Suite", path: "./selecting.html" },
     { name: "delete Test Suite", path: "./delete.html" },
-    { name: "create Test Suite", path: "./create.html" }
+    { name: "create Test Suite", path: "./create.html" },
+    { name: "update Test Suite", path: "./update.html" }
 ]);

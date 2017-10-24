@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         browserify: {
             standalone: {
                 options: {
-		            plugin: [
+                    plugin: [
                         [ "browserify-derequire" ]
                     ],
                     browserifyOptions: {
@@ -84,6 +84,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/create.js',
                 dest: 'build/create.js'
+            },
+            update: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/update.js',
+                dest: 'build/update.js'
             }
         },
         compress: {

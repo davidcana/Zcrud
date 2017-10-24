@@ -426,7 +426,7 @@ module.exports = (function() {
         clickListButton( key, '.zcrud-delete-command-button' );
     };
     var clickUpdateListButton = function( key ){
-        clickListButton( key, '.zcrud-update-command-button' );
+        clickListButton( key, '.zcrud-edit-command-button' );
     };
     var clickCreateListButton = function(){
         $( '#zcrud-list-department' ).find( '.zcrud-new-command-button' ).trigger( 'click' );
@@ -440,18 +440,42 @@ module.exports = (function() {
     
     var fillForm = function( record ){
 
-        $( '#zcrud-id' ).val( record.id );
-        $( '#zcrud-name' ).val( record.name );
-        $( '#zcrud-description' ).val( record.description );
-        $( '#zcrud-date' ).val( record.date );
-        $( '#zcrud-time' ).val( record.time );
-        $( '#zcrud-datetime' ).val( record.datetime );
-        $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
-        $( '#zcrud-province' ).val( record.province );
-        $( '#zcrud-city' ).val( record.city );
-        $( '#zcrud-browser' ).val( record.browser );
-        $( '#zcrud-important' ).prop( 'checked', record.important );
-        $( '#zcrud-number' ).val( record.number );
+        if ( record.id !== undefined ){
+            $( '#zcrud-id' ).val( record.id );
+        }
+        if ( record.name !== undefined ){
+            $( '#zcrud-name' ).val( record.name );
+        }
+        if ( record.description !== undefined ){
+            $( '#zcrud-description' ).val( record.description );
+        }
+        if ( record.date !== undefined ){
+            $( '#zcrud-date' ).val( record.date );
+        }
+        if ( record.time !== undefined ){
+            $( '#zcrud-time' ).val( record.time );
+        }
+        if ( record.datetime !== undefined ){
+            $( '#zcrud-datetime' ).val( record.datetime );
+        }
+        if ( record.phoneType !== undefined ){
+            $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
+        }
+        if ( record.province !== undefined ){
+            $( '#zcrud-province' ).val( record.province );
+        }
+        if ( record.city !== undefined ){
+            $( '#zcrud-city' ).val( record.city );
+        }
+        if ( record.browser !== undefined ){
+            $( '#zcrud-browser' ).val( record.browser );
+        }
+        if ( record.important !== undefined ){
+            $( '#zcrud-important' ).prop( 'checked', record.important );
+        }
+        if ( record.number !== undefined ){
+            $( '#zcrud-number' ).val( record.number );
+        }
     };
     
     var checkForm = function( assert, record ){
