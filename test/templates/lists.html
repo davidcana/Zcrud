@@ -24,7 +24,7 @@
                 </span>
 
                 <div data-muse-macro="'filterPanel'"
-                     data-tcondition="options/filtering/isOn">
+                     data-tcondition="instance/getComponent( 'filtering' )">
                     The filter panel
                 </div>
                 
@@ -43,8 +43,9 @@
             <table class="zcrud" 
                    data-idomain="i18nArray"
                    data-tattributes="id options/currentList/tableId">
-                <thead data-tdefine="sortingComponent options/sorting/component;
-                                     selectingCheckbox and: options/selecting/isOn (lt: -1 options/selecting/mode/indexOf('checkbox'))">
+                <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
+                                     selectingComponent instance/getComponent( 'selecting' );
+                                     selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'))">
                     <tr>
                         <th data-tcondition="selectingCheckbox">
                             <input class="zcrud-select-all-rows" type="checkbox">
@@ -65,7 +66,8 @@
                     </tr>
                 </thead>
                 <tbody data-tattributes="id options/currentList/tbodyId"
-                       data-tdefine="selectingCheckbox and: options/selecting/isOn (lt: -1 options/selecting/mode/indexOf('checkbox'))">
+                       data-tdefine="selectingComponent instance/getComponent( 'selecting' );
+                                     selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'))">
                     <tr data-trepeat="record records"
                         data-tattributes="data-record-key record[ options/key ];
                                           class 'zcrud-data-row'">
@@ -89,15 +91,15 @@
             <div class="zcrud-column-resize-bar" style="display: none"></div>
             <div class="zcrud-column-selection-container" style="display: none"></div>
             <div data-muse-macro="'bottomPanel'"
-                 data-tcondition="options/paging/isOn">
+                 data-tcondition="instance/getComponent( 'paging' )">
                 The bottom panel
             </div>
-            <div class="zcrud-busy" data-tattributes="id 'zcrud-busy'" style="display: none" class="zcrud-busy"></div>
+            <div class="zcrud-busy" data-tattributes="id 'zcrud-busy'" style="display: none"></div>
         </div>
         
         <div data-mdefine-macro="filterPanel" 
              class="zcrud-filter-panel"
-             data-tdefine="component options/filtering/component;
+             data-tdefine="component instance/getComponent( 'filtering' );
                            thisOptions component/getThisOptions()"
              data-tattributes="id thisOptions/filteringComponentId"
              data-idomain="i18nArray">
@@ -123,7 +125,7 @@
         
         <div data-mdefine-macro="bottomPanel" 
              class="zcrud-bottom-panel"
-             data-tdefine="component options/paging/component;
+             data-tdefine="component instance/getComponent( 'paging' );
                            pagingInfo component/buildInfo();
                            currentPageNumber pagingInfo/pageNumber;
                            pageListInfo pagingInfo/pageListInfo;

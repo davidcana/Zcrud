@@ -12,7 +12,29 @@ module.exports = {
     // Pages
     pages: {
         list: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department'
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            components: {
+                paging: {
+                    isOn: true,
+                    defaultPageSize: 10,
+                    pageSizes: [10, 25, 50, 100, 250, 500],
+                    pageSizeChangeArea: true,
+                    gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                    maxNumberOfAllShownPages: 5,
+                    block1NumberOfPages: 1,
+                    block2NumberOfPages: 5,
+                    block3NumberOfPages: 1
+                },
+                sorting: {
+                    isOn: false
+                },
+                selecting: {
+                    isOn: false
+                },
+                filtering: {
+                    isOn: false
+                }
+            }
         }, create: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
         }, update: {

@@ -151,6 +151,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         } else {
             dictionary = thisDictionary;
         }
+        
+        dictionary.instance = self;
     };
     
     //
@@ -317,6 +319,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     configure();
+    //options.currentList.instance = self;
     
     return self;
     /*

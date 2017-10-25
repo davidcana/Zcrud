@@ -63,8 +63,40 @@ exports.init = function( userOptions, callback ){
         // Pages
         pages: {
             list: {
-                template: "listDefaultTemplate@templates/lists.html"
+                template: "listDefaultTemplate@templates/lists.html",
                 //template: "'listDefaultTemplate@templates/lists.html'"
+                components: {
+                    paging: {
+                        isOn: true,
+                        defaultPageSize: 10,
+                        pageSizes: [10, 25, 50, 100, 250, 500],
+                        pageSizeChangeArea: true,
+                        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        maxNumberOfAllShownPages: 5,
+                        block1NumberOfPages: 1,
+                        block2NumberOfPages: 5,
+                        block3NumberOfPages: 1
+                    },
+                    sorting: {
+                        isOn: false,
+                        loadFromLocalStorage: true,
+                        default: {
+                            fieldId: undefined,
+                            type: undefined
+                        },
+                        allowUser: false
+                    },
+                    filtering: {
+                        isOn: false,
+                        filteringComponentId: 'zcrud-filtering',
+                        elementIdSuffix: '-filter'
+                    },
+                    selecting: {
+                        isOn: false,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
+                    }
+                }
             }, create: {
                 template: "formDefaultTemplate@templates/forms.html"
                 //template: "'formDefaultTemplate@templates/forms.html'"

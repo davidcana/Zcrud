@@ -17,7 +17,28 @@ var options = {
     // Pages
     pages: {
         list: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department'
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            components: {
+                sorting: {
+                    isOn: true,
+                    default: {
+                        fieldId: 'name',
+                        type: 'asc'
+                    },
+                    allowUser: false
+                },
+                filtering: {
+                    isOn: true,
+                    fields: {
+                        name: 'name'
+                    }
+                },
+                selecting: {
+                    isOn: true,
+                    multiple: true,
+                    mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                }
+            }
         }, create: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
         }, update: {
