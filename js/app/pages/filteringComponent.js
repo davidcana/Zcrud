@@ -12,7 +12,9 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    var thisOptions = options.filtering;
+    //var thisOptions = options.filtering;
+    var thisOptions = options.pages.list.components.filtering;
+    
     var filterRecord = undefined;
     
     var bindEvents = function(){

@@ -8,17 +8,21 @@ var testHelper = require( './testHelper.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {
-    
-    sorting: {
-        isOn: true,
-        loadFromLocalStorage: false,
-        default: {
-            fieldId: undefined,
-            type: undefined
-        },
-        allowUser: true
+    pages: {
+        list: {
+            components: {
+                sorting: {
+                    isOn: true,
+                    loadFromLocalStorage: false,
+                    default: {
+                        fieldId: undefined,
+                        type: undefined
+                    },
+                    allowUser: true
+                }
+            }
+        }
     }
-
 };
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 

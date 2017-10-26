@@ -73,7 +73,7 @@ module.exports = (function() {
     };
     
     var goToPageUsingCombobox = function( options, pageId ){
-        var $combobox = $( '#' + options.paging.goToPageComboboxId );
+        var $combobox = $( '#' + options.pages.list.components.paging.goToPageComboboxId );
         $combobox.val( pageId );
         $combobox.trigger( 'change' );
     };
@@ -99,7 +99,7 @@ module.exports = (function() {
     };
     
     var changeSize = function( options, size ){
-        var $combobox = $( '#' + options.paging.pageSizeChangeComboboxId );
+        var $combobox = $( '#' + options.pages.list.components.paging.pageSizeChangeComboboxId );
         $combobox.val( size );
         $combobox.trigger( 'change' );
     };

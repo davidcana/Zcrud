@@ -131,15 +131,12 @@ module.exports = {
             options: function( data ){
                 if ( ! data.dependedValues.province ){
                     return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
-                };
-                
+                }
                 switch ( data.dependedValues.province ) {
                 case 'Cádiz':
                     return [ 'Algeciras', 'Tarifa' ];
-                    break;
                 case 'Málaga':
                     return [ 'Estepona', 'Marbella' ];
-                    break;
                 default:
                     throw 'Unknown province: ' + data.dependedValues.province;
                 }
@@ -211,30 +208,6 @@ module.exports = {
             en: [ 'en-common.json', 'en-services.json' ],
             es: [ 'es-common.json', 'es-services.json' ] 
         }
-    },
-    
-    paging: {
-        isOn: true,
-        defaultPageSize: 10,
-        pageSizes: [10, 25, 50, 100, 250, 500],
-        pageSizeChangeArea: true,
-        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-        maxNumberOfAllShownPages: 5,
-        block1NumberOfPages: 1,
-        block2NumberOfPages: 5,
-        block3NumberOfPages: 1
-    },
-    
-    sorting: {
-        isOn: false
-    },
-    
-    selecting: {
-        isOn: false
-    },
-
-    filtering: {
-        isOn: false
     },
     
     logging: {

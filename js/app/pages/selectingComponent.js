@@ -11,7 +11,8 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    var thisOptions = options.selecting;
+    //var thisOptions = options.selecting;
+    var thisOptions = options.pages.list.components.selecting;
     
     var shiftKeyDown = false; // True, if shift key is currently down.
     var modeOnRowClickOn =  -1 != thisOptions.mode.indexOf( 'onRowClick' );

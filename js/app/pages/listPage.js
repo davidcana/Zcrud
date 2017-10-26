@@ -64,9 +64,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     var registerComponent = function( componentId, constructorFunction ){
         
-        var thisComponent = options[ componentId ].isOn? constructorFunction(): undefined;
+        //var thisComponent = options[ componentId ].isOn? constructorFunction(): undefined;
+        var thisComponent = options.pages.list.components[ componentId ].isOn? constructorFunction(): undefined;
         if ( thisComponent ){
-            options[ componentId ].component = thisComponent;
+            //options[ componentId ].component = thisComponent;
             components[ componentId ] = thisComponent;
         }
     };

@@ -218,31 +218,6 @@ var options = {
         }
     },
     
-    // Sorting
-    sorting: {
-        isOn: true,
-        default: {
-            fieldId: 'name',
-            type: 'asc'
-        },
-        allowUser: false
-    },
-    
-    // Selecting
-    selecting: {
-        isOn: true,
-        multiple: true,
-        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
-    },
-    
-    // Filtering
-    filtering: {
-        isOn: true,
-        fields: {
-            name: 'name'
-        }
-    },
-    
     // Logging
     logging: {
         isOn: true,

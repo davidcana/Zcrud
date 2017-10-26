@@ -10,7 +10,9 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    var thisOptions = options.sorting;
+    //var thisOptions = options.sorting;
+    var thisOptions = options.pages.list.components.sorting;
+    
     var sortFieldId = thisOptions.default.fieldId;
     var sortType = thisOptions.default.type;
     var sortFieldIdLocalStorageId = 'sort-field-id';

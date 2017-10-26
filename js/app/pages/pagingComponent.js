@@ -11,7 +11,8 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    var thisOptions = options.paging;
+    //var thisOptions = options.paging;
+    var thisOptions = options.pages.list.components.paging;
     
     // Init some vars if needed
     var id = thisOptions.id;

@@ -147,26 +147,6 @@ exports.init = function( userOptions, callback ){
             }
         },
         
-        // Paging
-        paging: {
-            isOn: true,
-            defaultPageSize: 10,
-            pageSizes: [10, 25, 50, 100, 250, 500],
-            pageSizeChangeArea: true,
-            gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-            maxNumberOfAllShownPages: 5,
-            block1NumberOfPages: 1,
-            block2NumberOfPages: 5,
-            block3NumberOfPages: 1
-        },
-        
-        // Selecting
-        selecting: {
-            isOn: false,
-            multiple: true,
-            mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
-        },
-        
         // Dictionary
         dictionary: {},
         
@@ -176,24 +156,6 @@ exports.init = function( userOptions, callback ){
             filesPath: 'i18n',
             i18nArrayVarName: 'i18nArray',
             files: {}
-        },
-        
-        // Sorting
-        sorting: {
-            isOn: false,
-            loadFromLocalStorage: true,
-            default: {
-                fieldId: undefined,
-                type: undefined
-            },
-            allowUser: false
-        },
-        
-        // Filtering
-        filtering: {
-            isOn: false,
-            filteringComponentId: 'zcrud-filtering',
-            elementIdSuffix: '-filter'
         },
         
         // Server data format stuff
