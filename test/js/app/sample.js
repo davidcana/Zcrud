@@ -9,12 +9,9 @@ var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
 
 var options = {
-    body: document.body,
-    //target: $( '#departmentsContainer' ),
-    //title: 'Departments',
+    
     entityId: 'department',
     
-    // Pages
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
@@ -48,11 +45,8 @@ var options = {
         }
     },
     
-    // Fields
     fields: {
         id: {
-            //title: 'Id',
-            //description: 'The unique id of the department!',
             key: true,
             create: true,
             edit: true,
@@ -60,13 +54,9 @@ var options = {
             sorting: false
         },
         name: {
-            //title: 'Name',
-            //description: 'The name of the department!',
             width: '90%'
         },
         description: {
-            //title: 'Description',
-            //description: 'The description of the department!',
             list: false,
             type: 'textarea',
             //template: "descriptionTextarea",
@@ -76,8 +66,6 @@ var options = {
             }
         },
         date: {
-            //title: 'Date',
-            //description: 'The date of the department!',
             list: false,
             type: 'date',
             customOptions: {
@@ -85,20 +73,14 @@ var options = {
             }
         },
         time: {
-            //title: 'Time',
-            //description: 'The time of the department!',
             list: false,
             type: 'time'
         },
         datetime: {
-            //title: 'Datetime',
-            //description: 'The datetime of the department!',
             list: false,
             type: 'datetime'
         },
         phoneType: {
-            //title: 'Phone type',
-            //description: 'The phone type of the department!',
             list: false,
             type: 'radio',
             translateOptions: true,
@@ -119,16 +101,12 @@ var options = {
             //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         },
         province: {
-            //title: 'Province',
-            //description: 'The province of the department!',
             list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            //title: 'City',
-            //description: 'The city of the department!',
             list: false,
             type: 'select',
             dependsOn: 'province',
@@ -150,15 +128,11 @@ var options = {
             }
         },
         browser: {
-            //title: 'Browser',
-            //description: 'The prefered browser of the department!',
             list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            //title: 'Important',
-            //description: 'Is important???',
             list: false,
             type: 'checkbox'
         },
@@ -181,18 +155,10 @@ var options = {
         }
     },
     
-    ajax: testUtils.ajax,
-    /*
-    ajaxPreFilter : function( data ){
-        return data;
+    ajax: {
+        ajaxFunction: testUtils.ajax    
     },
-    ajaxPostFilter : function( data ){
-        return {
-            records: data.Records,
-            result : data.Result,
-            message: data.Message
-        };
-    }*/
+
     events: {
         /*
         formCreated: function ( options ) { 
@@ -209,7 +175,6 @@ var options = {
         }*/
     },
     
-    // I18n and L10n
     i18n: {
         language: 'es',
         files: { 
@@ -218,7 +183,6 @@ var options = {
         }
     },
     
-    // Logging
     logging: {
         isOn: true,
         level: log4javascript.Level.DEBUG,

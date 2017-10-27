@@ -13,7 +13,7 @@ module.exports = (function() {
         busyDivId: 'zcrud-busy',
         //messageDivId: 'zcrud-message',
         /*defaultMessageDelay: 5000,*/
-        busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
+        //busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
     };
     var zptParser = undefined;
     
@@ -80,8 +80,9 @@ module.exports = (function() {
     var showBusy = function ( options, fullVersion ) {
         
         if ( fullVersion ){
-            var templatePath = defaultConf.busyTemplate;
-
+            //var templatePath = defaultConf.busyTemplate;
+            var templatePath = options.templates.busyTemplate;
+                
             pageUtils.configureTemplate( options, templatePath );
 
             zpt.run({

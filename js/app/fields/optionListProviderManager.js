@@ -133,7 +133,7 @@ var OptionListProviderManager = function() {
             url    : url,
             async  : false,
             success: function ( data ) {
-                data = options.ajaxPostFilter( data );
+                data = options.ajax.ajaxPostFilter( data );
                 if ( data.result != 'OK' ) {
                     throw 'Error downloading options:' + data.message;
                 }
@@ -141,13 +141,14 @@ var OptionListProviderManager = function() {
                 result = data.options;
             },
             error  : function ( data ) {
-                data = options.ajaxPostFilter( data );
+                data = options.ajax.ajaxPostFilter( data );
                 throw self.options.messages.cannotLoadOptionsFor + fieldId;
             }
         };
         
-        options.ajax(
-            $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+        //options.ajax(
+        options.ajax.ajaxFunction(
+            $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
 
         return result;
     };

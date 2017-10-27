@@ -49,7 +49,7 @@
     "badUrl": "The input value is not a correct URL",
     "badCustomVal": "The input value is incorrect",
     "andSpaces": " and spaces ",
-    "badInt": "The input value was not a correct number!!!!!!!!!!",
+    "badInt": "The input value was not a correct number",
     "badSecurityNumber": "Your social security number was incorrect",
     "badUKVatAnswer": "Incorrect UK VAT Number",
     "badStrength": "The password isn\"t strong enough",

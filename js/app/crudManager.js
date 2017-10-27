@@ -55,7 +55,7 @@ module.exports = (function() {
     var generalSuccessFunction = function( data, options, dataFromServer, event, eventToThrow ){
         
         if ( ! data.ajaxPostFilterOff ) {
-            dataFromServer = options.ajaxPostFilter( dataFromServer );
+            dataFromServer = options.ajax.ajaxPostFilter( dataFromServer );
         }
         
         if ( eventToThrow ){
@@ -70,7 +70,7 @@ module.exports = (function() {
     var generalErrorFunction = function( data, options, dataFromServer, event, eventToThrow ){
         
         if ( ! data.ajaxPostFilterOff ) {
-            dataFromServer = options.ajaxPostFilter( dataFromServer );
+            dataFromServer = options.ajax.ajaxPostFilter( dataFromServer );
         }
         if ( data.error ){
             data.error( dataFromServer );
@@ -95,24 +95,25 @@ module.exports = (function() {
         if ( data.clientOnly ){
             if ( authIsOK( data, options, dataToSend ) ){
                 successFunction(
-                    data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ) );
+                    data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
             } else {
                 errorFunction(
-                    data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ) );
+                    data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
             }
             return;
         }
         
         var thisOptions = {
             url    : url,
-            data   : data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ),
+            data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction
         };
         
         if ( authIsOK( data, options, dataToSend ) ){
-            options.ajax(
-                $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+            //options.ajax(
+            options.ajax.ajaxFunction(
+                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         }
     };
     
@@ -147,20 +148,21 @@ module.exports = (function() {
         
         if ( data.clientOnly ){
             successFunction(
-                data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ) );
+                data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
             return;
         }
         
         var thisOptions = {
             url    : data.url || options.pages.delete.action,
-            data   : data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ),
+            data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction
         };
 
         if ( false != options.events.formSubmitting( options, dataToSend ) ){
-            options.ajax(
-                $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+            //options.ajax(
+            options.ajax.ajaxFunction(
+                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         }
     };
     
@@ -192,20 +194,21 @@ module.exports = (function() {
         
         if ( data.clientOnly ){
             successFunction(
-                data.ajaxPreFilterOff? data.records: options.ajaxPreFilter( data.records ) );
+                data.ajaxPreFilterOff? data.records: options.ajax.ajaxPreFilter( data.records ) );
             return;
         }
         
         //Load data from server using AJAX
         var thisOptions = {
             url    : data.url || options.pages.list.action,
-            data   : data.ajaxPreFilterOff? dataToSend: options.ajaxPreFilter( dataToSend ),
+            data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction
         };
         
-        options.ajax(
-            $.extend( {}, options.defaultFormAjaxOptions, thisOptions ) );
+        //options.ajax(
+        options.ajax.ajaxFunction(
+            $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
     };
     
     return {

@@ -29,12 +29,16 @@ exports.init = function( userOptions, callback ){
     *************************************************************************/
     var defaultOptions = {
 
-        // Options
         actions: {},
-        fields: {},        
+        validation : {},
+        dictionary: {},
+        
+        saveUserPreferences: true,
+        body: document.body,
+        entityId: 'entity',
+        
         //animationsEnabled: true,
         //loadingAnimationDelay: 500,
-        saveUserPreferences: true,
         /*
         toolbar: {
             hoverAnimation: true,
@@ -42,29 +46,43 @@ exports.init = function( userOptions, callback ){
             hoverAnimationEasing: undefined,
             items: []
         },*/
-        validation : {},
         
-        // Forms
-        entityId: 'entity',
-        
-        // Events
-        events: {
-            formClosed: function ( event, options ) { },
-            formCreated: function ( options ) { },
-            formSubmitting: function ( options, dataToSend ) { },
-            //loadingRecords: function ( options, url ) { },
-            recordAdded: function ( event, options, record ) { },
-            recordDeleted: function ( event, options, key ) { },
-            //recordsLoaded: function ( data ) { },
-            recordUpdated: function ( event, options, record ) { },
-            selectionChanged: function ( data ) { }
+        fields: {},
+        fieldsConfig: {
+            defaultFieldOptions: {
+                datetime: {
+                    inline: false
+                },
+                date: {
+                    inline: false,
+                    timepicker: false
+                },
+                time: {
+                    inline: false,
+                    datepicker: false,
+                    step: 5
+                }
+            },
+            getDefaultFieldTemplate: function( field ){
+                return field.type + '@templates/fields/basic.html';
+            }
         },
         
-        // Pages
+        events: {
+            formClosed: function ( event, options ) {},
+            formCreated: function ( options ) {},
+            formSubmitting: function ( options, dataToSend ) {},
+            //loadingRecords: function ( options, url ) {},
+            recordAdded: function ( event, options, record ) {},
+            recordDeleted: function ( event, options, key ) {},
+            //recordsLoaded: function ( data ) {},
+            recordUpdated: function ( event, options, record ) {},
+            selectionChanged: function ( data ) {}
+        },
+        
         pages: {
             list: {
                 template: "listDefaultTemplate@templates/lists.html",
-                //template: "'listDefaultTemplate@templates/lists.html'"
                 components: {
                     paging: {
                         isOn: true,
@@ -99,58 +117,33 @@ exports.init = function( userOptions, callback ){
                 }
             }, create: {
                 template: "formDefaultTemplate@templates/forms.html"
-                //template: "'formDefaultTemplate@templates/forms.html'"
             }, update: {
                 template: "formDefaultTemplate@templates/forms.html"
-                //template: "'formDefaultTemplate@templates/forms.html'"
             }, delete: {
                 template: "deleteDefaultTemplate@templates/forms.html"
-                //template: "'formDefaultTemplate@templates/forms.html'"
             }
         },
         
-        // Templates
-        declaredRemotePageUrls: [],
-        //busyTemplate: "'busyDefaultTemplate@templates/misc.html'",
-        busyTemplate: "busyDefaultTemplate@templates/misc.html",
-        
-        // AJAX
-        ajax: $.ajax,
-        defaultFormAjaxOptions: {
-            dataType   : 'json',
-            contentType: 'application/json; charset=UTF-8',
-            type       : 'POST'
-        },
-        ajaxPreFilter : function( data ){
-            return data;
-        },
-        ajaxPostFilter : function( data ){
-            return data;
+        templates: {
+            declaredRemotePageUrls: [],
+            busyTemplate: "busyDefaultTemplate@templates/misc.html"
         },
         
-        // Default fields options
-        getDefaultFieldTemplate: function( field ){
-            return field.type + '@templates/fields/basic.html';
-        },
-        defaultFieldOptions: {
-            datetime: {
-                inline: false
+        ajax:{
+            ajaxFunction: $.ajax,
+            defaultFormAjaxOptions: {
+                dataType   : 'json',
+                contentType: 'application/json; charset=UTF-8',
+                type       : 'POST'
             },
-            date: {
-                inline: false,
-                timepicker: false
+            ajaxPreFilter: function( data ){
+                return data;
             },
-            time: {
-                inline: false,
-                datepicker: false,
-                step: 5
+            ajaxPostFilter : function( data ){
+                return data;
             }
         },
         
-        // Dictionary
-        dictionary: {},
-        
-        // I18n and L10n
         i18n: {
             language: 'en',
             filesPath: 'i18n',
@@ -158,7 +151,6 @@ exports.init = function( userOptions, callback ){
             files: {}
         },
         
-        // Server data format stuff
         serverDataFormat: {
             datetime: 'm/d/Y H:i',
             date: 'm/d/Y',
@@ -166,7 +158,6 @@ exports.init = function( userOptions, callback ){
             decimalSeparator: '.'
         },
         
-        // Logging
         logging: {
             isOn: false,
             level: log4javascript.Level.ERROR,
@@ -224,7 +215,7 @@ exports.init = function( userOptions, callback ){
         if ( field.template == undefined ){
             field.template = fieldBuilder.getTemplate( field, options );
         }
-        context.declareRemotePageUrl( field.template, options.declaredRemotePageUrls );
+        context.declareRemotePageUrl( field.template, options.templates.declaredRemotePageUrls );
         if ( field.formFieldAttributes == undefined ){
             field.formFieldAttributes = {};
         }
@@ -245,8 +236,8 @@ exports.init = function( userOptions, callback ){
     var normalizeGeneralOptionsPostFields = function() {
         
         // Add remote page URLs to allDeclaredRemotePageUrls array
-        options.allDeclaredRemotePageUrls = options.declaredRemotePageUrls.slice();
-        context.declareRemotePageUrl( options.busyTemplate, options.allDeclaredRemotePageUrls );
+        options.allDeclaredRemotePageUrls = options.templates.declaredRemotePageUrls.slice();
+        context.declareRemotePageUrl( options.templates.busyTemplate, options.allDeclaredRemotePageUrls );
 
         for ( var i in options.pages ) {
             var template = options.pages[ i ].template;

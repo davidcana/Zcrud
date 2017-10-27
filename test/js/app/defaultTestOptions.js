@@ -5,11 +5,9 @@ var testUtils = require( './testUtils' );
 var log4javascript = require( 'log4javascript' );
 
 module.exports = {
-    body: document.body,
-    //title: 'Departments',
+
     entityId: 'department',
     
-    // Pages
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
@@ -44,11 +42,8 @@ module.exports = {
         }
     },
     
-    // Fields
     fields: {
         id: {
-            //title: 'Id',
-            //description: 'The unique id of the department!',
             key: true,
             create: true,
             edit: true,
@@ -56,13 +51,9 @@ module.exports = {
             sorting: false
         },
         name: {
-            //title: 'Name',
-            //description: 'The name of the department!',
             width: '90%'
         },
         description: {
-            //title: 'Description',
-            //description: 'The description of the department!',
             list: false,
             type: 'textarea',
             //template: "descriptionTextarea",
@@ -72,8 +63,6 @@ module.exports = {
             }
         },
         date: {
-            //title: 'Date',
-            //description: 'The date of the department!',
             list: false,
             type: 'date',
             customOptions: {
@@ -81,50 +70,28 @@ module.exports = {
             }
         },
         time: {
-            //title: 'Time',
-            //description: 'The time of the department!',
             list: false,
             type: 'time'
         },
         datetime: {
-            //title: 'Datetime',
-            //description: 'The datetime of the department!',
             list: false,
             type: 'datetime'
         },
         phoneType: {
-            //title: 'Phone type',
-            //description: 'The phone type of the department!',
             list: false,
             type: 'radio',
             translateOptions: true,
-            //options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes',
             options: function(){
                 return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
             }
-            /*
-            options: function(){
-                return [ 'Home phone!', 'Office phone!', 'Cell phone!!!' ];
-            }*/
-            //options: [ 'Home phone', 'Office phone', 'Cell phone' ]
-            /*
-            options: [
-                { value: '1', displayText: 'Home phone!' }, 
-                { lue: '2', displayText: 'Office phone!' }, 
-                { value: '3', displayText: 'Cell phone!' } ]*/
-            //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         },
         province: {
-            //title: 'Province',
-            //description: 'The province of the department!',
             list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            //title: 'City',
-            //description: 'The city of the department!',
             list: false,
             type: 'select',
             dependsOn: 'province',
@@ -143,15 +110,11 @@ module.exports = {
             }
         },
         browser: {
-            //title: 'Browser',
-            //description: 'The prefered browser of the department!',
             list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            //title: 'Important',
-            //description: 'Is important???',
             list: false,
             type: 'checkbox'
         },
@@ -174,33 +137,11 @@ module.exports = {
         }
     },
     
-    ajax: testUtils.ajax,
-    /*
-    ajaxPreFilter : function( data ){
-        return data;
+    ajax:{
+        ajaxFunction: testUtils.ajax    
     },
-    ajaxPostFilter : function( data ){
-        return {
-            records: data.Records,
-            result : data.Result,
-            message: data.Message
-        };
-    }*/
-    events: {
-        /*
-        formCreated: function ( options ) { 
-            alert( 'Form created! ' + options.currentForm.type );
-        }*/
-        /*
-        formSubmitting: function ( options, dataToSend ) { 
-            alert( 'Form submit! ' + options.currentForm.type );
-            return false;
-        }*/
-        /*
-        recordDeleted: function ( event, options, key ) { 
-            alert ( 'recordDeleted! '  + options.currentForm.type + ': ' + key );
-        }*/
-    },
+
+    events: {},
     
     i18n: {
         language: 'en',
@@ -212,6 +153,6 @@ module.exports = {
     
     logging: {
         isOn: true,
-        level: log4javascript.Level.DEBUG,
+        level: log4javascript.Level.DEBUG
     }
 };

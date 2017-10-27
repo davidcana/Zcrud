@@ -178,18 +178,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
         
         context.getZPTParser().run({
-        //zpt.run({
             //root: options.target[0],
             root: root || options.body,
             dictionary: dictionary
-            //declaredRemotePageUrls: options.declaredRemotePageUrls
-            /*
-            callback: function(){
-                bindEvents();
-                if ( callback ){
-                    callback( callbackParam );
-                }
-            }*/
         });
         
         bindEvents();
@@ -316,7 +307,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         selectedRows: selectedRows,
         selectedRecords: selectedRecords,
         getComponent: getComponent
-        //configure: configure
     };
     
     configure();

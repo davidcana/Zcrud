@@ -91,7 +91,7 @@ module.exports = (function() {
             return fieldManager.getTemplate( field );
         }
         
-        return options.getDefaultFieldTemplate( field );
+        return options.fieldsConfig.getDefaultFieldTemplate( field );
     };
     
     var getLabelFor = function( field, options ){

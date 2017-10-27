@@ -45,15 +45,15 @@ var DatetimeFieldManager = function() {
         var defaultFieldOptions = undefined;
         switch( params.field.type ) {
         case 'date':
-            defaultFieldOptions = params.options.defaultFieldOptions.date;
+            defaultFieldOptions = params.options.fieldsConfig.defaultFieldOptions.date;
             //defaultFieldOptions.format = context.translate( 'dateFormat' );
             break;
         case 'datetime':
-            defaultFieldOptions = params.options.defaultFieldOptions.datetime;
+            defaultFieldOptions = params.options.fieldsConfig.defaultFieldOptions.datetime;
             //defaultFieldOptions.format = context.translate( 'dateTimeFormat' );
             break;
         case 'time':
-            defaultFieldOptions = params.options.defaultFieldOptions.time;
+            defaultFieldOptions = params.options.fieldsConfig.defaultFieldOptions.time;
             //defaultFieldOptions.format = context.translate( 'timeFormat' );
             break;
         default:
