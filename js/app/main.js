@@ -83,6 +83,13 @@ exports.init = function( userOptions, callback ){
         pages: {
             list: {
                 template: "listDefaultTemplate@templates/lists.html",
+                editable: {
+                    isOn: false,
+                    event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
+                    dataToSend: 'all', // possible values: 'modified', 'all',
+                    modifiedFieldsClass: 'zcrud-modified-field',
+                    modifiedRowsClass: 'zcrud-modified-row'
+                },
                 components: {
                     paging: {
                         isOn: true,
