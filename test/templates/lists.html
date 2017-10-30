@@ -67,17 +67,20 @@
                 </thead>
                 <tbody data-tattributes="id options/currentList/tbodyId"
                        data-tdefine="selectingComponent instance/getComponent( 'selecting' );
-                                     selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'))">
+                                     selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
+                                     editable options/currentList/thisOptions/editable/isOn">
                     <tr data-trepeat="record records"
                         data-tattributes="data-record-key record[ options/key ];
+                                          data-record-index repeat/record/index();
                                           class 'zcrud-data-row'">
                         <td data-tcondition="selectingCheckbox">
                             <input class="zcrud-select-row" type="checkbox">
                         </td>
                         <td data-trepeat="field options/currentList/fields"
-                            data-tcontent="record[ field/id ]"
-                            data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}">
-                            Field value
+                            data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}"
+                            data-tdefine="value record[ field/id ]">
+                            <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
+                            <span data-tcondition="editable" data-muse-macro="field/template"></span>
                         </td>
                         <td>
                             <button title="Edit record" class="zcrud-edit-command-button"></button>

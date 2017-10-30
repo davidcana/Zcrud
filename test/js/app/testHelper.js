@@ -21,7 +21,8 @@ module.exports = (function() {
     
     var getAllValues = function( selector ){
         return $( selector ).map( function( index, element ) {
-            return this.innerHTML;
+            //return this.innerHTML;
+            return this.innerText;
         } ).get().join( '/' );
     }
     
@@ -395,8 +396,8 @@ module.exports = (function() {
         
         // Check record from table
         var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
-        var id = row.find( "td.zcrud-column-data-id" ).text();
-        var name = row.find( "td.zcrud-column-data-name" ).text();
+        var id = row.find( "td.zcrud-column-data-id" ).text().trim();
+        var name = row.find( "td.zcrud-column-data-name" ).text().trim();
         assert.equal( id, expectedRecord.id );
         assert.equal( name, expectedRecord.name );
         

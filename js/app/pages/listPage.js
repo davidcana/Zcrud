@@ -20,20 +20,21 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var options = optionsToApply;
     var filter = filterToApply || {};
     
+    var thisOptions = options.pages.list;
     var dictionary = undefined;
     var records = {};
-    
+    var id = options.listId;
     var components = {};
-    var pagingComponent = undefined;
-    
+        
     //
     var configure = function(){
         
         //self = this;
         options.currentList = {};
-        options.currentList.id = options.listId;
+        options.currentList.id = id;
         options.currentList.tableId = options.listTableId;
         options.currentList.tbodyId = options.listTbodyId;
+        options.currentList.thisOptions = thisOptions;
         options.currentList.fields = buildFields();
         
         registerComponent( 
@@ -212,6 +213,39 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         for ( var id in components ){
             var component = components[ id ];
             component.bindEvents();
+        }
+        
+        // Add events of an editable list
+        if ( thisOptions.editable.isOn ){
+            bindEditableListEvents( thisOptions.editable );
+        }
+    };
+    
+    var bindEditableListEvents = function( editableOptions ){
+        
+        //alert( 'bindEditableListEvents' );
+        
+        var editableEvent = editableOptions.event;
+        if ( editableEvent == 'rowChange' || editableEvent == 'batch' ){
+            $( '#' + id )
+                .find( '.zcrud-column-data input' )
+                .off() // Remove previous event handlers
+                .change( function ( event ) {
+                    var $this = $( this );
+                    var name = $this.attr( 'name' );
+                    var value = $this.val();
+                    var index = $this.closest( 'tr' ).attr( 'data-record-index' );
+                    alert( 'name: ' + name );
+                    alert( 'value: ' + value );
+
+                    //alert( 'data-record-index: ' + index + '\nValue: ' + dictionary.records[ index ] );
+                    //alert( 'change' );
+                    //$( event.target ).closest( "tr" ).toggleClass( "highlight" );
+                
+                    // Add CSS classes
+                    $this.closest( 'td' ).addClass( editableOptions.modifiedFieldsClass );
+                    $this.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
+                });
         }
     };
     

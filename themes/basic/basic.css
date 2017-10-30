@@ -532,6 +532,18 @@ div.zcrud-contextmenu-overlay {
     font-weight: 600;
 }
 
+/* Modified fieds */
+td.zcrud-modified-field {
+    /*background-color: #f23411;*/
+    background-image: url('./square-dirty.gif');
+    background-repeat: no-repeat;
+    background-position: left top;
+
+}
+tr.zcrud-modified-row td {
+    background-color: #f0a49a;
+}
+
 /* Busy indicator */
 .zcrud-busy {
     position: fixed;

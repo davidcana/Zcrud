@@ -31,6 +31,15 @@ module.exports = function(grunt) {
                 src: 'test/js/app/sample.js',
                 dest: 'build/sample.js'
             },
+            sample_editable: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/sample-editable.js',
+                dest: 'build/sample-editable.js'
+            },
             paging: {
                 options: {
                     browserifyOptions: {
