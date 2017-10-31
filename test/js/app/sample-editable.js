@@ -30,12 +30,6 @@ var options = {
                         type: 'asc'
                     },
                     allowUser: false
-                },
-                filtering: {
-                    isOn: true,
-                    fields: {
-                        name: 'name'
-                    }
                 }
             }
         }, create: {
@@ -198,35 +192,11 @@ $( '#departmentsContainer' ).zcrud(
         $( '#departmentsContainer' ).zcrud( 'load' );
     }
 );
-/*
-zcrud.init( options, function( options ){
-    //zcrud.load( options );
-    zcrud.load(
-        options,
-        {
-            name: 'Service 1'
-        });
-});*/
 
-$( '#customButton' ).click( function ( event ) {
-    
-    alert( JSON.stringify(
-        $( '#departmentsContainer' ).zcrud( 'selectedRecords' ) ) );
-    
-    //$( '#departmentsContainer' ).zcrud( 'destroy' );
-    /*alert( JSON.stringify(
-        $( '#departmentsContainer' ).zcrud( 'getRecordByKey', 1 ) ) );
-            //zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );*/
-    //$( '#departmentsContainer' ).zcrud( 'showCreateForm' );
-    /*
-    $( '#departmentsContainer' ).zcrud( 
-        'updateRecord',
-        {
-            id: '1',
-            name: 'New service!'
-        });*/
-    /*
-    zcrud.deleteRecord( 
-        'zcrud-list-department', 1, event );*/
-    //$( '#departmentsContainer' ).zcrud( 'deleteRecord', 1, event );
+$( '#undo' ).click( function ( event ) {
+    $( '#departmentsContainer' ).zcrud( 'undoListAction' );
+});
+
+$( '#redo' ).click( function ( event ) {
+    $( '#departmentsContainer' ).zcrud( 'redoListAction' );
 });

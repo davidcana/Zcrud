@@ -9,6 +9,7 @@ var SortingComponent = require( './sortingComponent.js' );
 var SelectingComponent = require( './selectingComponent.js' );
 var FilteringComponent = require( './filteringComponent.js' );
 var crudManager = require( '../crudManager.js' );
+var History = require( '../history.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -25,7 +26,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var records = {};
     var id = options.listId;
     var components = {};
-        
+    var history = undefined;
+    
     //
     var configure = function(){
         
@@ -224,28 +226,29 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var bindEditableListEvents = function( editableOptions ){
         
         //alert( 'bindEditableListEvents' );
+        history = new History( thisOptions.editable, dictionary );
         
         var editableEvent = editableOptions.event;
-        if ( editableEvent == 'rowChange' || editableEvent == 'batch' ){
-            $( '#' + id )
-                .find( '.zcrud-column-data input' )
-                .off() // Remove previous event handlers
-                .change( function ( event ) {
-                    var $this = $( this );
-                    var name = $this.attr( 'name' );
-                    var value = $this.val();
-                    var index = $this.closest( 'tr' ).attr( 'data-record-index' );
-                    alert( 'name: ' + name );
-                    alert( 'value: ' + value );
-
-                    //alert( 'data-record-index: ' + index + '\nValue: ' + dictionary.records[ index ] );
-                    //alert( 'change' );
-                    //$( event.target ).closest( "tr" ).toggleClass( "highlight" );
-                
-                    // Add CSS classes
-                    $this.closest( 'td' ).addClass( editableOptions.modifiedFieldsClass );
-                    $this.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
+        switch ( editableEvent ){
+            case 'fieldChange':
+                // Send change of the field data to server
+                break;
+            case 'rowChange':
+            case 'batch':
+                // Register change of the field
+                $( '#' + id )
+                    .find( '.zcrud-column-data input' )
+                    .off() // Remove previous event handlers
+                    .change( function ( event ) {
+                        var $this = $( this );
+                        history.put( 
+                            $this, 
+                            $this.val(), 
+                            $this.closest( 'tr' ).attr( 'data-record-index' ) );
                 });
+                break;
+            default:
+                alert( 'Unknown event in editable list: ' + editableEvent );
         }
     };
     
@@ -292,7 +295,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     var getId = function(){
-        return options.listId;      
+        return id;      
     };
     
     var getRecordByKey = function( key ){
@@ -331,6 +334,39 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return components[ id ];
     };
     
+    // History methods
+    var checkHistory = function(){
+        if ( ! history ){
+            alert( 'History not initialized!' );
+            return false;
+        }
+        return true;
+    };
+    var undo = function(){
+        if ( ! checkHistory() ){
+            return;
+        }
+        history.undo();
+    };
+    var redo = function(){
+        if ( ! checkHistory() ){
+            return;
+        }
+        history.redo();
+    };
+    var isRedoEnabled = function(){
+        if ( ! checkHistory() ){
+            return false;
+        }
+        return history.isRedoEnabled();
+    };
+    var isUndoEnabled = function(){
+        if ( ! checkHistory() ){
+            return false;
+        }
+        return history.isUndoEnabled();
+    };
+    
     var self = {
         show: show,
         getId: getId,
@@ -340,7 +376,11 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         selectRows: selectRows,
         selectedRows: selectedRows,
         selectedRecords: selectedRecords,
-        getComponent: getComponent
+        getComponent: getComponent,
+        undo: undo,
+        redo: redo,
+        isRedoEnabled: isRedoEnabled,
+        isUndoEnabled: isUndoEnabled
     };
     
     configure();

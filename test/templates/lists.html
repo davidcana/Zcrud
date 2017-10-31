@@ -78,7 +78,8 @@
                         </td>
                         <td data-trepeat="field options/currentList/fields"
                             data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}"
-                            data-tdefine="value record[ field/id ]">
+                            data-tdefine="value record[ field/id ];
+                                          elementName field/id">
                             <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
                             <span data-tcondition="editable" data-muse-macro="field/template"></span>
                         </td>

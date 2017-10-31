@@ -420,6 +420,25 @@ exports.selectedRecords = function( value ){
     }
     return listPage.selectedRecords();
 };
+
+exports.undoListAction = function( value ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    return listPage.undo();
+};
+
+exports.redoListAction = function( value ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    return listPage.redo();
+};
+
 /* I18n and i18nHelp classes */
 //exports.I18n = require( './i18n/i18n.js' );
 //exports.i18nHelper = require( './i18n/i18nHelper.js' );

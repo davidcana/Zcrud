@@ -51,6 +51,12 @@ var context = require( './context.js' );
             case 'updateRecord':
                 zcrud.updateRecord( getOptions( this ), arguments[1], arguments[2] );
                 break;
+            case 'undoListAction':
+                zcrud.undoListAction( getOptions( this ) );
+                break;
+            case 'redoListAction':
+                zcrud.redoListAction( getOptions( this ) );
+                break;
             default:
                 alert( 'Unknown action: ' + action );
                 return false;
