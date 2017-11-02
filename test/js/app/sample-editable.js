@@ -18,7 +18,7 @@ var options = {
             editable: {
                 isOn: true,
                 event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
-                dataToSend: 'all', // possible values: 'modified', 'all',
+                dataToSend: 'modified', // possible values: 'modified', 'all',
                 modifiedFieldsClass: 'zcrud-modified-field',
                 modifiedRowsClass: 'zcrud-modified-row'
             },
@@ -200,3 +200,8 @@ $( '#undo' ).click( function ( event ) {
 $( '#redo' ).click( function ( event ) {
     $( '#departmentsContainer' ).zcrud( 'redoListAction' );
 });
+
+$( '#save' ).click( function ( event ) {
+    $( '#departmentsContainer' ).zcrud( 'saveList' );
+});
+

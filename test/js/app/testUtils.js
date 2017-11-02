@@ -4,6 +4,8 @@
 module.exports = (function() {
     "use strict";
     
+    var $ = require( 'jquery' );
+    
     var services = {};
     /*
     var services = {
@@ -76,6 +78,9 @@ module.exports = (function() {
             case "DELETE":
                 dataToSend = ajaxServicesDelete( file, data );
                 break;
+            case "LIST_BATCH_UPDATE":
+                dataToSend = ajaxServicesListBatchUpdate( file, data );
+                break;
             default:
                 throw "Unknown command in ajax: " + cmd;
         }
@@ -85,6 +90,67 @@ module.exports = (function() {
         } else {
             options.error( dataToSend );
         }
+    };
+    
+    var ajaxServicesListBatchUpdate = function( file, data ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+        dataToSend.existingRecords = {};
+        dataToSend.newRecords = {};
+        var error = false;
+
+        // Add all existing services
+        for ( var id in data.existingRecords ) {
+            var modifiedService = data.records[ id ];
+            var currentService = services[ id ];
+
+            if ( ! currentService ){
+                error = true;
+                dataToSend.message += 'Service with key "' + id + '" not found trying to update it!';
+                continue;       
+            }
+            
+            var newId = modifiedService.id;
+            var newIdService = services[ newId ];
+            if ( id != newId && newIdService ){
+                error = true;
+                dataToSend.message += 'Service with key "' + newId + '" found: duplicated key trying to update it!';
+                continue;    
+            }
+            
+            var extendedService = 
+                    currentService?
+                    $.extend( true, {}, currentService, modifiedService ):
+                    modifiedService;
+
+            if ( id !== newId ){
+                delete services[ id ];
+                id = newId;
+            }
+            services[ id ] = extendedService;
+            dataToSend.existingRecords[ id ] = extendedService;     
+        }
+        
+        // Add all new services
+        for ( id in data.newRecords ) {
+            var newService = data.records[ id ];
+            currentService = services[ id ];
+
+            if ( currentService ){
+                error = true;
+                dataToSend.message += 'Service with key "' + id + '" found trying to create it!';
+                continue;
+            }
+
+            services[ id ] = newService;
+            dataToSend.newRecords[ id ] = newService;                
+        }
+        
+        dataToSend.result = error? 'Error': 'OK';
+        return dataToSend;
     };
     
     var ajaxServicesList = function( file, data ){

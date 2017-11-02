@@ -233,7 +233,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             case 'fieldChange':
                 // Send change of the field data to server
                 break;
-            case 'rowChange':
             case 'batch':
                 // Register change of the field
                 $( '#' + id )
@@ -367,6 +366,53 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return history.isUndoEnabled();
     };
     
+    var save = function(){
+        if ( ! checkHistory() ){
+            return false;
+        }
+        var modified = history.getModified();
+        var dataToSend = transformModified( modified );
+        
+        if ( dataToSend ){
+            alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( dataToSend ) );
+        }
+        
+        return dataToSend;
+    };
+    
+    var transformModified = function( modified ){
+        
+        // 
+        var sendOnlyModified = undefined;
+        switch( thisOptions.editable.dataToSend ){
+            case 'all':
+                sendOnlyModified = false;
+                break;
+            case 'modified':
+                sendOnlyModified = true;
+                break;
+            default:
+                alert( 'Unknown dataToSend option in editable list: ' + editableOptions.dataToSend );
+                return false;
+        }
+        
+        //
+        var dataToSend = {};
+        for ( var columnIndex in modified ){
+            var row = modified[ columnIndex ];
+            var record = dictionary.records[ columnIndex ];
+            var key = record[ options.key ];
+            
+            if ( ! sendOnlyModified ){
+                var previousRecord = records[ key ];
+                row = $.extend( true, {}, previousRecord, row );
+            }
+            dataToSend[ key ] = row;
+        }
+        
+        return dataToSend;
+    };
+    
     var self = {
         show: show,
         getId: getId,
@@ -380,7 +426,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         undo: undo,
         redo: redo,
         isRedoEnabled: isRedoEnabled,
-        isUndoEnabled: isUndoEnabled
+        isUndoEnabled: isUndoEnabled,
+        save: save
     };
     
     configure();

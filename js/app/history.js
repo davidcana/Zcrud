@@ -9,6 +9,22 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     
     var items = [];
     var current = 0;
+    var modified = {};
+    
+    var putInModified = function( historyItem ){
+        
+        var row = modified[ historyItem.columnIndex ];
+        
+        if ( ! row ){
+            row = {};
+            modified[ historyItem.columnIndex ] = row;
+        }
+        
+        row[ historyItem.name ] = historyItem.newValue;
+    };
+    var getModified = function(){
+        return modified;
+    };
     
     var put = function( $this, newValue, columnIndex ) {
 
@@ -32,6 +48,9 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         
         // Add to items
         items[ current++ ] = historyItem;
+        
+        // 
+        putInModified( historyItem );
         
         updateCSS( $this, true, true );
     };
@@ -132,6 +151,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         undo: undo,
         redo: redo,
         isUndoEnabled: isUndoEnabled,
-        isRedoEnabled: isRedoEnabled
+        isRedoEnabled: isRedoEnabled,
+        getModified: getModified
     };
 };

@@ -85,7 +85,7 @@ exports.init = function( userOptions, callback ){
                 template: "listDefaultTemplate@templates/lists.html",
                 editable: {
                     isOn: false,
-                    event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
+                    event: 'batch',    // possible values: 'fieldChange', 'batch'
                     dataToSend: 'all', // possible values: 'modified', 'all',
                     modifiedFieldsClass: 'zcrud-modified-field',
                     modifiedRowsClass: 'zcrud-modified-row'
@@ -437,6 +437,15 @@ exports.redoListAction = function( value ){
         return;
     }
     return listPage.redo();
+};
+
+exports.saveList = function( value ){
+
+    var listPage = getListPageFromValue( value );
+    if ( ! listPage ){
+        return;
+    }
+    return listPage.save();
 };
 
 /* I18n and i18nHelp classes */

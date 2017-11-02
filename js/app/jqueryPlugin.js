@@ -57,6 +57,9 @@ var context = require( './context.js' );
             case 'redoListAction':
                 zcrud.redoListAction( getOptions( this ) );
                 break;
+            case 'saveList':
+                zcrud.saveList( getOptions( this ) );
+                break;
             default:
                 alert( 'Unknown action: ' + action );
                 return false;
