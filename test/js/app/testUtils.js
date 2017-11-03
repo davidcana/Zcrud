@@ -104,7 +104,7 @@ module.exports = (function() {
 
         // Add all existing services
         for ( var id in data.existingRecords ) {
-            var modifiedService = data.records[ id ];
+            var modifiedService = data.existingRecords[ id ];
             var currentService = services[ id ];
 
             if ( ! currentService ){
@@ -121,12 +121,9 @@ module.exports = (function() {
                 continue;    
             }
             
-            var extendedService = 
-                    currentService?
-                    $.extend( true, {}, currentService, modifiedService ):
-                    modifiedService;
+            var extendedService = $.extend( true, {}, currentService, modifiedService );
 
-            if ( id !== newId ){
+            if ( newId && id !== newId ){
                 delete services[ id ];
                 id = newId;
             }
@@ -136,7 +133,7 @@ module.exports = (function() {
         
         // Add all new services
         for ( id in data.newRecords ) {
-            var newService = data.records[ id ];
+            var newService = data.newRecords[ id ];
             currentService = services[ id ];
 
             if ( currentService ){
@@ -147,6 +144,21 @@ module.exports = (function() {
 
             services[ id ] = newService;
             dataToSend.newRecords[ id ] = newService;                
+        }
+        
+        // Remove all services to remove
+        for ( var c = 0; c < data.recordsToRemove.length; c++ ) {
+            id = data.recordsToRemove[ c ];
+            currentService = services[ id ];
+
+            if ( ! currentService ){
+                error = true;
+                dataToSend.message += 'Service with key "' + id + '" not found trying to delete it!';
+                continue;
+            }
+
+            delete services[ id ];
+            dataToSend.recordsToRemove.push( id );                
         }
         
         dataToSend.result = error? 'Error': 'OK';

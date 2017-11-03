@@ -55,6 +55,10 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         updateCSS( $this, true, true );
     };
     
+    var resetCSS = function(){
+        
+    };
+    
     var updateCSS = function( $this, td, tr ){
         
         if ( td ){
@@ -152,6 +156,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         redo: redo,
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
-        getModified: getModified
+        getModified: getModified,
+        resetCSS: resetCSS
     };
 };

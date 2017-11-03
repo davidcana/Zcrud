@@ -111,7 +111,6 @@ module.exports = (function() {
         };
         
         if ( authIsOK( data, options, dataToSend ) ){
-            //options.ajax(
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         }
@@ -160,7 +159,6 @@ module.exports = (function() {
         };
 
         if ( false != options.events.formSubmitting( options, dataToSend ) ){
-            //options.ajax(
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         }
@@ -206,15 +204,59 @@ module.exports = (function() {
             error  : errorFunction
         };
         
-        //options.ajax(
         options.ajax.ajaxFunction(
             $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+    };
+    
+    /* 
+    data format:
+         - ajaxPreFilterOff: a function that makes a before sending data filtering
+         - ajaxPostFilterOff: a function that makes an after receiving data filtering
+         - clientOnly: if true the command is not send to the server
+         - existingRecords: the list of records
+         - error: a function executed whenever there is some error
+         - newRecords: the list of records
+         - recordsToRemove: the list of records
+         - success: a function executed whenever the operation is OK
+         - url: an url that overwrite the default one
+    */
+    var listBatchUpdate = function( data, options, event ){
+        
+        var dataToSend = data;
+        dataToSend.command = 'listBatchUpdate';
+
+        var successFunction = function( dataFromServer ){
+            generalSuccessFunction( data, options, dataFromServer, event, options.events.listBatchUpdateDone );
+        };
+
+        var errorFunction = function( dataFromServer ){
+            generalErrorFunction( data, options, dataFromServer, event, options.events.listBatchUpdateDone );
+        };
+
+        if ( data.clientOnly ){
+            successFunction(
+                data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
+            return;
+        }
+
+        var thisOptions = {
+            url    : data.url || options.pages.list.batchUpdateAction,
+            data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
+            success: successFunction,
+            error  : errorFunction
+        };
+
+        if ( false != options.events.formSubmitting( options, dataToSend ) ){
+            options.ajax.ajaxFunction(
+                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+        }
     };
     
     return {
         createRecord: createRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
-        listRecords: listRecords
+        listRecords: listRecords,
+        listBatchUpdate: listBatchUpdate
     };
 })();

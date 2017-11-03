@@ -30,6 +30,7 @@
     "createSuccess": "Record added!",
     "updateSuccess": "Record updated!",
     "deleteSuccess": "Record deleted!",
+    "listUpdateSuccess": "All operations done!",
     "serverCommunicationError": "An error occurred while communicating to the server!",
     
     "_validation": "",

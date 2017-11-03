@@ -77,7 +77,8 @@ exports.init = function( userOptions, callback ){
             recordDeleted: function ( event, options, key ) {},
             //recordsLoaded: function ( data ) {},
             recordUpdated: function ( event, options, record ) {},
-            selectionChanged: function ( data ) {}
+            selectionChanged: function ( data ) {},
+            listBatchUpdateDone: function ( event, options, dataToSend ) {}
         },
         
         pages: {
@@ -283,10 +284,6 @@ exports.init = function( userOptions, callback ){
                     callback( options );
                 }
             });
-            /*
-            if ( callback ){
-                callback( options );
-            }*/
         });
     };
     

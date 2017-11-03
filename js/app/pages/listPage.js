@@ -126,7 +126,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 updateDictionary( data, dictionaryExtension );
                 buildRecords();
                 context.hideBusy( options, showBusyFull );
-                buildHTMLAndJavascript( root, callback, true );
+                buildHTMLAndJavascript( root );
                 if ( callback ){
                     callback( true );
                 }
@@ -366,18 +366,50 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return history.isUndoEnabled();
     };
     
-    var save = function(){
+    var showStatusMessage = function( dictionaryExtension ){
+        
+        var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
+        
+        context.getZPTParser().run({
+            root: $( '#' + id ).find( '.zcrud-status' )[0],
+            dictionary: thisDictionary
+        });
+    };
+    
+    var save = function( event ){
         if ( ! checkHistory() ){
             return false;
         }
         var modified = history.getModified();
-        var dataToSend = transformModified( modified );
+        var transformed = transformModified( modified );
         
-        if ( dataToSend ){
-            alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( dataToSend ) );
+        if ( transformed ){
+            var data = {
+                existingRecords: transformed.existingRecords,
+                newRecords: transformed.newRecords,
+                recordsToRemove: transformed.recordsToRemove,
+                success: function( dataFromServer ){
+                    showStatusMessage({
+                        status:{
+                            message: 'listUpdateSuccess',
+                            date: new Date().toLocaleString()   
+                        }
+                    });
+                    history.resetCSS();
+                },
+                error: function( dataFromServer ){
+                    if ( dataFromServer.message ){
+                        context.showError( dataFromServer.message, false );
+                    } else {
+                        context.showError( 'serverCommunicationError', true );
+                    }
+                }
+            };
+            alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( data ) );
+            crudManager.listBatchUpdate( data, options, event );
         }
         
-        return dataToSend;
+        return transformed;
     };
     
     var transformModified = function( modified ){
@@ -396,8 +428,11 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 return false;
         }
         
-        //
-        var dataToSend = {};
+        var dataToSend = {
+            existingRecords: {},
+            newRecords: {},
+            recordsToRemove: []
+        };
         for ( var columnIndex in modified ){
             var row = modified[ columnIndex ];
             var record = dictionary.records[ columnIndex ];
@@ -407,7 +442,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 var previousRecord = records[ key ];
                 row = $.extend( true, {}, previousRecord, row );
             }
-            dataToSend[ key ] = row;
+            dataToSend.existingRecords[ key ] = row;
         }
         
         return dataToSend;

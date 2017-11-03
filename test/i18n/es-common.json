@@ -30,6 +30,7 @@
     "createSuccess": "¡Registro añadido!",
     "updateSuccess": "¡Registro actualizado!",
     "deleteSuccess": "¡Registro eliminado!",
+    "listUpdateSuccess": "¡Todas las operaciones completadas!",
     "serverCommunicationError": "¡Ha ocurrido un error comunicándose con el servidor!",
     
     "_validation": "",

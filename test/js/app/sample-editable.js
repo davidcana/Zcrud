@@ -15,6 +15,7 @@ var options = {
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            batchUpdateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST_BATCH_UPDATE&table=department',
             editable: {
                 isOn: true,
                 event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
