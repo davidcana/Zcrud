@@ -33,6 +33,12 @@
     "listUpdateSuccess": "¡Todas las operaciones completadas!",
     "serverCommunicationError": "¡Ha ocurrido un error comunicándose con el servidor!",
     
+    "_buttons": "",
+    "Add new record": "Nuevo registro",
+    "Undo": "Deshacer",
+    "Redo": "Rehacer",
+    "Save": "Guardar cambios",
+    
     "_validation": "",
     "errorTitle": "Error en el envío del formulario",
     "requiredFields": "No ha rellenado todos los campos requeridos",

@@ -194,15 +194,3 @@ $( '#departmentsContainer' ).zcrud(
     }
 );
 
-$( '#undo' ).click( function ( event ) {
-    $( '#departmentsContainer' ).zcrud( 'undoListAction' );
-});
-
-$( '#redo' ).click( function ( event ) {
-    $( '#departmentsContainer' ).zcrud( 'redoListAction' );
-});
-
-$( '#save' ).click( function ( event ) {
-    $( '#departmentsContainer' ).zcrud( 'saveList' );
-});
-

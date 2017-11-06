@@ -249,6 +249,18 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             default:
                 alert( 'Unknown event in editable list: ' + editableEvent );
         }
+        
+        // Buttons
+        var $this = $( '#' + id );
+        $this.find( '.zcrud-undo-command-button' ).click( function ( event ) {
+            undo();
+        });
+        $this.find( '.zcrud-redo-command-button' ).click( function ( event ) {
+            redo();
+        });
+        $this.find( '.zcrud-save-command-button' ).click( function ( event ) {
+            save( event );
+        });
     };
     
     var showCreateForm = function( event ){

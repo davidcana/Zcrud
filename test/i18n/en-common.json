@@ -33,6 +33,12 @@
     "listUpdateSuccess": "All operations done!",
     "serverCommunicationError": "An error occurred while communicating to the server!",
     
+    "_buttons": "",
+    "Add new record": "Add new record",
+    "Undo": "Undo",
+    "Redo": "Redo",
+    "Save": "Save",
+    
     "_validation": "",
     "errorTitle": "Form submission failed!",
     "requiredFields": "You have not answered all required fields",

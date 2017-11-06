@@ -117,6 +117,7 @@ div.zcrud-main-container {
     font-size: 1em;
     background: #fff;
     line-height: 1.3;
+    position: relative;
 }
 div.zcrud-main-container button:hover,
 div.zcrud-main-container button:active,
@@ -129,19 +130,6 @@ div.zcrud-main-container>div.zcrud-title {
     background-color: #0b67cd;
     padding-left: 10px;
 }
-div.zcrud-main-container>div.zcrud-title div.zcrud-toolbar {
-    bottom: 0px;
-    right: 0px;
-    position: absolute;
-}
-div.zcrud-main-container>div.zcrud-title div.zcrud-toolbar span.zcrud-toolbar-item {
-    background-color: #1571d7;
-    color: white;
-}
-div.zcrud-main-container>div.zcrud-title div.zcrud-toolbar span.zcrud-toolbar-item.zcrud-toolbar-item-hover {
-    background-color: #1c78de;
-    padding-bottom: 6px;
-}
 
 /* Commands buttons */
 div.zcrud-main-container .zcrud-command-button {
@@ -151,12 +139,13 @@ div.zcrud-main-container .zcrud-command-button {
     border: none;
     display: inline;
 }
+/*
 div.zcrud-main-container .zcrud-new-command-button {
     background: url('./add.png') no-repeat center;
     background-size: 16px 16px;
     height: 30px;
     width: 30px;
-}
+}*/
 div.zcrud-main-container .zcrud-edit-command-button {
     background: url('./edit.png') no-repeat center;
     background-size: 16px 16px;
@@ -231,33 +220,13 @@ div.zcrud-main-container .zcrud-header .zcrud-title {
     text-align: left;
     font-size: 3em;
 }
-div.zcrud-main-container .zcrud-header .zcrud-toolbar {
-    top: 0px;
-    right: 0px;
-    position: absolute;
-    display: inline-block;
-    margin-right: 5px;
+
+/* Toolbar */
+div.zcrud-main-container .zcrud-toolbar {
+    margin-left: 1em;
 }
-div.zcrud-main-container .zcrud-header .zcrud-toolbar .zcrud-toolbar-item {
-    position: relative;
-    display: inline-block;
-    margin: 0px 0px 0px 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    padding: 2px;
-    vertical-align: bottom;
-}
-div.zcrud-main-container .zcrud-header .zcrud-toolbar .zcrud-toolbar-item .zcrud-toolbar-item-icon {
-    display: inline-block;
-    margin: 2px;
-    vertical-align: middle;
-    width: 16px;
-    height: 16px;
-}
-div.zcrud-main-container .zcrud-header .zcrud-toolbar .zcrud-toolbar-item .zcrud-toolbar-item-text {
-    display: inline-block;
-    margin: 2px;
-    vertical-align: middle;
+div.zcrud-main-container .zcrud-toolbar button {
+    background-color: white;
 }
 
 /* Table */

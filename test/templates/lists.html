@@ -12,17 +12,16 @@
              data-idomain="i18nArray">
             
             <div class="zcrud-header">
-                <span class="zcrud-title"
-                      data-tcontent="options/title || tr:'general_entityName'">
-                    The title option
-                </span>
-                <span data-tcontent="tr:'(default)'">
-                    (default)
-                </span>
-                <span class="zcrud-toolbar">
-                    <button title="New record" class="zcrud-new-command-button"></button>
-                </span>
-
+                <div>
+                    <span class="zcrud-title"
+                          data-tcontent="options/title || tr:'general_entityName'">
+                        The title option
+                    </span>
+                    <span data-tcontent="tr:'(default)'">
+                        (default)
+                    </span>
+                </div>
+                
                 <div data-muse-macro="'filterPanel'"
                      data-tcondition="instance/getComponent( 'filtering' )">
                     The filter panel
@@ -197,6 +196,12 @@
                                 data-tcontent="pageSize"
                                 label="label"></option>
                     </select>
+                </span>
+                <span class="zcrud-toolbar">
+                    <button class="zcrud-new-command-button" data-tattributes="title tr:'Add new record'">+</button>
+                    <button class="zcrud-undo-command-button" data-tcontent="tr:'Undo'">Undo</button>
+                    <button class="zcrud-redo-command-button" data-tcontent="tr:'Redo'">Redo</button>
+                    <button class="zcrud-save-command-button" data-tcontent="tr:'Save'">Save</button>
                 </span>
             </div>
             <div class="zcrud-right-area">
