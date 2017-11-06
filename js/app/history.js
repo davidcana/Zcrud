@@ -4,6 +4,8 @@
 module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     "use strict";
     
+    var $ = require( 'jquery' );
+    
     var editableOptions = editableOptionsToApply;
     var dictionary = dictionaryToApply;
     
@@ -55,8 +57,19 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         updateCSS( $this, true, true );
     };
     
-    var resetCSS = function(){
+    var reset = function( id ){
+        resetCSS( id );
         
+        items = [];
+        current = 0;
+        modified = {};
+    };
+    
+    var resetCSS = function( id ){
+        
+        var $list = $( '#' + id );
+        $list.find( '.' + editableOptions.modifiedFieldsClass ).removeClass( editableOptions.modifiedFieldsClass );
+        $list.find( '.' + editableOptions.modifiedRowsClass ).removeClass( editableOptions.modifiedRowsClass );
     };
     
     var updateCSS = function( $this, td, tr ){
@@ -157,6 +170,6 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
         getModified: getModified,
-        resetCSS: resetCSS
+        reset: reset
     };
 };

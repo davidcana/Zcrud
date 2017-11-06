@@ -380,7 +380,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         if ( ! checkHistory() ){
             return false;
         }
+        
         var modified = history.getModified();
+        if ( Object.keys( modified ).length == 0 ){
+            alert( 'No operations done!' );
+            return false;
+        }
+        
         var transformed = transformModified( modified );
         
         if ( transformed ){
@@ -395,7 +401,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                             date: new Date().toLocaleString()   
                         }
                     });
-                    history.resetCSS();
+                    history.reset( id );
+                    updateRecords( transformed );
                 },
                 error: function( dataFromServer ){
                     if ( dataFromServer.message ){
@@ -405,7 +412,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                     }
                 }
             };
-            alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( data ) );
+            //alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( data ) );
             crudManager.listBatchUpdate( data, options, event );
         }
         
@@ -446,6 +453,34 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
         
         return dataToSend;
+    };
+    
+    var updateRecords = function( data ){
+        
+        // Update all existing records
+        for ( var key in data.existingRecords ) {
+            var modifiedRegister = data.existingRecords[ key ];
+            var currentRegister = records[ key ];
+            var newKey = modifiedRegister[ options.key ];
+            var extendedRegister = $.extend( true, {}, currentRegister, modifiedRegister );
+
+            if ( newKey && key !== newKey ){
+                delete records[ key ];
+                key = newKey;
+            }
+            records[ key ] = extendedRegister;  
+        }
+        
+        // Add all new records
+        for ( key in data.newRecords ) {
+            records[ key ] = data.newRecords[ key ];
+        }
+        
+        // Remove all records to remove
+        for ( var c = 0; c < data.recordsToRemove.length; c++ ) {
+            key = data.recordsToRemove[ c ];
+            delete records[ key ];
+        }
     };
     
     var self = {
