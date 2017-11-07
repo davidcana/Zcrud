@@ -42,11 +42,11 @@
             </div>
             <table class="zcrud" 
                    data-idomain="i18nArray"
-                   data-tattributes="id options/currentList/tableId"
-                   data-tdefine="byRow options/currentList/thisOptions/buttons/byRow">
+                   data-tattributes="id options/currentList/tableId">
                 <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
                                      selectingComponent instance/getComponent( 'selecting' );
-                                     selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'))">
+                                     selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
+                                     byRow options/currentList/thisOptions/buttons/byRow">
                     <tr>
                         <th data-tcondition="selectingCheckbox">
                             <input class="zcrud-select-all-rows" type="checkbox">
@@ -69,7 +69,8 @@
                 <tbody data-tattributes="id options/currentList/tbodyId"
                        data-tdefine="selectingComponent instance/getComponent( 'selecting' );
                                      selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
-                                     editable options/currentList/thisOptions/editable/isOn">
+                                     editable options/currentList/thisOptions/editable/isOn;
+                                     byRow options/currentList/thisOptions/buttons/byRow">
                     <tr data-trepeat="record records"
                         data-tattributes="data-record-key record[ options/key ];
                                           data-record-index repeat/record/index();
