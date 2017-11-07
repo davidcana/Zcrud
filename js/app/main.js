@@ -122,6 +122,20 @@ exports.init = function( userOptions, callback ){
                         multiple: true,
                         mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
                     }
+                },
+                buttons: {
+                    toolbar: {
+                        newRegisterRow: undefined,
+                        openNewRegisterForm: undefined,
+                        undo: undefined,
+                        redo: undefined,
+                        save: undefined
+                    },
+                    byRow: {
+                        openEditRegisterForm: undefined,
+                        openDeleteRegisterForm: undefined,
+                        deleteRegisterRow: undefined,
+                    }
                 }
             }, create: {
                 template: "formDefaultTemplate@templates/forms.html"
@@ -198,6 +212,36 @@ exports.init = function( userOptions, callback ){
         }
         if ( options.formId == undefined ){
             options.formId = 'zcrud-form-' + options.entityId;
+        }
+        
+        // Normalize list options
+        var listOptions = options.pages.list;
+        var editableListIsOn = listOptions.editable.isOn;
+        var toolbar = listOptions.buttons.toolbar;
+        if ( toolbar.newRegisterRow == undefined ){
+            toolbar.newRegisterRow = editableListIsOn;
+        }
+        if ( toolbar.openNewRegisterForm == undefined ){
+            toolbar.openNewRegisterForm = ! editableListIsOn;
+        }
+        if ( toolbar.undo == undefined ){
+            toolbar.undo = editableListIsOn;
+        }
+        if ( toolbar.redo == undefined ){
+            toolbar.redo = editableListIsOn;
+        }
+        if ( toolbar.save == undefined ){
+            toolbar.save = editableListIsOn;
+        }
+        var byRow = listOptions.buttons.byRow;
+        if ( byRow.openEditRegisterForm == undefined ){
+            byRow.openEditRegisterForm = ! editableListIsOn;
+        }
+        if ( byRow.openDeleteRegisterForm == undefined ){
+            byRow.openDeleteRegisterForm = ! editableListIsOn;
+        }
+        if ( byRow.deleteRegisterRow == undefined ){
+            byRow.deleteRegisterRow = editableListIsOn;
         }
     };
 

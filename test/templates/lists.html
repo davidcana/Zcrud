@@ -42,7 +42,8 @@
             </div>
             <table class="zcrud" 
                    data-idomain="i18nArray"
-                   data-tattributes="id options/currentList/tableId">
+                   data-tattributes="id options/currentList/tableId"
+                   data-tdefine="byRow options/currentList/thisOptions/buttons/byRow">
                 <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
                                      selectingComponent instance/getComponent( 'selecting' );
                                      selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'))">
@@ -61,8 +62,8 @@
                                               data-sort-type sortType">
                             <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
                         </th>
-                        <th class="zcrud-command-column-header"></th>
-                        <th class="zcrud-command-column-header"></th>
+                        <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"></th>
+                        <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"></th>
                     </tr>
                 </thead>
                 <tbody data-tattributes="id options/currentList/tbodyId"
@@ -83,10 +84,10 @@
                             <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
                             <span data-tcondition="editable" data-muse-macro="field/template"></span>
                         </td>
-                        <td>
+                        <td data-tcondition="byRow/openEditRegisterForm">
                             <button title="Edit record" class="zcrud-edit-command-button"></button>
                         </td>
-                        <td>
+                        <td data-tcondition="byRow/openDeleteRegisterForm">
                             <button title="Delete record" class="zcrud-delete-command-button"></button>
                         </td>
                     </tr>
@@ -197,11 +198,22 @@
                                 label="label"></option>
                     </select>
                 </span>
-                <span class="zcrud-toolbar">
-                    <button class="zcrud-new-command-button" data-tattributes="title tr:'Add new record'">+</button>
-                    <button class="zcrud-undo-command-button" data-tcontent="tr:'Undo'" disabled="true">Undo</button>
-                    <button class="zcrud-redo-command-button" data-tcontent="tr:'Redo'" disabled="true">Redo</button>
-                    <button class="zcrud-save-command-button" data-tcontent="tr:'Save'" disabled="true">Save</button>
+                <span class="zcrud-toolbar" data-tdefine="toolbar options/currentList/thisOptions/buttons/toolbar">
+                    <button class="zcrud-new-command-button" 
+                            data-tattributes="title tr:'Add new record'" 
+                            data-tcondition="toolbar/openNewRegisterForm">+</button>
+                    <button class="zcrud-undo-command-button" 
+                            data-tcontent="tr:'Undo'"  
+                            data-tcondition="toolbar/undo"
+                            disabled="true">Undo</button>
+                    <button class="zcrud-redo-command-button" 
+                            data-tcontent="tr:'Redo'" 
+                            data-tcondition="toolbar/redo"
+                            disabled="true" >Redo</button>
+                    <button class="zcrud-save-command-button" 
+                            data-tcontent="tr:'Save'" 
+                            data-tcondition="toolbar/save"
+                            disabled="true">Save</button>
                 </span>
             </div>
             <div class="zcrud-right-area">
