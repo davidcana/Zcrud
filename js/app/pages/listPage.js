@@ -243,7 +243,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                         history.put( 
                             $this, 
                             $this.val(), 
-                            $this.closest( 'tr' ).attr( 'data-record-index' ) );
+                            $this.closest( 'tr' ).attr( 'data-record-index' ),
+                            id );
                 });
                 break;
             default:
@@ -253,13 +254,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         // Buttons
         var $this = $( '#' + id );
         $this.find( '.zcrud-undo-command-button' ).click( function ( event ) {
-            undo();
+            undo( id );
         });
         $this.find( '.zcrud-redo-command-button' ).click( function ( event ) {
-            redo();
+            redo( id );
         });
         $this.find( '.zcrud-save-command-button' ).click( function ( event ) {
-            save( event );
+            save( event, id );
         });
     };
     
@@ -357,13 +358,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         if ( ! checkHistory() ){
             return;
         }
-        history.undo();
+        history.undo( id );
     };
     var redo = function(){
         if ( ! checkHistory() ){
             return;
         }
-        history.redo();
+        history.redo( id );
     };
     var isRedoEnabled = function(){
         if ( ! checkHistory() ){

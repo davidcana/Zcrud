@@ -28,7 +28,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         return modified;
     };
     
-    var put = function( $this, newValue, columnIndex ) {
+    var put = function( $this, newValue, columnIndex, id ) {
 
         var name = $this.attr( 'name' );
         
@@ -60,6 +60,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         putInModified( historyItem );
         
         updateCSS( $this, true, true );
+        updateHTML( id );
     };
     
     var reset = function( id ){
@@ -133,7 +134,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     var isUndoEnabled = function(){
         return current > 0;
     };
-    var undo = function(){
+    var undo = function( id ){
         
         // Get historyItem
         var historyItem = isUndoEnabled()? items[ --current ]: undefined;
@@ -148,12 +149,14 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
             getPreviousRecordItem( historyItem.columnIndex ) );
         
         updateField( historyItem, historyItem.previousValue );
+        
+        updateHTML( id );
     };
     
     var isRedoEnabled = function(){
         return current < items.length;
     };
-    var redo = function(){
+    var redo = function( id ){
         var historyItem = isRedoEnabled()? items[ current++ ]: undefined;
         if ( ! historyItem ){
             alert( 'Unable to redo!' );
@@ -166,6 +169,51 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
             true );
         
         updateField( historyItem, historyItem.newValue );
+        
+        updateHTML( id );
+    };
+    
+    var getNumberOfUndo = function(){
+        return current;
+    };
+    
+    var getNumberOfRedo = function(){
+        return items.length - current;
+    };
+    
+    var getFixedPartOfButtonText = function( text, prefix ){
+        
+        var i = text.indexOf( prefix );
+        return i == -1? text: text.substring( 0, i );
+    };
+    
+    var updateButton = function( $list, selector, newNumber ){
+        
+        var $buttton = $list.find( selector );
+        var text = $buttton.text();
+        var fixedPart = getFixedPartOfButtonText( text, ' (' );
+        
+        $buttton.text( 
+            newNumber == 0?
+            fixedPart:
+            fixedPart + ' (' + newNumber + ')');
+        $buttton.prop( 'disabled', newNumber == 0 );
+    };
+    
+    var updateHTML = function( id ){
+        
+        var $list = $( '#' + id );
+        
+        // Update numbers
+        updateButton( $list, '.zcrud-undo-command-button', getNumberOfUndo() );
+        updateButton( $list, '.zcrud-redo-command-button', getNumberOfRedo() );
+        
+        // Set disabled of save button
+        $list.find( '.zcrud-save-command-button' ).prop( 'disabled', getNumberOfUndo() == 0 );
+    };
+    
+    var isSaveEnabled = function(){
+        return isUndoEnabled();
     };
     
     return {
@@ -174,6 +222,9 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         redo: redo,
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
+        isSaveEnabled: isSaveEnabled,
+        getNumberOfUndo: getNumberOfUndo,
+        getNumberOfRedo: getNumberOfRedo,
         getModified: getModified,
         reset: reset
     };
