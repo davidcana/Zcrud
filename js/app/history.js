@@ -51,7 +51,12 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         // Add to items
         items[ current++ ] = historyItem;
         
-        // 
+        // Remove non accesible history items
+        if ( isRedoEnabled() ){
+            items.splice( current, items.length - current );
+        }
+        
+        // Add history item to modified object
         putInModified( historyItem );
         
         updateCSS( $this, true, true );
@@ -146,10 +151,10 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     };
     
     var isRedoEnabled = function(){
-        return current < items.length - 1;
+        return current < items.length;
     };
     var redo = function(){
-        var historyItem = isRedoEnabled()? items[ ++current ]: undefined;
+        var historyItem = isRedoEnabled()? items[ current++ ]: undefined;
         if ( ! historyItem ){
             alert( 'Unable to redo!' );
             return;
