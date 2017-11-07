@@ -64,11 +64,12 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     };
     
     var reset = function( id ){
-        resetCSS( id );
-        
         items = [];
         current = 0;
         modified = {};
+        
+        resetCSS( id );
+        updateHTML( id );
     };
     
     var resetCSS = function( id ){
