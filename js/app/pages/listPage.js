@@ -9,7 +9,7 @@ var SortingComponent = require( './sortingComponent.js' );
 var SelectingComponent = require( './selectingComponent.js' );
 var FilteringComponent = require( './filteringComponent.js' );
 var crudManager = require( '../crudManager.js' );
-var History = require( '../history.js' );
+var History = require( '../history/history.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -240,7 +240,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                     .off() // Remove previous event handlers
                     .change( function ( event ) {
                         var $this = $( this );
-                        history.put( 
+                        history.putChange( 
                             $this, 
                             $this.val(), 
                             $this.closest( 'tr' ).attr( 'data-record-index' ),
@@ -254,14 +254,37 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         // Buttons
         var $this = $( '#' + id );
         $this.find( '.zcrud-undo-command-button' ).click( function ( event ) {
-            undo( id );
+            undo( event );
         });
         $this.find( '.zcrud-redo-command-button' ).click( function ( event ) {
-            redo( id );
+            redo( event );
         });
         $this.find( '.zcrud-save-command-button' ).click( function ( event ) {
-            save( event, id );
+            save( event );
         });
+        $this.find( '.zcrud-new-row-command-button' ).click( function ( event ) {
+            addNewRow( event );
+        });
+    };
+    
+    var addNewRow = function( event ){
+        if ( ! checkHistory() ){
+            return false;
+        }
+
+        var thisDictionary = $.extend( {}, dictionary, {} );
+        var newRecord = {};
+        thisDictionary.records = [ newRecord ];
+        
+        context.getZPTParser().run({
+            //root: $( '#' + id ).find( 'tbody' )[0],
+            root: $( '#' + options.listTbodyId )[0],
+            dictionary: thisDictionary,
+            notRemoveGeneratedTags: true
+        });
+        
+        //bindEvents();
+        history.putCreate();
     };
     
     var showCreateForm = function( event ){

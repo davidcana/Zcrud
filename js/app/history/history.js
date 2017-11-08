@@ -4,6 +4,8 @@
 module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     "use strict";
     
+    var HistoryChange = require( './change.js' );
+    var HistoryCreate = require( './create.js' );
     var $ = require( 'jquery' );
     
     var editableOptions = editableOptionsToApply;
@@ -12,7 +14,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     var items = [];
     var current = 0;
     var modified = {};
-    
+    /*
     var putInModified = function( historyItem ){
         
         var row = modified[ historyItem.columnIndex ];
@@ -23,31 +25,42 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         }
         
         row[ historyItem.name ] = historyItem.newValue;
-    };
+    };*/
+    
     var getModified = function(){
         return modified;
     };
     
-    var put = function( $this, newValue, columnIndex, id ) {
+    var putChange = function( $this, newValue, columnIndex, id ) {
 
         var name = $this.attr( 'name' );
+        var historyItem = new HistoryChange(
+            editableOptions,
+            columnIndex,
+            name,
+            newValue,
+            getPreviousValue( columnIndex, name ),
+            $this );
         
-        var historyItem = {
-            columnIndex: columnIndex,
-            name: name,
-            newValue: newValue,
-            previousValue: getPreviousValue( columnIndex, name ),
-            $this: $this
-        };
-        
-        /*
-        alert( 'History put'
-              + '\nname: ' + historyItem.name 
-              + '\ndata-record-index: ' + columnIndex 
-              + '\nnew value: ' + historyItem.newValue
-              + '\nprevious value: ' + historyItem.previousValue );
-        */
-        
+        put( $this, id, historyItem );
+    };
+    
+    var putCreate = function( $this, id ) {
+
+        var historyItem = new HistoryCreate();
+
+        put( $this, id, historyItem );
+    };
+    
+    var putDelete = function( $this, recordToDelete, columnIndex, id ) {
+
+        var historyItem = {};
+
+        put( $this, id, historyItem );
+    };
+    
+    var put = function( $this, id, historyItem ) {
+
         // Add to items
         items[ current++ ] = historyItem;
         
@@ -57,9 +70,11 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         }
         
         // Add history item to modified object
-        putInModified( historyItem );
+        //putInModified( historyItem );
+        historyItem.register( modified );
         
-        updateCSS( $this, true, true );
+        // Update CSS and HTML
+        //updateCSS( $this, true, true );
         updateHTML( id );
     };
     
@@ -128,10 +143,6 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         return undefined;
     };
     
-    var updateField = function( historyItem, value ){
-        historyItem.$this.val( value );
-    };
-    
     var isUndoEnabled = function(){
         return current > 0;
     };
@@ -149,7 +160,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
             getPreviousItem( historyItem.columnIndex, historyItem.name ), 
             getPreviousRecordItem( historyItem.columnIndex ) );
         
-        updateField( historyItem, historyItem.previousValue );
+        historyItem.undo();
         
         updateHTML( id );
     };
@@ -169,7 +180,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
             true, 
             true );
         
-        updateField( historyItem, historyItem.newValue );
+        historyItem.redo();
         
         updateHTML( id );
     };
@@ -218,7 +229,9 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     };
     
     return {
-        put: put,
+        putChange: putChange,
+        putCreate: putCreate,
+        putDelete: putDelete,
         undo: undo,
         redo: redo,
         isUndoEnabled: isUndoEnabled,
