@@ -64,6 +64,7 @@
                         </th>
                         <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"></th>
                         <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"></th>
+                        <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"></th>
                     </tr>
                 </thead>
                 <tbody data-tattributes="id options/currentList/tbodyId"
@@ -90,6 +91,9 @@
                         </td>
                         <td data-tcondition="byRow/openDeleteRegisterForm">
                             <button title="Delete record" class="zcrud-delete-command-button"></button>
+                        </td>
+                        <td data-tcondition="byRow/deleteRegisterRow">
+                            <button title="Delete record" class="zcrud-delete-row-command-button"></button>
                         </td>
                     </tr>
                 </tbody>
@@ -200,6 +204,9 @@
                     </select>
                 </span>
                 <span class="zcrud-toolbar" data-tdefine="toolbar options/currentList/thisOptions/buttons/toolbar">
+                    <button class="zcrud-new-row-command-button" 
+                            data-tattributes="title tr:'Add new record'" 
+                            data-tcondition="toolbar/newRegisterRow">+</button>
                     <button class="zcrud-new-command-button" 
                             data-tattributes="title tr:'Add new record'" 
                             data-tcondition="toolbar/openNewRegisterForm">+</button>

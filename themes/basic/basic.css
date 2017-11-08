@@ -161,6 +161,12 @@ div.zcrud-main-container .zcrud-delete-command-button {
     height: 30px;
     width: 30px;
 }
+div.zcrud-main-container .zcrud-delete-row-command-button {
+    background: url('./delete.png') no-repeat center;
+    background-size: 16px 16px;
+    height: 30px;
+    width: 30px;
+}
 
 /* Bottom panel */
 div.zcrud-main-container>div.zcrud-bottom-panel {
