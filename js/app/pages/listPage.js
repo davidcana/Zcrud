@@ -222,6 +222,15 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             bindEditableListEvents( thisOptions.editable );
         }
     };
+    /*
+    var changeFieldEvent = function ( event ) {
+        var $this = $( this );
+        history.putChange( 
+            $this, 
+            $this.val(), 
+            $this.closest( 'tr' ).attr( 'data-record-index' ),
+            id );
+    };*/
     
     var bindEditableListEvents = function( editableOptions ){
         
@@ -235,17 +244,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 break;
             case 'batch':
                 // Register change of the field
+                registerEventForEditableFields(
+                    $( '#' + id ));
+                /*
                 $( '#' + id )
                     .find( '.zcrud-column-data input' )
                     .off() // Remove previous event handlers
-                    .change( function ( event ) {
-                        var $this = $( this );
-                        history.putChange( 
-                            $this, 
-                            $this.val(), 
-                            $this.closest( 'tr' ).attr( 'data-record-index' ),
-                            id );
-                });
+                    .change( changeFieldEvent );*/
                 break;
             default:
                 alert( 'Unknown event in editable list: ' + editableEvent );
@@ -267,6 +272,21 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         });
     };
     
+    var registerEventForEditableFields = function( $preselection ){
+        
+        $preselection
+            .find( '.zcrud-column-data input' )
+            .off() // Remove previous event handlers
+            .change( function ( event ) {
+                var $this = $( this );
+                history.putChange( 
+                    $this, 
+                    $this.val(), 
+                    $this.closest( 'tr' ).attr( 'data-record-index' ),
+                    id );
+        });
+    };
+    
     var addNewRow = function( event ){
         if ( ! checkHistory() ){
             return false;
@@ -276,15 +296,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         var newRecord = {};
         thisDictionary.records = [ newRecord ];
         
-        context.getZPTParser().run({
-            //root: $( '#' + id ).find( 'tbody' )[0],
-            root: $( '#' + options.listTbodyId )[0],
-            dictionary: thisDictionary,
-            notRemoveGeneratedTags: true
-        });
-        
-        //bindEvents();
-        history.putCreate();
+        var createHistoryItem = history.putCreate( id, options, thisDictionary );
+        registerEventForEditableFields( 
+            createHistoryItem.get$Tr() );
     };
     
     var showCreateForm = function( event ){
@@ -476,9 +490,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             newRecords: {},
             recordsToRemove: []
         };
-        for ( var columnIndex in modified ){
-            var row = modified[ columnIndex ];
-            var record = dictionary.records[ columnIndex ];
+        for ( var rowIndex in modified ){
+            var row = modified[ rowIndex ];
+            var record = dictionary.records[ rowIndex ];
             var key = record[ options.key ];
             
             if ( ! sendOnlyModified ){

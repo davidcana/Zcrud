@@ -14,52 +14,51 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     var items = [];
     var current = 0;
     var modified = {};
-    /*
-    var putInModified = function( historyItem ){
-        
-        var row = modified[ historyItem.columnIndex ];
-        
-        if ( ! row ){
-            row = {};
-            modified[ historyItem.columnIndex ] = row;
-        }
-        
-        row[ historyItem.name ] = historyItem.newValue;
-    };*/
     
     var getModified = function(){
         return modified;
     };
     
-    var putChange = function( $this, newValue, columnIndex, id ) {
+    var putChange = function( $this, newValue, rowIndex, id ) {
 
         var name = $this.attr( 'name' );
         var historyItem = new HistoryChange(
+            self,
             editableOptions,
-            columnIndex,
+            rowIndex,
             name,
             newValue,
-            getPreviousValue( columnIndex, name ),
+            getPreviousValue( rowIndex, name ),
             $this );
         
-        put( $this, id, historyItem );
+        put( id, historyItem );
+        
+        return historyItem;
     };
     
-    var putCreate = function( $this, id ) {
+    var putCreate = function( id, options, thisDictionary ) {
 
-        var historyItem = new HistoryCreate();
+        var historyItem = new HistoryCreate( 
+            self,
+            editableOptions,
+            options, 
+            thisDictionary );
 
-        put( $this, id, historyItem );
+        put( id, historyItem );
+        
+        return historyItem;
     };
     
-    var putDelete = function( $this, recordToDelete, columnIndex, id ) {
+    var putDelete = function( $this, recordToDelete, rowIndex, id ) {
 
         var historyItem = {};
 
-        put( $this, id, historyItem );
+        put( id, historyItem );
+        
+        return historyItem;
     };
     
-    var put = function( $this, id, historyItem ) {
+    var put = function( id, historyItem ) {
 
         // Add to items
         items[ current++ ] = historyItem;
@@ -70,11 +69,9 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         }
         
         // Add history item to modified object
-        //putInModified( historyItem );
         historyItem.register( modified );
         
         // Update CSS and HTML
-        //updateCSS( $this, true, true );
         updateHTML( id );
     };
     
@@ -90,40 +87,26 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     var resetCSS = function( id ){
         
         var $list = $( '#' + id );
-        $list.find( '.' + editableOptions.modifiedFieldsClass ).removeClass( editableOptions.modifiedFieldsClass );
-        $list.find( '.' + editableOptions.modifiedRowsClass ).removeClass( editableOptions.modifiedRowsClass );
-    };
-    
-    var updateCSS = function( $this, td, tr ){
         
-        if ( td ){
-            $this.closest( 'td' ).addClass( editableOptions.modifiedFieldsClass );
-        } else {
-            $this.closest( 'td' ).removeClass( editableOptions.modifiedFieldsClass );
-        }
+        HistoryChange.resetCSS( $list, editableOptions );
+        HistoryCreate.resetCSS( $list, editableOptions );
+    };
+    
+    var getDefaultValue =  function( rowIndex, name ){
+        return dictionary.records[ rowIndex ][ name ];
+    };
+    
+    var getPreviousValue = function( rowIndex, name ){
         
-        if ( tr ){
-            $this.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
-        } else {
-            $this.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );
-        }
+        var previousItem = getPreviousItem( rowIndex, name );
+        return previousItem? previousItem.newValue: getDefaultValue( rowIndex, name );
     };
     
-    var getDefaultValue =  function( columnIndex, name ){
-        return dictionary.records[ columnIndex ][ name ];
-    };
-    
-    var getPreviousValue = function( columnIndex, name ){
-        
-        var previousItem = getPreviousItem( columnIndex, name );
-        return previousItem? previousItem.newValue: getDefaultValue( columnIndex, name );
-    };
-    
-    var getPreviousItem = function( columnIndex, name ){
+    var getPreviousItem = function( rowIndex, name ){
 
         for ( var c = current - 1; c >= 0; --c ){
             var historyItem = items[ c ];
-            if ( historyItem.columnIndex == columnIndex && historyItem.name == name ){
+            if ( historyItem.isRelatedToField( rowIndex, name ) ){
                 return historyItem;
             }
         }
@@ -131,11 +114,11 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         return undefined;
     };
     
-    var getPreviousRecordItem = function( columnIndex ){
+    var getPreviousRecordItem = function( rowIndex ){
 
         for ( var c = current - 1; c >= 0; --c ){
             var historyItem = items[ c ];
-            if ( historyItem.columnIndex == columnIndex ){
+            if ( historyItem.isRelatedToRow( rowIndex ) ){
                 return historyItem;
             }
         }
@@ -148,18 +131,12 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     };
     var undo = function( id ){
         
-        // Get historyItem
         var historyItem = isUndoEnabled()? items[ --current ]: undefined;
         if ( ! historyItem ){
             alert( 'Unable to undo!' );
             return;
         }
-        
-        updateCSS( 
-            historyItem.$this,
-            getPreviousItem( historyItem.columnIndex, historyItem.name ), 
-            getPreviousRecordItem( historyItem.columnIndex ) );
-        
+
         historyItem.undo();
         
         updateHTML( id );
@@ -169,17 +146,13 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         return current < items.length;
     };
     var redo = function( id ){
+        
         var historyItem = isRedoEnabled()? items[ current++ ]: undefined;
         if ( ! historyItem ){
             alert( 'Unable to redo!' );
             return;
         }
-        
-        updateCSS( 
-            historyItem.$this,
-            true, 
-            true );
-        
+
         historyItem.redo();
         
         updateHTML( id );
@@ -228,7 +201,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         return isUndoEnabled();
     };
     
-    return {
+    var self = {
         putChange: putChange,
         putCreate: putCreate,
         putDelete: putDelete,
@@ -240,6 +213,10 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         getNumberOfUndo: getNumberOfUndo,
         getNumberOfRedo: getNumberOfRedo,
         getModified: getModified,
-        reset: reset
+        reset: reset,
+        getPreviousItem: getPreviousItem,
+        getPreviousRecordItem: getPreviousRecordItem
     };
+    
+    return self;
 };

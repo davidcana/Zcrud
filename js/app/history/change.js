@@ -5,10 +5,11 @@
 
 var $ = require( 'jquery' );
 
-var Change = function( editableOptionsToApply, columnIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply ) {
+var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply ) {
     
+    var history = historyToApply;
     var editableOptions = editableOptionsToApply;
-    var columnIndex = columnIndexToApply;
+    var rowIndex = rowIndexToApply;
     var name = nameToApply;
     var newValue = newValueToApply;
     var previousValue = previousValueToApply;
@@ -16,30 +17,61 @@ var Change = function( editableOptionsToApply, columnIndexToApply, nameToApply, 
                     
     var undo = function(){
         $this.val( previousValue );
+        
+        updateCSS( 
+            history.getPreviousItem( rowIndex, name ), 
+            history.getPreviousRecordItem( rowIndex ) );
     };
     
     var redo = function(){
         $this.val( newValue );
+        
+        updateCSS( true, true );
+    };
+    
+    var updateCSS = function( td, tr ){
+
+        if ( td ){
+            $this.closest( 'td' ).addClass( editableOptions.modifiedFieldsClass );
+        } else {
+            $this.closest( 'td' ).removeClass( editableOptions.modifiedFieldsClass );
+        }
+
+        if ( tr ){
+            $this.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
+        } else {
+            $this.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );
+        }
     };
     
     var register = function( modified ){
-        var row = modified[ columnIndex ];
+        var row = modified[ rowIndex ];
 
         if ( ! row ){
             row = {};
-            modified[ columnIndex ] = row;
+            modified[ rowIndex ] = row;
         }
 
         row[ name ] = newValue;
         
-        Change.updateCSS( $this, editableOptions, true, true );
+        updateCSS( true, true );
+    };
+    
+    var isRelatedToField = function( rowIndexToCheck, nameToCheck ){
+        return rowIndex == rowIndexToCheck && name == nameToCheck;
+    };
+    
+    var isRelatedToRow = function( rowIndexToCheck ){
+        return rowIndex == rowIndexToCheck;
     };
     
     return {
         undo: undo,
         redo: redo,
         register: register,
-        columnIndex: columnIndex,
+        isRelatedToField: isRelatedToField,
+        isRelatedToRow: isRelatedToRow,
+        rowIndex: rowIndex,
         name: name,
         newValue: newValue,
         previousValue: previousValue,
@@ -47,24 +79,8 @@ var Change = function( editableOptionsToApply, columnIndexToApply, nameToApply, 
     };
 };
 
-Change.updateCSS = function( $this, editableOptions, td, tr ){
+Change.resetCSS = function( $list, editableOptions ){
 
-    if ( td ){
-        $this.closest( 'td' ).addClass( editableOptions.modifiedFieldsClass );
-    } else {
-        $this.closest( 'td' ).removeClass( editableOptions.modifiedFieldsClass );
-    }
-
-    if ( tr ){
-        $this.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
-    } else {
-        $this.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );
-    }
-};
-
-Change.resetCSS = function( id, editableOptions ){
-
-    var $list = $( '#' + id );
     $list.find( '.' + editableOptions.modifiedFieldsClass ).removeClass( editableOptions.modifiedFieldsClass );
     $list.find( '.' + editableOptions.modifiedRowsClass ).removeClass( editableOptions.modifiedRowsClass );
 };
