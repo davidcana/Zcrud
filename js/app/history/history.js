@@ -91,15 +91,19 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         HistoryChange.resetCSS( $list, editableOptions );
         HistoryCreate.resetCSS( $list, editableOptions );
     };
-    
-    var getDefaultValue =  function( rowIndex, name ){
+    /*
+    var getValueFromRecord =  function( rowIndex, name ){
         return dictionary.records[ rowIndex ][ name ];
     };
-    
+    */
+    var getValueFromRecord =  function( rowIndex, name ){
+        var record = dictionary.records[ rowIndex ];
+        return record? record[ name ]: '';
+    };
     var getPreviousValue = function( rowIndex, name ){
         
         var previousItem = getPreviousItem( rowIndex, name );
-        return previousItem? previousItem.newValue: getDefaultValue( rowIndex, name );
+        return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name );
     };
     
     var getPreviousItem = function( rowIndex, name ){
@@ -201,6 +205,22 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         return isUndoEnabled();
     };
     
+    var buildActionsObject = function( records ){
+        
+        var actionsObject = {
+            modified: {},
+            new: {},
+            deleted: []
+        };
+        
+        for ( var c = 0; c < items.length; ++c ){
+            var historyItem = items[ c ];
+            historyItem.doAction( actionsObject, records );
+        }
+        
+        return actionsObject;
+    };
+    
     var self = {
         putChange: putChange,
         putCreate: putCreate,
@@ -210,6 +230,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
         isSaveEnabled: isSaveEnabled,
+        buildActionsObject: buildActionsObject,
         getNumberOfUndo: getNumberOfUndo,
         getNumberOfRedo: getNumberOfRedo,
         getModified: getModified,

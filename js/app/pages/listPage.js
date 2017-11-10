@@ -183,7 +183,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         context.getZPTParser().run({
             //root: options.target[0],
             root: root || options.body,
-            dictionary: dictionary
+            dictionary: dictionary,
+            notRemoveGeneratedTags: false
         });
         
         bindEvents();
@@ -222,15 +223,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             bindEditableListEvents( thisOptions.editable );
         }
     };
-    /*
-    var changeFieldEvent = function ( event ) {
-        var $this = $( this );
-        history.putChange( 
-            $this, 
-            $this.val(), 
-            $this.closest( 'tr' ).attr( 'data-record-index' ),
-            id );
-    };*/
     
     var bindEditableListEvents = function( editableOptions ){
         
@@ -246,11 +238,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                 // Register change of the field
                 registerEventForEditableFields(
                     $( '#' + id ));
-                /*
-                $( '#' + id )
-                    .find( '.zcrud-column-data input' )
-                    .off() // Remove previous event handlers
-                    .change( changeFieldEvent );*/
                 break;
             default:
                 alert( 'Unknown event in editable list: ' + editableEvent );
@@ -292,9 +279,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             return false;
         }
 
+        //var newRecord = {};
         var thisDictionary = $.extend( {}, dictionary, {} );
-        var newRecord = {};
-        thisDictionary.records = [ newRecord ];
+        //thisDictionary.records = [ newRecord ];
+        thisDictionary.records = [{}];
         
         var createHistoryItem = history.putCreate( id, options, thisDictionary );
         registerEventForEditableFields( 
@@ -430,14 +418,16 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         if ( ! checkHistory() ){
             return false;
         }
-        
-        var modified = history.getModified();
-        if ( Object.keys( modified ).length == 0 ){
+
+        var actionsObject = history.buildActionsObject( dictionary.records );
+        if ( Object.keys( actionsObject.modified ).length == 0 
+            && actionsObject.new.length == 0 
+            && actionsObject.deleted.length == 0){
             alert( 'No operations done!' );
             return false;
         }
         
-        var transformed = transformModified( modified );
+        var transformed = processActionsObject( actionsObject );
         
         if ( transformed ){
             var data = {
@@ -462,14 +452,14 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                     }
                 }
             };
-            //alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( data ) );
+            alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( data ) );
             crudManager.listBatchUpdate( data, options, event );
         }
         
         return transformed;
     };
     
-    var transformModified = function( modified ){
+    var processActionsObject = function( actionsObject ){
         
         // 
         var sendOnlyModified = undefined;
@@ -487,11 +477,11 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         
         var dataToSend = {
             existingRecords: {},
-            newRecords: {},
+            newRecords: [],
             recordsToRemove: []
         };
-        for ( var rowIndex in modified ){
-            var row = modified[ rowIndex ];
+        for ( var rowIndex in actionsObject.modified ){
+            var row = actionsObject.modified[ rowIndex ];
             var record = dictionary.records[ rowIndex ];
             var key = record[ options.key ];
             
@@ -501,7 +491,12 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             }
             dataToSend.existingRecords[ key ] = row;
         }
-        
+        for ( rowIndex in actionsObject.new ){
+            row = actionsObject.new[ rowIndex ];
+            key = row[ options.key ];
+
+            dataToSend.newRecords.push( row );
+        }
         return dataToSend;
     };
     

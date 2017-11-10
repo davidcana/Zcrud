@@ -16,11 +16,13 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
     var rowIndex = undefined;
     
     var undo = function(){
-        $tr.remove();
+        //$tr.remove();
+        $tr.hide();
     };
     
     var redo = function(){
-        addRow();
+        //addRow();
+        $tr.show();
         updateCSS( true );
     };
     
@@ -63,6 +65,10 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
         return rowIndex == rowIndexToCheck;
     };
     
+    var doAction = function( actionsObject, records ){
+        
+    };
+    
     var get$Tr = function(){
         return $tr;
     };
@@ -75,6 +81,7 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
         register: register,
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
+        doAction: doAction,
         get$Tr: get$Tr
     };
 };
@@ -82,8 +89,7 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
 Create.resetCSS = function( $list, editableOptions ){
 
     /*
-    $list.find( '.' + editableOptions.modifiedFieldsClass ).removeClass( editableOptions.modifiedFieldsClass );
-    $list.find( '.' + editableOptions.modifiedRowsClass ).removeClass( editableOptions.modifiedRowsClass );
+    $list.find( '.' + editableOptions.addedRowsClass ).removeClass( editableOptions.addedRowsClass );
     */
 };
 

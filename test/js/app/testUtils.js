@@ -132,8 +132,9 @@ module.exports = (function() {
         }
         
         // Add all new services
-        for ( id in data.newRecords ) {
-            var newService = data.newRecords[ id ];
+        for ( var c = 0; c < data.newRecords.length; c++ ) {
+            var newService = data.newRecords[ c ];
+            id = newService.id;
             currentService = services[ id ];
 
             if ( currentService ){
@@ -147,7 +148,7 @@ module.exports = (function() {
         }
         
         // Remove all services to remove
-        for ( var c = 0; c < data.recordsToRemove.length; c++ ) {
+        for ( c = 0; c < data.recordsToRemove.length; c++ ) {
             id = data.recordsToRemove[ c ];
             currentService = services[ id ];
 

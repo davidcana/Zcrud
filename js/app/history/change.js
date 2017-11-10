@@ -45,6 +45,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     };
     
     var register = function( modified ){
+        /*
         var row = modified[ rowIndex ];
 
         if ( ! row ){
@@ -53,7 +54,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         }
 
         row[ name ] = newValue;
-        
+        */
         updateCSS( true, true );
     };
     
@@ -65,12 +66,33 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         return rowIndex == rowIndexToCheck;
     };
     
+    var getDoActionModified = function( actionsObject, records ){
+        
+        var record = records[ rowIndex ];
+        
+        return record? actionsObject.modified: actionsObject.new;
+    };
+    
+    var doAction = function( actionsObject, records ){
+        
+        var modified = getDoActionModified( actionsObject, records );
+        var row = modified[ rowIndex ];
+
+        if ( ! row ){
+            row = {};
+            modified[ rowIndex ] = row;
+        }
+
+        row[ name ] = newValue;
+    };
+    
     return {
         undo: undo,
         redo: redo,
         register: register,
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
+        doAction: doAction,
         rowIndex: rowIndex,
         name: name,
         newValue: newValue,
