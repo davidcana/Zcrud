@@ -99,7 +99,8 @@ module.exports = (function() {
         dataToSend.result = 'OK';
         dataToSend.message = '';
         dataToSend.existingRecords = {};
-        dataToSend.newRecords = {};
+        dataToSend.newRecords = [];
+        dataToSend.recordsToRemove = [];
         var error = false;
 
         // Add all existing services
@@ -144,7 +145,8 @@ module.exports = (function() {
             }
 
             services[ id ] = newService;
-            dataToSend.newRecords[ id ] = newService;                
+            dataToSend.newRecords.push( newService );
+            //dataToSend.newRecords[ id ] = newService;                
         }
         
         // Remove all services to remove

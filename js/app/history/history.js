@@ -6,6 +6,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     
     var HistoryChange = require( './change.js' );
     var HistoryCreate = require( './create.js' );
+    var HistoryDelete = require( './delete.js' );
     var $ = require( 'jquery' );
     
     var editableOptions = editableOptionsToApply;
@@ -49,9 +50,15 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         return historyItem;
     };
     
-    var putDelete = function( $this, recordToDelete, rowIndex, id ) {
+    var putDelete = function( id, options, rowIndex, key, $tr ) {
 
-        var historyItem = {};
+        var historyItem = new HistoryDelete( 
+            self,
+            editableOptions,
+            options, 
+            rowIndex, 
+            key, 
+            $tr );
 
         put( id, historyItem );
         
@@ -90,16 +97,14 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         
         HistoryChange.resetCSS( $list, editableOptions );
         HistoryCreate.resetCSS( $list, editableOptions );
+        HistoryDelete.resetCSS( $list, editableOptions );
     };
-    /*
-    var getValueFromRecord =  function( rowIndex, name ){
-        return dictionary.records[ rowIndex ][ name ];
-    };
-    */
+
     var getValueFromRecord =  function( rowIndex, name ){
         var record = dictionary.records[ rowIndex ];
         return record? record[ name ]: '';
     };
+    
     var getPreviousValue = function( rowIndex, name ){
         
         var previousItem = getPreviousItem( rowIndex, name );
@@ -198,11 +203,23 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         updateButton( $list, '.zcrud-redo-command-button', getNumberOfRedo() );
         
         // Set disabled of save button
-        $list.find( '.zcrud-save-command-button' ).prop( 'disabled', getNumberOfUndo() == 0 );
+        $list.find( '.zcrud-save-command-button' ).prop( 'disabled', ! isSaveEnabled() );
     };
     
     var isSaveEnabled = function(){
-        return isUndoEnabled();
+        
+        if (  current == 0 ){
+            return false;
+        }
+        
+        for ( var c = 0; c < current; ++c ){
+            var historyItem = items[ c ];
+            if ( historyItem.saveEnabled ){
+                return true;
+            }
+        }
+        
+        return false;
     };
     
     var buildActionsObject = function( records ){
@@ -213,12 +230,69 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
             deleted: []
         };
         
-        for ( var c = 0; c < items.length; ++c ){
+        for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
             historyItem.doAction( actionsObject, records );
         }
         
         return actionsObject;
+    };
+    
+    var buildDataToSend = function( options, thisOptions, records ){
+        
+        var actionsObject = buildActionsObject( records );
+        
+        // 
+        var sendOnlyModified = undefined;
+        switch( thisOptions.editable.dataToSend ){
+            case 'all':
+                sendOnlyModified = false;
+                break;
+            case 'modified':
+                sendOnlyModified = true;
+                break;
+            default:
+                alert( 'Unknown dataToSend option in editable list: ' + editableOptions.dataToSend );
+                return false;
+        }
+
+        var dataToSend = {
+            existingRecords: {},
+            newRecords: [],
+            recordsToRemove: []
+        };
+        for ( var rowIndex in actionsObject.modified ){
+            var row = actionsObject.modified[ rowIndex ];
+            var record = records[ rowIndex ];
+            var key = record[ options.key ];
+
+            if ( actionsObject.deleted.indexOf( key ) != -1 ){
+                continue;
+            }
+
+            if ( ! sendOnlyModified ){
+                var previousRecord = records[ key ];
+                row = $.extend( true, {}, previousRecord, row );
+            }
+            dataToSend.existingRecords[ key ] = row;
+        }
+        for ( rowIndex in actionsObject.new ){
+            row = actionsObject.new[ rowIndex ];
+            key = row[ options.key ];
+
+            dataToSend.newRecords.push( row );
+        }
+        dataToSend.recordsToRemove = actionsObject.deleted;
+
+        return dataToSend;
+    };
+    
+    var hideTr = function( $tr ){
+        $tr.fadeOut();
+    };
+    
+    var showTr = function( $tr ){
+        $tr.fadeIn();
     };
     
     var self = {
@@ -230,13 +304,16 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
         isSaveEnabled: isSaveEnabled,
-        buildActionsObject: buildActionsObject,
+        //buildActionsObject: buildActionsObject,
+        buildDataToSend: buildDataToSend,
         getNumberOfUndo: getNumberOfUndo,
         getNumberOfRedo: getNumberOfRedo,
         getModified: getModified,
         reset: reset,
         getPreviousItem: getPreviousItem,
-        getPreviousRecordItem: getPreviousRecordItem
+        getPreviousRecordItem: getPreviousRecordItem,
+        hideTr: hideTr,
+        showTr: showTr
     };
     
     return self;

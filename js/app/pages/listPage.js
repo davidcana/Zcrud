@@ -257,6 +257,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         $this.find( '.zcrud-new-row-command-button' ).click( function ( event ) {
             addNewRow( event );
         });
+        $this.find( '.zcrud-delete-row-command-button' ).click( function ( event ) {
+            deleteRow( event );
+        });
     };
     
     var registerEventForEditableFields = function( $preselection ){
@@ -272,6 +275,23 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
                     id );
         });
+    };
+    
+    var deleteRow = function( event ){
+        if ( ! checkHistory() ){
+            return false;
+        }
+
+        var $tr =  $( event.target ).closest( 'tr' );
+        var key = $tr.attr( 'data-record-key' );
+        var rowIndex = $tr.attr( 'data-record-index' );
+        /*
+        alert( 'deleteRow' 
+              + '\nkey: ' + key
+              + '\nrowIndex: ' + rowIndex 
+              + '\ndeleteRow: ' + records[ key ].name);
+        */
+        history.putDelete( id, options, rowIndex, key, $tr );
     };
     
     var addNewRow = function( event ){
@@ -418,7 +438,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         if ( ! checkHistory() ){
             return false;
         }
-
+        /*
         var actionsObject = history.buildActionsObject( dictionary.records );
         if ( Object.keys( actionsObject.modified ).length == 0 
             && actionsObject.new.length == 0 
@@ -428,12 +448,20 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
         
         var transformed = processActionsObject( actionsObject );
-        
-        if ( transformed ){
+        */
+        var dataToSend = history.buildDataToSend( options, thisOptions, dictionary.records );
+        if ( dataToSend.existingRecords && Object.keys( dataToSend.existingRecords ).length == 0 
+            && dataToSend.newRecords && dataToSend.newRecords.length == 0 
+            && dataToSend.deleted && dataToSend.deleted.recordsToRemove == 0){
+            alert( 'No operations done!!!' );
+            return false;
+        }
+
+        if ( dataToSend ){
             var data = {
-                existingRecords: transformed.existingRecords,
-                newRecords: transformed.newRecords,
-                recordsToRemove: transformed.recordsToRemove,
+                existingRecords: dataToSend.existingRecords,
+                newRecords: dataToSend.newRecords,
+                recordsToRemove: dataToSend.recordsToRemove,
                 success: function( dataFromServer ){
                     showStatusMessage({
                         status:{
@@ -442,7 +470,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                         }
                     });
                     history.reset( id );
-                    updateRecords( transformed );
+                    updateRecords( dataToSend );
                 },
                 error: function( dataFromServer ){
                     if ( dataFromServer.message ){
@@ -456,9 +484,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             crudManager.listBatchUpdate( data, options, event );
         }
         
-        return transformed;
+        return dataToSend;
     };
-    
+    /*
     var processActionsObject = function( actionsObject ){
         
         // 
@@ -485,6 +513,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             var record = dictionary.records[ rowIndex ];
             var key = record[ options.key ];
             
+            if ( actionsObject.deleted.indexOf( key ) != -1 ){
+                continue;
+            }
+            
             if ( ! sendOnlyModified ){
                 var previousRecord = records[ key ];
                 row = $.extend( true, {}, previousRecord, row );
@@ -497,8 +529,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
 
             dataToSend.newRecords.push( row );
         }
+        dataToSend.recordsToRemove = actionsObject.deleted;
+
         return dataToSend;
-    };
+    };*/
     
     var updateRecords = function( data ){
         
@@ -549,18 +583,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     //options.currentList.instance = self;
     
     return self;
-    /*
-    return {
-        show: show,
-        getId: getId,
-        showCreateForm: showCreateForm,
-        getRecordByKey: getRecordByKey,
-        getOptions: getOptions,
-        selectRows: selectRows,
-        selectedRows: selectedRows,
-        selectedRecords: selectedRecords,
-        configure: configure
-    };*/
 };
 
 module.exports = ListPage;

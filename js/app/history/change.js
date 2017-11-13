@@ -44,17 +44,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         }
     };
     
-    var register = function( modified ){
-        /*
-        var row = modified[ rowIndex ];
-
-        if ( ! row ){
-            row = {};
-            modified[ rowIndex ] = row;
-        }
-
-        row[ name ] = newValue;
-        */
+    var register = function(){
         updateCSS( true, true );
     };
     
@@ -97,7 +87,8 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         name: name,
         newValue: newValue,
         previousValue: previousValue,
-        $this: $this
+        $this: $this,
+        saveEnabled: true
     };
 };
 

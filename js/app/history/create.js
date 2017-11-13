@@ -16,13 +16,11 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
     var rowIndex = undefined;
     
     var undo = function(){
-        //$tr.remove();
-        $tr.hide();
+        history.hideTr( $tr );
     };
     
     var redo = function(){
-        //addRow();
-        $tr.show();
+        history.showTr( $tr );
         updateCSS( true );
     };
     
@@ -46,15 +44,12 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
     var updateCSS = function( visible ){
 
         if ( visible ){
-            $tr.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
+            //$tr.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
+            $tr.addClass( editableOptions.modifiedRowsClass );
         } else {
-            $tr.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );
+            //$tr.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );
+            $tr.removeClass( editableOptions.modifiedRowsClass );
         }
-    };
-    
-    var buildRecord = function(){
-        var record = {};
-        return record;
     };
 
     var isRelatedToField = function( rowIndexToCheck, nameToCheck ){
@@ -66,7 +61,7 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
     };
     
     var doAction = function( actionsObject, records ){
-        
+        // Nothing to do 
     };
     
     var get$Tr = function(){
@@ -82,7 +77,8 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
-        get$Tr: get$Tr
+        get$Tr: get$Tr,
+        saveEnabled: false
     };
 };
 
