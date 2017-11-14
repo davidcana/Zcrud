@@ -10,7 +10,6 @@ var SelectingComponent = require( './selectingComponent.js' );
 var FilteringComponent = require( './filteringComponent.js' );
 var EditingComponent = require( './editingComponent.js' );
 var crudManager = require( '../crudManager.js' );
-var History = require( '../history/history.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -27,7 +26,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var records = {};
     var id = options.listId;
     var components = {};
-    var history = undefined;
     
     // Initial configuration
     var configure = function(){
