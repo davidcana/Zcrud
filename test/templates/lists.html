@@ -70,7 +70,7 @@
                 <tbody data-tattributes="id options/currentList/tbodyId"
                        data-tdefine="selectingComponent instance/getComponent( 'selecting' );
                                      selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
-                                     editable options/currentList/thisOptions/editable/isOn;
+                                     editable exists: instance/getComponent( 'editing' );
                                      byRow options/currentList/thisOptions/buttons/byRow">
                     <tr data-trepeat="record records"
                         data-tattributes="data-record-key record[ options/key ];

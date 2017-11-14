@@ -240,7 +240,7 @@ module.exports = (function() {
         }
 
         var thisOptions = {
-            url    : data.url || options.pages.list.batchUpdateAction,
+            url    : data.url || options.pages.list.components.editing.batchUpdateAction,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction

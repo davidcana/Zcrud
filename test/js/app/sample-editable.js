@@ -15,14 +15,6 @@ var options = {
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
-            batchUpdateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST_BATCH_UPDATE&table=department',
-            editable: {
-                isOn: true,
-                event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
-                dataToSend: 'modified', // possible values: 'modified', 'all',
-                modifiedFieldsClass: 'zcrud-modified-field',
-                modifiedRowsClass: 'zcrud-modified-row'
-            },
             components: {
                 sorting: {
                     isOn: false,
@@ -31,6 +23,14 @@ var options = {
                         type: 'asc'
                     },
                     allowUser: false
+                },
+                editing: {
+                    isOn: true,
+                    batchUpdateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST_BATCH_UPDATE&table=department',
+                    event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
+                    dataToSend: 'modified', // possible values: 'modified', 'all',
+                    modifiedFieldsClass: 'zcrud-modified-field',
+                    modifiedRowsClass: 'zcrud-modified-row'
                 }
             }
         }, create: {

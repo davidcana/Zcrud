@@ -1,7 +1,7 @@
 /* 
     Class History 
 */
-module.exports = function( editableOptionsToApply, dictionaryToApply ) {
+module.exports = function( editableOptionsToApply, dictionaryProviderToApply ) {
     "use strict";
     
     var HistoryChange = require( './change.js' );
@@ -10,7 +10,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     var $ = require( 'jquery' );
     
     var editableOptions = editableOptionsToApply;
-    var dictionary = dictionaryToApply;
+    var dictionaryProvider = dictionaryProviderToApply;
     
     var items = [];
     var current = 0;
@@ -101,7 +101,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     };
 
     var getValueFromRecord =  function( rowIndex, name ){
-        var record = dictionary.records[ rowIndex ];
+        var record = dictionaryProvider.getDictionary().records[ rowIndex ];
         return record? record[ name ]: '';
     };
     
@@ -242,9 +242,9 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         
         var actionsObject = buildActionsObject( records );
         
-        // 
+        // Get sendOnlyModified
         var sendOnlyModified = undefined;
-        switch( thisOptions.editable.dataToSend ){
+        switch( thisOptions.dataToSend ){
             case 'all':
                 sendOnlyModified = false;
                 break;
@@ -256,6 +256,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
                 return false;
         }
 
+        // Build dataToSend now
         var dataToSend = {
             existingRecords: {},
             newRecords: [],
@@ -288,11 +289,11 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     };
     
     var hideTr = function( $tr ){
-        $tr.fadeOut();
+        editableOptions.hideTr( $tr );
     };
     
     var showTr = function( $tr ){
-        $tr.fadeIn();
+        editableOptions.showTr( $tr );
     };
     
     var self = {
@@ -304,7 +305,6 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
         isSaveEnabled: isSaveEnabled,
-        //buildActionsObject: buildActionsObject,
         buildDataToSend: buildDataToSend,
         getNumberOfUndo: getNumberOfUndo,
         getNumberOfRedo: getNumberOfRedo,

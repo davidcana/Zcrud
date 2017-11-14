@@ -84,13 +84,6 @@ exports.init = function( userOptions, callback ){
         pages: {
             list: {
                 template: "listDefaultTemplate@templates/lists.html",
-                editable: {
-                    isOn: false,
-                    event: 'batch',    // possible values: 'fieldChange', 'batch'
-                    dataToSend: 'all', // possible values: 'modified', 'all',
-                    modifiedFieldsClass: 'zcrud-modified-field',
-                    modifiedRowsClass: 'zcrud-modified-row'
-                },
                 components: {
                     paging: {
                         isOn: true,
@@ -121,6 +114,19 @@ exports.init = function( userOptions, callback ){
                         isOn: false,
                         multiple: true,
                         mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
+                    },
+                    editing: {
+                        isOn: false,
+                        event: 'batch',    // possible values: 'fieldChange', 'batch'
+                        dataToSend: 'all', // possible values: 'modified', 'all',
+                        modifiedFieldsClass: 'zcrud-modified-field',
+                        modifiedRowsClass: 'zcrud-modified-row',
+                        hideTr: function( $tr ){
+                            $tr.fadeOut();
+                        },
+                        showTr: function( $tr ){
+                            $tr.fadeIn();
+                        }
                     }
                 },
                 buttons: {
@@ -216,7 +222,7 @@ exports.init = function( userOptions, callback ){
         
         // Normalize list options
         var listOptions = options.pages.list;
-        var editableListIsOn = listOptions.editable.isOn;
+        var editableListIsOn = listOptions.components.editing.isOn;
         var toolbar = listOptions.buttons.toolbar;
         if ( toolbar.newRegisterRow == undefined ){
             toolbar.newRegisterRow = editableListIsOn;
