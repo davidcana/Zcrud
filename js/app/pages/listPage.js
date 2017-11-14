@@ -28,10 +28,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var components = {};
     var history = undefined;
     
-    //
+    // Initial configuration
     var configure = function(){
         
-        //self = this;
+        // TODO Refactorize this, remove options.currentList
         options.currentList = {};
         options.currentList.id = id;
         options.currentList.tableId = options.listTableId;
@@ -67,15 +67,14 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     var registerComponent = function( componentId, constructorFunction ){
         
-        //var thisComponent = options[ componentId ].isOn? constructorFunction(): undefined;
         var thisComponent = options.pages.list.components[ componentId ].isOn? constructorFunction(): undefined;
         if ( thisComponent ){
-            //options[ componentId ].component = thisComponent;
             components[ componentId ] = thisComponent;
         }
     };
     
     var buildFields = function(){
+        
         var fields = [];
         
         $.each( options.fields, function ( fieldId, field ) {
@@ -159,7 +158,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         dictionary.instance = self;
     };
     
-    //
+    // Reset all components
     var resetPage = function(){
         
         for ( var id in components ){
@@ -170,7 +169,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
     };
     
-    //
     var buildHTMLAndJavascript = function( root ){
         
         if ( ! root ){
@@ -192,33 +190,36 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     var bindEvents = function() {
 
-        // Add events of create, edit and delete buttons
+        // Bind events of create, edit and delete buttons
         var createButtons = $( '.zcrud-new-command-button' )
-            .click(function ( event ) {
+            .off()
+            .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showCreateForm( event );
             });
         var editButtons = $( '.zcrud-edit-command-button' )
-            .click(function ( event ) {
+            .off()
+            .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showEditForm( event );
             });
         var deleteButtons = $( '.zcrud-delete-command-button' )
-            .click(function ( event ) {
+            .off()
+            .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showDeleteForm( event );
             });
         
-        // Add events of components
+        // Bind events of components
         for ( var id in components ){
             var component = components[ id ];
             component.bindEvents();
         }
         
-        // Add events of an editable list
+        // Bind events of an editable list
         if ( thisOptions.editable.isOn ){
             bindEditableListEvents( thisOptions.editable );
         }
@@ -226,43 +227,72 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     var bindEditableListEvents = function( editableOptions ){
         
-        //alert( 'bindEditableListEvents' );
-        history = new History( thisOptions.editable, dictionary );
+        history = new History( editableOptions, dictionary );
         
+        var $this = $( '#' + id );
+        
+        // Init autoSaveMode
+        var autoSaveMode = undefined;
         var editableEvent = editableOptions.event;
         switch ( editableEvent ){
             case 'fieldChange':
-                // Send change of the field data to server
+                autoSaveMode = true;
                 break;
             case 'batch':
-                // Register change of the field
-                registerEventForEditableFields(
-                    $( '#' + id ));
+                autoSaveMode = false;
                 break;
             default:
                 alert( 'Unknown event in editable list: ' + editableEvent );
+                return;
         }
         
+        // Register change of the field
+        registerEventForEditableFields( $this, autoSaveMode );
+        
         // Buttons
-        var $this = $( '#' + id );
-        $this.find( '.zcrud-undo-command-button' ).click( function ( event ) {
-            undo( event );
+        $this
+            .find( '.zcrud-undo-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                undo( autoSaveMode );
         });
-        $this.find( '.zcrud-redo-command-button' ).click( function ( event ) {
-            redo( event );
+        $this
+            .find( '.zcrud-redo-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                redo( autoSaveMode );
         });
-        $this.find( '.zcrud-save-command-button' ).click( function ( event ) {
-            save( event );
+        $this
+            .find( '.zcrud-save-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                save( event );
         });
-        $this.find( '.zcrud-new-row-command-button' ).click( function ( event ) {
-            addNewRow( event );
+        $this
+            .find( '.zcrud-new-row-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                addNewRow( event );
         });
-        $this.find( '.zcrud-delete-row-command-button' ).click( function ( event ) {
-            deleteRow( event );
+        $this
+            .find( '.zcrud-delete-row-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                deleteRow( event, autoSaveMode );
         });
     };
     
-    var registerEventForEditableFields = function( $preselection ){
+    var registerEventForEditableFields = function( $preselection, autoSaveMode ){
         
         $preselection
             .find( '.zcrud-column-data input' )
@@ -274,10 +304,14 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                     $this.val(), 
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
                     id );
+                if ( autoSaveMode ){
+                    save( event );
+                }
         });
     };
     
-    var deleteRow = function( event ){
+    var deleteRow = function( event, autoSaveMode ){
+        
         if ( ! checkHistory() ){
             return false;
         }
@@ -292,37 +326,36 @@ var ListPage = function ( optionsToApply, filterToApply ) {
               + '\ndeleteRow: ' + records[ key ].name);
         */
         history.putDelete( id, options, rowIndex, key, $tr );
+        
+        if ( autoSaveMode ){
+            save( event );
+        }
     };
     
     var addNewRow = function( event ){
+        
         if ( ! checkHistory() ){
             return false;
         }
 
-        //var newRecord = {};
         var thisDictionary = $.extend( {}, dictionary, {} );
-        //thisDictionary.records = [ newRecord ];
-        thisDictionary.records = [{}];
+        thisDictionary.records = [ {} ];
         
         var createHistoryItem = history.putCreate( id, options, thisDictionary );
-        registerEventForEditableFields( 
-            createHistoryItem.get$Tr() );
+        registerEventForEditableFields( createHistoryItem.get$Tr() );
     };
     
     var showCreateForm = function( event ){
-        //alert( 'showCreateForm' );
         showForm( options, 'create' );
     };
     
     var showEditForm = function( event ){
         var key = getKeyFromButton( event );
-        //alert( 'showEditForm: ' + records[ key ].name );
         showForm( options, 'update', records[ key ] );
     };
     
     var showDeleteForm = function( event ){
         var key = getKeyFromButton( event );
-        //alert( 'showDeleteForm: ' + records[ key ].name );
         showForm( options, 'delete', records[ key ] );
     };
     
@@ -393,34 +426,50 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     // History methods
     var checkHistory = function(){
+        
         if ( ! history ){
             alert( 'History not initialized!' );
             return false;
         }
+        
         return true;
     };
-    var undo = function(){
+    var undo = function( autoSaveMode ){
+        
         if ( ! checkHistory() ){
             return;
         }
+        
         history.undo( id );
+        if ( autoSaveMode ){
+            save( event );
+        }
     };
-    var redo = function(){
+    var redo = function( autoSaveMode ){
+        
         if ( ! checkHistory() ){
             return;
         }
+        
         history.redo( id );
+        if ( autoSaveMode ){
+            save( event );
+        }
     };
     var isRedoEnabled = function(){
+        
         if ( ! checkHistory() ){
             return false;
         }
+        
         return history.isRedoEnabled();
     };
     var isUndoEnabled = function(){
+        
         if ( ! checkHistory() ){
             return false;
         }
+        
         return history.isUndoEnabled();
     };
     
@@ -435,25 +484,16 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     var save = function( event ){
+        
         if ( ! checkHistory() ){
             return false;
         }
-        /*
-        var actionsObject = history.buildActionsObject( dictionary.records );
-        if ( Object.keys( actionsObject.modified ).length == 0 
-            && actionsObject.new.length == 0 
-            && actionsObject.deleted.length == 0){
-            alert( 'No operations done!' );
-            return false;
-        }
-        
-        var transformed = processActionsObject( actionsObject );
-        */
+
         var dataToSend = history.buildDataToSend( options, thisOptions, dictionary.records );
         if ( dataToSend.existingRecords && Object.keys( dataToSend.existingRecords ).length == 0 
             && dataToSend.newRecords && dataToSend.newRecords.length == 0 
             && dataToSend.deleted && dataToSend.deleted.recordsToRemove == 0){
-            alert( 'No operations done!!!' );
+            alert( 'No operations done!' );
             return false;
         }
 
@@ -480,59 +520,12 @@ var ListPage = function ( optionsToApply, filterToApply ) {
                     }
                 }
             };
-            alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( data ) );
+            //alert( thisOptions.editable.dataToSend + '\n' + JSON.stringify( data ) );
             crudManager.listBatchUpdate( data, options, event );
         }
         
         return dataToSend;
     };
-    /*
-    var processActionsObject = function( actionsObject ){
-        
-        // 
-        var sendOnlyModified = undefined;
-        switch( thisOptions.editable.dataToSend ){
-            case 'all':
-                sendOnlyModified = false;
-                break;
-            case 'modified':
-                sendOnlyModified = true;
-                break;
-            default:
-                alert( 'Unknown dataToSend option in editable list: ' + editableOptions.dataToSend );
-                return false;
-        }
-        
-        var dataToSend = {
-            existingRecords: {},
-            newRecords: [],
-            recordsToRemove: []
-        };
-        for ( var rowIndex in actionsObject.modified ){
-            var row = actionsObject.modified[ rowIndex ];
-            var record = dictionary.records[ rowIndex ];
-            var key = record[ options.key ];
-            
-            if ( actionsObject.deleted.indexOf( key ) != -1 ){
-                continue;
-            }
-            
-            if ( ! sendOnlyModified ){
-                var previousRecord = records[ key ];
-                row = $.extend( true, {}, previousRecord, row );
-            }
-            dataToSend.existingRecords[ key ] = row;
-        }
-        for ( rowIndex in actionsObject.new ){
-            row = actionsObject.new[ rowIndex ];
-            key = row[ options.key ];
-
-            dataToSend.newRecords.push( row );
-        }
-        dataToSend.recordsToRemove = actionsObject.deleted;
-
-        return dataToSend;
-    };*/
     
     var updateRecords = function( data ){
         

@@ -72,10 +72,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
         return thisOptions;
     };
     
-    var resetPage = function(){
-
-    };
-    
     var normalizeOptions = function(){
         
         var edited = [];
@@ -102,7 +98,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
-        resetPage: resetPage,
         addToDataToSend: addToDataToSend
     };
 };

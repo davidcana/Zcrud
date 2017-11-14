@@ -208,7 +208,7 @@ module.exports = function( editableOptionsToApply, dictionaryToApply ) {
     
     var isSaveEnabled = function(){
         
-        if (  current == 0 ){
+        if ( current == 0 ){
             return false;
         }
         
