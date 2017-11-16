@@ -51,7 +51,6 @@ var options = {
             sorting: false
         },
         name: {
-            width: '90%'
         },
         description: {
             list: false,
@@ -134,21 +133,24 @@ var options = {
             type: 'checkbox'
         },
         number: {
-            list: false
+            list: true
         }
     },
 
     validation: {
         modules: 'security, date',
         rules: {
-            '#zcrud-name': {
+            'name': {
                 validation: 'length',
                 length: '3-12'
             },
-            '#zcrud-number': {
+            'number': {
                 validation: 'number',
                 allowing: 'float'
             }
+        },
+        configuration: {
+            errorMessageClass: 'form-error-fixed',
         }
     },
     

@@ -32,7 +32,7 @@
         "zpt": "^0.20.5",
         "jquery": "^2.0.3",
         "jquery-datetimepicker": "^2.5.4",
-        "jquery-form-validator": "^2.3.74"
+        "jquery-form-validator": "^2.3.77"
     },
     "devDependencies": {
         "beefy": "~2.1.8",

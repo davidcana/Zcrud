@@ -234,8 +234,13 @@ module.exports = (function() {
         };
 
         if ( data.clientOnly ){
-            successFunction(
-                data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
+            if ( authIsOK( data, options, dataToSend ) ){
+                successFunction(
+                    data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
+            } else {
+                errorFunction(
+                    data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
+            }
             return;
         }
 
@@ -246,7 +251,7 @@ module.exports = (function() {
             error  : errorFunction
         };
 
-        if ( false != options.events.formSubmitting( options, dataToSend ) ){
+        if ( authIsOK( data, options, dataToSend ) ){
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         }

@@ -16,17 +16,19 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var $this = $thisToApply;
                     
     var undo = function(){
-        $this.val( previousValue );
         
+        $this.val( previousValue );
         updateCSS( 
             history.getPreviousItem( rowIndex, name ), 
             history.getPreviousRecordItem( rowIndex ) );
+        $this.blur();
     };
     
     var redo = function(){
-        $this.val( newValue );
         
+        $this.val( newValue );
         updateCSS( true, true );
+        $this.blur();
     };
     
     var updateCSS = function( td, tr ){

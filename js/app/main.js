@@ -30,7 +30,14 @@ exports.init = function( userOptions, callback ){
     var defaultOptions = {
 
         actions: {},
-        validation : {},
+        validation: {
+            modules: '',
+            rules: {},
+            configuration: {
+                errorMessageClass: 'form-error-inline', // form-error-fixed or form-error-inline (already existing)
+                borderColorOnError: ''
+            }
+        },
         dictionary: {},
         
         saveUserPreferences: true,

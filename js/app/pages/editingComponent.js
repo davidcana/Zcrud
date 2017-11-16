@@ -10,6 +10,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var fieldBuilder = require( '../fields/fieldBuilder' );
     var History = require( '../history/history.js' );
     var crudManager = require( '../crudManager.js' );
+    var validationManager = require( '../validationManager.js' );
     
     var options = optionsToApply;
     var listPage = listPageToApply;
@@ -19,7 +20,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
         return thisOptions;
     };
     
-    var history = new History( thisOptions, listPage );
+    var history = new History( options, thisOptions, listPage );
     
     var bindEvents = function(){
 
@@ -84,6 +85,9 @@ module.exports = function( optionsToApply, listPageToApply ) {
             event.stopPropagation();
             deleteRow( event, autoSaveMode );
         });
+        
+        // Setup validation
+        validationManager.initFormValidation( 'form', $( '#form' ), options );
     };
 
     var registerEventForEditableFields = function( $preselection, autoSaveMode ){

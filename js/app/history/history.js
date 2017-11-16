@@ -1,14 +1,16 @@
 /* 
     Class History 
 */
-module.exports = function( editableOptionsToApply, dictionaryProviderToApply ) {
+module.exports = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply ) {
     "use strict";
     
     var HistoryChange = require( './change.js' );
     var HistoryCreate = require( './create.js' );
     var HistoryDelete = require( './delete.js' );
+    var validationManager = require( '../validationManager.js' );
     var $ = require( 'jquery' );
     
+    var options = optionsToApply;
     var editableOptions = editableOptionsToApply;
     var dictionaryProvider = dictionaryProviderToApply;
     
@@ -215,7 +217,8 @@ module.exports = function( editableOptionsToApply, dictionaryProviderToApply ) {
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
             if ( historyItem.saveEnabled ){
-                return true;
+                return validationManager.formIsValid( options );
+                //return true;
             }
         }
         
@@ -304,7 +307,7 @@ module.exports = function( editableOptionsToApply, dictionaryProviderToApply ) {
         redo: redo,
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
-        isSaveEnabled: isSaveEnabled,
+        //isSaveEnabled: isSaveEnabled,
         buildDataToSend: buildDataToSend,
         getNumberOfUndo: getNumberOfUndo,
         getNumberOfRedo: getNumberOfRedo,

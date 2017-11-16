@@ -196,21 +196,21 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var bindEvents = function() {
 
         // Bind events of create, edit and delete buttons
-        var createButtons = $( '.zcrud-new-command-button' )
+        $( '.zcrud-new-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showCreateForm( event );
             });
-        var editButtons = $( '.zcrud-edit-command-button' )
+        $( '.zcrud-edit-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showEditForm( event );
             });
-        var deleteButtons = $( '.zcrud-delete-command-button' )
+        $( '.zcrud-delete-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
@@ -240,7 +240,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     var showForm = function( options, type, record ){
-        var formPage =  new FormPage( options, type, getId() );
+        var formPage =  new FormPage( options, type );
         
         if ( record ){
             formPage.setRecord( record );

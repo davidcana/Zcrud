@@ -14,7 +14,13 @@ module.exports = (function() {
         return options.validation && options.validation.rules;
     };
     
-    var initFormValidation = function( options ){
+    var initFormValidation = function( id, $forms, options ){
+
+        // Init $forms if needed
+        /*
+        if ( ! $forms ){
+            $forms = $( '#' + id );
+        }*/
 
         // Return if there is nothing to do
         if ( ! validationOn( options ) ){
@@ -25,45 +31,66 @@ module.exports = (function() {
         if ( options.validation.modules ){
             $.formUtils.loadModules( options.validation.modules );
         }
-        
+
         // Add validation attributes
-        addAttributes( options );
+        addAttributes( $forms, options );
         
         // Set up form validation
-        $.validate({
-            form : '#' + options.currentForm.id,
-            borderColorOnError : '',
+        var defaultConfigurationOptions = {
+            form: '#' + id,
             language: context.getFormValidationLanguage(),
-            decimalSeparator : context.translate( 'decimalSeparator' )
-        });
+            decimalSeparator: context.translate( 'decimalSeparator' )
+            /*
+            inlineErrorMessageCallback: function( $input, errorMessage, config ){
+                if ( errorMessage ){
+                    $forms.find( '.zcrud-save-command-button' ).prop( 'disabled', true );
+                }
+                return true;
+            }*/
+        };
+        var configurationOptionsToApply = $.extend( {}, defaultConfigurationOptions, options.validation.configuration );
+        $.validate( configurationOptionsToApply );
     };
     
-    var addAttributes = function( options ){
+    var addAttributes = function( $forms, options ){
         
         var fieldValidationOptions = buildFieldOptions();
         var validate = $.extend( true, {}, options.validation.rules, fieldValidationOptions );
-        addGeneralAttributes( options, validate );
+        addGeneralAttributes( $forms, options, validate );
     };
     
-    var addGeneralAttributes = function( options, validate ){
-        
-        var $forms = options.currentForm.$form;
+    var addGeneralAttributes = function( $forms, options, validate ){
+
         $.each( validate || {}, function( elemRef, attr ) {
-            var $elem;
+            var $1elem = undefined;
+            var $elems = undefined;
             if ( elemRef[ 0 ] === '#' ) {
-              $elem = $( elemRef );
+                $1elem = $( elemRef );
             } else if ( elemRef[ 0 ] === '.' ) {
-              $elem = $forms.find( elemRef );
+                $elems = $forms.find( elemRef );
             } else {
-              $elem = $forms.find( '*[name="' + elemRef + '"]' );
+                $elems = $forms.find( "[name='" + elemRef + "']" );
             }
-
-            $elem.attr( 'data-validation', attr.validation );
-
-            $.each( attr, function( name, val ) {
-              if ( name !== 'validation' && val !== false ) {
-                if (  val === true ) {
-                  val = 'true';
+            
+            if ( $1elem ){
+                addAttribute( $1elem, attr );
+            } else {
+                $elems.each( function() {
+                    addAttribute( $( this ), attr );
+                });
+            }
+        });
+    };
+    
+    var addAttribute = function( $elem, attr ){
+        
+        $elem.attr( 'data-validation', attr.validation );
+        //$elem.attr( 'data-validation-event', 'change' );
+        
+        $.each( attr, function( name, val ) {
+            if ( name !== 'validation' && val !== false ) {
+                if ( val === true ) {
+                    val = 'true';
                 }
                 if ( name[ 0 ] === '_' ) {
                     name = name.substring( 1 );
@@ -75,9 +102,9 @@ module.exports = (function() {
                 } else {
                     $elem.valAttr( name, val );
                 }
-              }
-            });
+            }
         });
+
     };
     
     var formIsValid = function( options, dataToSend ){
@@ -94,64 +121,7 @@ module.exports = (function() {
     var buildFieldOptions = function( options ){
         return {};
     };
-    /*
-    var initFormValidation = function(){
-        
-        var config = {
-            form : '#zcrud-form',
-            borderColorOnError : '',
-            validate: options.validate || {}
-        };
-        $.validate({
-            modules : 'jsconf, security',
-            onModulesLoaded : function() {
-            $.setupValidation( config );
-           }
-        });
-        
-        
-        // Manually load the modules used in this form
-        $.formUtils.loadModules( 
-            'jsconf, security, date',
-            undefined,
-            function(){
-                // Set up form validation
-                var config = {
-                    form : '#zcrud-form',
-                    borderColorOnError : '',
-                    validate: options.validate || {}
-                };
-                $.setupValidation( config );
-                $.validate( config );
-            }
-        );
-    };*/
-    /*
-    var runIfFormIsValid = function( dataToSend, callback ){
-        
-        // Manually load the modules used in this form
-        $.formUtils.loadModules( 'security, date' );
-        
-        $.validate({
-            form : '#zcrud-form',
-            onSuccess : function( $form ) {
-                    if ( false != options.events.formSubmitting( options, dataToSend ) ){
-                        callback();
-                    }
-                }
-        });
-        
-        return $( '#zcrud-form' ).isValid(
-            { }, 
-            {
-                onSuccess : function( $form ) {
-                    if ( false != options.events.formSubmitting( options, dataToSend ) ){
-                        callback();
-                    }
-                }
-            }, 
-            true );
-    };*/
+    
     return {
         initFormValidation: initFormValidation,
         formIsValid: formIsValid

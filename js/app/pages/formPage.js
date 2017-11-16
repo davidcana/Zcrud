@@ -9,12 +9,14 @@ var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 
-var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
+var FormPage = function ( optionsToApply, typeToApply ) {
     "use strict";
 
-    //var self = this;
     var options = optionsToApply;
-    var listIdPage = listPageIdToApply;
+    var type = typeToApply;
+    
+    var id = options.formId;
+    var $form = $( '#' + id );
     var dictionary = undefined;
     var record = undefined;
     var template = undefined;
@@ -26,8 +28,8 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
     var configure = function(){
         options.currentForm = {};
         options.currentForm.type = type;
-        options.currentForm.id = options.formId;
-        options.currentForm.$form = $( '#' + options.currentForm.id );
+        options.currentForm.id = id;
+        options.currentForm.$form = $form;
         switch ( type ) {
         case 'create':
             template = "'" + options.pages.create.template + "'";
@@ -78,6 +80,7 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
     };
     
     var buildFields = function( filterFunction ){
+        
         var fields = [];
         
         $.each( options.fields, function ( fieldId, field ) {
@@ -102,10 +105,8 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
             if ( ! record ){
                 throw "No record set in form!";
             }
-
-            var self = this;
             
-            beforeProcessTemplate( self );
+            beforeProcessTemplate();
             
             pageUtils.configureTemplate( options, template );
 
@@ -116,14 +117,14 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
                 declaredRemotePageUrls: options.templates.declaredRemotePageUrls
             });
             
-            afterProcessTemplate( self );
+            afterProcessTemplate();
             
         } catch( e ){
-            alert ( e );    
+            alert ( 'Error trying to show form: ' + e );    
         }
     };
     
-    // Set, get and update record
+    // Set, get, update and build record
     var setRecord = function( recordToApply ){
         record = recordToApply;
     };
@@ -148,6 +149,19 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
             }
         }
     };
+    var buildRecord = function(){
+        var newRecord = {};
+
+        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
+            var field = options.currentForm.fields[ c ];
+            newRecord[ field.id ] = fieldBuilder.getValueFromRecord( 
+                field, 
+                record, 
+                buildProcessTemplateParams( field ) );
+        }
+
+        return newRecord;
+    };
     
     var updateDictionary = function(){
 
@@ -157,53 +171,39 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
         }, options.dictionary );
     };
     
-    var buildRecord = function(){
-        var newRecord = {};
+    var buildProcessTemplateParams = function( field ){
         
-        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
-            var field = options.currentForm.fields[ c ];
-            newRecord[ field.id ] = fieldBuilder.getValueFromRecord( 
-                field, 
-                record, 
-                buildProcessTemplateParams( field ) );
-        }
-        
-        return newRecord;
-    };
-    
-    var buildProcessTemplateParams = function( field, self ){
         return {
             field: field, 
             value: record[ field.id ],
             options: options,
             record: record,
             source: options.currentForm.type,
-            //form: self,
             dictionary: dictionary
         };
     };
     
-    var beforeProcessTemplate = function( field, self ){
+    var beforeProcessTemplate = function(){
         
         updateDictionary();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
             fieldBuilder.beforeProcessTemplateForField(
-                buildProcessTemplateParams( field, self )
+                buildProcessTemplateParams( field )
             );
         }
     };
     
-    var afterProcessTemplate = function( field, self ){
+    var afterProcessTemplate = function(){
                 
-        validationManager.initFormValidation( options );
+        validationManager.initFormValidation( id, $form, options );
         addButtonsEvents();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
             fieldBuilder.afterProcessTemplateForField(
-                buildProcessTemplateParams( field, self )
+                buildProcessTemplateParams( field )
             );
         }
         
@@ -212,13 +212,13 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
     
     var addButtonsEvents = function() {
 
-        var submitButton = $( '#form-submit-button' )
+        $( '#form-submit-button' )
             .click(function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 submitFunction( event );
             });
-        var cancelButton = $( '#form-cancel-button' )
+        $( '#form-cancel-button' )
             .click(function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -244,7 +244,6 @@ var FormPage = function ( optionsToApply, type, listPageIdToApply ) {
     };
     
     var cancelForm = function( event ){
-        //alert( 'cancelForm' );
         options.events.formClosed( event, options );
         context.getListPage( options ).show( false );
     };
