@@ -22,6 +22,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var filter = filterToApply || {};
     
     var thisOptions = options.pages.list;
+    var getThisOptions = function(){
+        return thisOptions;
+    };
+    
     var dictionary = undefined;
     var records = {};
     var id = options.listId;
@@ -35,6 +39,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         options.currentList.id = id;
         options.currentList.tableId = options.listTableId;
         options.currentList.tbodyId = options.listTbodyId;
+        //options.currentList.formId = options.editableListFormId;
         options.currentList.thisOptions = thisOptions;
         options.currentList.fields = buildFields();
         
@@ -328,6 +333,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         showCreateForm: showCreateForm,
         getRecordByKey: getRecordByKey,
         getOptions: getOptions,
+        getThisOptions: getThisOptions,
         selectRows: selectRows,
         selectedRows: selectedRows,
         selectedRecords: selectedRecords,

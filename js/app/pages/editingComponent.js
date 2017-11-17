@@ -87,7 +87,9 @@ module.exports = function( optionsToApply, listPageToApply ) {
         });
         
         // Setup validation
-        validationManager.initFormValidation( 'form', $( '#form' ), options );
+        //validationManager.initFormValidation( 'form', $( '#form' ), options );
+        var formId = listPage.getThisOptions().formId;
+        validationManager.initFormValidation( formId, $( '#' + formId ), options );
     };
 
     var registerEventForEditableFields = function( $preselection, autoSaveMode ){

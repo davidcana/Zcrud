@@ -226,9 +226,18 @@ exports.init = function( userOptions, callback ){
         if ( options.formId == undefined ){
             options.formId = 'zcrud-form-' + options.entityId;
         }
+        /*
+        if ( options.pages.list.formId == undefined ){
+            options.pages.list.formId = 'zcrud-list-form-' + options.entityId;
+        }*/
         
         // Normalize list options
         var listOptions = options.pages.list;
+        if ( listOptions.formId == undefined ){
+            listOptions.formId = 'zcrud-list-form-' + options.entityId;
+        }
+        
+        // Normalize editable list
         var editableListIsOn = listOptions.components.editing.isOn;
         var toolbar = listOptions.buttons.toolbar;
         if ( toolbar.newRegisterRow == undefined ){
