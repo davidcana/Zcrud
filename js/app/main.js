@@ -34,7 +34,7 @@ exports.init = function( userOptions, callback ){
             modules: '',
             rules: {},
             configuration: {
-                errorMessageClass: 'form-error-inline', // form-error-fixed or form-error-inline (already existing)
+                errorMessageClass: 'form-error-inline-static', // form-error-fixed, form-error-inline-static and form-error-inline-absolute already exist
                 borderColorOnError: ''
             }
         },

@@ -511,7 +511,17 @@ div.zcrud-contextmenu-overlay {
     border-radius: 10px;
     font-weight: 600;
 }
-.form-error-inline {
+.form-error-inline-static {
+    color: White;
+    background-color: #ff3600;
+    padding: 0 1em 0 1em;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.form-error-inline-absolute {
+    position: absolute;
+    margin-top: .25em;
+    z-index: 1;
     color: White;
     background-color: #ff3600;
     padding: 0 1em 0 1em;

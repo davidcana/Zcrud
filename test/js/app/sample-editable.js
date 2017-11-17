@@ -150,7 +150,7 @@ var options = {
             }
         },
         configuration: {
-            errorMessageClass: 'form-error-fixed',
+            errorMessageClass: 'form-error-inline-absolute',
         }
     },
     
