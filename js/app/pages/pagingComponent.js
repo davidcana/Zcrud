@@ -1,7 +1,7 @@
 /* 
     pagingComponent class
 */
-module.exports = function( optionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -11,8 +11,10 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    //var thisOptions = options.paging;
-    var thisOptions = options.pages.list.components.paging;
+    var thisOptions = thisOptionsToApply;
+    var getThisOptions = function(){
+        return thisOptions;
+    };
     
     // Init some vars if needed
     var id = thisOptions.id;
@@ -70,12 +72,11 @@ module.exports = function( optionsToApply, listPageToApply ) {
     };
     
     var updateList = function(){
-        //context.getListPage( options ).show( false );
-        //context.getListPage( options ).show( 
+        
         listPage.show( 
             false,
             undefined, 
-            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + id )[0] ] );
+            [ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + id )[0] ] );
     };
     
     /* Changes current page to given value.
@@ -374,10 +375,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
 
     var getPageSize = function(){
         return pageSize;
-    };
-    
-    var getThisOptions = function(){
-        return thisOptions;
     };
 
     var setPageNumber = function( pageNumberToSet ){

@@ -1,7 +1,7 @@
 /* 
     filteringComponent class
 */
-module.exports = function( optionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -12,14 +12,15 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    //var thisOptions = options.filtering;
-    var thisOptions = options.pages.list.components.filtering;
+    var thisOptions = thisOptionsToApply;
+    var getThisOptions = function(){
+        return thisOptions;
+    };
     
     var filterRecord = undefined;
     
     var bindEvents = function(){
         
-        //$( '#' + options.listId )
         $( '#' + listPage.getId() )
             .find( '.zcrud-filter-panel .zcrud-filter-submit-button' )
             .off() // Remove previous event handlers
@@ -65,11 +66,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
         listPage.show( 
             false,
             undefined, 
-            [ $( '#' + options.currentList.tbodyId )[0], $( '#' + listPage.getComponent( 'paging' ).getId() )[0] ] );
-    };
-    
-    var getThisOptions = function(){
-        return thisOptions;
+            [ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + listPage.getComponent( 'paging' ).getId() )[0] ] );
     };
     
     var normalizeOptions = function(){
@@ -88,8 +85,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
             
             newFilterField.elementId += thisOptions.elementIdSuffix;
             edited.push( newFilterField );
-            
-            //context.declareRemotePageUrl( newFilterField.template, options.declaredRemotePageUrl );
         });
         
         thisOptions.fields = edited;

@@ -8,7 +8,7 @@ module.exports = (function() {
     "use strict";
 
     var getCurrentList = function( options ){
-        return  $( '#' + options.currentList.id );
+        return  $( '#' + options.pages.list.id );
     };
     
     var countVisibleRows = function( options ){

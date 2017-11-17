@@ -264,8 +264,7 @@ module.exports = (function() {
     };
     
     var getListPage = function( options ){
-        return getPage( options.listId );
-        //return mainPage;
+        return getPage( options.pages.list.id );
     };
     
     // Add to declaredRemotePageUrls all non repeated urls

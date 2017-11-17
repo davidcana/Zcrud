@@ -213,28 +213,24 @@ exports.init = function( userOptions, callback ){
     
     // Normalizes some general options (non related to fields)
     var normalizeGeneralOptions = function() {
-        
-        if ( options.listId == undefined ){
-            options.listId = 'zcrud-list-' + options.entityId;
-        }
-        if ( options.listTableId == undefined ){
-            options.listTableId = 'zcrud-list-table-' + options.entityId;
-        }
-        if ( options.listTbodyId == undefined ){
-            options.listTbodyId = 'zcrud-list-tbody-' + options.entityId;
-        }
+
         if ( options.formId == undefined ){
             options.formId = 'zcrud-form-' + options.entityId;
         }
-        /*
-        if ( options.pages.list.formId == undefined ){
-            options.pages.list.formId = 'zcrud-list-form-' + options.entityId;
-        }*/
         
         // Normalize list options
         var listOptions = options.pages.list;
         if ( listOptions.formId == undefined ){
             listOptions.formId = 'zcrud-list-form-' + options.entityId;
+        }
+        if ( listOptions.id == undefined ){
+            listOptions.id = 'zcrud-list-' + options.entityId;
+        }
+        if ( listOptions.tableId == undefined ){
+            listOptions.tableId = 'zcrud-list-table-' + options.entityId;
+        }
+        if ( listOptions.tbodyId == undefined ){
+            listOptions.tbodyId = 'zcrud-list-tbody-' + options.entityId;
         }
         
         // Normalize editable list
@@ -378,7 +374,7 @@ exports.init = function( userOptions, callback ){
 // or a string (then use it as the listId)
 var getListPageFromValue = function( value ){
     
-    var listPageId = typeof value === 'object'? value.listId: value;
+    var listPageId = typeof value === 'object'? value.pages.list.id: value;
     var listPage = context.getPage( listPageId  );
     if ( ! listPage ){
         alert( 'List page not found in context!' );

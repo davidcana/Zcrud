@@ -1,7 +1,7 @@
 /* 
     selectingComponent class
 */
-module.exports = function( optionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -11,8 +11,10 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    //var thisOptions = options.selecting;
-    var thisOptions = options.pages.list.components.selecting;
+    var thisOptions = thisOptionsToApply;
+    var getThisOptions = function(){
+        return thisOptions;
+    };
     
     var shiftKeyDown = false; // True, if shift key is currently down.
     var modeOnRowClickOn =  -1 != thisOptions.mode.indexOf( 'onRowClick' );
@@ -43,13 +45,13 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var getSelectAllCheckbox = function(){
         
         if ( ! $selectAllCheckbox ){
-            $selectAllCheckbox = $( '#' + options.listTableId ).find( '.zcrud-select-all-rows' );
+            $selectAllCheckbox = $( '#' + listPage.getThisOptions().tableId ).find( '.zcrud-select-all-rows' );
         }
         return $selectAllCheckbox;
     };
     
     var getTableBody = function(){
-        return $( '#' + options.listTbodyId );
+        return $( '#' + listPage.getThisOptions().tbodyId );
     };
     var getAllTableRows = function(){
         return getTableBody().find( '>tr.zcrud-data-row' );
@@ -236,10 +238,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
             getSelectAllCheckbox().prop( 'indeterminate', true );
         }
     };
-
-    var getThisOptions = function(){
-        return thisOptions;
-    };
     
     var selectRows = function(){
         _selectRows( $rows );
@@ -249,7 +247,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     /* Gets all selected rows.
         *************************************************************************/
     var selectedRows = function(){
-        return $( '#' + options.listTableId ).find( '.zcrud-row-selected' );
+        return $( '#' + listPage.getThisOptions().tableId ).find( '.zcrud-row-selected' );
     };
     
     var selectedRecords = function(){

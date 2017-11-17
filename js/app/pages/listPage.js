@@ -17,8 +17,11 @@ var log = zpt.logHelper;
 var ListPage = function ( optionsToApply, filterToApply ) {
     "use strict";
     
-    //var self = undefined;
     var options = optionsToApply;
+    var getOptions = function(){
+        return options;
+    };
+    
     var filter = filterToApply || {};
     
     var thisOptions = options.pages.list;
@@ -28,56 +31,49 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     var dictionary = undefined;
     var records = {};
-    var id = options.listId;
+    var id = thisOptions.id;
     var components = {};
     
     // Initial configuration
     var configure = function(){
-        
-        // TODO Refactorize this, remove options.currentList
-        options.currentList = {};
-        options.currentList.id = id;
-        options.currentList.tableId = options.listTableId;
-        options.currentList.tbodyId = options.listTbodyId;
-        //options.currentList.formId = options.editableListFormId;
-        options.currentList.thisOptions = thisOptions;
-        options.currentList.fields = buildFields();
+
+        thisOptions.fields = buildFields();
         
         registerComponent( 
             'paging',
             function(){
-                return new PagingComponent( options, self );
+                return new PagingComponent( options, thisOptions.components.paging, self );
             }
         );
         registerComponent( 
             'sorting',
             function(){
-                return new SortingComponent( options, self );
+                return new SortingComponent( options, thisOptions.components.sorting, self );
             }
         );
         registerComponent( 
             'selecting',
             function(){
-                return new SelectingComponent( options, self );
+                return new SelectingComponent( options, thisOptions.components.selecting, self );
             }
         );
         registerComponent( 
             'filtering',
             function(){
-                return new FilteringComponent( options, self );
+                return new FilteringComponent( options, thisOptions.components.filtering, self );
             }
         );
         registerComponent( 
             'editing',
             function(){
-                return new EditingComponent( options, self );
+                return new EditingComponent( options, thisOptions.components.editing, self );
             }
         );
     };
     
     var registerComponent = function( componentId, constructorFunction ){
         
-        var thisComponent = options.pages.list.components[ componentId ].isOn? constructorFunction(): undefined;
+        var thisComponent = thisOptions.components[ componentId ].isOn? constructorFunction(): undefined;
         if ( thisComponent ){
             components[ componentId ] = thisComponent;
         }
@@ -182,7 +178,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var buildHTMLAndJavascript = function( root ){
         
         if ( ! root ){
-            pageUtils.configureTemplate( options, "'" + options.pages.list.template + "'" );
+            pageUtils.configureTemplate( options, "'" + thisOptions.template + "'" );
             
         } else {
             resetPage();
@@ -275,10 +271,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     var getRecordByKey = function( key ){
         return records[ key ];
-    };
-    
-    var getOptions = function(){
-        return options;
     };
     
     var selectRows = function( rows ){

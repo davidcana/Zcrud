@@ -26,6 +26,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     
     // Configure instance depending on type parameter
     var configure = function(){
+        
+        // TODO Refactorize this, remove options.currentForm
         options.currentForm = {};
         options.currentForm.type = type;
         options.currentForm.id = id;

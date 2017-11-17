@@ -1,7 +1,7 @@
 /* 
     editingComponent class
 */
-module.exports = function( optionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -15,7 +15,7 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    var thisOptions = options.pages.list.components.editing;
+    var thisOptions = thisOptionsToApply;
     var getThisOptions = function(){
         return thisOptions;
     };
@@ -223,7 +223,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
         }
     };
 
-    
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions

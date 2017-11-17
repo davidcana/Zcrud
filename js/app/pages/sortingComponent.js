@@ -1,7 +1,7 @@
 /* 
     sortingComponent class
 */
-module.exports = function( optionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -10,8 +10,10 @@ module.exports = function( optionsToApply, listPageToApply ) {
     var options = optionsToApply;
     var listPage = listPageToApply;
     
-    //var thisOptions = options.sorting;
-    var thisOptions = options.pages.list.components.sorting;
+    var thisOptions = thisOptionsToApply;
+    var getThisOptions = function(){
+        return thisOptions;
+    };
     
     var sortFieldId = thisOptions.default.fieldId;
     var sortType = thisOptions.default.type;
@@ -47,7 +49,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
     
     var bindEvents = function(){
         
-        //$( '#' + options.currentList.id )
         $( '#' + listPage.getId() )
             .find( '.zcrud-column-header-sortable' )
             .off() // Remove previous event handlers
@@ -78,12 +79,11 @@ module.exports = function( optionsToApply, listPageToApply ) {
     };
     
     var updateList = function(){
-        //context.getListPage( options ).show( false );
-        //context.getListPage( options ).show( 
+        
         listPage.show( 
             false,
             undefined, 
-            [ $( '#' + options.currentList.tableId )[0] ] );
+            [ $( '#' + listPage.getThisOptions().tableId )[0] ] );
     };
     
     var addToDataToSend = function( dataToSend ){
@@ -98,10 +98,6 @@ module.exports = function( optionsToApply, listPageToApply ) {
     };
     
     var dataFromServer = function( data ){
-    };
-
-    var getThisOptions = function(){
-        return thisOptions;
     };
     
     var getSortFieldId = function(){
