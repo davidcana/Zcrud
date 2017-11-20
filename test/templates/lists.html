@@ -8,11 +8,11 @@
         <div data-mdefine-macro="listDefaultTemplate" 
              class="zcrud-main-container" 
              style="display: none"
-             data-tattributes="id options/pages/list/id"
+             data-tattributes="id instance/getThisOptions()/id"
              data-idomain="i18nArray">
             
             <form data-tomit-tag="not: exists: instance/getComponent( 'editing' )"
-                  data-tattributes="id options/pages/list/formId">
+                  data-tattributes="id instance/getThisOptions()/formId">
                 <div class="zcrud-header">
                     <div>
                         <span class="zcrud-title"
@@ -44,16 +44,16 @@
                 </div>
                 <table class="zcrud" 
                        data-idomain="i18nArray"
-                       data-tattributes="id options/pages/list/tableId">
+                       data-tattributes="id instance/getThisOptions()/tableId">
                     <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
                                          selectingComponent instance/getComponent( 'selecting' );
                                          selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
-                                         byRow options/pages/list/buttons/byRow">
+                                         byRow instance/getThisOptions()/buttons/byRow">
                         <tr>
                             <th data-tcondition="selectingCheckbox">
                                 <input class="zcrud-select-all-rows" type="checkbox">
                             </th>
-                            <th data-trepeat="field options/pages/list/fields" 
+                            <th data-trepeat="field instance/getThisOptions()/fields" 
                                 data-tdefine="sortingOn and: sortingComponent field/sorting;
                                               sortablePart cond: sortingOn ' zcrud-column-header-sortable' '';
                                               sortType cond: sortingComponent sortingComponent/getTypeForFieldId( field/id ) null;
@@ -69,11 +69,11 @@
                             <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"></th>
                         </tr>
                     </thead>
-                    <tbody data-tattributes="id options/pages/list/tbodyId"
+                    <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
                            data-tdefine="selectingComponent instance/getComponent( 'selecting' );
                                          selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
                                          editable exists: instance/getComponent( 'editing' );
-                                         byRow options/pages/list/buttons/byRow">
+                                         byRow instance/getThisOptions()/buttons/byRow">
                         <tr data-trepeat="record records"
                             data-tattributes="data-record-key record[ options/key ];
                                               data-record-index repeat/record/index();
@@ -81,7 +81,7 @@
                             <td data-tcondition="selectingCheckbox">
                                 <input class="zcrud-select-row" type="checkbox">
                             </td>
-                            <td data-trepeat="field options/pages/list/fields"
+                            <td data-trepeat="field instance/getThisOptions()/fields"
                                 data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}"
                                 data-tdefine="value record[ field/id ];
                                               elementName field/id">
@@ -206,7 +206,7 @@
                                 label="label"></option>
                     </select>
                 </span>
-                <span class="zcrud-toolbar" data-tdefine="toolbar options/pages/list/buttons/toolbar">
+                <span class="zcrud-toolbar" data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">
                     <button class="zcrud-new-row-command-button" 
                             data-tattributes="title tr:'Add new record'" 
                             data-tcondition="toolbar/newRegisterRow">+</button>
