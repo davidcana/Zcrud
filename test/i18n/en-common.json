@@ -78,6 +78,8 @@
     "imageTooSmall" : "the image was too small",
     "min" : "min",
     "max" : "max",
-    "imageRatioNotAccepted" : "Image ratio is not accepted"
+    "imageRatioNotAccepted" : "Image ratio is not accepted",
+    
+    "invalidFormData": "There are errors in the form, form not send!"
     
 }

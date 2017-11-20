@@ -7,7 +7,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     var HistoryChange = require( './change.js' );
     var HistoryCreate = require( './create.js' );
     var HistoryDelete = require( './delete.js' );
-    var validationManager = require( '../validationManager.js' );
+    //var validationManager = require( '../validationManager.js' );
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
@@ -217,8 +217,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
             if ( historyItem.saveEnabled ){
-                return validationManager.formIsValid( options );
-                //return true;
+                //return validationManager.formIsValid( options );
+                return true;
             }
         }
         

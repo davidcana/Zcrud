@@ -40,13 +40,6 @@ module.exports = (function() {
             form: '#' + id,
             language: context.getFormValidationLanguage(),
             decimalSeparator: context.translate( 'decimalSeparator' )
-            /*
-            inlineErrorMessageCallback: function( $input, errorMessage, config ){
-                if ( errorMessage ){
-                    $forms.find( '.zcrud-save-command-button' ).prop( 'disabled', true );
-                }
-                return true;
-            }*/
         };
         var configurationOptionsToApply = $.extend( {}, defaultConfigurationOptions, options.validation.configuration );
         $.validate( configurationOptionsToApply );

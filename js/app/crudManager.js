@@ -254,6 +254,8 @@ module.exports = (function() {
         if ( authIsOK( data, options, dataToSend ) ){
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+        } else {
+            alert( context.translate( 'invalidFormData' ) );
         }
     };
     
