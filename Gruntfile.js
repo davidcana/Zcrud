@@ -102,6 +102,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/update.js',
                 dest: 'build/update.js'
+            },
+            editableListChange: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/editableList-change.js',
+                dest: 'build/editableList-change.js'
             }
         },
         compress: {

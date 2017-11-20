@@ -26,8 +26,17 @@ module.exports = (function() {
         } ).get().join( '/' );
     }
     
-    var getColumnValues = function( fieldId ){
-        return getAllValues( '.' + 'zcrud-column-data-' + fieldId );
+    var getAllFieldsValues = function( selector ){
+        return $( selector ).find( 'input' ).map( function( index, element ) {
+            return this.value;
+        } ).get().join( '/' );
+    };
+    
+    var getColumnValues = function( fieldId, isFormField ){
+        
+        return isFormField?
+               getAllFieldsValues( '.' + 'zcrud-column-data-' + fieldId ):
+               getAllValues( '.' + 'zcrud-column-data-' + fieldId );
     };
     
     var getPageListInfo = function( options ){
@@ -137,8 +146,8 @@ module.exports = (function() {
         
         assert.equal( countVisibleRows( options ), testOptions.visibleRows );
         assert.equal( pagingInfo( options ), testOptions.pagingInfo );
-        assert.equal( getColumnValues( 'id' ), testOptions.ids );
-        assert.equal( getColumnValues( 'name' ), testOptions.names );
+        assert.equal( getColumnValues( 'id', testOptions.editable ), testOptions.ids );
+        assert.equal( getColumnValues( 'name', testOptions.editable ), testOptions.names );
         checkPageListInfo( assert, options, testOptions.pageListNotActive, testOptions.pageListActive );
     };
     
@@ -387,7 +396,21 @@ module.exports = (function() {
         return $tbody;
     };*/
     
-    var checkRecord = function( assert, key, expectedRecord ){
+    var getRow = function( key ){
+        
+        if ( ! key ){
+            alert( 'Error: null key in getRow method!' );
+            return;
+        }
+        
+        return $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+    };
+    
+    var getFieldValue = function( $selection ){
+        return $selection.find( 'input' ).val();
+    };
+    
+    var checkRecord = function( assert, key, expectedRecord, editable ){
         
         // Check record from zCrud
         var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
@@ -396,8 +419,12 @@ module.exports = (function() {
         
         // Check record from table
         var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
-        var id = row.find( "td.zcrud-column-data-id" ).text().trim();
-        var name = row.find( "td.zcrud-column-data-name" ).text().trim();
+        var id = editable?
+                 getFieldValue ( row.find( "td.zcrud-column-data-id" ) ).trim():
+                 row.find( "td.zcrud-column-data-id" ).text().trim();
+        var name = editable?
+                 getFieldValue ( row.find( "td.zcrud-column-data-name" ) ).trim():
+                 row.find( "td.zcrud-column-data-name" ).text().trim();
         assert.equal( id, expectedRecord.id );
         assert.equal( name, expectedRecord.name );
         
@@ -437,6 +464,9 @@ module.exports = (function() {
     };
     var clickFormSubmitButton = function(){
         $( '#form-submit-button' ).trigger( 'click' );
+    };
+    var clickEditableListSubmitButton = function(){
+        $( '#departmentsContainer' ).find( '.zcrud-save-command-button' ).trigger( 'click' );
     };
     
     var fillForm = function( record ){
@@ -495,6 +525,100 @@ module.exports = (function() {
         assert.equal( $( '#zcrud-number' ).val(), record.number );
     };
     
+    var setRowInputVal = function( $row, record, name ){
+        var $input = $row.find( "input[name='" + name +"']" );
+        $input.val( record[ name ] );
+        $input.trigger( 'change' );
+    };
+    
+    var getRowInputVal = function( $row, name ){
+        return $row.find( "input[name='" + name +"']" ).val();
+    };
+    
+    var fillEditableList = function( record, id ){
+        
+        var $row = getRow( id );
+        
+        if ( record.id !== undefined ){
+            setRowInputVal( $row, record, 'id' );
+        }
+        if ( record.name !== undefined ){
+            setRowInputVal( $row, record, 'name' );
+        }
+        if ( record.description !== undefined ){
+            setRowInputVal( $row, record, 'description' );
+        }
+        if ( record.date !== undefined ){
+            setRowInputVal( $row, record, 'date' );
+        }
+        if ( record.time !== undefined ){
+            setRowInputVal( $row, record, 'time' );
+        }
+        if ( record.datetime !== undefined ){
+            setRowInputVal( $row, record, 'datetime' );
+        }
+        if ( record.phoneType !== undefined ){
+            $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
+        }
+        if ( record.province !== undefined ){
+            setRowInputVal( $row, record, 'province' );
+        }
+        if ( record.city !== undefined ){
+            setRowInputVal( $row, record, 'city' );
+        }
+        if ( record.browser !== undefined ){
+            setRowInputVal( $row, record, 'browser' );
+        }
+        if ( record.important !== undefined ){
+            $( '#zcrud-important' ).prop( 'checked', record.important );
+        }
+        if ( record.number !== undefined ){
+            setRowInputVal( $row, record, 'number' );
+        }
+    };
+    
+    var checkEditableListForm = function( assert, id, record ){
+        
+        var $row = getRow( id );
+        
+        if ( record.id !== undefined ){
+            assert.equal( getRowInputVal( $row, 'id' ), record.id );
+        }
+        if ( record.name !== undefined ){
+            assert.equal( getRowInputVal( $row, 'name' ), record.name );
+        }
+        if ( record.description !== undefined ){
+            assert.equal( getRowInputVal( $row, 'description' ).val(), record.description );
+        }
+        if ( record.date !== undefined ){
+            assert.equal( getRowInputVal( $row, 'date' ), record.date );
+        }
+        if ( record.time !== undefined ){
+            assert.equal( getRowInputVal( $row, 'time' ), record.time );
+        }
+        if ( record.datetime !== undefined ){
+            assert.equal( getRowInputVal( $row, 'datetime' ).val(), record.datetime );
+        }
+        if ( record.phoneType !== undefined ){
+            //assert.equal( $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked' ), true );
+        }
+        if ( record.province !== undefined ){
+            assert.equal( getRowInputVal( $row, 'province' ), record.province );
+        }
+        if ( record.city !== undefined ){
+            assert.equal( getRowInputVal( $row, 'city' ), record.city );
+        }
+        if ( record.browser !== undefined ){
+            assert.equal( getRowInputVal( $row, 'browser' ), record.browser );
+        }
+        if ( record.important !== undefined ){
+            //assert.equal( $( '#zcrud-important' ).prop( 'checked' ), record.important );
+        }
+        if ( record.number !== undefined ){
+            assert.equal( getRowInputVal( $row, 'number' ), record.number );
+        }
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         pagingInfo: pagingInfo,
@@ -519,6 +643,9 @@ module.exports = (function() {
         clickFormCancelButton: clickFormCancelButton,
         clickFormSubmitButton: clickFormSubmitButton,
         fillForm: fillForm,
-        checkForm: checkForm
+        checkForm: checkForm,
+        fillEditableList: fillEditableList,
+        checkEditableListForm: checkEditableListForm,
+        clickEditableListSubmitButton: clickEditableListSubmitButton
     };
 })();
