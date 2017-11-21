@@ -255,7 +255,8 @@ module.exports = (function() {
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         } else {
-            alert( context.translate( 'invalidFormData' ) );
+            context.showError( options, 'invalidFormData', true );
+            //alert( context.translate( 'invalidFormData' ) );
         }
     };
     

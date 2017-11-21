@@ -410,23 +410,26 @@ module.exports = (function() {
         return $selection.find( 'input' ).val();
     };
     
-    var checkRecord = function( assert, key, expectedRecord, editable ){
+    var checkRecord = function( assert, key, expectedRecord, editable, checkOnlyStorage ){
         
-        // Check record from zCrud
-        var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
-        //alert( JSON.stringify( record ) );
-        assert.deepEqual( record, expectedRecord );
+        if ( ! checkOnlyStorage ){
         
-        // Check record from table
-        var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
-        var id = editable?
-                 getFieldValue ( row.find( "td.zcrud-column-data-id" ) ).trim():
-                 row.find( "td.zcrud-column-data-id" ).text().trim();
-        var name = editable?
-                 getFieldValue ( row.find( "td.zcrud-column-data-name" ) ).trim():
-                 row.find( "td.zcrud-column-data-name" ).text().trim();
-        assert.equal( id, expectedRecord.id );
-        assert.equal( name, expectedRecord.name );
+            // Check record from zCrud
+            var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
+            //alert( JSON.stringify( record ) );
+            assert.deepEqual( record, expectedRecord );
+
+            // Check record from table
+            var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+            var id = editable?
+                     getFieldValue ( row.find( "td.zcrud-column-data-id" ) ).trim():
+                     row.find( "td.zcrud-column-data-id" ).text().trim();
+            var name = editable?
+                     getFieldValue ( row.find( "td.zcrud-column-data-name" ) ).trim():
+                     row.find( "td.zcrud-column-data-name" ).text().trim();
+            assert.equal( id, expectedRecord.id );
+            assert.equal( name, expectedRecord.name );
+        }
         
         // Check record from storage
         assert.deepEqual( testUtils.getService( key ), expectedRecord );
@@ -465,8 +468,35 @@ module.exports = (function() {
     var clickFormSubmitButton = function(){
         $( '#form-submit-button' ).trigger( 'click' );
     };
+    
+    var getSaveButton = function(){
+        return $( '#departmentsContainer' ).find( '.zcrud-save-command-button' );
+    };
     var clickEditableListSubmitButton = function(){
-        $( '#departmentsContainer' ).find( '.zcrud-save-command-button' ).trigger( 'click' );
+        getSaveButton().trigger( 'click' );
+    };
+    var saveEnabled = function(){
+        return ! getSaveButton().prop( "disabled" );
+    };
+    
+    var getUndoButton = function(){
+        return $( '#departmentsContainer' ).find( '.zcrud-undo-command-button' );
+    };
+    var clickUndoButton = function(){
+        getUndoButton().trigger( 'click' );
+    };
+    var getNumberOfUndoActions = function(){
+        return Number( getUndoButton().text().replace( /[^0-9]/g, "" ) );
+    };
+    
+    var getRedoButton = function(){
+        return $( '#departmentsContainer' ).find( '.zcrud-redo-command-button' );
+    };
+    var clickRedoButton = function(){
+        getRedoButton().trigger( 'click' );
+    };
+    var getNumberOfRedoActions = function(){
+        return Number( getRedoButton().text().replace( /[^0-9]/g, "" ) );
     };
     
     var fillForm = function( record ){
@@ -528,7 +558,9 @@ module.exports = (function() {
     var setRowInputVal = function( $row, record, name ){
         var $input = $row.find( "input[name='" + name +"']" );
         $input.val( record[ name ] );
-        $input.trigger( 'change' );
+        $input
+            .trigger( 'change' )
+            .trigger( 'blur' );
     };
     
     var getRowInputVal = function( $row, name ){
@@ -619,6 +651,12 @@ module.exports = (function() {
         }
     };
     
+    var assertHistory = function( assert, expectedUndoActions, expectedRedoActions, expectedSaveEnabled ){
+        assert.equal( getNumberOfUndoActions(), expectedUndoActions );
+        assert.equal( getNumberOfRedoActions(), expectedRedoActions );
+        assert.equal( saveEnabled(), expectedSaveEnabled );
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         pagingInfo: pagingInfo,
@@ -646,6 +684,9 @@ module.exports = (function() {
         checkForm: checkForm,
         fillEditableList: fillEditableList,
         checkEditableListForm: checkEditableListForm,
-        clickEditableListSubmitButton: clickEditableListSubmitButton
+        clickEditableListSubmitButton: clickEditableListSubmitButton,
+        clickUndoButton: clickUndoButton,
+        clickRedoButton: clickRedoButton,
+        assertHistory: assertHistory
     };
 })();

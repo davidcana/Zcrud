@@ -180,9 +180,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 },
                 error: function( dataFromServer ){
                     if ( dataFromServer.message ){
-                        context.showError( dataFromServer.message, false );
+                        context.showError( options, dataFromServer.message, false );
                     } else {
-                        context.showError( 'serverCommunicationError', true );
+                        context.showError( options, 'serverCommunicationError', true );
                     }
                 }
             };

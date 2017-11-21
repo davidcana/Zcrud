@@ -181,12 +181,13 @@ module.exports = (function() {
         //return id;
     };
     
-    var showError = function ( message, mustTranslate, params, format, subformat ) {
+    var showError = function ( options, message, mustTranslate, params, format, subformat ) {
         var translated = 
             mustTranslate? 
             translate( message, params, format, subformat ): 
             message;
-        alert( translated );
+        options.fatalErrorFunction( translated );
+        //alert( translated );
     };
     
     // Form validation language

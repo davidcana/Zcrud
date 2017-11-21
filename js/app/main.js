@@ -196,6 +196,11 @@ exports.init = function( userOptions, callback ){
         logging: {
             isOn: false,
             level: log4javascript.Level.ERROR,
+        },
+        
+        fatalErrorFunction: function( message ){
+            //alert( "fatalErrorFunction: " + message );
+            alert( message );
         }
     };
     

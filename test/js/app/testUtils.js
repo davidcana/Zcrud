@@ -23,9 +23,13 @@ module.exports = (function() {
         '12': { name: 'Service 12' }
     };*/
     var numberOfServices = 130;
-    for ( var c = 1; c < numberOfServices; ++c ){
-        services[ c ] = { name: 'Service ' + c };
-    } 
+    var resetServices = function(){
+        services = {};
+        for ( var c = 1; c < numberOfServices; ++c ){
+            services[ c ] = { name: 'Service ' + c };
+        }  
+    };
+    resetServices();
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     
@@ -318,6 +322,7 @@ module.exports = (function() {
     
     return {
         ajax: ajax,
-        getService: getService
+        getService: getService,
+        resetServices: resetServices
     };
 })();

@@ -138,7 +138,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             },
             error: function(){
                 context.hideBusy( options, showBusyFull );
-                context.showError( options.messages.serverCommunicationError );
+                context.showError( options, options.messages.serverCommunicationError );
                 if ( callback ){
                     callback( false );
                 }
