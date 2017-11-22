@@ -133,8 +133,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var thisDictionary = $.extend( {}, listPage.getDictionary(), {} );
         thisDictionary.records = [ {} ];
 
-        var createHistoryItem = history.putCreate( listPage.getId(), options, thisDictionary );
-        registerEventForEditableFields( createHistoryItem.get$Tr() );
+        var createHistoryItem = history.putCreate( listPage, thisDictionary );
+        var $tr = createHistoryItem.get$Tr();
+        
+        // Bind events
+        registerEventForEditableFields( $tr );
+        validationManager.initFormValidation( listPage.getThisOptions().formId, $tr, options );
     };
 
     // History methods

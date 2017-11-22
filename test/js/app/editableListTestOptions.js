@@ -26,7 +26,13 @@ module.exports = {
                     event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
                     dataToSend: 'modified', // possible values: 'modified', 'all',
                     modifiedFieldsClass: 'zcrud-modified-field',
-                    modifiedRowsClass: 'zcrud-modified-row'
+                    modifiedRowsClass: 'zcrud-modified-row',
+                    hideTr: function( $tr ){
+                        $tr.hide();
+                    },
+                    showTr: function( $tr ){
+                        $tr.show();
+                    }
                 }
             }
         }, create: {

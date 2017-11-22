@@ -16,12 +16,6 @@ module.exports = (function() {
     
     var initFormValidation = function( id, $forms, options ){
 
-        // Init $forms if needed
-        /*
-        if ( ! $forms ){
-            $forms = $( '#' + id );
-        }*/
-
         // Return if there is nothing to do
         if ( ! validationOn( options ) ){
             return;

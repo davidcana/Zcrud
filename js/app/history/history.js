@@ -39,15 +39,15 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return historyItem;
     };
     
-    var putCreate = function( id, options, thisDictionary ) {
+    var putCreate = function( listPage, thisDictionary ) {
 
         var historyItem = new HistoryCreate( 
             self,
             editableOptions,
-            options, 
-            thisDictionary );
+            thisDictionary,
+            listPage );
 
-        put( id, historyItem );
+        put( listPage.getId(), historyItem );
         
         return historyItem;
     };
@@ -90,7 +90,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         modified = {};
         
         resetCSS( id );
-        updateHTML( id );
+        updateHTML( id, true );
     };
     
     var resetCSS = function( id ){
@@ -196,7 +196,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         $buttton.prop( 'disabled', newNumber == 0 );
     };
     
-    var updateHTML = function( id ){
+    var updateHTML = function( id, removeHidden ){
         
         var $list = $( '#' + id );
         
@@ -206,6 +206,11 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         
         // Set disabled of save button
         $list.find( '.zcrud-save-command-button' ).prop( 'disabled', ! isSaveEnabled() );
+        
+        // Remove hidden trs
+        if ( removeHidden ){
+            $list.find( 'tr.zcrud-data-row:hidden' ).remove();
+        }
     };
     
     var isSaveEnabled = function(){

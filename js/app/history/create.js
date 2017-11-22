@@ -6,12 +6,13 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
-var Create = function( historyToApply, editableOptionsToApply, optionsToApply, thisDictionaryToApply ) {
+var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, listPageToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply; 
-    var options = optionsToApply;
     var thisDictionary = thisDictionaryToApply;
+    var listPage = listPageToApply;
+    
     var $tr = undefined;
     var rowIndex = undefined;
     
@@ -26,14 +27,16 @@ var Create = function( historyToApply, editableOptionsToApply, optionsToApply, t
     
     var addRow = function(){
         
+        var $tbody = $( '#' + listPage.getThisOptions().tbodyId );
+        
         context.getZPTParser().run({
-            //root: $( '#' + id ).find( 'tbody' )[0],
-            root: $( '#' + options.listTbodyId )[0],
+            //root: $( '#' + options.listTbodyId  )[0],
+            root: $tbody[0],
             dictionary: thisDictionary,
             notRemoveGeneratedTags: true
         });
         
-        $tr = $( '#' + options.listTbodyId ).find( 'tr:last' );
+        $tr = $tbody.find( 'tr:last' );
         rowIndex = $tr.attr( 'data-record-index' );
     };
     

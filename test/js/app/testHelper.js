@@ -405,6 +405,9 @@ module.exports = (function() {
         
         return $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
     };
+    var getLastRow = function(){
+        return $( '#zcrud-list-tbody-department' ).find( 'tr:last' );
+    };
     
     var getFieldValue = function( $selection ){
         return $selection.find( 'input' ).val();
@@ -458,6 +461,12 @@ module.exports = (function() {
     };
     var clickUpdateListButton = function( key ){
         clickListButton( key, '.zcrud-edit-command-button' );
+    };
+    var clickDeleteRowListButton = function( key ){
+        clickListButton( key, '.zcrud-delete-row-command-button' );
+    };
+    var clickCreateRowListButton = function(){
+        $( '#zcrud-list-department' ).find( '.zcrud-new-row-command-button' ).trigger( 'click' );
     };
     var clickCreateListButton = function(){
         $( '#zcrud-list-department' ).find( '.zcrud-new-command-button' ).trigger( 'click' );
@@ -567,9 +576,7 @@ module.exports = (function() {
         return $row.find( "input[name='" + name +"']" ).val();
     };
     
-    var fillEditableList = function( record, id ){
-        
-        var $row = getRow( id );
+    var fill = function( record, $row ){
         
         if ( record.id !== undefined ){
             setRowInputVal( $row, record, 'id' );
@@ -607,6 +614,14 @@ module.exports = (function() {
         if ( record.number !== undefined ){
             setRowInputVal( $row, record, 'number' );
         }
+    };
+    
+    var fillNewRowEditableList = function( record ){
+        fill( record, getLastRow() );
+    };
+    
+    var fillEditableList = function( record, id ){
+        fill( record, getRow( id ) );
     };
     
     var checkEditableListForm = function( assert, id, record ){
@@ -676,13 +691,16 @@ module.exports = (function() {
         checkRecord: checkRecord,
         checkNoRecord: checkNoRecord,
         clickDeleteListButton: clickDeleteListButton,
+        clickDeleteRowListButton: clickDeleteRowListButton,
         clickUpdateListButton: clickUpdateListButton,
         clickCreateListButton: clickCreateListButton,
+        clickCreateRowListButton: clickCreateRowListButton,
         clickFormCancelButton: clickFormCancelButton,
         clickFormSubmitButton: clickFormSubmitButton,
         fillForm: fillForm,
         checkForm: checkForm,
         fillEditableList: fillEditableList,
+        fillNewRowEditableList: fillNewRowEditableList,
         checkEditableListForm: checkEditableListForm,
         clickEditableListSubmitButton: clickEditableListSubmitButton,
         clickUndoButton: clickUndoButton,
