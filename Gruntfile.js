@@ -3,7 +3,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON( 'package.json' ),
         qunit: {
-            files: [ 'test/**/*.html', '!test/index.html' ]
+            files: [ 
+                'test/*.html', '!test/index.html' 
+            ]
         },
         watch: {
             files: [ 'js/app/*.js', 'test/js/app/*.js' ],
