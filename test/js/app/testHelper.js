@@ -12,7 +12,7 @@ module.exports = (function() {
     };
     
     var countVisibleRows = function( options ){
-        return getCurrentList( options ).find( '.zcrud-data-row' ).length;
+        return getCurrentList( options ).find( '.zcrud-data-row:not(:hidden)' ).length;
     };
     
     var pagingInfo = function( options ){
@@ -35,8 +35,8 @@ module.exports = (function() {
     var getColumnValues = function( fieldId, isFormField ){
         
         return isFormField?
-               getAllFieldsValues( '.' + 'zcrud-column-data-' + fieldId ):
-               getAllValues( '.' + 'zcrud-column-data-' + fieldId );
+            getAllFieldsValues( '.' + 'zcrud-column-data-' + fieldId + ':not(:hidden)' ):
+            getAllValues( '.' + 'zcrud-column-data-' + fieldId + ':not(:hidden)' );
     };
     
     var getPageListInfo = function( options ){
@@ -452,9 +452,17 @@ module.exports = (function() {
         assert.equal( testUtils.getService( key ), undefined );
     };
     
+    var clickRowButton = function( $row, cssClass ){
+        $row.find( cssClass ).trigger( 'click' );
+    };
     var clickListButton = function( key, cssClass ){
+        /*
         var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
-        row.find( cssClass ).trigger( 'click' );
+        row.find( cssClass ).trigger( 'click' );*/
+        clickRowButton(
+            $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" ),
+            cssClass
+        );
     };
     var clickDeleteListButton = function( key ){
         clickListButton( key, '.zcrud-delete-command-button' );
@@ -464,6 +472,12 @@ module.exports = (function() {
     };
     var clickDeleteRowListButton = function( key ){
         clickListButton( key, '.zcrud-delete-row-command-button' );
+    };
+    var clickLastDeleteRowListButton = function(){
+        clickRowButton(
+            getLastRow(),
+            '.zcrud-delete-row-command-button'
+        );
     };
     var clickCreateRowListButton = function(){
         $( '#zcrud-list-department' ).find( '.zcrud-new-row-command-button' ).trigger( 'click' );
@@ -692,6 +706,7 @@ module.exports = (function() {
         checkNoRecord: checkNoRecord,
         clickDeleteListButton: clickDeleteListButton,
         clickDeleteRowListButton: clickDeleteRowListButton,
+        clickLastDeleteRowListButton: clickLastDeleteRowListButton,
         clickUpdateListButton: clickUpdateListButton,
         clickCreateListButton: clickCreateListButton,
         clickCreateRowListButton: clickCreateRowListButton,

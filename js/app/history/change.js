@@ -78,6 +78,10 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         row[ name ] = newValue;
     };
     
+    var saveEnabled = function(){
+        return true;
+    };
+    
     return {
         undo: undo,
         redo: redo,
@@ -90,7 +94,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         newValue: newValue,
         previousValue: previousValue,
         $this: $this,
-        saveEnabled: true
+        saveEnabled: saveEnabled
     };
 };
 

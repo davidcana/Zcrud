@@ -53,6 +53,11 @@ var Delete = function( historyToApply, editableOptionsToApply, optionsToApply, r
         return key;
     };
     
+    var saveEnabled = function(){
+        //return true;
+        return key !== undefined;
+    };
+    
     hideRow();
     
     return {
@@ -64,7 +69,7 @@ var Delete = function( historyToApply, editableOptionsToApply, optionsToApply, r
         doAction: doAction,
         get$Tr: get$Tr,
         getKey: getKey,
-        saveEnabled: true
+        saveEnabled: saveEnabled
     };
 };
 

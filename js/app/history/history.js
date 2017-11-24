@@ -221,7 +221,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
-            if ( historyItem.saveEnabled ){
+            if ( historyItem.saveEnabled() ){
                 //return validationManager.formIsValid( options );
                 return true;
             }

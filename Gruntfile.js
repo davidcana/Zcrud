@@ -131,6 +131,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/editableList-delete.js',
                 dest: 'build/editableList-delete.js'
+            },
+            editableListMixed: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/editableList-mixed.js',
+                dest: 'build/editableList-mixed.js'
             }
         },
         compress: {

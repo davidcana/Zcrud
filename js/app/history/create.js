@@ -71,6 +71,10 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         return $tr;
     };
     
+    var saveEnabled = function(){
+        return false;
+    };
+    
     addRow();
     
     return {
@@ -81,7 +85,7 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
         get$Tr: get$Tr,
-        saveEnabled: false
+        saveEnabled: saveEnabled
     };
 };
 

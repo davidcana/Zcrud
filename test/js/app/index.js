@@ -1,5 +1,5 @@
 
-QUnit.config.reorder = false;
+//QUnit.config.reorder = false;
 
 QUnit.testSuites([
     { name: "paging Test Suite", path: "./paging.html" },
@@ -11,5 +11,6 @@ QUnit.testSuites([
     { name: "update Test Suite", path: "./update.html" },
     { name: "editable list change Test Suite", path: "./editableList-change.html" },
     { name: "editable list create Test Suite", path: "./editableList-create.html" },
-    { name: "editable list delete Test Suite", path: "./editableList-delete.html" }
+    { name: "editable list delete Test Suite", path: "./editableList-delete.html" },
+    { name: "editable list mixed Test Suite", path: "./editableList-mixed.html" }
 ]);
