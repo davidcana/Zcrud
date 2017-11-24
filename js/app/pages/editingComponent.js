@@ -21,13 +21,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var history = new History( options, thisOptions, listPage );
+    var autoSaveMode = undefined;
     
     var bindEvents = function(){
 
         var $this = $( '#' + listPage.getId() );
 
         // Init autoSaveMode
-        var autoSaveMode = undefined;
+        //var autoSaveMode = undefined;
         var editableEvent = thisOptions.event;
         switch ( editableEvent ){
             case 'fieldChange':
@@ -42,16 +43,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
 
         // Register change of the field
-        registerEventForEditableFields( $this, autoSaveMode );
+        bindEventsInRows( $this );
 
-        // Buttons
+        // Bottom buttons
         $this
             .find( '.zcrud-undo-command-button' )
             .off()
             .click( function ( event ) {
             event.preventDefault();
             event.stopPropagation();
-            undo( event, autoSaveMode );
+            undo( event );
         });
         $this
             .find( '.zcrud-redo-command-button' )
@@ -59,7 +60,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             .click( function ( event ) {
             event.preventDefault();
             event.stopPropagation();
-            redo( event, autoSaveMode );
+            redo( event );
         });
         $this
             .find( '.zcrud-save-command-button' )
@@ -69,6 +70,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             event.stopPropagation();
             save( event );
         });
+        /*
         $this
             .find( '.zcrud-new-row-command-button' )
             .off()
@@ -83,34 +85,51 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             .click( function ( event ) {
             event.preventDefault();
             event.stopPropagation();
-            deleteRow( event, autoSaveMode );
-        });
+            deleteRow( event );
+        });*/
         
         // Setup validation
-        //validationManager.initFormValidation( 'form', $( '#form' ), options );
         var formId = listPage.getThisOptions().formId;
         validationManager.initFormValidation( formId, $( '#' + formId ), options );
     };
-
-    var registerEventForEditableFields = function( $preselection, autoSaveMode ){
+    
+    var bindEventsInRows = function( $preselection ){
 
         $preselection
             .find( '.zcrud-column-data input' )
             .off()
             .change( function ( event ) {
-            var $this = $( this );
-            history.putChange( 
-                $this, 
-                $this.val(), 
-                $this.closest( 'tr' ).attr( 'data-record-index' ),
-                listPage.getId() );
-            if ( autoSaveMode ){
-                save( event );
-            }
+                var $this = $( this );
+                history.putChange( 
+                    $this, 
+                    $this.val(), 
+                    $this.closest( 'tr' ).attr( 'data-record-index' ),
+                    listPage.getId() );
+                if ( autoSaveMode ){
+                    save( event );
+                }
+        });
+        
+        $preselection
+            .find( '.zcrud-new-row-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                addNewRow( event );
+        });
+
+        $preselection
+            .find( '.zcrud-delete-row-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                deleteRow( event );
         });
     };
 
-    var deleteRow = function( event, autoSaveMode ){
+    var deleteRow = function( event ){
 
         var $tr =  $( event.target ).closest( 'tr' );
         var key = $tr.attr( 'data-record-key' );
@@ -137,19 +156,19 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var $tr = createHistoryItem.get$Tr();
         
         // Bind events
-        registerEventForEditableFields( $tr );
+        bindEventsInRows( $tr );
         validationManager.initFormValidation( listPage.getThisOptions().formId, $tr, options );
     };
 
     // History methods
-    var undo = function( event, autoSaveMode ){
+    var undo = function( event ){
 
         history.undo( listPage.getId() );
         if ( autoSaveMode ){
             save( event );
         }
     };
-    var redo = function( event, autoSaveMode ){
+    var redo = function( event ){
 
         history.redo( listPage.getId() );
         if ( autoSaveMode ){
