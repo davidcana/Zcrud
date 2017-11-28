@@ -8,6 +8,7 @@ var validationManager = require( '../validationManager.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
+var History = require( '../history/history.js' );
 
 var FormPage = function ( optionsToApply, typeToApply ) {
     "use strict";
@@ -16,22 +17,23 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var type = typeToApply;
     
     var id = options.formId;
-    var $form = $( '#' + id );
     var dictionary = undefined;
     var record = undefined;
     var template = undefined;
     var submitFunction = undefined;
     var cancelFunction = undefined;
-    var recordFunction = undefined;
+    var history = undefined;
+    var autoSaveMode = false;
     
     // Configure instance depending on type parameter
     var configure = function(){
+        
+        history = new History( options, options.defaultFormConf, self, true );
         
         // TODO Refactorize this, remove options.currentForm
         options.currentForm = {};
         options.currentForm.type = type;
         options.currentForm.id = id;
-        options.currentForm.$form = $form;
         switch ( type ) {
         case 'create':
             template = "'" + options.pages.create.template + "'";
@@ -42,11 +44,6 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 function( field ){
                     return field.create;
                 });
-                /*
-            recordFunction = function(){
-                return record;
-            };*/
-            recordFunction = buildRecord;
             break;
         case 'update':
             template = "'" + options.pages.update.template + "'";
@@ -56,11 +53,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             options.currentForm.fields = buildFields(
                 function( field ){
                     return field.edit;
-                });/*
-            recordFunction = function(){
-                return record;
-            };*/
-            recordFunction = buildRecord;
+                });
             break;
         case 'delete':
             template =  "'" + options.pages.delete.template + "'";
@@ -71,10 +64,6 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 function( field ){
                     return field.delete;
                 });
-            /*recordFunction = function(){
-                return record;
-            };*/
-            recordFunction = buildRecord;
             break; 
         default:
             throw "Unknown FormPage type: " + type;
@@ -119,7 +108,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 declaredRemotePageUrls: options.templates.declaredRemotePageUrls
             });
             
-            afterProcessTemplate();
+            afterProcessTemplate( $( '#' + id ) );
             
         } catch( e ){
             alert ( 'Error trying to show form: ' + e );    
@@ -169,7 +158,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
 
         dictionary = $.extend( {
             options: options,
-            record: recordFunction()
+            record: buildRecord()
         }, options.dictionary );
     };
     
@@ -197,10 +186,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         }
     };
     
-    var afterProcessTemplate = function(){
+    var afterProcessTemplate = function( $form ){
                 
         validationManager.initFormValidation( id, $form, options );
-        addButtonsEvents();
         
         for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
             var field = options.currentForm.fields[ c ];
@@ -209,23 +197,70 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             );
         }
         
+        bindEvents( $form );
         options.events.formCreated( options );
     };
     
-    var addButtonsEvents = function() {
-
-        $( '#form-submit-button' )
+    var bindEvents = function( $form ) {
+        
+        $form
+            .find( '.zcrud-form-submit-command-button' )
+            .off()
             .click(function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 submitFunction( event );
             });
-        $( '#form-cancel-button' )
+        
+        $form
+            .find( '.zcrud-form-cancel-command-button' )
+            .off()
             .click(function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 cancelFunction( event );
             });
+        
+        $form
+            .find( '.zcrud-form-undo-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+            
+                history.undo( id );
+                if ( autoSaveMode ){
+                    //save( event );
+                }
+        });
+        
+        $form
+            .find( '.zcrud-form-redo-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+            
+                history.redo( id );
+                if ( autoSaveMode ){
+                    //save( event );
+                }
+        });
+        
+        $form
+            .find( 'input' )
+            .off()
+            .change( function ( event ) {
+                var $this = $( this );
+                history.putChange( 
+                    $this, 
+                    $this.val(), 
+                    undefined,
+                    id );
+                if ( autoSaveMode ){
+                    //save( event );
+                }
+        });
     };
     
     var submitCreateForm = function( event ){
@@ -250,14 +285,21 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         context.getListPage( options ).show( false );
     };
     
-    configure();
+    var getDictionary = function(){
+        return dictionary;
+    };
     
-    return {
+    var self = {
         show: show,
         setRecord: setRecord,
         getRecord: getRecord,
-        updateRecordFromDefaultValues: updateRecordFromDefaultValues
+        updateRecordFromDefaultValues: updateRecordFromDefaultValues,
+        getDictionary: getDictionary
     };
+    
+    configure();
+    
+    return self;
 };
 
 FormPage.createRecord = function( options, currentRecord, event ){

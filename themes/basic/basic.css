@@ -540,6 +540,9 @@ td.zcrud-modified-field {
 tr.zcrud-modified-row td {
     background-color: #f0a49a;
 }
+div.zcrud-modified-field {
+    background-color: #e1cc59;
+}
 
 /* Busy indicator */
 .zcrud-busy {

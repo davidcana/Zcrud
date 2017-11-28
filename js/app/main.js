@@ -159,12 +159,38 @@ exports.init = function( userOptions, callback ){
             }
         },
         
+        defaultFormConf: {
+            event: 'batch',    // possible values: 'fieldChange', 'batch'
+            dataToSend: 'all', // possible values: 'modified', 'all',
+            modifiedFieldsClass: 'zcrud-modified-field',
+            modifiedRowsClass: 'zcrud-modified-row',
+            hideTr: function( $tr ){
+                $tr.fadeOut();
+            },
+            showTr: function( $tr ){
+                $tr.fadeIn();
+            },
+            buttons: {
+                toolbar: {
+                    undo: true,
+                    redo: true,
+                    save: true,
+                    cancel: true
+                },
+                byRow: {
+                    openEditRegisterForm: true,
+                    openDeleteRegisterForm: true,
+                    deleteRegisterRow: true,
+                }
+            }
+        },
+        
         templates: {
             declaredRemotePageUrls: [],
             busyTemplate: "busyDefaultTemplate@templates/misc.html"
         },
         
-        ajax:{
+        ajax: {
             ajaxFunction: $.ajax,
             defaultFormAjaxOptions: {
                 dataType   : 'json',

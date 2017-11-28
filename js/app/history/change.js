@@ -31,15 +31,20 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         $this.blur();
     };
     
-    var updateCSS = function( td, tr ){
+    var updateCSS = function( fieldChanged, registerChanged ){
 
-        if ( td ){
+        if ( history.isFormMode() ){
+            $this.closest( '.zcrud-field' ).addClass( editableOptions.modifiedFieldsClass );
+            return;    
+        }
+        
+        if ( fieldChanged ){
             $this.closest( 'td' ).addClass( editableOptions.modifiedFieldsClass );
         } else {
             $this.closest( 'td' ).removeClass( editableOptions.modifiedFieldsClass );
         }
 
-        if ( tr ){
+        if ( registerChanged ){
             $this.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
         } else {
             $this.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );

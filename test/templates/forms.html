@@ -26,8 +26,7 @@
             <form class="zcrud-form" data-tattributes="id options/currentForm/id">
                 <input type="hidden"
                        name="zcRecordKey" 
-                       data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]" >
-                
+                       data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
                 <div data-trepeat="field options/currentForm/fields"
                      data-tdefine="id field/id; 
                                    value record[ id ];
@@ -42,24 +41,35 @@
                     <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
                         The description of this field.
                     </div>
-                    
                     <div data-muse-macro="field/template">
                         The field
                     </div>
                 </div>
+                <div class="zcrud-button-panel" data-tdefine="toolbar options/defaultFormConf/buttons/toolbar">
+                    <button type="button" 
+                            class="zcrud-form-cancel-command-button"
+                            data-tcontent="tr:'Cancel'">
+                        Cancel
+                    </button>
+                    <button type="button" 
+                            class="zcrud-form-submit-command-button"
+                            data-tcontent="tr:'Save'">
+                        Save
+                    </button>
+                    <button class="zcrud-undo-command-button" 
+                            data-tcontent="tr:'Undo'"  
+                            data-tcondition="toolbar/undo"
+                            disabled="true">
+                        Undo
+                    </button>
+                    <button class="zcrud-redo-command-button" 
+                            data-tcontent="tr:'Redo'" 
+                            data-tcondition="toolbar/redo"
+                            disabled="true">
+                        Redo
+                    </button>
+                </div>
             </form>
-            <div class="zcrud-button-panel">
-                <button type="button" 
-                        data-tattributes="id 'form-cancel-button'"
-                        data-tcontent="tr:'Cancel'">
-                    Cancel
-                </button>
-                <button type="button" 
-                        data-tattributes="id 'form-submit-button'"
-                        data-tcontent="tr:'Save'">
-                    Save
-                </button>
-            </div>
         </div>
         
         <div data-mdefine-macro="deleteDefaultTemplate" 
@@ -83,8 +93,7 @@
             <form class="zcrud-form" data-tattributes="id options/currentForm/id">
                 <input type="hidden"
                        name="zcRecordKey" 
-                       data-tattributes="id 'zcRecordKey'; value record[ options/key ]" >
-                
+                       data-tattributes="id 'zcRecordKey'; value record[ options/key ]">
                 <div class="zcrud-field"
                      data-trepeat="field options/currentForm/fields"
                      data-tdefine="id field/id">
@@ -98,19 +107,19 @@
                         The value
                     </div>
                 </div>
+                <div class="zcrud-button-panel">
+                    <button type="button" 
+                            class="zcrud-form-cancel-command-button"
+                            data-tcontent="tr:'Cancel'">
+                        Cancel
+                    </button>
+                    <button type="button" 
+                            class="zcrud-form-submit-command-button"
+                            data-tcontent="tr:'Save'">
+                        Save
+                    </button>
+                </div>
             </form>
-            <div class="zcrud-button-panel">
-                <button type="button" 
-                        data-tattributes="id 'form-cancel-button'"
-                        data-tcontent="tr:'Cancel'">
-                    Cancel
-                </button>
-                <button type="button" 
-                        data-tattributes="id 'form-submit-button'"
-                        data-tcontent="tr:'Delete'">
-                    Delete
-                </button>
-            </div>
         </div>
     </body>
 </html>

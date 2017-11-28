@@ -486,10 +486,10 @@ module.exports = (function() {
         $( '#zcrud-list-department' ).find( '.zcrud-new-command-button' ).trigger( 'click' );
     };
     var clickFormCancelButton = function(){
-        $( '#form-cancel-button' ).trigger( 'click' );
+        $( '#department-form' ).find( '.zcrud-form-cancel-command-button' ).trigger( 'click' );
     };
     var clickFormSubmitButton = function(){
-        $( '#form-submit-button' ).trigger( 'click' );
+        $( '#department-form' ).find( '.zcrud-form-submit-command-button' ).trigger( 'click' );
     };
     
     var getSaveButton = function(){

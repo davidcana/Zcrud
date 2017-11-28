@@ -1,7 +1,7 @@
 /* 
     Class History 
 */
-module.exports = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply ) {
+module.exports = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
     "use strict";
     
     var HistoryChange = require( './change.js' );
@@ -13,6 +13,11 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     var options = optionsToApply;
     var editableOptions = editableOptionsToApply;
     var dictionaryProvider = dictionaryProviderToApply;
+    var formMode = formModeToApply;
+    
+    var isFormMode = function(){
+        return formMode === true;
+    };
     
     var items = [];
     var current = 0;
@@ -101,15 +106,23 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         HistoryCreate.resetCSS( $list, editableOptions );
         HistoryDelete.resetCSS( $list, editableOptions );
     };
-
+    
+    /*
     var getValueFromRecord =  function( rowIndex, name ){
         var record = dictionaryProvider.getDictionary().records[ rowIndex ];
+        return record? record[ name ]: '';
+    };*/
+    var getValueFromRecord =  function( rowIndex, name ){
+        
+        var dictionary = dictionaryProvider.getDictionary();
+        var record = rowIndex? dictionary.records[ rowIndex ]: dictionary.record;
+        
         return record? record[ name ]: '';
     };
     
     var getPreviousValue = function( rowIndex, name ){
         
-        var previousItem = getPreviousItem( rowIndex, name );
+        var previousItem = rowIndex? getPreviousItem( rowIndex, name ): undefined;
         return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name );
     };
     
@@ -321,7 +334,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         getPreviousItem: getPreviousItem,
         getPreviousRecordItem: getPreviousRecordItem,
         hideTr: hideTr,
-        showTr: showTr
+        showTr: showTr,
+        isFormMode: isFormMode
     };
     
     return self;

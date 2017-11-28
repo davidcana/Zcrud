@@ -70,23 +70,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             event.stopPropagation();
             save( event );
         });
-        /*
-        $this
-            .find( '.zcrud-new-row-command-button' )
-            .off()
-            .click( function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            addNewRow( event );
-        });
-        $this
-            .find( '.zcrud-delete-row-command-button' )
-            .off()
-            .click( function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            deleteRow( event );
-        });*/
         
         // Setup validation
         var formId = listPage.getThisOptions().formId;
