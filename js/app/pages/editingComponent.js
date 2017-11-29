@@ -79,8 +79,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var bindEventsInRows = function( $preselection ){
 
         $preselection
-            .find( '.zcrud-column-data input' )
-            .off()
+            .find( '.zcrud-column-data input, .zcrud-column-data textarea, .zcrud-column-data select' )
             .change( function ( event ) {
                 var $this = $( this );
                 history.putChange( 

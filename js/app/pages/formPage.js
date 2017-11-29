@@ -222,7 +222,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             });
         
         $form
-            .find( '.zcrud-form-undo-command-button' )
+            .find( '.zcrud-undo-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
@@ -235,7 +235,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         });
         
         $form
-            .find( '.zcrud-form-redo-command-button' )
+            .find( '.zcrud-redo-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
@@ -248,8 +248,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         });
         
         $form
-            .find( 'input' )
-            .off()
+            .find( 'input, textarea, select' )
             .change( function ( event ) {
                 var $this = $( this );
                 history.putChange( 
