@@ -21,20 +21,28 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         updateCSS( 
             history.getPreviousItem( rowIndex, name ), 
             history.getPreviousRecordItem( rowIndex ) );
-        $this.blur();
+        if ( ! history.isFormMode() ){
+            $this.blur();
+        }
     };
     
     var redo = function(){
         
         $this.val( newValue );
         updateCSS( true, true );
-        $this.blur();
+        if ( ! history.isFormMode() ){
+            $this.blur();
+        }
     };
     
     var updateCSS = function( fieldChanged, registerChanged ){
 
         if ( history.isFormMode() ){
-            $this.closest( '.zcrud-field' ).addClass( editableOptions.modifiedFieldsClass );
+            if ( fieldChanged ){
+                $this.closest( '.zcrud-field' ).addClass( editableOptions.modifiedFieldsClass );
+            } else {
+                $this.closest( '.zcrud-field' ).removeClass( editableOptions.modifiedFieldsClass );   
+            }
             return;    
         }
         

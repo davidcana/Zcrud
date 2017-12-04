@@ -27,9 +27,34 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return modified;
     };
     
+    var isVoid = function( value ){
+        return value == undefined || value == '';
+    };
+    
+    var areEquivalent = function( value1, value2 ){
+        
+        var value1IsVoid = isVoid( value1 );
+        var value2IsVoid = isVoid( value2 );
+        
+        return value1IsVoid || value2IsVoid? value1IsVoid && value2IsVoid: value1 === value2;
+    };
+    
+    var isRepeated = function( newValue, rowIndex, name ){
+
+        var previousItem = getPreviousItem( rowIndex, name );
+        return previousItem? 
+               newValue === previousItem.newValue: 
+               areEquivalent( newValue, getValueFromRecord( rowIndex, name ) );
+    };
+    
     var putChange = function( $this, newValue, rowIndex, id ) {
 
         var name = $this.attr( 'name' );
+        
+        if ( isRepeated( newValue, rowIndex, name ) ){
+            return undefined;
+        }
+        
         var historyItem = new HistoryChange(
             self,
             editableOptions,
@@ -107,11 +132,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         HistoryDelete.resetCSS( $list, editableOptions );
     };
     
-    /*
-    var getValueFromRecord =  function( rowIndex, name ){
-        var record = dictionaryProvider.getDictionary().records[ rowIndex ];
-        return record? record[ name ]: '';
-    };*/
     var getValueFromRecord =  function( rowIndex, name ){
         
         var dictionary = dictionaryProvider.getDictionary();
@@ -122,7 +142,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
     var getPreviousValue = function( rowIndex, name ){
         
-        var previousItem = rowIndex? getPreviousItem( rowIndex, name ): undefined;
+        var previousItem = getPreviousItem( rowIndex, name );
         return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name );
     };
     
