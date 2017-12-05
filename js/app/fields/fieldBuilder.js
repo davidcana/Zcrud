@@ -61,6 +61,19 @@ module.exports = (function() {
         }
     };
     
+    var setValueToForm = function( field, value, $this ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.setValueToForm ) ){
+            fieldManager.setValueToForm( field, value, $this );
+            return;
+        }
+
+        $this.val( value );
+        //$( '#' + field.elementId ).val( value );
+    };
+    
     var getValueFromForm = function( field, options ){
         
         var fieldManager = fieldManagers[ field.type ];
@@ -114,6 +127,7 @@ module.exports = (function() {
         getValueFromForm: getValueFromForm,
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
-        getLabelFor: getLabelFor
+        getLabelFor: getLabelFor,
+        setValueToForm: setValueToForm
     };
 })();

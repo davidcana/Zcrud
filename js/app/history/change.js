@@ -4,8 +4,9 @@
 "use strict";
 
 var $ = require( 'jquery' );
+var fieldBuilder = require( '../fields/fieldBuilder' );
 
-var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply ) {
+var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply;
@@ -14,10 +15,16 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var newValue = newValueToApply;
     var previousValue = previousValueToApply;
     var $this = $thisToApply;
-                    
+    var field = fieldToApply;
+    
+    var setValue = function( value ){
+        //$this.val( value );
+        fieldBuilder.setValueToForm( field, value, $this );
+    };
+    
     var undo = function(){
         
-        $this.val( previousValue );
+        setValue( previousValue );
         updateCSS( 
             history.getPreviousItem( rowIndex, name ), 
             history.getPreviousRecordItem( rowIndex ) );
@@ -28,7 +35,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     
     var redo = function(){
         
-        $this.val( newValue );
+        setValue( newValue );
         updateCSS( true, true );
         if ( ! history.isFormMode() ){
             $this.blur();

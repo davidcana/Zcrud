@@ -24,6 +24,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var cancelFunction = undefined;
     var history = undefined;
     var autoSaveMode = false;
+    var fieldsMap = {};
     
     // Configure instance depending on type parameter
     var configure = function(){
@@ -73,6 +74,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var buildFields = function( filterFunction ){
         
         var fields = [];
+        fieldsMap = {};
         
         $.each( options.fields, function ( fieldId, field ) {
             var filtered = filterFunction( field );
@@ -84,6 +86,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 return;
             }
             fields.push( field );
+            fieldsMap[ fieldId ] = field;
         });
         
         return fields;
@@ -255,7 +258,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                     $this, 
                     $this.val(), 
                     undefined,
-                    id );
+                    id,
+                    fieldsMap[ $this.prop('name') ] );
                 if ( autoSaveMode ){
                     //save( event );
                 }

@@ -86,7 +86,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     $this, 
                     $this.val(), 
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
-                    listPage.getId() );
+                    listPage.getId(),
+                    listPage.getField( $this.prop( 'name' ) ) );
                 if ( autoSaveMode ){
                     save( event );
                 }

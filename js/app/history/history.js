@@ -47,7 +47,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
                areEquivalent( newValue, getValueFromRecord( rowIndex, name ) );
     };
     
-    var putChange = function( $this, newValue, rowIndex, id ) {
+    var putChange = function( $this, newValue, rowIndex, id, field ) {
 
         var name = $this.attr( 'name' );
         
@@ -62,7 +62,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             name,
             newValue,
             getPreviousValue( rowIndex, name ),
-            $this );
+            $this,
+            field );
         
         put( id, historyItem );
         

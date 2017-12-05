@@ -34,6 +34,11 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var id = thisOptions.id;
     var components = {};
     
+    var fieldsMap = {};
+    var getField = function( fieldId ){
+        return fieldsMap[ fieldId ];
+    };
+    
     // Initial configuration
     var configure = function(){
 
@@ -82,12 +87,14 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var buildFields = function(){
         
         var fields = [];
+        fieldsMap = {};
         
         $.each( options.fields, function ( fieldId, field ) {
             if ( field.list == false ) {
                 return;
             }
             fields.push( field );
+            fieldsMap[ fieldId ] = field;
         });
         
         return fields;
@@ -332,7 +339,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         getComponent: getComponent,
         showStatusMessage: showStatusMessage,
         getRecords: getRecords,
-        getDictionary: getDictionary
+        getDictionary: getDictionary,
+        getField: getField
     };
     
     configure();

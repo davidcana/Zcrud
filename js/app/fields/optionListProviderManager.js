@@ -321,16 +321,35 @@ var OptionListProviderManager = function() {
     };
     
     var getValueFromForm = function( field ){
+
+        switch( field.type ) {
+            case 'radio':
+                return $( 'input[name=' + field.id + ']:checked').val();
+            case 'select':
+            case 'optgroup':
+            case 'datalist':
+                return $( '#' + field.elementId ).val();
+        }
+
+        throw "Unknown field type in optionListProviderManager: " + field.type;
+    };
+    
+    var setValueToForm = function( field, value, $this ){
         
         switch( field.type ) {
         case 'radio':
-            return $( 'input[name=' + field.elementId + ']:checked').val();
-            break;
+                if ( value ){
+                    $( 'input[name="' + field.id + '"][value="' + value + '"]' ).prop( 'checked', true );
+                } else {
+                    $( 'input[name="' + field.id + '"]' ).prop( 'checked', false );
+                }
+            return;
         case 'select':
         case 'optgroup':
         case 'datalist':
-            return $( '#' + field.elementId ).val();
-            break;
+            //$( '#' + field.elementId ).val( value );
+            $this.val( value );
+            return;
         }
         
         throw "Unknown field type in optionListProviderManager: " + field.type;
@@ -381,6 +400,7 @@ var OptionListProviderManager = function() {
         beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,
+        setValueToForm: setValueToForm,
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
         getLabelFor: getLabelFor

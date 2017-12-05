@@ -543,7 +543,7 @@ module.exports = (function() {
             $( '#zcrud-datetime' ).val( record.datetime );
         }
         if ( record.phoneType !== undefined ){
-            $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
+            $( 'input:radio[name=phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
         }
         if ( record.province !== undefined ){
             $( '#zcrud-province' ).val( record.province );
@@ -570,7 +570,7 @@ module.exports = (function() {
         assert.equal( $( '#zcrud-date' ).val(), record.date );
         assert.equal( $( '#zcrud-time' ).val(), record.time );
         assert.equal( $( '#zcrud-datetime' ).val(), record.datetime );
-        assert.equal( $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked' ), true );
+        assert.equal( $( 'input:radio[name=phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked' ), true );
         assert.equal( $( '#zcrud-province' ).val(), record.province );
         assert.equal( $( '#zcrud-city' ).val(), record.city );
         assert.equal( $( '#zcrud-browser' ).val(), record.browser );

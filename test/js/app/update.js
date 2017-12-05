@@ -53,8 +53,10 @@ $( '#departmentsContainer' ).zcrud(
                 "important": true,
                 "number": "3"
             };
+            
             testHelper.fillForm( editedRecord );
             var newRecord = $.extend( true, {}, record, editedRecord );
+            
             testHelper.checkForm( assert, newRecord );
             
             // Submit and show the list again
@@ -63,7 +65,7 @@ $( '#departmentsContainer' ).zcrud(
             var valuesList = testHelper.buildValuesList( 1, 10 );
             valuesList[ 1 ] = valuesList[ 1 ].replace( "/" + record.name + "/", "/" + editedRecord.name + "/" );
             values = testHelper.buildCustomValuesList( valuesList );
-
+            
             testHelper.pagingTest({
                 options: options,
                 assert: assert,
