@@ -264,6 +264,19 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                     //save( event );
                 }
         });
+        
+        $form
+            .find( '.zcrud-save-command-button' )
+            .off()
+            .click( function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                save( event );
+        });
+    };
+    
+    var save = function( event ){
+        alert( 'Save form!' );
     };
     
     var submitCreateForm = function( event ){

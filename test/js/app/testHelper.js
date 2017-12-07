@@ -562,6 +562,51 @@ module.exports = (function() {
         }
     };
     
+    var isVoid = function( value ){
+        return value == undefined || value == '';
+    };
+
+    var areEquivalent = function( value1, value2 ){
+
+        var value1IsVoid = isVoid( value1 );
+        var value2IsVoid = isVoid( value2 );
+
+        return value1IsVoid || value2IsVoid? value1IsVoid && value2IsVoid: value1 === value2;
+    };
+    /*
+    var checkRadioInputVal = function( assert, name, record ){
+        
+        var valueFromRecord = record[ name ];
+        var valueFromForm = $( '#department-form' ).find( "input:radio[name='" + name + "']:checked" ).val();
+        
+        if ( valueFromRecord === undefined ){
+            assert.notOk(  );
+            return;
+        }
+        
+        assert.ok( 
+            areEquivalent( 
+                $( '#department-form' ).find( "input:radio[name='" + name + "']" ).filter( '[value=' + valueFromRecord + ']' ).prop( 'checked' ), 
+                valueFromRecord ) );
+    };*/
+
+    var checkForm = function( assert, record ){
+
+        assert.ok( areEquivalent( $( '#zcrud-id' ).val(), record.id ) );
+        assert.ok( areEquivalent( $( '#zcrud-name' ).val(), record.name ) );
+        assert.ok( areEquivalent( $( '#zcrud-description' ).val(), record.description ) );
+        assert.ok( areEquivalent( $( '#zcrud-date' ).val(), record.date ) );
+        assert.ok( areEquivalent( $( '#zcrud-time' ).val(), record.time ) );
+        assert.ok( areEquivalent( $( '#zcrud-datetime' ).val(), record.datetime ) );
+        assert.ok( areEquivalent( $( '#department-form' ).find( "input:radio[name='" + 'phoneType' + "']:checked" ).val(), record.phoneType ) );
+        assert.ok( areEquivalent( $( '#zcrud-province' ).val(), record.province ) );
+        assert.ok( areEquivalent( $( '#zcrud-city' ).val(), record.city ) );
+        assert.ok( areEquivalent( $( '#zcrud-browser' ).val(), record.browser ) );
+        assert.ok( areEquivalent( $( '#zcrud-important' ).prop( 'checked' ), record.important ) );
+        assert.ok( areEquivalent( $( '#zcrud-number' ).val(), record.number ) );
+    };
+    
+    /*
     var checkForm = function( assert, record ){
 
         assert.equal( $( '#zcrud-id' ).val(), record.id );
@@ -576,6 +621,15 @@ module.exports = (function() {
         assert.equal( $( '#zcrud-browser' ).val(), record.browser );
         assert.equal( $( '#zcrud-important' ).prop( 'checked' ), record.important );
         assert.equal( $( '#zcrud-number' ).val(), record.number );
+    };*/
+    
+    var setFormInputVal = function( record, name ){
+
+        var $input = $( '#department-form' ).find( "input[name='" + name +"']" );
+        $input.val( record[ name ] );
+        $input
+            .trigger( 'change' )
+            .trigger( 'blur' );
     };
     
     var setRowInputVal = function( $row, record, name ){
@@ -720,6 +774,7 @@ module.exports = (function() {
         clickEditableListSubmitButton: clickEditableListSubmitButton,
         clickUndoButton: clickUndoButton,
         clickRedoButton: clickRedoButton,
-        assertHistory: assertHistory
+        assertHistory: assertHistory,
+        setFormInputVal: setFormInputVal
     };
 })();

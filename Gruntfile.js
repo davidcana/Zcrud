@@ -140,6 +140,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/editableList-mixed.js',
                 dest: 'build/editableList-mixed.js'
+            },
+            formHistory: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/formHistory.js',
+                dest: 'build/formHistory.js'
             }
         },
         compress: {

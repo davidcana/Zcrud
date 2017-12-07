@@ -58,7 +58,7 @@ $( '#departmentsContainer' ).zcrud(
             var newRecord = $.extend( true, {}, record, editedRecord );
             
             testHelper.checkForm( assert, newRecord );
-            
+            /*
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
             
@@ -94,6 +94,6 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            testHelper.checkRecord( assert, key, newRecord );
+            testHelper.checkRecord( assert, key, newRecord );*/
         });
     });

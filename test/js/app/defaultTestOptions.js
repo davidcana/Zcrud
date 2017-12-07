@@ -128,7 +128,7 @@ module.exports = {
         rules: {
             '#zcrud-name': {
                 validation: 'length',
-                length: '3-12'
+                length: '3-20'
             },
             '#zcrud-number': {
                 validation: 'number',
