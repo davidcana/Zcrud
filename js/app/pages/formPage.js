@@ -19,17 +19,15 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var id = options.formId;
     var dictionary = undefined;
     var record = undefined;
-    var template = undefined;
     var submitFunction = undefined;
-    var cancelFunction = undefined;
     var history = undefined;
     var autoSaveMode = false;
     var fieldsMap = {};
+    var successMessage = undefined;
+    var thisOptions = undefined;
     
     // Configure instance depending on type parameter
     var configure = function(){
-        
-        history = new History( options, options.defaultFormConf, self, true );
         
         // TODO Refactorize this, remove options.currentForm
         options.currentForm = {};
@@ -37,38 +35,44 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         options.currentForm.id = id;
         switch ( type ) {
         case 'create':
-            template = "'" + options.pages.create.template + "'";
+            thisOptions = options.pages.create;
             options.currentForm.title = "Create form";
             submitFunction = submitCreateForm;
-            cancelFunction = cancelForm;
             options.currentForm.fields = buildFields(
                 function( field ){
                     return field.create;
                 });
+            successMessage = 'createSuccess';
             break;
         case 'update':
-            template = "'" + options.pages.update.template + "'";
+            thisOptions = options.pages.update;
             options.currentForm.title = "Edit form";
             submitFunction = submitUpdateForm;
-            cancelFunction = cancelForm;
             options.currentForm.fields = buildFields(
                 function( field ){
                     return field.edit;
                 });
+            successMessage = 'updateSuccess';
             break;
         case 'delete':
-            template =  "'" + options.pages.delete.template + "'";
+            thisOptions = options.pages.delete;
             options.currentForm.title = "Delete form";
             submitFunction = submitDeleteForm;
-            cancelFunction = cancelForm;
             options.currentForm.fields = buildFields(
                 function( field ){
                     return field.delete;
                 });
+            successMessage = 'deleteSuccess';
             break; 
         default:
             throw "Unknown FormPage type: " + type;
         }
+        
+        history = new History( 
+            options, 
+            thisOptions.formConf || options.defaultFormConf, 
+            self, 
+            true );
     };
     
     var buildFields = function( filterFunction ){
@@ -102,7 +106,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             
             beforeProcessTemplate();
             
-            pageUtils.configureTemplate( options, template );
+            pageUtils.configureTemplate( 
+                options, 
+                "'" + thisOptions.template + "'" );
 
             zpt.run({
                 //root: options.target[0],
@@ -221,7 +227,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             .click(function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
-                cancelFunction( event );
+                cancelForm( event );
             });
         
         $form
@@ -257,7 +263,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 history.putChange( 
                     $this, 
                     $this.val(), 
-                    undefined,
+                    0,
                     id,
                     fieldsMap[ $this.prop('name') ] );
                 if ( autoSaveMode ){
@@ -277,6 +283,51 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     
     var save = function( event ){
         alert( 'Save form!' );
+
+        return saveCommon( 
+            options.defaultFormConf, 
+            [ record ], 
+            id, 
+            event );
+    };
+    
+    var saveCommon = function( historyOptions, records, elementId, event ){
+
+        var data = history.buildDataToSend( options, historyOptions, records );
+
+        // Return if there is no operation to do
+        if ( ! data ){
+            alert( 'No operation to do!' );
+            return false;
+        }
+        
+        // Add success and error functions to data. Add URL to data
+        data.success = function( dataFromServer ){
+            context.getListPage( options ).show(
+                true,
+                {
+                    status: {
+                        message: successMessage,
+                        date: new Date().toLocaleString()
+                    }
+                });
+            history.reset( elementId );
+        };
+        data.error = function( dataFromServer ){
+            if ( dataFromServer.message ){
+                context.showError( options, dataFromServer.message, false );
+            } else {
+                context.showError( options, 'serverCommunicationError', true );
+            }
+        };
+        //data.url = thisOptions.action || options.defaultFormConf.action;
+        data.url = 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST_BATCH_UPDATE&table=department';
+        //alert( historyOptions.dataToSend + '\n' + JSON.stringify( data ) );
+        
+        // Do the CRUD!
+        crudManager.listBatchUpdate( data, options, event );
+
+        return data;
     };
     
     var submitCreateForm = function( event ){
@@ -289,6 +340,10 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         
         updateRecordFromForm();
         FormPage.updateRecord( options, record, event );
+    };
+    
+    var updateRecord = function(){
+        
     };
     
     var submitDeleteForm = function( event ){

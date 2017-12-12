@@ -294,7 +294,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
                 sendOnlyModified = true;
                 break;
             default:
-                alert( 'Unknown dataToSend option in editable list: ' + editableOptions.dataToSend );
+                alert( 'Unknown dataToSend option in editable list: ' + thisOptions.dataToSend );
                 return false;
         }
 
@@ -314,8 +314,9 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             }
 
             if ( ! sendOnlyModified ){
-                var previousRecord = records[ key ];
-                row = $.extend( true, {}, previousRecord, row );
+                /*var previousRecord = records[ key ];
+                row = $.extend( true, {}, previousRecord, row );*/
+                row = $.extend( true, {}, record, row );
             }
             dataToSend.existingRecords[ key ] = row;
         }
@@ -327,6 +328,12 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         }
         dataToSend.recordsToRemove = actionsObject.deleted;
 
+        // Return false if there is no record to modify, to create or to delete
+        if ( Object.keys( dataToSend.existingRecords ).length == 0 
+            && dataToSend.newRecords.length == 0 
+            && dataToSend.deleted.recordsToRemove == 0 ){
+            return false;
+        }
         return dataToSend;
     };
     
