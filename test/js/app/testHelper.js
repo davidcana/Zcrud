@@ -525,6 +525,47 @@ module.exports = (function() {
     var fillForm = function( record ){
 
         if ( record.id !== undefined ){
+            setFormVal( record, 'id' );
+        }
+        if ( record.name !== undefined ){
+            setFormVal( record, 'name' );
+        }
+        if ( record.description !== undefined ){
+            setFormVal( record, 'description' );
+        }
+        if ( record.date !== undefined ){
+            setFormVal( record, 'date' );
+        }
+        if ( record.time !== undefined ){
+            setFormVal( record, 'time' );
+        }
+        if ( record.datetime !== undefined ){
+            setFormVal( record, 'datetime' );
+        }
+        if ( record.phoneType !== undefined ){
+            setFormRadioVal( record, 'phoneType' );
+        }
+        if ( record.province !== undefined ){
+            setFormVal( record, 'province' );
+        }
+        if ( record.city !== undefined ){
+            setFormVal( record, 'city' );
+        }
+        if ( record.browser !== undefined ){
+            setFormVal( record, 'browser' );  
+        }
+        if ( record.important !== undefined ){
+            setFormCheckboxVal( record, 'important' );  
+            //$( '#zcrud-important' ).prop( 'checked', record.important );
+        }
+        if ( record.number !== undefined ){
+            setFormVal( record, 'number' );
+        }
+    };
+    /*
+    var fillForm = function( record ){
+
+        if ( record.id !== undefined ){
             $( '#zcrud-id' ).val( record.id );
         }
         if ( record.name !== undefined ){
@@ -560,7 +601,7 @@ module.exports = (function() {
         if ( record.number !== undefined ){
             $( '#zcrud-number' ).val( record.number );
         }
-    };
+    };*/
     
     var isVoid = function( value ){
         return value == undefined || value == '';
@@ -623,22 +664,40 @@ module.exports = (function() {
         assert.equal( $( '#zcrud-number' ).val(), record.number );
     };*/
     
-    var setFormInputVal = function( record, name ){
+    var setFormCheckboxVal = function( record, name, $row ){
 
-        var $input = $( '#department-form' ).find( "input[name='" + name +"']" );
-        $input.val( record[ name ] );
-        $input
+        var $element = $row || $( '#department-form' );
+        $element.find( "input:checkbox[name='" + name +"']" )
+            .prop( 'checked', record[ name ] )
             .trigger( 'change' )
             .trigger( 'blur' );
     };
     
-    var setRowInputVal = function( $row, record, name ){
-        var $input = $row.find( "input[name='" + name +"']" );
-        $input.val( record[ name ] );
-        $input
+    var setFormRadioVal = function( record, name, $row ){
+        
+        var $element = $row || $( '#department-form' );
+        $element.find( "input:radio[name='" + name +"']" ).filter( '[value=' + record[ name ] + ']' )
+            .prop( 'checked', true )
             .trigger( 'change' )
             .trigger( 'blur' );
     };
+    
+    var setFormVal = function( record, name, $row ){
+        
+        var $element = $row || $( '#department-form' );
+        $element.find( "[name='" + name +"']" )
+            .val( record[ name ] )
+            .trigger( 'change' )
+            .trigger( 'blur' );
+    };
+    /*
+    var setRowInputVal = function( $row, record, name ){
+        
+        $row.find( "input[name='" + name +"']" )
+            .val( record[ name ] )
+            .trigger( 'change' )
+            .trigger( 'blur' );
+    };*/
     
     var getRowInputVal = function( $row, name ){
         return $row.find( "input[name='" + name +"']" ).val();
@@ -647,40 +706,42 @@ module.exports = (function() {
     var fill = function( record, $row ){
         
         if ( record.id !== undefined ){
-            setRowInputVal( $row, record, 'id' );
+            setFormVal( record, 'id', $row );
         }
         if ( record.name !== undefined ){
-            setRowInputVal( $row, record, 'name' );
+            setFormVal( record, 'name', $row );
         }
         if ( record.description !== undefined ){
-            setRowInputVal( $row, record, 'description' );
+            setFormVal( record, 'description', $row );
         }
         if ( record.date !== undefined ){
-            setRowInputVal( $row, record, 'date' );
+            setFormVal( record, 'date', $row );
         }
         if ( record.time !== undefined ){
-            setRowInputVal( $row, record, 'time' );
+            setFormVal( record, 'time', $row );
         }
         if ( record.datetime !== undefined ){
-            setRowInputVal( $row, record, 'datetime' );
+            setFormVal( record, 'datetime', $row );
         }
         if ( record.phoneType !== undefined ){
-            $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
+            setFormRadioVal( record, 'phoneType', $row );
+            //$( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
         }
         if ( record.province !== undefined ){
-            setRowInputVal( $row, record, 'province' );
+            setFormVal( record, 'province', $row );
         }
         if ( record.city !== undefined ){
-            setRowInputVal( $row, record, 'city' );
+            setFormVal( record, 'city', $row );
         }
         if ( record.browser !== undefined ){
-            setRowInputVal( $row, record, 'browser' );
+            setFormVal( record, 'browser', $row );
         }
         if ( record.important !== undefined ){
-            $( '#zcrud-important' ).prop( 'checked', record.important );
+            setFormCheckboxVal( record, 'important', $row );
+            //$( '#zcrud-important' ).prop( 'checked', record.important );
         }
         if ( record.number !== undefined ){
-            setRowInputVal( $row, record, 'number' );
+            setFormVal( record, 'number', $row );
         }
     };
     
@@ -775,6 +836,6 @@ module.exports = (function() {
         clickUndoButton: clickUndoButton,
         clickRedoButton: clickRedoButton,
         assertHistory: assertHistory,
-        setFormInputVal: setFormInputVal
+        setFormVal: setFormVal
     };
 })();

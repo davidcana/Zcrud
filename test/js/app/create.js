@@ -24,13 +24,13 @@ $( '#departmentsContainer' ).zcrud(
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key,
-                "description": "Service 0 description",
+                "description": "Service " + key + " description",
                 "date": "10/23/2017",
                 "time": "18:50",
                 "datetime": "10/23/2017 20:00",
                 "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
+                "province": "Málaga",
+                "city": "Marbella",
                 "browser": "Firefox",
                 "important": true,
                 "number": "3"

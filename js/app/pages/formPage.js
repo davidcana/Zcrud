@@ -43,6 +43,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                     return field.create;
                 });
             successMessage = 'createSuccess';
+            updateRecordFromDefaultValues();
             break;
         case 'update':
             thisOptions = options.pages.update;
@@ -131,6 +132,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var getRecord = function(){
         return record;
     };
+    /*
     var updateRecordFromForm = function(){
         record = {};
         
@@ -138,7 +140,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             var field = options.currentForm.fields[ c ];
             record[ field.id ] = fieldBuilder.getValueFromForm( field, options );
         }
-    };
+    };*/
     var updateRecordFromDefaultValues = function(){
         record = {};
         
@@ -260,12 +262,14 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             .find( 'input, textarea, select' )
             .change( function ( event ) {
                 var $this = $( this );
+                var field = fieldsMap[ $this.prop('name') ];
                 history.putChange( 
                     $this, 
-                    $this.val(), 
+                    //$this.val(), 
+                    fieldBuilder.getValue( field, $this ), 
                     0,
                     id,
-                    fieldsMap[ $this.prop('name') ] );
+                    field );
                 if ( autoSaveMode ){
                     //save( event );
                 }
@@ -331,20 +335,36 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     };
     
     var submitCreateForm = function( event ){
+        //alert( 'submitCreateForm!' );
+
+        return saveCommon( 
+            options.defaultFormConf, 
+            [ ], 
+            id, 
+            event );
+    };
+    /*
+    var submitCreateForm = function( event ){
         
         updateRecordFromForm();
         FormPage.createRecord( options, record, event );
-    };
+    };*/
     
     var submitUpdateForm = function( event ){
-        
+        //alert( 'submitUpdateForm!' );
+
+        return saveCommon( 
+            options.defaultFormConf, 
+            [ record ], 
+            id, 
+            event );
+    };
+    /*
+    var submitUpdateForm = function( event ){
+
         updateRecordFromForm();
         FormPage.updateRecord( options, record, event );
-    };
-    
-    var updateRecord = function(){
-        
-    };
+    };*/
     
     var submitDeleteForm = function( event ){
         

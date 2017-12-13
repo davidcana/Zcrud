@@ -8,6 +8,10 @@ var $ = require( 'jquery' );
 
 var CheckboxFieldManager = function() {
     
+    var getValue = function( $this ){
+        return $this.is( ":checked" );
+    };
+    
     var getValueFromForm = function( field, $this ){
         return $( '#' + field.elementId ).is( ":checked" );
         //return $this.is( ":checked" );
@@ -18,9 +22,16 @@ var CheckboxFieldManager = function() {
         return $this.prop( 'checked', value );
     };
     
+    var getValueFromRecord = function( field, record ){
+        var value = record[ field.id ];
+        return value == undefined? false: value;
+    };
+    
     return {
+        getValue: getValue,
         getValueFromForm: getValueFromForm,
-        setValueToForm: setValueToForm
+        setValueToForm: setValueToForm,
+        getValueFromRecord: getValueFromRecord
     };
 }();
 

@@ -74,6 +74,17 @@ module.exports = (function() {
         //$( '#' + field.elementId ).val( value );
     };
     
+    var getValue = function( field, $this ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.getValue ) ){
+            return fieldManager.getValue( $this );
+        }
+
+        return $this.val();
+    };
+    
     var getValueFromForm = function( field, options ){
         
         var fieldManager = fieldManagers[ field.type ];
@@ -124,6 +135,7 @@ module.exports = (function() {
         registerAll: registerAll,
         beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
+        getValue: getValue,
         getValueFromForm: getValueFromForm,
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,

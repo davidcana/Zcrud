@@ -46,7 +46,7 @@ $( '#departmentsContainer' ).zcrud(
             var editedRecord =  {
                 "name": "Service " + key + " edited"
             };
-            testHelper.setFormInputVal( editedRecord, 'name' );
+            testHelper.setFormVal( editedRecord, 'name' );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
@@ -67,6 +67,6 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
             
-            //testHelper.checkRecord( assert, key, newRecord, editable );
+            testHelper.checkRecord( assert, key, newRecord, editable );
         });
     });
