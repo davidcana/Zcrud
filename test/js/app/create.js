@@ -51,6 +51,7 @@ $( '#departmentsContainer' ).zcrud(
             // Go to create form and create record
             testHelper.clickCreateListButton();
             testHelper.fillForm( record );
+            
             testHelper.checkForm( assert, record );
             
             // Submit and show the list again

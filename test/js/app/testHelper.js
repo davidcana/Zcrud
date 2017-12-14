@@ -456,9 +456,7 @@ module.exports = (function() {
         $row.find( cssClass ).trigger( 'click' );
     };
     var clickListButton = function( key, cssClass ){
-        /*
-        var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
-        row.find( cssClass ).trigger( 'click' );*/
+
         clickRowButton(
             $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" ),
             cssClass
@@ -556,52 +554,11 @@ module.exports = (function() {
         }
         if ( record.important !== undefined ){
             setFormCheckboxVal( record, 'important' );  
-            //$( '#zcrud-important' ).prop( 'checked', record.important );
         }
         if ( record.number !== undefined ){
             setFormVal( record, 'number' );
         }
     };
-    /*
-    var fillForm = function( record ){
-
-        if ( record.id !== undefined ){
-            $( '#zcrud-id' ).val( record.id );
-        }
-        if ( record.name !== undefined ){
-            $( '#zcrud-name' ).val( record.name );
-        }
-        if ( record.description !== undefined ){
-            $( '#zcrud-description' ).val( record.description );
-        }
-        if ( record.date !== undefined ){
-            $( '#zcrud-date' ).val( record.date );
-        }
-        if ( record.time !== undefined ){
-            $( '#zcrud-time' ).val( record.time );
-        }
-        if ( record.datetime !== undefined ){
-            $( '#zcrud-datetime' ).val( record.datetime );
-        }
-        if ( record.phoneType !== undefined ){
-            $( 'input:radio[name=phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
-        }
-        if ( record.province !== undefined ){
-            $( '#zcrud-province' ).val( record.province );
-        }
-        if ( record.city !== undefined ){
-            $( '#zcrud-city' ).val( record.city );
-        }
-        if ( record.browser !== undefined ){
-            $( '#zcrud-browser' ).val( record.browser );
-        }
-        if ( record.important !== undefined ){
-            $( '#zcrud-important' ).prop( 'checked', record.important );
-        }
-        if ( record.number !== undefined ){
-            $( '#zcrud-number' ).val( record.number );
-        }
-    };*/
     
     var isVoid = function( value ){
         return value == undefined || value == '';
@@ -615,22 +572,6 @@ module.exports = (function() {
         return value1IsVoid || value2IsVoid? value1IsVoid && value2IsVoid: value1 === value2;
     };
     /*
-    var checkRadioInputVal = function( assert, name, record ){
-        
-        var valueFromRecord = record[ name ];
-        var valueFromForm = $( '#department-form' ).find( "input:radio[name='" + name + "']:checked" ).val();
-        
-        if ( valueFromRecord === undefined ){
-            assert.notOk(  );
-            return;
-        }
-        
-        assert.ok( 
-            areEquivalent( 
-                $( '#department-form' ).find( "input:radio[name='" + name + "']" ).filter( '[value=' + valueFromRecord + ']' ).prop( 'checked' ), 
-                valueFromRecord ) );
-    };*/
-
     var checkForm = function( assert, record ){
 
         assert.ok( areEquivalent( $( '#zcrud-id' ).val(), record.id ) );
@@ -645,24 +586,47 @@ module.exports = (function() {
         assert.ok( areEquivalent( $( '#zcrud-browser' ).val(), record.browser ) );
         assert.ok( areEquivalent( $( '#zcrud-important' ).prop( 'checked' ), record.important ) );
         assert.ok( areEquivalent( $( '#zcrud-number' ).val(), record.number ) );
-    };
+    };*/
     
-    /*
     var checkForm = function( assert, record ){
 
-        assert.equal( $( '#zcrud-id' ).val(), record.id );
-        assert.equal( $( '#zcrud-name' ).val(), record.name );
-        assert.equal( $( '#zcrud-description' ).val(), record.description );
-        assert.equal( $( '#zcrud-date' ).val(), record.date );
-        assert.equal( $( '#zcrud-time' ).val(), record.time );
-        assert.equal( $( '#zcrud-datetime' ).val(), record.datetime );
-        assert.equal( $( 'input:radio[name=phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked' ), true );
-        assert.equal( $( '#zcrud-province' ).val(), record.province );
-        assert.equal( $( '#zcrud-city' ).val(), record.city );
-        assert.equal( $( '#zcrud-browser' ).val(), record.browser );
-        assert.equal( $( '#zcrud-important' ).prop( 'checked' ), record.important );
-        assert.equal( $( '#zcrud-number' ).val(), record.number );
-    };*/
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'id' ), record.id ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'name' ), record.name ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'description' ), record.description ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'date' ), record.date ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'time' ), record.time ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'datetime' ), record.datetime ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormRadioVal( 'phoneType' ), record.phoneType ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'province' ), record.province ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'city' ), record.city ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'browser' ), record.browser ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormCheckboxVal( 'important' ), record.important ) );
+        assert.ok( 
+            areEquivalent( 
+                getFormVal( 'number' ), record.number ) );
+    };
     
     var setFormCheckboxVal = function( record, name, $row ){
 
@@ -690,17 +654,23 @@ module.exports = (function() {
             .trigger( 'change' )
             .trigger( 'blur' );
     };
-    /*
-    var setRowInputVal = function( $row, record, name ){
-        
-        $row.find( "input[name='" + name +"']" )
-            .val( record[ name ] )
-            .trigger( 'change' )
-            .trigger( 'blur' );
-    };*/
     
-    var getRowInputVal = function( $row, name ){
-        return $row.find( "input[name='" + name +"']" ).val();
+    var getFormVal = function( name, $row ){
+        var $element = $row || $( '#department-form' );
+        return $element.find( "[name='" + name +"']" ).val();
+    };
+    
+    var getFormRadioVal = function( name, $row ){
+
+        var $element = $row || $( '#department-form' );
+        var $selected = $element.find( "input:radio[name='" + name +"']:checked" );
+        return $selected? $selected.val(): undefined;
+    };
+    
+    var getFormCheckboxVal = function( name, $row ){
+
+        var $element = $row || $( '#department-form' );
+        return $element.find( "input:checkbox[name='" + name +"']" ).prop( 'checked' );
     };
     
     var fill = function( record, $row ){
@@ -725,7 +695,6 @@ module.exports = (function() {
         }
         if ( record.phoneType !== undefined ){
             setFormRadioVal( record, 'phoneType', $row );
-            //$( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked', true );
         }
         if ( record.province !== undefined ){
             setFormVal( record, 'province', $row );
@@ -738,7 +707,6 @@ module.exports = (function() {
         }
         if ( record.important !== undefined ){
             setFormCheckboxVal( record, 'important', $row );
-            //$( '#zcrud-important' ).prop( 'checked', record.important );
         }
         if ( record.number !== undefined ){
             setFormVal( record, 'number', $row );
@@ -758,40 +726,40 @@ module.exports = (function() {
         var $row = getRow( id );
         
         if ( record.id !== undefined ){
-            assert.equal( getRowInputVal( $row, 'id' ), record.id );
+            assert.equal( getFormVal( 'id', $row ), record.id );
         }
         if ( record.name !== undefined ){
-            assert.equal( getRowInputVal( $row, 'name' ), record.name );
+            assert.equal( getFormVal( 'name', $row ), record.name );
         }
         if ( record.description !== undefined ){
-            assert.equal( getRowInputVal( $row, 'description' ).val(), record.description );
+            assert.equal( getFormVal( 'description', $row ), record.description );
         }
         if ( record.date !== undefined ){
-            assert.equal( getRowInputVal( $row, 'date' ), record.date );
+            assert.equal( getFormVal( 'date', $row ), record.date );
         }
         if ( record.time !== undefined ){
-            assert.equal( getRowInputVal( $row, 'time' ), record.time );
+            assert.equal( getFormVal( 'time', $row ), record.time );
         }
         if ( record.datetime !== undefined ){
-            assert.equal( getRowInputVal( $row, 'datetime' ).val(), record.datetime );
+            assert.equal( getFormVal( 'datetime', $row ), record.datetime );
         }
         if ( record.phoneType !== undefined ){
-            //assert.equal( $( 'input:radio[name=zcrud-phoneType]' ).filter( '[value=' + record.phoneType + ']' ).prop( 'checked' ), true );
+            assert.equal( getFormRadioVal( 'datetime', $row ), record.phoneType );
         }
         if ( record.province !== undefined ){
-            assert.equal( getRowInputVal( $row, 'province' ), record.province );
+            assert.equal( getFormVal( 'province', $row ), record.province );
         }
         if ( record.city !== undefined ){
-            assert.equal( getRowInputVal( $row, 'city' ), record.city );
+            assert.equal( getFormVal( 'city', $row ), record.city );
         }
         if ( record.browser !== undefined ){
-            assert.equal( getRowInputVal( $row, 'browser' ), record.browser );
+            assert.equal( getFormVal( 'browser', $row ), record.browser );
         }
         if ( record.important !== undefined ){
-            //assert.equal( $( '#zcrud-important' ).prop( 'checked' ), record.important );
+            assert.equal( getFormCheckboxVal( 'browser', $row ), record.important );
         }
         if ( record.number !== undefined ){
-            assert.equal( getRowInputVal( $row, 'number' ), record.number );
+            assert.equal( getFormVal( 'number', $row ), record.number );
         }
     };
     
