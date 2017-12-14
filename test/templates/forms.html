@@ -7,7 +7,7 @@
     <body>
         <div data-mdefine-macro="formDefaultTemplate" 
              style="display: none"
-             data-tattributes="class string:zcrud-main-container zcrud-${options/currentForm/type}-form;
+             data-tattributes="class string:zcrud-main-container zcrud-${instance/getType()}-form;
                                id string:${options/entityId}-form"
              data-idomain="i18nArray">
             
@@ -16,18 +16,18 @@
                 <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
                     The title option
                 </span>
-                <span data-tcontent="tr: options/currentForm/title">
+                <span data-tcontent="tr: instance/getTitle()">
                     Current form title
                 </span>
                 <span data-tcontent="tr:'(default)'">
                     (default)
                 </span>
             </div>
-            <form class="zcrud-form" data-tattributes="id options/currentForm/id">
+            <form class="zcrud-form" data-tattributes="id instance/getId()">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
-                <div data-trepeat="field options/currentForm/fields"
+                <div data-trepeat="field instance/getThisOptions()/fields"
                      data-tdefine="id field/id; 
                                    value record[ id ];
                                    elementId field/elementId;
@@ -89,19 +89,19 @@
                 <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
                     The title option
                 </span>
-                <span data-tcontent="tr: options/currentForm/title">
+                <span data-tcontent="tr: instance/getTitle()">
                     Current form title
                 </span>
                 <span data-tcontent="tr:'(default)'">
                     (default)
                 </span>
             </div>
-            <form class="zcrud-form" data-tattributes="id options/currentForm/id">
+            <form class="zcrud-form" data-tattributes="id instance/getId()">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcRecordKey'; value record[ options/key ]">
                 <div class="zcrud-field"
-                     data-trepeat="field options/currentForm/fields"
+                     data-trepeat="field instance/getThisOptions()/fields"
                      data-tdefine="id field/id">
                     <div data-tcontent="field/title || tr:string:${id}_title" class="label">
                         The name of the field

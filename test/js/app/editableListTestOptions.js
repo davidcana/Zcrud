@@ -160,21 +160,7 @@ module.exports = {
         ajaxFunction: testUtils.ajax    
     },
 
-    events: {
-        /*
-        formCreated: function ( options ) { 
-            alert( 'Form created! ' + options.currentForm.type );
-        }*/
-        /*
-        formSubmitting: function ( options, dataToSend ) { 
-            alert( 'Form submit! ' + options.currentForm.type );
-            return false;
-        }*/
-        /*
-        recordDeleted: function ( event, options, key ) { 
-            alert ( 'recordDeleted! '  + options.currentForm.type + ': ' + key );
-        }*/
-    },
+    events: { },
 
     i18n: {
         language: 'en',

@@ -162,16 +162,16 @@ var options = {
     events: {
         /*
         formCreated: function ( options ) { 
-            alert( 'Form created! ' + options.currentForm.type );
+            alert( 'Form created! ' );
         }*/
         /*
         formSubmitting: function ( options, dataToSend ) { 
-            alert( 'Form submit! ' + options.currentForm.type );
+            alert( 'Form submit! ' );
             return false;
         }*/
         /*
         recordDeleted: function ( event, options, key ) { 
-            alert ( 'recordDeleted! '  + options.currentForm.type + ': ' + key );
+            alert ( 'recordDeleted! ' );
         }*/
     },
     

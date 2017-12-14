@@ -14,9 +14,22 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     "use strict";
 
     var options = optionsToApply;
+    
     var type = typeToApply;
+    var getType = function(){
+        return type;
+    };
     
     var id = options.formId;
+    var getId = function(){
+        return id;
+    };
+    
+    var title = undefined;
+    var getTitle = function(){
+        return title;
+    };
+    
     var dictionary = undefined;
     var record = undefined;
     var submitFunction = undefined;
@@ -24,21 +37,21 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var autoSaveMode = false;
     var fieldsMap = {};
     var successMessage = undefined;
+    
     var thisOptions = undefined;
+    var getThisOptions = function(){
+        return thisOptions;
+    };
     
     // Configure instance depending on type parameter
     var configure = function(){
         
-        // TODO Refactorize this, remove options.currentForm
-        options.currentForm = {};
-        options.currentForm.type = type;
-        options.currentForm.id = id;
         switch ( type ) {
         case 'create':
             thisOptions = options.pages.create;
-            options.currentForm.title = "Create form";
+            title = "Create form";
             submitFunction = submitCreateForm;
-            options.currentForm.fields = buildFields(
+            thisOptions.fields = buildFields(
                 function( field ){
                     return field.create;
                 });
@@ -47,9 +60,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             break;
         case 'update':
             thisOptions = options.pages.update;
-            options.currentForm.title = "Edit form";
+            title = "Edit form";
             submitFunction = submitUpdateForm;
-            options.currentForm.fields = buildFields(
+            thisOptions.fields = buildFields(
                 function( field ){
                     return field.edit;
                 });
@@ -57,9 +70,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             break;
         case 'delete':
             thisOptions = options.pages.delete;
-            options.currentForm.title = "Delete form";
+            title = "Delete form";
             submitFunction = submitDeleteForm;
-            options.currentForm.fields = buildFields(
+            thisOptions.fields = buildFields(
                 function( field ){
                     return field.delete;
                 });
@@ -144,8 +157,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var updateRecordFromDefaultValues = function(){
         record = {};
         
-        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
-            var field = options.currentForm.fields[ c ];
+        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
+            var field = thisOptions.fields[ c ];
             if ( field.defaultValue ){
                 record[ field.id ] = field.defaultValue;
             }
@@ -154,8 +167,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var buildRecord = function(){
         var newRecord = {};
 
-        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
-            var field = options.currentForm.fields[ c ];
+        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
+            var field = thisOptions.fields[ c ];
             newRecord[ field.id ] = fieldBuilder.getValueFromRecord( 
                 field, 
                 record, 
@@ -171,6 +184,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             options: options,
             record: buildRecord()
         }, options.dictionary );
+        
+        dictionary.instance = self;
     };
     
     var buildProcessTemplateParams = function( field ){
@@ -180,7 +195,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             value: record[ field.id ],
             options: options,
             record: record,
-            source: options.currentForm.type,
+            source: type,
             dictionary: dictionary
         };
     };
@@ -189,8 +204,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         
         updateDictionary();
         
-        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
-            var field = options.currentForm.fields[ c ];
+        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
+            var field = thisOptions.fields[ c ];
             fieldBuilder.beforeProcessTemplateForField(
                 buildProcessTemplateParams( field )
             );
@@ -201,8 +216,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 
         validationManager.initFormValidation( id, $form, options );
         
-        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
-            var field = options.currentForm.fields[ c ];
+        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
+            var field = thisOptions.fields[ c ];
             fieldBuilder.afterProcessTemplateForField(
                 buildProcessTemplateParams( field )
             );
@@ -265,7 +280,6 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 var field = fieldsMap[ $this.prop('name') ];
                 history.putChange( 
                     $this, 
-                    //$this.val(), 
                     fieldBuilder.getValue( field, $this ), 
                     0,
                     id,
@@ -385,7 +399,11 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         setRecord: setRecord,
         getRecord: getRecord,
         updateRecordFromDefaultValues: updateRecordFromDefaultValues,
-        getDictionary: getDictionary
+        getDictionary: getDictionary,
+        getThisOptions: getThisOptions,
+        getType: getType,
+        getId: getId,
+        getTitle: getTitle
     };
     
     configure();
