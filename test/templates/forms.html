@@ -27,7 +27,7 @@
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
-                <div data-trepeat="field instance/getThisOptions()/fields"
+                <div data-trepeat="field instance/getFields()"
                      data-tdefine="id field/id; 
                                    value record[ id ];
                                    elementId field/elementId;
@@ -95,7 +95,7 @@
                        name="zcRecordKey" 
                        data-tattributes="id 'zcRecordKey'; value record[ options/key ]">
                 <div class="zcrud-field"
-                     data-trepeat="field instance/getThisOptions()/fields"
+                     data-trepeat="field instance/getFields()"
                      data-tdefine="id field/id">
                     <div data-tcontent="field/title || tr:string:${id}_title" class="label">
                         The name of the field

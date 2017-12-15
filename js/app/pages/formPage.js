@@ -35,7 +35,13 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var submitFunction = undefined;
     var history = undefined;
     //var autoSaveMode = false;
-    var fieldsMap = {};
+    
+    var fieldsMap = undefined;
+    var fields = undefined;
+    var getFields = function(){
+        return fields;
+    };
+    
     var successMessage = undefined;
     
     var thisOptions = undefined;
@@ -51,7 +57,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             thisOptions = options.pages.create;
             title = "Create form";
             submitFunction = submitCreateForm;
-            thisOptions.fields = buildFields(
+            buildFields(
                 function( field ){
                     return field.create;
                 });
@@ -62,7 +68,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             thisOptions = options.pages.update;
             title = "Edit form";
             submitFunction = submitUpdateForm;
-            thisOptions.fields = buildFields(
+            buildFields(
                 function( field ){
                     return field.edit;
                 });
@@ -72,7 +78,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             thisOptions = options.pages.delete;
             title = "Delete form";
             submitFunction = submitDeleteForm;
-            thisOptions.fields = buildFields(
+            buildFields(
                 function( field ){
                     return field.delete;
                 });
@@ -91,7 +97,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     
     var buildFields = function( filterFunction ){
         
-        var fields = [];
+        fields = [];
         fieldsMap = {};
         
         $.each( options.fields, function ( fieldId, field ) {
@@ -106,8 +112,6 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             fields.push( field );
             fieldsMap[ fieldId ] = field;
         });
-        
-        return fields;
     };
     
     // Build the form
@@ -149,8 +153,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var updateRecordFromForm = function(){
         record = {};
         
-        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
-            var field = thisOptions.fields[ c ];
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
             record[ field.id ] = fieldBuilder.getValueFromForm( field, options );
         }
     };*/
@@ -158,8 +162,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         
         record = {};
         
-        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
-            var field = thisOptions.fields[ c ];
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
             if ( field.defaultValue ){
                 record[ field.id ] = field.defaultValue;
             }
@@ -170,8 +174,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         
         var newRecord = {};
 
-        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
-            var field = thisOptions.fields[ c ];
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
             newRecord[ field.id ] = fieldBuilder.getValueFromRecord( 
                 field, 
                 record, 
@@ -207,8 +211,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         
         updateDictionary();
         
-        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
-            var field = thisOptions.fields[ c ];
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
             fieldBuilder.beforeProcessTemplateForField(
                 buildProcessTemplateParams( field )
             );
@@ -219,8 +223,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 
         validationManager.initFormValidation( id, $form, options );
         
-        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
-            var field = thisOptions.fields[ c ];
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
             fieldBuilder.afterProcessTemplateForField(
                 buildProcessTemplateParams( field )
             );
@@ -373,7 +377,8 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         getThisOptions: getThisOptions,
         getType: getType,
         getId: getId,
-        getTitle: getTitle
+        getTitle: getTitle,
+        getFields: getFields
     };
     
     configure();

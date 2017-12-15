@@ -38,11 +38,15 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var getField = function( fieldId ){
         return fieldsMap[ fieldId ];
     };
+    var fields = undefined;
+    var getFields = function(){
+        return fields;
+    };
     
     // Initial configuration
     var configure = function(){
 
-        thisOptions.fields = buildFields();
+        buildFields();
         
         registerComponent( 
             'paging',
@@ -86,7 +90,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     
     var buildFields = function(){
         
-        var fields = [];
+        fields = [];
         fieldsMap = {};
         
         $.each( options.fields, function ( fieldId, field ) {
@@ -96,8 +100,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             fields.push( field );
             fieldsMap[ fieldId ] = field;
         });
-        
-        return fields;
     };
     
     var buildDataToSend = function(){
@@ -340,7 +342,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         showStatusMessage: showStatusMessage,
         getRecords: getRecords,
         getDictionary: getDictionary,
-        getField: getField
+        getField: getField,
+        getFields: getFields
     };
     
     configure();
