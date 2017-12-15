@@ -34,7 +34,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var record = undefined;
     var submitFunction = undefined;
     var history = undefined;
-    var autoSaveMode = false;
+    //var autoSaveMode = false;
     var fieldsMap = {};
     var successMessage = undefined;
     
@@ -110,7 +110,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         return fields;
     };
     
-    // Main method
+    // Build the form
     var show = function(){
         
         try {
@@ -149,12 +149,13 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var updateRecordFromForm = function(){
         record = {};
         
-        for ( var c = 0; c < options.currentForm.fields.length; c++ ) {
-            var field = options.currentForm.fields[ c ];
+        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
+            var field = thisOptions.fields[ c ];
             record[ field.id ] = fieldBuilder.getValueFromForm( field, options );
         }
     };*/
     var updateRecordFromDefaultValues = function(){
+        
         record = {};
         
         for ( var c = 0; c < thisOptions.fields.length; c++ ) {
@@ -164,7 +165,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             }
         }
     };
-    var buildRecord = function(){
+    
+    var buildRecordForDictionary = function(){
+        
         var newRecord = {};
 
         for ( var c = 0; c < thisOptions.fields.length; c++ ) {
@@ -182,7 +185,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
 
         dictionary = $.extend( {
             options: options,
-            record: buildRecord()
+            record: buildRecordForDictionary()
         }, options.dictionary );
         
         dictionary.instance = self;
@@ -255,9 +258,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 event.stopPropagation();
             
                 history.undo( id );
-                if ( autoSaveMode ){
-                    //save( event );
-                }
+                /*if ( autoSaveMode ){
+                    save( event );
+                }*/
         });
         
         $form
@@ -268,9 +271,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 event.stopPropagation();
             
                 history.redo( id );
-                if ( autoSaveMode ){
-                    //save( event );
-                }
+                /*if ( autoSaveMode ){
+                    save( event );
+                }*/
         });
         
         $form
@@ -284,34 +287,13 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                     0,
                     id,
                     field );
-                if ( autoSaveMode ){
-                    //save( event );
-                }
-        });
-        
-        $form
-            .find( '.zcrud-save-command-button' )
-            .off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                save( event );
+                /*if ( autoSaveMode ){
+                    save( event );
+                }*/
         });
     };
     
-    var save = function( event ){
-        alert( 'Save form!' );
-
-        return saveCommon( 
-            options.defaultFormConf, 
-            [ record ], 
-            id, 
-            event );
-    };
-    
-    var saveCommon = function( historyOptions, records, elementId, event ){
-
-        var data = history.buildDataToSend( options, historyOptions, records );
+    var saveCommon = function( elementId, event, data ){
 
         // Return if there is no operation to do
         if ( ! data ){
@@ -340,7 +322,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         };
         //data.url = thisOptions.action || options.defaultFormConf.action;
         data.url = 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST_BATCH_UPDATE&table=department';
-        //alert( historyOptions.dataToSend + '\n' + JSON.stringify( data ) );
+        //alert( data + '\n' + JSON.stringify( data ) );
         
         // Do the CRUD!
         crudManager.listBatchUpdate( data, options, event );
@@ -349,40 +331,28 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     };
     
     var submitCreateForm = function( event ){
-        //alert( 'submitCreateForm!' );
 
         return saveCommon( 
-            options.defaultFormConf, 
-            [ ], 
             id, 
-            event );
+            event,
+            history.buildDataToSend( options, options.defaultFormConf, [ ] ) );
     };
-    /*
-    var submitCreateForm = function( event ){
-        
-        updateRecordFromForm();
-        FormPage.createRecord( options, record, event );
-    };*/
     
     var submitUpdateForm = function( event ){
-        //alert( 'submitUpdateForm!' );
 
         return saveCommon( 
-            options.defaultFormConf, 
-            [ record ], 
             id, 
-            event );
+            event,
+            history.buildDataToSend( options, options.defaultFormConf, [ record ] ) );
     };
-    /*
-    var submitUpdateForm = function( event ){
 
-        updateRecordFromForm();
-        FormPage.updateRecord( options, record, event );
-    };*/
-    
     var submitDeleteForm = function( event ){
-        
-        FormPage.deleteRecord( options, $( '#zcRecordKey' ).val(), event );
+
+        return saveCommon( 
+            id, 
+            event,
+            history.buildDataToSendForRemoving( 
+                [ $( '#zcRecordKey' ).val() ] ) );
     };
     
     var cancelForm = function( event ){
@@ -409,80 +379,6 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     configure();
     
     return self;
-};
-
-FormPage.createRecord = function( options, currentRecord, event ){
-
-    var data = FormPage.buildDataForCreateAndUpdate( 
-        options,
-        currentRecord,
-        event, 
-        'createSuccess' );
-
-    crudManager.createRecord( data, options, event );
-};
-
-FormPage.updateRecord = function( options, currentRecord, event ){
-
-    var data = FormPage.buildDataForCreateAndUpdate( 
-        options,
-        currentRecord,
-        event, 
-        'updateSuccess' );
-
-    crudManager.updateRecord( data, options, event );
-};
-
-FormPage.buildDataForCreateAndUpdate = function( options, currentRecord, event, successMessage ){
-
-    var data = {
-        record: currentRecord,
-        success: function( dataFromServer ){
-            context.getListPage( options ).show(
-                true,
-                {
-                    status: {
-                        message: successMessage,
-                        date: new Date().toLocaleString()
-                    }
-                });
-        },
-        error: function( dataFromServer ){
-            if ( dataFromServer.message ){
-                context.showError( options, dataFromServer.message, false );
-            } else {
-                context.showError( options, 'serverCommunicationError', true );
-            }
-        }
-    };
-
-    return data;
-};
-
-FormPage.deleteRecord = function( options, key, event ){
-
-    var data = {
-        key: key,
-        success: function( dataFromServer ){
-            context.getListPage( options ).show(
-                true,
-                {
-                    status: {
-                        message: 'deleteSuccess',
-                        date: new Date().toLocaleString()
-                    }
-                });
-        },
-        error: function( dataFromServer ){
-            if ( dataFromServer.message ){
-                context.showError( options, dataFromServer.message, false );
-            } else {
-                context.showError( options, 'serverCommunicationError', true );
-            }
-        }
-    };
-
-    crudManager.deleteRecord( data, options, event );
 };
 
 module.exports = FormPage;

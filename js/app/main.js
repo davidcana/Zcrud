@@ -174,7 +174,6 @@ exports.init = function( userOptions, callback ){
                 toolbar: {
                     undo: true,
                     redo: true,
-                    save: true,
                     cancel: true
                 },
                 byRow: {
@@ -458,30 +457,36 @@ exports.getRecordByKey = function( value, key ){
 };
 
 exports.addRecord = function( value, record, event ){
-
+    alert( 'Not implemented yet!' );
+    /*
     var listPage = getListPageFromValue( value );
     if ( ! listPage ){
         return;
     }
     FormPage.createRecord( listPage.getOptions(), record, event );
+    */
 };
 
 exports.updateRecord = function( value, record, event ){
-
+    alert( 'Not implemented yet!' );
+    /*
     var listPage = getListPageFromValue( value );
     if ( ! listPage ){
         return;
     }
     FormPage.updateRecord( listPage.getOptions(), record, event );
+    */
 };
 
 exports.deleteRecord = function( value, key, event ){
-
+    alert( 'Not implemented yet!' );
+    /*
     var listPage = getListPageFromValue( value );
     if ( ! listPage ){
         return;
     }
     FormPage.deleteRecord( listPage.getOptions(), key, event );
+    */
 };
 
 exports.selectRows = function( value, rows ){
@@ -537,16 +542,3 @@ exports.saveList = function( value ){
     }
     return listPage.save();
 };
-
-/* I18n and i18nHelp classes */
-//exports.I18n = require( './i18n/i18n.js' );
-//exports.i18nHelper = require( './i18n/i18nHelper.js' );
-
-/* Support RequireJS module pattern */
-/*
-if ( typeof define === 'function' && define.amd ) {
-    define( 'zpt.run', exports.run );
-    define( 'zpt.I18n', exports.I18n );
-    define( 'zpt.i18nHelper', exports.i18nHelper );
-}
-*/

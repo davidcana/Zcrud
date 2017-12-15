@@ -23,7 +23,13 @@ module.exports = (function() {
         '12': { name: 'Service 12' }
     };*/
     var numberOfServices = 130;
-    var resetServices = function(){
+    var resetServices = function( newServices ){
+        
+        if ( newServices ){
+            services = newServices;
+            return;
+        }
+        
         services = {};
         for ( var c = 1; c < numberOfServices; ++c ){
             services[ c ] = { name: 'Service ' + c };
@@ -73,6 +79,7 @@ module.exports = (function() {
             case "LIST":
                 dataToSend = ajaxServicesList( file, data );
                 break;
+                /*
             case "CREATE":
                 dataToSend = ajaxServicesCreate( file, data );
                 break;
@@ -81,7 +88,7 @@ module.exports = (function() {
                 break;
             case "DELETE":
                 dataToSend = ajaxServicesDelete( file, data );
-                break;
+                break;*/
             case "LIST_BATCH_UPDATE":
                 dataToSend = ajaxServicesListBatchUpdate( file, data );
                 break;
@@ -233,7 +240,7 @@ module.exports = (function() {
             return result * sortOrder;
         }
     }
-    
+    /*
     var ajaxServicesCreate = function( file, data ){
         return ajaxServicesCreateAndUpdate( file, data, false );
     };
@@ -294,7 +301,7 @@ module.exports = (function() {
             }
         }
         return dataToSend;
-    };
+    };*/
     
     var parseQueryString = function( query ) {
         var vars = query.split( "&" );

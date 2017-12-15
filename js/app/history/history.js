@@ -280,6 +280,14 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return actionsObject;
     };
     
+    var buildDataToSendForRemoving = function( recordsToRemove ){
+        return {
+            existingRecords: {},
+            newRecords: [],
+            recordsToRemove: recordsToRemove
+        }
+    };
+    
     var buildDataToSend = function( options, thisOptions, records ){
         
         var actionsObject = buildActionsObject( records );
@@ -354,6 +362,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
         //isSaveEnabled: isSaveEnabled,
+        buildDataToSendForRemoving: buildDataToSendForRemoving,
         buildDataToSend: buildDataToSend,
         getNumberOfUndo: getNumberOfUndo,
         getNumberOfRedo: getNumberOfRedo,

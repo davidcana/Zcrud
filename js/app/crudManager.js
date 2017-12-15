@@ -19,6 +19,7 @@ module.exports = (function() {
         - url: an url that overwrite the default one
         - validationOff: activate or deactivate record validation
     */
+    /*
     var createRecord = function( data, options, event ){
         
         createOrUpdateRecord( 
@@ -28,7 +29,7 @@ module.exports = (function() {
             options.events.recordAdded,
             data.url || options.pages.create.action,
             'create' );
-    };
+    };*/
     
     /* 
     data format:
@@ -41,6 +42,7 @@ module.exports = (function() {
          - url: an url that overwrite the default one
          - validationOff: activate or deactivate record validation
     */
+    /*
     var updateRecord = function( data, options, event ){
         
         createOrUpdateRecord( 
@@ -50,7 +52,7 @@ module.exports = (function() {
             options.events.recordUpdated,
             data.url || options.pages.update.action,
             'update' );
-    };
+    };*/
     
     var generalSuccessFunction = function( data, options, dataFromServer, event, eventToThrow ){
         
@@ -76,7 +78,7 @@ module.exports = (function() {
             data.error( dataFromServer );
         }
     };
-    
+    /*
     var createOrUpdateRecord = function( data, options, event, eventToThrow, url, command ){
         
         var dataToSend = {
@@ -114,7 +116,7 @@ module.exports = (function() {
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         }
-    };
+    };*/
     
     var authIsOK = function( data, options, dataToSend ){
         return data.formValidationOff? true: validationManager.formIsValid( options, dataToSend );
@@ -130,6 +132,7 @@ module.exports = (function() {
          - success: a function executed whenever the operation is OK
          - url: an url that overwrite the default one
     */
+    /*
     var deleteRecord = function( data, options, event ){
 
         var dataToSend = {
@@ -162,7 +165,7 @@ module.exports = (function() {
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         }
-    };
+    };*/
     
     /* 
     data format:
@@ -196,7 +199,7 @@ module.exports = (function() {
             return;
         }
         
-        //Load data from server using AJAX
+        // Load data from server using AJAX
         var thisOptions = {
             url    : data.url || options.pages.list.action,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
@@ -261,9 +264,9 @@ module.exports = (function() {
     };
     
     return {
-        createRecord: createRecord,
-        updateRecord: updateRecord,
-        deleteRecord: deleteRecord,
+        //createRecord: createRecord,
+        //updateRecord: updateRecord,
+        //deleteRecord: deleteRecord,
         listRecords: listRecords,
         listBatchUpdate: listBatchUpdate
     };
