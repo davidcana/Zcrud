@@ -10,7 +10,7 @@ var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 
-var FormPage = function ( optionsToApply, typeToApply ) {
+var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     "use strict";
 
     var options = optionsToApply;
@@ -18,6 +18,14 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     var type = typeToApply;
     var getType = function(){
         return type;
+    };
+    
+    var record = recordToApply;
+    var setRecord = function( recordToApply ){
+        record = recordToApply;
+    };
+    var getRecord = function(){
+        return record;
     };
     
     var id = options.formId;
@@ -31,7 +39,6 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     };
     
     var dictionary = undefined;
-    var record = undefined;
     var submitFunction = undefined;
     var history = undefined;
     //var autoSaveMode = false;
@@ -62,7 +69,9 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                     return field.create;
                 });
             successMessage = 'createSuccess';
-            updateRecordFromDefaultValues();
+            if ( ! record ) {
+                record = buildDefaultValuesRecord();
+            }
             break;
         case 'update':
             thisOptions = options.pages.update;
@@ -143,12 +152,6 @@ var FormPage = function ( optionsToApply, typeToApply ) {
     };
     
     // Set, get, update and build record
-    var setRecord = function( recordToApply ){
-        record = recordToApply;
-    };
-    var getRecord = function(){
-        return record;
-    };
     /*
     var updateRecordFromForm = function(){
         record = {};
@@ -158,6 +161,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
             record[ field.id ] = fieldBuilder.getValueFromForm( field, options );
         }
     };*/
+    /*
     var updateRecordFromDefaultValues = function(){
         
         record = {};
@@ -168,6 +172,20 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 record[ field.id ] = field.defaultValue;
             }
         }
+    };*/
+    
+    var buildDefaultValuesRecord = function(){
+
+        var defaultRecord = {};
+
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            if ( field.defaultValue ){
+                defaultRecord[ field.id ] = field.defaultValue;
+            }
+        }
+        
+        return defaultRecord;
     };
     
     var buildRecordForDictionary = function(){
@@ -372,7 +390,7 @@ var FormPage = function ( optionsToApply, typeToApply ) {
         show: show,
         setRecord: setRecord,
         getRecord: getRecord,
-        updateRecordFromDefaultValues: updateRecordFromDefaultValues,
+        //updateRecordFromDefaultValues: updateRecordFromDefaultValues,
         getDictionary: getDictionary,
         getThisOptions: getThisOptions,
         getType: getType,

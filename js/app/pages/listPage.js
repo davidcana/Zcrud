@@ -250,13 +250,14 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     var showForm = function( options, type, record ){
-        var formPage =  new FormPage( options, type );
+        var formPage =  new FormPage( options, type, record );
         
+        /*
         if ( record ){
             formPage.setRecord( record );
         } else {
             formPage.updateRecordFromDefaultValues();
-        }
+        }*/
         
         formPage.show();
     };
