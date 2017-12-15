@@ -223,17 +223,17 @@ module.exports = (function() {
          - success: a function executed whenever the operation is OK
          - url: an url that overwrite the default one
     */
-    var listBatchUpdate = function( data, options, event ){
+    var batchUpdate = function( data, options, event ){
         
         var dataToSend = data;
-        dataToSend.command = 'listBatchUpdate';
+        dataToSend.command = 'batchUpdate';
 
         var successFunction = function( dataFromServer ){
-            generalSuccessFunction( data, options, dataFromServer, event, options.events.listBatchUpdateDone );
+            generalSuccessFunction( data, options, dataFromServer, event, options.events.batchUpdateDone );
         };
 
         var errorFunction = function( dataFromServer ){
-            generalErrorFunction( data, options, dataFromServer, event, options.events.listBatchUpdateDone );
+            generalErrorFunction( data, options, dataFromServer, event, options.events.batchUpdateDone );
         };
 
         if ( data.clientOnly ){
@@ -248,7 +248,8 @@ module.exports = (function() {
         }
 
         var thisOptions = {
-            url    : data.url || options.pages.list.components.editing.batchUpdateAction,
+            //url    : data.url || options.pages.list.components.editing.batchUpdateAction,
+            url    : data.url,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction
@@ -268,6 +269,6 @@ module.exports = (function() {
         //updateRecord: updateRecord,
         //deleteRecord: deleteRecord,
         listRecords: listRecords,
-        listBatchUpdate: listBatchUpdate
+        batchUpdate: batchUpdate
     };
 })();

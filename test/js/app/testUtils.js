@@ -89,7 +89,7 @@ module.exports = (function() {
             case "DELETE":
                 dataToSend = ajaxServicesDelete( file, data );
                 break;*/
-            case "LIST_BATCH_UPDATE":
+            case "BATCH_UPDATE":
                 dataToSend = ajaxServicesListBatchUpdate( file, data );
                 break;
             default:

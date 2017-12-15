@@ -37,12 +37,16 @@ var options = {
                 }
             }
         }, create: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
+            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
         }, update: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department'
+            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department'
         }, delete: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
+            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
         }
+    },
+    
+    defaultFormConf: {
+        action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
     },
     
     fields: {

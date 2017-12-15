@@ -85,7 +85,7 @@ exports.init = function( userOptions, callback ){
             //recordsLoaded: function ( data ) {},
             recordUpdated: function ( event, options, record ) {},
             selectionChanged: function ( data ) {},
-            listBatchUpdateDone: function ( event, options, dataToSend ) {}
+            batchUpdateDone: function ( event, options, dataToSend ) {}
         },
         
         pages: {

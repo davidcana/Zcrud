@@ -190,10 +190,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     } else {
                         context.showError( options, 'serverCommunicationError', true );
                     }
-                }
+                },
+                url: thisOptions.batchUpdateAction
             };
             //alert( thisOptions.dataToSend + '\n' + JSON.stringify( data ) );
-            crudManager.listBatchUpdate( data, options, event );
+            crudManager.batchUpdate( data, options, event );
         }
 
         return dataToSend;

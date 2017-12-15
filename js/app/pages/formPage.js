@@ -320,12 +320,12 @@ var FormPage = function ( optionsToApply, typeToApply ) {
                 context.showError( options, 'serverCommunicationError', true );
             }
         };
-        //data.url = thisOptions.action || options.defaultFormConf.action;
-        data.url = 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST_BATCH_UPDATE&table=department';
+        data.url = thisOptions.action || options.defaultFormConf.action;
+        //data.url = 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department';
         //alert( data + '\n' + JSON.stringify( data ) );
         
         // Do the CRUD!
-        crudManager.listBatchUpdate( data, options, event );
+        crudManager.batchUpdate( data, options, event );
 
         return data;
     };
