@@ -149,7 +149,16 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/formHistory.js',
                 dest: 'build/formHistory.js'
-            }
+            },
+            editableListAllfields: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/editableList-allFields.js',
+                dest: 'build/editableList-allFields.js'
+            },
         },
         compress: {
             main: {
