@@ -7,7 +7,8 @@ var log4javascript = require( 'log4javascript' );
 module.exports = {
 
     entityId: 'department',
-
+    saveUserPreferences: false,
+    
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',

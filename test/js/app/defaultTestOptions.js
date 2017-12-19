@@ -7,6 +7,7 @@ var log4javascript = require( 'log4javascript' );
 module.exports = {
 
     entityId: 'department',
+    saveUserPreferences: false,
     
     pages: {
         list: {
