@@ -23,12 +23,16 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    var afterProcessTemplateForField = function( params ){
+    var setValueToForm = function( field, value, $this ){
+        $this.val( value );
+    };
+    
+    var afterProcessTemplateForField = function( params, $selection ){
         
         switch( params.source ) {
         case 'create':
         case 'update':
-            afterProcessTemplateForFieldInCreateOrUpdate( params );
+            afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
             break;
         case 'delete':
             // Nothing to do
@@ -38,7 +42,7 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    var afterProcessTemplateForFieldInCreateOrUpdate = function( params ){
+    var afterProcessTemplateForFieldInCreateOrUpdate = function( params, $selection ){
     
         init( params.options );
         
@@ -61,7 +65,8 @@ var DatetimeFieldManager = function() {
         }
         
         defaultFieldOptions.format = getI18nFormat( params.field );
-        $( '#' + params.field.elementId ).datetimepicker( 
+        //$( '#' + params.field.elementId ).datetimepicker( 
+        $selection.find( "[name='" + params.field.id + "']").datetimepicker( 
             buildDatetimepickerOptions( params, defaultFieldOptions ) );
     };
     
@@ -164,6 +169,7 @@ var DatetimeFieldManager = function() {
     };
     
     return {
+        setValueToForm: setValueToForm,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getTemplate: getTemplate,
         getValueFromForm: getValueFromForm,

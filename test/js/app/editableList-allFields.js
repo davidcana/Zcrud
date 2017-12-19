@@ -6,6 +6,7 @@ require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunitjs' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
+var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './editableListAllFieldsTestOptions.js' );
 var thisTestOptions = {};
@@ -24,7 +25,9 @@ $( '#departmentsContainer' ).zcrud(
         
         // Run tests
         
-        QUnit.test( "change test", function( assert ) {
+        QUnit.test( "change text area test", function( assert ) {
+            
+            context.updateListVisibleFields( options, [ 'id', 'name', 'description' ] );
             
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -39,35 +42,157 @@ $( '#departmentsContainer' ).zcrud(
                 "name": "Service " + key
             };
             testHelper.checkRecord( assert, key, record, editable );
-            /*
-            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
                 options: options,
                 assert: assert,
-                visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 129',
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
             
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                "description": "Service " + key + " description"
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkRecord( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+            
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
             
-            testHelper.checkRecord( assert, key, newRecord, editable );*/
+            testHelper.checkRecord( assert, key, newRecord, editable );
         });
+        
+        QUnit.test( "change datetime test", function( assert ) {
+
+            context.updateListVisibleFields( options, [ 'id', 'name', 'datetime' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+            
+            // Edit record
+            var editedRecord =  {
+                "datetime": "13/12/2017 16:00"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkRecord( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 1, false );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord, editable );
+        });
+        
+        QUnit.test( "change checkbox test", function( assert ) {
+
+            context.updateListVisibleFields( options, [ 'id', 'name', 'important' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+            
+            // Edit record
+            var editedRecord =  {
+                "important": true
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkRecord( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 1, false );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord, editable );
+        });
+        
         /*
         QUnit.test( "change with errors test", function( assert ) {
 

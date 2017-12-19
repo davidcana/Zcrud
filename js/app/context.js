@@ -294,6 +294,15 @@ module.exports = (function() {
         return zptParser;
     };
     
+    var updateListVisibleFields = function( options, fieldIdList ){
+        
+        var fields = options.fields;
+        for ( var id in fields ){
+            var field = fields[ id ];
+            field.list = fieldIdList.indexOf( id ) !== -1;
+        }
+    };
+    
     return {
         put: put,
         get: get,
@@ -315,6 +324,7 @@ module.exports = (function() {
         getListPage: getListPage,
         declareRemotePageUrl: declareRemotePageUrl,
         initZPT: initZPT,
-        getZPTParser: getZPTParser
+        getZPTParser: getZPTParser,
+        updateListVisibleFields: updateListVisibleFields
     };
 })();

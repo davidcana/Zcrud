@@ -60,7 +60,7 @@ module.exports = {
         name: {
         },
         description: {
-            list: true,
+            list: false,
             type: 'textarea',
             //template: "descriptionTextarea",
             formFieldAttributes: {
@@ -136,7 +136,7 @@ module.exports = {
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            list: true,
+            list: false,
             type: 'checkbox'
         },
         number: {

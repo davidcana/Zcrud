@@ -18,8 +18,7 @@ var CheckboxFieldManager = function() {
     };
     
     var setValueToForm = function( field, value, $this ){
-        //return $( '#' + field.elementId ).prop( 'checked', value );
-        return $this.prop( 'checked', value );
+        return $this.prop( 'checked', value === undefined? false: value );
     };
     
     var getValueFromRecord = function( field, record ){

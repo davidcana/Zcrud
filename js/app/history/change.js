@@ -19,7 +19,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     
     var setValue = function( value ){
         //$this.val( value );
-        fieldBuilder.setValueToForm( field, value, $this );
+        fieldBuilder.setValueToForm( field, value, $this, ! history.isFormMode()  );
     };
     
     var undo = function(){
@@ -28,18 +28,20 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         updateCSS( 
             history.getPreviousItem( rowIndex, name ), 
             history.getPreviousRecordItem( rowIndex ) );
+        /*
         if ( ! history.isFormMode() ){
             $this.blur();
-        }
+        }*/
     };
     
     var redo = function(){
         
         setValue( newValue );
         updateCSS( true, true );
+        /*
         if ( ! history.isFormMode() ){
             $this.blur();
-        }
+        }*/
     };
     
     var updateCSS = function( fieldChanged, registerChanged ){

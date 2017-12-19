@@ -82,9 +82,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             .find( '.zcrud-column-data input, .zcrud-column-data textarea, .zcrud-column-data select' )
             .change( function ( event ) {
                 var $this = $( this );
+                var field = listPage.getField( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
-                    $this.val(), 
+                    fieldBuilder.getValue( field, $this ),
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
                     listPage.getId(),
                     listPage.getField( $this.prop( 'name' ) ) );
@@ -110,8 +111,48 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 event.stopPropagation();
                 deleteRow( event );
         });
+        
+        // Bind events for fields
+        var dictionary = listPage.getDictionary();
+        var records = dictionary.records;
+        var fields = listPage.getFields();
+        /*
+        for ( var c = 0; c < fields.length; c++ ) {
+            fieldBuilder.afterProcessTemplateForFieldAndRecords(
+                {
+                    field: fields[ c ], 
+                    options: options,
+                    source: 'update',
+                    dictionary: listPage.getDictionary()
+                },
+                records,
+                $preselection );
+        }*/
+        var $rows = $( '#' + listPage.getThisOptions().tbodyId ).children().filter( '.zcrud-data-row' );
+        for ( var i = 0; i < records.length; i++ ) {
+            var record = records[ i ];
+            for ( var c = 0; c < fields.length; c++ ) {
+                var field = fields[ c ];
+                fieldBuilder.afterProcessTemplateForField(
+                    buildProcessTemplateParams( field, record, dictionary ),
+                    $rows.filter( ":eq(" + i + ")" )
+                );
+            }
+        }
     };
+    
+    var buildProcessTemplateParams = function( field, record, dictionary ){
 
+        return {
+            field: field, 
+            value: record[ field.id ],
+            options: options,
+            record: record,
+            source: 'update',
+            dictionary: dictionary
+        };
+    };
+    
     var deleteRow = function( event ){
 
         var $tr =  $( event.target ).closest( 'tr' );

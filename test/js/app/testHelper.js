@@ -538,7 +538,7 @@ module.exports = (function() {
             setFormVal( record, 'time' );
         }
         if ( record.datetime !== undefined ){
-            setFormVal( record, 'datetime' );
+            setFormDatetimeVal( record, 'datetime' );
         }
         if ( record.phoneType !== undefined ){
             setFormRadioVal( record, 'phoneType' );
@@ -655,6 +655,14 @@ module.exports = (function() {
             .trigger( 'blur' );
     };
     
+    var setFormDatetimeVal = function( record, name, $row ){
+
+        var $element = $row || $( '#department-form' );
+        $element.find( "[name='" + name +"']" )
+            .val( record[ name ] )
+            .trigger( 'change' );
+    };
+    
     var getFormVal = function( name, $row ){
         var $element = $row || $( '#department-form' );
         return $element.find( "[name='" + name +"']" ).val();
@@ -691,7 +699,7 @@ module.exports = (function() {
             setFormVal( record, 'time', $row );
         }
         if ( record.datetime !== undefined ){
-            setFormVal( record, 'datetime', $row );
+            setFormDatetimeVal( record, 'datetime', $row );
         }
         if ( record.phoneType !== undefined ){
             setFormRadioVal( record, 'phoneType', $row );
@@ -756,7 +764,7 @@ module.exports = (function() {
             assert.equal( getFormVal( 'browser', $row ), record.browser );
         }
         if ( record.important !== undefined ){
-            assert.equal( getFormCheckboxVal( 'browser', $row ), record.important );
+            assert.equal( getFormCheckboxVal( 'important', $row ), record.important );
         }
         if ( record.number !== undefined ){
             assert.equal( getFormVal( 'number', $row ), record.number );

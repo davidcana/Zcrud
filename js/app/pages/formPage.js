@@ -244,7 +244,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
             fieldBuilder.afterProcessTemplateForField(
-                buildProcessTemplateParams( field )
+                buildProcessTemplateParams( field ),
+                $form
             );
         }
         
