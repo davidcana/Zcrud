@@ -33,7 +33,7 @@
              data-tattributes="id elementId; field/formFieldAttributes">
             <div data-trepeat="option field/optionsList">
                 <input type="radio"
-                       data-tattributes="name elementName;
+                       data-tattributes="name string:${elementName}[${data-record-index}];
                                          value option/value; 
                                          checked cond: (eq: option/value value) 'checked' null">
                 <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>

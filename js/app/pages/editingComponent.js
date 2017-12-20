@@ -82,13 +82,13 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             .find( '.zcrud-column-data input, .zcrud-column-data textarea, .zcrud-column-data select' )
             .change( function ( event ) {
                 var $this = $( this );
-                var field = listPage.getField( $this.prop( 'name' ) );
+                var field = listPage.getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
                     fieldBuilder.getValue( field, $this ),
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
                     listPage.getId(),
-                    listPage.getField( $this.prop( 'name' ) ) );
+                    field );
                 if ( autoSaveMode ){
                     save( event );
                 }
@@ -270,8 +270,22 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             delete records[ key ];
         }
     };
-
+    
+    var beforeProcessTemplate = function(){
+        
+        var dictionary = listPage.getDictionary();
+        var records = dictionary.records;
+        var fields = listPage.getFields();
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            fieldBuilder.beforeProcessTemplateForField(
+                buildProcessTemplateParams( field, dictionary, records )
+            );
+        }
+    };
+    
     return {
+        beforeProcessTemplate: beforeProcessTemplate,
         bindEvents: bindEvents,
         getThisOptions: getThisOptions
     };

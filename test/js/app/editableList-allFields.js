@@ -193,6 +193,145 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.checkRecord( assert, key, newRecord, editable );
         });
         
+        QUnit.test( "change radio test", function( assert ) {
+
+            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+            
+            // Edit record
+            var editedRecord =  {
+                "phoneType": "officePhone_option"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkRecord( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord, editable );
+        });
+        
+        QUnit.test( "change 2 radios test", function( assert ) {
+
+            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Edit record
+            var editedRecord =  {
+                "phoneType": "officePhone_option"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            
+            // Assert register with key 4 exists
+            var key2 = 4;
+            var record2 =  {
+                "id": "" + key2,
+                "name": "Service " + key2
+            };
+            testHelper.checkRecord( assert, key2, record2, editable );
+            
+            // Edit record 2
+            var editedRecord2 =  {
+                "phoneType": "cellPhone_option"
+            };
+            testHelper.fillEditableList( editedRecord2, key2 );
+            var newRecord2 = $.extend( true, {}, record2, editedRecord2 );
+            testHelper.checkEditableListForm( assert, key2, newRecord2 );
+            
+            // Undo (1)
+            testHelper.clickUndoButton();
+            testHelper.checkRecord( assert, key2, record2, editable );
+            testHelper.assertHistory( assert, 1, 1, true );
+            
+            // Undo (2)
+            testHelper.clickUndoButton();
+            testHelper.checkRecord( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 2, false );
+            
+            // Redo (1)
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 1, true );
+            
+            // Redo (2)
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key2, newRecord2 );
+            testHelper.assertHistory( assert, 2, 0, true ); 
+            
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord, editable );
+            testHelper.checkRecord( assert, key2, newRecord2, editable );
+        });
+        
         /*
         QUnit.test( "change with errors test", function( assert ) {
 

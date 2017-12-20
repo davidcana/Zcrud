@@ -640,7 +640,9 @@ module.exports = (function() {
     var setFormRadioVal = function( record, name, $row ){
         
         var $element = $row || $( '#department-form' );
-        $element.find( "input:radio[name='" + name +"']" ).filter( '[value=' + record[ name ] + ']' )
+        var rowIndex = $row? $row.index() - 1: 0;
+        var nameAttr = name + '[' + rowIndex + ']';
+        $element.find( "input:radio[name='" + nameAttr +"']" ).filter( '[value=' + record[ name ] + ']' )
             .prop( 'checked', true )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -671,7 +673,9 @@ module.exports = (function() {
     var getFormRadioVal = function( name, $row ){
 
         var $element = $row || $( '#department-form' );
-        var $selected = $element.find( "input:radio[name='" + name +"']:checked" );
+        var rowIndex = $row? $row.index() - 1: 0;
+        var nameAttr = name + '[' + rowIndex + ']';
+        var $selected = $element.find( "input:radio[name='" + nameAttr +"']:checked" );
         return $selected? $selected.val(): undefined;
     };
     
@@ -752,7 +756,7 @@ module.exports = (function() {
             assert.equal( getFormVal( 'datetime', $row ), record.datetime );
         }
         if ( record.phoneType !== undefined ){
-            assert.equal( getFormRadioVal( 'datetime', $row ), record.phoneType );
+            assert.equal( getFormRadioVal( 'phoneType', $row ), record.phoneType );
         }
         if ( record.province !== undefined ){
             assert.equal( getFormVal( 'province', $row ), record.province );

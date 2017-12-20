@@ -338,11 +338,16 @@ var OptionListProviderManager = function() {
         
         switch( field.type ) {
         case 'radio':
+                $this.prop( 'checked', value? true: false );
+                /*
                 if ( value ){
-                    $( 'input[name="' + field.id + '"][value="' + value + '"]' ).prop( 'checked', true );
+                    //$( 'input[name="' + field.id + '"][value="' + value + '"]' ).prop( 'checked', true );
+                    $this.prop( 'checked', true );
+                    //$this.find( 'input[name="' + field.id + '"][value="' + value + '"]' ).prop( 'checked', true );
                 } else {
-                    $( 'input[name="' + field.id + '"]' ).prop( 'checked', false );
-                }
+                    //$( 'input[name="' + field.id + '"]' ).prop( 'checked', false );
+                    $this.prop( 'checked', false );
+                }*/
             return;
         case 'select':
         case 'optgroup':

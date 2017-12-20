@@ -10,6 +10,7 @@ var SelectingComponent = require( './selectingComponent.js' );
 var FilteringComponent = require( './filteringComponent.js' );
 var EditingComponent = require( './editingComponent.js' );
 var crudManager = require( '../crudManager.js' );
+var fieldBuilder = require( '../fields/fieldBuilder' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -37,6 +38,12 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var fieldsMap = {};
     var getField = function( fieldId ){
         return fieldsMap[ fieldId ];
+    };
+    var getFieldByName = function( fieldName ){
+        
+        // Must remove [] and its contents
+        var index = fieldName.indexOf( '[' );
+        return getField( index === -1? fieldName: fieldName.substring( 0, index ) );
     };
     var fields = undefined;
     var getFields = function(){
@@ -127,12 +134,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
     };
     
+    /*
     // Main method
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
-        
+
         // TODO Uncomment this when ZPT uses promises 
         //context.showBusy( options, showBusyFull );
-        
+
         var listData = {
             search: buildDataToSend(),
             success: function( data ){
@@ -155,6 +163,48 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         };
 
         crudManager.listRecords( listData, options );
+    };*/
+    
+    // Main method
+    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
+        
+        // TODO Uncomment this when ZPT uses promises 
+        //context.showBusy( options, showBusyFull );
+        
+        var listData = {
+            search: buildDataToSend(),
+            success: function( data ){
+                dataFromServer( data );
+                beforeProcessTemplate( data, dictionaryExtension );
+                context.hideBusy( options, showBusyFull );
+                buildHTMLAndJavascript( root );
+                if ( callback ){
+                    callback( true );
+                }
+            },
+            error: function(){
+                context.hideBusy( options, showBusyFull );
+                context.showError( options, options.messages.serverCommunicationError );
+                if ( callback ){
+                    callback( false );
+                }
+            }
+        };
+
+        crudManager.listRecords( listData, options );
+    };
+    
+    var beforeProcessTemplate = function( data, dictionaryExtension ){
+
+        updateDictionary( data, dictionaryExtension );
+        buildRecords();
+        
+        for ( var id in components ){
+            var component = components[ id ];
+            if ( component && $.isFunction( component.beforeProcessTemplate ) ){
+                component.beforeProcessTemplate();
+            }
+        }
     };
     
     var updateDictionary = function( data, dictionaryExtension ){
@@ -344,6 +394,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         getRecords: getRecords,
         getDictionary: getDictionary,
         getField: getField,
+        getFieldByName: getFieldByName,
         getFields: getFields
     };
     

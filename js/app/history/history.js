@@ -49,7 +49,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
     var putChange = function( $this, newValue, rowIndex, id, field ) {
 
-        var name = $this.attr( 'name' );
+        //var name = $this.attr( 'name' );
+        var name = field.id;
         
         if ( isRepeated( newValue, rowIndex, name ) ){
             return undefined;

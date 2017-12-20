@@ -48,6 +48,15 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     var getFields = function(){
         return fields;
     };
+    var getField = function( fieldId ){
+        return fieldsMap[ fieldId ];
+    };
+    var getFieldByName = function( fieldName ){
+
+        // Must remove [] and its contents
+        var index = fieldName.indexOf( '[' );
+        return getField( index === -1? fieldName: fieldName.substring( 0, index ) );
+    };
     
     var successMessage = undefined;
     
@@ -303,7 +312,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             .find( 'input, textarea, select' )
             .change( function ( event ) {
                 var $this = $( this );
-                var field = fieldsMap[ $this.prop('name') ];
+                //var field = fieldsMap[ $this.prop('name') ];
+                var field = getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
                     fieldBuilder.getValue( field, $this ), 
