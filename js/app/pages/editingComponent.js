@@ -116,18 +116,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var dictionary = listPage.getDictionary();
         var records = dictionary.records;
         var fields = listPage.getFields();
-        /*
-        for ( var c = 0; c < fields.length; c++ ) {
-            fieldBuilder.afterProcessTemplateForFieldAndRecords(
-                {
-                    field: fields[ c ], 
-                    options: options,
-                    source: 'update',
-                    dictionary: listPage.getDictionary()
-                },
-                records,
-                $preselection );
-        }*/
         var $rows = $( '#' + listPage.getThisOptions().tbodyId ).children().filter( '.zcrud-data-row' );
         for ( var i = 0; i < records.length; i++ ) {
             var record = records[ i ];

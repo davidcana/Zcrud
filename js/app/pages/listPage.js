@@ -40,7 +40,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return fieldsMap[ fieldId ];
     };
     var getFieldByName = function( fieldName ){
-        
         // Must remove [] and its contents
         var index = fieldName.indexOf( '[' );
         return getField( index === -1? fieldName: fieldName.substring( 0, index ) );

@@ -311,7 +311,7 @@ exports.init = function( userOptions, callback ){
         if ( field.elementId == undefined ) {
             field.elementId = 'zcrud-' + id;
         }
-        field.labelFor = fieldBuilder.getLabelFor( field, options );
+        field.labelFor = fieldBuilder.getLabelFor( field, options ); // TODO Access by id!
         if ( field.template == undefined ){
             field.template = fieldBuilder.getTemplate( field, options );
         }

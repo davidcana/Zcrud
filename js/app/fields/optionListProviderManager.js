@@ -238,7 +238,7 @@ var OptionListProviderManager = function() {
         }
         
         var record = params.record;
-        var dependentFieldId = params.field.id;
+        //var dependentFieldId = params.field.id;
         var dependedValues = {};
         for ( var i = 0; i < dependsOn.length; i++ ) {
             var fieldId = dependsOn[ i ];
@@ -248,26 +248,28 @@ var OptionListProviderManager = function() {
         return dependedValues;
     };
     
-    var createDependedValuesUsingForm = function ( field, options ) {
+    var createDependedValuesUsingForm = function ( field, options, $selection ) {
         
         var dependedValues = {};
         
         for ( var i = 0; i < field.dependsOn.length; i++ ) {
             var dependedFieldId = field.dependsOn[ i ];
             var dependedField = options.fields[ dependedFieldId ];
-            dependedValues[ dependedFieldId ] = $( '#' + dependedField.elementId ).val();
+            //dependedValues[ dependedFieldId ] = $( '#' + dependedField.elementId ).val();
+            dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.id + "']").val();
         }
         
         return dependedValues;
     };
     
-    var afterProcessTemplateForFieldInCreateOrUpdate = function( params ){
+    var afterProcessTemplateForFieldInCreateOrUpdate = function( params, $selection ){
         
         if ( ! params.field.dependsOn ){
             return;
         }
         
-        var $thisDropdown = $( '#' + params.field.elementId );
+        var $thisDropdown = $selection.find( "[name='" + params.field.id + "']");
+        //var $thisDropdown = $( '#' + params.field.elementId );
         //alert( '$thisDropdown.id: ' + $thisDropdown.attr( 'id' ));
 
         // Build dictionary
@@ -280,21 +282,22 @@ var OptionListProviderManager = function() {
         $.each( params.field.dependsOn, function ( index, dependsOn ) {
             
             var dependsOnField = params.options.fields[ dependsOn ];
-            var elementId = dependsOnField.elementId;
+            //var elementId = dependsOnField.elementId;
             
             //find the depended combobox
-            var $dependsOnDropdown = $( '#' + elementId );
+            //var $dependsOnDropdown = $( '#' + elementId );
+            var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.id + "']");
             
             //when depended combobox changes
             $dependsOnDropdown.change(function () {
                 //alert( $( this ).val() );
                 
                 //Refresh options
-                params.dependedValues = createDependedValuesUsingForm( params.field, params.options ) ;
+                params.dependedValues = createDependedValuesUsingForm( params.field, params.options, $selection ) ;
                 buildOptions( params );
                 
                 // Refresh template
-                dictionary.elementId = params.field.elementId;
+                //dictionary.elementId = params.field.elementId;
                 zpt.run({
                     root: $thisDropdown[ 0 ],
                     dictionary: dictionary
@@ -306,11 +309,11 @@ var OptionListProviderManager = function() {
         });
     };
     
-    var afterProcessTemplateForField = function( params ){
+    var afterProcessTemplateForField = function( params, $selection ){
         switch( params.source ) {
         case 'create':
         case 'update':
-            afterProcessTemplateForFieldInCreateOrUpdate( params );
+                afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
             break;
         case 'delete':
             // Nothing to do
@@ -338,21 +341,11 @@ var OptionListProviderManager = function() {
         
         switch( field.type ) {
         case 'radio':
-                $this.prop( 'checked', value? true: false );
-                /*
-                if ( value ){
-                    //$( 'input[name="' + field.id + '"][value="' + value + '"]' ).prop( 'checked', true );
-                    $this.prop( 'checked', true );
-                    //$this.find( 'input[name="' + field.id + '"][value="' + value + '"]' ).prop( 'checked', true );
-                } else {
-                    //$( 'input[name="' + field.id + '"]' ).prop( 'checked', false );
-                    $this.prop( 'checked', false );
-                }*/
+            $this.prop( 'checked', value? true: false );
             return;
         case 'select':
         case 'optgroup':
         case 'datalist':
-            //$( '#' + field.elementId ).val( value );
             $this.val( value );
             return;
         }
