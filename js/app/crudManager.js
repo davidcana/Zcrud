@@ -264,11 +264,37 @@ module.exports = (function() {
         }
     };
     
+    var filterRecordProperties = function( record ){
+
+        var filtered = {};
+
+        for ( var propertyId in record ){
+            if ( ! propertyId.startsWith( '_' ) ){
+                filtered[ propertyId ] = record[ propertyId ];
+            }
+        }
+
+        return filtered;
+    };
+    
+    var filterRecordsProperties = function( records ){
+        
+        var filtered = {};
+
+        for ( var id in records ){
+            filtered[ id ] = filterRecordProperties( records[ id ] );
+        }
+
+        return filtered;
+    };
+    
     return {
         //createRecord: createRecord,
         //updateRecord: updateRecord,
         //deleteRecord: deleteRecord,
         listRecords: listRecords,
-        batchUpdate: batchUpdate
+        batchUpdate: batchUpdate,
+        filterRecordProperties: filterRecordProperties,
+        filterRecordsProperties: filterRecordsProperties
     };
 })();

@@ -87,6 +87,14 @@ var OptionListProviderManager = function() {
         }
 
         params.field.optionsList = optionsList;
+        
+        if ( ! params.record ){
+            params.record = {};
+        }
+        if ( ! params.record._optionsList ){
+            params.record._optionsList = {};
+        }
+        params.record._optionsList[ params.field.id ] = optionsList;
     };
     
     var buildOptionsFromArrayOrObject = function( optionsSource, field ){
@@ -298,6 +306,7 @@ var OptionListProviderManager = function() {
                 
                 // Refresh template
                 //dictionary.elementId = params.field.elementId;
+                dictionary.record = params.record;
                 zpt.run({
                     root: $thisDropdown[ 0 ],
                     dictionary: dictionary

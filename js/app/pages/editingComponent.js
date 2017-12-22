@@ -264,11 +264,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var dictionary = listPage.getDictionary();
         var records = dictionary.records;
         var fields = listPage.getFields();
-        for ( var c = 0; c < fields.length; c++ ) {
-            var field = fields[ c ];
-            fieldBuilder.beforeProcessTemplateForField(
-                buildProcessTemplateParams( field, dictionary, records )
-            );
+        for ( var i = 0; i < records.length; i++ ) {
+            var record = records[ i ];
+            for ( var c = 0; c < fields.length; c++ ) {
+                var field = fields[ c ];
+                fieldBuilder.beforeProcessTemplateForField(
+                    buildProcessTemplateParams( field, record, dictionary )
+                );
+            }
         }
     };
     

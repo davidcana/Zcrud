@@ -8,6 +8,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     var HistoryCreate = require( './create.js' );
     var HistoryDelete = require( './delete.js' );
     //var validationManager = require( '../validationManager.js' );
+    var crudManager = require( '../crudManager.js' );
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
@@ -291,7 +292,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
     var buildDataToSend = function( options, thisOptions, records ){
         
-        var actionsObject = buildActionsObject( records );
+        var filteredRecords = crudManager.filterRecordsProperties( records );
+        var actionsObject = buildActionsObject( filteredRecords );
         
         // Get sendOnlyModified
         var sendOnlyModified = undefined;
@@ -315,7 +317,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         };
         for ( var rowIndex in actionsObject.modified ){
             var row = actionsObject.modified[ rowIndex ];
-            var record = records[ rowIndex ];
+            var record = filteredRecords[ rowIndex ];
             var key = record[ options.key ];
 
             if ( actionsObject.deleted.indexOf( key ) != -1 ){
@@ -323,8 +325,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             }
 
             if ( ! sendOnlyModified ){
-                /*var previousRecord = records[ key ];
-                row = $.extend( true, {}, previousRecord, row );*/
                 row = $.extend( true, {}, record, row );
             }
             dataToSend.existingRecords[ key ] = row;

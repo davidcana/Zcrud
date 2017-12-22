@@ -21,8 +21,9 @@
         </div>
             
         <div data-mdefine-macro="select" data-tomit-tag="">
-            <select data-tattributes="id elementId; name elementName; value value; field/formFieldAttributes">
-                <option data-trepeat="option field/optionsList"
+            <select data-tattributes="id elementId; name elementName; value value; field/formFieldAttributes"
+                    data-tdefine="optionsList record/_optionsList">
+                <option data-trepeat="option optionsList[ field/id ]"
                         data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
                         data-tcontent="cond: field/translateOptions (tr:option/displayText) option/displayText"
                         label="label"></option>

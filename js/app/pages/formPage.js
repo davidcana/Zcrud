@@ -208,7 +208,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
                 record, 
                 buildProcessTemplateParams( field ) );
         }
-
+        
+        if ( record._optionsList ){
+            newRecord._optionsList = record._optionsList;
+        }
+        
         return newRecord;
     };
     
@@ -236,14 +240,14 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     
     var beforeProcessTemplate = function(){
         
-        updateDictionary();
-        
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
             fieldBuilder.beforeProcessTemplateForField(
                 buildProcessTemplateParams( field )
             );
         }
+        
+        updateDictionary();
     };
     
     var afterProcessTemplate = function( $form ){

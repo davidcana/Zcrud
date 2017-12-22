@@ -196,7 +196,8 @@ module.exports = (function() {
                 continue;
             }
             service.id = id;
-            allRecords.push( service );
+            allRecords.push( 
+                clone( service ) );
         }
         
         // Sort them
@@ -323,8 +324,23 @@ module.exports = (function() {
         return query_string;
     }
     
+    var clone = function( object ){
+        
+        if ( ! object ){
+            return object;
+        }
+        
+        var cloned = {};
+
+        for ( var id in object ){
+            cloned[ id ] = object[ id ];
+        }
+
+        return cloned;
+    };
+    
     var getService = function( key ){
-        return services[ key ];    
+        return clone( services[ key ] );
     };
     
     return {

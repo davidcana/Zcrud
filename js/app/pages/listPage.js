@@ -328,8 +328,24 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return id;      
     };
     
-    var getRecordByKey = function( key ){
-        return records[ key ];
+    var filterRecordProperties = function( record ){
+        
+        var filtered = {};
+        
+        for ( var propertyId in record ){
+            if ( ! propertyId.startsWith( '_' ) ){
+                filtered[ propertyId ] = record[ propertyId ];
+            }
+        }
+        
+        return filtered;
+    };
+    
+    var getRecordByKey = function( key, full ){
+        
+        var record = records[ key ];
+        return full || ! record? record: filterRecordProperties( record );
+        //return records[ key ];
     };
     
     var selectRows = function( rows ){
