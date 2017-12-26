@@ -362,7 +362,10 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-            
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'province', testHelper.getRow( key ) ),
+                [ 'Cádiz', 'Málaga' ] );
+                
             // Edit record
             var editedRecord =  {
                 "province": "Málaga"
@@ -406,7 +409,10 @@ $( '#departmentsContainer' ).zcrud(
                 "name": "Service " + key
             };
             testHelper.checkRecord( assert, key, record, editable );
-
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
+            
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
                 options: options,
@@ -433,7 +439,10 @@ $( '#departmentsContainer' ).zcrud(
                 "city": "Marbella"
             };
             testHelper.fillEditableList( editedRecord2, key );
-
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                [ 'Estepona', 'Marbella' ] );
+            
             var newRecord2 = $.extend( true, {}, newRecord, editedRecord2 );
             testHelper.checkEditableListForm( assert, key, newRecord2 );
             
@@ -443,21 +452,33 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, newRecord, editable );
             testHelper.assertHistory( assert, 1, 1, true );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                [ 'Estepona', 'Marbella' ] );
             
             // Undo (2)
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
             testHelper.assertHistory( assert, 0, 2, true );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
             
             // Redo (1)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord );
             testHelper.assertHistory( assert, 1, 1, true );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                [ 'Estepona', 'Marbella' ] );
             
             // Redo (2)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord2 );
             testHelper.assertHistory( assert, 2, 0, true );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                [ 'Estepona', 'Marbella' ] );
             
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();

@@ -685,6 +685,18 @@ module.exports = (function() {
         return $element.find( "input:checkbox[name='" + name +"']" ).prop( 'checked' );
     };
     
+    var getSelectOptions = function( name, $row ){
+
+        var result = [];
+        var $element = $row || $( '#department-form' );
+        
+        $element.find( "[name='" + name +"'] option:visible" ).each( function() {
+            result.push( $( this ).val() );
+        });
+
+        return result;
+    };
+    
     var fill = function( record, $row ){
         
         if ( record.id !== undefined ){
@@ -816,6 +828,8 @@ module.exports = (function() {
         clickUndoButton: clickUndoButton,
         clickRedoButton: clickRedoButton,
         assertHistory: assertHistory,
-        setFormVal: setFormVal
+        setFormVal: setFormVal,
+        getRow: getRow,
+        getSelectOptions: getSelectOptions
     };
 })();

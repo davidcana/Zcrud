@@ -356,6 +356,8 @@ var OptionListProviderManager = function() {
         case 'optgroup':
         case 'datalist':
             $this.val( value );
+            //$this.blur();
+            $this.change(); 
             return;
         }
         
