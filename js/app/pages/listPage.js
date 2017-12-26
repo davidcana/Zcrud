@@ -11,6 +11,7 @@ var FilteringComponent = require( './filteringComponent.js' );
 var EditingComponent = require( './editingComponent.js' );
 var crudManager = require( '../crudManager.js' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
+var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -133,37 +134,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
     };
     
-    /*
-    // Main method
-    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
-
-        // TODO Uncomment this when ZPT uses promises 
-        //context.showBusy( options, showBusyFull );
-
-        var listData = {
-            search: buildDataToSend(),
-            success: function( data ){
-                dataFromServer( data );
-                updateDictionary( data, dictionaryExtension );
-                buildRecords();
-                context.hideBusy( options, showBusyFull );
-                buildHTMLAndJavascript( root );
-                if ( callback ){
-                    callback( true );
-                }
-            },
-            error: function(){
-                context.hideBusy( options, showBusyFull );
-                context.showError( options, options.messages.serverCommunicationError );
-                if ( callback ){
-                    callback( false );
-                }
-            }
-        };
-
-        crudManager.listRecords( listData, options );
-    };*/
-    
     // Main method
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
         
@@ -220,6 +190,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
         
         dictionary.instance = self;
+        dictionary.optionListProviderManager = optionListProviderManager;
     };
     
     // Reset all components
@@ -327,7 +298,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var getId = function(){
         return id;      
     };
-    
+    /*
     var filterRecordProperties = function( record ){
         
         var filtered = {};
@@ -339,14 +310,17 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
         
         return filtered;
-    };
+    };*/
     
+    var getRecordByKey = function( key ){
+        return records[ key ];
+    };
+    /*
     var getRecordByKey = function( key, full ){
         
         var record = records[ key ];
         return full || ! record? record: filterRecordProperties( record );
-        //return records[ key ];
-    };
+    };*/
     
     var selectRows = function( rows ){
         var selectionComponent = components[ 'selecting' ];
@@ -414,7 +388,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     configure();
-    //options.currentList.instance = self;
     
     return self;
 };

@@ -9,6 +9,7 @@ var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
+var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
 
 var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     "use strict";
@@ -208,10 +209,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
                 record, 
                 buildProcessTemplateParams( field ) );
         }
-        
+        /*
         if ( record._optionsList ){
             newRecord._optionsList = record._optionsList;
-        }
+        }*/
         
         return newRecord;
     };
@@ -224,6 +225,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         }, options.dictionary );
         
         dictionary.instance = self;
+        dictionary.optionListProviderManager = optionListProviderManager;
     };
     
     var buildProcessTemplateParams = function( field ){
@@ -239,13 +241,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     };
     
     var beforeProcessTemplate = function(){
-        
+        /*
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
             fieldBuilder.beforeProcessTemplateForField(
                 buildProcessTemplateParams( field )
             );
-        }
+        }*/
         
         updateDictionary();
     };
@@ -316,7 +318,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             .find( 'input, textarea, select' )
             .change( function ( event ) {
                 var $this = $( this );
-                //var field = fieldsMap[ $this.prop('name') ];
                 var field = getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
@@ -358,7 +359,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             }
         };
         data.url = thisOptions.action || options.defaultFormConf.action;
-        //data.url = 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department';
         //alert( data + '\n' + JSON.stringify( data ) );
         
         // Do the CRUD!

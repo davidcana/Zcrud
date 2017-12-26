@@ -42,7 +42,7 @@ module.exports = (function() {
         register( require( './optionListProviderManager.js' ) );
         register( require( './checkboxFieldManager.js' ) );
     }();
-    
+    /*
     var beforeProcessTemplateForField = function( params ){
         
         var fieldManager = fieldManagers[ params.field.type ];
@@ -50,7 +50,7 @@ module.exports = (function() {
         if ( fieldManager && $.isFunction( fieldManager.beforeProcessTemplateForField ) ){
             fieldManager.beforeProcessTemplateForField( params );
         }
-    };
+    };*/
     
     var afterProcessTemplateForField = function( params, $selection ){
         
@@ -149,7 +149,7 @@ module.exports = (function() {
         register: register,
         unregister: unregister,
         registerAll: registerAll,
-        beforeProcessTemplateForField: beforeProcessTemplateForField,
+        //beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
         //afterProcessTemplateForFieldAndRecords: afterProcessTemplateForFieldAndRecords,
         getValue: getValue,

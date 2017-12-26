@@ -11,6 +11,21 @@ var OptionListProviderManager = function() {
     
     var cache = {};
     
+    var getOptions = function( record, field, options ){
+        
+        var params = {
+            field: field, 
+            value: record[ field.id ],
+            options: options,
+            record: record
+            //source: 'update'
+            //dictionary: dictionary
+        };
+        params.dependedValues = createDependedValuesUsingRecord( record, field );
+        
+        return buildOptions( params );
+    };
+    /*
     var beforeProcessTemplateForField = function( params ){
         
         switch( params.source ) {
@@ -29,7 +44,7 @@ var OptionListProviderManager = function() {
     var beforeProcessTemplateForFieldInCreateOrUpdate = function( params ){
         params.dependedValues = createDependedValuesUsingRecord( params );
         buildOptions( params );
-    };
+    };*/
     
     var buildOptions = function( params ){
         
@@ -73,7 +88,10 @@ var OptionListProviderManager = function() {
             
             if ( mustBuild ){
                 optionsList = buildOptionsFromArrayOrObject(
-                    downloadOptions( params.field.id, optionsSource, params.options ),
+                    downloadOptions( 
+                        params.field.id, 
+                        optionsSource, 
+                        params.options ),
                     params.field );
                 cache[ cacheKey ] = optionsList;
                 sortFieldOptions( cache[ cacheKey ], params.field.optionsSorting );
@@ -86,15 +104,7 @@ var OptionListProviderManager = function() {
             optionsList = buildOptionsFromArrayOrObject( optionsSource, params.field );
         }
 
-        params.field.optionsList = optionsList;
-        
-        if ( ! params.record ){
-            params.record = {};
-        }
-        if ( ! params.record._optionsList ){
-            params.record._optionsList = {};
-        }
-        params.record._optionsList[ params.field.id ] = optionsList;
+        return optionsList;
     };
     
     var buildOptionsFromArrayOrObject = function( optionsSource, field ){
@@ -239,14 +249,13 @@ var OptionListProviderManager = function() {
     
     /* Creates and returns an object that's properties are depended values of a record.
     *************************************************************************/
-    var createDependedValuesUsingRecord = function ( params ) {
-        var dependsOn = params.field.dependsOn;
+    var createDependedValuesUsingRecord = function ( record, field ) {
+        
+        var dependsOn = field.dependsOn;
         if ( ! dependsOn ) {
             return {};
         }
-        
-        var record = params.record;
-        //var dependentFieldId = params.field.id;
+
         var dependedValues = {};
         for ( var i = 0; i < dependsOn.length; i++ ) {
             var fieldId = dependsOn[ i ];
@@ -255,6 +264,24 @@ var OptionListProviderManager = function() {
 
         return dependedValues;
     };
+    /*
+    var createDependedValuesUsingRecord = function ( params ) {
+
+        var dependsOn = params.field.dependsOn;
+        if ( ! dependsOn ) {
+            return {};
+        }
+
+        var record = params.record;
+
+        var dependedValues = {};
+        for ( var i = 0; i < dependsOn.length; i++ ) {
+            var fieldId = dependsOn[ i ];
+            dependedValues[ fieldId ] = record[ fieldId ];
+        }
+
+        return dependedValues;
+    };*/
     
     var createDependedValuesUsingForm = function ( field, options, $selection ) {
         
@@ -263,7 +290,6 @@ var OptionListProviderManager = function() {
         for ( var i = 0; i < field.dependsOn.length; i++ ) {
             var dependedFieldId = field.dependsOn[ i ];
             var dependedField = options.fields[ dependedFieldId ];
-            //dependedValues[ dependedFieldId ] = $( '#' + dependedField.elementId ).val();
             dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.id + "']").val();
         }
         
@@ -277,7 +303,6 @@ var OptionListProviderManager = function() {
         }
         
         var $thisDropdown = $selection.find( "[name='" + params.field.id + "']");
-        //var $thisDropdown = $( '#' + params.field.elementId );
         //alert( '$thisDropdown.id: ' + $thisDropdown.attr( 'id' ));
 
         // Build dictionary
@@ -290,10 +315,8 @@ var OptionListProviderManager = function() {
         $.each( params.field.dependsOn, function ( index, dependsOn ) {
             
             var dependsOnField = params.options.fields[ dependsOn ];
-            //var elementId = dependsOnField.elementId;
             
             //find the depended combobox
-            //var $dependsOnDropdown = $( '#' + elementId );
             var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.id + "']");
             
             //when depended combobox changes
@@ -302,11 +325,10 @@ var OptionListProviderManager = function() {
                 
                 //Refresh options
                 params.dependedValues = createDependedValuesUsingForm( params.field, params.options, $selection ) ;
-                buildOptions( params );
+                dictionary.optionsList = buildOptions( params );
+                dictionary.record = params.record;
                 
                 // Refresh template
-                //dictionary.elementId = params.field.elementId;
-                dictionary.record = params.record;
                 zpt.run({
                     root: $thisDropdown[ 0 ],
                     dictionary: dictionary
@@ -363,28 +385,27 @@ var OptionListProviderManager = function() {
         
         throw "Unknown field type in optionListProviderManager: " + field.type;
     };
-    
+
     var getValueFromRecord = function( field, record, params ){
 
         switch( params.source ) {
-        case 'create':
-        case 'update':
-            return record[ field.id ];
-        case 'delete':
-            beforeProcessTemplateForFieldInCreateOrUpdate( params );
-            var tempValue = record[ field.id ];
-            try {
-                var map = getDisplayTextMapFromArrayOptions( field.optionsList );
-                var inMapValue = map[ tempValue ];
-                return inMapValue? inMapValue: tempValue;
-            } catch ( e ){
-                return tempValue;
-            }
-        default:
-            throw "Unknown source in OptionListProviderManager: " + params.source;
+            case 'create':
+            case 'update':
+                return record[ field.id ];
+            case 'delete':
+                var optionsList = getOptions( record, field, params.options );
+                var tempValue = record[ field.id ];
+                try {
+                    var map = getDisplayTextMapFromArrayOptions( optionsList );
+                    var inMapValue = map[ tempValue ];
+                    return inMapValue? inMapValue: tempValue;
+                } catch ( e ){
+                    return tempValue;
+                }
+            default:
+                throw "Unknown source in OptionListProviderManager: " + params.source;
         }
     };
-    
     var getDisplayTextMapFromArrayOptions = function( optionsArray ){
         
         var map = {};
@@ -406,13 +427,14 @@ var OptionListProviderManager = function() {
     };
     
     return {
-        beforeProcessTemplateForField: beforeProcessTemplateForField,
+        //beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,
         setValueToForm: setValueToForm,
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
-        getLabelFor: getLabelFor
+        getLabelFor: getLabelFor,
+        getOptions: getOptions
     };
 }();
 

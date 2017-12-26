@@ -260,7 +260,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var beforeProcessTemplate = function(){
-        
+        /*
         var dictionary = listPage.getDictionary();
         var records = dictionary.records;
         var fields = listPage.getFields();
@@ -272,7 +272,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     buildProcessTemplateParams( field, record, dictionary )
                 );
             }
-        }
+        }*/
     };
     
     return {

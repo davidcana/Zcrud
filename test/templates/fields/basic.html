@@ -22,8 +22,8 @@
             
         <div data-mdefine-macro="select" data-tomit-tag="">
             <select data-tattributes="id elementId; name elementName; value value; field/formFieldAttributes"
-                    data-tdefine="optionsList record/_optionsList">
-                <option data-trepeat="option optionsList[ field/id ]"
+                    data-tdefine="optionsList optionsList || optionListProviderManager/getOptions( record, field, options )">
+                <option data-trepeat="option optionsList"
                         data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
                         data-tcontent="cond: field/translateOptions (tr:option/displayText) option/displayText"
                         label="label"></option>
@@ -32,12 +32,14 @@
 
         <div data-mdefine-macro="radio" data-tomit-tag=""
              data-tattributes="id elementId; field/formFieldAttributes">
-            <div data-trepeat="option field/optionsList">
-                <input type="radio"
-                       data-tattributes="name string:${elementName}[${data-record-index}];
-                                         value option/value; 
-                                         checked cond: (eq: option/value value) 'checked' null">
-                <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+            <div data-tdefine="optionsList optionsList || optionListProviderManager/getOptions( record, field, options )">
+                <div data-trepeat="option optionsList">
+                    <input type="radio"
+                           data-tattributes="name string:${elementName}[${data-record-index}];
+                                             value option/value; 
+                                             checked cond: (eq: option/value value) 'checked' null">
+                    <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                </div>
             </div>
         </div>
         
@@ -45,8 +47,9 @@
              data-tdefine="datalistId string:${elementId}-datalist">
             <input data-tattributes="id elementId; name elementName; list string:${elementId}-datalist; value value; field/formFieldAttributes"
                    type="text">
-            <datalist data-tattributes="id string:${elementId}-datalist">
-                <option data-trepeat="option field/optionsList"
+            <datalist data-tattributes="id string:${elementId}-datalist"
+                      data-tdefine="optionsList optionsList || optionListProviderManager/getOptions( record, field, options )">
+                <option data-trepeat="option optionsList"
                         data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
                         data-tattributes="value option/value;
                                           selected cond: (eq: option/value value) 'selected' null;
