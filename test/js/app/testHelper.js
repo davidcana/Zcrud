@@ -684,14 +684,19 @@ module.exports = (function() {
         var $element = $row || $( '#department-form' );
         return $element.find( "input:checkbox[name='" + name +"']" ).prop( 'checked' );
     };
-    
+
     var getSelectOptions = function( name, $row ){
 
         var result = [];
         var $element = $row || $( '#department-form' );
-        
-        $element.find( "[name='" + name +"'] option:visible" ).each( function() {
-            result.push( $( this ).val() );
+
+        // Can not use :visible, it does not work in Chrome
+        //$element.find( "[name='" + name +"'] option:visible" ).each( function() {
+        $element.find( "[name='" + name +"'] option" ).each( function() {
+            var value = $( this ).val();
+            if ( value !== '' ){
+                result.push( value );
+            }
         });
 
         return result;

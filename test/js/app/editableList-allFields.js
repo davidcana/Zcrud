@@ -24,7 +24,7 @@ $( '#departmentsContainer' ).zcrud(
     function( options ){
         
         // Run tests
-        /*
+        
         QUnit.test( "change text area test", function( assert ) {
             
             context.updateListVisibleFields( options, [ 'id', 'name', 'description' ] );
@@ -331,7 +331,7 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.checkRecord( assert, key, newRecord, editable );
             testHelper.checkRecord( assert, key2, newRecord2, editable );
         });
-        */
+        
         QUnit.test( "change select test", function( assert ) {
 
             context.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
@@ -362,6 +362,8 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
+            //alert(
+            //    testHelper.getSelectOptions( 'province', testHelper.getRow( key ) ) );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'province', testHelper.getRow( key ) ),
                 [ 'Cádiz', 'Málaga' ] );
@@ -486,7 +488,7 @@ $( '#departmentsContainer' ).zcrud(
 
             testHelper.checkRecord( assert, key, newRecord2, editable );
         });
-        /*
+        
         QUnit.test( "change datalist test", function( assert ) {
 
             context.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
@@ -541,5 +543,5 @@ $( '#departmentsContainer' ).zcrud(
             assert.equal( fatalErrorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
-        });*/
+        });
     });
