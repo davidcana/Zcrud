@@ -24,7 +24,7 @@ $( '#departmentsContainer' ).zcrud(
     function( options ){
         
         // Run tests
-        
+        /*
         QUnit.test( "change text area test", function( assert ) {
             
             context.updateListVisibleFields( options, [ 'id', 'name', 'description' ] );
@@ -331,7 +331,7 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.checkRecord( assert, key, newRecord, editable );
             testHelper.checkRecord( assert, key2, newRecord2, editable );
         });
-        
+        */
         QUnit.test( "change select test", function( assert ) {
 
             context.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
@@ -486,4 +486,60 @@ $( '#departmentsContainer' ).zcrud(
 
             testHelper.checkRecord( assert, key, newRecord2, editable );
         });
+        /*
+        QUnit.test( "change datalist test", function( assert ) {
+
+            context.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+            
+            // Edit record
+            var editedRecord =  {
+                "browser": "Firefox"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkEditableListForm( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord, editable );
+        });*/
     });

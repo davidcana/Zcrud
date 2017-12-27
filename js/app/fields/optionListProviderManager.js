@@ -11,7 +11,7 @@ var OptionListProviderManager = function() {
     
     var cache = {};
     
-    var getOptions = function( record, field, options ){
+    var getOptionsFromRecord = function( record, field, options ){
         
         var params = {
             field: field, 
@@ -325,7 +325,7 @@ var OptionListProviderManager = function() {
                 
                 //Refresh options
                 params.dependedValues = createDependedValuesUsingForm( params.field, params.options, $selection ) ;
-                dictionary.optionsList = buildOptions( params );
+                dictionary.optionsListFromForm = buildOptions( params );
                 dictionary.record = params.record;
                 
                 // Refresh template
@@ -362,7 +362,7 @@ var OptionListProviderManager = function() {
             case 'select':
             case 'optgroup':
             case 'datalist':
-                return $( '#' + field.elementId ).val();
+                return $( 'input[name=' + field.id + ']').val();
         }
 
         throw "Unknown field type in optionListProviderManager: " + field.type;
@@ -393,7 +393,7 @@ var OptionListProviderManager = function() {
             case 'update':
                 return record[ field.id ];
             case 'delete':
-                var optionsList = getOptions( record, field, params.options );
+                var optionsList = getOptionsFromRecord( record, field, params.options );
                 var tempValue = record[ field.id ];
                 try {
                     var map = getDisplayTextMapFromArrayOptions( optionsList );
@@ -422,6 +422,20 @@ var OptionListProviderManager = function() {
         return field.type + '@templates/fields/basic.html'
     };
     
+    var getPostTemplate = function( field ){
+
+        switch( field.type ) {
+            case 'radio':
+            case 'select':
+            case 'optgroup':
+                return;
+            case 'datalist':
+                return 'datalist-definition@templates/fields/basic.html';
+        }
+
+        throw "Unknown field type in optionListProviderManager: " + field.type;
+    };
+    
     var getLabelFor = function( field ){
         return field.type == 'radio'? undefined: field.elementId;
     };
@@ -434,7 +448,8 @@ var OptionListProviderManager = function() {
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
         getLabelFor: getLabelFor,
-        getOptions: getOptions
+        getOptionsFromRecord: getOptionsFromRecord,
+        getPostTemplate: getPostTemplate
     };
 }();
 

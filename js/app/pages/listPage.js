@@ -368,6 +368,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return dictionary;
     };
     
+    var getPostTemplate = function( field ){
+        return fieldBuilder.getPostTemplate( field );
+    };
+    
     var self = {
         show: show,
         getId: getId,
@@ -384,7 +388,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         getDictionary: getDictionary,
         getField: getField,
         getFieldByName: getFieldByName,
-        getFields: getFields
+        getFields: getFields,
+        getPostTemplate: getPostTemplate
     };
     
     configure();

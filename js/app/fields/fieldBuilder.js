@@ -134,6 +134,17 @@ module.exports = (function() {
         return options.fieldsConfig.getDefaultFieldTemplate( field );
     };
     
+    var getPostTemplate = function( field ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.getPostTemplate ) ){
+            return fieldManager.getPostTemplate( field );
+        }
+
+        return undefined;
+    };
+    
     var getLabelFor = function( field, options ){
         
         var fieldManager = fieldManagers[ field.type ];
@@ -156,6 +167,7 @@ module.exports = (function() {
         getValueFromForm: getValueFromForm,
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
+        getPostTemplate: getPostTemplate,
         getLabelFor: getLabelFor,
         setValueToForm: setValueToForm
     };

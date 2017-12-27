@@ -400,6 +400,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     var getDictionary = function(){
         return dictionary;
     };
+
+    var getPostTemplate = function( field ){
+        return fieldBuilder.getPostTemplate( field );
+    };
     
     var self = {
         show: show,
@@ -411,7 +415,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         getType: getType,
         getId: getId,
         getTitle: getTitle,
-        getFields: getFields
+        getFields: getFields,
+        getPostTemplate: getPostTemplate
     };
     
     configure();

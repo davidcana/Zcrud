@@ -47,6 +47,12 @@
                         The field
                     </div>
                 </div>
+                <div class="zcrud-post-templates">
+                    <div data-trepeat="field instance/getFields()"
+                         data-tdefine="postTemplate instance/getPostTemplate(field)">
+                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"></div>
+                    </div>
+                </div>
                 <div class="zcrud-button-panel" data-tdefine="toolbar options/defaultFormConf/buttons/toolbar">
                     <button type="button" 
                             class="zcrud-form-cancel-command-button"

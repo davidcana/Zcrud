@@ -101,6 +101,12 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="zcrud-post-templates">
+                    <div data-trepeat="field instance/getFields()"
+                         data-tdefine="postTemplate instance/getPostTemplate(field)">
+                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"></div>
+                    </div>
+                </div>
                 <div class="zcrud-column-resize-bar" style="display: none"></div>
                 <div class="zcrud-column-selection-container" style="display: none"></div>
                 <div data-muse-macro="'bottomPanel'"
