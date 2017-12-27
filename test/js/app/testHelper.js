@@ -7,6 +7,26 @@ var testUtils = require( './testUtils.js' );
 module.exports = (function() {
     "use strict";
 
+    var get$Container = function(){
+        return $( '#departmentsContainer' );
+    };
+    var get$Tbody = function(){
+        return $( '#zcrud-list-tbody-department' );
+        //return get$Container().filter( 'tbody' );
+    };
+    var get$Filtering = function(){
+        return $( '#zcrud-filtering' );
+        //return get$Container().filter( '.zcrud-filtering' );
+    };
+    var get$Form = function(){
+        return $( '#department-form' );
+        //return get$Container().filter( '.zcrud-form' );
+    };
+    var get$List = function(){
+        return $( '#zcrud-list-department' );
+        //return get$Container().filter( '.zcrud-list' );
+    };  
+    
     var getCurrentList = function( options ){
         return  $( '#' + options.pages.list.id );
     };
@@ -115,8 +135,9 @@ module.exports = (function() {
     };
     
     var filtering = function( options, filter ){
-        $( '#zcrud-name-filter' ).val( filter );
-        $( '#zcrud-filtering' ).find( '.zcrud-filter-submit-button' ).trigger( 'click' );
+        var filterName = 'name';
+        get$Filtering().find( "[name='" + filterName +"']" ).val( filter );
+        get$Filtering().find( '.zcrud-filter-submit-button' ).trigger( 'click' );
     };
     
     var pagingTest = function( testOptions ){
@@ -379,22 +400,6 @@ module.exports = (function() {
     var keyUp = function( key ){
         keyEvent( key, 'keyup' );
     };
-    /*
-    var $container = $( '#departmentsContainer' );
-    var get$container = function(){
-        if ( ! $container ){
-            $container = $( '#departmentsContainer' );
-        }
-        return $container;
-    };*/
-    /*
-    var $tbody = undefined;
-    var get$tbody = function(){
-        if ( ! $tbody ){
-            $tbody = $( '#zcrud-list-tbody-department' );
-        }
-        return $tbody;
-    };*/
     
     var getRow = function( key ){
         
@@ -403,10 +408,10 @@ module.exports = (function() {
             return;
         }
         
-        return $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+        return get$Tbody().find( "[data-record-key='" + key + "']" );
     };
     var getLastRow = function(){
-        return $( '#zcrud-list-tbody-department' ).find( 'tr:last' );
+        return get$Tbody().find( 'tr:last' );
     };
     
     var getFieldValue = function( $selection ){
@@ -418,12 +423,12 @@ module.exports = (function() {
         if ( ! checkOnlyStorage ){
         
             // Check record from zCrud
-            var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
+            var record = get$Container().zcrud( 'getRecordByKey', key );
             //alert( JSON.stringify( record ) );
             assert.deepEqual( record, expectedRecord );
 
             // Check record from table
-            var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+            var row = get$Tbody().find( "[data-record-key='" + key + "']" );
             var id = editable?
                      getFieldValue ( row.find( "td.zcrud-column-data-id" ) ).trim():
                      row.find( "td.zcrud-column-data-id" ).text().trim();
@@ -441,11 +446,11 @@ module.exports = (function() {
     var checkNoRecord = function( assert, key ){
         
         // Check record from zCrud
-        var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
+        var record = get$Container().zcrud( 'getRecordByKey', key );
         assert.equal( record, undefined );
 
         // Check record from table
-        var row = $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" );
+        var row = get$Tbody().find( "[data-record-key='" + key + "']" );
         assert.equal( row.length, 0 );
         
         // Check record from storage
@@ -458,7 +463,7 @@ module.exports = (function() {
     var clickListButton = function( key, cssClass ){
 
         clickRowButton(
-            $( '#zcrud-list-tbody-department' ).find( "[data-record-key='" + key + "']" ),
+            get$Tbody().find( "[data-record-key='" + key + "']" ),
             cssClass
         );
     };
@@ -478,20 +483,20 @@ module.exports = (function() {
         );
     };
     var clickCreateRowListButton = function(){
-        $( '#zcrud-list-department' ).find( '.zcrud-new-row-command-button' ).trigger( 'click' );
+        get$List().find( '.zcrud-new-row-command-button' ).trigger( 'click' );
     };
     var clickCreateListButton = function(){
-        $( '#zcrud-list-department' ).find( '.zcrud-new-command-button' ).trigger( 'click' );
+        get$List().find( '.zcrud-new-command-button' ).trigger( 'click' );
     };
     var clickFormCancelButton = function(){
-        $( '#department-form' ).find( '.zcrud-form-cancel-command-button' ).trigger( 'click' );
+        get$Form().find( '.zcrud-form-cancel-command-button' ).trigger( 'click' );
     };
     var clickFormSubmitButton = function(){
-        $( '#department-form' ).find( '.zcrud-form-submit-command-button' ).trigger( 'click' );
+        get$Form().find( '.zcrud-form-submit-command-button' ).trigger( 'click' );
     };
     
     var getSaveButton = function(){
-        return $( '#departmentsContainer' ).find( '.zcrud-save-command-button' );
+        return get$Container().find( '.zcrud-save-command-button' );
     };
     var clickEditableListSubmitButton = function(){
         getSaveButton().trigger( 'click' );
@@ -501,7 +506,7 @@ module.exports = (function() {
     };
     
     var getUndoButton = function(){
-        return $( '#departmentsContainer' ).find( '.zcrud-undo-command-button' );
+        return get$Container().find( '.zcrud-undo-command-button' );
     };
     var clickUndoButton = function(){
         getUndoButton().trigger( 'click' );
@@ -511,7 +516,7 @@ module.exports = (function() {
     };
     
     var getRedoButton = function(){
-        return $( '#departmentsContainer' ).find( '.zcrud-redo-command-button' );
+        return get$Container().find( '.zcrud-redo-command-button' );
     };
     var clickRedoButton = function(){
         getRedoButton().trigger( 'click' );
@@ -571,22 +576,6 @@ module.exports = (function() {
 
         return value1IsVoid || value2IsVoid? value1IsVoid && value2IsVoid: value1 === value2;
     };
-    /*
-    var checkForm = function( assert, record ){
-
-        assert.ok( areEquivalent( $( '#zcrud-id' ).val(), record.id ) );
-        assert.ok( areEquivalent( $( '#zcrud-name' ).val(), record.name ) );
-        assert.ok( areEquivalent( $( '#zcrud-description' ).val(), record.description ) );
-        assert.ok( areEquivalent( $( '#zcrud-date' ).val(), record.date ) );
-        assert.ok( areEquivalent( $( '#zcrud-time' ).val(), record.time ) );
-        assert.ok( areEquivalent( $( '#zcrud-datetime' ).val(), record.datetime ) );
-        assert.ok( areEquivalent( $( '#department-form' ).find( "input:radio[name='" + 'phoneType' + "']:checked" ).val(), record.phoneType ) );
-        assert.ok( areEquivalent( $( '#zcrud-province' ).val(), record.province ) );
-        assert.ok( areEquivalent( $( '#zcrud-city' ).val(), record.city ) );
-        assert.ok( areEquivalent( $( '#zcrud-browser' ).val(), record.browser ) );
-        assert.ok( areEquivalent( $( '#zcrud-important' ).prop( 'checked' ), record.important ) );
-        assert.ok( areEquivalent( $( '#zcrud-number' ).val(), record.number ) );
-    };*/
     
     var checkForm = function( assert, record ){
 
@@ -630,7 +619,7 @@ module.exports = (function() {
     
     var setFormCheckboxVal = function( record, name, $row ){
 
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
         $element.find( "input:checkbox[name='" + name +"']" )
             .prop( 'checked', record[ name ] )
             .trigger( 'change' )
@@ -639,7 +628,7 @@ module.exports = (function() {
     
     var setFormRadioVal = function( record, name, $row ){
         
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 1: 0;
         var nameAttr = name + '[' + rowIndex + ']';
         $element.find( "input:radio[name='" + nameAttr +"']" ).filter( '[value=' + record[ name ] + ']' )
@@ -650,7 +639,7 @@ module.exports = (function() {
     
     var setFormVal = function( record, name, $row ){
         
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
         $element.find( "[name='" + name +"']" )
             .val( record[ name ] )
             .trigger( 'change' )
@@ -659,20 +648,20 @@ module.exports = (function() {
     
     var setFormDatetimeVal = function( record, name, $row ){
 
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
         $element.find( "[name='" + name +"']" )
             .val( record[ name ] )
             .trigger( 'change' );
     };
     
     var getFormVal = function( name, $row ){
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
         return $element.find( "[name='" + name +"']" ).val();
     };
     
     var getFormRadioVal = function( name, $row ){
 
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 1: 0;
         var nameAttr = name + '[' + rowIndex + ']';
         var $selected = $element.find( "input:radio[name='" + nameAttr +"']:checked" );
@@ -681,14 +670,14 @@ module.exports = (function() {
     
     var getFormCheckboxVal = function( name, $row ){
 
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
         return $element.find( "input:checkbox[name='" + name +"']" ).prop( 'checked' );
     };
 
     var getSelectOptions = function( name, $row ){
 
         var result = [];
-        var $element = $row || $( '#department-form' );
+        var $element = $row || get$Form();
 
         // Can not use :visible, it does not work in Chrome
         //$element.find( "[name='" + name +"'] option:visible" ).each( function() {

@@ -84,8 +84,7 @@
                             </td>
                             <td data-trepeat="field instance/getFields()"
                                 data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}"
-                                data-tdefine="value record[ field/id ];
-                                              elementName field/id">
+                                data-tdefine="value record[ field/id ]">
                                 <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
                                 <span data-tcondition="editable" data-muse-macro="field/template"></span>
                             </td>
@@ -125,7 +124,8 @@
              data-idomain="i18nArray">
             
             <span data-trepeat="field thisOptions/fields"
-                  data-tdefine="id field/id; value ''; elementId field/elementId"
+                  data-tdefine="id field/id; 
+                                value ''"
                   data-tattributes="class string:zcrud-filter-field zcrud-filter-field-${id}">
                 <span>
                     <label data-tattributes="for field/labelFor" data-tcontent="field/title || tr:string:${id}_title">

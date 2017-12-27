@@ -6,35 +6,43 @@
     </head>
     <body> 
         <div data-mdefine-macro="text" data-tomit-tag="">
-            <input data-tattributes="id elementId; name field/id; value value; field/formFieldAttributes"
+            <input data-tattributes="name field/id; 
+                                     value value; 
+                                     field/formFieldAttributes"
                    type="text">
         </div>
         
         <div data-mdefine-macro="textarea" data-tomit-tag="">
-            <textarea data-tattributes="id elementId; name elementName; field/formFieldAttributes"
+            <textarea data-tattributes="name field/id; 
+                                        field/formFieldAttributes"
                       data-tcontent="cond: value value ''">The textarea value.</textarea>
         </div>
         
         <div data-mdefine-macro="datetime" data-tomit-tag="">
-            <input data-tattributes="id elementId; name elementName; value value; field/formFieldAttributes"
+            <input data-tattributes="name field/id; 
+                                     value value; 
+                                     field/formFieldAttributes"
                    type="text">
         </div>
             
         <div data-mdefine-macro="select" data-tomit-tag="">
-            <select data-tattributes="id elementId; name elementName; value value; field/formFieldAttributes"
+            <select data-tattributes="name field/id; 
+                                      value value; 
+                                      field/formFieldAttributes"
                     data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
                 <option data-trepeat="option optionsList"
-                        data-tattributes="value option/value; selected cond: (eq: option/value value) 'selected' null"
+                        data-tattributes="value option/value; 
+                                          selected cond: (eq: option/value value) 'selected' null"
                         data-tcontent="cond: field/translateOptions (tr:option/displayText) option/displayText"></option>
             </select>
         </div>
 
         <div data-mdefine-macro="radio" data-tomit-tag=""
-             data-tattributes="id elementId; field/formFieldAttributes">
+             data-tattributes="field/formFieldAttributes">
             <div data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
                 <div data-trepeat="option optionsList">
                     <input type="radio"
-                           data-tattributes="name string:${elementName}[${data-record-index}];
+                           data-tattributes="name string:${field/id}[${data-record-index}];
                                              value option/value; 
                                              checked cond: (eq: option/value value) 'checked' null">
                     <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
@@ -43,8 +51,7 @@
         </div>
         
         <div data-mdefine-macro="datalist">
-            <input data-tattributes="id field/elementId; 
-                                     name elementName; 
+            <input data-tattributes="name field/id; 
                                      list string:${field/elementId}-datalist; 
                                      value value; 
                                      field/formFieldAttributes"
@@ -63,7 +70,10 @@
         </div>
         
         <div data-mdefine-macro="checkbox" data-tomit-tag="">
-            <input data-tattributes="id elementId; name elementName; value value; checked cond: value 'checked' null; field/formFieldAttributes"
+            <input data-tattributes="name field/id; 
+                                     value value; 
+                                     checked cond: value 'checked' null; 
+                                     field/formFieldAttributes"
                    type="checkbox">
         </div>
     </body>

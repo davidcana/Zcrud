@@ -31,9 +31,7 @@
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
                 <div data-trepeat="field instance/getFields()"
                      data-tdefine="id field/id; 
-                                   value record[ id ];
-                                   elementId field/elementId;
-                                   elementName field/id"
+                                   value record[ id ]"
                      data-tattributes="class string:zcrud-field zcrud-field-${id}">
                     <div>
                         <label data-tattributes="for field/labelFor" data-tcontent="field/title || tr:string:${id}_title">
@@ -111,7 +109,7 @@
                     <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
                         The description of this field.
                     </div>
-                    <div class="zcrud-property" data-tcontent="record[ field/id ]">
+                    <div class="zcrud-property" data-tcontent="record[ id ]">
                         The value
                     </div>
                 </div>

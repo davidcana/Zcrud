@@ -358,12 +358,12 @@ var OptionListProviderManager = function() {
 
         switch( field.type ) {
             case 'radio':
-                return $selection.find( "[name='" + field.id + "']:checked").val();
+                return $selection.find( "input[name='" + field.id + "']:checked").val();
                 //return $( 'input[name=' + field.id + ']:checked').val();
             case 'select':
             case 'optgroup':
             case 'datalist':
-                return $selection.find( "[name='" + field.id + "']").val();
+                return $selection.find( "input[name='" + field.id + "']").val();
                 //return $( 'input[name=' + field.id + ']').val();
         }
 
