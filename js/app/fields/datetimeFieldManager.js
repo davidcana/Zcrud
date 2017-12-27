@@ -108,9 +108,10 @@ var DatetimeFieldManager = function() {
         return context.translate( formatI18nId );
     };
     
-    var getValueFromForm = function( field, options ){
+    var getValueFromForm = function( field, options, $selection ){
  
-        var datetimeString = $( '#' + field.elementId ).val();
+        var datetimeString = $selection.find( "[name='" + field.id + "']").val();
+        //var datetimeString = $( '#' + field.elementId ).val();
 
         if ( ! datetimeString || datetimeString.length == 0 ){
             return datetimeString;

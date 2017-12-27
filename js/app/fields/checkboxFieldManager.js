@@ -12,9 +12,9 @@ var CheckboxFieldManager = function() {
         return $this.is( ":checked" );
     };
     
-    var getValueFromForm = function( field, $this ){
-        return $( '#' + field.elementId ).is( ":checked" );
-        //return $this.is( ":checked" );
+    var getValueFromForm = function( field, options, $selection ){
+        return $selection.find( "[name='" + field.id + "']:checked").val();
+        //return $( '#' + field.elementId ).is( ":checked" );
     };
     
     var setValueToForm = function( field, value, $this ){

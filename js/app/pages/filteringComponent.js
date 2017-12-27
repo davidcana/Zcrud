@@ -39,10 +39,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var buildFilterRecordFromForm = function(){
         
         var record = {};
-
+        var $this = $( '#' + listPage.getId() );
+        
         for ( var c = 0; c < thisOptions.fields.length; c++ ) {
             var field = thisOptions.fields[ c ];
-            var value = fieldBuilder.getValueFromForm( field, options );
+            var value = fieldBuilder.getValueFromForm( field, options, $this );
             
             if ( value != undefined && value != '' ){
                 record[ field.id ] = value;

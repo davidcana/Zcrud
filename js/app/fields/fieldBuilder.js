@@ -101,15 +101,16 @@ module.exports = (function() {
         return $this.val();
     };
     
-    var getValueFromForm = function( field, options ){
+    var getValueFromForm = function( field, options, $selection ){
         
         var fieldManager = fieldManagers[ field.type ];
         
         if ( fieldManager && $.isFunction( fieldManager.getValueFromForm ) ){
-            return fieldManager.getValueFromForm( field, options );
+            return fieldManager.getValueFromForm( field, options, $selection );
         }
         
-        return $( '#' + field.elementId ).val();
+        return $selection.find( "[name='" + field.id + "']").val();
+        //return $( '#' + field.elementId ).val();
     };
     
     var getValueFromRecord = function( field, record, params ){

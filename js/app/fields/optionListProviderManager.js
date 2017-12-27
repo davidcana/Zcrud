@@ -354,15 +354,17 @@ var OptionListProviderManager = function() {
         }
     };
     
-    var getValueFromForm = function( field ){
+    var getValueFromForm = function( field, options, $selection ){
 
         switch( field.type ) {
             case 'radio':
-                return $( 'input[name=' + field.id + ']:checked').val();
+                return $selection.find( "[name='" + field.id + "']:checked").val();
+                //return $( 'input[name=' + field.id + ']:checked').val();
             case 'select':
             case 'optgroup':
             case 'datalist':
-                return $( 'input[name=' + field.id + ']').val();
+                return $selection.find( "[name='" + field.id + "']").val();
+                //return $( 'input[name=' + field.id + ']').val();
         }
 
         throw "Unknown field type in optionListProviderManager: " + field.type;
