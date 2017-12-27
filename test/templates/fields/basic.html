@@ -42,13 +42,16 @@
             </div>
         </div>
         
-        <div data-mdefine-macro="datalist"
-             data-tdefine="datalistId string:${elementId}-datalist">
-            <input data-tattributes="id elementId; name elementName; list string:${elementId}-datalist; value value; field/formFieldAttributes"
+        <div data-mdefine-macro="datalist">
+            <input data-tattributes="id field/elementId; 
+                                     name elementName; 
+                                     list string:${field/elementId}-datalist; 
+                                     value value; 
+                                     field/formFieldAttributes"
                    type="text">
         </div>
         <div data-mdefine-macro="datalist-definition">
-            <datalist data-tattributes="id string:${field/id}-datalist"
+            <datalist data-tattributes="id string:${field/elementId}-datalist"
                       data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
                 <option data-trepeat="option optionsList"
                         data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
