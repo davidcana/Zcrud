@@ -145,7 +145,7 @@ module.exports = (function() {
 
         return undefined;
     };
-    
+    /*
     var getLabelFor = function( field, options ){
         
         var fieldManager = fieldManagers[ field.type ];
@@ -155,7 +155,7 @@ module.exports = (function() {
         }
         
         return field.elementId;
-    };
+    };*/
     
     return {
         register: register,
@@ -169,7 +169,7 @@ module.exports = (function() {
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
         getPostTemplate: getPostTemplate,
-        getLabelFor: getLabelFor,
+        //getLabelFor: getLabelFor,
         setValueToForm: setValueToForm
     };
 })();

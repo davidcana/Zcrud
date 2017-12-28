@@ -437,10 +437,10 @@ var OptionListProviderManager = function() {
 
         throw "Unknown field type in optionListProviderManager: " + field.type;
     };
-    
+    /*
     var getLabelFor = function( field ){
         return field.type == 'radio'? undefined: field.elementId;
-    };
+    };*/
     
     return {
         //beforeProcessTemplateForField: beforeProcessTemplateForField,
@@ -449,7 +449,7 @@ var OptionListProviderManager = function() {
         setValueToForm: setValueToForm,
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
-        getLabelFor: getLabelFor,
+        //getLabelFor: getLabelFor,
         getOptionsFromRecord: getOptionsFromRecord,
         getPostTemplate: getPostTemplate
     };

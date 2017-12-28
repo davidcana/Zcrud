@@ -41,11 +41,13 @@
              data-tattributes="field/formFieldAttributes">
             <div data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
                 <div data-trepeat="option optionsList">
-                    <input type="radio"
-                           data-tattributes="name string:${field/id}[${data-record-index}];
-                                             value option/value; 
-                                             checked cond: (eq: option/value value) 'checked' null">
-                    <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                    <label>
+                        <input type="radio"
+                               data-tattributes="name string:${field/id}[${data-record-index}];
+                                                 value option/value; 
+                                                 checked cond: (eq: option/value value) 'checked' null">
+                        <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                    </label>
                 </div>
             </div>
         </div>
@@ -64,8 +66,7 @@
                         data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
                         data-tattributes="value option/value;
                                           selected cond: (eq: option/value value) 'selected' null;
-                                          label displayText"
-                        data-tcontent="displayText"></option>
+                                          label displayText"></option>
             </datalist>
         </div>
         

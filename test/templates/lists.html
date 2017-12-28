@@ -127,14 +127,14 @@
                   data-tdefine="id field/id; 
                                 value ''"
                   data-tattributes="class string:zcrud-filter-field zcrud-filter-field-${id}">
-                <span>
-                    <label data-tattributes="for field/labelFor" data-tcontent="field/title || tr:string:${id}_title">
+                <label>
+                    <span data-tcontent="field/title || tr:string:${id}_title">
                         The id of the field
-                    </label>
-                </span>
-                <span data-muse-macro="field/template">
-                    The field
-                </span>
+                    </span>
+                    <span data-muse-macro="field/template">
+                        The field
+                    </span>
+                </label>
             </span>
             <button type="button" 
                     data-tattributes="class 'zcrud-filter-submit-button'"

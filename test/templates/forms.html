@@ -33,17 +33,15 @@
                      data-tdefine="id field/id; 
                                    value record[ id ]"
                      data-tattributes="class string:zcrud-field zcrud-field-${id}">
-                    <div>
-                        <label data-tattributes="for field/labelFor" data-tcontent="field/title || tr:string:${id}_title">
-                            The id of the field
-                        </label>
-                    </div>
-                    <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
-                        The description of this field.
-                    </div>
-                    <div data-muse-macro="field/template">
-                        The field
-                    </div>
+                    <label>
+                        <div class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title"></div>
+                        <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
+                            The description of this field.
+                        </div>
+                        <div data-muse-macro="field/template">
+                            The field
+                        </div>
+                    </label>
                 </div>
                 <div class="zcrud-post-templates">
                     <div data-trepeat="field instance/getFields()"
@@ -103,7 +101,7 @@
                 <div class="zcrud-field"
                      data-trepeat="field instance/getFields()"
                      data-tdefine="id field/id">
-                    <div data-tcontent="field/title || tr:string:${id}_title" class="label">
+                    <div data-tcontent="field/title || tr:string:${id}_title" class="zcrud-field-label">
                         The name of the field
                     </div>
                     <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
