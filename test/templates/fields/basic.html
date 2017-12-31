@@ -6,34 +6,38 @@
     </head>
     <body> 
         <div data-mdefine-macro="text" data-tomit-tag="">
-            <input data-tattributes="name field/id; 
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/id; 
                                      value value; 
                                      field/formFieldAttributes"
                    type="text">
         </div>
         
         <div data-mdefine-macro="textarea" data-tomit-tag="">
-            <textarea data-tattributes="name field/id; 
+            <textarea data-tattributes="id cond: renderIds field/elementId null;
+                                        name field/id; 
                                         field/formFieldAttributes"
                       data-tcontent="cond: value value ''">The textarea value.</textarea>
         </div>
         
         <div data-mdefine-macro="datetime" data-tomit-tag="">
-            <input data-tattributes="name field/id; 
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/id; 
                                      value value; 
                                      field/formFieldAttributes"
                    type="text">
         </div>
             
         <div data-mdefine-macro="select" data-tomit-tag="">
-            <select data-tattributes="name field/id; 
+            <select data-tattributes="id cond: renderIds field/elementId null;
+                                      name field/id; 
                                       value value; 
                                       field/formFieldAttributes"
                     data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
                 <option data-trepeat="option optionsList"
                         data-tattributes="value option/value; 
                                           selected cond: (eq: option/value value) 'selected' null"
-                        data-tcontent="cond: field/translateOptions (tr:option/displayText) option/displayText"></option>
+                        data-tcontent="cond: field/translateOptions (tr:option/displayText) option/displayText">&nbsp;</option>
             </select>
         </div>
 
@@ -53,7 +57,8 @@
         </div>
         
         <div data-mdefine-macro="datalist">
-            <input data-tattributes="name field/id; 
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/id; 
                                      list string:${field/elementId}-datalist; 
                                      value value; 
                                      field/formFieldAttributes"
@@ -66,12 +71,13 @@
                         data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
                         data-tattributes="value option/value;
                                           selected cond: (eq: option/value value) 'selected' null;
-                                          label displayText"></option>
+                                          label displayText">&nbsp;</option>
             </datalist>
         </div>
         
         <div data-mdefine-macro="checkbox" data-tomit-tag="">
-            <input data-tattributes="name field/id; 
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/id; 
                                      value value; 
                                      checked cond: value 'checked' null; 
                                      field/formFieldAttributes"

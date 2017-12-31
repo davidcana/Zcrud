@@ -64,16 +64,17 @@
                                                   data-sort-type sortType">
                                 <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
                             </th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"></th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"></th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"></th>
+                            <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"><!--empty--></th>
+                            <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"><!--empty--></th>
+                            <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"><!--empty--></th>
                         </tr>
                     </thead>
                     <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
                            data-tdefine="selectingComponent instance/getComponent( 'selecting' );
                                          selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
                                          editable exists: instance/getComponent( 'editing' );
-                                         byRow instance/getThisOptions()/buttons/byRow">
+                                         byRow instance/getThisOptions()/buttons/byRow;
+                                         renderIds false">
                         <tr data-trepeat="record records"
                             data-tattributes="data-record-key record[ options/key ];
                                               data-record-index repeat/record/index();
@@ -86,16 +87,16 @@
                                 data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}"
                                 data-tdefine="value record[ field/id ]">
                                 <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
-                                <span data-tcondition="editable" data-muse-macro="field/template"></span>
+                                <span data-tcondition="editable" data-muse-macro="field/template"><!--empty--></span>
                             </td>
                             <td data-tcondition="byRow/openEditRegisterForm">
-                                <button title="Edit record" class="zcrud-edit-command-button"></button>
+                                <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
                             </td>
                             <td data-tcondition="byRow/openDeleteRegisterForm">
-                                <button title="Delete record" class="zcrud-delete-command-button"></button>
+                                <button title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
                             </td>
                             <td data-tcondition="byRow/deleteRegisterRow">
-                                <button title="Delete record" class="zcrud-delete-row-command-button"></button>
+                                <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
                             </td>
                         </tr>
                     </tbody>
@@ -103,16 +104,16 @@
                 <div class="zcrud-post-templates">
                     <div data-trepeat="field instance/getFields()"
                          data-tdefine="postTemplate instance/getPostTemplate(field)">
-                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"></div>
+                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"><!--empty--></div>
                     </div>
                 </div>
-                <div class="zcrud-column-resize-bar" style="display: none"></div>
-                <div class="zcrud-column-selection-container" style="display: none"></div>
+                <div class="zcrud-column-resize-bar" style="display: none"><!--empty--></div>
+                <div class="zcrud-column-selection-container" style="display: none"><!--empty--></div>
                 <div data-muse-macro="'bottomPanel'"
                      data-tcondition="instance/getComponent( 'paging' )">
                     The bottom panel
                 </div>
-                <div class="zcrud-busy" data-tattributes="id 'zcrud-busy'" style="display: none"></div>
+                <div class="zcrud-busy" data-tattributes="id 'zcrud-busy'" style="display: none"><!--empty--></div>
             </form>
         </div>
         
@@ -199,7 +200,7 @@
                             data-tattributes="id thisOptions/goToPageComboboxId">
                         <option data-trepeat="pageNumber goToPageList"
                                 data-tattributes="value pageNumber; selected cond: (eq: pageNumber currentPageNumber) 'selected' null"
-                                data-tcontent="pageNumber"></option>
+                                data-tcontent="pageNumber">&nbsp;</option>
                     </select>
                 </span>
                 <span class="zcrud-page-size-change">
@@ -208,7 +209,7 @@
                             data-tattributes="id thisOptions/pageSizeChangeComboboxId">
                         <option data-trepeat="pageSize component/getPageSizes()"
                                 data-tattributes="value pageSize; selected cond: (eq: pageSize currentPageSize) 'selected' null"
-                                data-tcontent="pageSize"></option>
+                                data-tcontent="pageSize">&nbsp;</option>
                     </select>
                 </span>
                 <span class="zcrud-toolbar" data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">

@@ -11,7 +11,7 @@
                                id string:${options/entityId}-form"
              data-idomain="i18nArray">
             
-            <div data-tattributes="id 'zcrud-message'"></div>
+            <div data-tattributes="id 'zcrud-message'"><!--empty--></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
                     The title option
@@ -25,7 +25,8 @@
             </div>
             <form class="zcrud-form" 
                   data-tattributes="id instance/getId()"
-                  data-tdefine="data-record-index 0">
+                  data-tdefine="data-record-index 0;
+                                renderIds true">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
@@ -33,20 +34,22 @@
                      data-tdefine="id field/id; 
                                    value record[ id ]"
                      data-tattributes="class string:zcrud-field zcrud-field-${id}">
-                    <label>
-                        <div class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title"></div>
-                        <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
-                            The description of this field.
-                        </div>
-                        <div data-muse-macro="field/template">
-                            The field
-                        </div>
+                    <label class="zcrud-field-label" 
+                           data-tcontent="field/title || tr:string:${id}_title"
+                           data-tattributes="for field/elementId">
+                        The field of this field.
                     </label>
+                    <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
+                        The description of this field.
+                    </div>
+                    <div data-muse-macro="field/template">
+                        The field
+                    </div>
                 </div>
                 <div class="zcrud-post-templates">
                     <div data-trepeat="field instance/getFields()"
                          data-tdefine="postTemplate instance/getPostTemplate(field)">
-                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"></div>
+                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"><!--empty--></div>
                     </div>
                 </div>
                 <div class="zcrud-button-panel" data-tdefine="toolbar options/defaultFormConf/buttons/toolbar">
@@ -82,7 +85,7 @@
              data-tattributes="id string:${options/entityId}-form"
              data-idomain="i18nArray">
             
-            <div data-tattributes="id 'zcrud-message'"></div>
+            <div data-tattributes="id 'zcrud-message'"><!--empty--></div>
             <div class="zcrud-header"> 
                 <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
                     The title option

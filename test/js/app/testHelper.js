@@ -7,6 +7,8 @@ var testUtils = require( './testUtils.js' );
 module.exports = (function() {
     "use strict";
 
+    var defaultOptionValue = '';
+    
     var get$Container = function(){
         return $( '#departmentsContainer' );
     };
@@ -683,7 +685,7 @@ module.exports = (function() {
         //$element.find( "[name='" + name +"'] option:visible" ).each( function() {
         $element.find( "[name='" + name +"'] option" ).each( function() {
             var value = $( this ).val();
-            if ( value !== '' ){
+            if ( value !== defaultOptionValue ){
                 result.push( value );
             }
         });
