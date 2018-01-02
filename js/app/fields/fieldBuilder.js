@@ -157,6 +157,17 @@ module.exports = (function() {
         return field.elementId;
     };*/
     
+    var mustHideLabel = function( field ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.mustHideLabel ) ){
+            return fieldManager.mustHideLabel( field );
+        }
+
+        return false;
+    };
+    
     return {
         register: register,
         unregister: unregister,
@@ -170,6 +181,7 @@ module.exports = (function() {
         getTemplate: getTemplate,
         getPostTemplate: getPostTemplate,
         //getLabelFor: getLabelFor,
-        setValueToForm: setValueToForm
+        setValueToForm: setValueToForm,
+        mustHideLabel: mustHideLabel
     };
 })();

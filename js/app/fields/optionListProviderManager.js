@@ -442,6 +442,20 @@ var OptionListProviderManager = function() {
         return field.type == 'radio'? undefined: field.elementId;
     };*/
     
+    var mustHideLabel = function( field ){
+        
+        switch( field.type ) {
+            case 'radio':
+                return true;
+            case 'select':
+            case 'optgroup':
+            case 'datalist':
+                return false;
+        }
+
+        throw "Unknown field type in optionListProviderManager: " + field.type;
+    };
+    
     return {
         //beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
@@ -451,7 +465,8 @@ var OptionListProviderManager = function() {
         getTemplate: getTemplate,
         //getLabelFor: getLabelFor,
         getOptionsFromRecord: getOptionsFromRecord,
-        getPostTemplate: getPostTemplate
+        getPostTemplate: getPostTemplate,
+        mustHideLabel: mustHideLabel
     };
 }();
 

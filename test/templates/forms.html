@@ -34,17 +34,17 @@
                      data-tdefine="id field/id; 
                                    value record[ id ]"
                      data-tattributes="class string:zcrud-field zcrud-field-${id}">
-                    <label class="zcrud-field-label" 
-                           data-tcontent="field/title || tr:string:${id}_title"
-                           data-tattributes="for field/elementId">
-                        The field of this field.
+                    <label data-tomit-tag="instance/mustHideLabel( field )">
+                        <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
+                            The label of this field.
+                        </span>
+                        <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
+                            The description of this field.
+                        </span>
+                        <span data-muse-macro="field/template">
+                            The field
+                        </span>
                     </label>
-                    <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
-                        The description of this field.
-                    </div>
-                    <div data-muse-macro="field/template">
-                        The field
-                    </div>
                 </div>
                 <div class="zcrud-post-templates">
                     <div data-trepeat="field instance/getFields()"
@@ -66,13 +66,13 @@
                     <button class="zcrud-undo-command-button" 
                             data-tcontent="tr:'Undo'"  
                             data-tcondition="toolbar/undo"
-                            disabled="true">
+                            disabled>
                         Undo
                     </button>
                     <button class="zcrud-redo-command-button" 
                             data-tcontent="tr:'Redo'" 
                             data-tcondition="toolbar/redo"
-                            disabled="true">
+                            disabled>
                         Redo
                     </button>
                 </div>

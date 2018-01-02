@@ -139,13 +139,14 @@ div.zcrud-main-container .zcrud-command-button {
     border: none;
     display: inline;
 }
-/*
-div.zcrud-main-container .zcrud-new-command-button {
+
+div.zcrud-main-container .zcrud-new-command-button,
+div.zcrud-main-container .zcrud-new-row-command-button {
     background: url('./add.png') no-repeat center;
     background-size: 16px 16px;
     height: 30px;
     width: 30px;
-}*/
+}
 div.zcrud-main-container .zcrud-edit-command-button {
     background: url('./edit.png') no-repeat center;
     background-size: 16px 16px;
@@ -448,11 +449,13 @@ form.zcrud-form fieldset {
     border-radius: 10px;
 }
 form.zcrud-form .zcrud-field-help {
+    display: block;
     font-size: 90%;
     color: #76797c;
     margin: 0 0 0.2em 0;
 }
 form.zcrud-form .zcrud-field-label {
+    display: block;
     font-size: 100%;
     font-weight: bold;
 }

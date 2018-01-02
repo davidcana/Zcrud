@@ -404,6 +404,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     var getPostTemplate = function( field ){
         return fieldBuilder.getPostTemplate( field );
     };
+        
+    var mustHideLabel = function( field ){
+        return fieldBuilder.mustHideLabel( field );
+    };
     
     var self = {
         show: show,
@@ -416,7 +420,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         getId: getId,
         getTitle: getTitle,
         getFields: getFields,
-        getPostTemplate: getPostTemplate
+        getPostTemplate: getPostTemplate,
+        mustHideLabel: mustHideLabel
     };
     
     configure();
