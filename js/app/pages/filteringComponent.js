@@ -79,9 +79,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             var newFilterField = undefined;
             
             if ( $.type( filterField ) === 'string' ){
-                newFilterField = options.fields[ filterField ];
+                // Clone the field from fields if filterField is a string
+                newFilterField = $.extend( true, {}, options.fields[ filterField ] );
             } else {
-                newFilterField = filterField;
+                // Extend the field from fields if filterField is an object
+                newFilterField = $.extend( true, {}, options.fields[ filterField ], filterField );
             }
             
             newFilterField.elementId += thisOptions.elementIdSuffix;
