@@ -12,5 +12,6 @@ QUnit.testSuites([
     { name: "editable list change Test Suite", path: "./editableList-change.html" },
     { name: "editable list create Test Suite", path: "./editableList-create.html" },
     { name: "editable list delete Test Suite", path: "./editableList-delete.html" },
-    { name: "editable list mixed Test Suite", path: "./editableList-mixed.html" }
+    { name: "editable list mixed Test Suite", path: "./editableList-mixed.html" },
+    { name: "editable list all fields Test Suite", path: "./editableList-allFields.html" }
 ]);
