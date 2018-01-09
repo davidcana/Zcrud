@@ -3,7 +3,7 @@
 */
 "use strict";
 
-//var context = require( '../context.js' );
+var context = require( '../context.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 
@@ -398,7 +398,7 @@ var OptionListProviderManager = function() {
                 var optionsList = getOptionsFromRecord( record, field, params.options );
                 var tempValue = record[ field.id ];
                 try {
-                    var map = getDisplayTextMapFromArrayOptions( optionsList );
+                    var map = getDisplayTextMapFromArrayOptions( optionsList, field );
                     var inMapValue = map[ tempValue ];
                     return inMapValue? inMapValue: tempValue;
                 } catch ( e ){
@@ -408,13 +408,13 @@ var OptionListProviderManager = function() {
                 throw "Unknown source in OptionListProviderManager: " + params.source;
         }
     };
-    var getDisplayTextMapFromArrayOptions = function( optionsArray ){
+    var getDisplayTextMapFromArrayOptions = function( optionsArray, field ){
         
         var map = {};
         
         for ( var i = 0; i < optionsArray.length; i++ ) {
             var option = optionsArray[ i ];
-            map[ option.value ] = option.displayText;
+            map[ option.value ] = field.translateOptions? context.translate( option.displayText ): option.displayText;
         }
         
         return map;
