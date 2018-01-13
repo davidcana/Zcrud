@@ -23,15 +23,17 @@ var thisTestOptions = {
 };
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
-        
-        // Run tests
-        QUnit.test( "paging test", function( assert ) {
-            
+// Run tests
+QUnit.test( "paging test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
                 action: { 
@@ -46,7 +48,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
             });
-            
+
             values = testHelper.buildCustomValuesList( 19, testHelper.buildValuesList( 100, 108 ) );
             testHelper.pagingTest({
                 action: { 
@@ -61,7 +63,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '2' ],
                 pageListActive: [  '<<', '<', '1', '3', '4', '5', '>', '>>' ]
             });
-            
+
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 action: { 
@@ -76,7 +78,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            
+
             values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
                 action: { 
@@ -91,5 +93,8 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
             });
-        });
-    });
+            
+            done();
+        }
+    );
+});

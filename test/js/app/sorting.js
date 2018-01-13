@@ -26,19 +26,21 @@ var thisTestOptions = {
 };
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
-        
-        // Sort by name
-        var $sortableLink = testHelper.getCurrentList( options ).find( '.zcrud-column-header-sortable' );
-        $sortableLink.trigger( 'click' );
-        
-        // Run tests
-        QUnit.test( "sorting test", function( assert ) {
-            
+// Run tests
+QUnit.test( "sorting test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Sort by name
+            var $sortableLink = testHelper.getCurrentList( options ).find( '.zcrud-column-header-sortable' );
+            $sortableLink.trigger( 'click' );
+
             testHelper.multiplePagingTest({
                 options: options,
                 assert: assert,
@@ -58,7 +60,8 @@ $( '#departmentsContainer' ).zcrud(
                     testHelper.buildCustomValuesList( 1, 10, testHelper.buildValuesList( 100, 107 ) )
                 ]
             });
-            
 
-        });
-    });
+            done();
+        }
+    );
+});

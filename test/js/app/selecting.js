@@ -21,45 +21,47 @@ var thisTestOptions = {
     }
 };
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+        
+// Run tests
+QUnit.test( "selecting test", function( assert ) {
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
-        
-        var $departmentsContainer = $( '#departmentsContainer' );
-        var getSelected = function(){
-            return $departmentsContainer.zcrud( 'selectedRecords' );
-        };
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
 
-        var $tbody = $( '#zcrud-list-tbody-department' );
-        var select = function(){
-            for ( var c = 0; c < arguments.length; c++ ){
-                var id = arguments[ c ];
-                $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
-            }
-        };
-        
-        var toggleSelect = function(){
-            $departmentsContainer.find( "input.zcrud-select-all-rows" ).trigger( 'click' );
-        };
-        
-        var buildSelectedRange = function( start, end ){
-            var result = [];
-            for ( var c = start; c <= end; ++c ){
-                var entry = {
-                    id: c,
-                    name: 'Service ' + c
-                };
-                result.push( entry );
-            }
-            return result;
-        };
-        
-        // Run tests
-        QUnit.test( "selecting test", function( assert ) {
-            
+            var $departmentsContainer = $( '#departmentsContainer' );
+            var getSelected = function(){
+                return $departmentsContainer.zcrud( 'selectedRecords' );
+            };
+
+            var $tbody = $( '#zcrud-list-tbody-department' );
+            var select = function(){
+                for ( var c = 0; c < arguments.length; c++ ){
+                    var id = arguments[ c ];
+                    $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+                }
+            };
+
+            var toggleSelect = function(){
+                $departmentsContainer.find( "input.zcrud-select-all-rows" ).trigger( 'click' );
+            };
+
+            var buildSelectedRange = function( start, end ){
+                var result = [];
+                for ( var c = start; c <= end; ++c ){
+                    var entry = {
+                        id: c,
+                        name: 'Service ' + c
+                    };
+                    result.push( entry );
+                }
+                return result;
+            };
+
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
@@ -72,7 +74,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             assert.equal( getSelected().length, 0 );
-            
+
             // Select
             select( '3', '5', '7' );
             assert.deepEqual( 
@@ -91,11 +93,11 @@ $( '#departmentsContainer' ).zcrud(
                         "name": "Service 7"
                     }
                 ] );
-            
+
             // Deselect
             select( '3', '5', '7' );
             assert.equal( getSelected().length, 0 );
-            
+
             // Select again
             select( '3', '5', '7' );
             assert.deepEqual( 
@@ -114,7 +116,7 @@ $( '#departmentsContainer' ).zcrud(
                         "name": "Service 7"
                     }
                 ] );
-            
+
             // Test ranges
             testHelper.keyDown( 16 );
             select( '9' );
@@ -143,7 +145,7 @@ $( '#departmentsContainer' ).zcrud(
                     }
                 ] );
             testHelper.keyUp( 16 );
-            
+
             // Select all being some selected
             toggleSelect();
             assert.deepEqual( 
@@ -190,11 +192,11 @@ $( '#departmentsContainer' ).zcrud(
                         "name": "Service 10"
                     }
                 ] );
-            
+
             // Deselect all
             toggleSelect();
             assert.equal( getSelected().length, 0 );
-            
+
             // Select all being no selected
             toggleSelect();
             assert.deepEqual( 
@@ -241,7 +243,7 @@ $( '#departmentsContainer' ).zcrud(
                         "name": "Service 10"
                     }
                 ] );
-            
+
             // Deselect some
             select( '1', '4', '7' );
             assert.deepEqual( 
@@ -276,7 +278,7 @@ $( '#departmentsContainer' ).zcrud(
                         "name": "Service 10"
                     }
                 ] );
-            
+
             // Move to next page, all selected must be deselected
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
             testHelper.pagingTest({
@@ -293,6 +295,8 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
             });
             assert.equal( getSelected().length, 0 );
-        });
-    });
-
+            
+            done();
+        }
+    );
+});

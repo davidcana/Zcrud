@@ -10,15 +10,17 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
-        
-        // Run tests
-        QUnit.test( "create test", function( assert ) {
-            
+// Run tests
+QUnit.test( "create test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
             // Assert register with key 0 not exists
             var key = 0;
             var record =  {
@@ -47,13 +49,13 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            
+
             // Go to create form and create record
             testHelper.clickCreateListButton();
             testHelper.fillForm( record );
-            
+
             testHelper.checkForm( assert, record );
-            
+
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );
@@ -68,11 +70,11 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             testHelper.checkRecord( assert, key, record );
-            
+
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
             testHelper.checkForm( assert, record );
-            
+
             // Return to list again and check it
             testHelper.clickFormCancelButton();
             testHelper.pagingTest({
@@ -86,5 +88,8 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             testHelper.checkRecord( assert, key, record );
-        });
-    });
+            
+            done();
+        }
+    );
+});

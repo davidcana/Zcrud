@@ -17,21 +17,22 @@ options.fatalErrorFunction = function( message ){
     ++fatalErrorFunctionCounter;
 };
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        
-        // Run tests
-        
-        QUnit.test( "create test", function( assert ) {
-            
+// Run tests
+QUnit.test( "create test", function( assert ) {
+    
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
-            
+
             var editable = true;
-            
+
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
@@ -51,16 +52,16 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
             });
-            
+
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( newRecord );
-            
+
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-            
+
             testHelper.checkRecord( assert, key, newRecord, editable, true );
-            
+
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 10, 19 ) );
             testHelper.pagingTest({
                 action: { 
@@ -76,7 +77,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ],
                 editable: true
             });
-            
+
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );
             testHelper.pagingTest({
                 action: { 
@@ -92,10 +93,21 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: true
             });
-        });
-        
-        QUnit.test( "create with errors test", function( assert ) {
+            
+            done();
+        }
+    );
+});
 
+QUnit.test( "create with errors test", function( assert ) {
+    
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
@@ -131,10 +143,21 @@ $( '#departmentsContainer' ).zcrud(
             assert.equal( fatalErrorFunctionCounter, 1 );
 
             testHelper.checkNoRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "create undo/redo 1 action test", function( assert ) {
 
+            done();
+        }
+    );
+});
+
+QUnit.test( "create undo/redo 1 action test", function( assert ) {
+    
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
@@ -161,22 +184,33 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
             });
-            
+
             testHelper.assertHistory( assert, 0, 0, false );
             testHelper.clickCreateRowListButton();
             testHelper.assertHistory( assert, 1, 0, false );
-            
+
             // Undo
             testHelper.clickUndoButton();
             testHelper.assertHistory( assert, 0, 1, false );
-            
+
             // Redo
             testHelper.clickRedoButton();
             testHelper.assertHistory( assert, 1, 0, false );
-        });
+            
+            done();
+        }
+    );
+});
         
-        QUnit.test( "create undo/redo 3 action test", function( assert ) {
-
+QUnit.test( "create undo/redo 3 action test", function( assert ) {
+    
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
@@ -208,27 +242,27 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.assertHistory( assert, 0, 0, false );
             testHelper.clickCreateRowListButton();
             testHelper.assertHistory( assert, 1, 0, false );
-            
+
             // Create row (2)
             testHelper.clickCreateRowListButton();
             testHelper.assertHistory( assert, 2, 0, false );
-            
+
             // Create row (3)
             testHelper.clickCreateRowListButton();
             testHelper.assertHistory( assert, 3, 0, false );
-            
+
             // Undo (1)
             testHelper.clickUndoButton();
             testHelper.assertHistory( assert, 2, 1, false );
-            
+
             // Undo (2)
             testHelper.clickUndoButton();
             testHelper.assertHistory( assert, 1, 2, false );
-            
+
             // Undo (3)
             testHelper.clickUndoButton();
             testHelper.assertHistory( assert, 0, 3, false );
-            
+
             // Redo (1)
             testHelper.clickRedoButton();
             testHelper.assertHistory( assert, 1, 2, false );
@@ -240,5 +274,9 @@ $( '#departmentsContainer' ).zcrud(
             // Redo (3)
             testHelper.clickRedoButton();
             testHelper.assertHistory( assert, 3, 0, false );
-        });
-    });
+            
+            done();
+        }
+    );
+});
+

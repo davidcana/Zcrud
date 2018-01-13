@@ -10,15 +10,17 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
-        
-        // Run tests
-        QUnit.test( "paging test", function( assert ) {
-            
+// Run tests
+QUnit.test( "paging test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
             testHelper.multiplePagingTest({
                 options: options,
                 assert: assert,
@@ -35,5 +37,8 @@ $( '#departmentsContainer' ).zcrud(
                     testHelper.buildValuesList( 1, 10 )
                 ]
             });
-        });
-    });
+            
+            done();
+        }
+    );
+});

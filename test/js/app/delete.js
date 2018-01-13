@@ -10,15 +10,17 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
-        
-        // Run tests
-        QUnit.test( "delete test", function( assert ) {
-            
+// Run tests
+QUnit.test( "delete test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
             // Assert register with key 2 is OK
             var key = 2;
             var expectedRecord =  {
@@ -37,7 +39,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            
+
             // Go to delete form and cancel
             testHelper.clickDeleteListButton( key );
             testHelper.clickFormCancelButton();
@@ -52,11 +54,11 @@ $( '#departmentsContainer' ).zcrud(
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            
+
             // Go to delete form and delete record
             testHelper.clickDeleteListButton( key );
             testHelper.clickFormSubmitButton();
-            
+
             values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 3, 11 ) );
             testHelper.pagingTest({
                 options: options,
@@ -69,5 +71,8 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             testHelper.checkNoRecord( assert, key );
-        });
-    });
+            
+            done();
+        }
+    );
+});

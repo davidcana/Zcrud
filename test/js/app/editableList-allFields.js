@@ -18,23 +18,24 @@ options.fatalErrorFunction = function( message ){
     ++fatalErrorFunctionCounter;
 };
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        
-        // Run tests
-        
-        QUnit.test( "change text area test", function( assert ) {
-            
+// Run tests
+QUnit.test( "change text area test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
             context.updateListVisibleFields( options, [ 'id', 'name', 'description' ] );
-            
+
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
-            
+
             var editable = true;
-            
+
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
@@ -42,7 +43,7 @@ $( '#departmentsContainer' ).zcrud(
                 "name": "Service " + key
             };
             testHelper.checkRecord( assert, key, record, editable );
-            
+
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
                 options: options,
@@ -55,7 +56,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-            
+
             // Edit record
             var editedRecord =  {
                 "description": "Service " + key + " description"
@@ -63,7 +64,7 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-            
+
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
@@ -73,16 +74,27 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
-            
+
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-            
-            testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "change datetime test", function( assert ) {
 
+            testHelper.checkRecord( assert, key, newRecord, editable );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "change datetime test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
             context.updateListVisibleFields( options, [ 'id', 'name', 'datetime' ] );
 
             testUtils.resetServices();
@@ -111,7 +123,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-            
+
             // Edit record
             var editedRecord =  {
                 "datetime": "13/12/2017 16:00"
@@ -119,12 +131,12 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-            
+
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
             testHelper.assertHistory( assert, 0, 1, false );
-            
+
             // Redo
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord );
@@ -135,10 +147,21 @@ $( '#departmentsContainer' ).zcrud(
             assert.equal( fatalErrorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "change checkbox test", function( assert ) {
+            
+            done();
+        }
+    );
+});
 
+QUnit.test( "change checkbox test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
             context.updateListVisibleFields( options, [ 'id', 'name', 'important' ] );
 
             testUtils.resetServices();
@@ -167,7 +190,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-            
+
             // Edit record
             var editedRecord =  {
                 "important": true
@@ -175,63 +198,7 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-            
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 1, false );
-            
-            // Redo
-            testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "change radio test", function( assert ) {
-
-            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            var editable = true;
-
-            // Assert register with key 2 exists
-            var key = 2;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            testHelper.checkRecord( assert, key, record, editable );
-
-            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
-            testHelper.pagingTest({
-                options: options,
-                assert: assert,
-                visibleRows: 5,
-                pagingInfo: 'Showing 1-5 of 129',
-                ids:  values[ 0 ],
-                names: values[ 1 ],
-                pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
-                editable: editable
-            });
-            
-            // Edit record
-            var editedRecord =  {
-                "phoneType": "officePhone_option"
-            };
-            testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
@@ -247,10 +214,21 @@ $( '#departmentsContainer' ).zcrud(
             assert.equal( fatalErrorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "change 2 radios test", function( assert ) {
+            
+            done();
+        }
+    );
+});
 
+QUnit.test( "change radio test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
             context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
 
             testUtils.resetServices();
@@ -287,7 +265,74 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkEditableListForm( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord, editable );
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "change 2 radios test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
+            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Edit record
+            var editedRecord =  {
+                "phoneType": "officePhone_option"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+
             // Assert register with key 4 exists
             var key2 = 4;
             var record2 =  {
@@ -295,7 +340,7 @@ $( '#departmentsContainer' ).zcrud(
                 "name": "Service " + key2
             };
             testHelper.checkRecord( assert, key2, record2, editable );
-            
+
             // Edit record 2
             var editedRecord2 =  {
                 "phoneType": "cellPhone_option"
@@ -303,37 +348,48 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord2, key2 );
             var newRecord2 = $.extend( true, {}, record2, editedRecord2 );
             testHelper.checkEditableListForm( assert, key2, newRecord2 );
-            
+
             // Undo (1)
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key2, record2, editable );
             testHelper.assertHistory( assert, 1, 1, true );
-            
+
             // Undo (2)
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
             testHelper.assertHistory( assert, 0, 2, false );
-            
+
             // Redo (1)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord );
             testHelper.assertHistory( assert, 1, 1, true );
-            
+
             // Redo (2)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key2, newRecord2 );
             testHelper.assertHistory( assert, 2, 0, true ); 
-            
+
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
             testHelper.checkRecord( assert, key2, newRecord2, editable );
-        });
-        
-        QUnit.test( "change select test", function( assert ) {
+            
+            done();
+        }
+    );
+});
 
+QUnit.test( "change select test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
             context.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
 
             testUtils.resetServices();
@@ -367,16 +423,16 @@ $( '#departmentsContainer' ).zcrud(
             assert.deepEqual(
                 testHelper.getSelectOptions( 'province', testHelper.getRow( key ) ),
                 [ 'Cádiz', 'Málaga' ] );
-                
+
             // Edit record
             var editedRecord =  {
                 "province": "Málaga"
             };
             testHelper.fillEditableList( editedRecord, key );
-            
+
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-            
+
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
@@ -392,10 +448,21 @@ $( '#departmentsContainer' ).zcrud(
             assert.equal( fatalErrorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "change 2 linked select test", function( assert ) {
+            
+            done();
+        }
+    );
+});
+   
+QUnit.test( "change 2 linked select test", function( assert ) {
 
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
             context.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
 
             testUtils.resetServices();
@@ -414,7 +481,7 @@ $( '#departmentsContainer' ).zcrud(
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
-            
+
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
                 options: options,
@@ -427,7 +494,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-            
+
             // Edit record
             var editedRecord =  {
                 "province": "Málaga"
@@ -436,7 +503,7 @@ $( '#departmentsContainer' ).zcrud(
 
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-            
+
             var editedRecord2 =  {
                 "city": "Marbella"
             };
@@ -444,12 +511,12 @@ $( '#departmentsContainer' ).zcrud(
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
                 [ 'Estepona', 'Marbella' ] );
-            
+
             var newRecord2 = $.extend( true, {}, newRecord, editedRecord2 );
             testHelper.checkEditableListForm( assert, key, newRecord2 );
-            
+
             testHelper.assertHistory( assert, 2, 0, true );
-            
+
             // Undo (1)
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, newRecord, editable );
@@ -457,7 +524,7 @@ $( '#departmentsContainer' ).zcrud(
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
                 [ 'Estepona', 'Marbella' ] );
-            
+
             // Undo (2)
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
@@ -465,7 +532,7 @@ $( '#departmentsContainer' ).zcrud(
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
-            
+
             // Redo (1)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord );
@@ -473,7 +540,7 @@ $( '#departmentsContainer' ).zcrud(
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
                 [ 'Estepona', 'Marbella' ] );
-            
+
             // Redo (2)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord2 );
@@ -481,16 +548,27 @@ $( '#departmentsContainer' ).zcrud(
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
                 [ 'Estepona', 'Marbella' ] );
-            
+
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord2, editable );
-        });
-        
-        QUnit.test( "change datalist test", function( assert ) {
+            
+            done();
+        }
+    );
+});
 
+QUnit.test( "change datalist test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
             context.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
 
             testUtils.resetServices();
@@ -519,7 +597,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-            
+
             // Edit record
             var editedRecord =  {
                 "browser": "Firefox"
@@ -543,5 +621,8 @@ $( '#departmentsContainer' ).zcrud(
             assert.equal( fatalErrorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-    });
+            
+            done();
+        }
+    );
+});

@@ -17,21 +17,22 @@ options.fatalErrorFunction = function( message ){
     ++fatalErrorFunctionCounter;
 };
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        
-        // Run tests
-        
-        QUnit.test( "change test", function( assert ) {
-            
+// Run tests        
+QUnit.test( "change test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
-            
+
             var editable = true;
-            
+
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
@@ -51,7 +52,7 @@ $( '#departmentsContainer' ).zcrud(
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
             });
-            
+
             // Edit record
             var editedRecord =  {
                 "name": "Service 2 edited",
@@ -60,15 +61,26 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-            
+
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-            
+
             testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "change with errors test", function( assert ) {
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "change with errors test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -104,16 +116,27 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-            
+
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 1 );
-            
-            testHelper.checkRecord( assert, key, record, editable, true );
-        });
-        
-        QUnit.test( "change undo/redo 1 action test", function( assert ) {
 
+            testHelper.checkRecord( assert, key, record, editable, true );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "change undo/redo 1 action test", function( assert ) {
+    
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
@@ -148,17 +171,17 @@ $( '#departmentsContainer' ).zcrud(
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
-            
+
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkRecord( assert, key, record, editable );
             testHelper.assertHistory( assert, 0, 1, false );
-            
+
             // Redo
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
-            
+
             // Save
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
@@ -166,10 +189,22 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.assertHistory( assert, 0, 0, false );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
-        });
-        
-        QUnit.test( "change undo/redo 3 actions test", function( assert ) {
+            
+            done();
+        }
+    );
+});
 
+
+QUnit.test( "change undo/redo 3 actions test", function( assert ) {
+    
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
@@ -203,9 +238,9 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord, key1 );
             var newRecord1 = $.extend( true, {}, record1, editedRecord );
             testHelper.checkEditableListForm( assert, key1, newRecord1 );
-            
+
             testHelper.assertHistory( assert, 1, 0, true );
-            
+
             // Edit record (2)
             var key2 = 4;
             var record2 =  {
@@ -218,9 +253,9 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord2, key2 );
             var newRecord2 = $.extend( true, {}, record2, editedRecord2 );
             testHelper.checkEditableListForm( assert, key2, newRecord2 );
-            
+
             testHelper.assertHistory( assert, 2, 0, true );
-            
+
             // Edit record (3)
             var key3 = 7;
             var record3 =  {
@@ -233,39 +268,39 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.fillEditableList( editedRecord3, key3 );
             var newRecord3 = $.extend( true, {}, record3, editedRecord3 );
             testHelper.checkEditableListForm( assert, key3, newRecord3 );
-            
+
             testHelper.assertHistory( assert, 3, 0, true );
-            
+
             // Undo (1)
             testHelper.clickUndoButton();
             testHelper.checkRecord( assert, key3, record3, editable );
             testHelper.assertHistory( assert, 2, 1, true );
-            
+
             // Undo (2)
             testHelper.clickUndoButton();
             testHelper.checkRecord( assert, key2, record2, editable );
             testHelper.assertHistory( assert, 1, 2, true );
-            
+
             // Undo (3)
             testHelper.clickUndoButton();
             testHelper.checkRecord( assert, key1, record1, editable );
             testHelper.assertHistory( assert, 0, 3, false );
-            
+
             // Redo (1)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key1, newRecord1 );
             testHelper.assertHistory( assert, 1, 2, true );
-            
+
             // Redo (2)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key2, newRecord2 );
             testHelper.assertHistory( assert, 2, 1, true );
-            
+
             // Redo (3)
             testHelper.clickRedoButton();
             testHelper.checkEditableListForm( assert, key3, newRecord3 );
             testHelper.assertHistory( assert, 3, 0, true );
-            
+
             // Save
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
@@ -275,5 +310,9 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.checkRecord( assert, key1, newRecord1, editable );
             testHelper.checkRecord( assert, key2, newRecord2, editable );
             testHelper.checkRecord( assert, key3, newRecord3, editable );
-        });
-    });
+            
+            done();
+        }
+    );
+});
+
