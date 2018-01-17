@@ -130,6 +130,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             }
             fields.push( field );
             fieldsMap[ fieldId ] = field;
+            
+            fieldBuilder.buildFields( field );
         });
     };
     

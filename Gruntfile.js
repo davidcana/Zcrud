@@ -159,6 +159,15 @@ module.exports = function(grunt) {
                 src: 'test/js/app/editableList-allFields.js',
                 dest: 'build/editableList-allFields.js'
             },
+            subform: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/subform.js',
+                dest: 'build/subform.js'
+            },
         },
         compress: {
             main: {

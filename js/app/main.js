@@ -331,6 +331,13 @@ exports.init = function( userOptions, callback ){
                 field.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
             }
         }
+        
+        // Normalize subfields in this field
+        if ( field.fields ){
+            $.each( field.fields, function ( subfieldId, subfield ) {
+                normalizeFieldOptions( subfieldId, subfield, options );
+            });
+        }
     };
     
     var normalizeGeneralOptionsPostFields = function() {

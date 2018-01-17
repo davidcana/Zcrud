@@ -343,9 +343,14 @@ module.exports = (function() {
         return clone( services[ key ] );
     };
     
+    var setService = function( key, service ){
+        services[ key ] = clone( service );
+    };
+    
     return {
         ajax: ajax,
         getService: getService,
+        setService: setService,
         resetServices: resetServices
     };
 })();

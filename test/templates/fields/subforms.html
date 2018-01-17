@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of subforms</title>
+    </head>
+    <body> 
+        <div data-mdefine-macro="subform" data-tomit-tag="">
+            <table data-tdefine="byRow field/buttons/byRow;
+                                 subformField field">
+                <thead>
+                    <tr>
+                        <th data-trepeat="field subformField/getFields()" 
+                            data-tattributes="style cond: field/width (string:width:${field/width}) null;
+                                              class string:zcrud-column-header zcrud-column-header-${field/id}">
+                            <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
+                        </th>
+                        <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"><!--empty--></th>
+                        <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"><!--empty--></th>
+                        <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"><!--empty--></th>
+                    </tr>
+                </thead>
+                <tbody data-tdefine="editable true;
+                                     renderIds false">
+                    <tr data-trepeat="record value"
+                        data-tattributes="data-record-key record[ options/key ];
+                                          data-record-index repeat/record/index();
+                                          class 'zcrud-data-row'">
+                        <td data-trepeat="field subformField/getFields()"
+                            data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}"
+                            data-tdefine="value record[ field/id ]">
+                            <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
+                            <span data-tcondition="editable"
+                                  data-muse-macro="field/template"><!--empty--></span>
+                        </td>
+                        <td data-tcondition="byRow/openEditRegisterForm">
+                            <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
+                        </td>
+                        <td data-tcondition="byRow/openDeleteRegisterForm">
+                            <button title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
+                        </td>
+                        <td data-tcondition="byRow/deleteRegisterRow">
+                            <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

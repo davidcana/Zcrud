@@ -41,6 +41,7 @@ module.exports = (function() {
         register( require( './datetimeFieldManager.js' ) );
         register( require( './optionListProviderManager.js' ) );
         register( require( './checkboxFieldManager.js' ) );
+        register( require( './subformManager.js' ) );
     }();
     /*
     var beforeProcessTemplateForField = function( params ){
@@ -168,6 +169,15 @@ module.exports = (function() {
         return false;
     };
     
+    var buildFields = function( field ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.buildFields ) ){
+            fieldManager.buildFields( field );
+        }
+    };
+    
     return {
         register: register,
         unregister: unregister,
@@ -182,6 +192,7 @@ module.exports = (function() {
         getPostTemplate: getPostTemplate,
         //getLabelFor: getLabelFor,
         setValueToForm: setValueToForm,
-        mustHideLabel: mustHideLabel
+        mustHideLabel: mustHideLabel,
+        buildFields: buildFields
     };
 })();
