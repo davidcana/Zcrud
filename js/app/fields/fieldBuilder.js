@@ -4,7 +4,6 @@
 module.exports = (function() {
     "use strict";
     
-    var context = require( '../context.js' );
     var $ = require( 'jquery' );
     
     var fieldManagers = {};

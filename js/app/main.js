@@ -294,7 +294,7 @@ exports.init = function( userOptions, callback ){
     };
 
     // Normalizes some options for a field (sets default values)
-    var normalizeFieldOptions = function ( id, field, options ) {
+    var normalizeFieldOptions = function ( id, field, options, parent ) {
         
         // Set id
         field.id = id;
@@ -310,6 +310,9 @@ exports.init = function( userOptions, callback ){
         }
         if ( field.elementId == undefined ) {
             field.elementId = 'zcrud-' + id;
+        }
+        if ( field.elementName == undefined ) {
+            field.elementName = parent? parent.id + '/' + id: id;
         }
         //field.labelFor = fieldBuilder.getLabelFor( field, options );
         if ( field.template == undefined ){
@@ -335,7 +338,7 @@ exports.init = function( userOptions, callback ){
         // Normalize subfields in this field
         if ( field.fields ){
             $.each( field.fields, function ( subfieldId, subfield ) {
-                normalizeFieldOptions( subfieldId, subfield, options );
+                normalizeFieldOptions( subfieldId, subfield, options, field );
             });
         }
     };

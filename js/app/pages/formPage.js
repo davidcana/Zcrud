@@ -41,7 +41,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     
     var dictionary = undefined;
     var submitFunction = undefined;
+    
     var history = undefined;
+    var getHistory = function(){
+        return history;
+    };
     //var autoSaveMode = false;
     
     var fieldsMap = undefined;
@@ -49,15 +53,31 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     var getFields = function(){
         return fields;
     };
-    var getField = function( fieldId ){
-        return fieldsMap[ fieldId ];
+    var getField = function( fieldId, parentId ){
+        return parentId? fieldsMap[ parentId ].fields[ fieldId ]: fieldsMap[ fieldId ];
     };
+    var getFieldByName = function( fieldName ){
+
+        // Must remove [] and its contents
+        var arraySeparatorIndex = fieldName.indexOf( '[' );
+        var tempFieldName = arraySeparatorIndex === -1? fieldName: fieldName.substring( 0, arraySeparatorIndex );
+        
+        // Get parent
+        var parentSeparatorIndex = tempFieldName.indexOf( '/' );
+        var parentId = parentSeparatorIndex === -1? null: tempFieldName.substring( 0, parentSeparatorIndex );
+        if ( parentSeparatorIndex !== -1 ){
+            tempFieldName = tempFieldName.substring( 1 + parentSeparatorIndex );
+        }
+        
+        return getField( tempFieldName, parentId );
+    };
+    /*
     var getFieldByName = function( fieldName ){
 
         // Must remove [] and its contents
         var index = fieldName.indexOf( '[' );
         return getField( index === -1? fieldName: fieldName.substring( 0, index ) );
-    };
+    };*/
     
     var successMessage = undefined;
     
@@ -238,7 +258,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             options: options,
             record: record,
             source: type,
-            dictionary: dictionary
+            dictionary: dictionary,
+            formPage: self,
+            fieldBuilder: fieldBuilder
         };
     };
     
@@ -257,6 +279,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     var afterProcessTemplate = function( $form ){
                 
         validationManager.initFormValidation( id, $form, options );
+        bindEvents( $form );
         
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
@@ -266,7 +289,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             );
         }
         
-        bindEvents( $form );
+        //bindEvents( $form );
         options.events.formCreated( options );
     };
     
@@ -423,7 +446,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         getTitle: getTitle,
         getFields: getFields,
         getPostTemplate: getPostTemplate,
-        mustHideLabel: mustHideLabel
+        mustHideLabel: mustHideLabel,
+        getHistory: getHistory,
+        getFieldByName: getFieldByName
     };
     
     configure();

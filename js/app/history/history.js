@@ -40,20 +40,24 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return value1IsVoid || value2IsVoid? value1IsVoid && value2IsVoid: value1 === value2;
     };
     
-    var isRepeated = function( newValue, rowIndex, name ){
+    var isRepeated = function( newValue, rowIndex, name, subformName, subformRowIndex ){
 
         var previousItem = getPreviousItem( rowIndex, name );
         return previousItem? 
                newValue === previousItem.newValue: 
-               areEquivalent( newValue, getValueFromRecord( rowIndex, name ) );
+        areEquivalent( newValue, getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
     };
     
-    var putChange = function( $this, newValue, rowIndex, id, field ) {
+    var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex ) {
         
-        //var name = $this.attr( 'name' );
-        var name = field.id;
-        
-        if ( isRepeated( newValue, rowIndex, name ) ){
+        // Get names
+        //var name = field.id;
+        var fullName = field.elementName;
+        var subformSeparatorIndex = fullName.indexOf( '/' );
+        var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
+        var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
+            
+        if ( isRepeated( newValue, rowIndex, name, subformName, subformRowIndex ) ){
             return undefined;
         }
         
@@ -63,9 +67,10 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             rowIndex,
             name,
             newValue,
-            getPreviousValue( rowIndex, name ),
+            getPreviousValue( rowIndex, name, subformName, subformRowIndex ),
             $this,
-            field );
+            field,
+            subformRowIndex );
         
         put( id, historyItem );
         
@@ -135,18 +140,27 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         HistoryDelete.resetCSS( $list, editableOptions );
     };
     
-    var getValueFromRecord =  function( rowIndex, name ){
+    var getValueFromRecord =  function( rowIndex, name, subformName, subformRowIndex ){
         
         var dictionary = dictionaryProvider.getDictionary();
         var record = rowIndex? dictionary.records[ rowIndex ]: dictionary.record;
         
-        return record? record[ name ]: '';
+        //return record? record[ name ]: '';
+        
+        if ( ! record ){
+            return '';
+        }
+      
+        if ( subformRowIndex ){
+            record = record[ subformName ][ subformRowIndex ];
+        }
+        return record[ name ];
     };
     
-    var getPreviousValue = function( rowIndex, name ){
+    var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
         
         var previousItem = getPreviousItem( rowIndex, name );
-        return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name );
+        return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
     };
     
     var getPreviousItem = function( rowIndex, name ){

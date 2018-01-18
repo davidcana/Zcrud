@@ -7,7 +7,7 @@
     <body> 
         <div data-mdefine-macro="text" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/id; 
+                                     name field/elementName; 
                                      value value; 
                                      field/formFieldAttributes"
                    type="text">
@@ -15,14 +15,14 @@
         
         <div data-mdefine-macro="textarea" data-tomit-tag="">
             <textarea data-tattributes="id cond: renderIds field/elementId null;
-                                        name field/id; 
+                                        name field/elementName; 
                                         field/formFieldAttributes"
                       data-tcontent="cond: value value ''">The textarea value.</textarea>
         </div>
         
         <div data-mdefine-macro="datetime" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/id; 
+                                     name field/elementName; 
                                      value value; 
                                      field/formFieldAttributes"
                    type="text">
@@ -30,7 +30,7 @@
             
         <div data-mdefine-macro="select" data-tomit-tag="">
             <select data-tattributes="id cond: renderIds field/elementId null;
-                                      name field/id; 
+                                      name field/elementName; 
                                       value value; 
                                       field/formFieldAttributes"
                     data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
@@ -47,7 +47,7 @@
                 <div data-trepeat="option optionsList">
                     <label>
                         <input type="radio"
-                               data-tattributes="name string:${field/id}[${data-record-index}];
+                               data-tattributes="name string:${field/elementName}[${data-record-index}];
                                                  value option/value; 
                                                  checked cond: (eq: option/value value) 'checked' null">
                         <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
@@ -58,7 +58,7 @@
         
         <div data-mdefine-macro="datalist" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/id; 
+                                     name field/elementName; 
                                      list string:${field/elementId}-datalist; 
                                      value value; 
                                      field/formFieldAttributes"
@@ -77,7 +77,7 @@
         
         <div data-mdefine-macro="checkbox" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/id; 
+                                     name field/elementName; 
                                      value value; 
                                      checked cond: value 'checked' null; 
                                      field/formFieldAttributes"

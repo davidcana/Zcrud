@@ -4,20 +4,33 @@
 "use strict";
 
 var $ = require( 'jquery' );
-var context = require( '../context.js' );
 
 var SubformManager = function() {
     
     var setValueToForm = function( field, value, $this ){
-        //$this.val( value );
+        $this.val( value );
     };
     
     var afterProcessTemplateForField = function( params, $selection ){
-        /*
-        defaultFieldOptions.format = getI18nFormat( params.field );
-        $selection.find( "[name='" + params.field.id + "']").datetimepicker( 
-            buildDatetimepickerOptions( params, defaultFieldOptions ) );
-        */
+        
+        var formPage = params.formPage;
+        var fieldBuilder = params.fieldBuilder; // To avoid circular refs
+        
+        $selection
+            .find( 'input, textarea, select' )
+            .off()
+            .change( function ( event ) {
+                var $this = $( this );
+                var fullName = $this.prop( 'name' );
+                var field = formPage.getFieldByName( fullName );
+                formPage.getHistory().putChange( 
+                    $this, 
+                    fieldBuilder.getValue( field, $this ), 
+                    0,
+                    formPage.getId(),
+                    field,
+                    $this.closest( 'tr' ).attr( 'data-subform-record-index' ) );
+            });
     };
     
     var getTemplate = function(){
