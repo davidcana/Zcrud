@@ -32,6 +32,8 @@
     "important_description": "¿Es importante?",
     "number_title": "Número",
     "number_description": "El número del departamento",
+    "members_title": "Miembros",
+    "members_description": "Los miembros del departmento",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

@@ -32,6 +32,8 @@
     "important_description": "Is important?",
     "number_title": "Number",
     "number_description": "The number of the department",
+    "members_title": "Members",
+    "members_description": "The members of the department",
     
     "_options": "",
     "homePhone_option": "Home phone",
