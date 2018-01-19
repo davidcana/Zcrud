@@ -7,7 +7,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     var HistoryChange = require( './change.js' );
     var HistoryCreate = require( './create.js' );
     var HistoryDelete = require( './delete.js' );
-    //var validationManager = require( '../validationManager.js' );
     var crudManager = require( '../crudManager.js' );
     var $ = require( 'jquery' );
     
@@ -42,7 +41,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
     var isRepeated = function( newValue, rowIndex, name, subformName, subformRowIndex ){
 
-        var previousItem = getPreviousItem( rowIndex, name );
+        var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
         return previousItem? 
                newValue === previousItem.newValue: 
         areEquivalent( newValue, getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
@@ -51,16 +50,17 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex ) {
         
         // Get names
-        //var name = field.id;
         var fullName = field.elementName;
         var subformSeparatorIndex = fullName.indexOf( '/' );
         var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
         var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
-            
+        
+        // If repeated do nothing
         if ( isRepeated( newValue, rowIndex, name, subformName, subformRowIndex ) ){
             return undefined;
         }
         
+        // Instance, put and return historyItem
         var historyItem = new HistoryChange(
             self,
             editableOptions,
@@ -145,8 +145,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         var dictionary = dictionaryProvider.getDictionary();
         var record = rowIndex? dictionary.records[ rowIndex ]: dictionary.record;
         
-        //return record? record[ name ]: '';
-        
         if ( ! record ){
             return '';
         }
@@ -159,15 +157,15 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
     var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
         
-        var previousItem = getPreviousItem( rowIndex, name );
+        var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
         return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
     };
     
-    var getPreviousItem = function( rowIndex, name ){
+    var getPreviousItem = function( rowIndex, name, subformName, subformRowIndex ){
 
         for ( var c = current - 1; c >= 0; --c ){
             var historyItem = items[ c ];
-            if ( historyItem.isRelatedToField( rowIndex, name ) ){
+            if ( historyItem.isRelatedToField( rowIndex, name, subformName, subformRowIndex ) ){
                 return historyItem;
             }
         }
@@ -175,11 +173,11 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return undefined;
     };
     
-    var getPreviousRecordItem = function( rowIndex ){
+    var getPreviousRecordItem = function( rowIndex, subformName, subformRowIndex ){
 
         for ( var c = current - 1; c >= 0; --c ){
             var historyItem = items[ c ];
-            if ( historyItem.isRelatedToRow( rowIndex ) ){
+            if ( historyItem.isRelatedToRow( rowIndex, subformName, subformRowIndex ) ){
                 return historyItem;
             }
         }

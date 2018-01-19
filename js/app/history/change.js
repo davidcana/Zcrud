@@ -6,7 +6,7 @@
 var $ = require( 'jquery' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
 
-var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformRowIndexToApply ) {
+var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply;
@@ -16,10 +16,10 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var previousValue = previousValueToApply;
     var $this = $thisToApply;
     var field = fieldToApply;
+    var subformName = subformNameToApply;
     var subformRowIndex = subformRowIndexToApply;
     
     var setValue = function( value ){
-        //$this.val( value );
         fieldBuilder.setValueToForm( field, value, $this, ! history.isFormMode()  );
     };
     
@@ -27,8 +27,8 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         
         setValue( previousValue );
         updateCSS( 
-            history.getPreviousItem( rowIndex, name ), 
-            history.getPreviousRecordItem( rowIndex ) );
+            history.getPreviousItem( rowIndex, name, subformName, subformRowIndex ), 
+            history.getPreviousRecordItem( rowIndex, subformName, subformRowIndex ) );
         /*
         if ( ! history.isFormMode() ){
             $this.blur();
@@ -47,7 +47,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     
     var updateCSS = function( fieldChanged, registerChanged ){
 
-        if ( history.isFormMode() ){
+        if ( history.isFormMode() && ! subformName ){
             if ( fieldChanged ){
                 $this.closest( '.zcrud-field' ).addClass( editableOptions.modifiedFieldsClass );
             } else {
@@ -73,12 +73,14 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         updateCSS( true, true );
     };
     
-    var isRelatedToField = function( rowIndexToCheck, nameToCheck ){
-        return rowIndex == rowIndexToCheck && name == nameToCheck;
+    var isRelatedToField = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
+        return rowIndex == rowIndexToCheck && name == nameToCheck
+            && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
     
-    var isRelatedToRow = function( rowIndexToCheck ){
-        return rowIndex == rowIndexToCheck;
+    var isRelatedToRow = function( rowIndexToCheck, subformNameToCheck, subformRowIndexToCheck ){
+        return rowIndex == rowIndexToCheck
+            && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
     
     var getDoActionModified = function( actionsObject, records ){

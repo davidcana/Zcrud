@@ -6,10 +6,10 @@
 var $ = require( 'jquery' );
 
 var SubformManager = function() {
-    
+    /*
     var setValueToForm = function( field, value, $this ){
         $this.val( value );
-    };
+    };*/
     
     var afterProcessTemplateForField = function( params, $selection ){
         
@@ -51,7 +51,7 @@ var SubformManager = function() {
     };
     
     return {
-        setValueToForm: setValueToForm,
+        //setValueToForm: setValueToForm,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getTemplate: getTemplate,
         buildFields: buildFields
