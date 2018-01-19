@@ -29,10 +29,12 @@ QUnit.test( "subform test", function( assert ) {
                 "members": 
                     [
                         {
+                            "code": 21,
                             "name": "Bart Simpson",
                             "description": "Description of Bart Simpson"
                         },
                         {
+                            "code": 22,
                             "name": "Lisa Simpson",
                             "description": "Description of Lisa Simpson"
                         }

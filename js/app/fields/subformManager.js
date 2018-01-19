@@ -29,7 +29,8 @@ var SubformManager = function() {
                     0,
                     formPage.getId(),
                     field,
-                    $this.closest( 'tr' ).attr( 'data-subform-record-index' ) );
+                    $this.closest( 'tr' ).attr( 'data-subform-record-index' ),
+                    $this.closest( 'tr' ).attr( 'data-subform-record-key' ) );
             });
     };
     
@@ -42,6 +43,11 @@ var SubformManager = function() {
         var fields = [];
 
         $.each( field.fields, function ( subfieldId, subfield ) {
+            
+            if ( subfield.subformKey ){
+                field.subformKey = subfieldId;
+            }
+            
             fields.push( subfield );
         });
         

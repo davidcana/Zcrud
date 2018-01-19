@@ -34,6 +34,7 @@
     "number_description": "The number of the department",
     "members_title": "Members",
     "members_description": "The members of the department",
+    "code_title": "Code",
     
     "_options": "",
     "homePhone_option": "Home phone",

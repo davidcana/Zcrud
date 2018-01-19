@@ -47,7 +47,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         areEquivalent( newValue, getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
     };
     
-    var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex ) {
+    var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex, subformRowKey ) {
         
         // Get names
         var fullName = field.elementName;
@@ -70,7 +70,9 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             getPreviousValue( rowIndex, name, subformName, subformRowIndex ),
             $this,
             field,
-            subformRowIndex );
+            subformName,
+            subformRowIndex,
+            subformRowKey );
         
         put( id, historyItem );
         

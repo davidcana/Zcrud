@@ -6,7 +6,7 @@
 var $ = require( 'jquery' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
 
-var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply ) {
+var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply;
@@ -18,6 +18,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var field = fieldToApply;
     var subformName = subformNameToApply;
     var subformRowIndex = subformRowIndexToApply;
+    var subformRowKey = subformRowKeyToApply;
     
     var setValue = function( value ){
         fieldBuilder.setValueToForm( field, value, $this, ! history.isFormMode()  );
@@ -83,7 +84,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
             && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
     
-    var getDoActionModified = function( actionsObject, records ){
+    var getMap = function( actionsObject, records ){
         
         var record = records[ rowIndex ];
         
@@ -92,15 +93,47 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     
     var doAction = function( actionsObject, records ){
         
-        var modified = getDoActionModified( actionsObject, records );
-        var row = modified[ rowIndex ];
+        var map = getMap( actionsObject, records );
+        var row = map[ rowIndex ];
 
         if ( ! row ){
             row = {};
-            modified[ rowIndex ] = row;
+            map[ rowIndex ] = row;
         }
 
-        row[ name ] = newValue;
+        if ( subformName ){
+            createNestedObject( row, [ subformName, subformRowKey, name ], newValue );
+            /*
+            if ( ! row[ subformName ] ){
+                row[ subformName ] = [];
+            }
+            var subformRow = row[ subformName ];
+            */
+        } else {
+            row[ name ] = newValue;
+        }
+    };
+    
+    // Function: createNestedObject( base, names[, value] )
+    //   base: the object on which to create the hierarchy
+    //   names: an array of strings contaning the names of the objects
+    //   value (optional): if given, will be the last object in the hierarchy
+    // Returns: the last object in the hierarchy
+    var createNestedObject = function( base, names, value ) {
+        // If a value is given, remove the last name and keep it for later:
+        var lastName = arguments.length === 3 ? names.pop() : false;
+
+        // Walk the hierarchy, creating new objects where needed.
+        // If the lastName was removed, then the last object is not set yet:
+        for( var i = 0; i < names.length; i++ ) {
+            base = base[ names[i] ] = base[ names[i] ] || {};
+        }
+
+        // If a value was given, set it to the last name:
+        if( lastName ) base = base[ lastName ] = value;
+
+        // Return the last object in the hierarchy:
+        return base;
     };
     
     var saveEnabled = function(){

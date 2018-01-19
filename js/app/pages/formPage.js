@@ -384,7 +384,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             }
         };
         data.url = thisOptions.action || options.defaultFormConf.action;
-        //alert( data + '\n' + JSON.stringify( data ) );
+        alert( data + '\n' + JSON.stringify( data ) );
         
         // Do the CRUD!
         crudManager.batchUpdate( data, options, event );

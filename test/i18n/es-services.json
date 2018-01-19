@@ -34,6 +34,7 @@
     "number_description": "El número del departamento",
     "members_title": "Miembros",
     "members_description": "Los miembros del departmento",
+    "code_title": "Codigo",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

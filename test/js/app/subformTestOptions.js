@@ -44,7 +44,8 @@ module.exports = {
     },
     
     defaultFormConf: {
-        action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+        action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+        dataToSend: 'modified'
     },
     
     fields: {
@@ -130,6 +131,9 @@ module.exports = {
             list: false,
             type: 'subform',
             fields: { 
+                code: { 
+                    subformKey: true
+                },
                 name: { },
                 description: {
                     type: 'textarea',
