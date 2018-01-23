@@ -6,7 +6,7 @@
 var $ = require( 'jquery' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
 
-var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
+var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply, parentFieldToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply;
@@ -19,6 +19,11 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var subformName = subformNameToApply;
     var subformRowIndex = subformRowIndexToApply;
     var subformRowKey = subformRowKeyToApply;
+    var parentField = parentFieldToApply;
+    
+    var getSubformName = function(){
+        return subformName;
+    };
     
     var setValue = function( value ){
         fieldBuilder.setValueToForm( field, value, $this, ! history.isFormMode()  );
@@ -83,36 +88,112 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         return rowIndex == rowIndexToCheck
             && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
+    /*
+    var getRecordForSubform = function( record ){
+        
+        if ( ! record || ! record[ subformName ] ){
+            return undefined;
+        }
+        
+        var subformKey = parentField.subformKey;
+        var subformRecords = record[ subformName ];
+        for ( var c = 0; c < subformRecords.length; c++ ) {
+            var subformRecord = subformRecords[ c ];
+            if ( subformRecord[ subformKey ] == subformRowKey ){
+                return subformRecord[ subformKey ];
+            }
+        }
+        
+        return undefined;
+    };*/
+    var getRecordForSubform = function( record ){
+
+        var subformRecords = record? record[ subformName ]: undefined;
+        return subformRecords? subformRecords[ subformRowIndex ]: undefined;
+    };
     
     var getMap = function( actionsObject, records ){
         
         var record = records[ rowIndex ];
+        /*
+        if ( subformName ){
+            record = getRecordForSubform( record );
+        }*/
         
+        return record? actionsObject.modified: actionsObject.new;
+    };
+    
+    var getSubformMap = function( actionsObject, records ){
+
+        var record = getRecordForSubform( records[ rowIndex ] );
         return record? actionsObject.modified: actionsObject.new;
     };
     
     var doAction = function( actionsObject, records ){
         
         var map = getMap( actionsObject, records );
+        
+        // Search row
         var row = map[ rowIndex ];
-
+        if ( subformName ){
+            if ( row && row[ subformName ] && row[ subformName ].modified && row[ subformName ].modified[ subformRowKey ] ){
+                row = row[ subformName ].modified[ subformRowKey ];
+            } else {
+                row = undefined;
+            }
+        }
+        
+        // Build empty row if not found
         if ( ! row ){
             row = {};
-            map[ rowIndex ] = row;
+            if ( subformName ){
+                var subformRows = undefined;
+                if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
+                    var subformActionObject = createNestedObject( 
+                        map, 
+                        [ rowIndex, subformName ], 
+                        history.buildEmptyActionsObject() );
+                    subformRows = subformActionObject.modified;
+                } else {
+                    subformRows = map[ rowIndex ][ subformName ].modified;
+                }
+                subformRows[ subformRowKey ] = row;
+            } else {
+                map[ rowIndex ] = row;
+            }
+        }
+        
+        // Set new value
+        row[ name ] = newValue;
+    };
+    /*
+    var doAction = function( actionsObject, records ){
+
+        var map = getMap( actionsObject, records );
+
+        // Search row
+        var row = map[ rowIndex ];
+        if ( subformName ){
+            if ( row && row[ subformName ] && row[ subformName ][ subformRowKey ] ){
+                row = row[ subformName ][ subformRowKey ];
+            } else {
+                row = undefined;
+            }
         }
 
-        if ( subformName ){
-            createNestedObject( row, [ subformName, subformRowKey, name ], newValue );
-            /*
-            if ( ! row[ subformName ] ){
-                row[ subformName ] = [];
+        // Build empty row if not found
+        if ( ! row ){
+            row = {};
+            if ( subformName ){
+                createNestedObject( map, [ rowIndex, subformName, subformRowKey ], row );
+            } else {
+                map[ rowIndex ] = row;
             }
-            var subformRow = row[ subformName ];
-            */
-        } else {
-            row[ name ] = newValue;
         }
-    };
+
+        // Set new value
+        row[ name ] = newValue;
+    };*/
     
     // Function: createNestedObject( base, names[, value] )
     //   base: the object on which to create the hierarchy
@@ -122,20 +203,21 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var createNestedObject = function( base, names, value ) {
         // If a value is given, remove the last name and keep it for later:
         var lastName = arguments.length === 3 ? names.pop() : false;
-
+    
         // Walk the hierarchy, creating new objects where needed.
         // If the lastName was removed, then the last object is not set yet:
         for( var i = 0; i < names.length; i++ ) {
             base = base[ names[i] ] = base[ names[i] ] || {};
         }
-
+        
         // If a value was given, set it to the last name:
         if( lastName ) base = base[ lastName ] = value;
-
+        
         // Return the last object in the hierarchy:
         return base;
     };
-    
+
+                    
     var saveEnabled = function(){
         return true;
     };
@@ -148,11 +230,14 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
         rowIndex: rowIndex,
+        subformRowIndex: subformRowIndex,
+        field: field,
         name: name,
         newValue: newValue,
         previousValue: previousValue,
         $this: $this,
-        saveEnabled: saveEnabled
+        saveEnabled: saveEnabled,
+        getSubformName: getSubformName
     };
 };
 

@@ -16,6 +16,10 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
     var $tr = undefined;
     var rowIndex = undefined;
     
+    var getSubformName = function(){
+        return undefined;
+    };
+    
     var undo = function(){
         history.hideTr( $tr );
     };
@@ -85,7 +89,8 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
         get$Tr: get$Tr,
-        saveEnabled: saveEnabled
+        saveEnabled: saveEnabled,
+        getSubformName: getSubformName
     };
 };
 

@@ -6,6 +6,7 @@
 var $ = require( 'jquery' );
 
 var SubformManager = function() {
+    
     /*
     var setValueToForm = function( field, value, $this ){
         $this.val( value );
@@ -30,7 +31,8 @@ var SubformManager = function() {
                     formPage.getId(),
                     field,
                     $this.closest( 'tr' ).attr( 'data-subform-record-index' ),
-                    $this.closest( 'tr' ).attr( 'data-subform-record-key' ) );
+                    $this.closest( 'tr' ).attr( 'data-subform-record-key' ) ,
+                    formPage.getParentFieldByName( fullName ));
             });
     };
     

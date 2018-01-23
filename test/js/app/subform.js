@@ -22,19 +22,19 @@ QUnit.test( "subform test", function( assert ) {
         function( options ){
             
             // 
-            var key = 2;
+            var key = 4;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key,
                 "members": 
                     [
                         {
-                            "code": 21,
+                            "code": 1,
                             "name": "Bart Simpson",
                             "description": "Description of Bart Simpson"
                         },
                         {
-                            "code": 22,
+                            "code": 2,
                             "name": "Lisa Simpson",
                             "description": "Description of Lisa Simpson"
                         }

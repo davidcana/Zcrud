@@ -15,6 +15,10 @@ var Delete = function( historyToApply, editableOptionsToApply, optionsToApply, r
     var key = keyToApply;
     var $tr = $trToApply;
     
+    var getSubformName = function(){
+        return undefined;
+    };
+    
     var undo = function(){
         history.showTr( $tr );
     };
@@ -69,7 +73,8 @@ var Delete = function( historyToApply, editableOptionsToApply, optionsToApply, r
         doAction: doAction,
         get$Tr: get$Tr,
         getKey: getKey,
-        saveEnabled: saveEnabled
+        saveEnabled: saveEnabled,
+        getSubformName: getSubformName
     };
 };
 

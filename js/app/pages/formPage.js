@@ -71,6 +71,18 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         
         return getField( tempFieldName, parentId );
     };
+    var getParentFieldByName = function( fieldName ){
+
+        // Must remove [] and its contents
+        var arraySeparatorIndex = fieldName.indexOf( '[' );
+        var tempFieldName = arraySeparatorIndex === -1? fieldName: fieldName.substring( 0, arraySeparatorIndex );
+
+        // Get parent
+        var parentSeparatorIndex = tempFieldName.indexOf( '/' );
+        var parentId = parentSeparatorIndex === -1? null: tempFieldName.substring( 0, parentSeparatorIndex );
+
+        return parentId? fieldsMap[ parentId ]: null;
+    };
     /*
     var getFieldByName = function( fieldName ){
 
@@ -448,7 +460,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         getPostTemplate: getPostTemplate,
         mustHideLabel: mustHideLabel,
         getHistory: getHistory,
-        getFieldByName: getFieldByName
+        getFieldByName: getFieldByName,
+        getParentFieldByName: getParentFieldByName
     };
     
     configure();
