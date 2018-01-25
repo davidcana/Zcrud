@@ -7,6 +7,7 @@ module.exports = (function() {
     var $ = require( 'jquery' );
     
     var services = {};
+    var servicesSubformsFields = [ 'members' ];
     /*
     var services = {
         '1': { name: 'Service 1' },
@@ -107,7 +108,7 @@ module.exports = (function() {
 
         // Init data
         var dataToSend = {};
-        dataToSend.result = 'OK';
+        //dataToSend.result = 'OK';
         dataToSend.message = '';
         dataToSend.existingRecords = {};
         dataToSend.newRecords = [];
@@ -132,6 +133,8 @@ module.exports = (function() {
                 dataToSend.message += 'Service with key "' + newId + '" found: duplicated key trying to update it!';
                 continue;    
             }
+            
+            servicesSubformsListBatchUpdate( currentService, modifiedService, dataToSend );
             
             var extendedService = $.extend( true, {}, currentService, modifiedService );
 
@@ -175,8 +178,55 @@ module.exports = (function() {
             dataToSend.recordsToRemove.push( id );                
         }
         
-        dataToSend.result = error? 'Error': 'OK';
+        dataToSend.result = dataToSend.result || error? 'Error': 'OK';
         return dataToSend;
+    };
+    
+    var servicesSubformsListBatchUpdate = function( currentService, modifiedService, dataToSend ){
+        subformsListBatchUpdate( servicesSubformsFields, currentService, modifiedService, dataToSend );
+    };
+    
+    var subformsListBatchUpdate = function( subformsFields, current, modified, dataToSend ){
+        
+        for ( var id in modified ){
+            if ( subformsFields.indexOf( id ) !== -1 ){
+                subformFieldBatchUpdate( 
+                    modified[ id ], 
+                    current[ id ], 
+                    dataToSend );
+                delete modified[ id ]; // Delete subform data in modified, current has been already updated
+            }
+        }
+    };
+    
+    var subformFieldBatchUpdate = function( data, current, dataToSend ){
+        
+        // Add all existing items
+        for ( var rowId in data.modified ) {
+            var modifiedItem = data.modified[ rowId ];
+            var currentItem = getSubformItem( current, rowId );
+            
+            if ( ! currentItem ){
+                //error = true;
+                dataToSend.result = 'Error';
+                dataToSend.message += 'Row with index "' + rowId + '" not found trying to update it!';
+                continue;       
+            }
+            
+            $.extend( true, currentItem, modifiedItem );
+        }
+    };
+    
+    var getSubformItem = function( current, rowId ){
+        
+        for ( var rowIndex in current ){
+            var currentRow = current[ rowIndex ];
+            if ( currentRow.code ==  rowId ){
+                return currentRow;
+            }
+        }
+        
+        return undefined;
     };
     
     var ajaxServicesList = function( file, data ){
