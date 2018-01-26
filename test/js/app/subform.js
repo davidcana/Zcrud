@@ -26,19 +26,18 @@ QUnit.test( "subform test", function( assert ) {
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key,
-                "members": 
-                    [
-                        {
-                            "code": 1,
-                            "name": "Bart Simpson",
-                            "description": "Description of Bart Simpson"
-                        },
-                        {
-                            "code": 2,
-                            "name": "Lisa Simpson",
-                            "description": "Description of Lisa Simpson"
-                        }
-                    ]
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    }
+                ]
             };
             testUtils.setService( key, record );
             
@@ -59,27 +58,47 @@ QUnit.test( "subform test", function( assert ) {
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "description": "Service 2 description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3"
+                "name": "Service " + key + " edited",
+                "members": {
+                    "0": {
+                        "description": "Description of Bart Simpson edited"
+                    },
+                    "1": {
+                        "name": "Lisa Simpson edited",
+                        "description": "Description of Lisa Simpson edited"
+                    }
+                }
             };
-            /*
+            
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-
+            
+            var newRecord =  {
+                "id": "" + key,
+                "name": "Service " + key + " edited",
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson edited"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson edited",
+                        "description": "Description of Lisa Simpson edited"
+                    }
+                ]
+            };
             testHelper.checkForm( assert, newRecord );
-
+            
             // Submit and show the list again
-            testHelper.clickFormSubmitButton();*/
-
+            testHelper.clickFormSubmitButton();
+            
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), newRecord );
+            
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, newRecord );
             
             done();
         }

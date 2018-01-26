@@ -529,41 +529,37 @@ module.exports = (function() {
     
     var fillForm = function( record ){
 
-        if ( record.id !== undefined ){
-            setFormVal( record, 'id' );
+        setFormVal( record, 'id' );
+        setFormVal( record, 'name' );
+        setFormVal( record, 'description' );
+        setFormVal( record, 'date' );
+        setFormVal( record, 'time' );
+        setFormDatetimeVal( record, 'datetime' );
+        setFormRadioVal( record, 'phoneType' );
+        setFormVal( record, 'province' );
+        setFormVal( record, 'city' );
+        setFormVal( record, 'browser' );  
+        setFormCheckboxVal( record, 'important' );  
+        setFormVal( record, 'number' );
+        fillSubform( record, 'members' );
+    };
+
+    var fillSubform = function( record, name ){
+
+        var subformRecords = record[ name ];
+
+        if ( subformRecords == undefined ){
+            return;
         }
-        if ( record.name !== undefined ){
-            setFormVal( record, 'name' );
-        }
-        if ( record.description !== undefined ){
-            setFormVal( record, 'description' );
-        }
-        if ( record.date !== undefined ){
-            setFormVal( record, 'date' );
-        }
-        if ( record.time !== undefined ){
-            setFormVal( record, 'time' );
-        }
-        if ( record.datetime !== undefined ){
-            setFormDatetimeVal( record, 'datetime' );
-        }
-        if ( record.phoneType !== undefined ){
-            setFormRadioVal( record, 'phoneType' );
-        }
-        if ( record.province !== undefined ){
-            setFormVal( record, 'province' );
-        }
-        if ( record.city !== undefined ){
-            setFormVal( record, 'city' );
-        }
-        if ( record.browser !== undefined ){
-            setFormVal( record, 'browser' );  
-        }
-        if ( record.important !== undefined ){
-            setFormCheckboxVal( record, 'important' );  
-        }
-        if ( record.number !== undefined ){
-            setFormVal( record, 'number' );
+        
+        for ( var index in subformRecords ){
+            
+            var subformRecord = subformRecords[ index ];
+            var $row = get$Form().find( "[data-subform-record-index='" + index + "']" );
+            
+            setFormVal( subformRecord, 'code', $row, name );
+            setFormVal( subformRecord, 'name', $row, name );
+            setFormVal( subformRecord, 'description', $row, name );
         }
     };
     
@@ -617,10 +613,15 @@ module.exports = (function() {
         assert.ok( 
             areEquivalent( 
                 getFormVal( 'number' ), record.number ) );
+        assert.deepEqual( getSubformVal( 'members' ), record.members );
     };
     
     var setFormCheckboxVal = function( record, name, $row ){
-
+        
+        if ( record[ name ] === undefined ){
+            return;
+        }
+        
         var $element = $row || get$Form();
         $element.find( "input:checkbox[name='" + name +"']" )
             .prop( 'checked', record[ name ] )
@@ -629,6 +630,10 @@ module.exports = (function() {
     };
     
     var setFormRadioVal = function( record, name, $row ){
+        
+        if ( record[ name ] === undefined ){
+            return;
+        }
         
         var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 1: 0;
@@ -639,26 +644,37 @@ module.exports = (function() {
             .trigger( 'blur' );
     };
     
-    var setFormVal = function( record, name, $row ){
+    var setFormVal = function( record, name, $row, subformName ){
+        
+        if ( record[ name ] === undefined ){
+            return;
+        }
         
         var $element = $row || get$Form();
-        $element.find( "[name='" + name +"']" )
+        var elementName = subformName? subformName + '/' + name: name;
+        $element.find( "[name='" + elementName +"']" )
             .val( record[ name ] )
             .trigger( 'change' )
             .trigger( 'blur' );
     };
     
     var setFormDatetimeVal = function( record, name, $row ){
-
+        
+        if ( record[ name ] === undefined ){
+            return;
+        }
+        
         var $element = $row || get$Form();
         $element.find( "[name='" + name +"']" )
             .val( record[ name ] )
             .trigger( 'change' );
     };
     
-    var getFormVal = function( name, $row ){
+    var getFormVal = function( name, $row, subformName ){
+        
         var $element = $row || get$Form();
-        return $element.find( "[name='" + name +"']" ).val();
+        var elementName = subformName? subformName + '/' + name: name;
+        return $element.find( "[name='" + elementName +"']" ).val();
     };
     
     var getFormRadioVal = function( name, $row ){
@@ -693,44 +709,42 @@ module.exports = (function() {
         return result;
     };
     
+    var getSubformVal = function( name, $row ){
+        
+        var result = [];
+        var $element = $row || get$Form();
+
+        $element
+            .find( ".zcrud-field-" + name )
+            .find(" .zcrud-data-row" )
+            .each( function() {
+            
+                var $this = $( this );
+                var row = {};
+                result.push( row );
+
+                row[ 'code' ] = getFormVal( 'code', $this, name );
+                row[ 'name' ] = getFormVal( 'name', $this, name );
+                row[ 'description' ] = getFormVal( 'description', $this, name );
+        });
+        
+        return result;
+    };
+    
     var fill = function( record, $row ){
         
-        if ( record.id !== undefined ){
-            setFormVal( record, 'id', $row );
-        }
-        if ( record.name !== undefined ){
-            setFormVal( record, 'name', $row );
-        }
-        if ( record.description !== undefined ){
-            setFormVal( record, 'description', $row );
-        }
-        if ( record.date !== undefined ){
-            setFormVal( record, 'date', $row );
-        }
-        if ( record.time !== undefined ){
-            setFormVal( record, 'time', $row );
-        }
-        if ( record.datetime !== undefined ){
-            setFormDatetimeVal( record, 'datetime', $row );
-        }
-        if ( record.phoneType !== undefined ){
-            setFormRadioVal( record, 'phoneType', $row );
-        }
-        if ( record.province !== undefined ){
-            setFormVal( record, 'province', $row );
-        }
-        if ( record.city !== undefined ){
-            setFormVal( record, 'city', $row );
-        }
-        if ( record.browser !== undefined ){
-            setFormVal( record, 'browser', $row );
-        }
-        if ( record.important !== undefined ){
-            setFormCheckboxVal( record, 'important', $row );
-        }
-        if ( record.number !== undefined ){
-            setFormVal( record, 'number', $row );
-        }
+        setFormVal( record, 'id', $row );
+        setFormVal( record, 'name', $row );
+        setFormVal( record, 'description', $row );
+        setFormVal( record, 'date', $row );
+        setFormVal( record, 'time', $row );
+        setFormDatetimeVal( record, 'datetime', $row );
+        setFormRadioVal( record, 'phoneType', $row );
+        setFormVal( record, 'province', $row );
+        setFormVal( record, 'city', $row );
+        setFormVal( record, 'browser', $row );
+        setFormCheckboxVal( record, 'important', $row );
+        setFormVal( record, 'number', $row );
     };
     
     var fillNewRowEditableList = function( record ){
