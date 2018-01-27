@@ -145,8 +145,7 @@ module.exports = {
             },
             buttons: {
                 toolbar: {
-                    newRegisterRow: true,
-                    openNewRegisterForm: false
+                    newRegisterRow: true
                 },
                 byRow: {
                     openEditRegisterForm: false,

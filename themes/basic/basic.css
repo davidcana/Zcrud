@@ -141,7 +141,8 @@ div.zcrud-main-container .zcrud-command-button {
 }
 
 div.zcrud-main-container .zcrud-new-command-button,
-div.zcrud-main-container .zcrud-new-row-command-button {
+div.zcrud-main-container .zcrud-new-row-command-button,
+div.zcrud-main-container .zcrud-subform-new-row-command-button {
     background: url('./add.png') no-repeat center;
     background-size: 16px 16px;
     height: 30px;
@@ -463,6 +464,10 @@ form.zcrud-form legend {
     background: white;
     padding: 0 .2em 0 .2em;
     font-size: 90%;
+}
+form.zcrud-form .zcrud-subform-content {
+    border: 1px dotted #76797c;
+    padding: .5em;
 }
 
 /* Busy elements */
