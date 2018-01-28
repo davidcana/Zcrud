@@ -55,7 +55,7 @@ QUnit.test( "create test", function( assert ) {
             testHelper.fillForm( record );
 
             testHelper.checkForm( assert, record );
-
+            
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );

@@ -711,11 +711,15 @@ module.exports = (function() {
     
     var getSubformVal = function( name, $row ){
         
-        var result = [];
         var $element = $row || get$Form();
-
-        $element
-            .find( ".zcrud-field-" + name )
+        var $field = $element.find( ".zcrud-field-" + name );
+        
+        if ( $field.length === 0 ){
+            return undefined;
+        }
+        
+        var result = [];
+        $field
             .find(" .zcrud-data-row" )
             .each( function() {
             
