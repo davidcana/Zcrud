@@ -409,7 +409,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         return saveCommon( 
             id, 
             event,
-            history.buildDataToSend( options, options.defaultFormConf, [ ] ) );
+            history.buildDataToSend( 
+                options, 
+                options.defaultFormConf, 
+                [ ],
+                fields ) );
     };
     
     var submitUpdateForm = function( event ){
@@ -417,7 +421,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         return saveCommon( 
             id, 
             event,
-            history.buildDataToSend( options, options.defaultFormConf, [ record ] ) );
+            history.buildDataToSend( 
+                options, 
+                options.defaultFormConf, 
+                [ record ], 
+                fields ) );
     };
 
     var submitDeleteForm = function( event ){

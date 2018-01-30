@@ -202,8 +202,8 @@ module.exports = (function() {
     var subformFieldBatchUpdate = function( data, current, dataToSend ){
         
         // Add all existing items
-        for ( var rowId in data.modified ) {
-            var modifiedItem = data.modified[ rowId ];
+        for ( var rowId in data.existingRecords ) {
+            var modifiedItem = data.existingRecords[ rowId ];
             var currentItem = getSubformItem( current, rowId );
             
             if ( ! currentItem ){
@@ -215,7 +215,14 @@ module.exports = (function() {
             
             $.extend( true, currentItem, modifiedItem );
         }
+        
+        // Add all new services
+        for ( var c = 0; c < data.newRecords.length; c++ ) {
+            var newItem = data.newRecords[ c ];
+            current.push( newItem );
+        }
     };
+
     
     var getSubformItem = function( current, rowId ){
         

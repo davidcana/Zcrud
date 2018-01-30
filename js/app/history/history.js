@@ -288,6 +288,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return {
             modified: {},
             new: {},
+            //new: [],
             deleted: []
         };
     };
@@ -334,66 +335,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         data.recordsToRemove = recordsToRemove;
         return data;
     };
-    /*
-    var buildDataToSend = function( options, thisOptions, records ){
 
-        var filteredRecords = crudManager.filterRecordsProperties( records );
-        var actionsObject = buildActionsObject( filteredRecords );
-
-        // Get sendOnlyModified
-        var sendOnlyModified = undefined;
-        switch( thisOptions.dataToSend ){
-            case 'all':
-                sendOnlyModified = false;
-                break;
-            case 'modified':
-                sendOnlyModified = true;
-                break;
-            default:
-                alert( 'Unknown dataToSend option in editable list: ' + thisOptions.dataToSend );
-                return false;
-        }
-
-        // Build dataToSend now
-        var dataToSend = buildEmptyDataToSend();
-
-        // Build modified
-        for ( var rowIndex in actionsObject.modified ){
-            var row = actionsObject.modified[ rowIndex ];
-            var record = filteredRecords[ rowIndex ];
-            var key = record[ options.key ];
-
-            if ( actionsObject.deleted.indexOf( key ) != -1 ){
-                continue;
-            }
-
-            if ( ! sendOnlyModified ){
-                row = $.extend( true, {}, record, row );
-            }
-            dataToSend.existingRecords[ key ] = row;
-        }
-
-        // Build new
-        for ( rowIndex in actionsObject.new ){
-            row = actionsObject.new[ rowIndex ];
-            key = row[ options.key ];
-
-            dataToSend.newRecords.push( row );
-        }
-
-        // Build delete
-        dataToSend.recordsToRemove = actionsObject.deleted;
-
-        // Return false if there is no record to modify, to create or to delete
-        if ( Object.keys( dataToSend.existingRecords ).length == 0 
-            && dataToSend.newRecords.length == 0 
-            && dataToSend.recordsToRemove == 0
-            && Object.keys( dataToSend.subforms ).length == 0 ){
-            return false;
-        }
-        return dataToSend;
-    };*/
-    var build1RowDataToSend = function( actionsObject, records, sendOnlyModified, keyField ){
+    var build1RowDataToSend = function( actionsObject, records, sendOnlyModified, keyField, fields ){
         
         var dataToSend = buildEmptyDataToSend();
         
@@ -411,6 +354,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
                 row = $.extend( true, {}, record, row );
             }
             dataToSend.existingRecords[ key ] = row;
+            
+            buildSubformsRowDataToSend( row, record, sendOnlyModified, fields );
         }
 
         // Build new
@@ -419,27 +364,48 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             key = row[ keyField ];
 
             dataToSend.newRecords.push( row );
+            
+            //buildSubformsRowDataToSend( row, row, sendOnlyModified, fields );
         }
-
+        
         // Build delete
         dataToSend.recordsToRemove = actionsObject.deleted;
-        
-        // Build data from subforms
-        /*
-        for ( var subformName in actionsObject.subforms ){
-            var subformActionsObject = actionsObject.subforms[ subformName ];
-            var subformDataToSend = build1RowDataToSend( 
-                subformActionsObject, 
-                records[ 0 ][ subformName ], 
-                sendOnlyModified, 
-                options.fields[ subformName ].subformKey );
-            dataToSend.subforms[ subformName ] = subformDataToSend;
-        }*/
         
         return dataToSend;
     };
     
-    var buildDataToSend = function( options, thisOptions, records ){
+    var buildSubformsRowDataToSend = function( row, record, sendOnlyModified, fields ){
+    
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            if ( field.type == 'subform' && record[ field.id ] ){
+                var subformDataToSend = build1RowDataToSend( 
+                    row[ field.id ], 
+                    buildRecordsMap( 
+                        record[ field.id ], 
+                        field.subformKey ), 
+                    sendOnlyModified, 
+                    field.subformKey, 
+                    field.fields );
+                row[ field.id ] = subformDataToSend;
+            }
+        }
+    };
+    
+    var buildRecordsMap = function( recordsArray, keyField ){
+        
+        var recordsMap = {};
+        
+        for ( var c = 0; c < recordsArray.length; c++ ) {
+            var record = recordsArray[ c ];
+            var key = record[ keyField ];
+            recordsMap[ key ] = record;
+        }
+        
+        return recordsMap;
+    };
+    
+    var buildDataToSend = function( options, thisOptions, records, fields ){
         
         //var filteredRecords = crudManager.filterRecordsProperties( records );
         var actionsObject = buildActionsObject( records );
@@ -459,7 +425,12 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         }
 
         // Build dataToSend now
-        var dataToSend = build1RowDataToSend( actionsObject, records, sendOnlyModified, options.key );
+        var dataToSend = build1RowDataToSend( 
+            actionsObject, 
+            records, 
+            sendOnlyModified, 
+            options.key, 
+            fields );
 
         // Return false if there is no record to modify, to create or to delete
         if ( Object.keys( dataToSend.existingRecords ).length == 0 

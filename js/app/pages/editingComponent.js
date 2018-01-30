@@ -193,7 +193,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
     var save = function( event ){
 
-        var dataToSend = history.buildDataToSend( options, thisOptions, listPage.getDictionary().records );
+        var dataToSend = history.buildDataToSend( 
+            options, 
+            thisOptions, 
+            listPage.getDictionary().records,
+            listPage.getFields() );
+        
         if ( dataToSend.existingRecords && Object.keys( dataToSend.existingRecords ).length == 0 
             && dataToSend.newRecords && dataToSend.newRecords.length == 0 
             && dataToSend.deleted && dataToSend.deleted.recordsToRemove == 0){
