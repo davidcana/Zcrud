@@ -157,13 +157,9 @@ div.zcrud-main-container .zcrud-edit-command-button {
 div.zcrud-main-container .zcrud-edit-command-button:hover {
     opacity: 0.8;
 }
-div.zcrud-main-container .zcrud-delete-command-button {
-    background: url('./delete.png') no-repeat center;
-    background-size: 16px 16px;
-    height: 30px;
-    width: 30px;
-}
-div.zcrud-main-container .zcrud-delete-row-command-button {
+div.zcrud-main-container .zcrud-delete-command-button,
+div.zcrud-main-container .zcrud-delete-row-command-button,
+div.zcrud-main-container .zcrud-subform-delete-row-command-button {
     background: url('./delete.png') no-repeat center;
     background-size: 16px 16px;
     height: 30px;

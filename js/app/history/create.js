@@ -6,12 +6,13 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
-var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, listPageToApply ) {
+var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, listPageToApply, $tbodyToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply; 
     var thisDictionary = thisDictionaryToApply;
     var listPage = listPageToApply;
+    var $tbody = $tbodyToApply;
     
     var $tr = undefined;
     var rowIndex = undefined;
@@ -31,11 +32,8 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
     
     var addRow = function(){
         
-        var $tbody = $( '#' + listPage.getThisOptions().tbodyId );
-        
         context.getZPTParser().run({
-            //root: $( '#' + options.listTbodyId  )[0],
-            root: $tbody[0],
+            root: $tbody[ 0 ],
             dictionary: thisDictionary,
             notRemoveGeneratedTags: true
         });

@@ -80,13 +80,14 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return historyItem;
     };
     
-    var putCreate = function( listPage, thisDictionary ) {
+    var putCreate = function( listPage, thisDictionary, $selection ) {
 
         var historyItem = new HistoryCreate( 
             self,
             editableOptions,
             thisDictionary,
-            listPage );
+            listPage,
+            $selection );
 
         put( listPage.getId(), historyItem );
         
@@ -155,7 +156,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         if ( subformRowIndex ){
             record = record[ subformName ][ subformRowIndex ];
         }
-        return record[ name ];
+        
+        return record? record[ name ]: undefined;
     };
     
     var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){

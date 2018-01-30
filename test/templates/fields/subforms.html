@@ -8,10 +8,10 @@
         <div data-mdefine-macro="subform" data-tomit-tag="">
             <div class="zcrud-subform-content"
                  data-tdefine="subformField field;
-                               byRow subformField/buttons/byRow;
-                               toolbar subformField/buttons/toolbar">
+                               toolbar subformField/buttons/toolbar;
+                               subformRecords value">
                 <table>
-                    <thead>
+                    <thead data-tdefine="byRow subformField/buttons/byRow">
                         <tr>
                             <th data-trepeat="field subformField/getFields()" 
                                 data-tattributes="style cond: field/width (string:width:${field/width}) null;
@@ -24,8 +24,9 @@
                         </tr>
                     </thead>
                     <tbody data-tdefine="editable true;
-                                         renderIds false">
-                        <tr data-trepeat="record value"
+                                         renderIds false;
+                                         byRow subformField/buttons/byRow">
+                        <tr data-trepeat="record subformRecords"
                             data-tattributes="data-subform-record-key record[ subformField/subformKey ];
                                               data-subform-record-index repeat/record/index();
                                               class 'zcrud-data-row'">
@@ -37,13 +38,13 @@
                                       data-muse-macro="field/template"><!--empty--></span>
                             </td>
                             <td data-tcondition="byRow/openEditRegisterForm">
-                                <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
+                                <button title="Edit record" class="zcrud-subform-edit-command-button"><!--empty--></button>
                             </td>
                             <td data-tcondition="byRow/openDeleteRegisterForm">
-                                <button title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
+                                <button title="Delete record" class="zcrud-subform-delete-command-button"><!--empty--></button>
                             </td>
                             <td data-tcondition="byRow/deleteRegisterRow">
-                                <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
+                                <button title="Delete record" class="zcrud-subform-delete-row-command-button"><!--empty--></button>
                             </td>
                         </tr>
                     </tbody>

@@ -80,32 +80,17 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     };
     
     var isRelatedToField = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
+        
         return rowIndex == rowIndexToCheck && name == nameToCheck
             && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
     
     var isRelatedToRow = function( rowIndexToCheck, subformNameToCheck, subformRowIndexToCheck ){
+        
         return rowIndex == rowIndexToCheck
             && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
-    /*
-    var getRecordForSubform = function( record ){
-        
-        if ( ! record || ! record[ subformName ] ){
-            return undefined;
-        }
-        
-        var subformKey = parentField.subformKey;
-        var subformRecords = record[ subformName ];
-        for ( var c = 0; c < subformRecords.length; c++ ) {
-            var subformRecord = subformRecords[ c ];
-            if ( subformRecord[ subformKey ] == subformRowKey ){
-                return subformRecord[ subformKey ];
-            }
-        }
-        
-        return undefined;
-    };*/
+
     var getRecordForSubform = function( record ){
 
         var subformRecords = record? record[ subformName ]: undefined;
@@ -115,11 +100,6 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var getMap = function( actionsObject, records ){
         
         var record = records[ rowIndex ];
-        /*
-        if ( subformName ){
-            record = getRecordForSubform( record );
-        }*/
-        
         return record? actionsObject.modified: actionsObject.new;
     };
     
@@ -129,35 +109,81 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         return record? actionsObject.modified: actionsObject.new;
     };
     
+    var getSubformMapKey = function(){
+        return subformRowKey? 'modified': 'new';
+    };
+    
+    var getSubformRow = function( row, subformMapKey, isNew ){
+        
+        var lastKey = isNew? subformRowIndex: subformRowKey;
+        
+        if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ lastKey ] ){
+            row = row[ subformName ][ subformMapKey ][ lastKey ];
+        } else {
+            row = undefined;
+        }
+        
+        return row;
+    };
+    /*
+    var getSubformRow = function( row, subformMapKey, isNew ){
+
+        if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ subformRowKey ] ){
+            row = row[ subformName ][ subformMapKey ][ subformRowKey ];
+        } else {
+            row = undefined;
+        }
+
+        return row;
+    };*/
+    
+    var pushNewSubformRow = function( map, row, subformMapKey, isNew ){
+        
+        var subformRows = undefined;
+        if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
+            var subformActionObject = createNestedObject( 
+                map, 
+                [ rowIndex, subformName ], 
+                history.buildEmptyActionsObject() );
+            subformRows = subformActionObject[ subformMapKey ];
+        } else {
+            subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];
+        }
+        subformRows[ isNew? subformRowIndex: subformRowKey ] = row;
+    };
+    /*
+    var pushNewSubformRow = function( map, row, subformMapKey, isNew ){
+        
+        var subformRows = undefined;
+        if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
+            var subformActionObject = createNestedObject( 
+                map, 
+                [ rowIndex, subformName ], 
+                history.buildEmptyActionsObject() );
+            subformRows = subformActionObject[ subformMapKey ];
+        } else {
+            subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];
+        }
+        subformRows[ subformRowKey ] = row;
+    };*/
+    
     var doAction = function( actionsObject, records ){
         
         var map = getMap( actionsObject, records );
+        var subformMapKey = subformName? getSubformMapKey(): undefined;
+        var subformElementIsNew = 'new' === subformMapKey;
         
         // Search row
         var row = map[ rowIndex ];
         if ( subformName ){
-            if ( row && row[ subformName ] && row[ subformName ].modified && row[ subformName ].modified[ subformRowKey ] ){
-                row = row[ subformName ].modified[ subformRowKey ];
-            } else {
-                row = undefined;
-            }
+            row = getSubformRow( row, subformMapKey, subformElementIsNew );
         }
         
         // Build empty row if not found
         if ( ! row ){
             row = {};
             if ( subformName ){
-                var subformRows = undefined;
-                if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
-                    var subformActionObject = createNestedObject( 
-                        map, 
-                        [ rowIndex, subformName ], 
-                        history.buildEmptyActionsObject() );
-                    subformRows = subformActionObject.modified;
-                } else {
-                    subformRows = map[ rowIndex ][ subformName ].modified;
-                }
-                subformRows[ subformRowKey ] = row;
+                pushNewSubformRow( map, row, subformMapKey, subformElementIsNew );
             } else {
                 map[ rowIndex ] = row;
             }
@@ -170,12 +196,14 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var doAction = function( actionsObject, records ){
 
         var map = getMap( actionsObject, records );
+        var subformMapKey = subformName? getSubformMapKey(): undefined;
+        var subformElementIsNew = 'new' === subformMapKey;
 
         // Search row
         var row = map[ rowIndex ];
         if ( subformName ){
-            if ( row && row[ subformName ] && row[ subformName ][ subformRowKey ] ){
-                row = row[ subformName ][ subformRowKey ];
+            if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ subformRowKey ] ){
+                row = row[ subformName ][ subformMapKey ][ subformRowKey ];
             } else {
                 row = undefined;
             }
@@ -185,7 +213,17 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         if ( ! row ){
             row = {};
             if ( subformName ){
-                createNestedObject( map, [ rowIndex, subformName, subformRowKey ], row );
+                var subformRows = undefined;
+                if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
+                    var subformActionObject = createNestedObject( 
+                        map, 
+                        [ rowIndex, subformName ], 
+                        history.buildEmptyActionsObject() );
+                    subformRows = subformActionObject[ subformMapKey ];
+                } else {
+                    subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];
+                }
+                subformRows[ subformRowKey ] = row;
             } else {
                 map[ rowIndex ] = row;
             }
