@@ -24,6 +24,9 @@ module.exports = (function() {
         return $( '#department-form' );
         //return get$Container().filter( '.zcrud-form' );
     };
+    var get$FormFieldByNameClass = function( name ){
+        return get$Form().find( ".zcrud-field-" + name );
+    };
     var get$List = function(){
         return $( '#zcrud-list-department' );
         //return get$Container().filter( '.zcrud-list' );
@@ -496,6 +499,9 @@ module.exports = (function() {
     var clickFormSubmitButton = function(){
         get$Form().find( '.zcrud-form-submit-command-button' ).trigger( 'click' );
     };
+    var clickCreateSubformRowButton = function( subformName ){
+        get$FormFieldByNameClass( subformName ).find( '.zcrud-subform-new-row-command-button' ).trigger( 'click' );
+    };
     
     var getSaveButton = function(){
         return get$Container().find( '.zcrud-save-command-button' );
@@ -555,12 +561,29 @@ module.exports = (function() {
         for ( var index in subformRecords ){
             
             var subformRecord = subformRecords[ index ];
-            var $row = get$Form().find( "[data-subform-record-index='" + index + "']" );
-            
-            setFormVal( subformRecord, 'code', $row, name );
-            setFormVal( subformRecord, 'name', $row, name );
-            setFormVal( subformRecord, 'description', $row, name );
+            //var $row = get$Form().find( "[data-subform-record-index='" + index + "']" );
+            var $row = get$FormFieldByNameClass( name ).find( "[data-subform-record-index='" + index + "']" );
+            fillSubformRow( subformRecord, $row, name );
         }
+    };
+    
+    var fillSubformRow = function( subformRecord, $row, subformName ){
+        
+        setFormVal( subformRecord, 'code', $row, subformName );
+        setFormVal( subformRecord, 'name', $row, subformName );
+        setFormVal( subformRecord, 'description', $row, subformName );
+    };
+    
+    var fillSubformNewRow = function( subformRecord, subformName ){
+        
+        fillSubformRow( 
+            subformRecord, 
+            getSubformLastRow( subformName ), 
+            subformName );
+    };
+    
+    var getSubformLastRow = function( subformName ){
+        return get$FormFieldByNameClass( subformName ).find( 'tr:last' );
     };
     
     var isVoid = function( value ){
@@ -844,6 +867,8 @@ module.exports = (function() {
         assertHistory: assertHistory,
         setFormVal: setFormVal,
         getRow: getRow,
-        getSelectOptions: getSelectOptions
+        getSelectOptions: getSelectOptions,
+        fillSubformNewRow: fillSubformNewRow,
+        clickCreateSubformRowButton: clickCreateSubformRowButton
     };
 })();
