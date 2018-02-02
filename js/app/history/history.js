@@ -80,8 +80,21 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return historyItem;
     };
     
+    var getSubformData = function( field ){
+        
+        var fullName = field.elementName;
+        var subformSeparatorIndex = fullName.indexOf( '/' );
+        var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
+        var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
+        
+        return {
+            name: name,
+            subformName: subformName
+        };
+    };
+    
     var putCreate = function( listPage, thisDictionary, $selection ) {
-
+        
         var historyItem = new HistoryCreate( 
             self,
             editableOptions,
@@ -94,15 +107,16 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return historyItem;
     };
     
-    var putDelete = function( id, options, rowIndex, key, $tr ) {
-
+    var putDelete = function( id, options, rowIndex, key, $tr, field ) {
+        
         var historyItem = new HistoryDelete( 
             self,
             editableOptions,
             options, 
             rowIndex, 
             key, 
-            $tr );
+            $tr,
+            field? field.elementName: undefined );
 
         put( id, historyItem );
         
@@ -443,11 +457,35 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     };
     
     var hideTr = function( $tr ){
+        $tr.addClass( 'zcrud-hidden' );
         editableOptions.hideTr( $tr );
     };
     
     var showTr = function( $tr ){
+        $tr.removeClass( 'zcrud-hidden' );
         editableOptions.showTr( $tr );
+    };
+    
+    // Function: createNestedObject( base, names[, value] )
+    //   base: the object on which to create the hierarchy
+    //   names: an array of strings contaning the names of the objects
+    //   value (optional): if given, will be the last object in the hierarchy
+    // Returns: the last object in the hierarchy
+    var createNestedObject = function( base, names, value ) {
+        // If a value is given, remove the last name and keep it for later:
+        var lastName = arguments.length === 3 ? names.pop() : false;
+
+        // Walk the hierarchy, creating new objects where needed.
+        // If the lastName was removed, then the last object is not set yet:
+        for( var i = 0; i < names.length; i++ ) {
+            base = base[ names[i] ] = base[ names[i] ] || {};
+        }
+
+        // If a value was given, set it to the last name:
+        if( lastName ) base = base[ lastName ] = value;
+
+        // Return the last object in the hierarchy:
+        return base;
     };
     
     var self = {
@@ -471,7 +509,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         showTr: showTr,
         isFormMode: isFormMode,
         //buildEmptyDataToSend: buildEmptyDataToSend,
-        buildEmptyActionsObject: buildEmptyActionsObject
+        buildEmptyActionsObject: buildEmptyActionsObject,
+        createNestedObject: createNestedObject
     };
     
     return self;

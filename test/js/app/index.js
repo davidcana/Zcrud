@@ -16,4 +16,5 @@ QUnit.testSuites([
     { name: "editable list all fields Test Suite", path: "./editableList-allFields.html" },
     { name: "subform change Test Suite", path: "./subform-change.html" },
     { name: "subform create Test Suite", path: "./subform-create.html" },
+    { name: "subform delete Test Suite", path: "./subform-delete.html" }
 ]);

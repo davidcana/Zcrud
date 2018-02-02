@@ -125,23 +125,12 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         
         return row;
     };
-    /*
-    var getSubformRow = function( row, subformMapKey, isNew ){
-
-        if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ subformRowKey ] ){
-            row = row[ subformName ][ subformMapKey ][ subformRowKey ];
-        } else {
-            row = undefined;
-        }
-
-        return row;
-    };*/
     
     var pushNewSubformRow = function( map, row, subformMapKey, isNew ){
         
         var subformRows = undefined;
         if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
-            var subformActionObject = createNestedObject( 
+            var subformActionObject = history.createNestedObject( 
                 map, 
                 [ rowIndex, subformName ], 
                 history.buildEmptyActionsObject() );
@@ -151,21 +140,6 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         }
         subformRows[ isNew? subformRowIndex: subformRowKey ] = row;
     };
-    /*
-    var pushNewSubformRow = function( map, row, subformMapKey, isNew ){
-        
-        var subformRows = undefined;
-        if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
-            var subformActionObject = createNestedObject( 
-                map, 
-                [ rowIndex, subformName ], 
-                history.buildEmptyActionsObject() );
-            subformRows = subformActionObject[ subformMapKey ];
-        } else {
-            subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];
-        }
-        subformRows[ subformRowKey ] = row;
-    };*/
     
     var doAction = function( actionsObject, records ){
         
@@ -192,69 +166,6 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         // Set new value
         row[ name ] = newValue;
     };
-    /*
-    var doAction = function( actionsObject, records ){
-
-        var map = getMap( actionsObject, records );
-        var subformMapKey = subformName? getSubformMapKey(): undefined;
-        var subformElementIsNew = 'new' === subformMapKey;
-
-        // Search row
-        var row = map[ rowIndex ];
-        if ( subformName ){
-            if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ subformRowKey ] ){
-                row = row[ subformName ][ subformMapKey ][ subformRowKey ];
-            } else {
-                row = undefined;
-            }
-        }
-
-        // Build empty row if not found
-        if ( ! row ){
-            row = {};
-            if ( subformName ){
-                var subformRows = undefined;
-                if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
-                    var subformActionObject = createNestedObject( 
-                        map, 
-                        [ rowIndex, subformName ], 
-                        history.buildEmptyActionsObject() );
-                    subformRows = subformActionObject[ subformMapKey ];
-                } else {
-                    subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];
-                }
-                subformRows[ subformRowKey ] = row;
-            } else {
-                map[ rowIndex ] = row;
-            }
-        }
-
-        // Set new value
-        row[ name ] = newValue;
-    };*/
-    
-    // Function: createNestedObject( base, names[, value] )
-    //   base: the object on which to create the hierarchy
-    //   names: an array of strings contaning the names of the objects
-    //   value (optional): if given, will be the last object in the hierarchy
-    // Returns: the last object in the hierarchy
-    var createNestedObject = function( base, names, value ) {
-        // If a value is given, remove the last name and keep it for later:
-        var lastName = arguments.length === 3 ? names.pop() : false;
-    
-        // Walk the hierarchy, creating new objects where needed.
-        // If the lastName was removed, then the last object is not set yet:
-        for( var i = 0; i < names.length; i++ ) {
-            base = base[ names[i] ] = base[ names[i] ] || {};
-        }
-        
-        // If a value was given, set it to the last name:
-        if( lastName ) base = base[ lastName ] = value;
-        
-        // Return the last object in the hierarchy:
-        return base;
-    };
-
                     
     var saveEnabled = function(){
         return true;

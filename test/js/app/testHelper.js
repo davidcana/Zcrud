@@ -502,6 +502,11 @@ module.exports = (function() {
     var clickCreateSubformRowButton = function( subformName ){
         get$FormFieldByNameClass( subformName ).find( '.zcrud-subform-new-row-command-button' ).trigger( 'click' );
     };
+    var clickDeleteSubformRowButton = function( subformName, subformIndex ){
+        get$FormFieldByNameClass( subformName )
+            .find( "[data-subform-record-index='" + subformIndex + "'] .zcrud-subform-delete-row-command-button"  )
+            .trigger( 'click' );
+    };
     
     var getSaveButton = function(){
         return get$Container().find( '.zcrud-save-command-button' );
@@ -743,7 +748,7 @@ module.exports = (function() {
         
         var result = [];
         $field
-            .find(" .zcrud-data-row" )
+            .find( ".zcrud-data-row:not(.zcrud-hidden)" )
             .each( function() {
             
                 var $this = $( this );
@@ -869,6 +874,7 @@ module.exports = (function() {
         getRow: getRow,
         getSelectOptions: getSelectOptions,
         fillSubformNewRow: fillSubformNewRow,
-        clickCreateSubformRowButton: clickCreateSubformRowButton
+        clickCreateSubformRowButton: clickCreateSubformRowButton,
+        clickDeleteSubformRowButton: clickDeleteSubformRowButton
     };
 })();

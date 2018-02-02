@@ -216,13 +216,37 @@ module.exports = (function() {
             $.extend( true, currentItem, modifiedItem );
         }
         
-        // Add all new services
+        // Add all new items
         for ( var c = 0; c < data.newRecords.length; c++ ) {
             var newItem = data.newRecords[ c ];
             current.push( newItem );
         }
+        
+        // Remove items
+        for ( c = 0; c < data.recordsToRemove.length; c++ ) {
+            rowId = data.recordsToRemove[ c ];
+
+            if ( ! removeSubformItem( current, rowId ) ){
+                //error = true;
+                dataToSend.result = 'Error';
+                dataToSend.message += 'Subform item with key "' + rowId + '" not found trying to delete it!';
+                continue;
+            }           
+        }
     };
 
+    var removeSubformItem = function( current, rowId ){
+
+        for ( var rowIndex in current ){
+            var currentRow = current[ rowIndex ];
+            if ( currentRow.code ==  rowId ){
+                current.splice( rowIndex, 1 );
+                return true;
+            }
+        }
+        
+        return false;
+    };
     
     var getSubformItem = function( current, rowId ){
         

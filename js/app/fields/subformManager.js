@@ -14,27 +14,6 @@ var SubformManager = function() {
     };*/
     
     var afterProcessTemplateForField = function( params, $selection ){
-        /*
-        var formPage = params.formPage;
-        var fieldBuilder = params.fieldBuilder; // To avoid circular refs
-        
-        $selection
-            .find( 'input, textarea, select' )
-            .off()
-            .change( function ( event ) {
-                var $this = $( this );
-                var fullName = $this.prop( 'name' );
-                var field = formPage.getFieldByName( fullName );
-                formPage.getHistory().putChange( 
-                    $this, 
-                    fieldBuilder.getValue( field, $this ), 
-                    0,
-                    formPage.getId(),
-                    field,
-                    $this.closest( 'tr' ).attr( 'data-subform-record-index' ),
-                    $this.closest( 'tr' ).attr( 'data-subform-record-key' ) ,
-                    formPage.getParentFieldByName( fullName ));
-            });*/
         
         bindEventsInRows( params, $selection );
         
@@ -82,14 +61,15 @@ var SubformManager = function() {
                 var $this = $( this );
                 var fullName = $this.prop( 'name' );
                 var field = formPage.getFieldByName( fullName );
+                var $tr = $this.closest( 'tr' );
                 formPage.getHistory().putChange( 
                     $this, 
                     fieldBuilder.getValue( field, $this ), 
                     0,
                     formPage.getId(),
                     field,
-                    $this.closest( 'tr' ).attr( 'data-subform-record-index' ),
-                    $this.closest( 'tr' ).attr( 'data-subform-record-key' ) ,
+                    $tr.attr( 'data-subform-record-index' ),
+                    $tr.attr( 'data-subform-record-key' ),
                     formPage.getParentFieldByName( fullName ));
         });
         
@@ -99,8 +79,27 @@ var SubformManager = function() {
             .click( function ( event ) {
             event.preventDefault();
             event.stopPropagation();
-            //deleteRow( params, event );
+            
+            deleteRow( params, event );
         });
+    };
+    
+    var deleteRow = function( params, event ){
+        
+        var formPage = params.formPage;
+        var options = params.options;
+        var field = params.field;
+        
+        var $tr =  $( event.target ).closest( 'tr' );
+        
+        formPage.getHistory().putDelete( 
+            formPage.getId(), 
+            options, 
+            0, 
+            $tr.attr( 'data-subform-record-key' ), 
+            $tr,
+            field,
+            $tr.attr( 'data-subform-record-index' ) );
     };
     
     var getTemplate = function(){
