@@ -353,6 +353,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         
         $form
             .find( 'input, textarea, select' )
+            .not( "[name*='/']" )  // Must exclude fields in subforms
             .change( function ( event ) {
                 var $this = $( this );
                 var field = getFieldByName( $this.prop( 'name' ) );

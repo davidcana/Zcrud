@@ -74,7 +74,7 @@ module.exports = (function() {
             }
         }
     };*/
-    
+    /*
     var setValueToForm = function( field, value, $this, defaultBlur ){
 
         var fieldManager = fieldManagers[ field.type ];
@@ -85,9 +85,26 @@ module.exports = (function() {
         }
 
         $this.val( value );
-        if ( defaultBlur ){
-            $this.blur();
+        //if ( defaultBlur ){
+            //$this.blur();
+            $this.keyup();
+        //}
+    };*/
+    
+    var setValueToForm = function( field, value, $this, defaultBlur ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.setValueToForm ) ){
+            fieldManager.setValueToForm( field, value, $this );
+        } else {
+            $this.val( value );
         }
+        
+        //if ( defaultBlur ){
+            //$this.blur();
+            $this.keyup();
+        //}
     };
     
     var getValue = function( field, $this ){

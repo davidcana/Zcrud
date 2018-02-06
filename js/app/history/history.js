@@ -392,7 +392,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            if ( field.type == 'subform' && record[ field.id ] ){
+            if ( field.type == 'subform' && record[ field.id ] && row[ field.id ] ){
                 var subformDataToSend = build1RowDataToSend( 
                     row[ field.id ], 
                     buildRecordsMap( 
