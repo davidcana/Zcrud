@@ -835,6 +835,11 @@ module.exports = (function() {
         //assert.equal( saveEnabled(), expectedSaveEnabled );
     };
     
+    var getNumberOfValidationErrors = function( customErrorClass ){
+        var errorClass = customErrorClass || 'error';
+        return $( '.' + errorClass ).length;
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         pagingInfo: pagingInfo,
@@ -875,6 +880,7 @@ module.exports = (function() {
         getSelectOptions: getSelectOptions,
         fillSubformNewRow: fillSubformNewRow,
         clickCreateSubformRowButton: clickCreateSubformRowButton,
-        clickDeleteSubformRowButton: clickDeleteSubformRowButton
+        clickDeleteSubformRowButton: clickDeleteSubformRowButton,
+        getNumberOfValidationErrors: getNumberOfValidationErrors
     };
 })();

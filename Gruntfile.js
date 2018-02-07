@@ -186,6 +186,15 @@ module.exports = function(grunt) {
                 src: 'test/js/app/subform-delete.js',
                 dest: 'build/subform-delete.js'
             },
+            validation: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/validation.js',
+                dest: 'build/validation.js'
+            }
         },
         compress: {
             main: {
