@@ -158,17 +158,40 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         HistoryDelete.resetCSS( $list, editableOptions );
     };
     
+    /*
     var getValueFromRecord =  function( rowIndex, name, subformName, subformRowIndex ){
-        
+
         var dictionary = dictionaryProvider.getDictionary();
         var record = rowIndex? dictionary.records[ rowIndex ]: dictionary.record;
-        
+
         if ( ! record ){
             return '';
         }
-      
+
         if ( subformRowIndex ){
             record = record[ subformName ][ subformRowIndex ];
+        }
+
+        return record? record[ name ]: undefined;
+    };*/
+    var getValueFromRecord =  function( rowIndex, name, subformName, subformRowIndex ){
+        
+        var dictionary = dictionaryProvider.getDictionary();
+
+        // Try to get the record
+        try {
+            var record = rowIndex? dictionary.records[ rowIndex ]: dictionary.record;
+            
+            if ( ! record ){
+                return '';
+            }
+            
+            if ( subformRowIndex ){
+                record = record[ subformName ][ subformRowIndex ];
+            }
+        }
+        catch ( error ) {
+            // Nothing to do
         }
         
         return record? record[ name ]: undefined;

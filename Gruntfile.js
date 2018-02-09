@@ -186,14 +186,32 @@ module.exports = function(grunt) {
                 src: 'test/js/app/subform-delete.js',
                 dest: 'build/subform-delete.js'
             },
-            validation: {
+            formsValidation: {
                 options: {
                     browserifyOptions: {
                         debug: true
                     }
                 },
-                src: 'test/js/app/validation.js',
-                dest: 'build/validation.js'
+                src: 'test/js/app/validation-forms.js',
+                dest: 'build/validation-forms.js'
+            },
+            subformsValidation: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/validation-subforms.js',
+                dest: 'build/validation-subforms.js'
+            },
+            editableListsValidation: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/validation-editableLists.js',
+                dest: 'build/validation-editableLists.js'
             }
         },
         compress: {
