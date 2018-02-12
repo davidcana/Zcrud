@@ -9,6 +9,7 @@ module.exports = (function() {
     var context = require( './context.js' );
     
     var errorClass = 'error';
+    var initialized = false;
     
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
@@ -22,14 +23,16 @@ module.exports = (function() {
         }
         
         // Load the modules used in the form
-        if ( options.validation.modules ){
+        if ( options.validation.modules && ! initialized ){
             $.formUtils.loadModules( options.validation.modules );
+            initialized = true;
         }
 
         // Add validation attributes
         addAttributes( $forms, options );
         
         // Set up form validation
+        //setup( id, options );
         var defaultConfigurationOptions = {
             form: '#' + id,
             language: context.getFormValidationLanguage(),
@@ -38,6 +41,17 @@ module.exports = (function() {
         var configurationOptionsToApply = $.extend( {}, defaultConfigurationOptions, options.validation.configuration );
         $.validate( configurationOptionsToApply );
     };
+    /*
+    var setup = function( formId, options ){
+        
+        var defaultConfigurationOptions = {
+            form: '#' + formId,
+            language: context.getFormValidationLanguage(),
+            decimalSeparator: context.translate( 'decimalSeparator' )
+        };
+        var configurationOptionsToApply = $.extend( {}, defaultConfigurationOptions, options.validation.configuration );
+        $.validate( configurationOptionsToApply );
+    };*/
     
     var addAttributes = function( $forms, options ){
         
@@ -112,5 +126,7 @@ module.exports = (function() {
     return {
         initFormValidation: initFormValidation,
         formIsValid: formIsValid
+        //addAttributes: addAttributes
+        //setup: setup
     };
 })();

@@ -4,7 +4,7 @@
 "use strict";
 
 var $ = require( 'jquery' );
-//var validationManager = require( '../validationManager.js' );
+var validationManager = require( '../validationManager.js' );
 
 var SubformManager = function() {
     
@@ -46,6 +46,10 @@ var SubformManager = function() {
 
         // Bind events
         bindEventsInRows( params, $tr );
+        
+        // Configure form validation
+        //validationManager.addAttributes( $tr, options );
+        validationManager.initFormValidation( formPage.getId(), $tr, options );
     };
     
     var bindEventsInRows = function( params, $preselection ){

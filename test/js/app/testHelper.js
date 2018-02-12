@@ -878,6 +878,7 @@ module.exports = (function() {
         setFormVal: setFormVal,
         getRow: getRow,
         getSelectOptions: getSelectOptions,
+        fillSubform: fillSubform,
         fillSubformNewRow: fillSubformNewRow,
         clickCreateSubformRowButton: clickCreateSubformRowButton,
         clickDeleteSubformRowButton: clickDeleteSubformRowButton,
