@@ -787,8 +787,54 @@ module.exports = (function() {
         fill( record, getRow( id ) );
     };
     
+    var checkEditableListRow = function( assert, record, $row ){
+
+        if ( record.id !== undefined ){
+            assert.equal( getFormVal( 'id', $row ), record.id );
+        }
+        if ( record.name !== undefined ){
+            assert.equal( getFormVal( 'name', $row ), record.name );
+        }
+        if ( record.description !== undefined ){
+            assert.equal( getFormVal( 'description', $row ), record.description );
+        }
+        if ( record.date !== undefined ){
+            assert.equal( getFormVal( 'date', $row ), record.date );
+        }
+        if ( record.time !== undefined ){
+            assert.equal( getFormVal( 'time', $row ), record.time );
+        }
+        if ( record.datetime !== undefined ){
+            assert.equal( getFormVal( 'datetime', $row ), record.datetime );
+        }
+        if ( record.phoneType !== undefined ){
+            assert.equal( getFormRadioVal( 'phoneType', $row ), record.phoneType );
+        }
+        if ( record.province !== undefined ){
+            assert.equal( getFormVal( 'province', $row ), record.province );
+        }
+        if ( record.city !== undefined ){
+            assert.equal( getFormVal( 'city', $row ), record.city );
+        }
+        if ( record.browser !== undefined ){
+            assert.equal( getFormVal( 'browser', $row ), record.browser );
+        }
+        if ( record.important !== undefined ){
+            assert.equal( getFormCheckboxVal( 'important', $row ), record.important );
+        }
+        if ( record.number !== undefined ){
+            assert.equal( getFormVal( 'number', $row ), record.number );
+        }
+    };
+    
+    var checkEditableListLastRow = function( assert, record ){
+        checkEditableListRow( assert, record, getLastRow() );
+    };
+    
     var checkEditableListForm = function( assert, id, record ){
         
+        checkEditableListRow( assert, record, getRow( id ) );
+        /*
         var $row = getRow( id );
         
         if ( record.id !== undefined ){
@@ -826,7 +872,7 @@ module.exports = (function() {
         }
         if ( record.number !== undefined ){
             assert.equal( getFormVal( 'number', $row ), record.number );
-        }
+        }*/
     };
     
     var assertHistory = function( assert, expectedUndoActions, expectedRedoActions, expectedSaveEnabled ){
@@ -871,6 +917,7 @@ module.exports = (function() {
         fillEditableList: fillEditableList,
         fillNewRowEditableList: fillNewRowEditableList,
         checkEditableListForm: checkEditableListForm,
+        checkEditableListLastRow: checkEditableListLastRow,
         clickEditableListSubmitButton: clickEditableListSubmitButton,
         clickUndoButton: clickUndoButton,
         clickRedoButton: clickRedoButton,
