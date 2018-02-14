@@ -37,7 +37,13 @@ module.exports = (function() {
     };
     
     var countVisibleRows = function( options ){
-        return getCurrentList( options ).find( '.zcrud-data-row:not(:hidden)' ).length;
+        //return getCurrentList( options ).find( '.zcrud-data-row:not(:hidden)' ).length;
+        return getCurrentList( options ).find( '.zcrud-data-row:not(.zcrud-hidden)' ).length;
+    };
+    
+    var countVisibleSubformRows = function( subformName ){
+        //return get$FormFieldByNameClass( subformName ).find( '.zcrud-data-row:not(:hidden)' ).length;
+        return get$FormFieldByNameClass( subformName ).find( '.zcrud-data-row:not(.zcrud-hidden)' ).length;
     };
     
     var pagingInfo = function( options ){
@@ -888,6 +894,7 @@ module.exports = (function() {
     
     return {
         countVisibleRows: countVisibleRows,
+        countVisibleSubformRows: countVisibleSubformRows,
         pagingInfo: pagingInfo,
         getColumnValues: getColumnValues,
         //getPageListInfo: getPageListInfo,
