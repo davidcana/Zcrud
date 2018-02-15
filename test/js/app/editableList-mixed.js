@@ -78,3 +78,293 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "Edit one row and delete another test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            // Edit record
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "number": "3"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+
+            // Assert register with key 3 exists
+            var key2 = 3;
+            var record2 =  {
+                "id": "" + key2,
+                "name": "Service " + key2
+            };
+            testHelper.checkRecord( assert, key2, record2, editable );
+            
+            // Delete record
+            testHelper.clickDeleteRowListButton( key2 );
+            
+            // Submit
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            // Check records
+            testHelper.checkRecord( assert, key, newRecord, editable );
+            testHelper.checkNoRecord( assert, key2 );
+            
+            // Check form
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 9,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids: "1/2/4/5/6/7/8/9/10",
+                names: "Service 1/Service 2 edited/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10",
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "Edit one row and create another test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            // Edit record
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "number": "3"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+
+            // Assert register with key 3 exists
+            var key2 = 0;
+            var record2 =  {
+                "id": "" + key2,
+                "name": "Service " + key2
+            };
+            testHelper.checkNoRecord( assert, key2 );
+
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            
+            // Submit
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            // Check records
+            testHelper.checkRecord( assert, key, newRecord, editable, true );
+            testHelper.checkRecord( assert, key2, record2, editable, true );
+            
+            // Check form
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 11,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids: "1/2/3/4/5/6/7/8/9/10/0",
+                names: "Service 1/Service 2 edited/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0",
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "Create one row and delete another test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 3 exists
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkNoRecord( assert, key );
+
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record );
+
+            // Assert register with key 3 exists
+            var key2 = 3;
+            var record2 =  {
+                "id": "" + key2,
+                "name": "Service " + key2
+            };
+            testHelper.checkRecord( assert, key2, record2, editable );
+
+            // Delete record
+            testHelper.clickDeleteRowListButton( key2 );
+            
+            // Submit
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            // Check records
+            testHelper.checkRecord( assert, key, record, editable, true );
+            testHelper.checkNoRecord( assert, key2 );
+
+            // Check form
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids: "1/2/4/5/6/7/8/9/10/0",
+                names: "Service 1/Service 2/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0",
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "Edit one row, create another and delete another test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record, editable );
+
+            // Edit record
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "number": "3"
+            };
+            testHelper.fillEditableList( editedRecord, key );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+
+            // Assert register with key 3 exists
+            var key2 = 0;
+            var record2 =  {
+                "id": "" + key2,
+                "name": "Service " + key2
+            };
+            testHelper.checkNoRecord( assert, key2 );
+
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            
+            // Assert register with key 3 exists
+            var key3 = 5;
+            var record3 =  {
+                "id": "" + key3,
+                "name": "Service " + key3
+            };
+            testHelper.checkRecord( assert, key3, record3, editable );
+
+            // Delete record
+            testHelper.clickDeleteRowListButton( key3 );
+            
+            // Submit
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            
+            // Check records
+            testHelper.checkRecord( assert, key, newRecord, editable, true );
+            testHelper.checkRecord( assert, key2, record2, editable, true );
+            testHelper.checkNoRecord( assert, key3 );
+            
+            // Check form
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids: "1/2/3/4/6/7/8/9/10/0",
+                names: "Service 1/Service 2 edited/Service 3/Service 4/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0",
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+
+            done();
+        }
+    );
+});
+
