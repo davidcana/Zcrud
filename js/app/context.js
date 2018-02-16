@@ -303,6 +303,17 @@ module.exports = (function() {
         }
     };
     
+    var updateSubformFields = function( subformField, fieldIdList ){
+        
+        var fields = subformField.fields;
+        var temp = {};
+        for ( var c = 0; c < fieldIdList.length; ++c ){
+            var id = fieldIdList[ c ];
+            temp[ id ] = fields[ id ];
+        }  
+        subformField.fields = temp;
+    };
+    
     return {
         put: put,
         get: get,
@@ -325,6 +336,7 @@ module.exports = (function() {
         declareRemotePageUrl: declareRemotePageUrl,
         initZPT: initZPT,
         getZPTParser: getZPTParser,
-        updateListVisibleFields: updateListVisibleFields
+        updateListVisibleFields: updateListVisibleFields,
+        updateSubformFields: updateSubformFields
     };
 })();

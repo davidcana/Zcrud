@@ -195,6 +195,15 @@ module.exports = function(grunt) {
                 src: 'test/js/app/subform-mixed.js',
                 dest: 'build/subform-mixed.js'
             },
+            subformAllFields: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/subform-allFields.js',
+                dest: 'build/subform-allFields.js'
+            },
             formsValidation: {
                 options: {
                     browserifyOptions: {
