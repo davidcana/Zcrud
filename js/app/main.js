@@ -58,16 +58,21 @@ exports.init = function( userOptions, callback ){
         fieldsConfig: {
             defaultFieldOptions: {
                 datetime: {
-                    inline: false
+                    inline: false,
+                    minYear: 1950,
+                    maxYear: 2050,
+                    maxHour: 23,
+                    minutesStep: 5
                 },
                 date: {
                     inline: false,
-                    timepicker: false
+                    minYear: 1950,
+                    maxYear: 2050
                 },
                 time: {
                     inline: false,
-                    datepicker: false,
-                    step: 5
+                    maxHour: 99,
+                    minutesStep: 5
                 }
             },
             getDefaultFieldTemplate: function( field ){
@@ -212,9 +217,9 @@ exports.init = function( userOptions, callback ){
         },
         
         serverDataFormat: {
-            datetime: 'm/d/Y H:i',
-            date: 'm/d/Y',
-            time: 'H:i',
+            datetime: 'm/d/Y H:i',  /* To remove */
+            date: 'm/d/Y',          /* To remove */
+            time: 'H:i',            /* To remove */
             decimalSeparator: '.'
         },
         
@@ -303,6 +308,7 @@ exports.init = function( userOptions, callback ){
         if ( field.key ){
             options.key = id;
         }
+        field.name = id;
         
         // Set defaults when undefined
         if ( field.type == undefined ) {
@@ -335,6 +341,9 @@ exports.init = function( userOptions, callback ){
             }
         }
         
+        // 
+        normalizeCustomOptionsField( field, options );
+        
         // Normalize subfields in this field
         if ( field.fields ){
             $.each( field.fields, function ( subfieldId, subfield ) {
@@ -354,6 +363,20 @@ exports.init = function( userOptions, callback ){
             context.declareRemotePageUrl( template, options.allDeclaredRemotePageUrls );
         }
         //alert( JSON.stringify( options.allDeclaredRemotePageUrls ) );
+    };
+    
+    var normalizeCustomOptionsField = function( field, options ){
+
+        if ( ! field.customOptions ){
+            field.customOptions = {};
+        }
+
+        var defaultFieldOptions = options.fieldsConfig.defaultFieldOptions[ field.type ];
+        if ( ! defaultFieldOptions ){
+            defaultFieldOptions = {};
+        }
+
+        field.customOptions = $.extend( true, {}, defaultFieldOptions, field.customOptions );
     };
     
     // Register in options.dictionary I18n instances

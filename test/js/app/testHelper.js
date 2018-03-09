@@ -27,6 +27,10 @@ module.exports = (function() {
     var get$FormFieldByNameClass = function( name ){
         return get$Form().find( ".zcrud-field-" + name );
     };
+    var get$SubFormFieldByNameClass = function( subformName, fieldName, subformIndex ){
+        return get$FormFieldByNameClass( subformName )
+            .find( "[data-subform-record-index='" + subformIndex + "'] [name='" + subformName + "/" + fieldName + "']" );
+    };
     var get$List = function(){
         return $( '#zcrud-list-department' );
         //return get$Container().filter( '.zcrud-list' );
@@ -610,7 +614,7 @@ module.exports = (function() {
     };
     
     var checkForm = function( assert, record ){
-
+        
         assert.ok( 
             areEquivalent( 
                 getFormVal( 'id' ), record.id ) );
@@ -892,6 +896,25 @@ module.exports = (function() {
         return $( '.' + errorClass ).length;
     };
     
+    var getDatetimePicker = function( index ){
+        //return $( '.datepicker .active' );
+        return $( ".datetime:eq( " + index + " )" );
+    };
+    
+    var clickDatetimePickerDay = function( day ){
+        
+        //getDatetimePicker( index )
+        //$( ".datetime .calendar td [data-date='" + day + "'] div" )
+        $( "td.date[data-date='" + day + "']" ).click();
+        //$( "[data-date='" + day + "'] div" ).click();
+            //.trigger( 'click' );
+        /*
+            .filter(
+                function() {
+                    return $( this ).text() === "" + day; 
+                }).trigger( 'click' );*/
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         countVisibleSubformRows: countVisibleSubformRows,
@@ -936,6 +959,9 @@ module.exports = (function() {
         fillSubformNewRow: fillSubformNewRow,
         clickCreateSubformRowButton: clickCreateSubformRowButton,
         clickDeleteSubformRowButton: clickDeleteSubformRowButton,
-        getNumberOfValidationErrors: getNumberOfValidationErrors
+        getNumberOfValidationErrors: getNumberOfValidationErrors,
+        get$FormFieldByNameClass: get$FormFieldByNameClass,
+        get$SubFormFieldByNameClass: get$SubFormFieldByNameClass,
+        clickDatetimePickerDay: clickDatetimePickerDay
     };
 })();

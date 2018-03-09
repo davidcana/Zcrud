@@ -79,7 +79,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var bindEventsInRows = function( $preselection ){
 
         $preselection
-            .find( '.zcrud-column-data input, .zcrud-column-data textarea, .zcrud-column-data select' )
+            .find( '.zcrud-column-data input.historyField, .zcrud-column-data textarea.historyField, .zcrud-column-data select.historyField' )
             .change( function ( event ) {
                 var $this = $( this );
                 var field = listPage.getFieldByName( $this.prop( 'name' ) );
@@ -96,7 +96,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         
         $preselection
             .find( '.zcrud-new-row-command-button' )
-            .off()
+            //.off()
             .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();

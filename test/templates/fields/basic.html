@@ -7,31 +7,35 @@
     <body> 
         <div data-mdefine-macro="text" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/elementName; 
-                                     value value; 
+                                     name field/elementName;
+                                     value ( value || '' );
+                                     class 'historyField';
                                      field/formFieldAttributes"
                    type="text">
         </div>
         
         <div data-mdefine-macro="textarea" data-tomit-tag="">
             <textarea data-tattributes="id cond: renderIds field/elementId null;
-                                        name field/elementName; 
+                                        name field/elementName;
+                                        class 'historyField';
                                         field/formFieldAttributes"
                       data-tcontent="cond: value value ''">The textarea value.</textarea>
         </div>
         
         <div data-mdefine-macro="datetime" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/elementName; 
-                                     value value; 
+                                     name field/elementName;
+                                     value value;
+                                     class 'historyField';
                                      field/formFieldAttributes"
                    type="text">
         </div>
             
         <div data-mdefine-macro="select" data-tomit-tag="">
             <select data-tattributes="id cond: renderIds field/elementId null;
-                                      name field/elementName; 
-                                      value value; 
+                                      name field/elementName;
+                                      value value;
+                                      class 'historyField';
                                       field/formFieldAttributes"
                     data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
                 <option data-trepeat="option optionsList"
@@ -48,8 +52,9 @@
                     <label>
                         <input type="radio"
                                data-tattributes="name string:${field/elementName}[${data-record-index}];
-                                                 value option/value; 
-                                                 checked cond: (eq: option/value value) 'checked' null">
+                                                 value option/value;
+                                                 checked cond: (eq: option/value value) 'checked' null;
+                                                 class 'historyField';">
                         <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
                     </label>
                 </div>
@@ -58,9 +63,10 @@
         
         <div data-mdefine-macro="datalist" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/elementName; 
-                                     list string:${field/elementId}-datalist; 
-                                     value value; 
+                                     name field/elementName;
+                                     list string:${field/elementId}-datalist;
+                                     value ( value || '' );
+                                     class 'historyField';
                                      field/formFieldAttributes"
                    type="text">
         </div>
@@ -77,9 +83,10 @@
         
         <div data-mdefine-macro="checkbox" data-tomit-tag="">
             <input data-tattributes="id cond: renderIds field/elementId null;
-                                     name field/elementName; 
-                                     value value; 
-                                     checked cond: value 'checked' null; 
+                                     name field/elementName;
+                                     value value;
+                                     checked cond: value 'checked' null;
+                                     class 'historyField';
                                      field/formFieldAttributes"
                    type="checkbox">
         </div>

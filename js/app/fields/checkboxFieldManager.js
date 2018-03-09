@@ -27,6 +27,8 @@ var CheckboxFieldManager = function() {
     };
     
     return {
+        id: 'checkboxFieldManager',
+        addToDictionary: false,
         getValue: getValue,
         getValueFromForm: getValueFromForm,
         setValueToForm: setValueToForm,

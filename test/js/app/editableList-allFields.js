@@ -3,6 +3,7 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
+var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunitjs' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
@@ -109,8 +110,8 @@ QUnit.test( "change datetime test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, record, editable );
-
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
                 options: options,
@@ -123,15 +124,15 @@ QUnit.test( "change datetime test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-
+            
             // Edit record
             var editedRecord =  {
-                "datetime": "13/12/2017 16:00"
+                "datetime": "10/12/2017 16:00"
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-
+            
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );
@@ -145,8 +146,8 @@ QUnit.test( "change datetime test", function( assert ) {
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-
-            testHelper.checkRecord( assert, key, newRecord, editable );
+            
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
             
             done();
         }

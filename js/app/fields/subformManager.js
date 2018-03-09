@@ -8,16 +8,39 @@ var validationManager = require( '../validationManager.js' );
 
 var SubformManager = function() {
     
-    /*
-    var setValueToForm = function( field, value, $this ){
-        $this.val( value );
-    };*/
+    var getValueFromRecord = function( field, record, params ){
+        
+        var fieldBuilder = params.fieldBuilder; // To avoid circular refs
+        var dictionary = params.formPage.getDictionary();
+        var subformRecords = record[ field.id ];
+        var subformFields = field.fields;
+        
+        for ( var i = 0; i < subformRecords.length; i++ ) {
+            var subformRecord = subformRecords[ i ];
+            for ( var c in subformFields ){
+                var subformField = subformFields[ c ];
+                subformRecord[ subformField.id ] = fieldBuilder.getValueFromRecord( 
+                    subformField, 
+                    subformRecord, 
+                    buildProcessTemplateParams( subformField, subformRecord, dictionary, params ) );
+            }
+        }
+        
+        return subformRecords;
+    };
     
-    var afterProcessTemplateForField = function( params, $selection ){
+    var get$subform = function( formPage, field ){
+        //return $form.find( '.zcrud-field-' + field.id );
+        return $( '#' + formPage.getId() + ' .zcrud-field-' + field.id );
+    };
+    
+    var afterProcessTemplateForField = function( params, $form ){
         
-        bindEventsInRows( params, $selection );
+        var $subform = get$subform( params.formPage, params.field );
         
-        $selection
+        bindEventsInRows( params, $subform );
+        
+        $subform
             .find( '.zcrud-subform-new-row-command-button' )
             .off()
             .click( function ( event ) {
@@ -52,13 +75,13 @@ var SubformManager = function() {
         validationManager.initFormValidation( formPage.getId(), $tr, options );
     };
     
-    var bindEventsInRows = function( params, $preselection ){
+    var bindEventsInRows = function( params, $subform ){
         
         var formPage = params.formPage;
         var fieldBuilder = params.fieldBuilder; // To avoid circular refs
-
-        $preselection
-            .find( 'input, textarea, select' )
+        
+        $subform
+            .find( 'input.historyField, textarea.historyField, select.historyField' )
             //.off()
             .change( function ( event ) {
                 var $this = $( this );
@@ -76,7 +99,7 @@ var SubformManager = function() {
                     formPage.getParentFieldByName( fullName ));
         });
         
-        $preselection
+        $subform
             .find( '.zcrud-subform-delete-row-command-button' )
             .off()
             .click( function ( event ) {
@@ -85,6 +108,46 @@ var SubformManager = function() {
             
             deleteRow( params, event );
         });
+        
+        bindEventsForFields(
+            $subform,
+            params.field.fields,
+            formPage,
+            fieldBuilder,
+            params
+        );
+    };
+    
+    var bindEventsForFields = function( $subform, fields, formPage, fieldBuilder, params ){
+        
+        var dictionary = formPage.getDictionary();
+        var records = params.value || [];
+        var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
+        for ( var i = 0; i < records.length; i++ ) {
+            var record = records[ i ];
+            for ( var c in fields ){
+                var field = fields[ c ];
+                fieldBuilder.afterProcessTemplateForField(
+                    buildProcessTemplateParams( field, record, dictionary, params ),
+                    $rows.filter( ":eq(" + i + ")" )
+                );
+            }
+        }
+    };
+    
+    var buildProcessTemplateParams = function( field, record, dictionary, params ){
+
+        return {
+            id: 'optionListProviderManager',
+            field: field, 
+            value: record[ field.id ],
+            options: params.options,
+            record: record,
+            source: params.source,
+            dictionary: dictionary,
+            formPage: params.formPage,
+            fieldBuilder: params.fieldBuilder
+        };
     };
     
     var deleteRow = function( params, event ){
@@ -118,7 +181,8 @@ var SubformManager = function() {
             if ( subfield.subformKey ){
                 field.subformKey = subfieldId;
             }
-            
+            subfield.name = field.id + "/" + subfieldId;
+
             fields.push( subfield );
         });
         
@@ -127,11 +191,19 @@ var SubformManager = function() {
         };
     };
     
+    var mustHideLabel = function( field ){
+        return true;
+    };
+    
     return {
+        id: 'subformManager',
+        addToDictionary: false,
         //setValueToForm: setValueToForm,
+        getValueFromRecord: getValueFromRecord,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getTemplate: getTemplate,
-        buildFields: buildFields
+        buildFields: buildFields,
+        mustHideLabel: mustHideLabel
     };
 }();
 

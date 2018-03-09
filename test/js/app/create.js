@@ -3,6 +3,7 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
+var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunitjs' );
 var testHelper = require( './testHelper.js' );
 
@@ -49,11 +50,11 @@ QUnit.test( "create test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-
+            
             // Go to create form and create record
             testHelper.clickCreateListButton();
             testHelper.fillForm( record );
-
+            
             testHelper.checkForm( assert, record );
             
             // Submit and show the list again
@@ -69,8 +70,8 @@ QUnit.test( "create test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            testHelper.checkRecord( assert, key, record );
-
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
+            
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
             testHelper.checkForm( assert, record );
@@ -87,7 +88,7 @@ QUnit.test( "create test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            testHelper.checkRecord( assert, key, record );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
             
             done();
         }

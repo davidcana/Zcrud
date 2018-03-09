@@ -38,7 +38,7 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
             notRemoveGeneratedTags: true
         });
         
-        $tr = $tbody.find( 'tr:last' );
+        $tr = $tbody.find( 'tr.zcrud-data-row:last' );
         rowIndex = $tr.attr( 'data-record-index' );
     };
     

@@ -457,6 +457,8 @@ var OptionListProviderManager = function() {
     };
     
     return {
+        id: 'optionListProviderManager',
+        addToDictionary: true,
         //beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,

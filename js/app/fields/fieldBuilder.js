@@ -7,6 +7,7 @@ module.exports = (function() {
     var $ = require( 'jquery' );
     
     var fieldManagers = {};
+    var dictionaryAddOn = {};
     
     var register = function( fieldManager, fieldTypes ) {
         
@@ -18,7 +19,11 @@ module.exports = (function() {
             }
             
         } else {
-            fieldManagers[ fieldTypes ] = expressionsManager
+            fieldManagers[ fieldTypes ] = fieldManager;
+        }
+        
+        if ( fieldManager.addToDictionary ){
+            dictionaryAddOn[ fieldManager.id ] = fieldManager;
         }
     };
     
@@ -112,7 +117,7 @@ module.exports = (function() {
         var fieldManager = fieldManagers[ field.type ];
 
         if ( fieldManager && $.isFunction( fieldManager.getValue ) ){
-            return fieldManager.getValue( $this );
+            return fieldManager.getValue( $this, field );
         }
 
         return $this.val();
@@ -194,6 +199,36 @@ module.exports = (function() {
         }
     };
     
+    var filterValue = function( record, field ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.filterValue ) ){
+            return fieldManager.filterValue( record, field );
+        }
+
+        return record[ field.id ];
+    };
+    
+    var filterValues = function( record, fields ){
+        
+        var newRecord = {};
+        
+        for ( var index in fields ){
+            var field = fields[ index ];
+            var value = filterValue( record, field );
+            if ( value != undefined ){
+                newRecord[ field.id ] = value;
+            }
+        }
+        
+        return newRecord;
+    };
+    
+    var addFieldManagersToDictionary = function( dictionary ){
+        $.extend( dictionary, dictionaryAddOn );
+    };
+    
     return {
         register: register,
         unregister: unregister,
@@ -209,6 +244,8 @@ module.exports = (function() {
         //getLabelFor: getLabelFor,
         setValueToForm: setValueToForm,
         mustHideLabel: mustHideLabel,
-        buildFields: buildFields
+        buildFields: buildFields,
+        filterValues: filterValues,
+        addFieldManagersToDictionary: addFieldManagersToDictionary
     };
 })();

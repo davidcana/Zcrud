@@ -3,6 +3,7 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
+var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunitjs' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils' );
@@ -34,9 +35,9 @@ QUnit.test( "create validation test", function( assert ) {
                 "id": "" + key,
                 "name": "" + key,   // Validation must fail here!
                 "description": "Service " + key + " description",
-                "date": "10/23/2017",
+                "date": "10/02/2017",
                 "time": "18:50",
-                "datetime": "10/23/2017 20:00",
+                "datetime": "10/03/2017 20:00",
                 "phoneType": "officePhone_option",
                 "province": "Málaga",
                 "city": "Marbella",
@@ -67,7 +68,7 @@ QUnit.test( "create validation test", function( assert ) {
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkRecord( assert, key, record );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
             
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
@@ -96,7 +97,7 @@ QUnit.test( "update validation test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, record );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -133,7 +134,7 @@ QUnit.test( "update validation test", function( assert ) {
             
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
-            testHelper.checkRecord( assert, key, newRecord );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
@@ -210,7 +211,7 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkRecord( assert, key, record );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
 
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
@@ -239,7 +240,7 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, record );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -293,7 +294,7 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkRecord( assert, key, newRecord );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );

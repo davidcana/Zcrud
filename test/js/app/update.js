@@ -3,6 +3,7 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
+var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunitjs' );
 var testHelper = require( './testHelper.js' );
 
@@ -27,7 +28,7 @@ QUnit.test( "update test", function( assert ) {
                     "id": "" + key,
                     "name": "Service " + key
                 };
-                testHelper.checkRecord( assert, key, record );
+                testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
                 var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
                 testHelper.pagingTest({
                     options: options,
@@ -78,7 +79,7 @@ QUnit.test( "update test", function( assert ) {
                     pageListNotActive: [ '<<', '<', '1' ],
                     pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
                 });
-                testHelper.checkRecord( assert, key, newRecord );
+                testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ) );
 
                 // Go to edit form again and check record
                 testHelper.clickUpdateListButton( key );
@@ -96,7 +97,7 @@ QUnit.test( "update test", function( assert ) {
                     pageListNotActive: [ '<<', '<', '1' ],
                     pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
                 });
-                testHelper.checkRecord( assert, key, newRecord );
+                testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ) );
             
                 done();
         }

@@ -190,7 +190,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
         
         dictionary.instance = self;
-        dictionary.optionListProviderManager = optionListProviderManager;
+        
+        fieldBuilder.addFieldManagersToDictionary( dictionary );
+        //dictionary.optionListProviderManager = optionListProviderManager;
     };
     
     // Reset all components

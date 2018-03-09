@@ -10,6 +10,7 @@ var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
+var datetimeFieldManager = require( '../fields/datetimeFieldManager.js' );
 
 var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     "use strict";
@@ -224,9 +225,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            if ( field.defaultValue ){
-                defaultRecord[ field.id ] = field.defaultValue;
-            }
+            defaultRecord[ field.id ] = field.defaultValue === undefined? '': field.defaultValue;
         }
         
         return defaultRecord;
@@ -260,6 +259,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         
         dictionary.instance = self;
         dictionary.optionListProviderManager = optionListProviderManager;
+        dictionary.datetimeFieldManager = datetimeFieldManager;
     };
     
     var buildProcessTemplateParams = function( field ){
@@ -352,7 +352,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         });
         
         $form
-            .find( 'input, textarea, select' )
+            .find( 'input.historyField, textarea.historyField, select.historyField' )
             .not( "[name*='/']" )  // Must exclude fields in subforms
             .change( function ( event ) {
                 var $this = $( this );

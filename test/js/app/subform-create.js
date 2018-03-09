@@ -78,19 +78,19 @@ QUnit.test( "subform create test", function( assert ) {
             
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
-
+            /*
             // Check storage
             assert.deepEqual( testUtils.getService( key ), editedRecord );
-
+            
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
-            testHelper.checkForm( assert, editedRecord );
+            testHelper.checkForm( assert, editedRecord );*/
 
             done();
         }
     );
 });
-
+/*
 QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
 
     var done = assert.async();
@@ -288,3 +288,4 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
         }
     );
 });
+*/

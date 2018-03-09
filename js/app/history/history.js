@@ -472,8 +472,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         // Return false if there is no record to modify, to create or to delete
         if ( Object.keys( dataToSend.existingRecords ).length == 0 
             && dataToSend.newRecords.length == 0 
-            && dataToSend.recordsToRemove == 0
-            && Object.keys( dataToSend.subforms ).length == 0 ){
+            && dataToSend.recordsToRemove == 0 ){
             return false;
         }
         return dataToSend;
