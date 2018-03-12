@@ -1,6 +1,6 @@
 "use strict";
 
-//var Qunit = require( 'qunitjs' );
+//var Qunit = require( 'qunit' );
 var testUtils = require( './testUtils' );
 var log4javascript = require( 'log4javascript' );
 

@@ -3,7 +3,7 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
-//var Qunit = require( 'qunitjs' );
+//var Qunit = require( 'qunit' );
 var testUtils = require( './testUtils' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );

@@ -4,7 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
-var Qunit = require( 'qunitjs' );
+var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );

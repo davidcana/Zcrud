@@ -4,7 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
-var Qunit = require( 'qunitjs' );
+var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 var context = require( '../../../js/app/context.js' );
@@ -424,7 +424,7 @@ QUnit.test( "change select test", function( assert ) {
             assert.deepEqual(
                 testHelper.getSelectOptions( 'province', testHelper.getRow( key ) ),
                 [ 'Cádiz', 'Málaga' ] );
-
+            
             // Edit record
             var editedRecord =  {
                 "province": "Málaga"
@@ -454,7 +454,7 @@ QUnit.test( "change select test", function( assert ) {
         }
     );
 });
-   
+
 QUnit.test( "change 2 linked select test", function( assert ) {
 
     var done = assert.async();
@@ -495,7 +495,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-
+            
             // Edit record
             var editedRecord =  {
                 "province": "Málaga"
