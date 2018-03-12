@@ -601,7 +601,7 @@ var DatetimeFieldManager = function() {
     
     var bindTimeEvents = function( params, $selection, $datetime ){
         
-        var delay = 100;
+        var delay = params.field.customOptions.timerDelay;
         var minutesStep = params.field.customOptions.minutesStep;
         var hoursStep = 1;
         
@@ -761,6 +761,9 @@ var DatetimeFieldManager = function() {
     
     var addHoursInterval = function( event, $datetime, params, valueToAdd, delay ){
         
+        clearInterval( currentTimer );
+        addHours( event, $datetime, params, valueToAdd );
+        
         currentTimer = setInterval( 
             function(){
                 addHours( event, $datetime, params, valueToAdd );
@@ -769,7 +772,10 @@ var DatetimeFieldManager = function() {
     };
     
     var addMinutesInterval = function( event, $datetime, params, valueToAdd, delay ){
-
+        
+        clearInterval( currentTimer );
+        addMinutes( event, $datetime, params, valueToAdd );
+        
         currentTimer = setInterval( 
             function(){
                 addMinutes( event, $datetime, params, valueToAdd );

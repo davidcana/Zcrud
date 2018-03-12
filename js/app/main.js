@@ -62,7 +62,8 @@ exports.init = function( userOptions, callback ){
                     minYear: 1950,
                     maxYear: 2050,
                     maxHour: 23,
-                    minutesStep: 5
+                    minutesStep: 5,
+                    timerDelay: 100
                 },
                 date: {
                     inline: false,
@@ -72,7 +73,8 @@ exports.init = function( userOptions, callback ){
                 time: {
                     inline: false,
                     maxHour: 99,
-                    minutesStep: 5
+                    minutesStep: 5,
+                    timerDelay: 100
                 }
             },
             getDefaultFieldTemplate: function( field ){
