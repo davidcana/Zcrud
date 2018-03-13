@@ -3,11 +3,13 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
+var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
+var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 //var defaultTestOptions = require( './subformTestOptions.js' );
 var defaultTestOptions = {
@@ -73,33 +75,25 @@ var defaultTestOptions = {
                 cols: 80
             }
         },
-        /*
-        date: {
-            list: false,
-            type: 'date',
-            customOptions: {
-                inline: false
-            }
-        },*/
         time: {
             list: false,
             type: 'time',
             customOptions: {
-                inline: true
+                inline: false
             }
         },
         datetime: {
             list: false,
             type: 'datetime',
             customOptions: {
-                inline: true
+                inline: false
             }
         },
         date: {
             list: false,
             type: 'date',
             customOptions: {
-                inline: true
+                inline: false
             }
         },
         phoneType: {
@@ -298,6 +292,7 @@ QUnit.test( "change text area test", function( assert ) {
             
             // Go to edit form
             testHelper.clickUpdateListButton( key );
+            var varName = "description";
             var editedRecord =  {
                 "members": {
                     "1": {
@@ -309,20 +304,20 @@ QUnit.test( "change text area test", function( assert ) {
             
             // Check form
             var newRecord = $.extend( true, {}, record );
-            newRecord.members[ 1 ].description = editedRecord.members[ 1 ].description;
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Undo
             var tempRecord = $.extend( true, {} , newRecord );
-            tempRecord.members[ 1 ].description = record.members[ 1 ].description;
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
             
             // Redo
             tempRecord = $.extend( true, {} , newRecord );
-            newRecord.members[ 1 ].description = editedRecord.members[ 1 ].description;
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 1, 0, false );
@@ -343,7 +338,7 @@ QUnit.test( "change text area test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "change datetime test", function( assert ) {
 
     var done = assert.async();
@@ -357,32 +352,29 @@ QUnit.test( "change datetime test", function( assert ) {
             // Setup services
             testUtils.resetServices();
             var key = 4;
-            var record = {
+            var serverRecord = {
                 "id": "" + key,
                 "name": "Service " + key,
-                "time": "20:30",
-                "datetime": "2017-03-10T20:00:00.000Z",
-                "date": "2017-03-14T00:00:00.000Z",
                 "members": [
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        "time": "20:00",
-                        "datetime": "2017-09-10T20:00:00.000Z",
-                        "date": "2017-09-10T00:00:00.000Z"
+                        //"time": "20:00",
+                        "datetime": "2017-09-10T20:00:00.000Z"
+                        //"date": "2017-09-10T00:00:00.000Z"
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        "time": "14:00",
-                        "datetime": "2018-07-02T14:00:00.000Z",
-                        "date": "2018-07-02T00:00:00.000Z"
+                        //"time": "14:00",
+                        "datetime": "2018-07-02T14:00:00.000Z"
+                        //"date": "2018-07-02T00:00:00.000Z"
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testUtils.setService( key, serverRecord );
 
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', 'datetime' ] );
 
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
@@ -390,38 +382,147 @@ QUnit.test( "change datetime test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             
-            // Click
-            /*
-            testHelper
-                .get$SubFormFieldByNameClass( 'members', 'datetime', 1 )
-                .trigger( 'mousedown' );
-            testHelper.clickDatetimePickerDay( 25 );*/
-            /*
+            // Edit record
+            var varName = "datetime";
             var editedRecord =  {
                 "members": {
                     "1": {
-                        "description": "Description of Lisa Simpson edited"
+                        "datetime": "10/02/2017 20:00"
                     }
                 }
             };
             testHelper.fillForm( editedRecord );
+            
+            // Transform date instances into string
+            var record = $.extend( true, {}, serverRecord );
+            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                record.members[ 0 ][ varName ] );
+            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                record.members[ 1 ][ varName ] );
+            
+            // Check form
+            var newRecord = $.extend( true, {}, record );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+            
+            // Undo
+            var tempRecord = $.extend( true, {} , newRecord );
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 0, 1, false );
+            
+            // Redo
+            tempRecord = $.extend( true, {} , newRecord );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 1, 0, false );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+            
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) );
+            
+            // Go to edit form again and check the form again
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+*/
+QUnit.test( "change datetime test using picker", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, defaultTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // Setup services
+            testUtils.resetServices();
+            var key = 4;
+            var serverRecord = {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        //"time": "20:00",
+                        "datetime": "2017-09-10T20:00:00.000Z"
+                        //"date": "2017-09-10T00:00:00.000Z"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        //"time": "14:00",
+                        "datetime": "2018-07-02T14:00:00.000Z"
+                        //"date": "2018-07-02T00:00:00.000Z"
+                    }
+                ]
+            };
+            testUtils.setService( key, serverRecord );
+
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', 'datetime' ] );
+
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+
+            // Edit record
+            var varName = "datetime";
+            var editedRecord =  {
+                "members": {
+                    "1": {
+                        "datetime": "10/02/2017 20:00"
+                    }
+                }
+            };
+            testHelper.updateDatetimePicker( 
+                'members', 
+                'datetime', 
+                1, 
+                options.fields.members.fields[ varName ],
+                editedRecord.members[ 1 ][ varName ] );
+
+            // Transform date instances into string
+            var record = $.extend( true, {}, serverRecord );
+            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                record.members[ 0 ][ varName ] );
+            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                record.members[ 1 ][ varName ] );
 
             // Check form
             var newRecord = $.extend( true, {}, record );
-            newRecord.members[ 1 ].description = editedRecord.members[ 1 ].description;
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
-
+            /*
             // Undo
             var tempRecord = $.extend( true, {} , newRecord );
-            tempRecord.members[ 1 ].description = record.members[ 1 ].description;
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
             tempRecord = $.extend( true, {} , newRecord );
-            newRecord.members[ 1 ].description = editedRecord.members[ 1 ].description;
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 1, 0, false );
@@ -430,7 +531,7 @@ QUnit.test( "change datetime test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );

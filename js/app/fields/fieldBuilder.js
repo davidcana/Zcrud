@@ -204,7 +204,7 @@ module.exports = (function() {
         var fieldManager = fieldManagers[ field.type ];
 
         if ( fieldManager && $.isFunction( fieldManager.filterValue ) ){
-            return fieldManager.filterValue( record, field );
+            return fieldManager.filterValue( record, field, self );
         }
 
         return record[ field.id ];
@@ -229,7 +229,7 @@ module.exports = (function() {
         $.extend( dictionary, dictionaryAddOn );
     };
     
-    return {
+    var self = {
         register: register,
         unregister: unregister,
         registerAll: registerAll,
@@ -246,6 +246,9 @@ module.exports = (function() {
         mustHideLabel: mustHideLabel,
         buildFields: buildFields,
         filterValues: filterValues,
+        filterValue: filterValue,
         addFieldManagersToDictionary: addFieldManagersToDictionary
     };
+    
+    return self;
 })();

@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 src: 'test/js/app/sample.js',
                 dest: 'build/sample.js'
             },
-            sample_editable: {
+            sampleEditable: {
                 options: {
                     browserifyOptions: {
                         debug: true
@@ -41,6 +41,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/sample-editable.js',
                 dest: 'build/sample-editable.js'
+            },
+            sampleSubform: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/sample-subform.js',
+                dest: 'build/sample-subform.js'
             },
             paging: {
                 options: {

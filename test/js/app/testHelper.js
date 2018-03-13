@@ -3,6 +3,7 @@
 */
 var $ = require( 'jquery' );
 var testUtils = require( './testUtils.js' );
+var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 module.exports = (function() {
     "use strict";
@@ -29,7 +30,7 @@ module.exports = (function() {
     };
     var get$SubFormFieldByNameClass = function( subformName, fieldName, subformIndex ){
         return get$FormFieldByNameClass( subformName )
-            .find( "[data-subform-record-index='" + subformIndex + "'] [name='" + subformName + "/" + fieldName + "']" );
+            .find( "[data-subform-record-index='" + subformIndex + "'] .zcrud-column-data-" + fieldName );
     };
     var get$List = function(){
         return $( '#zcrud-list-department' );
@@ -587,6 +588,15 @@ module.exports = (function() {
         setFormVal( subformRecord, 'code', $row, subformName );
         setFormVal( subformRecord, 'name', $row, subformName );
         setFormVal( subformRecord, 'description', $row, subformName );
+        setFormVal( subformRecord, 'date', $row, subformName );
+        setFormVal( subformRecord, 'time', $row, subformName );
+        setFormDatetimeVal( subformRecord, 'datetime', $row, subformName );
+        setFormRadioVal( subformRecord, 'phoneType', $row, subformName );
+        setFormVal( subformRecord, 'province', $row, subformName );
+        setFormVal( subformRecord, 'city', $row, subformName );
+        setFormVal( subformRecord, 'browser', $row, subformName );
+        setFormCheckboxVal( subformRecord, 'important', $row, subformName );
+        setFormVal( subformRecord, 'number', $row, subformName );
     };
     
     var fillSubformNewRow = function( subformRecord, subformName ){
@@ -651,7 +661,7 @@ module.exports = (function() {
         assert.ok( 
             areEquivalent( 
                 getFormVal( 'number' ), record.number ) );
-        //assert.deepEqual( getSubformVal( 'members' ), record.members );
+        assert.deepEqual( getSubformVal( 'members' ), record.members );
     };
     
     var setFormCheckboxVal = function( record, name, $row ){
@@ -696,14 +706,15 @@ module.exports = (function() {
             .trigger( 'blur' );
     };
     
-    var setFormDatetimeVal = function( record, name, $row ){
+    var setFormDatetimeVal = function( record, name, $row, subformName ){
         
         if ( record[ name ] === undefined ){
             return;
         }
         
         var $element = $row || get$Form();
-        $element.find( "[name='" + name +"']" )
+        var elementName = subformName? subformName + '/' + name: name;
+        $element.find( "[name='" + elementName +"']" )
             .val( record[ name ] )
             .trigger( 'change' );
     };
@@ -765,12 +776,33 @@ module.exports = (function() {
                 var row = {};
                 result.push( row );
 
+                /*
                 row[ 'code' ] = getFormVal( 'code', $this, name );
                 row[ 'name' ] = getFormVal( 'name', $this, name );
                 row[ 'description' ] = getFormVal( 'description', $this, name );
+                */
+                putSubformVal( row, 'code', getFormVal( 'code', $this, name ) );
+                putSubformVal( row, 'name', getFormVal( 'name', $this, name ) );
+                putSubformVal( row, 'description', getFormVal( 'description', $this, name ) );
+                putSubformVal( row, 'date', getFormVal( 'date', $this, name ) );
+                putSubformVal( row, 'time', getFormVal( 'time', $this, name ) );
+                putSubformVal( row, 'datetime', getFormVal( 'datetime', $this, name ) );
+                putSubformVal( row, 'phoneType', getFormRadioVal( 'phoneType', $this, name ) );
+                putSubformVal( row, 'province', getFormVal( 'province', $this, name ) );
+                putSubformVal( row, 'city', getFormVal( 'city', $this, name ) );
+                putSubformVal( row, 'browser', getFormVal( 'browser', $this, name ) );
+                putSubformVal( row, 'important', getFormCheckboxVal( 'browser', $this, name ) );
+                putSubformVal( row, 'number', getFormVal( 'number', $this, name ) );
         });
         
         return result;
+    };
+    
+    var putSubformVal = function( row, id, value ){
+        
+        if ( value != undefined ){
+            row[ id ] = value;
+        }
     };
     
     var fill = function( record, $row ){
@@ -901,6 +933,60 @@ module.exports = (function() {
         return $( ".datetime:eq( " + index + " )" );
     };
     
+    var togglePicker = function( $field ){
+        $field.find( '.toggle-picker' ).click();
+    };
+    
+    var getDatetimeYear = function( $field ){
+        return $field
+            .find( '[name="datepicker-year"]' )
+            .val();
+    };
+    var setDatetimeYear = function( $field, year ){
+        $field
+            .find( '[name="datepicker-year"]' )
+            .val( year )
+            .trigger( 'change' );
+    };
+    
+    var getDatetimeMonth = function( $field ){
+        return $field
+            .find( '[name="datepicker-month"]' )
+            .val();
+    };
+    var setDatetimeMonth = function( $field, month ){
+        $field
+            .find( '[name="datepicker-month"]' )
+            .val( month )
+            .trigger( 'change' );
+    };
+    
+    var setDatetimeDay = function( $field, day ){
+        $field.find( "td .date[data-date='" + day + "']"  ).click();
+    };
+    
+    var clickDatetimeOK = function( $field ){
+        $field.find( '.save-button' ).click();
+    };
+    
+    var updateDatetimePicker = function( subformName, fieldName, subformIndex, field, stringValue ){
+        
+        var $field = get$SubFormFieldByNameClass( subformName, fieldName, subformIndex );
+        var dateInstance = datetimeFieldManager.getValueFromString( stringValue, field );
+        
+        togglePicker( $field );
+        
+        if ( dateInstance.getFullYear() != getDatetimeYear( $field ) ){
+            setDatetimeYear( $field, dateInstance.getFullYear() );
+        }
+        if ( dateInstance.getMonth() != getDatetimeMonth( $field ) ){
+            setDatetimeMonth( $field, dateInstance.getMonth() );
+        }
+        setDatetimeDay( $field, dateInstance.getDate() );
+        
+        clickDatetimeOK( $field );
+    };
+    
     var clickDatetimePickerDay = function( day ){
         
         //getDatetimePicker( index )
@@ -962,6 +1048,12 @@ module.exports = (function() {
         getNumberOfValidationErrors: getNumberOfValidationErrors,
         get$FormFieldByNameClass: get$FormFieldByNameClass,
         get$SubFormFieldByNameClass: get$SubFormFieldByNameClass,
-        clickDatetimePickerDay: clickDatetimePickerDay
+        clickDatetimePickerDay: clickDatetimePickerDay,
+        togglePicker: togglePicker,
+        setDatetimeYear: setDatetimeYear,
+        setDatetimeMonth: setDatetimeMonth,
+        setDatetimeDay: setDatetimeDay,
+        clickDatetimeOK: clickDatetimeOK,
+        updateDatetimePicker: updateDatetimePicker
     };
 })();

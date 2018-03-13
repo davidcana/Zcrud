@@ -1030,7 +1030,8 @@ var DatetimeFieldManager = function() {
         formatToClient: formatToClient,
         getTimeInfo: getTimeInfo,
         filterValue: filterValue,
-        getDateTimeInfo: getDateTimeInfo
+        getDateTimeInfo: getDateTimeInfo,
+        getValueFromString: getValueFromString
     };
 }();
 

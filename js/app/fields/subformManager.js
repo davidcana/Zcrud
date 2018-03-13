@@ -8,6 +8,28 @@ var validationManager = require( '../validationManager.js' );
 
 var SubformManager = function() {
     
+    var filterValue = function( record, field, fieldBuilder ){
+        
+        var newRecords = [];
+        var subformRecords = record[ field.id ];
+        var subformFields = field.fields;
+        
+        for ( var i = 0; i < subformRecords.length; i++ ) {
+            var subformRecord = subformRecords[ i ];
+            var newRecord = {};
+            newRecords.push( newRecord );
+            for ( var c in subformFields ){
+                var subformField = subformFields[ c ];
+                var value = subformRecord[ subformField.id ];
+                if ( value != undefined ){
+                    newRecord[ subformField.id ] = fieldBuilder.filterValue( subformRecord, subformField );
+                }
+            }
+        }
+        
+        return newRecords;
+    };
+    
     var getValueFromRecord = function( field, record, params ){
         
         var fieldBuilder = params.fieldBuilder; // To avoid circular refs
@@ -203,7 +225,8 @@ var SubformManager = function() {
         afterProcessTemplateForField: afterProcessTemplateForField,
         getTemplate: getTemplate,
         buildFields: buildFields,
-        mustHideLabel: mustHideLabel
+        mustHideLabel: mustHideLabel,
+        filterValue: filterValue
     };
 }();
 
