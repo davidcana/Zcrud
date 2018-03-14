@@ -238,7 +238,7 @@ defaultTestOptions.fields.members.fields = {
     datetime: {
         type: 'datetime',
         customOptions: {
-            inline: false
+            inline: true
         }
     },
     date: {
@@ -293,8 +293,9 @@ defaultTestOptions.fatalErrorFunction = function( message ){
             };
             testUtils.setService( key, record );
 
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
-
+            //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', 'datetime' ] );
+            
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
             

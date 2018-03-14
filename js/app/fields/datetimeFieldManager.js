@@ -48,9 +48,10 @@ var DatetimeFieldManager = function() {
     var setValueToForm = function( field, value, $this ){
         
         switch( field.type ) {
-            case 'date':
             case 'datetime':
-                setValueToFormForDatetime( field, value, $this );
+                var manageTime = true;
+            case 'date':
+                setValueToFormForDatetime( field, value, $this, manageTime );
                 return;
             case 'time':
                 setValueToFormForTime( field, value, $this );
@@ -67,13 +68,14 @@ var DatetimeFieldManager = function() {
             .attr( pickerValueAttr, value );
         
         if ( field.customOptions.inline ){
-            var $datetime = get$datetime( $this.closest( 'form' ), field );
+            //var $datetime = get$datetime( $this.closest( 'form' ), field );
+            var $datetime = get$datetime( $this.parents( '.zcrud-data-entity' ).first(), field );
             var timeObject = buildTimeObjectFromString( field, value );
             updateTime( $datetime, timeObject );
         }
     };
     
-    var setValueToFormForDatetime = function( field, value, $this ){
+    var setValueToFormForDatetime = function( field, value, $this, manageTime ){
 
         var formattedValue = formatToClient( field, value );
         $this
@@ -81,8 +83,9 @@ var DatetimeFieldManager = function() {
             .attr( pickerValueAttr, formattedValue );
 
         if ( field.customOptions.inline ){
-            var $datetime = get$datetime( $this.closest( 'form' ), field );
-
+            //var $datetime = get$datetime( $this.closest( 'form' ), field );
+            var $datetime = get$datetime( $this.parents( '.zcrud-data-entity' ).first(), field );
+            
             // Update dictionary
             dictionary.field = field;
             dictionary.value = value;
@@ -92,6 +95,14 @@ var DatetimeFieldManager = function() {
                 $datetime, 
                 dictionary
             );
+            
+            if ( manageTime ){
+                var timeObject = buildTimeObjectFromHoursAndMinutes( 
+                    field, 
+                    value.getHours(), 
+                    value.getMinutes() );
+                updateTime( $datetime, timeObject );
+            }
         }
     };
     

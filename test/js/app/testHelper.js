@@ -965,8 +965,53 @@ module.exports = (function() {
         $field.find( "td .date[data-date='" + day + "']"  ).click();
     };
     
+    var getDatetimeHours = function( $field ){
+        return $field
+            .find( '.timepicker .hours' )
+            .text();
+    };
+    var setDatetimeHours = function( $field, hours ){
+        setDatetimeTimeValue( 
+            $field, 
+            hours, 
+            parseInt( getDatetimeHours( $field ) ), 
+            'hour',
+            1 );
+    };
+    
+    var getDatetimeMinutes = function( $field ){
+        return $field
+            .find( '.timepicker .minutes' )
+            .text();
+    };
+    var setDatetimeMinutes = function( $field, hours, field ){
+        setDatetimeTimeValue( 
+            $field, 
+            hours, 
+            parseInt( getDatetimeMinutes( $field ) ), 
+            'minute',
+            field.customOptions.minutesStep );
+    };
+    
+    var setDatetimeTimeValue = function( $field, hours, current, classPart, step ){
+
+        var clicks = ( hours - current ) / step;
+        if ( clicks == 0 ){
+            return;
+        }
+
+        var className = clicks > 0? '.next-' + classPart: '.prev-' + classPart;
+        var $button = $field.find( '.timepicker ' + className );
+
+        for( var c = 0; c < clicks; ++c ){
+            $button
+                .mousedown()
+                .mouseup();
+        }
+    };
+    
     var clickDatetimeOK = function( $field ){
-        $field.find( '.save-button' ).click();
+        $field.find( '.save-button:visible' ).click();
     };
     
     var updateDatetimePicker = function( subformName, fieldName, subformIndex, field, stringValue ){
@@ -974,7 +1019,9 @@ module.exports = (function() {
         var $field = get$SubFormFieldByNameClass( subformName, fieldName, subformIndex );
         var dateInstance = datetimeFieldManager.getValueFromString( stringValue, field );
         
-        togglePicker( $field );
+        if ( ! field.customOptions.inline ){
+            togglePicker( $field );
+        }
         
         if ( dateInstance.getFullYear() != getDatetimeYear( $field ) ){
             setDatetimeYear( $field, dateInstance.getFullYear() );
@@ -984,7 +1031,14 @@ module.exports = (function() {
         }
         setDatetimeDay( $field, dateInstance.getDate() );
         
-        clickDatetimeOK( $field );
+        if ( field.type == 'datetime' ){
+            setDatetimeHours( $field, dateInstance.getHours() );
+            setDatetimeMinutes( $field, dateInstance.getMinutes(), field );
+        }
+        
+        if ( ! field.customOptions.inline ){
+            clickDatetimeOK( $field );
+        }
     };
     
     var clickDatetimePickerDay = function( day ){
@@ -1049,11 +1103,11 @@ module.exports = (function() {
         get$FormFieldByNameClass: get$FormFieldByNameClass,
         get$SubFormFieldByNameClass: get$SubFormFieldByNameClass,
         clickDatetimePickerDay: clickDatetimePickerDay,
-        togglePicker: togglePicker,
-        setDatetimeYear: setDatetimeYear,
-        setDatetimeMonth: setDatetimeMonth,
-        setDatetimeDay: setDatetimeDay,
-        clickDatetimeOK: clickDatetimeOK,
+        //togglePicker: togglePicker,
+        //setDatetimeYear: setDatetimeYear,
+        //setDatetimeMonth: setDatetimeMonth,
+        //setDatetimeDay: setDatetimeDay,
+        //clickDatetimeOK: clickDatetimeOK,
         updateDatetimePicker: updateDatetimePicker
     };
 })();
