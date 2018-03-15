@@ -672,14 +672,15 @@ module.exports = (function() {
         assert.deepEqual( getSubformVal( 'members' ), record.members );
     };
     
-    var setFormCheckboxVal = function( record, name, $row ){
+    var setFormCheckboxVal = function( record, name, $row, subformName ){
         
         if ( record[ name ] === undefined ){
             return;
         }
         
         var $element = $row || get$Form();
-        $element.find( "input:checkbox[name='" + name +"']" )
+        var elementName = subformName? subformName + '/' + name: name;
+        $element.find( "input:checkbox[name='" + elementName +"']" )
             .prop( 'checked', record[ name ] )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -743,10 +744,11 @@ module.exports = (function() {
         return $selected? $selected.val(): undefined;
     };
     
-    var getFormCheckboxVal = function( name, $row ){
+    var getFormCheckboxVal = function( name, $row, subformName ){
 
         var $element = $row || get$Form();
-        return $element.find( "input:checkbox[name='" + name +"']" ).prop( 'checked' );
+        var elementName = subformName? subformName + '/' + name: name;
+        return $element.find( "input:checkbox[name='" + elementName +"']" ).prop( 'checked' );
     };
 
     var getSelectOptions = function( name, $row ){
@@ -799,7 +801,7 @@ module.exports = (function() {
                 putSubformVal( row, 'province', getFormVal( 'province', $this, name ) );
                 putSubformVal( row, 'city', getFormVal( 'city', $this, name ) );
                 putSubformVal( row, 'browser', getFormVal( 'browser', $this, name ) );
-                putSubformVal( row, 'important', getFormCheckboxVal( 'browser', $this, name ) );
+                putSubformVal( row, 'important', getFormCheckboxVal( 'important', $this, name ) );
                 putSubformVal( row, 'number', getFormVal( 'number', $this, name ) );
         });
         
