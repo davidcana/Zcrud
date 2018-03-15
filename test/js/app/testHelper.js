@@ -529,24 +529,32 @@ module.exports = (function() {
         return ! getSaveButton().prop( "disabled" );
     };
     
-    var getUndoButton = function(){
-        return get$Container().find( '.zcrud-undo-command-button' );
-    };
-    var clickUndoButton = function(){
-        getUndoButton().trigger( 'click' );
-    };
-    var getNumberOfUndoActions = function(){
-        return Number( getUndoButton().text().replace( /[^0-9]/g, "" ) );
+    var click$button = function( $button, times ){
+
+        var timesToDo = times || 1;
+        for( var c = 0; c < timesToDo; ++c ){
+            $button.trigger( 'click' );
+        }
     };
     
-    var getRedoButton = function(){
+    var get$undoButton = function(){
+        return get$Container().find( '.zcrud-undo-command-button' );
+    };
+    var clickUndoButton = function( times ){
+        click$button( get$undoButton(), times );
+    };
+    var getNumberOfUndoActions = function(){
+        return Number( get$undoButton().text().replace( /[^0-9]/g, "" ) );
+    };
+    
+    var get$redoButton = function(){
         return get$Container().find( '.zcrud-redo-command-button' );
     };
-    var clickRedoButton = function(){
-        getRedoButton().trigger( 'click' );
+    var clickRedoButton = function( times ){
+        click$button( get$redoButton(), times );
     };
     var getNumberOfRedoActions = function(){
-        return Number( getRedoButton().text().replace( /[^0-9]/g, "" ) );
+        return Number( get$redoButton().text().replace( /[^0-9]/g, "" ) );
     };
     
     var fillForm = function( record ){
@@ -993,14 +1001,14 @@ module.exports = (function() {
             field.customOptions.minutesStep );
     };
     
-    var setDatetimeTimeValue = function( $field, hours, current, classPart, step ){
+    var setDatetimeTimeValue = function( $field, value, current, classPart, step ){
 
-        var clicks = ( hours - current ) / step;
+        var clicks = Math.abs( value - current ) / step;
         if ( clicks == 0 ){
             return;
         }
 
-        var className = clicks > 0? '.next-' + classPart: '.prev-' + classPart;
+        var className = value > current? '.next-' + classPart: '.prev-' + classPart;
         var $button = $field.find( '.timepicker ' + className );
 
         for( var c = 0; c < clicks; ++c ){
@@ -1017,23 +1025,30 @@ module.exports = (function() {
     var updateDatetimePicker = function( subformName, fieldName, subformIndex, field, stringValue ){
         
         var $field = get$SubFormFieldByNameClass( subformName, fieldName, subformIndex );
-        var dateInstance = datetimeFieldManager.getValueFromString( stringValue, field );
+        var instance = 
+            field.type == 'time'? 
+            datetimeFieldManager.buildTimeObjectFromString( field, stringValue ):
+            datetimeFieldManager.getValueFromString( stringValue, field );
         
         if ( ! field.customOptions.inline ){
             togglePicker( $field );
         }
         
-        if ( dateInstance.getFullYear() != getDatetimeYear( $field ) ){
-            setDatetimeYear( $field, dateInstance.getFullYear() );
+        if ( field.type == 'datetime' || field.type == 'date' ){
+            if ( instance.getFullYear() != getDatetimeYear( $field ) ){
+                setDatetimeYear( $field, instance.getFullYear() );
+            }
+            if ( instance.getMonth() != getDatetimeMonth( $field ) ){
+                setDatetimeMonth( $field, instance.getMonth() );
+            }
+            setDatetimeDay( $field, instance.getDate() );
         }
-        if ( dateInstance.getMonth() != getDatetimeMonth( $field ) ){
-            setDatetimeMonth( $field, dateInstance.getMonth() );
-        }
-        setDatetimeDay( $field, dateInstance.getDate() );
         
-        if ( field.type == 'datetime' ){
-            setDatetimeHours( $field, dateInstance.getHours() );
-            setDatetimeMinutes( $field, dateInstance.getMinutes(), field );
+        if ( field.type == 'datetime' || field.type == 'time' ){
+            var hours = field.type == 'time'? instance.hours: instance.getHours();
+            var minutes = field.type == 'time'? instance.minutes: instance.getMinutes();
+            setDatetimeHours( $field, hours );
+            setDatetimeMinutes( $field, minutes, field );
         }
         
         if ( ! field.customOptions.inline ){

@@ -19,10 +19,16 @@
             </div>
             
             <div data-tdefine="dateInfo datetimeFieldManager/getDateInfo( field, value );
-                               showOKButtonInPart not: field/customOptions/inline;
                                inlinePart cond: field/customOptions/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
-                <div data-muse-macro="'datePart'"><!--empty--></div>
+                <div>
+                    <div data-muse-macro="'datePart'"><!--empty--></div>
+                </div>
+                <div data-tcondition="not: field/customOptions/inline">
+                    <button type="button" class="save-button">
+                        OK
+                    </button>
+                </div>
             </div>
         </div>
         
@@ -42,10 +48,16 @@
             </div>
             
             <div data-tdefine="timeInfo datetimeFieldManager/getTimeInfo( field, value );
-                               showOKButtonInPart not: field/customOptions/inline;
                                inlinePart cond: field/customOptions/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
-                <div data-muse-macro="'timePart'"><!--empty--></div>
+                <div>
+                    <div data-muse-macro="'timePart'"><!--empty--></div>
+                </div>
+                <div data-tcondition="not: field/customOptions/inline">
+                    <button type="button" class="save-button">
+                        OK
+                    </button>
+                </div>
             </div>
         </div>
         
@@ -65,7 +77,6 @@
             <div data-tdefine="dateTimeInfo datetimeFieldManager/getDateTimeInfo( field, value );
                                dateInfo dateTimeInfo/dateInfo;
                                timeInfo dateTimeInfo/timeInfo;
-                               showOKButtonInPart false;
                                inlinePart cond: field/customOptions/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
                 <div>
@@ -96,12 +107,6 @@
                         <button type="button" class="prev prev-hour"><!--empty--></button>
                         <button type="button" class="prev prev-minute"><!--empty--></button>
                     </div>
-                </div>
-                
-                <div data-tcondition="showOKButtonInPart">
-                    <button type="button" class="save-button">
-                        OK
-                    </button>
                 </div>
             </div>
         </div>
@@ -164,11 +169,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div data-tcondition="showOKButtonInPart">
-                    <button type="button" class="save-button">
-                        OK
-                    </button>
                 </div>
             </div>
         </div>

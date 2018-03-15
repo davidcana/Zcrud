@@ -1042,7 +1042,8 @@ var DatetimeFieldManager = function() {
         getTimeInfo: getTimeInfo,
         filterValue: filterValue,
         getDateTimeInfo: getDateTimeInfo,
-        getValueFromString: getValueFromString
+        getValueFromString: getValueFromString,
+        buildTimeObjectFromString: buildTimeObjectFromString
     };
 }();
 
