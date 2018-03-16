@@ -258,21 +258,20 @@ var OptionListProviderManager = function() {
 
         var dependedValues = {};
         for ( var i = 0; i < dependsOn.length; i++ ) {
-            var fieldId = dependsOn[ i ];
-            dependedValues[ fieldId ] = record[ fieldId ];
+            var fieldName = dependsOn[ i ];
+            var fieldId = context.getFieldData( fieldName ).name;
+            dependedValues[ fieldName ] = record[ fieldId ];
         }
 
         return dependedValues;
     };
     /*
-    var createDependedValuesUsingRecord = function ( params ) {
+    var createDependedValuesUsingRecord = function ( record, field ) {
 
-        var dependsOn = params.field.dependsOn;
+        var dependsOn = field.dependsOn;
         if ( ! dependsOn ) {
             return {};
         }
-
-        var record = params.record;
 
         var dependedValues = {};
         for ( var i = 0; i < dependsOn.length; i++ ) {
@@ -283,14 +282,16 @@ var OptionListProviderManager = function() {
         return dependedValues;
     };*/
     
-    var createDependedValuesUsingForm = function ( field, options, $selection ) {
+    var createDependedValuesUsingForm = function ( field, options, $selection, params ) {
         
         var dependedValues = {};
         
         for ( var i = 0; i < field.dependsOn.length; i++ ) {
             var dependedFieldId = field.dependsOn[ i ];
-            var dependedField = options.fields[ dependedFieldId ];
-            dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.id + "']").val();
+            //var dependedField = options.fields[ dependedFieldId ];
+            var dependedField = context.getField( params.options.fields, dependedFieldId );
+            dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.name + "']").val();
+            //dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.id + "']").val();
         }
         
         return dependedValues;
@@ -302,7 +303,8 @@ var OptionListProviderManager = function() {
             return;
         }
         
-        var $thisDropdown = $selection.find( "[name='" + params.field.id + "']");
+        var $thisDropdown = $selection.find( "[name='" + params.field.name + "']");
+        //var $thisDropdown = $selection.find( "[name='" + params.field.id + "']");
         //alert( '$thisDropdown.id: ' + $thisDropdown.attr( 'id' ));
 
         // Build dictionary
@@ -313,18 +315,19 @@ var OptionListProviderManager = function() {
         
         //for each dependency
         $.each( params.field.dependsOn, function ( index, dependsOn ) {
-            
-            var dependsOnField = params.options.fields[ dependsOn ];
+            //var dependsOnField = params.options.fields[ dependsOn ];
+            var dependsOnField = context.getField( params.options.fields, dependsOn );
             
             //find the depended combobox
-            var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.id + "']");
+            var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']");
+            //var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.id + "']");
             
             //when depended combobox changes
             $dependsOnDropdown.change(function () {
                 //alert( $( this ).val() );
                 
                 //Refresh options
-                params.dependedValues = createDependedValuesUsingForm( params.field, params.options, $selection ) ;
+                params.dependedValues = createDependedValuesUsingForm( params.field, params.options, $selection, params ) ;
                 dictionary.optionsListFromForm = buildOptions( params );
                 dictionary.record = params.record;
                 
@@ -358,13 +361,13 @@ var OptionListProviderManager = function() {
 
         switch( field.type ) {
             case 'radio':
-                return $selection.find( "input[name='" + field.id + "']:checked").val();
-                //return $( 'input[name=' + field.id + ']:checked').val();
+                return $selection.find( "input[name='" + field.name + "']:checked").val();
+                //return $selection.find( "input[name='" + field.id + "']:checked").val();
             case 'select':
             case 'optgroup':
             case 'datalist':
-                return $selection.find( "input[name='" + field.id + "']").val();
-                //return $( 'input[name=' + field.id + ']').val();
+                return $selection.find( "input[name='" + field.name + "']").val();
+                //return $selection.find( "input[name='" + field.id + "']").val();
         }
 
         throw "Unknown field type in optionListProviderManager: " + field.type;

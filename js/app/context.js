@@ -314,6 +314,23 @@ module.exports = (function() {
         subformField.fields = temp;
     };
     
+    var getField = function( fields, fullName ){
+
+        var fieldData = getFieldData( fullName );
+        return fieldData.subformName?
+            fields[ fieldData.subformName ].fields[ fieldData.name ]:
+        fields[ fieldData.name ];
+    };
+
+    var getFieldData = function( fullName ){
+
+        var subformSeparatorIndex = fullName.indexOf( '/' );
+        return {
+            subformName: subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex ),
+            name: subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex )
+        };
+    };
+    
     return {
         put: put,
         get: get,
@@ -337,6 +354,8 @@ module.exports = (function() {
         initZPT: initZPT,
         getZPTParser: getZPTParser,
         updateListVisibleFields: updateListVisibleFields,
-        updateSubformFields: updateSubformFields
+        updateSubformFields: updateSubformFields,
+        getField: getField,
+        getFieldData: getFieldData
     };
 })();

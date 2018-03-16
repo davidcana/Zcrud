@@ -250,6 +250,33 @@ defaultTestOptions.fields.members.fields = {
         options: function(){
             return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
         }
+    },
+    province: {
+        type: 'select',
+        options: [ 'Cádiz', 'Málaga' ],
+        defaultValue: 'Cádiz'
+    },
+    city: {
+        type: 'select',
+        dependsOn: 'members/province',
+        options: function( data ){
+            var dependedValues = data.dependedValues[ 'members/province' ];
+            if ( ! dependedValues ){
+                return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
+            }
+            switch ( dependedValues ) {
+                case 'Cádiz':
+                    return [ 'Algeciras', 'Tarifa' ];
+                case 'Málaga':
+                    return [ 'Estepona', 'Marbella' ];
+                default:
+                    throw 'Unknown province: ' + dependedValues;
+            }
+        }
+    },
+    browser: {
+        type: 'datalist',
+        options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
     }
 };
 
@@ -1380,7 +1407,7 @@ QUnit.test( "change checkbox test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "change radio test", function( assert ) {
 
     var done = assert.async();
@@ -1460,6 +1487,181 @@ QUnit.test( "change radio test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "change select test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, defaultTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // Setup services
+            testUtils.resetServices();
+            var key = 4;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "province": "Cádiz"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "province": "Málaga"
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+
+            var varName = 'province';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "members": {
+                    "1": {
+                        "province": "Cádiz"
+                    }
+                }
+            };
+            testHelper.fillForm( editedRecord );
+
+            // Check form
+            var newRecord = $.extend( true, {}, record );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            // Undo
+            var tempRecord = $.extend( true, {} , newRecord );
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            tempRecord = $.extend( true, {} , newRecord );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 1, 0, false );
+
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), newRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+*/
+QUnit.test( "change 2 linked select test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, defaultTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // Setup services
+            testUtils.resetServices();
+            var key = 4;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "province": "Cádiz",
+                        "city": "Algeciras"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "province": "Málaga",
+                        "city": "Marbella"
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+
+            var varName = 'province';
+            var varName2 = 'city';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName, varName2 ] );
+
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "members": {
+                    "1": {
+                        "province": "Cádiz",
+                        "city": "Tarifa"
+                    }
+                }
+            };/*
+            testHelper.fillForm( editedRecord );
+            
+            // Check form
+            var newRecord = $.extend( true, {}, record );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            newRecord.members[ 1 ][ varName2 ] = editedRecord.members[ 1 ][ varName2 ];
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 2, 0, true );
+            
+            // Undo
+            var tempRecord = $.extend( true, {} , newRecord );
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            tempRecord = $.extend( true, {} , newRecord );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 1, 0, false );
+
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), newRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkForm( assert, newRecord );*/
 
             done();
         }
