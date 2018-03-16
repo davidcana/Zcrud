@@ -374,7 +374,14 @@ var OptionListProviderManager = function() {
         
         switch( field.type ) {
         case 'radio':
-            $this.prop( 'checked', value? true: false );
+            var $container = $this.parents( '.zcrud-radio-container' ).first();
+            var $radios = $container.find( 'input:radio.zcrud-active' );
+            if ( value ){
+                $radios.filter( '[value=' + value + ']' ).prop( 'checked', true );   
+            } else {
+                $radios.prop( 'checked', false ); 
+            }
+            //$this.prop( 'checked', value? true: false );
             return;
         case 'select':
         case 'optgroup':

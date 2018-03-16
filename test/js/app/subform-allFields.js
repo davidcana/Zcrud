@@ -243,6 +243,13 @@ defaultTestOptions.fields.members.fields = {
     },
     important: {
         type: 'checkbox'
+    },
+    phoneType: {
+        type: 'radio',
+        translateOptions: true,
+        options: function(){
+            return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
+        }
     }
 };
 
@@ -255,7 +262,7 @@ defaultTestOptions.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-
+/*
 QUnit.test( "change text area test", function( assert ) {
 
     var done = assert.async();
@@ -1289,7 +1296,7 @@ QUnit.test( "change inline time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "change chakbox test", function( assert ) {
+QUnit.test( "change checkbox test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1350,6 +1357,91 @@ QUnit.test( "change chakbox test", function( assert ) {
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
+            // Redo
+            tempRecord = $.extend( true, {} , newRecord );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 1, 0, false );
+
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), newRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+*/
+QUnit.test( "change radio test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, defaultTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // Setup services
+            testUtils.resetServices();
+            var key = 4;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "phoneType": "homePhone_option"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "phoneType": "officePhone_option"
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+
+            var varName = 'phoneType';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "members": {
+                    "1": {
+                        "phoneType": "cellPhone_option"
+                    }
+                }
+            };
+            testHelper.fillForm( editedRecord );
+
+            // Check form
+            var newRecord = $.extend( true, {}, record );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+            
+            // Undo
+            var tempRecord = $.extend( true, {} , newRecord );
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 0, 1, false );
+            
             // Redo
             tempRecord = $.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];

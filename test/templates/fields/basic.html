@@ -47,14 +47,16 @@
 
         <div data-mdefine-macro="radio" data-tomit-tag=""
              data-tattributes="field/formFieldAttributes">
-            <div data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
+            <div data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )"
+                 data-tattributes="class 'zcrud-radio-container'">
                 <div data-trepeat="option optionsList">
                     <label>
                         <input type="radio"
-                               data-tattributes="name string:${field/elementName}[${data-record-index}];
+                               data-tdefine="nameIndex data-subform-record-index || data-record-index"
+                               data-tattributes="name string:${field/elementName}[${nameIndex}];
                                                  value option/value;
                                                  checked cond: (eq: option/value value) 'checked' null;
-                                                 class 'historyField';">
+                                                 class 'historyField zcrud-active';">
                         <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
                     </label>
                 </div>

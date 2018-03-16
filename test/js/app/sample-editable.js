@@ -77,7 +77,7 @@ var options = {
             type: 'datetime'
         },
         phoneType: {
-            list: false,
+            list: true,
             type: 'radio',
             translateOptions: true,
             //options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes',
@@ -133,7 +133,7 @@ var options = {
             type: 'checkbox'
         },
         number: {
-            list: true
+            list: false
         }
     },
 

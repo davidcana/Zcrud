@@ -686,7 +686,7 @@ module.exports = (function() {
             .trigger( 'blur' );
     };
     
-    var setFormRadioVal = function( record, name, $row ){
+    var setFormRadioVal = function( record, name, $row, subformName ){
         
         if ( record[ name ] === undefined ){
             return;
@@ -695,7 +695,8 @@ module.exports = (function() {
         var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 1: 0;
         var nameAttr = name + '[' + rowIndex + ']';
-        $element.find( "input:radio[name='" + nameAttr +"']" ).filter( '[value=' + record[ name ] + ']' )
+        var elementName = subformName? subformName + '/' + nameAttr: nameAttr;
+        $element.find( "input:radio[name='" + elementName +"']" ).filter( '[value=' + record[ name ] + ']' )
             .prop( 'checked', true )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -735,12 +736,13 @@ module.exports = (function() {
         return $element.find( "[name='" + elementName +"']" ).val();
     };
     
-    var getFormRadioVal = function( name, $row ){
+    var getFormRadioVal = function( name, $row, subformName ){
 
         var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 1: 0;
         var nameAttr = name + '[' + rowIndex + ']';
-        var $selected = $element.find( "input:radio[name='" + nameAttr +"']:checked" );
+        var elementName = subformName? subformName + '/' + nameAttr: nameAttr;
+        var $selected = $element.find( "input:radio[name='" + elementName +"']:checked" );
         return $selected? $selected.val(): undefined;
     };
     
