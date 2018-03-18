@@ -330,6 +330,10 @@ var OptionListProviderManager = function() {
                 params.dependedValues = createDependedValuesUsingForm( params.field, params.options, $selection, params ) ;
                 dictionary.optionsListFromForm = buildOptions( params );
                 dictionary.record = params.record;
+                dictionary.value = params.record[ params.field.id ];
+                dictionary.field = params.field;
+                dictionary.type = params.field.type;
+                dictionary.value = params.value;
                 
                 // Refresh template
                 zpt.run({
@@ -338,7 +342,8 @@ var OptionListProviderManager = function() {
                 });
 
                 //Thigger change event to refresh multi cascade dropdowns.
-                $thisDropdown.change();
+                //$thisDropdown.change();
+                $thisDropdown.trigger( "change", [ true ] );
             });
         });
     };
@@ -390,8 +395,8 @@ var OptionListProviderManager = function() {
         case 'optgroup':
         case 'datalist':
             $this.val( value );
-            //$this.blur();
-            $this.change(); 
+            $this.trigger( "change", [ true ] );
+            //$this.change(); 
             return;
         }
         

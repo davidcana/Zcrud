@@ -80,7 +80,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         $preselection
             .find( '.zcrud-column-data input.historyField, .zcrud-column-data textarea.historyField, .zcrud-column-data select.historyField' )
-            .change( function ( event ) {
+            .change( function ( event, disableHistory ) {
+                if ( disableHistory ){
+                    return;
+                }
                 var $this = $( this );
                 var field = listPage.getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 

@@ -105,7 +105,10 @@ var SubformManager = function() {
         $subform
             .find( 'input.historyField, textarea.historyField, select.historyField' )
             //.off()
-            .change( function ( event ) {
+            .change( function ( event, disableHistory ) {
+                if ( disableHistory ){
+                    return;
+                }
                 var $this = $( this );
                 var fullName = $this.prop( 'name' );
                 var field = formPage.getFieldByName( fullName );

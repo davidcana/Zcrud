@@ -354,7 +354,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         $form
             .find( 'input.historyField, textarea.historyField, select.historyField' )
             .not( "[name*='/']" )  // Must exclude fields in subforms
-            .change( function ( event ) {
+            .change( function ( event, disableHistory ) {
+                if ( disableHistory ){
+                    return;
+                }
                 var $this = $( this );
                 var field = getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 

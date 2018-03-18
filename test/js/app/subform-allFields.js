@@ -1627,7 +1627,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
                         "city": "Tarifa"
                     }
                 }
-            };/*
+            };
             testHelper.fillForm( editedRecord );
             
             // Check form
@@ -1636,7 +1636,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             newRecord.members[ 1 ][ varName2 ] = editedRecord.members[ 1 ][ varName2 ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 2, 0, true );
-            
+            /*
             // Undo
             var tempRecord = $.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
