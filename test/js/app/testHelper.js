@@ -32,6 +32,10 @@ module.exports = (function() {
         return get$FormFieldByNameClass( subformName )
             .find( "[data-subform-record-index='" + subformIndex + "'] .zcrud-column-data-" + fieldName );
     };
+    var get$SubFormFieldRow = function( subformName, subformIndex ){
+        return get$FormFieldByNameClass( subformName )
+            .find( "[data-subform-record-index='" + subformIndex + "']" );
+    };
     var get$List = function(){
         return $( '#zcrud-list-department' );
         //return get$Container().filter( '.zcrud-list' );
@@ -1127,6 +1131,7 @@ module.exports = (function() {
         //setDatetimeMonth: setDatetimeMonth,
         //setDatetimeDay: setDatetimeDay,
         //clickDatetimeOK: clickDatetimeOK,
-        updateDatetimePicker: updateDatetimePicker
+        updateDatetimePicker: updateDatetimePicker,
+        get$SubFormFieldRow: get$SubFormFieldRow
     };
 })();

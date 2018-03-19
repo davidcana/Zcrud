@@ -304,11 +304,10 @@ var OptionListProviderManager = function() {
         }
         
         var $thisDropdown = $selection.find( "[name='" + params.field.name + "']");
-        //var $thisDropdown = $selection.find( "[name='" + params.field.id + "']");
-        //alert( '$thisDropdown.id: ' + $thisDropdown.attr( 'id' ));
 
         // Build dictionary
-        var dictionary = params.dictionary;
+        //var dictionary = params.dictionary;
+        var dictionary = $.extend( {}, params.dictionary );
         dictionary.field = params.field;
         dictionary.type = params.field.type;
         dictionary.value = params.value;
@@ -336,13 +335,13 @@ var OptionListProviderManager = function() {
                 dictionary.value = params.value;
                 
                 // Refresh template
-                zpt.run({
+                //zpt.run({
+                context.getZPTParser().run({
                     root: $thisDropdown[ 0 ],
                     dictionary: dictionary
                 });
 
                 //Thigger change event to refresh multi cascade dropdowns.
-                //$thisDropdown.change();
                 $thisDropdown.trigger( "change", [ true ] );
             });
         });

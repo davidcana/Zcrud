@@ -546,7 +546,8 @@ var DatetimeFieldManager = function() {
         dictionary.dateInfo = getDateInfoFromObject( field, referenceDate, selectedDate );
 
         // Refresh template
-        zpt.run({
+        //zpt.run({
+        context.getZPTParser().run({
             root: $datetime.find( '.datepicker' )[ 0 ],
             dictionary: dictionary
         });

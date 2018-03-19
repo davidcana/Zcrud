@@ -289,7 +289,6 @@ defaultTestOptions.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-/*
 QUnit.test( "change text area test", function( assert ) {
 
     var done = assert.async();
@@ -1577,7 +1576,7 @@ QUnit.test( "change select test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "change 2 linked select test", function( assert ) {
 
     var done = assert.async();
@@ -1636,7 +1635,132 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             newRecord.members[ 1 ][ varName2 ] = editedRecord.members[ 1 ][ varName2 ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 2, 0, true );
-            /*
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            
+            // Undo (1)
+            var tempRecord = $.extend( true, {} , record );
+            tempRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            delete tempRecord.members[ 1 ][ varName2 ];
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 1, 1, false );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            
+            // Undo (2)
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 2, false );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                [ 'Estepona', 'Marbella' ] );
+            
+            // Redo (1)
+            tempRecord.members[ 1 ][ varName2 ] = "";
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 1, 1, false );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            
+            // Redo (2)
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 2, 0, false );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), newRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "change datalist test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, defaultTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // Setup services
+            testUtils.resetServices();
+            var key = 4;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "browser": "Firefox"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "browser": "Internet Explorer"
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+
+            var varName = 'browser';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "members": {
+                    "1": {
+                        "browser": "Firefox"
+                    }
+                }
+            };
+            testHelper.fillForm( editedRecord );
+            
+            // Check form
+            var newRecord = $.extend( true, {}, record );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
             // Undo
             var tempRecord = $.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
@@ -1661,9 +1785,10 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkForm( assert, newRecord );*/
+            testHelper.checkForm( assert, newRecord );
 
             done();
         }
     );
 });
+
