@@ -289,7 +289,7 @@ defaultTestOptions.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "change text area test", function( assert ) {
+QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -374,7 +374,7 @@ QUnit.test( "change text area test", function( assert ) {
     );
 });
 
-QUnit.test( "change datetime test", function( assert ) {
+QUnit.test( "update datetime test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -474,7 +474,7 @@ QUnit.test( "change datetime test", function( assert ) {
     );
 });
 
-QUnit.test( "change datetime using picker test", function( assert ) {
+QUnit.test( "update datetime using picker test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -579,7 +579,7 @@ QUnit.test( "change datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "change inline datetime using picker test", function( assert ) {
+QUnit.test( "update inline datetime using picker test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -688,7 +688,7 @@ QUnit.test( "change inline datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "change date test", function( assert ) {
+QUnit.test( "update date test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -794,7 +794,7 @@ QUnit.test( "change date test", function( assert ) {
     );
 });
 
-QUnit.test( "change date using picker test", function( assert ) {
+QUnit.test( "update date using picker test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -906,7 +906,7 @@ QUnit.test( "change date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "change inline date using picker test", function( assert ) {
+QUnit.test( "update inline date using picker test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1021,7 +1021,7 @@ QUnit.test( "change inline date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "change time test", function( assert ) {
+QUnit.test( "update time test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1117,7 +1117,7 @@ QUnit.test( "change time test", function( assert ) {
     );
 });
 
-QUnit.test( "change time using picker test", function( assert ) {
+QUnit.test( "update time using picker test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1218,7 +1218,7 @@ QUnit.test( "change time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "change inline time using picker test", function( assert ) {
+QUnit.test( "update inline time using picker test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1322,7 +1322,7 @@ QUnit.test( "change inline time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "change checkbox test", function( assert ) {
+QUnit.test( "update checkbox test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1407,7 +1407,7 @@ QUnit.test( "change checkbox test", function( assert ) {
     );
 });
 
-QUnit.test( "change radio test", function( assert ) {
+QUnit.test( "update radio test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1492,7 +1492,7 @@ QUnit.test( "change radio test", function( assert ) {
     );
 });
 
-QUnit.test( "change select test", function( assert ) {
+QUnit.test( "update select test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1577,7 +1577,7 @@ QUnit.test( "change select test", function( assert ) {
     );
 });
 
-QUnit.test( "change 2 linked select test", function( assert ) {
+QUnit.test( "update 2 linked select test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1707,7 +1707,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
     );
 });
 
-QUnit.test( "change datalist test", function( assert ) {
+QUnit.test( "update datalist test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );

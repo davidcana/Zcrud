@@ -60,7 +60,7 @@ var SubformManager = function() {
         
         var $subform = get$subform( params.formPage, params.field );
         
-        bindEventsInRows( params, $subform );
+        bindEventsInRows( params, $subform, undefined );
         
         $subform
             .find( '.zcrud-subform-new-row-command-button' )
@@ -90,19 +90,21 @@ var SubformManager = function() {
         var $tr = createHistoryItem.get$Tr(); 
 
         // Bind events
-        bindEventsInRows( params, $tr );
+        bindEventsInRows( params, undefined, $tr );
         
         // Configure form validation
         //validationManager.addAttributes( $tr, options );
         validationManager.initFormValidation( formPage.getId(), $tr, options );
     };
     
-    var bindEventsInRows = function( params, $subform ){
+    var bindEventsInRows = function( params, $subform, $tr ){
         
         var formPage = params.formPage;
         var fieldBuilder = params.fieldBuilder; // To avoid circular refs
+        var $selection = $subform || $tr;
+        //var $selection = $subform || $tr.parents( '.zcrud-data-entity' ).first();
         
-        $subform
+        $selection
             .find( 'input.historyField, textarea.historyField, select.historyField' )
             //.off()
             .change( function ( event, disableHistory ) {
@@ -112,7 +114,7 @@ var SubformManager = function() {
                 var $this = $( this );
                 var fullName = $this.prop( 'name' );
                 var field = formPage.getFieldByName( fullName );
-                var $tr = $this.closest( 'tr' );
+                var $tr = $tr || $this.closest( 'tr' );
                 formPage.getHistory().putChange( 
                     $this, 
                     fieldBuilder.getValue( field, $this ), 
@@ -124,7 +126,7 @@ var SubformManager = function() {
                     formPage.getParentFieldByName( fullName ));
         });
         
-        $subform
+        $selection
             .find( '.zcrud-subform-delete-row-command-button' )
             .off()
             .click( function ( event ) {
@@ -134,17 +136,49 @@ var SubformManager = function() {
             deleteRow( params, event );
         });
         
-        bindEventsForFields(
-            $subform,
-            params.field.fields,
-            formPage,
-            fieldBuilder,
-            params
-        );
+        if ( $tr ){
+            bindEventsForFieldsIn1Row( 
+                $tr, 
+                params.field.fields, 
+                [], 
+                formPage.getDictionary(), 
+                fieldBuilder, 
+                params );
+        } else {
+            bindEventsForFields(
+                $subform,
+                params.field.fields,
+                formPage.getDictionary(),
+                fieldBuilder,
+                params
+            );
+        }
     };
     
-    var bindEventsForFields = function( $subform, fields, formPage, fieldBuilder, params ){
+    var bindEventsForFields = function( $subform, fields, dictionary, fieldBuilder, params ){
         
+        var records = params.value || [];
+        var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
+        for ( var i = 0; i < records.length; i++ ) {
+            var record = records[ i ];
+            var $row = $rows.filter( ":eq(" + i + ")" );
+            bindEventsForFieldsIn1Row( $row, fields, record, dictionary, fieldBuilder, params );
+        }
+    };
+    
+    var bindEventsForFieldsIn1Row = function( $row, fields, record, dictionary, fieldBuilder, params ){
+
+        for ( var c in fields ){
+            var field = fields[ c ];
+            fieldBuilder.afterProcessTemplateForField(
+                buildProcessTemplateParams( field, record, dictionary, params ),
+                $row
+            );
+        }
+    };
+    /*
+    var bindEventsForFields = function( $subform, fields, formPage, fieldBuilder, params ){
+
         var dictionary = formPage.getDictionary();
         var records = params.value || [];
         var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
@@ -158,12 +192,12 @@ var SubformManager = function() {
                 );
             }
         }
-    };
+    };*/
     
     var buildProcessTemplateParams = function( field, record, dictionary, params ){
 
         return {
-            id: 'optionListProviderManager',
+            //id: 'optionListProviderManager',
             field: field, 
             value: record[ field.id ],
             options: params.options,

@@ -288,8 +288,9 @@ var DatetimeFieldManager = function() {
     
     var getDateInfo = function( field, selectedDate ){
         
-        var referenceDate = selectedDate? selectedDate: new Date();
-            
+        //var referenceDate = selectedDate? selectedDate: new Date();
+        var referenceDate = getReferenceDate( selectedDate );
+        
         return getDateInfoFromObject( field, referenceDate, selectedDate );
     };
     
@@ -306,9 +307,26 @@ var DatetimeFieldManager = function() {
         };
     };
 
+    var getReferenceDate = function( selectedDate ){
+        
+        //var referenceDate = selectedDate? selectedDate: new Date();
+        
+        var referenceDate = undefined;
+        
+        if ( selectedDate ){
+            referenceDate = selectedDate;
+        } else {
+            referenceDate =  new Date();
+            referenceDate.setHours( 0 );
+            referenceDate.setMinutes( 0 );
+        }
+        
+        return referenceDate;
+    };
+    
     var getDateTimeInfo = function( field, selectedDate ){
 
-        var referenceDate = selectedDate? selectedDate: new Date();
+        var referenceDate = getReferenceDate( selectedDate );
         var timeString = buildTimeStringFromDate( referenceDate );
         
         return {
@@ -522,7 +540,8 @@ var DatetimeFieldManager = function() {
     
     var buildDictionaryFromParams = function( params ){
         
-        dictionary = params.dictionary;
+        //dictionary = params.dictionary;
+        dictionary = $.extend( true, {}, params.dictionary );
         
         dictionary.field = params.field;
         dictionary.value = params.value;
@@ -1016,7 +1035,8 @@ var DatetimeFieldManager = function() {
                     value, 
                     getI18nFormat( field ) ): 
                 undefined;
-            var referenceDate = selectedDate? selectedDate: new Date();
+            //var referenceDate = selectedDate? selectedDate: new Date();
+            var referenceDate = getReferenceDate( selectedDate );
             updateDatePicker( field, referenceDate, selectedDate, $datetime );         
         }
         

@@ -620,7 +620,7 @@ module.exports = (function() {
     };
     
     var getSubformLastRow = function( subformName ){
-        return get$FormFieldByNameClass( subformName ).find( 'tr:last' );
+        return get$FormFieldByNameClass( subformName ).find( 'tr.zcrud-data-row:last' );
     };
     
     var isVoid = function( value ){
