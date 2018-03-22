@@ -99,8 +99,8 @@ var DatetimeFieldManager = function() {
             if ( manageTime ){
                 var timeObject = buildTimeObjectFromHoursAndMinutes( 
                     field, 
-                    value.getHours(), 
-                    value.getMinutes() );
+                    value? value.getHours(): 0, 
+                    value? value.getMinutes(): 0 );
                 updateTime( $datetime, timeObject );
             }
         }
@@ -466,9 +466,9 @@ var DatetimeFieldManager = function() {
         return $( event.target ).closest( '.timepicker' );
     };*/
     
-    var getSelectedDate = function( event, field, selectDay ){
+    var getSelectedDate = function( event, field, selectDay, $datePicker ){
         
-        var $datePicker = get$datePicker( event );
+        var $datePicker = $datePicker || get$datePicker( event );
         
         var year = $datePicker.find( "[name='datepicker-year']" ).val();
         var month = $datePicker.find( "[name='datepicker-month']" ).val();
@@ -477,8 +477,8 @@ var DatetimeFieldManager = function() {
         return new Date( year, month, day, 0, 0, 0 );
     };
     
-    var getSelectedYearAndMonthDate = function( event, field ){
-        return getSelectedDate( event, field );
+    var getSelectedYearAndMonthDate = function( event, field, $datePicker ){
+        return getSelectedDate( event, field, undefined, $datePicker );
     };
     
     var goToPreviousMonth = function( event, $datetime, params ){
@@ -550,7 +550,7 @@ var DatetimeFieldManager = function() {
     };
     
     var goToDate = function( referenceDate, $datetime, dictionary ){
-
+            
         // Build selectedDate
         var selectedDate = dictionary.value? 
             new Date( dictionary.value ):
@@ -562,13 +562,17 @@ var DatetimeFieldManager = function() {
     
     var updateDatePicker = function( field, referenceDate, selectedDate, $datetime ){
         
-        dictionary.dateInfo = getDateInfoFromObject( field, referenceDate, selectedDate );
+        dictionary.dateInfo = getDateInfoFromObject( 
+            field, 
+            referenceDate? referenceDate: getSelectedYearAndMonthDate( undefined, field, $datetime ), 
+            selectedDate );
 
         // Refresh template
         //zpt.run({
         context.getZPTParser().run({
             root: $datetime.find( '.datepicker' )[ 0 ],
-            dictionary: dictionary
+            dictionary: dictionary,
+            notRemoveGeneratedTags: false
         });
 
         // Bind events
