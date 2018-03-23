@@ -289,7 +289,6 @@ defaultTestOptions.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-/*
 QUnit.test( "create text area test", function( assert ) {
 
     var done = assert.async();
@@ -1624,7 +1623,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "create checkbox test", function( assert ) {
 
     var done = assert.async();
@@ -1743,8 +1742,8 @@ QUnit.test( "create checkbox test", function( assert ) {
         }
     );
 });
-/*
-QUnit.test( "change radio test", function( assert ) {
+
+QUnit.test( "create radio test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1783,53 +1782,87 @@ QUnit.test( "change radio test", function( assert ) {
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
-            var editedRecord =  {
-                "members": {
-                    "1": {
-                        "phoneType": "cellPhone_option"
-                    }
-                }
+
+            // Add subform record 3
+            var subformRecord3 = {
+                "code": "3",
+                "name": "Homer Simpson",
+                "phoneType": "cellPhone_option"
             };
-            testHelper.fillForm( editedRecord );
+            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
-            // Check form
-            var newRecord = $.extend( true, {}, record );
-            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
-            testHelper.checkForm( assert, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( subformRecord3Clone );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
             
-            // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
-            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            // Undo (1)
+            delete editedRecord.members[ 2 ][ varName ];
             testHelper.clickUndoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 0, 1, false );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
             
-            // Redo
-            tempRecord = $.extend( true, {} , newRecord );
-            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
-            testHelper.clickRedoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 1, 0, false );
+            // Undo (2)
+            editedRecord.members[ 2 ][ 'name' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
 
+            // Undo (3)
+            editedRecord.members[ 2 ][ 'code' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+            
+            // Undo (4)
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 4, false );
+            
+            // Redo (1)
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+
+            // Redo (2)
+            editedRecord.members[ 2 ][ 'code' ] = subformRecord3[ 'code' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
+
+            // Redo (3)
+            editedRecord.members[ 2 ][ 'name' ] = subformRecord3[ 'name' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
+            
+            // Redo (4)
+            editedRecord.members[ 2 ][ varName ] = subformRecord3[ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, false );
+            
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkForm( assert, newRecord );
+            testHelper.checkForm( assert, editedRecord );
 
             done();
         }
     );
 });
 
-QUnit.test( "change select test", function( assert ) {
+QUnit.test( "create select test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1868,53 +1901,87 @@ QUnit.test( "change select test", function( assert ) {
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
-            var editedRecord =  {
-                "members": {
-                    "1": {
-                        "province": "Cádiz"
-                    }
-                }
+
+            // Add subform record 3
+            var subformRecord3 = {
+                "code": "3",
+                "name": "Homer Simpson",
+                "province": "Cádiz"
             };
-            testHelper.fillForm( editedRecord );
+            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
-            // Check form
-            var newRecord = $.extend( true, {}, record );
-            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
-            testHelper.checkForm( assert, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( subformRecord3Clone );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
 
-            // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
-            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            // Undo (1)
+            editedRecord.members[ 2 ][ varName ] = '';
             testHelper.clickUndoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 0, 1, false );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
+            
+            // Undo (2)
+            editedRecord.members[ 2 ][ 'name' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
 
-            // Redo
-            tempRecord = $.extend( true, {} , newRecord );
-            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            // Undo (3)
+            editedRecord.members[ 2 ][ 'code' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+
+            // Undo (4)
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 4, false );
+
+            // Redo (1)
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 1, 0, false );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+
+            // Redo (2)
+            editedRecord.members[ 2 ][ 'code' ] = subformRecord3[ 'code' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
+
+            // Redo (3)
+            editedRecord.members[ 2 ][ 'name' ] = subformRecord3[ 'name' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
+
+            // Redo (4)
+            editedRecord.members[ 2 ][ varName ] = subformRecord3[ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, false );
 
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkForm( assert, newRecord );
+            testHelper.checkForm( assert, editedRecord );
 
             done();
         }
     );
 });
 
-QUnit.test( "change 2 linked select test", function( assert ) {
+QUnit.test( "create 2 linked select test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -1956,95 +2023,100 @@ QUnit.test( "change 2 linked select test", function( assert ) {
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
-            var editedRecord =  {
-                "members": {
-                    "1": {
-                        "province": "Cádiz",
-                        "city": "Tarifa"
-                    }
-                }
+
+            // Add subform record 3
+            var subformRecord3 = {
+                "code": "3",
+                "name": "Homer Simpson",
+                "province": "Cádiz",
+                "city": "Tarifa"
             };
-            testHelper.fillForm( editedRecord );
+            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
-            // Check form
-            var newRecord = $.extend( true, {}, record );
-            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
-            newRecord.members[ 1 ][ varName2 ] = editedRecord.members[ 1 ][ varName2 ];
-            testHelper.checkForm( assert, newRecord );
-            testHelper.assertHistory( assert, 2, 0, true );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( subformRecord3Clone );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 5, 0, true );
             
             // Undo (1)
-            var tempRecord = $.extend( true, {} , record );
-            tempRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
-            delete tempRecord.members[ 1 ][ varName2 ];
+            editedRecord.members[ 2 ][ varName2 ] = '';
             testHelper.clickUndoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 1, 1, false );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 1, false );
             
             // Undo (2)
+            editedRecord.members[ 2 ][ varName ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 2, false );
+            
+            // Undo (3)
+            editedRecord.members[ 2 ][ 'name' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 3, false );
+            
+            // Undo (4)
+            editedRecord.members[ 2 ][ 'code' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 4, false );
+            
+            // Undo (5)
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 0, 2, false );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
-                [ 'Estepona', 'Marbella' ] );
+            testHelper.assertHistory( assert, 0, 5, false );
             
             // Redo (1)
-            tempRecord.members[ 1 ][ varName2 ] = "";
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 1, 1, false );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 4, false );
             
             // Redo (2)
+            editedRecord.members[ 2 ][ 'code' ] = subformRecord3[ 'code' ];
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, newRecord );
-            testHelper.assertHistory( assert, 2, 0, false );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
-                [ 'Algeciras', 'Tarifa' ] );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 3, false );
+            
+            // Redo (3)
+            editedRecord.members[ 2 ][ 'name' ] = subformRecord3[ 'name' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 2, false );
+            
+            // Redo (4)
+            editedRecord.members[ 2 ][ varName ] = subformRecord3[ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 1, false );
+            
+            // Redo (4)
+            editedRecord.members[ 2 ][ varName2 ] = subformRecord3[ varName2 ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 5, 0, false );
             
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkForm( assert, newRecord );
+            testHelper.checkForm( assert, editedRecord );
 
             done();
         }
     );
 });
 
-QUnit.test( "change datalist test", function( assert ) {
+QUnit.test( "create datalist test", function( assert ) {
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -2083,49 +2155,82 @@ QUnit.test( "change datalist test", function( assert ) {
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
-            var editedRecord =  {
-                "members": {
-                    "1": {
-                        "browser": "Firefox"
-                    }
-                }
+
+            // Add subform record 3
+            var subformRecord3 = {
+                "code": "3",
+                "name": "Homer Simpson",
+                "browser": "Firefox"
             };
-            testHelper.fillForm( editedRecord );
-            
-            // Check form
-            var newRecord = $.extend( true, {}, record );
-            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
-            testHelper.checkForm( assert, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
+            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
-            // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
-            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( subformRecord3Clone );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
+
+            // Undo (1)
+            editedRecord.members[ 2 ][ varName ] = '';
             testHelper.clickUndoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 0, 1, false );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
 
-            // Redo
-            tempRecord = $.extend( true, {} , newRecord );
-            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            // Undo (2)
+            editedRecord.members[ 2 ][ 'name' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
+
+            // Undo (3)
+            editedRecord.members[ 2 ][ 'code' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+
+            // Undo (4)
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 4, false );
+
+            // Redo (1)
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, tempRecord );
-            testHelper.assertHistory( assert, 1, 0, false );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+
+            // Redo (2)
+            editedRecord.members[ 2 ][ 'code' ] = subformRecord3[ 'code' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
+
+            // Redo (3)
+            editedRecord.members[ 2 ][ 'name' ] = subformRecord3[ 'name' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
+
+            // Redo (4)
+            editedRecord.members[ 2 ][ varName ] = subformRecord3[ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, false );
 
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkForm( assert, newRecord );
+            testHelper.checkForm( assert, editedRecord );
 
             done();
         }
     );
 });
-*/

@@ -338,7 +338,8 @@ var OptionListProviderManager = function() {
                 //zpt.run({
                 context.getZPTParser().run({
                     root: $thisDropdown[ 0 ],
-                    dictionary: dictionary
+                    dictionary: dictionary,
+                    notRemoveGeneratedTags: false
                 });
 
                 //Thigger change event to refresh multi cascade dropdowns.
