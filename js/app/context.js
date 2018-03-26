@@ -10,12 +10,14 @@ module.exports = (function() {
     
     var defaultConf = {
         /*mainContainerDivId: 'zcrud-main-container',*/
-        busyDivId: 'zcrud-busy',
+        busyDivId: 'zcrud-busy'
         //messageDivId: 'zcrud-message',
         /*defaultMessageDelay: 5000,*/
         //busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
     };
     var zptParser = undefined;
+    var subformSeparator = '-';
+    //var subformSeparator = '/';
     
     /* Cache */
     var cache = {};
@@ -324,7 +326,7 @@ module.exports = (function() {
 
     var getFieldData = function( fullName ){
 
-        var subformSeparatorIndex = fullName.indexOf( '/' );
+        var subformSeparatorIndex = fullName.indexOf( subformSeparator );
         return {
             subformName: subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex ),
             name: subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex )
@@ -356,6 +358,7 @@ module.exports = (function() {
         updateListVisibleFields: updateListVisibleFields,
         updateSubformFields: updateSubformFields,
         getField: getField,
-        getFieldData: getFieldData
+        getFieldData: getFieldData,
+        subformSeparator: subformSeparator
     };
 })();

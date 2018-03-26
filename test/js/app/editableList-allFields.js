@@ -20,7 +20,8 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "change text area test", function( assert ) {
+/*
+QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
     
@@ -29,7 +30,9 @@ QUnit.test( "change text area test", function( assert ) {
         options,
         function( options ){
 
-            context.updateListVisibleFields( options, [ 'id', 'name', 'description' ] );
+            
+            var varName = 'description';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -59,9 +62,8 @@ QUnit.test( "change text area test", function( assert ) {
             });
 
             // Edit record
-            var editedRecord =  {
-                "description": "Service " + key + " description"
-            };
+            var editedRecord = {};
+            editedRecord[ varName ] = "Service " + key + " description";
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
@@ -87,7 +89,7 @@ QUnit.test( "change text area test", function( assert ) {
     );
 });
 
-QUnit.test( "change datetime test", function( assert ) {
+QUnit.test( "update datetime test", function( assert ) {
 
     var done = assert.async();
     
@@ -96,7 +98,8 @@ QUnit.test( "change datetime test", function( assert ) {
         options,
         function( options ){
     
-            context.updateListVisibleFields( options, [ 'id', 'name', 'datetime' ] );
+            var varName = 'datetime';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -126,9 +129,8 @@ QUnit.test( "change datetime test", function( assert ) {
             });
             
             // Edit record
-            var editedRecord =  {
-                "datetime": "10/12/2017 16:00"
-            };
+            var editedRecord = {};
+            editedRecord[ varName ] = "10/12/2017 16:00";
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
@@ -154,7 +156,152 @@ QUnit.test( "change datetime test", function( assert ) {
     );
 });
 
-QUnit.test( "change checkbox test", function( assert ) {
+QUnit.test( "update datetime using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'datetime';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Edit record
+            var editedRecord = {};
+            editedRecord[ varName ] = "10/12/2017 16:00";
+            testHelper.updateDatetimePickerInList( 
+                key, 
+                varName, 
+                options.fields[ varName ], 
+                editedRecord[ varName ] )
+            
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkEditableListForm( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+
+            done();
+        }
+    );
+});
+*/
+QUnit.test( "update inline datetime using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'datetime';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+            options.fields[ varName ].customOptions.inline = true;
+            
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Edit record
+            var editedRecord = {};
+            editedRecord[ varName ] = "10/12/2017 03:05";
+            testHelper.updateDatetimePickerInList( 
+                key, 
+                varName, 
+                options.fields[ varName ], 
+                editedRecord[ varName ] )
+
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+
+            // Undo
+            testHelper.clickUndoButton( 5 );
+            testHelper.checkEditableListForm( assert, key, record, editable );
+            testHelper.assertHistory( assert, 0, 5, false );
+            
+            // Redo
+            testHelper.clickRedoButton( 5 );
+            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.assertHistory( assert, 5, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+
+            done();
+        }
+    );
+});
+/*
+QUnit.test( "update checkbox test", function( assert ) {
 
     var done = assert.async();
     
@@ -221,7 +368,7 @@ QUnit.test( "change checkbox test", function( assert ) {
     );
 });
 
-QUnit.test( "change radio test", function( assert ) {
+QUnit.test( "update radio test", function( assert ) {
 
     var done = assert.async();
     
@@ -288,7 +435,7 @@ QUnit.test( "change radio test", function( assert ) {
     );
 });
 
-QUnit.test( "change 2 radios test", function( assert ) {
+QUnit.test( "update 2 radios test", function( assert ) {
 
     var done = assert.async();
     
@@ -382,7 +529,7 @@ QUnit.test( "change 2 radios test", function( assert ) {
     );
 });
 
-QUnit.test( "change select test", function( assert ) {
+QUnit.test( "update select test", function( assert ) {
 
     var done = assert.async();
     
@@ -420,9 +567,9 @@ QUnit.test( "change select test", function( assert ) {
                 editable: editable
             });
             //alert(
-            //    testHelper.getSelectOptions( 'province', testHelper.getRow( key ) ) );
+            //    testHelper.getSelectOptions( 'province', testHelper.get$row( key ) ) );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'province', testHelper.getRow( key ) ),
+                testHelper.getSelectOptions( 'province', testHelper.get$row( key ) ),
                 [ 'Cádiz', 'Málaga' ] );
             
             // Edit record
@@ -455,7 +602,7 @@ QUnit.test( "change select test", function( assert ) {
     );
 });
 
-QUnit.test( "change 2 linked select test", function( assert ) {
+QUnit.test( "update 2 linked select test", function( assert ) {
 
     var done = assert.async();
     
@@ -480,7 +627,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             };
             testHelper.checkRecord( assert, key, record, editable );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
@@ -510,7 +657,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             };
             testHelper.fillEditableList( editedRecord2, key );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
                 [ 'Estepona', 'Marbella' ] );
 
             var newRecord2 = $.extend( true, {}, newRecord, editedRecord2 );
@@ -523,7 +670,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             testHelper.checkEditableListForm( assert, key, newRecord, editable );
             testHelper.assertHistory( assert, 1, 1, true );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
                 [ 'Estepona', 'Marbella' ] );
 
             // Undo (2)
@@ -531,7 +678,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             testHelper.checkEditableListForm( assert, key, record, editable );
             testHelper.assertHistory( assert, 0, 2, true );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
 
             // Redo (1)
@@ -539,7 +686,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             testHelper.checkEditableListForm( assert, key, newRecord );
             testHelper.assertHistory( assert, 1, 1, true );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
                 [ 'Estepona', 'Marbella' ] );
 
             // Redo (2)
@@ -547,7 +694,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
             testHelper.checkEditableListForm( assert, key, newRecord2 );
             testHelper.assertHistory( assert, 2, 0, true );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.getRow( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
                 [ 'Estepona', 'Marbella' ] );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -561,7 +708,7 @@ QUnit.test( "change 2 linked select test", function( assert ) {
     );
 });
 
-QUnit.test( "change datalist test", function( assert ) {
+QUnit.test( "update datalist test", function( assert ) {
 
     var done = assert.async();
     
@@ -627,3 +774,4 @@ QUnit.test( "change datalist test", function( assert ) {
         }
     );
 });
+*/

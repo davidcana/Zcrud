@@ -64,7 +64,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         var tempFieldName = arraySeparatorIndex === -1? fieldName: fieldName.substring( 0, arraySeparatorIndex );
         
         // Get parent
-        var parentSeparatorIndex = tempFieldName.indexOf( '/' );
+        var parentSeparatorIndex = tempFieldName.indexOf( context.subformSeparator );
         var parentId = parentSeparatorIndex === -1? null: tempFieldName.substring( 0, parentSeparatorIndex );
         if ( parentSeparatorIndex !== -1 ){
             tempFieldName = tempFieldName.substring( 1 + parentSeparatorIndex );
@@ -79,7 +79,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         var tempFieldName = arraySeparatorIndex === -1? fieldName: fieldName.substring( 0, arraySeparatorIndex );
 
         // Get parent
-        var parentSeparatorIndex = tempFieldName.indexOf( '/' );
+        var parentSeparatorIndex = tempFieldName.indexOf( context.subformSeparator );
         var parentId = parentSeparatorIndex === -1? null: tempFieldName.substring( 0, parentSeparatorIndex );
 
         return parentId? fieldsMap[ parentId ]: null;
@@ -353,7 +353,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         
         $form
             .find( 'input.historyField, textarea.historyField, select.historyField' )
-            .not( "[name*='/']" )  // Must exclude fields in subforms
+            .not( "[name*='" + context.subformSeparator + "']" )  // Must exclude fields in subforms
             .change( function ( event, disableHistory ) {
                 if ( disableHistory ){
                     return;

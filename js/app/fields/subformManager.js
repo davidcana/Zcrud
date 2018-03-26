@@ -5,6 +5,7 @@
 
 var $ = require( 'jquery' );
 var validationManager = require( '../validationManager.js' );
+var context = require( '../context.js' );
 
 var SubformManager = function() {
     
@@ -240,7 +241,7 @@ var SubformManager = function() {
             if ( subfield.subformKey ){
                 field.subformKey = subfieldId;
             }
-            subfield.name = field.id + "/" + subfieldId;
+            subfield.name = field.id + context.subformSeparator + subfieldId;
 
             fields.push( subfield );
         });

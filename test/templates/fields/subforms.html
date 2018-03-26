@@ -32,7 +32,7 @@
                                               class 'zcrud-data-row zcrud-data-entity'"
                             data-tdefine="data-subform-record-index repeat/record/index()">
                             <td data-trepeat="field subformField/getFields()"
-                                data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id}"
+                                data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
                                 data-tdefine="value record[ field/id ]">
                                 <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
                                 <span data-tcondition="editable"

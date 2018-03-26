@@ -320,7 +320,7 @@ exports.init = function( userOptions, callback ){
             field.elementId = 'zcrud-' + id;
         }
         if ( field.elementName == undefined ) {
-            field.elementName = parent? parent.id + '/' + id: id;
+            field.elementName = parent? parent.id + context.subformSeparator + id: id;
         }
         //field.labelFor = fieldBuilder.getLabelFor( field, options );
         if ( field.template == undefined ){

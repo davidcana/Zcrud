@@ -240,10 +240,10 @@ div.zcrud-main-container table.zcrud {
     border-collapse: collapse;
     border-spacing: 0;
 }
-div.zcrud-main-container table.zcrud thead {
+div.zcrud-main-container table.zcrud>thead {
     background-color: #2d89ef;
 }
-div.zcrud-main-container table.zcrud thead th {
+div.zcrud-main-container table.zcrud>thead th {
     font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
     font-weight: 300;
     font-size: 1.5em;
@@ -252,7 +252,7 @@ div.zcrud-main-container table.zcrud thead th {
     vertical-align: middle;
     text-align: left;
 }
-div.zcrud-main-container table.zcrud thead th .zcrud-column-resize-handler {
+div.zcrud-main-container table.zcrud>thead th .zcrud-column-resize-handler {
     position: absolute;
     height: 24px;
     width: 8px;
@@ -261,18 +261,18 @@ div.zcrud-main-container table.zcrud thead th .zcrud-column-resize-handler {
     z-index: 2;
     cursor: col-resize;
 }
-div.zcrud-main-container table.zcrud thead th.zcrud-command-column-header {
+div.zcrud-main-container table.zcrud>thead th.zcrud-command-column-header {
     text-align: center;
     width: 1%;
 }
-div.zcrud-main-container table.zcrud thead th.zcrud-column-header-selecting {
+div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-selecting {
     text-align: center;
     width: 1%;
 }
-div.zcrud-main-container table.zcrud thead th.zcrud-column-header-selecting input {
+div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-selecting input {
     cursor: pointer;
 }
-div.zcrud-main-container table.zcrud thead th.zcrud-column-header-sortable {
+div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-sortable {
     cursor: pointer;
 }
 div.zcrud-main-container table.zcrud>thead th.zcrud-column-header {

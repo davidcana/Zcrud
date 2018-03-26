@@ -8,6 +8,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     var HistoryCreate = require( './create.js' );
     var HistoryDelete = require( './delete.js' );
     var crudManager = require( '../crudManager.js' );
+    var context = require( '../context.js' );
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
@@ -51,7 +52,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         
         // Get names
         var fullName = field.elementName;
-        var subformSeparatorIndex = fullName.indexOf( '/' );
+        var subformSeparatorIndex = fullName.indexOf( context.subformSeparator );
         var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
         var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
         
@@ -78,19 +79,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         put( id, historyItem );
         
         return historyItem;
-    };
-    
-    var getSubformData = function( field ){
-        
-        var fullName = field.elementName;
-        var subformSeparatorIndex = fullName.indexOf( '/' );
-        var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
-        var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
-        
-        return {
-            name: name,
-            subformName: subformName
-        };
     };
     
     var putCreate = function( listPage, thisDictionary, $selection ) {

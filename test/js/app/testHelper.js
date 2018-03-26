@@ -4,6 +4,7 @@
 var $ = require( 'jquery' );
 var testUtils = require( './testUtils.js' );
 var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
+var context = require( '../../../js/app/context.js' );
 
 module.exports = (function() {
     "use strict";
@@ -421,10 +422,10 @@ module.exports = (function() {
         keyEvent( key, 'keyup' );
     };
     
-    var getRow = function( key ){
+    var get$row = function( key ){
         
         if ( ! key ){
-            alert( 'Error: null key in getRow method!' );
+            alert( 'Error: null key in get$row method!' );
             return;
         }
         
@@ -683,8 +684,7 @@ module.exports = (function() {
         }
         
         var $element = $row || get$Form();
-        var elementName = subformName? subformName + '/' + name: name;
-        $element.find( "input:checkbox[name='" + elementName +"']" )
+        $element.find( "input:checkbox[name='" + buildElementName( name, subformName ) +"']" )
             .prop( 'checked', record[ name ] )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -699,8 +699,7 @@ module.exports = (function() {
         var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 1: 0;
         var nameAttr = name + '[' + rowIndex + ']';
-        var elementName = subformName? subformName + '/' + nameAttr: nameAttr;
-        $element.find( "input:radio[name='" + elementName +"']" ).filter( '[value=' + record[ name ] + ']' )
+        $element.find( "input:radio[name='" + buildElementName( nameAttr, subformName ) +"']" ).filter( '[value=' + record[ name ] + ']' )
             .prop( 'checked', true )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -713,8 +712,7 @@ module.exports = (function() {
         }
         
         var $element = $row || get$Form();
-        var elementName = subformName? subformName + '/' + name: name;
-        $element.find( "[name='" + elementName +"']" )
+        $element.find( "[name='" + buildElementName( name, subformName ) +"']" )
             .val( record[ name ] )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -727,8 +725,7 @@ module.exports = (function() {
         }
         
         var $element = $row || get$Form();
-        var elementName = subformName? subformName + '/' + name: name;
-        $element.find( "[name='" + elementName +"']" )
+        $element.find( "[name='" + buildElementName( name, subformName ) +"']" )
             .val( record[ name ] )
             .trigger( 'change' );
     };
@@ -736,8 +733,7 @@ module.exports = (function() {
     var getFormVal = function( name, $row, subformName ){
         
         var $element = $row || get$Form();
-        var elementName = subformName? subformName + '/' + name: name;
-        return $element.find( "[name='" + elementName +"']" ).val();
+        return $element.find( "[name='" + buildElementName( name, subformName ) +"']" ).val();
     };
     
     var getFormRadioVal = function( name, $row, subformName ){
@@ -745,18 +741,20 @@ module.exports = (function() {
         var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 1: 0;
         var nameAttr = name + '[' + rowIndex + ']';
-        var elementName = subformName? subformName + '/' + nameAttr: nameAttr;
-        var $selected = $element.find( "input:radio[name='" + elementName +"']:checked" );
+        var $selected = $element.find( "input:radio[name='" + buildElementName( nameAttr, subformName ) +"']:checked" );
         return $selected? $selected.val(): undefined;
     };
     
     var getFormCheckboxVal = function( name, $row, subformName ){
 
         var $element = $row || get$Form();
-        var elementName = subformName? subformName + '/' + name: name;
-        return $element.find( "input:checkbox[name='" + elementName +"']" ).prop( 'checked' );
+        return $element.find( "input:checkbox[name='" + buildElementName( name, subformName ) +"']" ).prop( 'checked' );
     };
 
+    var buildElementName = function( name, subformName ){
+        return subformName? subformName + context.subformSeparator + name: name;
+    };
+    
     var getSelectOptions = function( name, $row ){
 
         var result = [];
@@ -842,7 +840,7 @@ module.exports = (function() {
     };
     
     var fillEditableList = function( record, id ){
-        fill( record, getRow( id ) );
+        fill( record, get$row( id ) );
     };
     
     var checkEditableListRow = function( assert, record, $row ){
@@ -890,47 +888,7 @@ module.exports = (function() {
     };
     
     var checkEditableListForm = function( assert, id, record ){
-        
-        checkEditableListRow( assert, record, getRow( id ) );
-        /*
-        var $row = getRow( id );
-        
-        if ( record.id !== undefined ){
-            assert.equal( getFormVal( 'id', $row ), record.id );
-        }
-        if ( record.name !== undefined ){
-            assert.equal( getFormVal( 'name', $row ), record.name );
-        }
-        if ( record.description !== undefined ){
-            assert.equal( getFormVal( 'description', $row ), record.description );
-        }
-        if ( record.date !== undefined ){
-            assert.equal( getFormVal( 'date', $row ), record.date );
-        }
-        if ( record.time !== undefined ){
-            assert.equal( getFormVal( 'time', $row ), record.time );
-        }
-        if ( record.datetime !== undefined ){
-            assert.equal( getFormVal( 'datetime', $row ), record.datetime );
-        }
-        if ( record.phoneType !== undefined ){
-            assert.equal( getFormRadioVal( 'phoneType', $row ), record.phoneType );
-        }
-        if ( record.province !== undefined ){
-            assert.equal( getFormVal( 'province', $row ), record.province );
-        }
-        if ( record.city !== undefined ){
-            assert.equal( getFormVal( 'city', $row ), record.city );
-        }
-        if ( record.browser !== undefined ){
-            assert.equal( getFormVal( 'browser', $row ), record.browser );
-        }
-        if ( record.important !== undefined ){
-            assert.equal( getFormCheckboxVal( 'important', $row ), record.important );
-        }
-        if ( record.number !== undefined ){
-            assert.equal( getFormVal( 'number', $row ), record.number );
-        }*/
+        checkEditableListRow( assert, record, get$row( id ) );
     };
     
     var assertHistory = function( assert, expectedUndoActions, expectedRedoActions, expectedSaveEnabled ){
@@ -1030,18 +988,33 @@ module.exports = (function() {
         $field.find( '.save-button:visible' ).click();
     };
     
-    var updateDatetimePicker = function( subformName, fieldName, subformIndex, field, stringValue ){
+    var updateDatetimePickerInSubform = function( subformName, fieldName, subformIndex, field, stringValue ){
         
-        var $field = get$SubFormFieldByNameClass( subformName, fieldName, subformIndex );
+        updateDatetimePickerFrom$field( 
+            get$SubFormFieldByNameClass( subformName, fieldName, subformIndex ), 
+            field, 
+            stringValue );
+    };
+    
+    var updateDatetimePickerInList = function( rowId, fieldName, field, stringValue ){
+        
+        updateDatetimePickerFrom$field( 
+            get$row( rowId ).find( ".zcrud-column-data-" + fieldName ), 
+            field, 
+            stringValue );
+    };
+    
+    var updateDatetimePickerFrom$field = function( $field, field, stringValue ){
+
         var instance = 
             field.type == 'time'? 
             datetimeFieldManager.buildTimeObjectFromString( field, stringValue ):
-            datetimeFieldManager.getValueFromString( stringValue, field );
-        
+        datetimeFieldManager.getValueFromString( stringValue, field );
+
         if ( ! field.customOptions.inline ){
             togglePicker( $field );
         }
-        
+
         if ( field.type == 'datetime' || field.type == 'date' ){
             if ( instance.getFullYear() != getDatetimeYear( $field ) ){
                 setDatetimeYear( $field, instance.getFullYear() );
@@ -1051,18 +1024,52 @@ module.exports = (function() {
             }
             setDatetimeDay( $field, instance.getDate() );
         }
-        
+
         if ( field.type == 'datetime' || field.type == 'time' ){
             var hours = field.type == 'time'? instance.hours: instance.getHours();
             var minutes = field.type == 'time'? instance.minutes: instance.getMinutes();
             setDatetimeHours( $field, hours );
             setDatetimeMinutes( $field, minutes, field );
         }
-        
+
         if ( ! field.customOptions.inline ){
             clickDatetimeOK( $field );
         }
     };
+    /*
+    var updateDatetimePicker = function( subformName, fieldName, subformIndex, field, stringValue ){
+
+        var $field = get$SubFormFieldByNameClass( subformName, fieldName, subformIndex );
+        var instance = 
+            field.type == 'time'? 
+            datetimeFieldManager.buildTimeObjectFromString( field, stringValue ):
+        datetimeFieldManager.getValueFromString( stringValue, field );
+
+        if ( ! field.customOptions.inline ){
+            togglePicker( $field );
+        }
+
+        if ( field.type == 'datetime' || field.type == 'date' ){
+            if ( instance.getFullYear() != getDatetimeYear( $field ) ){
+                setDatetimeYear( $field, instance.getFullYear() );
+            }
+            if ( instance.getMonth() != getDatetimeMonth( $field ) ){
+                setDatetimeMonth( $field, instance.getMonth() );
+            }
+            setDatetimeDay( $field, instance.getDate() );
+        }
+
+        if ( field.type == 'datetime' || field.type == 'time' ){
+            var hours = field.type == 'time'? instance.hours: instance.getHours();
+            var minutes = field.type == 'time'? instance.minutes: instance.getMinutes();
+            setDatetimeHours( $field, hours );
+            setDatetimeMinutes( $field, minutes, field );
+        }
+
+        if ( ! field.customOptions.inline ){
+            clickDatetimeOK( $field );
+        }
+    };*/
     
     var clickDatetimePickerDay = function( day ){
         
@@ -1116,7 +1123,7 @@ module.exports = (function() {
         clickRedoButton: clickRedoButton,
         assertHistory: assertHistory,
         setFormVal: setFormVal,
-        getRow: getRow,
+        get$row: get$row,
         getSelectOptions: getSelectOptions,
         fillSubform: fillSubform,
         fillSubformNewRow: fillSubformNewRow,
@@ -1131,7 +1138,8 @@ module.exports = (function() {
         //setDatetimeMonth: setDatetimeMonth,
         //setDatetimeDay: setDatetimeDay,
         //clickDatetimeOK: clickDatetimeOK,
-        updateDatetimePicker: updateDatetimePicker,
+        updateDatetimePickerInSubform: updateDatetimePickerInSubform,
+        updateDatetimePickerInList: updateDatetimePickerInList,
         get$SubFormFieldRow: get$SubFormFieldRow
     };
 })();

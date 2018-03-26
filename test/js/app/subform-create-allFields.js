@@ -258,9 +258,9 @@ defaultTestOptions.fields.members.fields = {
     },
     city: {
         type: 'select',
-        dependsOn: 'members/province',
+        dependsOn: 'members-province',
         options: function( data ){
-            var dependedValues = data.dependedValues[ 'members/province' ];
+            var dependedValues = data.dependedValues[ 'members-province' ];
             if ( ! dependedValues ){
                 return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
             }
@@ -586,7 +586,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
             subformRecord3.datetime = "10/02/2017 20:10";
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 2, 
@@ -726,7 +726,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
             subformRecord3.datetime = "10/02/2017 02:10";
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 2, 
@@ -1001,7 +1001,7 @@ QUnit.test( "create date using picker test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             subformRecord3[ varName ] = "10/02/2017";
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 2, 
@@ -1151,7 +1151,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             subformRecord3[ varName ] = "10/02/2017";
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 2, 
@@ -1418,7 +1418,7 @@ QUnit.test( "create time using picker test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             subformRecord3[ varName ] = "02:05";
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 2, 
@@ -1547,7 +1547,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             subformRecord3[ varName ] = "02:05";
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 2, 

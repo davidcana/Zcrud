@@ -163,7 +163,7 @@ module.exports = {
                 validation: 'length',
                 length: '3-20'
             },
-            "members/name": {
+            "members-name": {
                 validation: 'length',
                 length: '3-20'
             },

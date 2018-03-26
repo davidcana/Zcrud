@@ -258,9 +258,9 @@ defaultTestOptions.fields.members.fields = {
     },
     city: {
         type: 'select',
-        dependsOn: 'members/province',
+        dependsOn: 'members-province',
         options: function( data ){
-            var dependedValues = data.dependedValues[ 'members/province' ];
+            var dependedValues = data.dependedValues[ 'members-province' ];
             if ( ! dependedValues ){
                 return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
             }
@@ -509,7 +509,8 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             };
             testUtils.setService( key, serverRecord );
 
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', 'datetime' ] );
+            var varName = 'datetime';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
@@ -518,7 +519,6 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             testHelper.clickUpdateListButton( key );
 
             // Edit record
-            var varName = "datetime";
             var editedRecord =  {
                 "members": {
                     "1": {
@@ -526,9 +526,9 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                     }
                 }
             };
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
-                'datetime', 
+                varName, 
                 1, 
                 options.fields.members.fields[ varName ],
                 editedRecord.members[ 1 ][ varName ] );
@@ -634,7 +634,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                 }
             };
             
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 'datetime', 
                 1, 
@@ -845,7 +845,7 @@ QUnit.test( "update date using picker test", function( assert ) {
                 }
             };
             
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 1, 
@@ -959,7 +959,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                 }
             };
 
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 1, 
@@ -1165,7 +1165,7 @@ QUnit.test( "update time using picker test", function( assert ) {
                     }
                 }
             };
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 1, 
@@ -1268,7 +1268,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
                 }
             };
 
-            testHelper.updateDatetimePicker( 
+            testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
                 1, 
@@ -1636,10 +1636,10 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 2, 0, true );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             
             // Undo (1)
@@ -1650,10 +1650,10 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 1, 1, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             
             // Undo (2)
@@ -1661,10 +1661,10 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.checkForm( assert, record );
             testHelper.assertHistory( assert, 0, 2, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
                 [ 'Estepona', 'Marbella' ] );
             
             // Redo (1)
@@ -1673,10 +1673,10 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 1, 1, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             
             // Redo (2)
@@ -1684,10 +1684,10 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 2, 0, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'members/city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
+                testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 1 ) ),
                 [ 'Algeciras', 'Tarifa' ] );
             
             // Submit and show the list again

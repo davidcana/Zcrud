@@ -581,9 +581,11 @@ var DatetimeFieldManager = function() {
     
     var get$datetime = function( $selection, field ){
 
+        return $selection.find( '.zcrud-like-field-' + field.name );
+        /*
         return field.name.indexOf( '/') == -1?
             $selection.find( '.zcrud-field-' + field.id ):
-            $selection.find( '.zcrud-column-data-' + field.id );
+            $selection.find( '.zcrud-column-data-' + field.id );*/
     };
     
     var bindEvents = function( params, $selection, dateEvents, timeEvents ){
