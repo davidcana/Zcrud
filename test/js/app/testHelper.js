@@ -443,7 +443,7 @@ module.exports = (function() {
         
         if ( ! checkOnlyStorage ){
         
-            // Check record from zCrud
+            // Check record from ZCrud
             var record = get$Container().zcrud( 'getRecordByKey', key );
             //alert( JSON.stringify( record ) );
             assert.deepEqual( record, expectedRecord );
@@ -466,7 +466,7 @@ module.exports = (function() {
     
     var checkNoRecord = function( assert, key ){
         
-        // Check record from zCrud
+        // Check record from ZCrud
         var record = get$Container().zcrud( 'getRecordByKey', key );
         assert.equal( record, undefined );
 

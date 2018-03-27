@@ -239,7 +239,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
     };
     
-    var selectRows = function(){
+    var selectRows = function( $rows ){
         _selectRows( $rows );
         onSelectionChanged(); //TODO: trigger only if selected rows changes?
     };

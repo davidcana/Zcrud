@@ -1,5 +1,5 @@
 /* 
-* zCrud main CSS file
+* ZCrud main CSS file
 * based on jTable metro style theme - Blue
 * Created by Halil İbrahim Kalkan
 * A lot of changes by David Cana
@@ -102,7 +102,6 @@ h4,
 h5,
 h6 {
     background-color: transparent;
-    font-size: 100%;
     font-weight: normal;
     margin: 0 0 .5em 0;
     padding-top: 0.25em;

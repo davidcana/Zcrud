@@ -1,13 +1,13 @@
-# What is zCrud?
+# What is ZCrud?
 
-zCrud is a javascript API (also works as jQuery plugin) used to create AJAX based CRUD tables without coding HTML or Javascript. It is based on 
+ZCrud is a javascript API (also works as jQuery plugin) used to create AJAX based CRUD tables without coding HTML or Javascript. It is based on 
  [jTable](http://www.jtable.org) with some major changes:
  
  * The heaviest change is to build all HTML code of forms using a template engine ([ZPT-JS](https://github.com/davidcana/ZPT-JS/wiki)). 
  * It does not depend on any javascript API (like jQueryUI), only on jQuery.
  * It does not create any dialog form, only simple HTML forms.
  
-The next list details the features of jTable and the expected version of zCrud that will implement it:
+The next list details the features of jTable and the expected version of ZCrud that will implement it:
 
 * Automatically creates HTML table and loads records from server using AJAX. *(done!)*
 * Creates 'create new record' form. When user creates a record, it sends data to server using AJAX and adds the same record to the table in the page. *(done!)*

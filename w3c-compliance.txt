@@ -1,7 +1,7 @@
 W3C compliance report
 ---------------------
 
-One of the main goals of zCrud is to generate w3c compliant HTML code. There are some issues about this:
+One of the main goals of ZCrud is to generate w3c compliant HTML code. There are some issues about this:
 
 * list.html: 
     - Info: A table row was 3 columns wide, which is less than the column count established by the first row (5).

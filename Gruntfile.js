@@ -159,14 +159,14 @@ module.exports = function(grunt) {
                 src: 'test/js/app/formHistory.js',
                 dest: 'build/formHistory.js'
             },
-            editableListAllfields: {
+            editableListUpdateAllfields: {
                 options: {
                     browserifyOptions: {
                         debug: true
                     }
                 },
-                src: 'test/js/app/editableList-allFields.js',
-                dest: 'build/editableList-allFields.js'
+                src: 'test/js/app/editableList-update-allFields.js',
+                dest: 'build/editableList-update-allFields.js'
             },
             subformChange: {
                 options: {

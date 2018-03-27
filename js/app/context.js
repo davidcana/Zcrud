@@ -141,7 +141,7 @@ module.exports = (function() {
         getMessageDiv().html( '' ).hide();
     };*/
     
-    /* Returns true if zCrud is busy.
+    /* Returns true if ZCrud is busy.
     *************************************************************************/
     /*
     var isBusy = function () {

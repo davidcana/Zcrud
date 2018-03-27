@@ -1,4 +1,4 @@
-zCrud 0.1.0
+ZCrud 0.1.0
 -----------
 
 * Update templates with remote templates. (done!)

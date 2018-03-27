@@ -1,17 +1,20 @@
 /* 
 
-Public methods of zCrud:
+Public methods of ZCrud:
 -----------------------
 
- - addRecord: Add a new record to the table.
- - deleteRecord: Delete an existing record from the table.
+ - addRecord: Add a new record to the table. (!)
+ - deleteRecord: Delete an existing record from the table. (!)
  - destroy: Completely removes table from it's container.
  - getRecordByKey: Get record by key field's value of the record.
  - init: Set options and normalize them.
- - load: Show the list page.
+ - load: Show the list page. 
  - reload: Show again a list page without configuring options or filters.
+ - selectedRecords: Return an array with the selected records.
+ - selectedRows: Return a jQuery object with the selected rows.
+ - selectRows: Make rows selected.
  - showCreateForm: Open a 'create new record' form dialog.
- - updateRecord: Update an existing record on the table. 
+ - updateRecord: Update an existing record on the table. (!)
 */
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
@@ -422,7 +425,7 @@ exports.init = function( userOptions, callback ){
     zpt.context.getConf().loggingOn = options.logging.isOn;
     zpt.context.getConf().loggingLevel = options.logging.level;
     
-    log.info( 'Initializing zCrud...' );
+    log.info( 'Initializing ZCrud...' );
     
     // Init I18n
     initI18n();
@@ -432,7 +435,7 @@ exports.init = function( userOptions, callback ){
         context.getSelectorString( options.target ), 
         options );
     
-    log.info( '...zCrud initialized.' );
+    log.info( '...ZCrud initialized.' );
 };
 
 // Returns a listPage instance. Value can be an object (then use its listId property) 
@@ -550,7 +553,7 @@ exports.selectedRecords = function( value ){
     }
     return listPage.selectedRecords();
 };
-
+/*
 exports.undoListAction = function( value ){
 
     var listPage = getListPageFromValue( value );
@@ -576,4 +579,4 @@ exports.saveList = function( value ){
         return;
     }
     return listPage.save();
-};
+};*/
