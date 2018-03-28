@@ -1,5 +1,7 @@
+/* */
+
 body {
-    background-color: white;
+    background-color: #f4f4f4;
     color: black;
     font-family: arial, helvetica, verdana;
 }
@@ -24,18 +26,57 @@ td {
 code {
     color: red;
 }
-
 pre {
-    background-color: black;
-    color: white;
     padding-top: 1em;
     padding-left: 4em;
 }
-
 p {
     margin: .5em;
 }
 
 li {
     margin-bottom: .25em;
+}
+
+/* */
+.fieldType {
+    font-weight: bold;
+}
+
+ul.fieldOptionList {
+    list-style-type: none;
+}
+ul.fieldOptionList>li {
+    margin-bottom: 1em;
+}
+ul.fieldOptionList>li .header {
+    background: black;
+    color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: .5em;
+}
+ul.fieldOptionList>li .header .name {
+    font-weight: bold;
+    font-size: 130%;
+}
+ul.fieldOptionList>li .header .dataType:before {
+    margin-left: 2em;
+    content: "dataType: ";
+}
+ul.fieldOptionList>li .header .appliesTo:before {
+    margin-left: 2em;
+    content: "applies to: ";
+}
+ul.fieldOptionList>li .header .default:before {
+    margin-left: 2em;
+    content: "default: ";
+}
+
+pre.console {
+    background-color: black;
+    color: white;
+}
+pre.js {
+    background-color: blue;
+    color: white;
 }

@@ -337,7 +337,7 @@ exports.init = function( userOptions, callback ){
             field.sorting = true;
         }
         
-        // Convert dependsOn to array if it's a comma seperated lists
+        // Convert dependsOn to array if it's a comma separated lists
         if ( field.dependsOn && $.type( field.dependsOn ) === 'string' ) {
             var dependsOnArray = field.dependsOn.split( ',' );
             field.dependsOn = [];
