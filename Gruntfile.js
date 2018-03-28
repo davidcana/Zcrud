@@ -283,6 +283,12 @@ module.exports = function(grunt) {
                         dest: 'themes'
                         },
                         {
+                        cwd: 'docs/',
+                        expand: true,
+                        src: ['**/*', '!**/*~'],
+                        dest: 'docs'
+                        },
+                        {
                         src: ['changes.txt']
                         },
                         {
