@@ -12,19 +12,71 @@
         <h1>ZCrud vs jTable</h1>
         
         <p>
-            
+            ZCrud is based on <a href="http://www.jtable.org">jTable</a> with some major changes:
         </p>
+        <ul>
+            <li>
+                The heaviest change is to build all HTML code of forms using a template engine ([ZPT-JS](https://github.com/davidcana/ZPT-JS/wiki)).
+            </li>
+            <li>
+                It does not depend on any javascript API (like jQueryUI), only on jQuery.
+            </li>
+            <li>
+                It does not create any dialog form, only simple HTML forms.
+            </li>
+        </ul>
         
-        <table>
+        <h2>Common features</h2>
+        <p>
+            ZCrud and jTable share a lot of features. Some of them are:
+        </p>
+        <ul>
+            <li>
+                Automatically creates HTML table and loads records from server using AJAX.
+            </li>
+            <li>
+                Creates <em>create new record</em> forms. When user creates a record, it sends data to server using AJAX and adds the same record to the table in the page.
+            </li>
+            <li>
+                Creates <em>edit record</em> forms. When user edits a record, it updates server using AJAX and updates all cells on the table in the page.
+            </li>
+            <li>
+                Allow user to <em>delete record</em>. When user deletes a record, it deletes the record from server using AJAX and delete the record from the table in the page.
+            </li>
+            <li>
+                All styling of table and forms are defined in a CSS file, so you can easily change style of everything. CSS file is well defined and commented.
+            </li>
+            <li>
+                It comes with pre-defined color themes.
+            </li>
+            <li>
+                Supports server side paging, sorting and filtering using AJAX.
+            </li>
+            <li>
+                Allows user to select rows.
+            </li>
+            <li>
+                It is not depended on any server side technology.
+            </li>
+            <li>
+                It can be localized for non supported languages easily.
+            </li>
+        </ul>
+        
+        <h2>Differences</h2>
+        <p>
+            But they also differ in some other features. Some of them are:
+        </p>
+        <table id="zcrud-jtable-differences">
             <thead>
                 <tr>
                     <th>
                         Topic
                     </th>
-                    <th>
+                    <th class="zcrud">
                         ZCrud
                     </th>
-                    <th>
+                    <th class="jtable">
                         jTable
                     </th>
                 </tr>
@@ -32,57 +84,156 @@
             <tbody>
                 <tr>
                     <td>
-                        
+                        Editable lists support
                     </td>
                     <td>
-                        
+                        Yes, editable lists can be edited without any dialog
                     </td>
                     <td>
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        
-                    </td>
-                    <td>
-                        
-                    </td>
-                    <td>
-                        
+                        Must open a dialog to edit
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        
+                        <em>Undo/redo</em> support
                     </td>
                     <td>
-                        
+                        Yes
                     </td>
                     <td>
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        
-                    </td>
-                    <td>
-                        
-                    </td>
-                    <td>
-                        
+                        No
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        
+                        HTML code is valid (w3c compliant)
                     </td>
                     <td>
-                        
+                        Yes?
                     </td>
                     <td>
-                        
+                        ?
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        I18n and L10n support
+                    </td>
+                    <td>
+                        English and spanish
+                    </td>
+                    <td>
+                        30 languages (including english and spanish)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Form validation
+                    </td>
+                    <td>
+                        Using <a href="http://www.formvalidator.net/">jquery form validator</a> or events
+                    </td>
+                    <td>
+                        Using events
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Master/child tables
+                    </td>
+                    <td>
+                        Only in forms
+                    </td>
+                    <td>
+                        Only in lists
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Allow users to add new types of fields
+                    </td>
+                    <td>
+                        Users must customize templates; needed javascript code can be added easily
+                    </td>
+                    <td>
+                        Users must customize javascript code
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Template support
+                    </td>
+                    <td>
+                        All tables and forms are created using templates.  It is also possible to use customized templates. The template engine is <a href="https://github.com/davidcana/ZPT-JS">ZPT-JS</a>
+                    </td>
+                    <td>
+                        None, all HTML code is rendered by javascript code
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        External dependencies
+                    </td>
+                    <td>
+                        <a href="https://jquery.com/">Jquery</a>
+                    </td>
+                    <td>
+                        <a href="https://jquery.com/">Jquery</a> and <a href="https://jqueryui.com/">Jquery UI</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Field types
+                    </td>
+                    <td>
+                        checkbox, datalist, date, datetime, radio, select, subform, text, textarea, time
+                    </td>
+                    <td>
+                        checkbox, date, hidden, radiobutton, password, text, textarea
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Allows user to show/hide columns
+                    </td>
+                    <td>
+                        No
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Allows user to resize columns
+                    </td>
+                    <td>
+                        No
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Shows animations for operations on the table
+                    </td>
+                    <td>
+                        Only for delete operations
+                    </td>
+                    <td>
+                        For create/delete/edit operations
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Last release
+                    </td>
+                    <td>
+                        2018-05-01
+                    </td>
+                    <td>
+                        2014-03-08
                     </td>
                 </tr>
                 <tr>
