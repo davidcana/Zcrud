@@ -32,7 +32,7 @@ exports.init = function( userOptions, callback ){
     *************************************************************************/
     var defaultOptions = {
 
-        actions: {},
+        //actions: {},
         validation: {
             modules: '',
             rules: {},
@@ -234,7 +234,6 @@ exports.init = function( userOptions, callback ){
         },
         
         fatalErrorFunction: function( message ){
-            //alert( "fatalErrorFunction: " + message );
             alert( message );
         }
     };

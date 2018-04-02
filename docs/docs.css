@@ -34,6 +34,9 @@ p {
     margin: .5em;
 }
 
+ul {
+    margin-top: .25em;
+}
 li {
     margin-bottom: .25em;
 }
@@ -102,4 +105,54 @@ pre.console {
 pre.js {
     background-color: blue;
     color: white;
+}
+
+ul.fieldTypeList {
+    list-style-type: none;
+}
+ul.fieldTypeList>li {
+    margin-bottom: 1em;
+}
+ul.fieldTypeList>li .header {
+    background: black;
+    color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: .5em;
+}
+ul.fieldTypeList>li .header .name {
+    font-weight: bold;
+    font-size: 130%;
+}
+ul.fieldTypeList>li .header .dataType:before {
+    margin-left: 2em;
+    content: "dataType: ";
+}
+ul.fieldTypeList>li .header .customOptions:before {
+    margin-left: 2em;
+    content: "customOptions: ";
+}
+
+ul.generalOptionList {
+    list-style-type: none;
+}
+ul.generalOptionList>li {
+    margin-bottom: 1em;
+}
+ul.generalOptionList>li .header {
+    background: black;
+    color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: .5em;
+}
+ul.generalOptionList>li .header .name {
+    font-weight: bold;
+    font-size: 130%;
+}
+ul.generalOptionList>li .header .dataType:before {
+    margin-left: 2em;
+    content: "dataType: ";
+}
+ul.generalOptionList>li .header .default:before {
+    margin-left: 2em;
+    content: "default: ";
 }

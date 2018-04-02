@@ -14,48 +14,120 @@
         
         <h1>ZCrud API reference - Fields</h1>
         
-        <a id="fieldTypes"></a>
         <h2>Field types</h2>
-        <ul>
+        <p>
+            The list of field types is:
+        </p>
+        <ul class="fieldTypeList">
             <li>
                 <a id="checkbox"></a>
-                <span class="fieldType">checkbox</span>. Useful to manage <em>true/false</em> values. Checkboxes is a suitable choice when you want to present a lot of options to the user and give them the opportuniti to choose one or more items.
+                <div class="header">
+                    <span class="name">checkbox</span>
+                    <span class="dataType">boolean</span>
+                    <span class="customOptions">none</span>
+                </div>
+                <div class="body">
+                    Useful to manage <em>true/false</em> values. Checkboxes is a suitable choice when you want to present a lot of options to the user and give them the chance to choose one or more items.
+                </div>
             </li>
             <li>
                 <a id="datalist"></a>
-                <span class="fieldType">datalist</span>. An <em>input</em> element with pre-defined values.
+                <div class="header">
+                    <span class="name">datalist</span>
+                    <span class="dataType">string</span>
+                    <span class="customOptions">none</span>
+                </div>
+                <div class="body">
+                    An <em>input</em> element with pre-defined values.
+                </div>
             </li>
             <li>
                 <a id="date"></a>
-                <span class="fieldType">date</span>. Manages date values (no time part).
+                <div class="header">
+                    <span class="name">date</span>
+                    <span class="dataType">date</span>
+                    <span class="customOptions">inline</span>
+                </div>
+                <div class="body">
+                    Manages date values (no time part).
+                </div>
             </li>
             <li>
                 <a id="datetime"></a>
-                <span class="fieldType">datetime</span>. Manages date and time values.
+                <div class="header">
+                    <span class="name">datetime</span>
+                    <span class="dataType">date</span>
+                    <span class="customOptions">inline</span>
+                </div>
+                <div class="body">
+                    Manages date and time values.
+                </div>
             </li>
             <li>
                 <a id="radio"></a>
-                <span class="fieldType">radio</span>. Radio buttons. Makes it easy for selecting one of many choices.
+                <div class="header">
+                    <span class="name">radio</span>
+                    <span class="dataType">string</span>
+                    <span class="customOptions">none</span>
+                </div>
+                <div class="body">
+                    Radio buttons. Makes it easy for selecting one of many choices.
+                </div>
             </li>
             <li>
                 <a id="select"></a>
-                <span class="fieldType">select</span>. It is used to create a drop-down list. Similar to radio buttons (for selecting one of many choices).
+                <div class="header">
+                    <span class="name">select</span>
+                    <span class="dataType">string</span>
+                    <span class="customOptions">none</span>
+                </div>
+                <div class="body">
+                    It is used to create a drop-down list. Similar to radio buttons (for selecting one of many choices).
+                </div>
             </li>
             <li>
                 <a id="subform"></a>
-                <span class="fieldType">subform</span>. Defines a form inside another form. Makes it easy to manage  master/child tables.
+                <div class="header">
+                    <span class="name">subform</span>
+                    <span class="dataType">object</span>
+                    <span class="customOptions">none</span>
+                </div>
+                <div class="body">
+                    Defines a form inside another form. Makes it easy to manage  master/child tables.
+                </div>
             </li>
             <li>
                 <a id="text"></a>
-                <span class="fieldType">text</span>. Defines a one-line text input field.
+                <div class="header">
+                    <span class="name">text</span>
+                    <span class="dataType">string</span>
+                    <span class="customOptions">none</span>
+                </div>
+                <div class="body">
+                    Defines a one-line text input field.
+                </div>
             </li>
             <li>
                 <a id="textarea"></a>
-                <span class="fieldType">textarea</span>. Defines a multi-line text input field.
+                <div class="header">
+                    <span class="name">textarea</span>
+                    <span class="dataType">string</span>
+                    <span class="customOptions">none</span>
+                </div>
+                <div class="body">
+                    Defines a multi-line text input field.
+                </div>
             </li>
             <li>
                 <a id="time"></a>
-                <span class="fieldType">time</span>. Manages time values (no date part).
+                <div class="header">
+                    <span class="name">time</span>
+                    <span class="dataType">string</span>
+                    <span class="customOptions">inline</span>
+                </div>
+                <div class="body">
+                    Manages time values (no date part).
+                </div>
             </li>
         </ul>
         
@@ -73,7 +145,29 @@
                     <span class="default">object</span>
                 </div>
                 <div class="body">
-                    Defines the available buttons in a subform.
+                    Defines the available buttons in a subform. The default value is:
+                    <pre class="brush: javascript">
+                buttons: {
+                    toolbar: {
+                        newRegisterRow: undefined,
+                        openNewRegisterForm: undefined,
+                        undo: undefined,
+                        redo: undefined,
+                        save: undefined
+                    },
+                    byRow: {
+                        openEditRegisterForm: undefined,
+                        openDeleteRegisterForm: undefined,
+                        deleteRegisterRow: undefined,
+                    }
+                }
+                    </pre>
+                    <p>
+                        <em>toolbar</em> defines the buttons related to all the form or editable list: <em>newRegisterRow</em> (creates a new row in an editable list), <em>openNewRegisterForm</em> (open a form with a new register), <em>undo</em>, <em>redo</em> and <em>save</em>.
+                    </p>
+                    <p>
+                        <em>byRow</em> defines the buttons in each row: <em>openEditRegisterForm</em> (open a form with an existing register), <em>openDeleteRegisterForm</em> (open a form to delete an existing register), and <em>deleteRegisterRow</em> (deletes a row in an editable list).
+                    </p>
                 </div>
             </li>
             <li>
@@ -85,7 +179,15 @@
                     <span class="default">{}</span>
                 </div>
                 <div class="body">
-                    An object containing configuration options. Useful to add specific configuration options for some field types.
+                    An object containing configuration options. Useful to add specific configuration options for some field types (for example <em>inline</em> property in date fields):
+                    <pre class="brush: javascript; highlight: [3]">
+        date: {
+            type: 'date',
+            customOptions: {
+                inline: false
+            }
+        }
+                    </pre>
                 </div>
             </li>
             <li>
@@ -97,7 +199,15 @@
                     <span class="default">undefined</span>
                 </div>
                 <div class="body">
-                    The default value of the field. This value will be used in the create form.
+                    The default value of the field. This value will be used in the create form. An example:
+                    
+                    <pre class="brush: javascript; highlight: [4]">
+        province: {
+            type: 'select',
+            options: [ 'Cádiz', 'Málaga' ],
+            defaultValue: 'Cádiz'
+        }
+                    </pre>
                 </div>
             </li>
             <li>
@@ -168,11 +278,39 @@
                 <div class="header">
                     <span class="name">fields</span>
                     <span class="dataType">object</span>
-                    <span class="appliesTo">subforms</span>
+                    <span class="appliesTo">subform</span>
                     <span class="default">undefined</span>
                 </div>
                 <div class="body">
-                    Defines an object with the fields in the subform.
+                    Defines an object with the fields in the subform. An example:
+                    <pre class="brush: javascript; highlight: [3]">
+        members: {
+            type: 'subform',
+            fields: { 
+                code: { 
+                    subformKey: true
+                },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 3,
+                        cols: 80
+                    }
+                }
+            },
+            buttons: {
+                toolbar: {
+                    newRegisterRow: true
+                },
+                byRow: {
+                    openEditRegisterForm: false,
+                    openDeleteRegisterForm: false,
+                    deleteRegisterRow: true
+                }
+            }
+        }
+                    </pre>
                 </div>
             </li>
             <li>
@@ -184,7 +322,16 @@
                     <span class="default">undefined</span>
                 </div>
                 <div class="body">
-                    Each member of this object will be added as attribute to the HTML element.
+                    Each member of this object will be added as attribute to the HTML element. The next example shows how to add <em>rows</em> and <em>cols</em> attributes to a text area:
+                    <pre class="brush: javascript; highlight: [3]">
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 3,
+                        cols: 80
+                    }
+                }
+                    </pre>
                 </div>
             </li>
             <li>
@@ -208,7 +355,7 @@
                     <span class="default">false</span>
                 </div>
                 <div class="body">
-                    Defines whether the field is the primary key or not.
+                    Defines whether the field is the primary key or not. One field MUST be the primary key.
                 </div>
             </li>
             <li>
@@ -234,11 +381,66 @@
                 <div class="body">
                     Defines the available values for the field (or option source for the field). An option source can be one of these values:
                     <ul>
-                        <li>object: Property names are values, property values are display texts.</li>
-                        <li>array: An array of options.</li>
-                        <li>URL: A URL to download the option list for this field.</li>
-                        <li>function: A function that takes some arguments and returns an object, an array or a URL string.</li>
+                        <li>
+                            <em>array</em>. An array of options. An example:
+                            <pre class="brush: javascript; highlight: [4]">
+        phoneType: {
+            type: 'radio',
+            translateOptions: true,
+            options: [
+                { value: '1', displayText: 'homePhone_option' }, 
+                { value: '2', displayText: 'officePhone_option' }, 
+                { value: '3', displayText: 'cellPhone_option' } 
+            ]
+        }
+                            </pre>
+                            
+                            If the values are the same as the text to display is possible to make it easier:
+                            <pre class="brush: javascript; highlight: [3]">
+        phoneType: {
+            type: 'radio',
+            options: [ 1, 2, 3 ]
+        }
+                            </pre>
+                        </li>
+                        <li>
+                            <em>object</em>. Property names are values, property values are display texts:
+                            <pre class="brush: javascript; highlight: [4]">
+        phoneType: {
+            type: 'radio',
+            translateOptions: true,
+            options: {
+                 '1': 'homePhone_option', 
+                 '2': 'officePhone_option', 
+                 '3': 'cellPhone_option'
+            }
+        }
+                            </pre>
+                        </li>
+                        <li>
+                            <em>URL</em>. A URL to download the option list for this field. The URL must return data in any of the previous formats (an array or an object):
+                            <pre class="brush: javascript; highlight: [4]">
+        phoneType: {
+            type: 'radio',
+            translateOptions: true,
+            options: 'https://your-domain.org/CRUDManager.do?table=phoneTypes'
+        }
+                            </pre>
+                        </li>
+                        <li>
+                            <em>function</em>. A function that takes some arguments and returns an object, an array or a URL string:
+                            <pre class="brush: javascript; highlight: [4]">
+        phoneType: {
+            type: 'radio',
+            translateOptions: true,
+            options: function(){
+                return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
+            }
+        }
+                            </pre>
+                        </li>
                     </ul>
+                    As seen in the examples, the <em>translateOptions</em> property indicates ZCrud to search the displayText in the i18n files. See <a href="/tutorial/localization.html">localization</a> for more details about i18n.
                 </div>
             </li>
             <li>
@@ -262,7 +464,17 @@
                     <span class="default">the default template of the field type</span>
                 </div>
                 <div class="body">
-                    Each type of field has got a default template. You can customize the template of a field using this property. 
+                    Each type of field has got a default template. You can customize the template of a field using this property: 
+                    <pre class="brush: javascript; highlight: [3]">
+        description: {
+            type: 'textarea',
+            template: 'mytextarea@templates/fields/custom.html',
+            formFieldAttributes: {
+                rows: 6,
+                cols: 80
+            }
+        }
+                    </pre>
                 </div>
             </li>
             <li>
@@ -274,7 +486,7 @@
                     <span class="default">false</span>
                 </div>
                 <div class="body">
-                    Indicates that whether the options must be translated or not. If <em>true</em> ZCrud will replace them by the values in the i18n resources files with that keys.
+                    Indicates that whether the options must be translated or not. If <em>true</em> ZCrud will replace them by the values in the i18n resources files with that keys. See <a href="#options">options</a> property. See <a href="/tutorial/localization.html">localization</a> for more details about i18n.
                 </div>
             </li>
             <li>
@@ -287,6 +499,18 @@
                 </div>
                 <div class="body">
                     Data type for this field. Available options are defined <a href="#fieldTypes">here</a>.
+                </div>
+            </li>
+            <li>
+                <a id="width"></a>
+                <div class="header">
+                    <span class="name">width</span>
+                    <span class="dataType">string</span>
+                    <span class="appliesTo">ANY</span>
+                    <span class="default">undefined</span>
+                </div>
+                <div class="body">
+                    If present ZCrud will add 'style width:{value}' to the column header in lists and subforms. It can be a percentage value (ex: '40%').
                 </div>
             </li>
         </ul>

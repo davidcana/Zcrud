@@ -3,29 +3,304 @@
     <head>
         <meta charset="utf-8">
         <title>ZCrud API reference - General options</title>
-
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
         <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
         <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
     </head>
     <body>
 
         <h1>ZCrud API reference - General options</h1>
-        <ul>
-            <li><a href="generalOptions.html#actions">actions</a>.</li>
-            <li><a href="generalOptions.html#ajax">ajax</a>.</li>
-            <li><a href="generalOptions.html#defaultFormConf">defaultFormConf</a>.</li>
-            <li><a href="generalOptions.html#entityId">entityId</a>.</li>
-            <li><a href="generalOptions.html#events">events</a>.</li>
-            <li><a href="generalOptions.html#fatalErrorFunction">fatalErrorFunction</a>.</li>
-            <li><a href="generalOptions.html#fields">fields</a>.</li>
-            <li><a href="generalOptions.html#fieldsConfig">fieldsConfig</a>.</li>
-            <li><a href="generalOptions.html#i18n">i18n</a>.</li>
-            <li><a href="generalOptions.html#logging">logging</a>.</li>
-            <li><a href="generalOptions.html#pages">pages</a>.</li>
-            <li><a href="generalOptions.html#saveUserPreferences">saveUserPreferences</a>.</li>
-            <li><a href="generalOptions.html#serverDataFormat">serverDataFormat</a>.</li>
-            <li><a href="generalOptions.html#templates">templates</a>.</li>
-            <li><a href="generalOptions.html#validation">validation</a>.</li>
+        
+        <p>
+            The list of general options (those not related to a field) is:
+        </p>
+        <ul class="generalOptionList">
+            <li>
+                <a id="ajax"></a>
+                <div class="header">
+                    <span class="name">ajax</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    It allows to set up options about AJAX. The default value is:
+                    <pre class="brush: javascript">
+        ajax: {
+            ajaxFunction: $.ajax,
+            defaultFormAjaxOptions: {
+                dataType   : 'json',
+                contentType: 'application/json; charset=UTF-8',
+                type       : 'POST'
+            },
+            ajaxPreFilter: function( data ){
+                return data;
+            },
+            ajaxPostFilter : function( data ){
+                return data;
+            }
+        }
+                    </pre>
+                    
+                    Suboptions are:
+                    <ul>
+                        <li><em>ajaxFunction</em>. A function used to make the AJAX calls. Useful for testing purposes.</li>
+                        <li><em>defaultFormAjaxOptions</em>. Makes it easy to customize options about the AJAX requests.</li>
+                        <li><em>ajaxPreFilter</em> and <em>ajaxPostFilter</em>. They allow to do some processing before and after the AJAX calls.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="defaultFormConf"></a>
+                <div class="header">
+                    <span class="name">defaultFormConf</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Makes it easy to set up some default options about forms. This options can be overwritten in the configuration option of a page. The default value is:
+                    <pre class="brush: javascript">
+        defaultFormConf: {
+            event: 'batch',    // possible values: 'fieldChange', 'batch'
+            dataToSend: 'all', // possible values: 'modified', 'all',
+            modifiedFieldsClass: 'zcrud-modified-field',
+            modifiedRowsClass: 'zcrud-modified-row',
+            hideTr: function( $tr ){
+                $tr.fadeOut();
+            },
+            showTr: function( $tr ){
+                $tr.fadeIn();
+            },
+            buttons: {
+                toolbar: {
+                    undo: true,
+                    redo: true,
+                    cancel: true
+                },
+                byRow: {
+                    openEditRegisterForm: true,
+                    openDeleteRegisterForm: true,
+                    deleteRegisterRow: true,
+                }
+            }
+        }
+                    </pre>
+                    
+                    Suboptions are:
+                    <ul>
+                        <li><em>event</em> (possible values: 'fieldChange', 'batch' ). The event used to save the changes. If set to 'fieldChange' every time a field is changed ZCrud will send the chnage to the server; if set to 'batch' the user must clic a 'Save' button.</li>
+                        <li><em>dataToSend</em> (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.</li>
+                        <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
+                        <li><em>hideTr</em> and <em>showTr</em>. Functions to customize hide/show rows.</li>
+                        <li><em>buttons</em>. Defines the buttons in a form. See <a href="fields.html#buttons">field buttons</a> for details.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="entityId"></a>
+                <div class="header">
+                    <span class="name">entityId</span>
+                    <span class="dataType">string</span>
+                    <span class="default">'entity'</span>
+                </div>
+                <div class="body">
+                    An unique identifier to allow several instances of ZCrud running in a page.
+                </div>
+            </li>
+            <li>
+                <a id="events"></a>
+                <div class="header">
+                    <span class="name">events</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    User's actions can trigger some events. ZCrud allows to define functions that will be executed when an event is thrown. The default value is:
+                    <pre class="brush: javascript">
+        events: {
+            formClosed: function ( event, options ) {},
+            formCreated: function ( options ) {},
+            formSubmitting: function ( options, dataToSend ) {},
+            recordAdded: function ( event, options, record ) {},
+            recordDeleted: function ( event, options, key ) {},
+            recordUpdated: function ( event, options, record ) {},
+            selectionChanged: function ( data ) {},
+            batchUpdateDone: function ( event, options, dataToSend ) {}
+        }
+                    </pre>
+                    See <a href="events.html">events</a> for more details.
+                </div>
+            </li>
+            <li>
+                <a id="fatalErrorFunction"></a>
+                <div class="header">
+                    <span class="name">fatalErrorFunction</span>
+                    <span class="dataType">function</span>
+                    <span class="default">a function</span>
+                </div>
+                <div class="body">
+                
+                    This function is executed if ZCrud finds a fatal error (this must not happened!). Useful, at least, for testing purposes. The default value is:
+                    <pre class="brush: javascript">
+        fatalErrorFunction: function( message ){
+            alert( message );
+        }
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <a id="fields"></a>
+                <div class="header">
+                    <span class="name">fields</span>
+                    <span class="dataType">object</span>
+                    <span class="default">{}</span>
+                </div>
+                <div class="body">
+                    The list of fields to manage. An example:
+                    <pre class="brush: javascript">
+    fields: {
+        id: {
+            key: true,
+            sorting: false
+        },
+        name: {
+            width: '90%'
+        },
+        description: {
+            type: 'textarea',
+            formFieldAttributes: {
+                rows: 6,
+                cols: 80
+            }
+        }
+    }
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <a id="fieldsConfig"></a>
+                <div class="header">
+                    <span class="name">fieldsConfig</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Defines some default options for fields. An example:
+                    <pre class="brush: javascript">
+        fieldsConfig: {
+            defaultFieldOptions: {
+                datetime: {
+                    inline: false,
+                    minYear: 1950,
+                    maxYear: 2050,
+                    maxHour: 23,
+                    minutesStep: 5,
+                    timerDelay: 100
+                },
+                date: {
+                    inline: false,
+                    minYear: 1950,
+                    maxYear: 2050
+                },
+                time: {
+                    inline: false,
+                    maxHour: 99,
+                    minutesStep: 5,
+                    timerDelay: 100
+                }
+            },
+            getDefaultFieldTemplate: function( field ){
+                return field.type + '@templates/fields/basic.html';
+            }
+        }
+                    </pre>
+                    
+                    The options are:
+                    <ul>
+                        <li><em>defaultFieldOptions</em>. Default custom options for fields, by type.</li>
+                        <li><em>getDefaultFieldTemplate</em>. A function to build the path of the template of a field.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="i18n"></a>
+                <div class="header">
+                    <span class="name">i18n</span>
+                    <span class="dataType">object</span>
+                    <span class="default"></span>
+                </div>
+                <div class="body">
+
+                </div>
+            </li>
+            <li>
+                <a id="logging"></a>
+                <div class="header">
+                    <span class="name">logging</span>
+                    <span class="dataType">object</span>
+                    <span class="default"></span>
+                </div>
+                <div class="body">
+
+                </div>
+            </li>
+            <li>
+                <a id="pages"></a>
+                <div class="header">
+                    <span class="name">pages</span>
+                    <span class="dataType">object</span>
+                    <span class="default"></span>
+                </div>
+                <div class="body">
+
+                </div>
+            </li>
+            <li>
+                <a id="saveUserPreferences"></a>
+                <div class="header">
+                    <span class="name">saveUserPreferences</span>
+                    <span class="dataType">boolean</span>
+                    <span class="default"></span>
+                </div>
+                <div class="body">
+
+                </div>
+            </li>
+            <li>
+                <a id="serverDataFormat"></a>
+                <div class="header">
+                    <span class="name">serverDataFormat</span>
+                    <span class="dataType">string</span>
+                    <span class="default"></span>
+                </div>
+                <div class="body">
+
+                </div>
+            </li>
+            <li>
+                <a id="templates"></a>
+                <div class="header">
+                    <span class="name">templates</span>
+                    <span class="dataType">object</span>
+                    <span class="default"></span>
+                </div>
+                <div class="body">
+
+                </div>
+            </li>
+            <li>
+                <a id="validation"></a>
+                <div class="header">
+                    <span class="name">validation</span>
+                    <span class="dataType">object</span>
+                    <span class="default"></span>
+                </div>
+                <div class="body">
+
+                </div>
+            </li>
         </ul>
         
     </body>
