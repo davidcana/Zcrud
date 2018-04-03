@@ -220,13 +220,13 @@ exports.init = function( userOptions, callback ){
             i18nArrayVarName: 'i18nArray',
             files: {}
         },
-        
+        /*
         serverDataFormat: {
-            datetime: 'm/d/Y H:i',  /* To remove */
-            date: 'm/d/Y',          /* To remove */
-            time: 'H:i',            /* To remove */
+            datetime: 'm/d/Y H:i', 
+            date: 'm/d/Y',          
+            time: 'H:i',            
             decimalSeparator: '.'
-        },
+        },*/
         
         logging: {
             isOn: false,
