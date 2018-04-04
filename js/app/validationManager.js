@@ -86,7 +86,6 @@ module.exports = (function() {
     var addAttribute = function( $elem, attr ){
         
         $elem.attr( 'data-validation', attr.validation );
-        //$elem.attr( 'data-validation-event', 'change' );
         
         $.each( attr, function( name, val ) {
             if ( name !== 'validation' && val !== false ) {
@@ -108,9 +107,9 @@ module.exports = (function() {
 
     };
     
-    var formIsValid = function( options, dataToSend ){
+    var formIsValid = function( options, eventData ){
         
-        var eventResult = options.events.formSubmitting( options, dataToSend );
+        var eventResult = options.events.formSubmitting( eventData, options );
         
         if ( ! validationOn( options ) ){
             return false != eventResult;

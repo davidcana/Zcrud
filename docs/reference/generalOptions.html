@@ -120,14 +120,13 @@
                     User's actions can trigger some events. ZCrud allows to define functions that will be executed when an event is thrown. The default value is:
                     <pre class="brush: javascript">
         events: {
-            formClosed: function ( event, options ) {},
-            formCreated: function ( options ) {},
-            formSubmitting: function ( options, dataToSend ) {},
-            recordAdded: function ( event, options, record ) {},
-            recordDeleted: function ( event, options, key ) {},
-            recordUpdated: function ( event, options, record ) {},
-            selectionChanged: function ( data ) {},
-            batchUpdateDone: function ( event, options, dataToSend ) {}
+            formClosed: function ( data, event ) {},
+            formCreated: function ( data ) {},
+            formSubmitting: function ( data, event ) {},
+            recordAdded: function ( data, event ) {},
+            recordDeleted: function ( data, event ) {},
+            recordUpdated: function ( data, event ) {},
+            selectionChanged: function ( data ) {}
         }
                     </pre>
                     See <a href="events.html">events</a> for more details.

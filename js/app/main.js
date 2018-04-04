@@ -86,16 +86,15 @@ exports.init = function( userOptions, callback ){
         },
         
         events: {
-            formClosed: function ( event, options ) {},
-            formCreated: function ( options ) {},
-            formSubmitting: function ( options, dataToSend ) {},
-            //loadingRecords: function ( options, url ) {},
-            recordAdded: function ( event, options, record ) {},
-            recordDeleted: function ( event, options, key ) {},
-            //recordsLoaded: function ( data ) {},
-            recordUpdated: function ( event, options, record ) {},
-            selectionChanged: function ( data ) {},
-            batchUpdateDone: function ( event, options, dataToSend ) {}
+            formClosed: function ( data, event ) {},
+            formCreated: function ( data ) {},
+            formSubmitting: function ( data, event ) {},
+            recordAdded: function ( data, event ) {},
+            recordDeleted: function ( data, event ) {},
+            recordUpdated: function ( data, event ) {},
+            
+            selectionChanged: function ( data ) {}
+            //batchUpdateDone: function ( event, options, dataToSend ) {}
         },
         
         pages: {

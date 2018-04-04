@@ -8,60 +8,10 @@ module.exports = (function() {
     var context = require( './context.js' );
     var validationManager = require( './validationManager.js' );
     
-    /* 
-    data format:
-        - ajaxPreFilterOff: a function that makes a before sending data filtering
-        - ajaxPostFilterOff: a function that makes an after receiving data filtering
-        - clientOnly: if true the command is not send to the server
-        - error: a function executed whenever there is some error
-        - record: the record to be created
-        - success: a function executed whenever the operation is OK
-        - url: an url that overwrite the default one
-        - validationOff: activate or deactivate record validation
-    */
-    /*
-    var createRecord = function( data, options, event ){
-        
-        createOrUpdateRecord( 
-            data,
-            options,
-            event,
-            options.events.recordAdded,
-            data.url || options.pages.create.action,
-            'create' );
-    };*/
-    
-    /* 
-    data format:
-         - ajaxPreFilterOff: a function that makes a before sending data filtering
-         - ajaxPostFilterOff: a function that makes an after receiving data filtering
-         - clientOnly: if true the command is not send to the server
-         - error: a function executed whenever there is some error
-         - record: the record to be created
-         - success: a function executed whenever the operation is OK
-         - url: an url that overwrite the default one
-         - validationOff: activate or deactivate record validation
-    */
-    /*
-    var updateRecord = function( data, options, event ){
-        
-        createOrUpdateRecord( 
-            data,
-            options,
-            event,
-            options.events.recordUpdated,
-            data.url || options.pages.update.action,
-            'update' );
-    };*/
-    
-    var generalSuccessFunction = function( data, options, dataFromServer, event, eventToThrow ){
+    var generalSuccessFunction = function( data, options, dataFromServer ){
         
         if ( ! data.ajaxPostFilterOff ) {
             dataFromServer = options.ajax.ajaxPostFilter( dataFromServer );
-        }
-        
-        if ( eventToThrow ){
-            eventToThrow( event, options, data.record );
         }
         
         if ( data.success ){
@@ -69,7 +19,7 @@ module.exports = (function() {
         }
     };
     
-    var generalErrorFunction = function( data, options, dataFromServer, event, eventToThrow ){
+    var generalErrorFunction = function( data, options, dataFromServer ){
         
         if ( ! data.ajaxPostFilterOff ) {
             dataFromServer = options.ajax.ajaxPostFilter( dataFromServer );
@@ -78,106 +28,14 @@ module.exports = (function() {
             data.error( dataFromServer );
         }
     };
-    /*
-    var createOrUpdateRecord = function( data, options, event, eventToThrow, url, command ){
-        
-        var dataToSend = {
-            command: command,
-            records: [ data.record ]
-        };
-        
-        var successFunction = function( dataFromServer ){
-            generalSuccessFunction( data, options, dataFromServer, event, eventToThrow );
-        };
-        
-        var errorFunction = function( dataFromServer ){
-            generalErrorFunction( data, options, dataFromServer, event, eventToThrow );
-        };
-        
-        if ( data.clientOnly ){
-            if ( authIsOK( data, options, dataToSend ) ){
-                successFunction(
-                    data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
-            } else {
-                errorFunction(
-                    data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
-            }
-            return;
-        }
-        
-        var thisOptions = {
-            url    : url,
-            data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
-            success: successFunction,
-            error  : errorFunction
-        };
-        
-        if ( authIsOK( data, options, dataToSend ) ){
-            options.ajax.ajaxFunction(
-                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
-        }
-    };*/
     
-    var authIsOK = function( data, options, dataToSend ){
-        return data.formValidationOff? true: validationManager.formIsValid( options, dataToSend );
+    var authIsOK = function( data, options, eventData ){
+        
+        return data.formValidationOff? 
+            true: 
+            validationManager.formIsValid( options, eventData );
     };
-    
-    /* 
-    data format:
-         - ajaxPreFilterOff: a function that makes a before sending data filtering
-         - ajaxPostFilterOff: a function that makes an after receiving data filtering
-         - clientOnly: if true the command is not send to the server
-         - error: a function executed whenever there is some error
-         - key: the key of the record to delete
-         - success: a function executed whenever the operation is OK
-         - url: an url that overwrite the default one
-    */
-    /*
-    var deleteRecord = function( data, options, event ){
 
-        var dataToSend = {
-            command: 'delete',
-            keys: [ data.key ]
-        };
-
-        var successFunction = function( dataFromServer ){
-            generalSuccessFunction( data, options, dataFromServer, event, options.events.recordDeleted );
-        };
-
-        var errorFunction = function( dataFromServer ){
-            generalErrorFunction( data, options, dataFromServer, event, options.events.recordDeleted );
-        };
-        
-        if ( data.clientOnly ){
-            successFunction(
-                data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
-            return;
-        }
-        
-        var thisOptions = {
-            url    : data.url || options.pages.delete.action,
-            data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
-            success: successFunction,
-            error  : errorFunction
-        };
-
-        if ( false != options.events.formSubmitting( options, dataToSend ) ){
-            options.ajax.ajaxFunction(
-                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
-        }
-    };*/
-    
-    /* 
-    data format:
-         - ajaxPreFilterOff: a function that makes a before sending data filtering
-         - ajaxPostFilterOff: a function that makes an after receiving data filtering
-         - clientOnly: if true the command is not send to the server
-         - error: a function executed whenever there is some error
-         - records: the list of records (clientOnly must be set to true)
-         - search: a filter that must be matched
-         - success: a function executed whenever the operation is OK
-         - url: an url that overwrite the default one
-    */
     var listRecords = function( data, options ){
         
         var dataToSend = data.search;
@@ -223,21 +81,21 @@ module.exports = (function() {
          - success: a function executed whenever the operation is OK
          - url: an url that overwrite the default one
     */
-    var batchUpdate = function( data, options, event ){
+    var batchUpdate = function( data, options, event, eventData ){
         
         var dataToSend = data;
         dataToSend.command = 'batchUpdate';
 
         var successFunction = function( dataFromServer ){
-            generalSuccessFunction( data, options, dataFromServer, event, options.events.batchUpdateDone );
+            generalSuccessFunction( data, options, dataFromServer );
         };
 
         var errorFunction = function( dataFromServer ){
-            generalErrorFunction( data, options, dataFromServer, event, options.events.batchUpdateDone );
+            generalErrorFunction( data, options, dataFromServer );
         };
 
         if ( data.clientOnly ){
-            if ( authIsOK( data, options, dataToSend ) ){
+            if ( authIsOK( data, options, eventData ) ){
                 successFunction(
                     data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
             } else {
@@ -248,53 +106,22 @@ module.exports = (function() {
         }
 
         var thisOptions = {
-            //url    : data.url || options.pages.list.components.editing.batchUpdateAction,
             url    : data.url,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction
         };
 
-        if ( authIsOK( data, options, dataToSend ) ){
+        if ( authIsOK( data, options, eventData ) ){
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         } else {
             context.showError( options, 'invalidFormData', true );
-            //alert( context.translate( 'invalidFormData' ) );
         }
-    };
-    
-    var filterRecordProperties = function( record ){
-
-        var filtered = {};
-
-        for ( var propertyId in record ){
-            if ( ! propertyId.startsWith( '_' ) ){
-                filtered[ propertyId ] = record[ propertyId ];
-            }
-        }
-
-        return filtered;
-    };
-    
-    var filterRecordsProperties = function( records ){
-        
-        var filtered = {};
-
-        for ( var id in records ){
-            filtered[ id ] = filterRecordProperties( records[ id ] );
-        }
-
-        return filtered;
     };
     
     return {
-        //createRecord: createRecord,
-        //updateRecord: updateRecord,
-        //deleteRecord: deleteRecord,
         listRecords: listRecords,
-        batchUpdate: batchUpdate,
-        filterRecordProperties: filterRecordProperties,
-        filterRecordsProperties: filterRecordsProperties
+        batchUpdate: batchUpdate
     };
 })();

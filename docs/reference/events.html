@@ -13,15 +13,116 @@
         <p>
             User's actions can trigger some events:
         </p>
-        <ul>
-            <li><a href="events.html#formClosed">formClosed</a>.</li>
-            <li><a href="events.html#formCreated">formCreated</a>.</li>
-            <li><a href="events.html#formSubmitting">formSubmitting</a>.</li>
-            <li><a href="events.html#recordAdded">recordAdded</a>.</li>
-            <li><a href="events.html#recordDeleted">recordDeleted</a>.</li>
-            <li><a href="events.html#recordUpdated">recordUpdated</a>.</li>
-            <li><a href="events.html#selectionChanged">selectionChanged</a>.</li>
-            <li><a href="events.html#batchUpdateDone">batchUpdateDone</a>.</li>
+        <ul class="eventList">
+            <li>
+                <a id="formClosed"></a>
+                <div class="header">
+                    <span class="name">formClosed( data, event )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when a form dialog is closed. data argument has some fields:
+                    <ul>
+                        <li><em>data.$form</em>. The form as jQuery selection.</li>
+                        <li><em>data.formType</em>. Possible values are <em>create</em>, <em>edit</em> or <em>delete</em>.</li>
+                        <li><em>data.record</em>. The record shown in the form.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="formCreated"></a>
+                <div class="header">
+                    <span class="name">formCreated( data )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when a form dialog is created. data argument has some fields:
+                    <ul>
+                        <li><em>data.$form</em>. The form as jQuery selection.</li>
+                        <li><em>data.formType</em>. Possible values are <em>create</em>, <em>edit</em> or <em>delete</em>.</li>
+                        <li><em>data.record</em>. The record shown in the form.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="formSubmitting"></a>
+                <div class="header">
+                    <span class="name">formSubmitting( data, event )</span>
+                    <span class="return">boolean</span>
+                </div>
+                <div class="body">
+                    Triggered when a form is submitted. data argument has some fields:
+                    <ul>
+                        <li><em>data.$form</em>. The form as jQuery selection.</li>
+                        <li><em>data.formType</em>. Possible values are <em>create</em>, <em>edit</em> or <em>delete</em>.</li>
+                        <li><em>data.dataToSend</em>. The created/updated/deleted records.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                    You can validate the form on this event. If you return <em>false</em> from this event callback, submit operation is cancelled.
+                </div>
+            </li>
+            <li>
+                <a id="recordAdded"></a>
+                <div class="header">
+                    <span class="name">recordAdded( data, event )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when a new record is added on server side. data argument has some fields:
+                    <ul>
+                        <li><em>data.record</em>. The added record.</li>
+                        <li><em>data.serverResponse</em>. The response JSON object returned from server.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="recordDeleted"></a>
+                <div class="header">
+                    <span class="name">recordDeleted( data, event )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when an existing record is deleted on server side. data argument has some fields:
+                    <ul>
+                        <li><em>data.record</em>. The deleted record.</li>
+                        <li><em>data.serverResponse</em>. The response JSON object returned from server.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="recordUpdated"></a>
+                <div class="header">
+                    <span class="name">recordUpdated( data, event )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when an existing record is updated on server side. data argument has some fields:
+                    <ul>
+                        <li><em>data.record</em>. The updated record.</li>
+                        <li><em>data.serverResponse</em>. The response JSON object returned from server.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="selectionChanged"></a>
+                <div class="header">
+                    <span class="name">selectionChanged( data, event )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when selected rows on the table change. data argument has some fields:
+                    <ul>
+                        <li><em>data.$rows</em>. The current selection as a jQuery object.</li>
+                        <li><em>data.records</em>. The selected records.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                </div>
+            </li>
         </ul>
         
     </body>

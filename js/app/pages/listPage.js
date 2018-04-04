@@ -300,29 +300,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var getId = function(){
         return id;      
     };
-    /*
-    var filterRecordProperties = function( record ){
-        
-        var filtered = {};
-        
-        for ( var propertyId in record ){
-            if ( ! propertyId.startsWith( '_' ) ){
-                filtered[ propertyId ] = record[ propertyId ];
-            }
-        }
-        
-        return filtered;
-    };*/
     
     var getRecordByKey = function( key ){
         return records[ key ];
     };
-    /*
-    var getRecordByKey = function( key, full ){
-        
-        var record = records[ key ];
-        return full || ! record? record: filterRecordProperties( record );
-    };*/
     
     var selectRows = function( rows ){
         var selectionComponent = components[ 'selecting' ];

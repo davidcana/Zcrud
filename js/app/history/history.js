@@ -432,7 +432,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
     var buildDataToSend = function( options, thisOptions, records, fields ){
         
-        //var filteredRecords = crudManager.filterRecordsProperties( records );
         var actionsObject = buildActionsObject( records );
         
         // Get sendOnlyModified

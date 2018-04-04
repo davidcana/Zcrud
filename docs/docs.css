@@ -1,5 +1,4 @@
-/* */
-
+/* HTML tags*/
 body {
     background-color: #f4f4f4;
     color: black;
@@ -56,11 +55,27 @@ table td {
     padding: .25em;
 }
 
-/* */
-.fieldType {
-    font-weight: bold;
+/* Differences with jTable */
+#zcrud-jtable-differences {
+    border-collapse: collapse;
+    border-style: solid;
+}
+#zcrud-jtable-differences .zcrud,
+#zcrud-jtable-differences .jtable {
+    width: 40%;
 }
 
+/* pre classes */
+pre.console {
+    background-color: black;
+    color: white;
+}
+pre.js {
+    background-color: blue;
+    color: white;
+}
+
+/* Field option list */
 ul.fieldOptionList {
     list-style-type: none;
 }
@@ -90,24 +105,7 @@ ul.fieldOptionList>li .header .default:before {
     content: "default: ";
 }
 
-#zcrud-jtable-differences {
-    border-collapse: collapse;
-    border-style: solid;
-}
-#zcrud-jtable-differences .zcrud,
-#zcrud-jtable-differences .jtable {
-    width: 40%;
-}
-
-pre.console {
-    background-color: black;
-    color: white;
-}
-pre.js {
-    background-color: blue;
-    color: white;
-}
-
+/* Field type list */
 ul.fieldTypeList {
     list-style-type: none;
 }
@@ -133,6 +131,7 @@ ul.fieldTypeList>li .header .customOptions:before {
     content: "customOptions: ";
 }
 
+/* General option list */
 ul.generalOptionList {
     list-style-type: none;
 }
@@ -156,4 +155,26 @@ ul.generalOptionList>li .header .dataType:before {
 ul.generalOptionList>li .header .default:before {
     margin-left: 2em;
     content: "default: ";
+}
+
+/* Event list */
+ul.eventList {
+    list-style-type: none;
+}
+ul.eventList>li {
+    margin-bottom: 1em;
+}
+ul.eventList>li .header {
+    background: black;
+    color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: .5em;
+}
+ul.eventList>li .header .name {
+    font-weight: bold;
+    font-size: 130%;
+}
+ul.eventList>li .header .return:before {
+    margin-left: 2em;
+    content: "return: ";
 }

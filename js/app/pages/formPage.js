@@ -99,6 +99,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         return thisOptions;
     };
     
+    var eventFunction = undefined;
+    
     // Configure instance depending on type parameter
     var configure = function(){
         
@@ -107,6 +109,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             thisOptions = options.pages.create;
             title = "Create form";
             submitFunction = submitCreateForm;
+            eventFunction = options.events.recordAdded;
             buildFields(
                 function( field ){
                     return field.create;
@@ -120,6 +123,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             thisOptions = options.pages.update;
             title = "Edit form";
             submitFunction = submitUpdateForm;
+            eventFunction = options.events.recordUpdated;
             buildFields(
                 function( field ){
                     return field.edit;
@@ -130,6 +134,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             thisOptions = options.pages.delete;
             title = "Delete form";
             submitFunction = submitDeleteForm;
+            eventFunction = options.events.recordDeleted;
             buildFields(
                 function( field ){
                     return field.delete;
@@ -242,10 +247,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
                 record, 
                 buildProcessTemplateParams( field ) );
         }
-        /*
-        if ( record._optionsList ){
-            newRecord._optionsList = record._optionsList;
-        }*/
         
         return newRecord;
     };
@@ -301,8 +302,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             );
         }
         
-        //bindEvents( $form );
-        options.events.formCreated( options );
+        triggerFormCreatedEvent( $form );
     };
     
     var bindEvents = function( $form ) {
@@ -313,7 +313,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             .click(function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
-                submitFunction( event );
+                submitFunction( event, $form );
             });
         
         $form
@@ -322,7 +322,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             .click(function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
-                cancelForm( event );
+                cancelForm( event, $form );
             });
         
         $form
@@ -372,7 +372,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         });
     };
     
-    var saveCommon = function( elementId, event, data ){
+    var saveCommon = function( elementId, event, data, $form ){
 
         // Return if there is no operation to do
         if ( ! data ){
@@ -382,6 +382,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         
         // Add success and error functions to data. Add URL to data
         data.success = function( dataFromServer ){
+            eventFunction({
+                record: record,
+                serverResponse: dataFromServer,
+                options: options
+            }, 
+            event );
+            triggerFormClosedEvent( event, $form );
             context.getListPage( options ).show(
                 true,
                 {
@@ -400,15 +407,23 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             }
         };
         data.url = thisOptions.action || options.defaultFormConf.action;
-        //alert( data + '\n' + JSON.stringify( data ) );
         
         // Do the CRUD!
-        crudManager.batchUpdate( data, options, event );
-
+        crudManager.batchUpdate( 
+            data, 
+            options, 
+            event,
+            {
+                $form: $form,
+                formType: type,
+                dataToSend: data,
+                options: options
+            });
+        
         return data;
     };
     
-    var submitCreateForm = function( event ){
+    var submitCreateForm = function( event, $form ){
 
         return saveCommon( 
             id, 
@@ -417,10 +432,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
                 options, 
                 options.defaultFormConf, 
                 [ ],
-                fields ) );
+                fields ),
+            $form );
     };
     
-    var submitUpdateForm = function( event ){
+    var submitUpdateForm = function( event, $form ){
 
         return saveCommon( 
             id, 
@@ -429,20 +445,22 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
                 options, 
                 options.defaultFormConf, 
                 [ record ], 
-                fields ) );
+                fields ),
+            $form );
     };
 
-    var submitDeleteForm = function( event ){
+    var submitDeleteForm = function( event, $form ){
 
         return saveCommon( 
             id, 
             event,
             history.buildDataToSendForRemoving( 
-                [ $( '#zcRecordKey' ).val() ] ) );
+                [ $( '#zcRecordKey' ).val() ] ),
+            $form );
     };
     
-    var cancelForm = function( event ){
-        options.events.formClosed( event, options );
+    var cancelForm = function( event, $form ){
+        triggerFormClosedEvent( event, $form );
         context.getListPage( options ).show( false );
     };
     
@@ -456,6 +474,29 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         
     var mustHideLabel = function( field ){
         return fieldBuilder.mustHideLabel( field );
+    };
+    
+    /* Events */
+    var triggerFormClosedEvent = function( event, $form ){
+
+        options.events.formClosed( 
+            {
+                $form: $form,
+                formType: type,
+                record: record,
+                options: options
+            },
+            event );
+    };
+    var triggerFormCreatedEvent = function( $form ){
+
+        options.events.formCreated(
+            {
+                $form: $form,
+                formType: type,
+                record: record,
+                options: options
+            });
     };
     
     var self = {

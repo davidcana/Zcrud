@@ -248,6 +248,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/validation-editableLists.js',
                 dest: 'build/validation-editableLists.js'
+            },
+            events: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/events.js',
+                dest: 'build/events.js'
             }
         },
         compress: {
