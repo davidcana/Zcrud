@@ -265,8 +265,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var onSelectionChanged = function () {
-        options.events.selectionChanged(
-            selectedRows() );
+        
+        options.events.selectionChanged({
+            '$rows': selectedRows(),
+            records: selectedRecords(),
+            options: options
+        });
     };
     
     var resetPage = function(){

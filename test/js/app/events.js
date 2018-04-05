@@ -15,6 +15,10 @@ var options = undefined;
 // Events
 var counters = {};
 
+Array.prototype.last = function() {
+    return this[ this.length-1 ];
+}
+
 function resetCounters(){
 
     counters[ 'formClosed' ] = 0;
@@ -69,7 +73,7 @@ formOptions.fatalErrorFunction = fatalErrorFunction;
 editableListOptions.fatalErrorFunction = fatalErrorFunction;
 
 // Run tests
-
+/*
 QUnit.test( "events update form test", function( assert ) {
 
     options = formOptions;
@@ -563,7 +567,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
         }
     );
 });
-
+*/
 QUnit.test( "selectionChanged event test", function( assert ) {
 
     var thisTestOptions = {
@@ -591,6 +595,11 @@ QUnit.test( "selectionChanged event test", function( assert ) {
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'load' );
             
+            var $departmentsContainer = $( '#departmentsContainer' );
+            var getSelected = function(){
+                return $departmentsContainer.zcrud( 'selectedRecords' );
+            };
+            
             var $tbody = $( '#zcrud-list-tbody-department' );
             var select = function(){
                 for ( var c = 0; c < arguments.length; c++ ){
@@ -612,6 +621,18 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 1
                 });
+            assert.deepEqual( 
+                dataArray.last().records,
+                [
+                    {
+                        'id': '2',
+                        'name': 'Service 2' 
+                    }
+                ]);
+            assert.ok(
+                dataArray.last().$rows.is(
+                    $tbody.find( "tr[data-record-key='2']" )));
+            assert.deepEqual( dataArray.last().options, options );
             
             // Select 3, 5 and 7
             select( '3', '5', '7' );
@@ -626,9 +647,33 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 4
                 });
+            assert.deepEqual( 
+                dataArray.last().records,
+                [
+                    {
+                        'id': '2',
+                        'name': 'Service 2' 
+                    },
+                    {
+                        'id': '3',
+                        'name': 'Service 3' 
+                    },
+                    {
+                        'id': '5',
+                        'name': 'Service 5' 
+                    },
+                    {
+                        'id': '7',
+                        'name': 'Service 7' 
+                    }
+                ]);
+            //assert.ok(
+            //    dataArray.last().$rows.is(
+            //        $tbody.find( "tr[data-record-key='2'] tr[data-record-key='3'] tr[data-record-key='5'] tr[data-record-key='7']" )));
+            assert.deepEqual( dataArray.last().options, options );
             
-            // Unselect 2 and 7
-            select( '2', '7' );
+            // Unselect 2, 3 and 7
+            select( '2', '3', '7' );
             assert.deepEqual( 
                 counters,  
                 {
@@ -638,8 +683,21 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     recordAdded: 0,
                     recordDeleted: 0,
                     recordUpdated: 0,
-                    selectionChanged: 6
+                    selectionChanged: 7
                 });
+            assert.deepEqual( 
+                dataArray.last().records,
+                [
+                    {
+                        'id': '5',
+                        'name': 'Service 5' 
+                    }
+                ]);
+            assert.ok(
+                dataArray.last().$rows.is(
+                    $tbody.find( "tr[data-record-key='5']" )));
+            assert.deepEqual( dataArray.last().options, options );
+                
             done();
         }
     );
