@@ -222,7 +222,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                         }
                     });
                     history.reset( listPage.getId() );
-                    updateRecords( dataToSend );
+                    updateRecords( dataToSend, dataFromServer );
                 },
                 error: function( dataFromServer ){
                     if ( dataFromServer.message ){
@@ -240,13 +240,13 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         return dataToSend;
     };
 
-    var updateRecords = function( data ){
+    var updateRecords = function( dataToSend, dataFromServer ){
 
         var records = listPage.getRecords();
-            
+        
         // Update all existing records
-        for ( var key in data.existingRecords ) {
-            var modifiedRegister = data.existingRecords[ key ];
+        for ( var key in dataToSend.existingRecords ) {
+            var modifiedRegister = dataToSend.existingRecords[ key ];
             var currentRegister = records[ key ];
             var newKey = modifiedRegister[ options.key ];
             var extendedRegister = $.extend( true, {}, currentRegister, modifiedRegister );
@@ -255,23 +255,35 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 delete records[ key ];
                 key = newKey;
             }
-            records[ key ] = extendedRegister;  
+            records[ key ] = extendedRegister;
+            triggerEvent( options.events.recordUpdated, records[ key ], dataFromServer );
         }
 
         // Add all new records
-        for ( key in data.newRecords ) {
-            records[ key ] = data.newRecords[ key ];
+        for ( key in dataToSend.newRecords ) {
+            records[ key ] = dataToSend.newRecords[ key ];
+            triggerEvent( options.events.recordAdded, records[ key ], dataFromServer );
         }
 
         // Remove all records to remove
-        for ( var c = 0; c < data.recordsToRemove.length; c++ ) {
-            key = data.recordsToRemove[ c ];
+        for ( var c = 0; c < dataToSend.recordsToRemove.length; c++ ) {
+            key = dataToSend.recordsToRemove[ c ];
             delete records[ key ];
+            triggerEvent( options.events.recordDeleted, records[ key ], dataFromServer );
         }
     };
     
+    var triggerEvent = function( eventFunction, record, dataFromServer ){
+        
+        eventFunction({
+            record: record,
+            serverResponse: dataFromServer,
+            options: options
+        });
+    };
+    /*
     var beforeProcessTemplate = function(){
-        /*
+        
         var dictionary = listPage.getDictionary();
         var records = dictionary.records;
         var fields = listPage.getFields();
@@ -283,11 +295,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     buildProcessTemplateParams( field, record, dictionary )
                 );
             }
-        }*/
-    };
+        }
+    };*/
     
     return {
-        beforeProcessTemplate: beforeProcessTemplate,
+        //beforeProcessTemplate: beforeProcessTemplate,
         bindEvents: bindEvents,
         getThisOptions: getThisOptions
     };

@@ -50,18 +50,6 @@ QUnit.test( "selecting test", function( assert ) {
                 $departmentsContainer.find( "input.zcrud-select-all-rows" ).trigger( 'click' );
             };
 
-            var buildSelectedRange = function( start, end ){
-                var result = [];
-                for ( var c = start; c <= end; ++c ){
-                    var entry = {
-                        id: c,
-                        name: 'Service ' + c
-                    };
-                    result.push( entry );
-                }
-                return result;
-            };
-
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
