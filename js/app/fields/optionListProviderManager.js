@@ -366,13 +366,15 @@ var OptionListProviderManager = function() {
 
         switch( field.type ) {
             case 'radio':
-                return $selection.find( "input[name='" + field.name + "']:checked").val();
-                //return $selection.find( "input[name='" + field.id + "']:checked").val();
+                //return $selection.find( "input[name='" + field.name + "']").is( ":checked" );
+                var selected = $selection.find( "input[type='radio'][name='" + field.name + "[0]']:checked" );
+                return selected.length > 0? selected.val(): undefined;
+                //return $selection.find( "input[name='" + field.name + "']:checked" ).val();
             case 'select':
-            case 'optgroup':
+                return $selection.find( "select[name='" + field.name + "']").val();
+            //case 'optgroup':
             case 'datalist':
                 return $selection.find( "input[name='" + field.name + "']").val();
-                //return $selection.find( "input[name='" + field.id + "']").val();
         }
 
         throw "Unknown field type in optionListProviderManager: " + field.type;

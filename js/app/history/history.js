@@ -354,6 +354,20 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         };
     };
     
+    var getRegisterFromDataToSend = function( dataToSend, formType ){
+
+        switch ( formType ) {
+            case 'create':
+                return dataToSend.newRecords[ 0 ];
+            case 'update':
+                return dataToSend.existingRecords[ Object.keys( dataToSend.existingRecords )[ 0 ] ];
+            case 'delete':
+                return dataToSend.recordsToRemove[ 0 ];
+            default:
+                throw "Unknown FormPage type: " + formType;
+        }
+    };
+    
     var buildDataToSendForRemoving = function( recordsToRemove ){
         
         var data = buildEmptyDataToSend();
@@ -519,7 +533,8 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         isFormMode: isFormMode,
         //buildEmptyDataToSend: buildEmptyDataToSend,
         buildEmptyActionsObject: buildEmptyActionsObject,
-        createNestedObject: createNestedObject
+        createNestedObject: createNestedObject,
+        getRegisterFromDataToSend: getRegisterFromDataToSend
     };
     
     return self;

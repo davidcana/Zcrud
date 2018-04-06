@@ -7,6 +7,7 @@ var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
+var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
 var formOptions = require( './defaultTestOptions.js' );
@@ -72,6 +73,60 @@ var fatalErrorFunction = function( message ){
 formOptions.fatalErrorFunction = fatalErrorFunction;
 editableListOptions.fatalErrorFunction = fatalErrorFunction;
 
+var checkOpenCloseEvent = function( assert, data, $form, formType, record, options ){
+    
+    assert.ok( data.$form.is( $form ) );
+    assert.equal( data.formType, formType );
+    //alert( JSON.stringify( data.record ) );
+    //assert.deepEqual(
+    //    JSON.stringify( data.record ), 
+    //    JSON.stringify( record ) );
+    assert.deepEqual( data.record, record );
+    assert.deepEqual( data.options, options );
+};
+
+var checkFormSubmittingEvent = function( assert, data, $form, formType, dataToSend, options ){
+
+    assert.ok( data.$form.is( $form ) );
+    assert.equal( data.formType, formType );
+    assert.deepEqual( data.dataToSend.command, dataToSend.command );
+    //alert( JSON.stringify( data.dataToSend.existingRecords ) );
+    //assert.deepEqual( 
+    //    JSON.stringify( data.dataToSend.existingRecords ), 
+    //    JSON.stringify( dataToSend.existingRecords ) );
+    assert.deepEqual( data.dataToSend.existingRecords, dataToSend.existingRecords );
+    //alert( JSON.stringify( data.dataToSend.newRecords ) );
+    //assert.deepEqual( 
+    //    JSON.stringify( data.dataToSend.newRecords ), 
+    //    JSON.stringify( dataToSend.newRecords ) );
+    assert.deepEqual( data.dataToSend.newRecords, dataToSend.newRecords );
+    //alert( JSON.stringify( data.dataToSend.recordsToRemove ) );
+    //assert.deepEqual(
+    //    JSON.stringify( data.dataToSend.recordsToRemove ), 
+    //    JSON.stringify( dataToSend.recordsToRemove ) );
+    assert.deepEqual( data.dataToSend.recordsToRemove, dataToSend.recordsToRemove );
+    assert.deepEqual( data.dataToSend.url, dataToSend.url );
+    assert.deepEqual( data.options, options );
+};
+
+var checkRecordEvent = function( assert, data, record, serverResponse, options ){
+
+    assert.deepEqual( data.record, record );
+    //alert( JSON.stringify( data.serverResponse ) );
+    //assert.equal( 
+    //    JSON.stringify( data.serverResponse ), 
+    //    JSON.stringify( serverResponse ) );
+    assert.deepEqual( data.serverResponse, serverResponse );
+    assert.deepEqual( data.options, options );
+};
+
+var checkSelectionChangedEvent = function( assert, data, $rows, record, options ){
+    
+    assert.ok( data.$rows.is( $rows ) );
+    assert.deepEqual( data.record, record );
+    assert.deepEqual( data.options, options );
+};
+
 // Run tests
 /*
 QUnit.test( "events update form test", function( assert ) {
@@ -88,84 +143,163 @@ QUnit.test( "events update form test", function( assert ) {
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'load' );
             
-                // Assert register with key 2 exists
-                var key = 2;
-                var record =  {
-                    "id": "" + key,
-                    "name": "Service " + key
-                };
-                testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
-            
-                // Go to edit form
-                testHelper.clickUpdateListButton( key );
-            
-                assert.deepEqual( 
-                    counters,  
-                    {
-                        formClosed: 0,
-                        formCreated: 1,
-                        formSubmitting: 0,
-                        recordAdded: 0,
-                        recordDeleted: 0,
-                        recordUpdated: 0,
-                        selectionChanged: 0
-                    });
-            
-                // Edit record
-                var editedRecord =  {
-                    "name": "Service " + key + " edited",
-                    "description": "Service " + key + " description",
-                    "date": "10/23/2017",
-                    "time": "18:50",
-                    "datetime": "10/23/2017 20:00",
-                    "phoneType": "officePhone_option",
-                    "province": "Cádiz",
-                    "city": "Tarifa",
-                    "browser": "Firefox",
-                    "important": true,
-                    "number": "3"
-                };
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id": "" + key
+            };
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
 
-                testHelper.fillForm( editedRecord );
-                var newRecord = $.extend( true, {}, record, editedRecord );
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
 
-                testHelper.checkForm( assert, newRecord );
+            assert.deepEqual( 
+                counters,  
+                {
+                    formClosed: 0,
+                    formCreated: 1,
+                    formSubmitting: 0,
+                    recordAdded: 0,
+                    recordDeleted: 0,
+                    recordUpdated: 0,
+                    selectionChanged: 0
+                });
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[0], 
+                $( '#zcrud-form-department' ), 
+                'update', 
+                record, 
+                options );
 
-                // Submit and show the list again
-                testHelper.clickFormSubmitButton();
-                testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ) );
-                assert.deepEqual( 
-                    counters,  
-                    {
-                        formClosed: 1,
-                        formCreated: 1,
-                        formSubmitting: 1,
-                        recordAdded: 0,
-                        recordDeleted: 0,
-                        recordUpdated: 1,
-                        selectionChanged: 0
-                    });
+            // Edit record
+            var editedRecord =  {
+                "name": "Service " + key + " edited",
+                "description": "Service " + key + " description",
+                "date": "10/23/2017",
+                "time": "18:50",
+                "datetime": "10/23/2017 20:00",
+                "phoneType": "officePhone_option",
+                "province": "Cádiz",
+                "city": "Tarifa",
+                "browser": "Firefox",
+                "important": true,
+                "number": "3"
+            };
+
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+
+            testHelper.checkForm( assert, newRecord );
+
+            // Submit and show the list again
+            var $form = $( '#zcrud-form-department' );
+            testHelper.clickFormSubmitButton();
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ) );
+            assert.deepEqual( 
+                counters,  
+                {
+                    formClosed: 1,
+                    formCreated: 1,
+                    formSubmitting: 1,
+                    recordAdded: 0,
+                    recordDeleted: 0,
+                    recordUpdated: 1,
+                    selectionChanged: 0
+                });
+            checkFormSubmittingEvent( 
+                assert, 
+                dataArray[1], 
+                $form, 
+                'update', 
+                {
+                    "command": "batchUpdate",
+                    "existingRecords": {
+                        "2": {
+                            "name":"Service 2 edited",
+                            "id":"2",
+                            "description":"Service 2 description",
+                            "date":"2017-10-22T22:00:00.000Z",
+                            "time":"18:50",
+                            "datetime":"2017-10-23T18:00:00.000Z",
+                            "phoneType":"officePhone_option",
+                            "province":"Cádiz",
+                            "city":"Tarifa",
+                            "browser":"Firefox",
+                            "important":true,
+                            "number":"3"
+                        }
+                    },
+                    "newRecords": [],
+                    "recordsToRemove": [],
+                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                }, 
+                options );
+            checkRecordEvent( 
+                assert, 
+                dataArray[2], 
+                record, 
+                {
+                    "message":"",
+                    "existingRecords":{
+                        "2":{
+                            "name":"Service 2 edited",
+                            "id":"2",
+                            "description":"Service 2 description",
+                            "date":"2017-10-22T22:00:00.000Z",
+                            "time":"18:50",
+                            "datetime":"2017-10-23T18:00:00.000Z",
+                            "phoneType":"officePhone_option",
+                            "province":"Cádiz",
+                            "city":"Tarifa",
+                            "browser":"Firefox",
+                            "important":true,
+                            "number":"3"
+                        }
+                    },
+                    "newRecords":[],
+                    "recordsToRemove":[],
+                    "result":"OK"},  
+                options );
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[3], 
+                $form, 
+                'update', 
+                record, 
+                options );
             
-                // Go to edit form again and check record
-                testHelper.clickUpdateListButton( key );
-                testHelper.checkForm( assert, newRecord );
-                assert.deepEqual( 
-                    counters,  
-                    {
-                        formClosed: 1,
-                        formCreated: 2,
-                        formSubmitting: 1,
-                        recordAdded: 0,
-                        recordDeleted: 0,
-                        recordUpdated: 1,
-                        selectionChanged: 0
-                    });
+            // Go to edit form again and check record
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, newRecord );
+            assert.deepEqual( 
+                counters,  
+                {
+                    formClosed: 1,
+                    formCreated: 2,
+                    formSubmitting: 1,
+                    recordAdded: 0,
+                    recordDeleted: 0,
+                    recordUpdated: 1,
+                    selectionChanged: 0
+                });
+            var newRecordToCheck = $.extend( true, {}, newRecord );
+            newRecordToCheck.date= '2017-10-22T22:00:00.000Z';
+            newRecordToCheck.datetime= '2017-10-23T18:00:00.000Z';
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[4], 
+                $( '#zcrud-form-department' ), 
+                'update', 
+                newRecordToCheck, 
+                options );
             
-                done();
+            done();
         }
     );
 });
-
+*/
 QUnit.test( "events create form test", function( assert ) {
 
     options = formOptions;
@@ -182,13 +316,13 @@ QUnit.test( "events create form test", function( assert ) {
 
             // Assert register with key 0 not exists
             var key = 0;
-            var record =  {
+            var serverRecord =  {
                 "id": "" + key,
                 "name": "Service " + key,
                 "description": "Service " + key + " description",
-                "date": "10/23/2017",
+                "date": new Date( '2017-10-02T00:00:00.000Z' ),
                 "time": "18:50",
-                "datetime": "10/23/2017 20:00",
+                "datetime": new Date( '2017-09-10T00:00:00.000Z' ),
                 "phoneType": "officePhone_option",
                 "province": "Málaga",
                 "city": "Marbella",
@@ -196,6 +330,13 @@ QUnit.test( "events create form test", function( assert ) {
                 "important": true,
                 "number": "3"
             };
+            var clientRecord = $.extend( true, {}, serverRecord );
+            clientRecord[ 'date' ] = datetimeFieldManager.formatToClient(
+                options.fields[ 'date' ],
+                clientRecord[ 'date' ] );
+            clientRecord[ 'datetime' ] = datetimeFieldManager.formatToClient(
+                options.fields[ 'datetime' ],
+                clientRecord[ 'datetime' ] );
             testHelper.checkNoRecord( assert, key );
 
             // Go to create form and create record
@@ -211,12 +352,33 @@ QUnit.test( "events create form test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
-            testHelper.fillForm( record );
-            testHelper.checkForm( assert, record );
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[0], 
+                $( '#zcrud-form-department' ), 
+                'create', 
+                {
+                    "id":"",
+                    "name":"",
+                    "description":"",
+                    "date":"",
+                    "time":"",
+                    "datetime":"",
+                    "phoneType":"",
+                    "province":"Cádiz",
+                    "city":"",
+                    "browser":"",
+                    "important":"",
+                    "number":""
+                }, 
+                options );
+            testHelper.fillForm( clientRecord );
+            testHelper.checkForm( assert, clientRecord );
 
             // Submit and show the list again
+            var $form = $( '#zcrud-form-department' );
             testHelper.clickFormSubmitButton();
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
+            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( clientRecord, options.fields ) );
             assert.deepEqual( 
                 counters,  
                 {
@@ -229,9 +391,51 @@ QUnit.test( "events create form test", function( assert ) {
                     selectionChanged: 0
                 });
             
+            var serverRecord2 = fieldBuilder.filterValues( serverRecord, options.fields );
+            
+            // Correct date
+            var rightDate = new Date( serverRecord2[ 'date' ] );
+            rightDate.setHours( rightDate.getHours() - 2 );
+            serverRecord2[ 'date' ] = rightDate;
+            
+            checkFormSubmittingEvent( 
+                assert, 
+                dataArray[1], 
+                $form, 
+                'create', 
+                {
+                    "command": "batchUpdate",
+                    "existingRecords": {},
+                    "newRecords": [ serverRecord2 ],
+                    "recordsToRemove": [],
+                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                }, 
+                options );
+            
+            checkRecordEvent( 
+                assert, 
+                dataArray[2], 
+                serverRecord2, 
+                {
+                    "message":"",
+                    "existingRecords": {},
+                    "newRecords": [ serverRecord2 ],
+                    "recordsToRemove": [],
+                    "result":"OK"
+                },  
+                options );
+            
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[3], 
+                $form, 
+                'create', 
+                serverRecord2, 
+                options );
+            
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
-            testHelper.checkForm( assert, record );
+            testHelper.checkForm( assert, clientRecord );
             assert.deepEqual( 
                 counters,  
                 {
@@ -248,7 +452,7 @@ QUnit.test( "events create form test", function( assert ) {
         }
     );
 });
-
+/*
 QUnit.test( "event delete form test", function( assert ) {
 
     options = formOptions;
@@ -567,7 +771,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
         }
     );
 });
-*/
+
 QUnit.test( "selectionChanged event test", function( assert ) {
 
     var thisTestOptions = {
@@ -702,4 +906,4 @@ QUnit.test( "selectionChanged event test", function( assert ) {
         }
     );
 });
-
+*/

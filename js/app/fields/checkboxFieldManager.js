@@ -13,7 +13,8 @@ var CheckboxFieldManager = function() {
     };
     
     var getValueFromForm = function( field, options, $selection ){
-        return $selection.find( "[name='" + field.id + "']:checked").val();
+        return $selection.find( "[name='" + field.name + "']").is( ":checked" );
+        //return $selection.find( "[name='" + field.id + "']:checked").val();
         //return $( '#' + field.elementId ).is( ":checked" );
     };
     

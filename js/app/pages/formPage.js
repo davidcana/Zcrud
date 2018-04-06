@@ -202,15 +202,17 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     };
     
     // Set, get, update and build record
-    /*
-    var updateRecordFromForm = function(){
-        record = {};
+    var buildRecordFromForm = function( $form ){
+        
+        var newRecord = {};
         
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            record[ field.id ] = fieldBuilder.getValueFromForm( field, options );
+            newRecord[ field.id ] = fieldBuilder.getValueFromForm( field, options, $form );
         }
-    };*/
+        
+        return newRecord;
+    };
     /*
     var updateRecordFromDefaultValues = function(){
         
@@ -380,10 +382,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             return false;
         }
         
+        // Update record from form
+        record = buildRecordFromForm( $form );
+        
         // Add success and error functions to data. Add URL to data
         data.success = function( dataFromServer ){
             eventFunction({
-                record: record,
+                record: history.getRegisterFromDataToSend( data, type ),
                 serverResponse: dataFromServer,
                 options: options
             }, 
@@ -460,6 +465,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     };
     
     var cancelForm = function( event, $form ){
+        record = buildRecordFromForm( $form );
         triggerFormClosedEvent( event, $form );
         context.getListPage( options ).show( false );
     };

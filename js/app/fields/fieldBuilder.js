@@ -132,7 +132,6 @@ module.exports = (function() {
         }
         
         return $selection.find( "[name='" + field.id + "']").val();
-        //return $( '#' + field.elementId ).val();
     };
     
     var getValueFromRecord = function( field, record, params ){

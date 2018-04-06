@@ -194,7 +194,7 @@ var DatetimeFieldManager = function() {
 
         var datetimeString = $selection.find( "[name='" + field.name + "']").val();
         
-        if ( ! datetimeString || datetimeString.length == 0 ){
+        if ( ! datetimeString || datetimeString.length == 0 || field.type == 'time' ){
             return datetimeString;
         }
         
