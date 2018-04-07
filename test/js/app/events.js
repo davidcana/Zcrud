@@ -73,7 +73,7 @@ var fatalErrorFunction = function( message ){
 formOptions.fatalErrorFunction = fatalErrorFunction;
 editableListOptions.fatalErrorFunction = fatalErrorFunction;
 
-var checkOpenCloseEvent = function( assert, data, $form, formType, record, options ){
+var checkOpenCloseEvent = function( assert, data, $form, formType, options ){
     
     assert.ok( data.$form.is( $form ) );
     assert.equal( data.formType, formType );
@@ -81,7 +81,7 @@ var checkOpenCloseEvent = function( assert, data, $form, formType, record, optio
     //assert.deepEqual(
     //    JSON.stringify( data.record ), 
     //    JSON.stringify( record ) );
-    assert.deepEqual( data.record, record );
+    //assert.deepEqual( data.record, record );
     assert.deepEqual( data.options, options );
 };
 
@@ -169,8 +169,7 @@ QUnit.test( "events update form test", function( assert ) {
                 assert, 
                 dataArray[0], 
                 $( '#zcrud-form-department' ), 
-                'update', 
-                record, 
+                'update',  
                 options );
 
             // Edit record
@@ -267,7 +266,6 @@ QUnit.test( "events update form test", function( assert ) {
                 dataArray[3], 
                 $form, 
                 'update', 
-                record, 
                 options );
             
             // Go to edit form again and check record
@@ -292,7 +290,6 @@ QUnit.test( "events update form test", function( assert ) {
                 dataArray[4], 
                 $( '#zcrud-form-department' ), 
                 'update', 
-                newRecordToCheck, 
                 options );
             
             done();
@@ -357,20 +354,6 @@ QUnit.test( "events create form test", function( assert ) {
                 dataArray[0], 
                 $( '#zcrud-form-department' ), 
                 'create', 
-                {
-                    "id":"",
-                    "name":"",
-                    "description":"",
-                    "date":"",
-                    "time":"",
-                    "datetime":"",
-                    "phoneType":"",
-                    "province":"Cádiz",
-                    "city":"",
-                    "browser":"",
-                    "important":"",
-                    "number":""
-                }, 
                 options );
             testHelper.fillForm( clientRecord );
             testHelper.checkForm( assert, clientRecord );
@@ -429,8 +412,7 @@ QUnit.test( "events create form test", function( assert ) {
                 assert, 
                 dataArray[3], 
                 $form, 
-                'create', 
-                serverRecord2, 
+                'create',  
                 options );
             
             // Go to edit form again and check record

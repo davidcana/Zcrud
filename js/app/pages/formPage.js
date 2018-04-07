@@ -383,12 +383,14 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         }
         
         // Update record from form
-        record = buildRecordFromForm( $form );
+        //record = buildRecordFromForm( $form );
+        record = history.getRegisterFromDataToSend( data, type );
         
         // Add success and error functions to data. Add URL to data
         data.success = function( dataFromServer ){
             eventFunction({
-                record: history.getRegisterFromDataToSend( data, type ),
+                //record: history.getRegisterFromDataToSend( data, type ),
+                record: record,
                 serverResponse: dataFromServer,
                 options: options
             }, 
@@ -465,7 +467,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
     };
     
     var cancelForm = function( event, $form ){
-        record = buildRecordFromForm( $form );
         triggerFormClosedEvent( event, $form );
         context.getListPage( options ).show( false );
     };
@@ -489,7 +490,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             {
                 $form: $form,
                 formType: type,
-                record: record,
                 options: options
             },
             event );
@@ -500,7 +500,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             {
                 $form: $form,
                 formType: type,
-                record: record,
                 options: options
             });
     };
