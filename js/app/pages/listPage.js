@@ -354,6 +354,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     var getPostTemplate = function( field ){
         return fieldBuilder.getPostTemplate( field );
     };
+
+    var get$form = function(){
+        return $( '#' + thisOptions.formId );
+    };
     
     var self = {
         show: show,
@@ -372,7 +376,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         getField: getField,
         getFieldByName: getFieldByName,
         getFields: getFields,
-        getPostTemplate: getPostTemplate
+        getPostTemplate: getPostTemplate,
+        get$form: get$form
     };
     
     configure();

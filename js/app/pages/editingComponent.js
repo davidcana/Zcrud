@@ -234,7 +234,17 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 url: thisOptions.batchUpdateAction
             };
             //alert( thisOptions.dataToSend + '\n' + JSON.stringify( data ) );
-            crudManager.batchUpdate( data, options, event );
+            crudManager.batchUpdate( 
+                data, 
+                options, 
+                event,
+                {
+                    $form: listPage.get$form(),
+                    formType: 'list',
+                    dataToSend: data,
+                    options: options
+                }
+            );
         }
 
         return dataToSend;
@@ -268,8 +278,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         // Remove all records to remove
         for ( var c = 0; c < dataToSend.recordsToRemove.length; c++ ) {
             key = dataToSend.recordsToRemove[ c ];
+            var deletedRecord = $.extend( true, {}, records[ key ] );
             delete records[ key ];
-            triggerEvent( options.events.recordDeleted, records[ key ], dataFromServer );
+            triggerEvent( options.events.recordDeleted, deletedRecord, dataFromServer );
         }
     };
     

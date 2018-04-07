@@ -16,10 +16,6 @@ var options = undefined;
 // Events
 var counters = {};
 
-Array.prototype.last = function() {
-    return this[ this.length-1 ];
-}
-
 function resetCounters(){
 
     counters[ 'formClosed' ] = 0;
@@ -128,7 +124,6 @@ var checkSelectionChangedEvent = function( assert, data, $rows, record, options 
 };
 
 // Run tests
-
 QUnit.test( "events update form test", function( assert ) {
 
     options = formOptions;
@@ -562,7 +557,7 @@ QUnit.test( "event delete form test", function( assert ) {
         }
     );
 });
-/*
+
 QUnit.test( "event update editable list test", function( assert ) {
 
     options = editableListOptions;
@@ -611,6 +606,36 @@ QUnit.test( "event update editable list test", function( assert ) {
                     recordUpdated: 1,
                     selectionChanged: 0
                 });
+            var $form = $( '#zcrud-list-form-department' );
+            checkFormSubmittingEvent( 
+                assert, 
+                dataArray[0], 
+                $form, 
+                'list', 
+                {
+                    "command": "batchUpdate",
+                    "existingRecords": {
+                        "2": editedRecord
+                    },
+                    "newRecords": [],
+                    "recordsToRemove": [],
+                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                }, 
+                options );
+            checkRecordEvent( 
+                assert, 
+                dataArray[1], 
+                newRecord, 
+                {
+                    "message":"",
+                    "existingRecords":{
+                        "2": newRecord
+                    },
+                    "newRecords":[],
+                    "recordsToRemove":[],
+                    "result":"OK"},  
+                options );
+            
             testHelper.checkRecord( assert, key, newRecord, editable );
 
             done();
@@ -660,6 +685,32 @@ QUnit.test( "event create editable list test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
+            var $form = $( '#zcrud-list-form-department' );
+            checkFormSubmittingEvent( 
+                assert, 
+                dataArray[0], 
+                $form, 
+                'list', 
+                {
+                    "command": "batchUpdate",
+                    "existingRecords": {},
+                    "newRecords": [ newRecord ],
+                    "recordsToRemove": [],
+                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                }, 
+                options );
+            checkRecordEvent( 
+                assert, 
+                dataArray[1], 
+                newRecord, 
+                {
+                    "message":"",
+                    "existingRecords":{},
+                    "newRecords":[ newRecord ],
+                    "recordsToRemove":[],
+                    "result":"OK"},  
+                options );
+            
             testHelper.checkRecord( assert, key, newRecord, editable, true );
 
             done();
@@ -710,6 +761,32 @@ QUnit.test( "event delete editable list test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
+            var $form = $( '#zcrud-list-form-department' );
+            checkFormSubmittingEvent( 
+                assert, 
+                dataArray[0], 
+                $form, 
+                'list', 
+                {
+                    "command": "batchUpdate",
+                    "existingRecords": {},
+                    "newRecords": [],
+                    "recordsToRemove": [ '' + key ],
+                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                }, 
+                options );
+            checkRecordEvent( 
+                assert, 
+                dataArray[1], 
+                record, 
+                {
+                    "message":"",
+                    "existingRecords":{},
+                    "newRecords": [],
+                    "recordsToRemove": [ '' + key ],
+                    "result":"OK"},  
+                options );
+            
             testHelper.checkNoRecord( assert, key );
 
             done();
@@ -791,6 +868,12 @@ QUnit.test( "events update with failed validation form test", function( assert )
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[0], 
+                $( '#zcrud-form-department' ), 
+                'update',  
+                options );
             
             // Click cancel and check record
             testHelper.clickFormCancelButton();
@@ -855,7 +938,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     selectionChanged: 1
                 });
             assert.deepEqual( 
-                dataArray.last().records,
+                dataArray[0].records,
                 [
                     {
                         'id': '2',
@@ -863,9 +946,9 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     }
                 ]);
             assert.ok(
-                dataArray.last().$rows.is(
+                dataArray[0].$rows.is(
                     $tbody.find( "tr[data-record-key='2']" )));
-            assert.deepEqual( dataArray.last().options, options );
+            assert.deepEqual( dataArray[0].options, options );
             
             // Select 3, 5 and 7
             select( '3', '5', '7' );
@@ -881,7 +964,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     selectionChanged: 4
                 });
             assert.deepEqual( 
-                dataArray.last().records,
+                dataArray[3].records,
                 [
                     {
                         'id': '2',
@@ -901,9 +984,9 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     }
                 ]);
             //assert.ok(
-            //    dataArray.last().$rows.is(
+            //    dataArray[3].$rows.is(
             //        $tbody.find( "tr[data-record-key='2'] tr[data-record-key='3'] tr[data-record-key='5'] tr[data-record-key='7']" )));
-            assert.deepEqual( dataArray.last().options, options );
+            assert.deepEqual( dataArray[3].options, options );
             
             // Unselect 2, 3 and 7
             select( '2', '3', '7' );
@@ -919,7 +1002,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     selectionChanged: 7
                 });
             assert.deepEqual( 
-                dataArray.last().records,
+                dataArray[6].records,
                 [
                     {
                         'id': '5',
@@ -927,12 +1010,11 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                     }
                 ]);
             assert.ok(
-                dataArray.last().$rows.is(
+                dataArray[6].$rows.is(
                     $tbody.find( "tr[data-record-key='5']" )));
-            assert.deepEqual( dataArray.last().options, options );
+            assert.deepEqual( dataArray[6].options, options );
                 
             done();
         }
     );
 });
-*/
