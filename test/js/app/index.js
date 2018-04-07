@@ -22,5 +22,6 @@ QUnit.testSuites([
     { name: "subform create all fields Test Suite", path: "./subform-create-allFields.html" },
     { name: "form validation Test Suite", path: "./validation-forms.html" },
     { name: "subform validation Test Suite", path: "./validation-subforms.html" },
-    { name: "editable list validation Test Suite", path: "./validation-editableLists.html" }
+    { name: "editable list validation Test Suite", path: "./validation-editableLists.html" },
+    { name: "events Test Suite", path: "./events.html" }
 ]);

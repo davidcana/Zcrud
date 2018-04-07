@@ -382,14 +382,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             return false;
         }
         
-        // Update record from form
-        //record = buildRecordFromForm( $form );
-        record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
-        
         // Add success and error functions to data. Add URL to data
         data.success = function( dataFromServer ){
+            
+            // Update record
+            record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
+            
             eventFunction({
-                //record: history.getRegisterFromDataToSend( data, type ),
                 record: record,
                 serverResponse: dataFromServer,
                 options: options

@@ -280,22 +280,23 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
             testHelper.clickUndoButton();
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             testHelper.checkForm( assert, newRecord );
-
+            
             // Set the name to an invalid value again redoing
             testHelper.clickRedoButton();
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             testHelper.checkForm( assert, badRecord );
-
+            
             // Fix the form undoing again
             testHelper.clickUndoButton();
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             testHelper.checkForm( assert, newRecord );
-
+            
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
+            
             testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ) );
-
+            
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
             testHelper.checkForm( assert, newRecord );
