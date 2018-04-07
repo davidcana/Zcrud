@@ -424,7 +424,7 @@ QUnit.test( "events create form test", function( assert ) {
         }
     );
 });
-/*
+
 QUnit.test( "event delete form test", function( assert ) {
 
     options = formOptions;
@@ -460,6 +460,14 @@ QUnit.test( "event delete form test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
+            var $form = $( '#zcrud-form-department' );
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[0], 
+                $form, 
+                'delete', 
+                options );
+            
             testHelper.clickFormCancelButton();
             assert.deepEqual( 
                 counters,  
@@ -472,6 +480,12 @@ QUnit.test( "event delete form test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[1],
+                $form, 
+                'delete', 
+                options );
             testHelper.checkRecord( assert, key, expectedRecord );
 
             // Go to delete form and delete record
@@ -487,6 +501,14 @@ QUnit.test( "event delete form test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
+            $form = $( '#zcrud-form-department' );
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[2],
+                $form, 
+                'delete', 
+                options );
+            
             testHelper.clickFormSubmitButton();
             assert.deepEqual( 
                 counters,  
@@ -499,13 +521,48 @@ QUnit.test( "event delete form test", function( assert ) {
                     recordUpdated: 0,
                     selectionChanged: 0
                 });
+            
+            checkFormSubmittingEvent( 
+                assert, 
+                dataArray[3], 
+                $form, 
+                'delete', 
+                {
+                    "command": "batchUpdate",
+                    "existingRecords": {},
+                    "newRecords": [],
+                    "recordsToRemove": [ '' + key ],
+                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                }, 
+                options );
+            
+            checkRecordEvent( 
+                assert, 
+                dataArray[4], 
+                expectedRecord, 
+                {
+                    "message":"",
+                    "existingRecords": {},
+                    "newRecords": [],
+                    "recordsToRemove": [ '' + key ],
+                    "result":"OK"
+                },  
+                options );
+            
+            checkOpenCloseEvent( 
+                assert, 
+                dataArray[5],
+                $form, 
+                'delete', 
+                options );
+            
             testHelper.checkNoRecord( assert, key );
 
             done();
         }
     );
 });
-
+/*
 QUnit.test( "event update editable list test", function( assert ) {
 
     options = editableListOptions;

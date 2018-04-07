@@ -384,7 +384,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         
         // Update record from form
         //record = buildRecordFromForm( $form );
-        record = history.getRegisterFromDataToSend( data, type );
+        record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
         
         // Add success and error functions to data. Add URL to data
         data.success = function( dataFromServer ){
