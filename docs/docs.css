@@ -178,3 +178,25 @@ ul.eventList>li .header .return:before {
     margin-left: 2em;
     content: "return: ";
 }
+
+/* Method list */
+ul.methodList {
+    list-style-type: none;
+}
+ul.methodList>li {
+    margin-bottom: 1em;
+}
+ul.methodList>li .header {
+    background: black;
+    color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: .5em;
+}
+ul.methodList>li .header .name {
+    font-weight: bold;
+    font-size: 130%;
+}
+ul.methodList>li .header .return:before {
+    margin-left: 2em;
+    content: "return: ";
+}

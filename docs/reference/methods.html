@@ -13,19 +13,192 @@
         <p>
             <em>ZCrud</em> exposes some methods to make it easy some customizations:
         </p>
-        <ul>
-            <li><a href="methods.html#addRecord">addRecord</a>. Add a new record to the table. (!)</li>
-            <li><a href="methods.html#deleteRecord">deleteRecord</a>. Delete an existing record from the table. (!)</li>
-            <li><a href="methods.html#destroy">destroy</a>. Completely removes table from it's container.</li>
-            <li><a href="methods.html#getRecordByKey">getRecordByKey</a>. Get record by key field's value of the record.</li>
-            <li><a href="methods.html#init">init</a>. Set options and normalize them.</li>
-            <li><a href="methods.html#load">load</a>. Show the list page.</li>
-            <li><a href="methods.html#reload">reload</a>. Show again a list page without configuring options or filters.</li>
-            <li><a href="methods.html#selectedRecords">selectedRecords</a>. Return an array with the selected records.</li>
-            <li><a href="methods.html#selectedRows">selectedRows</a>. Return a jQuery object with the selected rows.</li>
-            <li><a href="methods.html#selectRows">selectRows</a>. Make rows selected.</li>
-            <li><a href="methods.html#showCreateForm">showCreateForm</a>. Open a 'create new record' form dialog.</li>
-            <li><a href="methods.html#updateRecord">updateRecord</a>. Update an existing record on the table. (!)</li>
+        <ul class="methodList">
+            <li>
+                <a id="addRecord"></a>
+                <div class="header">
+                    <span class="name">addRecord (!)</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Add a new record to the table. Possible arguments:
+                    <ul>
+                        <li><em>record</em> (object, required). The record object that will be added to the table.</li>
+                        <li><em>clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not add record to the server, only adds to the table.</li>
+                        <li><em>url</em> (string, optional, default: action property of page). You can supply different URL to create the new record on the server.</li>
+                        <li><em>success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully added to the table.</li>
+                        <li><em>error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during adding of the new record.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="deleteRecord"></a>
+                <div class="header">
+                    <span class="name">deleteRecord (!)</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Delete an existing record from the table. Possible arguments:
+                    <ul>
+                        <li><em>key</em> (string, required). The id of the record to delete.</li>
+                        <li><em>clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not add record to the server, only adds to the table.</li>
+                        <li><em>url</em> (string, optional, default: action property of page). You can supply different URL to create the new record on the server.</li>
+                        <li><em>success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully added to the table.</li>
+                        <li><em>error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during adding of the new record.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="destroy"></a>
+                <div class="header">
+                    <span class="name">destroy</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Completely removes table from its container. No arguments.
+                </div>
+            </li>
+            <li>
+                <a id="getRowByKey"></a>
+                <div class="header">
+                    <span class="name">getRowByKey (!)</span>
+                    <span class="return">jQuery selection object</span>
+                </div>
+                <div class="body">
+                    This method is used to get related row (jQuery selection) of a record by key field's value of the record. Possible arguments:
+                    <ul>
+                        <li><em>key</em> (string, required). The id of the record.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="getRecordByKey"></a>
+                <div class="header">
+                    <span class="name">getRecordByKey</span>
+                    <span class="return">object</span>
+                </div>
+                <div class="body">
+                    Get record by key field's value of the record. Possible arguments:
+                    <ul>
+                        <li><em>key</em> (string, required). The id of the record.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="init"></a>
+                <div class="header">
+                    <span class="name">init</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Set options and normalize them. Possible arguments:
+                    <ul>
+                        <li><em>options</em> (object, required). A full configuration options object for ZCrud.</li>
+                        <li><em>callback</em> (function, optional, default: undefined). A callback function that will be executed after all asynchronous code.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="load"></a>
+                <div class="header">
+                    <span class="name">load</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Load data from server and show the list page. Possible arguments:
+                    <ul>
+                        <li><em>options</em> (object, optional). A full configuration options object for ZCrud.</li>
+                        <li><em>callback</em> (function, optional, default: undefined). A callback function that will be executed after all asynchronous code.</li>
+                        <li><em>filter</em> (object, optional). A record used as a filter.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="reload"></a>
+                <div class="header">
+                    <span class="name">reload</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Show again a list page without configuring options or filters. Possible arguments:
+                    <ul>
+                        <li><em>callback</em> (function, optional, default: undefined). A callback function that will be executed after all asynchronous code.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="selectedRecords"></a>
+                <div class="header">
+                    <span class="name">selectedRecords</span>
+                    <span class="return">array of objects</span>
+                </div>
+                <div class="body">
+                    Return an array with the selected records. No arguments.
+                </div>
+            </li>
+            <li>
+                <a id="selectedRows"></a>
+                <div class="header">
+                    <span class="name">selectedRows</span>
+                    <span class="return">jQuery selection object</span>
+                </div>
+                <div class="body">
+                    Return a jQuery object with the selected rows. No arguments.
+                </div>
+            </li>
+            <li>
+                <a id="selectRows"></a>
+                <div class="header">
+                    <span class="name">selectRows</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Select one or more rows on the table. Possible arguments:
+                    <ul>
+                        <li><em>rows</em> (jQuery selection, required). The rows to select.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="showCreateForm"></a>
+                <div class="header">
+                    <span class="name">showCreateForm</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Open a 'create new record' form dialog. No arguments.
+                </div>
+            </li>
+            <li>
+                <a id="showUpdateForm"></a>
+                <div class="header">
+                    <span class="name">showUpdateForm (!)</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Open a 'update record' form dialog. Possible arguments:
+                    <ul>
+                        <li><em>key</em> (string, required). The id of the record to update.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="updateRecord"></a>
+                <div class="header">
+                    <span class="name">updateRecord (!)</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Update an existing record on the table. Possible arguments:
+                    <ul>
+                        <li><em>record</em> (object, required). The record object that will be updated.</li>
+                        <li><em>clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not send the record to the server, only updates the table.</li>
+                        <li><em>url</em> (string, optional, default: action property of page). You can supply different URL to update the record on the server.</li>
+                        <li><em>success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully updated.</li>
+                        <li><em>error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during updating the record.</li>
+                    </ul>
+                </div>
+            </li>
         </ul>
 
     </body>
