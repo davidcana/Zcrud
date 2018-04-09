@@ -61,6 +61,12 @@ var context = require( './context.js' );
             case 'showCreateForm':
                 zcrud.showCreateForm( getOptions( this ) );
                 break;
+            case 'showUpdateForm':
+                zcrud.showUpdateForm( getOptions( this ), arguments[1] );
+                break;
+            case 'showDeleteForm':
+                zcrud.showDeleteForm( getOptions( this ), arguments[1] );
+                break;
             case 'updateRecord':
                 zcrud.updateRecord( getOptions( this ), arguments[1], arguments[2] );
                 break;

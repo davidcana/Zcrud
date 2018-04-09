@@ -13,8 +13,8 @@ var editableListOptions = require( './editableListTestOptions.js' );
 var formOptions = require( './defaultTestOptions.js' );
 var options = undefined;
 
-
 // Run tests
+/*
 QUnit.test( "selection related methods test (using selectRows)", function( assert ) {
 
     var thisTestOptions = {
@@ -211,3 +211,131 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
         }
     );
 });
+*/
+QUnit.test( "showCreateForm test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            assert.equal( 
+                $( '#zcrud-form-department' ).length,
+                0 );
+            
+            $( '#departmentsContainer' ).zcrud( 'showCreateForm' );
+            
+            assert.equal( 
+                $( '#zcrud-form-department' ).length,
+                1 );
+            
+            // Fill create form
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "description": "Service " + key + " description",
+                "province": "Málaga",
+                "city": "Marbella"
+            };
+            testHelper.fillForm( record );
+            testHelper.checkForm( assert, record );
+            
+            // Submit
+            testHelper.clickFormSubmitButton();
+            testHelper.checkRecord( assert, key, record );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "showUpdateForm test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            assert.equal( 
+                $( '#zcrud-form-department' ).length,
+                0 );
+            
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            $( '#departmentsContainer' ).zcrud( 'showUpdateForm', key );
+
+            assert.equal( 
+                $( '#zcrud-form-department' ).length,
+                1 );
+
+            // Fill create form
+            var editedRecord =  {
+                "name": "Service " + key + " edited",
+                "description": "Service " + key + " description",
+                "province": "Málaga",
+                "city": "Marbella"
+            };
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.fillForm( editedRecord );
+            testHelper.checkForm( assert, newRecord );
+
+            // Submit
+            testHelper.clickFormSubmitButton();
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "showDeleteForm test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            assert.equal( 
+                $( '#zcrud-form-department' ).length,
+                0 );
+            
+            var key = 2;
+            $( '#departmentsContainer' ).zcrud( 'showDeleteForm', key );
+
+            assert.equal( 
+                $( '#zcrud-form-department' ).length,
+                1 );
+
+            testHelper.clickFormSubmitButton();
+            testHelper.checkNoRecord( assert, key );
+            
+            done();
+        }
+    );
+});
+

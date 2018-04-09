@@ -491,6 +491,24 @@ exports.showCreateForm = function( listPageIdSource ){
     listPage.showCreateForm();
 };
 
+exports.showUpdateForm = function( listPageIdSource, key ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        return;
+    }
+    listPage.showEditForm( undefined, key );
+};
+
+exports.showDeleteForm = function( listPageIdSource, key ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        return;
+    }
+    listPage.showDeleteForm( undefined, key );
+};
+
 exports.getRecordByKey = function( listPageIdSource, key ){
     
     var listPage = context.getListPage( listPageIdSource );

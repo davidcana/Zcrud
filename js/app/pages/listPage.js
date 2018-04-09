@@ -261,13 +261,13 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         showForm( options, 'create' );
     };
     
-    var showEditForm = function( event ){
-        var key = getKeyFromButton( event );
+    var showEditForm = function( event, forcedKey ){
+        var key = forcedKey || getKeyFromButton( event );
         showForm( options, 'update', records[ key ] );
     };
     
-    var showDeleteForm = function( event ){
-        var key = getKeyFromButton( event );
+    var showDeleteForm = function( event, forcedKey ){
+        var key = forcedKey || getKeyFromButton( event );
         showForm( options, 'delete', records[ key ] );
     };
     
@@ -387,6 +387,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         show: show,
         getId: getId,
         showCreateForm: showCreateForm,
+        showEditForm: showEditForm,
+        showDeleteForm: showDeleteForm,
         getRecordByKey: getRecordByKey,
         getOptions: getOptions,
         getThisOptions: getThisOptions,
