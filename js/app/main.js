@@ -518,6 +518,15 @@ exports.getRecordByKey = function( listPageIdSource, key ){
     return listPage.getRecordByKey( key );
 };
 
+exports.getRowByKey = function( listPageIdSource, key ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        return;
+    }
+    return listPage.getRowByKey( key );
+};
+
 exports.addRecord = function( listPageIdSource, record, event ){
     alert( 'Not implemented yet!' );
     /*

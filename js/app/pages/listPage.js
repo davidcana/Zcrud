@@ -305,6 +305,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return records[ key ];
     };
     
+    var getRowByKey = function( key ){
+        return $( '#' + id ).find( "[data-record-key='" + key + "']" );
+    };
+    
     var selectRecords = function( rows ){
         var selectionComponent = components[ 'selecting' ];
         if ( ! selectionComponent ){
@@ -390,6 +394,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         showEditForm: showEditForm,
         showDeleteForm: showDeleteForm,
         getRecordByKey: getRecordByKey,
+        getRowByKey: getRowByKey,
         getOptions: getOptions,
         getThisOptions: getThisOptions,
         selectRecords: selectRecords,

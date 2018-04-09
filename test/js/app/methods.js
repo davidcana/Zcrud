@@ -211,7 +211,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
         }
     );
 });
-*/
+
 QUnit.test( "showCreateForm test", function( assert ) {
 
     var thisTestOptions = {};
@@ -333,6 +333,42 @@ QUnit.test( "showDeleteForm test", function( assert ) {
 
             testHelper.clickFormSubmitButton();
             testHelper.checkNoRecord( assert, key );
+            
+            done();
+        }
+    );
+});
+*/
+QUnit.test( "getRecordByKey/getRowByKey test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var key = 2;
+            var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
+            assert.deepEqual(
+                record,
+                {
+                    "id": "2",
+                    "name": "Service 2"
+                }
+            );
+            
+            var $tbody = $( '#zcrud-list-tbody-department' );
+            var $row = $( '#departmentsContainer' ).zcrud( 'getRowByKey', key );
+            assert.ok(
+                $row.is( 
+                    $tbody.find( "[data-record-key='" + key + "']" ) )
+            );
             
             done();
         }
