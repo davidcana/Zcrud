@@ -257,6 +257,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/events.js',
                 dest: 'build/events.js'
+            },
+            methods: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/methods.js',
+                dest: 'build/methods.js'
             }
         },
         compress: {

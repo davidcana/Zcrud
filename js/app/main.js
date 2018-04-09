@@ -533,6 +533,24 @@ exports.deleteRecord = function( listPageIdSource, key, event ){
     */
 };
 
+exports.selectRecords = function( listPageIdSource, rows ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        return;
+    }
+    listPage.selectRecords( rows );
+};
+
+exports.deselectRecords = function( listPageIdSource, rows ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        return;
+    }
+    listPage.deselectRecords( rows );
+};
+
 exports.selectRows = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
@@ -540,6 +558,15 @@ exports.selectRows = function( listPageIdSource, rows ){
         return;
     }
     listPage.selectRows( rows );
+};
+
+exports.deselectRows = function( listPageIdSource, rows ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        return;
+    }
+    listPage.deselectRows( rows );
 };
 
 exports.selectedRows = function( listPageIdSource ){

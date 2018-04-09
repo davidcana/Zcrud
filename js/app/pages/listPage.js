@@ -305,6 +305,22 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return records[ key ];
     };
     
+    var selectRecords = function( rows ){
+        var selectionComponent = components[ 'selecting' ];
+        if ( ! selectionComponent ){
+            return;
+        }
+        selectionComponent.selectRecords( rows );
+    };
+    
+    var deselectRecords = function( rows ){
+        var selectionComponent = components[ 'selecting' ];
+        if ( ! selectionComponent ){
+            return;
+        }
+        selectionComponent.deselectRecords( rows );
+    };
+    
     var selectRows = function( rows ){
         var selectionComponent = components[ 'selecting' ];
         if ( ! selectionComponent ){
@@ -312,7 +328,15 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
         selectionComponent.selectRows( rows );
     };
-
+    
+    var deselectRows = function( rows ){
+        var selectionComponent = components[ 'selecting' ];
+        if ( ! selectionComponent ){
+            return;
+        }
+        selectionComponent.deselectRows( rows );
+    };
+    
     var selectedRows = function(){
         var selectionComponent = components[ 'selecting' ];
         if ( ! selectionComponent ){
@@ -366,7 +390,10 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         getRecordByKey: getRecordByKey,
         getOptions: getOptions,
         getThisOptions: getThisOptions,
+        selectRecords: selectRecords,
+        deselectRecords: deselectRecords,
         selectRows: selectRows,
+        deselectRows: deselectRows,
         selectedRows: selectedRows,
         selectedRecords: selectedRecords,
         getComponent: getComponent,

@@ -244,6 +244,40 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         onSelectionChanged(); //TODO: trigger only if selected rows changes?
     };
     
+    var deselectRows = function( $rows ){
+        _deselectRows( $rows );
+        onSelectionChanged(); //TODO: trigger only if selected rows changes?
+    };
+    
+    var selectRecords = function( records ){
+        selectionOperationOnRecords( records, selectRows);
+    };
+    
+    var deselectRecords = function( records ){
+        selectionOperationOnRecords( records, deselectRows);
+    };
+    
+    var selectionOperationOnRecords = function( records, operationFunction ){
+
+        if ( ! records ){
+            return;
+        }
+
+        var selector = '';
+        for ( var c = 0; c < records.length; ++c ){
+            var record = records[ c ];
+            if ( c > 0 ){
+                selector += ', ';
+            }
+            var key = record[ options.key ];
+            selector += "[data-record-key='" + key + "']";
+        }
+
+        if ( selector ){
+            operationFunction( getAllTableRows().filter( selector ) );
+        }
+    };
+    
     /* Gets all selected rows.
         *************************************************************************/
     var selectedRows = function(){
@@ -281,7 +315,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
+        selectRecords: selectRecords,
         selectRows: selectRows,
+        deselectRecords: deselectRecords,
+        deselectRows: deselectRows,
         selectedRows: selectedRows,
         selectedRecords: selectedRecords,
         resetPage: resetPage

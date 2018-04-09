@@ -22,6 +22,12 @@ var context = require( './context.js' );
             case 'deleteRecord':
                 zcrud.deleteRecord( getOptions( this ), arguments[1], arguments[2] );
                 break;
+            case 'deselectRecords':
+                zcrud.deselectRecords( getOptions( this ), arguments[1] );
+                break;
+            case 'deselectRows':
+                zcrud.deselectRows( getOptions( this ), arguments[1] );
+                break;
             case 'destroy':
                 zcrud.destroy( getOptions( this ) );
                 break;
@@ -44,9 +50,10 @@ var context = require( './context.js' );
                 break;
             case 'selectedRecords':
                 return zcrud.selectedRecords( getOptions( this ) );
-                break;
             case 'selectedRows':
                 return zcrud.selectedRows( getOptions( this ) );
+            case 'selectRecords':
+                zcrud.selectRecords( getOptions( this ), arguments[1] );
                 break;
             case 'selectRows':
                 zcrud.selectRows( getOptions( this ), arguments[1] );
