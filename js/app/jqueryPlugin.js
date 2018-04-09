@@ -47,9 +47,6 @@ var context = require( './context.js' );
             case 'load':
                 zcrud.load( getOptions( this ), arguments[1], arguments[2] );
                 break;
-            case 'reload':
-                zcrud.reload( getOptions( this ), arguments[1] );
-                break;
             case 'selectedRecords':
                 return zcrud.selectedRecords( getOptions( this ) );
             case 'selectedRows':

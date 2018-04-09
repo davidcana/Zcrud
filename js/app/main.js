@@ -9,7 +9,6 @@ Public methods of ZCrud:
  - getRecordByKey: Get record by key field's value of the record.
  - init: Set options and normalize them.
  - load: Show the list page. 
- - reload: Show again a list page without configuring options or filters.
  - selectedRecords: Return an array with the selected records.
  - selectedRows: Return a jQuery object with the selected rows.
  - selectRows: Make rows selected.
@@ -467,15 +466,6 @@ exports.load = function( options, filter, callback ){
     listPage.show( true, undefined, undefined, callback );
     
     log.info( '...showing list finished.' );
-};
-
-exports.reload = function( listPageIdSource, callback ){
-    
-    var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        return;
-    }
-    listPage.show( true, undefined, undefined, callback );
 };
 
 exports.destroy = function( options ){
