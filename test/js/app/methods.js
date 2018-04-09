@@ -375,3 +375,37 @@ QUnit.test( "getRecordByKey/getRowByKey test", function( assert ) {
     );
 });
 
+QUnit.test( "load (using filter) test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 
+                'load', 
+                { 
+                    name: 'Service 1'
+                } );
+            
+            var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 41',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
+            });
+            
+            done();
+        }
+    );
+});
