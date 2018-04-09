@@ -7,8 +7,9 @@ var context = require( './context.js' );
 (function ( $ ) {
  
     var getOptions = function( jqueryObject ){
-        var selectorString = context.getSelectorString( jqueryObject );
-        return context.getOptions( selectorString );
+        /*var selectorString = context.getSelectorString( jqueryObject );
+        return context.getOptions( selectorString );*/
+        return context.getOptions( jqueryObject )
     };
     
     $.fn.zcrud = function( action ) {
@@ -27,8 +28,13 @@ var context = require( './context.js' );
             case 'getRecordByKey':
                 return zcrud.getRecordByKey( getOptions( this ), arguments[1] );
             case 'init':
-                arguments[1].target = this;
-                zcrud.init( arguments[1], arguments[2] );
+                //arguments[1].target = this;
+                var options = zcrud.init( arguments[1], arguments[2] );
+                options.target = this;
+                context.putOptions( this, options );
+                /*context.putOptions( 
+                    context.getSelectorString( this ), 
+                    options );*/
                 break;
             case 'load':
                 zcrud.load( getOptions( this ), arguments[1], arguments[2] );
@@ -50,15 +56,6 @@ var context = require( './context.js' );
                 break;
             case 'updateRecord':
                 zcrud.updateRecord( getOptions( this ), arguments[1], arguments[2] );
-                break;
-            case 'undoListAction':
-                zcrud.undoListAction( getOptions( this ) );
-                break;
-            case 'redoListAction':
-                zcrud.redoListAction( getOptions( this ) );
-                break;
-            case 'saveList':
-                zcrud.saveList( getOptions( this ) );
                 break;
             default:
                 alert( 'Unknown action: ' + action );

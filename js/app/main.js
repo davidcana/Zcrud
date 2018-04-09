@@ -429,25 +429,33 @@ exports.init = function( userOptions, callback ){
     initI18n();
     
     // Register options using jquery selector 
+    /*
     context.putOptions( 
         context.getSelectorString( options.target ), 
-        options );
+        options );*/
     
     log.info( '...ZCrud initialized.' );
+    
+    return options;
 };
 
-// Returns a listPage instance. Value can be an object (then use its listId property) 
-// or a string (then use it as the listId)
-var getListPageFromValue = function( value ){
+// Returns a listPage instance from options
+/*
+var getListPage = function( listPageIdSource ){
     
-    var listPageId = typeof value === 'object'? value.pages.list.id: value;
+    try {
+        var listPageId = typeof listPageIdSource === 'object'? listPageIdSource.pages.list.id: listPageIdSource;
+    } catch ( e ) {
+        alert( 'Exception trying to get options.pages.list.id!' );
+        return false;
+    }
     var listPage = context.getPage( listPageId  );
     if ( ! listPage ){
         alert( 'List page not found in context!' );
         return false;
     }
     return listPage;
-};
+};*/
 
 exports.load = function( options, filter, callback ){
 
@@ -461,9 +469,9 @@ exports.load = function( options, filter, callback ){
     log.info( '...showing list finished.' );
 };
 
-exports.reload = function( value, callback ){
+exports.reload = function( listPageIdSource, callback ){
     
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
@@ -474,28 +482,28 @@ exports.destroy = function( options ){
     options.target.empty();
 };
 
-exports.showCreateForm = function( value ){
+exports.showCreateForm = function( listPageIdSource ){
     
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
     listPage.showCreateForm();
 };
 
-exports.getRecordByKey = function( value, key ){
+exports.getRecordByKey = function( listPageIdSource, key ){
     
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
     return listPage.getRecordByKey( key );
 };
 
-exports.addRecord = function( value, record, event ){
+exports.addRecord = function( listPageIdSource, record, event ){
     alert( 'Not implemented yet!' );
     /*
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
@@ -503,10 +511,10 @@ exports.addRecord = function( value, record, event ){
     */
 };
 
-exports.updateRecord = function( value, record, event ){
+exports.updateRecord = function( listPageIdSource, record, event ){
     alert( 'Not implemented yet!' );
     /*
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
@@ -514,10 +522,10 @@ exports.updateRecord = function( value, record, event ){
     */
 };
 
-exports.deleteRecord = function( value, key, event ){
+exports.deleteRecord = function( listPageIdSource, key, event ){
     alert( 'Not implemented yet!' );
     /*
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
@@ -525,56 +533,29 @@ exports.deleteRecord = function( value, key, event ){
     */
 };
 
-exports.selectRows = function( value, rows ){
+exports.selectRows = function( listPageIdSource, rows ){
 
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
     listPage.selectRows( rows );
 };
 
-exports.selectedRows = function( value ){
+exports.selectedRows = function( listPageIdSource ){
 
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
     return listPage.selectedRows();
 };
 
-exports.selectedRecords = function( value ){
+exports.selectedRecords = function( listPageIdSource ){
 
-    var listPage = getListPageFromValue( value );
+    var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         return;
     }
     return listPage.selectedRecords();
 };
-/*
-exports.undoListAction = function( value ){
-
-    var listPage = getListPageFromValue( value );
-    if ( ! listPage ){
-        return;
-    }
-    return listPage.undo();
-};
-
-exports.redoListAction = function( value ){
-
-    var listPage = getListPageFromValue( value );
-    if ( ! listPage ){
-        return;
-    }
-    return listPage.redo();
-};
-
-exports.saveList = function( value ){
-
-    var listPage = getListPageFromValue( value );
-    if ( ! listPage ){
-        return;
-    }
-    return listPage.save();
-};*/

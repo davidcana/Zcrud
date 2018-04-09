@@ -245,12 +245,19 @@ module.exports = (function() {
     };
     
     // options
+    var putOptions = function( jqueryObject, options ){
+        put( 'options_' + getSelectorString( jqueryObject ), options );
+    };
+    var getOptions = function( jqueryObject ){
+        return get( 'options_' + getSelectorString( jqueryObject ) );
+    };
+    /*
     var putOptions = function( id, options ){
         put( 'options_' + id, options );
     };
     var getOptions = function( id ){
         return get( 'options_' + id );
-    };
+    };*/
     
     // pages
     var putPage = function( id, page ){
@@ -266,9 +273,21 @@ module.exports = (function() {
         return selector;
     };
     
+    var getListPage = function( listPageIdSource ){
+        
+        try {
+            var listPageId = typeof listPageIdSource === 'object'? listPageIdSource.pages.list.id: listPageIdSource;
+        } catch ( e ) {
+            alert( 'Exception trying to get options.pages.list.id!' );
+            return false;
+        }
+        
+        return getPage( listPageId );
+    };
+    /*
     var getListPage = function( options ){
         return getPage( options.pages.list.id );
-    };
+    };*/
     
     // Add to declaredRemotePageUrls all non repeated urls
     var declareRemotePageUrl = function( template, declaredRemotePageUrls ){
