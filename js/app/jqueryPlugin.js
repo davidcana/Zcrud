@@ -17,10 +17,10 @@ var context = require( './context.js' );
 
         switch ( action ){
             case 'addRecord':
-                zcrud.addRecord( getOptions( this ), arguments[1], arguments[2] );
+                zcrud.addRecord( getOptions( this ), arguments[1] );
                 break;
             case 'deleteRecord':
-                zcrud.deleteRecord( getOptions( this ), arguments[1], arguments[2] );
+                zcrud.deleteRecord( getOptions( this ), arguments[1] );
                 break;
             case 'deselectRecords':
                 zcrud.deselectRecords( getOptions( this ), arguments[1] );
@@ -67,7 +67,7 @@ var context = require( './context.js' );
                 zcrud.showDeleteForm( getOptions( this ), arguments[1] );
                 break;
             case 'updateRecord':
-                zcrud.updateRecord( getOptions( this ), arguments[1], arguments[2] );
+                zcrud.updateRecord( getOptions( this ), arguments[1] );
                 break;
             default:
                 alert( 'Unknown action: ' + action );

@@ -258,31 +258,27 @@ var ListPage = function ( optionsToApply, filterToApply ) {
     };
     
     var showCreateForm = function( event ){
-        showForm( options, 'create' );
+        showForm( 'create' );
     };
     
     var showEditForm = function( event, forcedKey ){
         var key = forcedKey || getKeyFromButton( event );
-        showForm( options, 'update', records[ key ] );
+        showForm( 'update', records[ key ] );
     };
     
     var showDeleteForm = function( event, forcedKey ){
         var key = forcedKey || getKeyFromButton( event );
-        showForm( options, 'delete', records[ key ] );
+        showForm( 'delete', records[ key ] );
     };
     
-    var showForm = function( options, type, record ){
-        var formPage =  new FormPage( options, type, record );
-        
-        /*
-        if ( record ){
-            formPage.setRecord( record );
-        } else {
-            formPage.updateRecordFromDefaultValues();
-        }*/
-        
+    var showForm = function( type, record ){
+        var formPage =  new FormPage( options, type, record, self );        
         formPage.show();
     };
+    
+    var instanceNewForm = function( type, record ){
+        return new FormPage( options, type, record, self );        
+    }
     
     var getKeyFromButton = function( event ){
         return $( event.target ).parent().parent().attr( 'data-record-key' );
@@ -411,7 +407,8 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         getFieldByName: getFieldByName,
         getFields: getFields,
         getPostTemplate: getPostTemplate,
-        get$form: get$form
+        get$form: get$form,
+        instanceNewForm: instanceNewForm
     };
     
     configure();

@@ -12,7 +12,7 @@ var History = require( '../history/history.js' );
 var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
 var datetimeFieldManager = require( '../fields/datetimeFieldManager.js' );
 
-var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
+var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageToApply ) {
     "use strict";
 
     var options = optionsToApply;
@@ -30,9 +30,15 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         return record;
     };
     
+    var listPage = listPageToApply;
+    
     var id = options.formId;
     var getId = function(){
         return id;
+    };
+    
+    var get$form = function(){
+        return $( '#' + id );
     };
     
     var title = undefined;
@@ -108,7 +114,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         case 'create':
             thisOptions = options.pages.create;
             title = "Create form";
-            submitFunction = submitCreateForm;
+            submitFunction = submitCreate;
             eventFunction = options.events.recordAdded;
             buildFields(
                 function( field ){
@@ -122,7 +128,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         case 'update':
             thisOptions = options.pages.update;
             title = "Edit form";
-            submitFunction = submitUpdateForm;
+            submitFunction = submitUpdate;
             eventFunction = options.events.recordUpdated;
             buildFields(
                 function( field ){
@@ -133,7 +139,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         case 'delete':
             thisOptions = options.pages.delete;
             title = "Delete form";
-            submitFunction = submitDeleteForm;
+            submitFunction = submitDelete;
             eventFunction = options.events.recordDeleted;
             buildFields(
                 function( field ){
@@ -194,7 +200,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
                 declaredRemotePageUrls: options.templates.declaredRemotePageUrls
             });
             
-            afterProcessTemplate( $( '#' + id ) );
+            afterProcessTemplate( get$form() );
             
         } catch( e ){
             alert ( 'Error trying to show form: ' + e );    
@@ -382,37 +388,45 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
             return false;
         }
         
-        // Add success and error functions to data. Add URL to data
-        data.success = function( dataFromServer ){
-            
-            // Update record
-            record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
-            
-            eventFunction({
-                record: record,
-                serverResponse: dataFromServer,
-                options: options
-            }, 
-            event );
-            triggerFormClosedEvent( event, $form );
-            context.getListPage( options ).show(
-                true,
-                {
-                    status: {
-                        message: successMessage,
-                        date: new Date().toLocaleString()
-                    }
-                });
-            history.reset( elementId );
-        };
-        data.error = function( dataFromServer ){
-            if ( dataFromServer.message ){
-                context.showError( options, dataFromServer.message, false );
-            } else {
-                context.showError( options, 'serverCommunicationError', true );
-            }
-        };
-        data.url = thisOptions.action || options.defaultFormConf.action;
+        // Add success and error functions to data if not present yet. Add URL to data if not present yet
+        if ( data.success == undefined ){
+            data.success = function( dataFromServer ){
+
+                // Update record
+                record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
+
+                eventFunction({
+                    record: record,
+                    serverResponse: dataFromServer,
+                    options: options
+                }, 
+                event );
+                triggerFormClosedEvent( event, $form );
+                context.getListPage( options ).show(
+                    true,
+                    {
+                        status: {
+                            message: successMessage,
+                            date: new Date().toLocaleString()
+                        }
+                    });
+                history.reset( elementId );
+            };
+        }
+        
+        if ( data.error == undefined ){
+            data.error = function( dataFromServer ){
+                if ( dataFromServer.message ){
+                    context.showError( options, dataFromServer.message, false );
+                } else {
+                    context.showError( options, 'serverCommunicationError', true );
+                }
+            };
+        }
+        
+        if ( data.url == undefined ){
+            data.url = thisOptions.action || options.defaultFormConf.action;
+        }
         
         // Do the CRUD!
         crudManager.batchUpdate( 
@@ -429,39 +443,115 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         return data;
     };
     
-    var submitCreateForm = function( event, $form ){
+    var submitCreate = function( event, $form ){
 
         return saveCommon( 
             id, 
             event,
             history.buildDataToSend( 
-                options, 
-                options.defaultFormConf, 
+                options.key, 
+                options.defaultFormConf.dataToSend, 
                 [ ],
                 fields ),
             $form );
     };
     
-    var submitUpdateForm = function( event, $form ){
+    var addRecord = function( userData ){
+        
+        var event = undefined;
+        var $form = get$form();
+        var data = history.buildDataToSendForAddRecordMethod( userData.record );
+        
+        addAllRecordMethodProperties( userData, data );
+
+        return saveCommon( 
+            id, 
+            event,
+            data,
+            $form );
+    };
+    
+    var addAllRecordMethodProperties = function( fromObject, toObject ){
+        addProperties( fromObject, toObject, [ 'clientOnly', 'url', 'success', 'error' ] );
+    };
+    
+    var addProperties = function( fromObject, toObject, properties ){
+        
+        for ( var c = 0; c < properties.length; ++c ){
+            var property = properties[ c ];
+            var value = fromObject[ property ];
+            if ( value != undefined ){
+                toObject[ property ] = value;
+            }
+        }
+    };
+    
+    var submitUpdate = function( event, $form ){
 
         return saveCommon( 
             id, 
             event,
             history.buildDataToSend( 
-                options, 
-                options.defaultFormConf, 
+                options.key, 
+                options.defaultFormConf.dataToSend, 
                 [ record ], 
                 fields ),
             $form );
     };
+    
+    var updateRecord = function( userData ){
 
-    var submitDeleteForm = function( event, $form ){
+        var event = undefined;
+        var $form = get$form();
+        
+        var currentRecord = listPage.getRecordByKey(
+            userData.record[ options.key ] );
+        
+        if ( ! currentRecord ){
+            alert( 'Key not found in record in updateRecord method!' );
+            return;
+        }
+        
+        var data = history.buildDataToSendForUpdateRecordMethod( 
+            options.key,
+            options.defaultFormConf.dataToSend, 
+            currentRecord,
+            userData.record,
+            fieldsMap,
+            fields );
+
+        addAllRecordMethodProperties( userData, data );
+
+        return saveCommon( 
+            id, 
+            event,
+            data,
+            $form );
+    };
+    
+    var submitDelete = function( event, $form ){
 
         return saveCommon( 
             id, 
             event,
             history.buildDataToSendForRemoving( 
                 [ $( '#zcRecordKey' ).val() ] ),
+            $form );
+    };
+    
+    var deleteRecord = function( userData ){
+
+        var event = undefined;
+        var $form = get$form();
+        var data = history.buildDataToSendForRemoving( 
+            [ userData.key ] );
+
+        addAllRecordMethodProperties( userData, data );
+
+        return saveCommon( 
+            id, 
+            event,
+            data,
             $form );
     };
     
@@ -518,7 +608,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply ) {
         mustHideLabel: mustHideLabel,
         getHistory: getHistory,
         getFieldByName: getFieldByName,
-        getParentFieldByName: getParentFieldByName
+        getParentFieldByName: getParentFieldByName,
+        addRecord: addRecord,
+        updateRecord: updateRecord,
+        deleteRecord: deleteRecord
     };
     
     configure();

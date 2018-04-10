@@ -26,12 +26,9 @@ var log4javascript = require( 'log4javascript' );
 
 exports.init = function( userOptions, callback ){
     
-    /************************************************************************
-    * DEFAULT OPTIONS / EVENTS                                              *
-    *************************************************************************/
+    /* defaultOptions */
     var defaultOptions = {
 
-        //actions: {},
         validation: {
             modules: '',
             rules: {},
@@ -45,16 +42,6 @@ exports.init = function( userOptions, callback ){
         saveUserPreferences: true,
         body: document.body,
         entityId: 'entity',
-        
-        //animationsEnabled: true,
-        //loadingAnimationDelay: 500,
-        /*
-        toolbar: {
-            hoverAnimation: true,
-            hoverAnimationDuration: 60,
-            hoverAnimationEasing: undefined,
-            items: []
-        },*/
         
         fields: {},
         fieldsConfig: {
@@ -91,9 +78,7 @@ exports.init = function( userOptions, callback ){
             recordAdded: function ( data, event ) {},
             recordDeleted: function ( data, event ) {},
             recordUpdated: function ( data, event ) {},
-            
             selectionChanged: function ( data ) {}
-            //batchUpdateDone: function ( event, options, dataToSend ) {}
         },
         
         pages: {
@@ -404,7 +389,7 @@ exports.init = function( userOptions, callback ){
             }
             context.setI18nArray( i18nArray, options );
             context.initZPT({
-                root: document.body,
+                root: options.body,
                 dictionary: options.dictionary,
                 declaredRemotePageUrls: options.allDeclaredRemotePageUrls,
                 callback: function(){
@@ -427,41 +412,16 @@ exports.init = function( userOptions, callback ){
     // Init I18n
     initI18n();
     
-    // Register options using jquery selector 
-    /*
-    context.putOptions( 
-        context.getSelectorString( options.target ), 
-        options );*/
-    
     log.info( '...ZCrud initialized.' );
     
     return options;
 };
-
-// Returns a listPage instance from options
-/*
-var getListPage = function( listPageIdSource ){
-    
-    try {
-        var listPageId = typeof listPageIdSource === 'object'? listPageIdSource.pages.list.id: listPageIdSource;
-    } catch ( e ) {
-        alert( 'Exception trying to get options.pages.list.id!' );
-        return false;
-    }
-    var listPage = context.getPage( listPageId  );
-    if ( ! listPage ){
-        alert( 'List page not found in context!' );
-        return false;
-    }
-    return listPage;
-};*/
 
 exports.load = function( options, filter, callback ){
 
     log.info( 'Showing list...' );
     
     var listPage =  new ListPage( options, filter );
-    //listPage.configure();
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
     
@@ -476,6 +436,7 @@ exports.showCreateForm = function( listPageIdSource ){
     
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     listPage.showCreateForm();
@@ -485,6 +446,7 @@ exports.showUpdateForm = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     listPage.showEditForm( undefined, key );
@@ -494,6 +456,7 @@ exports.showDeleteForm = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     listPage.showDeleteForm( undefined, key );
@@ -503,6 +466,7 @@ exports.getRecordByKey = function( listPageIdSource, key ){
     
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     return listPage.getRecordByKey( key );
@@ -512,48 +476,17 @@ exports.getRowByKey = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     return listPage.getRowByKey( key );
-};
-
-exports.addRecord = function( listPageIdSource, record, event ){
-    alert( 'Not implemented yet!' );
-    /*
-    var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        return;
-    }
-    FormPage.createRecord( listPage.getOptions(), record, event );
-    */
-};
-
-exports.updateRecord = function( listPageIdSource, record, event ){
-    alert( 'Not implemented yet!' );
-    /*
-    var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        return;
-    }
-    FormPage.updateRecord( listPage.getOptions(), record, event );
-    */
-};
-
-exports.deleteRecord = function( listPageIdSource, key, event ){
-    alert( 'Not implemented yet!' );
-    /*
-    var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        return;
-    }
-    FormPage.deleteRecord( listPage.getOptions(), key, event );
-    */
 };
 
 exports.selectRecords = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     listPage.selectRecords( rows );
@@ -563,6 +496,7 @@ exports.deselectRecords = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     listPage.deselectRecords( rows );
@@ -572,6 +506,7 @@ exports.selectRows = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     listPage.selectRows( rows );
@@ -581,6 +516,7 @@ exports.deselectRows = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     listPage.deselectRows( rows );
@@ -590,6 +526,7 @@ exports.selectedRows = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     return listPage.selectedRows();
@@ -599,7 +536,53 @@ exports.selectedRecords = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
     return listPage.selectedRecords();
+};
+
+var recordOperationCommon = function( listPageIdSource, data, checkRecord, checkKey, method, type ){
+    
+    if ( checkRecord && ! data.record ){
+        alert( 'Record not set in ' + method + ' method!' );
+        return false;
+    }
+    
+    if ( checkKey && ! data.key ){
+        alert( 'Key not set in ' + method + ' method!' );
+        return false;
+    }
+    
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
+        return false;
+    }
+    
+    return listPage.instanceNewForm( type, data.record );
+};
+
+exports.addRecord = function( listPageIdSource, data ){
+    
+    var formPage = recordOperationCommon( listPageIdSource, data, true, false, 'addRecord', 'create' );
+    if ( formPage ){
+        formPage.addRecord( data );
+    }
+};
+
+exports.updateRecord = function( listPageIdSource, data ){
+    
+    var formPage = recordOperationCommon( listPageIdSource, data, true, false, 'updateRecord', 'update' );
+    if ( formPage ){
+        formPage.updateRecord( data );
+    }
+};
+
+exports.deleteRecord = function( listPageIdSource, data ){
+
+    var formPage = recordOperationCommon( listPageIdSource, data, false, true, 'deleteRecord', 'delete' );
+    if ( formPage ){
+        formPage.deleteRecord( data );
+    }
 };

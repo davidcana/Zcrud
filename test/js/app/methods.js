@@ -338,7 +338,7 @@ QUnit.test( "showDeleteForm test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "getRecordByKey/getRowByKey test", function( assert ) {
 
     var thisTestOptions = {};
@@ -404,6 +404,155 @@ QUnit.test( "load (using filter) test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
             });
+            
+            done();
+        }
+    );
+});
+*/
+QUnit.test( "simple addRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Add record
+            var key = 0;
+            var record = {
+                "id": "" + key,
+                "name": "Service " + key,
+                "description": "Service " + key + " description",
+                "province": "Málaga",
+                "city": "Marbella"
+            };
+            $( '#departmentsContainer' ).zcrud( 
+                'addRecord', 
+                {
+                    record: record
+                } );
+
+            // Check it
+            testHelper.checkRecord( assert, key, record );
+            
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 130',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "simple deleteRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Add record
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id":"" + key
+            };
+            testHelper.checkRecord( assert, key, record );
+            
+            $( '#departmentsContainer' ).zcrud( 
+                'deleteRecord', 
+                {
+                    key: key
+                } );
+            
+            // Check it
+            var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 3, 11 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 128',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            testHelper.checkNoRecord( assert, key );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "simple updateRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Check record
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id":"" + key
+            };
+            testHelper.checkRecord( assert, key, record );
+            
+            // Update record on server
+            record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "province": "Málaga",
+                "city": "Marbella",
+                "browser": "Firefox",
+            };
+            testUtils.setService( key, record );
+            
+            // Update record using method
+            var editedRecord =  {
+                "id":"" + key,
+                "name": "Service 2 edited",
+                "description": "Service 2 description"
+            };
+            $( '#departmentsContainer' ).zcrud( 
+                'updateRecord', 
+                {
+                    record: editedRecord
+                } );
+            
+            // Check it
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkRecord( assert, key, newRecord );
             
             done();
         }

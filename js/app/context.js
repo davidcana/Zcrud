@@ -7,6 +7,7 @@ module.exports = (function() {
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     var pageUtils = require( './pages/pageUtils.js' );
+    //var FormPage = require( './pages/formPage.js' );
     
     var defaultConf = {
         /*mainContainerDivId: 'zcrud-main-container',*/
@@ -283,11 +284,7 @@ module.exports = (function() {
         }
         
         return getPage( listPageId );
-    };
-    /*
-    var getListPage = function( options ){
-        return getPage( options.pages.list.id );
-    };*/
+    };    
     
     // Add to declaredRemotePageUrls all non repeated urls
     var declareRemotePageUrl = function( template, declaredRemotePageUrls ){
@@ -379,5 +376,6 @@ module.exports = (function() {
         getField: getField,
         getFieldData: getFieldData,
         subformSeparator: subformSeparator
+        //getFormPage: getFormPage
     };
 })();

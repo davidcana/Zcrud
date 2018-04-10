@@ -197,8 +197,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var save = function( event ){
 
         var dataToSend = history.buildDataToSend( 
-            options, 
-            thisOptions, 
+            //options, 
+            //thisOptions, 
+            options.key, 
+            thisOptions.dataToSend, 
             listPage.getDictionary().records,
             listPage.getFields() );
         

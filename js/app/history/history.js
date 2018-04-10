@@ -11,7 +11,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     var context = require( '../context.js' );
     var $ = require( 'jquery' );
     
-    var options = optionsToApply;
+    //var options = optionsToApply;
     var editableOptions = editableOptionsToApply;
     var dictionaryProvider = dictionaryProviderToApply;
     var formMode = formModeToApply;
@@ -78,6 +78,33 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         
         put( id, historyItem );
         
+        return historyItem;
+    };
+    
+    var instanceChange = function( newValue, rowIndex, id, field, subformRowIndex, subformRowKey, parentField ) {
+
+        // Get names
+        var fullName = field.elementName;
+        var subformSeparatorIndex = fullName.indexOf( context.subformSeparator );
+        var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
+        var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
+
+        // Instance and return historyItem
+        var $this = undefined;
+        var historyItem = new HistoryChange(
+            self,
+            editableOptions,
+            rowIndex,
+            name,
+            newValue,
+            getPreviousValue( rowIndex, name, subformName, subformRowIndex ),
+            $this,
+            field,
+            subformName,
+            subformRowIndex,
+            subformRowKey, 
+            parentField );
+
         return historyItem;
     };
     
@@ -313,7 +340,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return {
             modified: {},
             new: {},
-            //new: [],
             deleted: []
         };
     };
@@ -324,22 +350,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
-            var subformName = historyItem.getSubformName();
-            
             historyItem.doAction( actionsObject, records );
-
-            if ( ! subformName ){
-                //historyItem.doAction( actionsObject, records );
-                continue;
-            }
-            /*
-            if ( ! actionsObject.subforms[ subformName ] ){
-                actionsObject.subforms[ subformName ] = buildEmptyActionsObject();
-                //actionsObject.subforms[ subformName ].field = historyItem.field;
-            }
-            historyItem.doAction( 
-                actionsObject.subforms[ subformName ], 
-                [ records[ historyItem.rowIndex ][ subformName ][ historyItem.subformRowIndex ] ] );*/
         }
         
         return actionsObject;
@@ -444,13 +455,13 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return recordsMap;
     };
     
-    var buildDataToSend = function( options, thisOptions, records, fields ){
+    var buildDataToSend = function( key, dataToSendOption, records, fields, forcedActionsObject ){
         
-        var actionsObject = buildActionsObject( records );
+        var actionsObject = forcedActionsObject || buildActionsObject( records );
         
         // Get sendOnlyModified
         var sendOnlyModified = undefined;
-        switch( thisOptions.dataToSend ){
+        switch( dataToSendOption ){
             case 'all':
                 sendOnlyModified = false;
                 break;
@@ -458,7 +469,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
                 sendOnlyModified = true;
                 break;
             default:
-                alert( 'Unknown dataToSend option in editable list: ' + thisOptions.dataToSend );
+                alert( 'Unknown dataToSend option in history: ' + dataToSendOption );
                 return false;
         }
 
@@ -467,7 +478,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             actionsObject, 
             records, 
             sendOnlyModified, 
-            options.key, 
+            key, 
             fields );
 
         // Return false if there is no record to modify, to create or to delete
@@ -511,6 +522,46 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return base;
     };
     
+    var buildDataToSendForAddRecordMethod = function( record ){
+
+        var data = buildEmptyDataToSend();
+        data.newRecords.push( record );
+        return data;
+    };
+    
+    var buildDataToSendForUpdateRecordMethod = function( key, dataToSendOption, currentRecord, editedRecord, fieldsMap, fields ){
+
+        // Build actionsObject
+        var records = [ currentRecord ];
+        var actionsObject = buildEmptyActionsObject();
+        
+        $.each( editedRecord, function ( id, newValue ) {
+            
+            if ( newValue != currentRecord[ id ] ){
+                var field = fieldsMap[ id ];
+                
+                if ( field.type == 'subform' ){
+                    // TODO add support form subforms
+                    
+                } else {
+                    var historyItem = instanceChange( 
+                        newValue, 
+                        0,
+                        id,
+                        field );
+                    historyItem.doAction( actionsObject, records );
+                }
+            }
+        });
+        
+        return buildDataToSend( 
+            key, 
+            dataToSendOption, 
+            records, 
+            fields,
+            actionsObject );
+    };
+    
     var self = {
         putChange: putChange,
         putCreate: putCreate,
@@ -534,7 +585,9 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         //buildEmptyDataToSend: buildEmptyDataToSend,
         buildEmptyActionsObject: buildEmptyActionsObject,
         createNestedObject: createNestedObject,
-        getRegisterFromDataToSend: getRegisterFromDataToSend
+        getRegisterFromDataToSend: getRegisterFromDataToSend,
+        buildDataToSendForAddRecordMethod: buildDataToSendForAddRecordMethod,
+        buildDataToSendForUpdateRecordMethod: buildDataToSendForUpdateRecordMethod
     };
     
     return self;
