@@ -504,11 +504,12 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         var event = undefined;
         var $form = get$form();
         
-        var currentRecord = listPage.getRecordByKey(
-            userData.record[ options.key ] );
+        var currentRecord = listPage.getRecordByKey( userData.key );
+        //var currentRecord = listPage.getRecordByKey(
+        //    userData.record[ options.key ] );
         
         if ( ! currentRecord ){
-            alert( 'Key not found in record in updateRecord method!' );
+            alert( 'Current record not found in updateRecord method!' );
             return;
         }
         

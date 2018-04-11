@@ -573,7 +573,7 @@ exports.addRecord = function( listPageIdSource, data ){
 
 exports.updateRecord = function( listPageIdSource, data ){
     
-    var formPage = recordOperationCommon( listPageIdSource, data, true, false, 'updateRecord', 'update' );
+    var formPage = recordOperationCommon( listPageIdSource, data, true, true, 'updateRecord', 'update' );
     if ( formPage ){
         formPage.updateRecord( data );
     }

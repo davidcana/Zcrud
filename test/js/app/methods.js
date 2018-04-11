@@ -547,13 +547,69 @@ QUnit.test( "simple updateRecord test", function( assert ) {
             $( '#departmentsContainer' ).zcrud( 
                 'updateRecord', 
                 {
-                    record: editedRecord
+                    record: editedRecord,
+                    key: key
                 } );
             
             // Check it
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "change key updateRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Check record
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id":"" + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Update record on server
+            record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "province": "Málaga",
+                "city": "Marbella",
+                "browser": "Firefox",
+            };
+            testUtils.setService( key, record );
+
+            // Update record using method
+            var newKey = 0;
+            var editedRecord =  {
+                "id": "" + newKey,
+                "name": "Service 2 edited",
+                "description": "Service 2 description"
+            };
+            $( '#departmentsContainer' ).zcrud( 
+                'updateRecord', 
+                {
+                    record: editedRecord,
+                    key: key
+                } );
+
+            // Check it
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkRecord( assert, newKey, newRecord );
+
             done();
         }
     );
