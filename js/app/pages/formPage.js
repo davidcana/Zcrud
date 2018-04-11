@@ -505,8 +505,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         var $form = get$form();
         
         var currentRecord = listPage.getRecordByKey( userData.key );
-        //var currentRecord = listPage.getRecordByKey(
-        //    userData.record[ options.key ] );
         
         if ( ! currentRecord ){
             alert( 'Current record not found in updateRecord method!' );

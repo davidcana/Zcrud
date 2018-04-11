@@ -48,7 +48,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         areEquivalent( newValue, getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
     };
     
-    var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex, subformRowKey, parentField ) {
+    var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex, subformRowKey ) {
         
         // Get names
         var fullName = field.elementName;
@@ -73,15 +73,14 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             field,
             subformName,
             subformRowIndex,
-            subformRowKey, 
-            parentField );
+            subformRowKey );
         
         put( id, historyItem );
         
         return historyItem;
     };
     
-    var instanceChange = function( newValue, rowIndex, id, field, subformRowIndex, subformRowKey, parentField ) {
+    var instanceChange = function( newValue, rowIndex, field, subformRowIndex, subformRowKey ) {
 
         // Get names
         var fullName = field.elementName;
@@ -102,32 +101,28 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             field,
             subformName,
             subformRowIndex,
-            subformRowKey, 
-            parentField );
+            subformRowKey );
 
         return historyItem;
     };
     
-    var putCreate = function( listPage, thisDictionary, $selection ) {
+    var putCreate = function( id, thisDictionary, $selection ) {
         
         var historyItem = new HistoryCreate( 
             self,
             editableOptions,
             thisDictionary,
-            listPage,
             $selection );
 
-        put( listPage.getId(), historyItem );
+        put( id, historyItem );
         
         return historyItem;
     };
     
     var putDelete = function( id, options, rowIndex, key, $tr, field ) {
-        
+
         var historyItem = new HistoryDelete( 
-            self,
-            editableOptions,
-            options, 
+            self, 
             rowIndex, 
             key, 
             $tr,
@@ -414,8 +409,6 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             key = row[ keyField ];
 
             dataToSend.newRecords.push( row );
-            
-            //buildSubformsRowDataToSend( row, row, sendOnlyModified, fields );
         }
         
         // Build delete
@@ -455,7 +448,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return recordsMap;
     };
     
-    var buildDataToSend = function( key, dataToSendOption, records, fields, forcedActionsObject ){
+    var buildDataToSend = function( keyField, dataToSendOption, records, fields, forcedActionsObject ){
         
         var actionsObject = forcedActionsObject || buildActionsObject( records );
         
@@ -478,7 +471,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
             actionsObject, 
             records, 
             sendOnlyModified, 
-            key, 
+            keyField, 
             fields );
 
         // Return false if there is no record to modify, to create or to delete
@@ -529,7 +522,7 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         return data;
     };
     
-    var buildDataToSendForUpdateRecordMethod = function( key, dataToSendOption, currentRecord, editedRecord, fieldsMap, fields ){
+    var buildDataToSendForUpdateRecordMethod = function( keyField, dataToSendOption, currentRecord, editedRecord, fieldsMap, fields ){
 
         // Build actionsObject
         var records = [ currentRecord ];
@@ -537,17 +530,17 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         
         $.each( editedRecord, function ( id, newValue ) {
             
-            if ( newValue != currentRecord[ id ] ){
+            var currentValue = currentRecord[ id ];
+            if ( newValue != currentValue ){
                 var field = fieldsMap[ id ];
                 
                 if ( field.type == 'subform' ){
-                    // TODO add support form subforms
+                    buildSubformDataToSend( actionsObject, records, field, currentValue, newValue, field.subformKey );
                     
                 } else {
                     var historyItem = instanceChange( 
                         newValue, 
                         0,
-                        id,
                         field );
                     historyItem.doAction( actionsObject, records );
                 }
@@ -555,11 +548,121 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
         });
         
         return buildDataToSend( 
-            key, 
+            keyField, 
             dataToSendOption, 
             records, 
             fields,
             actionsObject );
+    };
+    
+    var buildMap = function( rows, keyField ){
+        
+        var object = {};
+        for ( var rowIndex = 0; rowIndex < rows.length; ++rowIndex ){
+            var row = rows[ rowIndex ];
+            var key = row[ keyField ];
+            object[ key ] = row;
+        }
+        return object;
+    };
+    
+    var buildSubformDataToSend = function( actionsObject, records, field, currentRows, newRows, keyField ){
+        
+        var currentRowsMap = buildMap( currentRows, keyField );
+        var newRowsMap = buildMap( newRows, keyField );
+        var historyItem = undefined;
+        var rowIndex = undefined;
+        var newRow = undefined;
+        var currentRow = undefined;
+        var key = undefined;
+        
+        for ( rowIndex = 0; rowIndex < newRows.length; ++rowIndex ){
+            newRow = newRows[ rowIndex ];
+            key = newRow[ keyField ];
+            currentRow = currentRowsMap[ key ];
+            
+            if ( currentRow === undefined ){
+                // new row
+                buildSubformDataToSend_creates( actionsObject, records, newRow, rowIndex, field.fields );
+
+            } else {
+                // update row
+                buildSubformDataToSend_updates( actionsObject, records, newRow, currentRow, rowIndex, field.fields, field );
+            }
+        }
+        
+        for ( rowIndex = 0; rowIndex < currentRows.length; ++rowIndex ){
+            currentRow = currentRows[ rowIndex ];
+            key = currentRow[ keyField ];
+            newRow = newRowsMap[ key ];
+            
+            if ( newRow === undefined ){
+                // delete row
+                historyItem = new HistoryDelete( 
+                    self, 
+                    0, 
+                    key, 
+                    undefined,
+                    field.elementName );
+                historyItem.doAction( actionsObject, records );
+            }
+        }
+    };
+    
+    var buildSubformDataToSend_creates = function( actionsObject, records, newRow, rowIndex, fields ){
+
+        var id = undefined;
+        var idsDone = {};
+
+        for ( id in newRow ){
+            if( newRow.hasOwnProperty( id ) ){
+                var historyItem = instanceChange( 
+                    newRow[ id ], 
+                    0, 
+                    fields[ id ], 
+                    rowIndex, 
+                    undefined );
+                historyItem.doAction( actionsObject, records );
+                idsDone[ id ] = true;
+            }
+        }
+    };
+    
+    var buildSubformDataToSend_updates = function( actionsObject, records, newRow, currentRow, rowIndex, fields, parentField ){
+        
+        var id = undefined;
+        var historyItem = undefined;
+        var idsDone = {};
+        
+        for ( id in newRow ){
+            if( newRow.hasOwnProperty( id ) ){
+                if( newRow[ id ] !== currentRow[ id ] ){
+                    historyItem = instanceChange( 
+                        newRow[ id ], 
+                        0, 
+                        fields[ id ], 
+                        rowIndex, 
+                        newRow[ parentField.subformKey ] );
+                    historyItem.doAction( actionsObject, records );
+                    idsDone[ id ] = true;
+                }
+            }
+        }
+        /*
+        for ( id in currentRow ){
+            if( currentRow.hasOwnProperty( id ) ){
+                if( newRow[ id ] !== currentRow[ id ] && ! idsDone[ id ] ){
+                    historyItem = instanceChange( 
+                        undefined, 
+                        0, 
+                        fields[ id ], 
+                        rowIndex, 
+                        fields[ id ].subformKey, 
+                        parentField );
+                    historyItem.doAction( actionsObject, records );
+                }
+            }
+        }*/
     };
     
     var self = {

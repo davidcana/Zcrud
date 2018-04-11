@@ -6,16 +6,13 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
-var Delete = function( historyToApply, editableOptionsToApply, optionsToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply, subformRowIndexToApply) {
+var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply ) {
     
     var history = historyToApply;
-    var editableOptions = editableOptionsToApply;
-    var options = optionsToApply;
     var rowIndex = rowIndexToApply;
     var key = keyToApply;
     var $tr = $trToApply;
     var subformName = subformNameToApply;
-    var subformRowIndex = subformRowIndexToApply;
     
     var getSubformName = function(){
         return undefined;
@@ -30,7 +27,10 @@ var Delete = function( historyToApply, editableOptionsToApply, optionsToApply, r
     };
     
     var hideRow = function(){
-        history.hideTr( $tr );
+        
+        if ( $tr ){
+            history.hideTr( $tr );
+        }
     };
     
     var register = function(){

@@ -168,7 +168,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         thisDictionary.records = [ {} ];
 
         var createHistoryItem = history.putCreate( 
-            listPage, 
+            listPage.getId(), 
             thisDictionary,
             $( '#' + listPage.getThisOptions().tbodyId ) );
         var $tr = createHistoryItem.get$Tr();

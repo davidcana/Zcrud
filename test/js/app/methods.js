@@ -11,10 +11,11 @@ var testUtils = require( './testUtils.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
 var formOptions = require( './defaultTestOptions.js' );
+var defaultTestOptions = require( './subformTestOptions.js' );
 var options = undefined;
 
 // Run tests
-/*
+
 QUnit.test( "selection related methods test (using selectRows)", function( assert ) {
 
     var thisTestOptions = {
@@ -409,7 +410,7 @@ QUnit.test( "load (using filter) test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "simple addRecord test", function( assert ) {
 
     var thisTestOptions = {};
@@ -540,7 +541,6 @@ QUnit.test( "simple updateRecord test", function( assert ) {
             
             // Update record using method
             var editedRecord =  {
-                "id":"" + key,
                 "name": "Service 2 edited",
                 "description": "Service 2 description"
             };
@@ -609,6 +609,73 @@ QUnit.test( "change key updateRecord test", function( assert ) {
             // Check it
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, newKey, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform updateRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+
+            // Update record on server
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+            
+            // Load from server
+            $( '#departmentsContainer' ).zcrud( 'load' );
+            
+            // Update record using method
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "members": [
+                    {
+                        "code": "1",
+                        "description": "Description of Bart Simpson edited"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Homer Simpson",
+                        "description": "Description of Homer Simpson"
+                    }
+                ]
+            };
+            $( '#departmentsContainer' ).zcrud( 
+                'updateRecord', 
+                {
+                    record: editedRecord,
+                    key: key
+                } );
+
+            // Check it
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkRecord( assert, key, newRecord );
 
             done();
         }

@@ -6,12 +6,11 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
-var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, listPageToApply, $tbodyToApply ) {
+var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, $tbodyToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply; 
     var thisDictionary = thisDictionaryToApply;
-    var listPage = listPageToApply;
     var $tbody = $tbodyToApply;
     
     var $tr = undefined;

@@ -6,7 +6,7 @@
 var $ = require( 'jquery' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
 
-var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply, parentFieldToApply ) {
+var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply;
@@ -19,7 +19,6 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     var subformName = subformNameToApply;
     var subformRowIndex = subformRowIndexToApply;
     var subformRowKey = subformRowKeyToApply;
-    var parentField = parentFieldToApply;
     
     var getSubformName = function(){
         return subformName;

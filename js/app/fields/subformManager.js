@@ -85,7 +85,7 @@ var SubformManager = function() {
         thisDictionary.subformField = field;
         
         var createHistoryItem = formPage.getHistory().putCreate( 
-            formPage, 
+            formPage.getId(), 
             thisDictionary,
             $( '#' + formPage.getId() + ' .zcrud-field-' + field.id + ' tbody') );
         var $tr = createHistoryItem.get$Tr(); 
@@ -123,8 +123,7 @@ var SubformManager = function() {
                     formPage.getId(),
                     field,
                     $tr.attr( 'data-subform-record-index' ),
-                    $tr.attr( 'data-subform-record-key' ),
-                    formPage.getParentFieldByName( fullName ));
+                    $tr.attr( 'data-subform-record-key' ) );
         });
         
         $selection
