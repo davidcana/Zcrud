@@ -11,7 +11,7 @@ var testUtils = require( './testUtils.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
 var formOptions = require( './defaultTestOptions.js' );
-var defaultTestOptions = require( './subformTestOptions.js' );
+var subformTestOptions = require( './subformTestOptions.js' );
 var options = undefined;
 
 // Run tests
@@ -618,7 +618,7 @@ QUnit.test( "change key updateRecord test", function( assert ) {
 QUnit.test( "subform updateRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
