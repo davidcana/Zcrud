@@ -932,3 +932,61 @@ QUnit.test( "clientOnly addRecord test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "custom url updateRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Check record
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id":"" + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Update record on server
+            record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "province": "Málaga",
+                "city": "Marbella",
+                "browser": "Firefox",
+            };
+            testUtils.setService( key, record );
+
+            // Update record using method
+            var url = 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department&customArg=myValue';
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "description": "Service 2 description"
+            };
+            $( '#departmentsContainer' ).zcrud( 
+                'updateRecord', 
+                {
+                    record: editedRecord,
+                    key: key,
+                    url: url
+                } );
+
+            // Check it
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkRecord( assert, key, newRecord );
+            
+            assert.equal( testUtils.getUrl( 1 ), url );
+
+            done();
+        }
+    );
+});
+

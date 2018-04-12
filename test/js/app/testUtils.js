@@ -39,12 +39,14 @@ module.exports = (function() {
     resetServices();
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
-    
+    var urls = [];
     
     var ajax = function( options ){
         
         // Get file, cmd and table
         var url = options.url;
+        urls.push( url );
+        
         var data = options.data;
         var file = url.split( '?' )[ 0 ];
         var parameters = parseQueryString( url.split( '?' )[ 1 ] );
@@ -356,10 +358,15 @@ module.exports = (function() {
         services[ key ] = clone( service );
     };
     
+    var getUrl = function( index ){
+        return urls[ index ];
+    };
+    
     return {
         ajax: ajax,
         getService: getService,
         setService: setService,
-        resetServices: resetServices
+        resetServices: resetServices,
+        getUrl: getUrl
     };
 })();
