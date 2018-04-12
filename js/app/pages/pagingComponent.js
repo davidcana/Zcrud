@@ -389,6 +389,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         return id;
     };
     
+    var getTotalNumberOfRecords = function(){
+        return totalNumberOfRecords;
+    };
+    
     loadSettings();
     
     return {
@@ -401,6 +405,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         getThisOptions: getThisOptions,
         setPageNumber: setPageNumber,
         goToFirstPage: goToFirstPage,
-        getId: getId
+        getId: getId,
+        getTotalNumberOfRecords: getTotalNumberOfRecords
     };
 };

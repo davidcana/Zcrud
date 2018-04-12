@@ -80,18 +80,8 @@ module.exports = (function() {
             case "LIST":
                 dataToSend = ajaxServicesList( file, data );
                 break;
-                /*
-            case "CREATE":
-                dataToSend = ajaxServicesCreate( file, data );
-                break;
-            case "UPDATE":
-                dataToSend = ajaxServicesUpdate( file, data );
-                break;
-            case "DELETE":
-                dataToSend = ajaxServicesDelete( file, data );
-                break;*/
             case "BATCH_UPDATE":
-                dataToSend = ajaxServicesListBatchUpdate( file, data );
+                dataToSend = ajaxServicesBatchUpdate( file, data );
                 break;
             default:
                 throw "Unknown command in ajax: " + cmd;
@@ -104,7 +94,7 @@ module.exports = (function() {
         }
     };
     
-    var ajaxServicesListBatchUpdate = function( file, data ){
+    var ajaxServicesBatchUpdate = function( file, data ){
 
         // Init data
         var dataToSend = {};
@@ -322,68 +312,6 @@ module.exports = (function() {
             return result * sortOrder;
         }
     }
-    /*
-    var ajaxServicesCreate = function( file, data ){
-        return ajaxServicesCreateAndUpdate( file, data, false );
-    };
-    
-    var ajaxServicesUpdate = function( file, data ){
-        return ajaxServicesCreateAndUpdate( file, data, true );
-    };
-    
-    var ajaxServicesCreateAndUpdate = function( file, data, mustExists ){
-        
-        // Init data
-        var dataToSend = {};
-        dataToSend.result = 'OK';
-        dataToSend.message = '';
-        dataToSend.records = [];
-        
-        // Add all services to the map of services and to the dataToSend
-        for ( var c = 0; c < data.records.length; c++ ) {
-            var service = data.records[ c ];
-            
-            var exists = services[ service.id ];
-            if ( exists && ! mustExists ){
-                dataToSend.result = 'Error';
-                dataToSend.message += 'Service with key "' + service.id + '" found trying to create it!';
-                continue;
-            } else if ( ! exists && mustExists ){
-                dataToSend.result = 'Error';
-                dataToSend.message += 'Service with key "' + service.id + '" not found trying to update it!';
-                continue;       
-            }
-            
-            services[ service.id ] = service;
-            dataToSend.records.push( service );
-        }
-        
-        return dataToSend;
-    };
-    
-    var ajaxServicesDelete = function( file, data ){
-        
-        // Init data
-        var dataToSend = {};
-        dataToSend.result = 'OK';
-        dataToSend.message = '';
-        dataToSend.records = [];
-        
-        // Add all services to the map of services and to the dataToSend
-        for ( var c = 0; c < data.keys.length; c++ ) {
-            var key = data.keys[ c ];
-            var service = services[ key ];
-            
-            if ( ! service ){
-                dataToSend.result = 'Error';
-                dataToSend.message += 'Service with key "' + key + '" not found!';
-            } else {
-                delete services[ key ];
-                dataToSend.records.push( service );
-            }
-        }
-        return dataToSend;
-    };*/
     
     var parseQueryString = function( query ) {
         var vars = query.split( "&" );

@@ -402,14 +402,21 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 }, 
                 event );
                 triggerFormClosedEvent( event, $form );
-                context.getListPage( options ).show(
-                    true,
-                    {
-                        status: {
-                            message: successMessage,
-                            date: new Date().toLocaleString()
-                        }
-                    });
+                
+                // Show list
+                var dictionaryExtension = {
+                    status: {
+                        message: successMessage,
+                        date: new Date().toLocaleString()
+                    }
+                };
+                if ( dataFromServer.clientOnly ){
+                    listPage.showFromClientOnly( true, dictionaryExtension, data );
+                } else {
+                    //context.getListPage( options ).show(
+                    listPage.show( true, dictionaryExtension);
+                }
+
                 history.reset( elementId );
             };
         }
@@ -556,7 +563,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     
     var cancelForm = function( event, $form ){
         triggerFormClosedEvent( event, $form );
-        context.getListPage( options ).show( false );
+        listPage.show( false );
+        //context.getListPage( options ).show( false );
     };
     
     var getDictionary = function(){

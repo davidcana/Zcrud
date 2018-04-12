@@ -1,15 +1,15 @@
 /* 
     Class History 
 */
-module.exports = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
+var HistoryChange = require( './change.js' );
+var HistoryCreate = require( './create.js' );
+var HistoryDelete = require( './delete.js' );
+var crudManager = require( '../crudManager.js' );
+var context = require( '../context.js' );
+var $ = require( 'jquery' );
+
+var History = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
     "use strict";
-    
-    var HistoryChange = require( './change.js' );
-    var HistoryCreate = require( './create.js' );
-    var HistoryDelete = require( './delete.js' );
-    var crudManager = require( '../crudManager.js' );
-    var context = require( '../context.js' );
-    var $ = require( 'jquery' );
     
     //var options = optionsToApply;
     var editableOptions = editableOptionsToApply;
@@ -695,3 +695,29 @@ module.exports = function( optionsToApply, editableOptionsToApply, dictionaryPro
     
     return self;
 };
+
+History.updateRecordsMap = function( records, dataToSend, keyField ){
+
+    var diff = 0;
+    
+    $.each( dataToSend.existingRecords, function ( id, record ) {
+        var currentRecord = records[ id ];
+        records[ id ] = $.extend( true, {}, currentRecord, record );
+    });
+
+    for ( var c = 0; c < dataToSend.newRecords.length; ++c ){
+        var currentRecord = dataToSend.newRecords[ c ];
+        var key = currentRecord[ keyField ];
+        records[ key ] = currentRecord;
+        ++diff;
+    }
+
+    for ( c = 0; c < dataToSend.recordsToRemove.length; ++c ){
+        delete records[ dataToSend.recordsToRemove[ c ] ];
+        --diff;
+    }
+    
+    return diff;
+};
+
+module.exports = History;

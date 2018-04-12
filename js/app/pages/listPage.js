@@ -12,6 +12,7 @@ var EditingComponent = require( './editingComponent.js' );
 var crudManager = require( '../crudManager.js' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
 var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
+var History = require( '../history/history.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -134,7 +135,43 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         }
     };
     
+    var buildDataFromClient = function( dataToSendToServer, recordsDiff ) {
+        
+        var data = {};
+        
+        data.result = 'OK';
+        data.message = '';
+        data.records = buildRecordsArray();
+        data.totalNumberOfRecords = recordsDiff + getTotalNumberOfRecords();
+        
+        return data;
+    };
+    
+    var showFromClientOnly = function ( showBusyFull, dictionaryExtension, dataToSendToServer ) {
+        
+        //alert( 'clientOnly in listpage!' );
+        
+        var recordsDiff = History.updateRecordsMap( records, dataToSendToServer, options.key );
+        
+        clientAndServerSuccessFunction( 
+            buildDataFromClient( dataToSendToServer, recordsDiff ),
+            showBusyFull, 
+            dictionaryExtension );
+    };
+    
+    var clientAndServerSuccessFunction = function( data, showBusyFull, dictionaryExtension, root, callback ){
+        
+        dataFromServer( data );
+        beforeProcessTemplate( data, dictionaryExtension );
+        context.hideBusy( options, showBusyFull );
+        buildHTMLAndJavascript( root );
+        if ( callback ){
+            callback( true );
+        }
+    };
+    
     // Main method
+    /*
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
         
         // TODO Uncomment this when ZPT uses promises 
@@ -142,6 +179,7 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         
         var listData = {
             search: buildDataToSend(),
+            success: clientAndServerSuccessFunction,
             success: function( data ){
                 dataFromServer( data );
                 beforeProcessTemplate( data, dictionaryExtension );
@@ -161,6 +199,25 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         };
 
         crudManager.listRecords( listData, options );
+    };*/
+    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
+
+        // TODO Uncomment this when ZPT uses promises 
+        //context.showBusy( options, showBusyFull );
+
+        crudManager.listRecords( 
+            {
+                search: buildDataToSend(),
+                success: clientAndServerSuccessFunction,
+                error: function(){
+                    context.hideBusy( options, showBusyFull );
+                    context.showError( options, options.messages.serverCommunicationError );
+                    if ( callback ){
+                        callback( false );
+                    }
+                }
+            }, 
+            options );
     };
     
     var beforeProcessTemplate = function( data, dictionaryExtension ){
@@ -192,7 +249,6 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         dictionary.instance = self;
         
         fieldBuilder.addFieldManagersToDictionary( dictionary );
-        //dictionary.optionListProviderManager = optionListProviderManager;
     };
     
     // Reset all components
@@ -292,6 +348,14 @@ var ListPage = function ( optionsToApply, filterToApply ) {
             records[ record[ options.key ] ] = record;
         }
     };
+    var buildRecordsArray = function(){
+        var recordsArray = [];
+        for ( var index in records ) {
+            var record = records[ index ];
+            recordsArray.push( record );
+        }
+        return recordsArray;
+    };
     
     var getId = function(){
         return id;      
@@ -383,8 +447,17 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return $( '#' + thisOptions.formId );
     };
     
+    var getTotalNumberOfRecords = function(){
+        var pagingComponent = components[ 'paging' ];
+        if ( ! pagingComponent ){
+            return Object.keys( records ).length;
+        }
+        return pagingComponent.getTotalNumberOfRecords();
+    };
+    
     var self = {
         show: show,
+        showFromClientOnly: showFromClientOnly,
         getId: getId,
         showCreateForm: showCreateForm,
         showEditForm: showEditForm,

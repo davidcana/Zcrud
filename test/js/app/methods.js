@@ -7,7 +7,6 @@ var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
-//var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
 var formOptions = require( './defaultTestOptions.js' );
@@ -676,6 +675,258 @@ QUnit.test( "subform updateRecord test", function( assert ) {
             // Check it
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "clientOnly updateRecord test", function( assert ) {
+
+    var thisTestOptions = {
+        fields: {
+            name: {
+                width: '30%'
+            },
+            description: {
+                list: true,
+                width: '50%'
+            }
+        }
+    };
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Check record
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id":"" + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Update record using method
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "description": "Service 2 description"
+            };
+            $( '#departmentsContainer' ).zcrud( 
+                'updateRecord', 
+                {
+                    record: editedRecord,
+                    key: key,
+                    clientOnly: true
+                } );
+
+            // Check it
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkRecordInList( assert, key, newRecord );
+            assert.deepEqual( testUtils.getService( key ), record );
+            
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  values[ 0 ],
+                names: "Service 1/Service 2 edited/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10",
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            var values2 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '2' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 11-20 of 129',
+                ids:  values2[ 0 ],
+                names: values2[ 1 ],
+                pageListNotActive: [ '2' ],
+                pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
+            });
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '1' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "clientOnly deleteRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Add record
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id":"" + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            $( '#departmentsContainer' ).zcrud( 
+                'deleteRecord', 
+                {
+                    key: key,
+                    clientOnly: true
+                } );
+            
+            // Check it
+            var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 3, 10 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 9,
+                pagingInfo: 'Showing 1-9 of 128',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            assert.deepEqual( testUtils.getService( key ), record );
+            
+            var values2 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '2' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 11-20 of 129',
+                ids:  values2[ 0 ],
+                names: values2[ 1 ],
+                pageListNotActive: [ '2' ],
+                pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
+            });
+            
+            var values3 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '1' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  values3[ 0 ],
+                names: values3[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            done();
+        }
+    );
+});
+
+QUnit.test( "clientOnly addRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Add record
+            var key = 0;
+            var record = {
+                "id": "" + key,
+                "name": "Service " + key,
+                "description": "Service " + key + " description",
+                "province": "Málaga",
+                "city": "Marbella"
+            };
+            $( '#departmentsContainer' ).zcrud( 
+                'addRecord', 
+                {
+                    record: record,
+                    clientOnly: true
+                } );
+            
+            // Check it
+            assert.equal( testUtils.getService( key ), undefined );
+            
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 10 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 11,
+                pagingInfo: 'Showing 1-11 of 130',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            
+
+            var values2 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '2' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 11-20 of 129',
+                ids:  values2[ 0 ],
+                names: values2[ 1 ],
+                pageListNotActive: [ '2' ],
+                pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
+            });
+
+            var values3 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '1' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  values3[ 0 ],
+                names: values3[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
 
             done();
         }

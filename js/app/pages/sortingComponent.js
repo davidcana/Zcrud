@@ -97,9 +97,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
     };
     
-    var dataFromServer = function( data ){
-    };
-    
     var getSortFieldId = function(){
         return sortFieldId;
     };
@@ -116,7 +113,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     
     return {
         addToDataToSend: addToDataToSend,
-        dataFromServer: dataFromServer,
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
         getSortFieldId: getSortFieldId,

@@ -439,25 +439,29 @@ module.exports = (function() {
         return $selection.find( 'input' ).val();
     };
     
+    var checkRecordInList = function( assert, key, expectedRecord, editable ){
+
+        // Check record from ZCrud
+        var record = get$Container().zcrud( 'getRecordByKey', key );
+        //alert( JSON.stringify( record ) );
+        assert.deepEqual( record, expectedRecord );
+
+        // Check record from table
+        var row = get$Tbody().find( "[data-record-key='" + key + "']" );
+        var id = editable?
+            getFieldValue ( row.find( "td.zcrud-column-data-id" ) ).trim():
+        row.find( "td.zcrud-column-data-id" ).text().trim();
+        var name = editable?
+            getFieldValue ( row.find( "td.zcrud-column-data-name" ) ).trim():
+        row.find( "td.zcrud-column-data-name" ).text().trim();
+        assert.equal( id, expectedRecord.id );
+        assert.equal( name, expectedRecord.name );
+    };
+    
     var checkRecord = function( assert, key, expectedRecord, editable, checkOnlyStorage ){
         
         if ( ! checkOnlyStorage ){
-        
-            // Check record from ZCrud
-            var record = get$Container().zcrud( 'getRecordByKey', key );
-            //alert( JSON.stringify( record ) );
-            assert.deepEqual( record, expectedRecord );
-
-            // Check record from table
-            var row = get$Tbody().find( "[data-record-key='" + key + "']" );
-            var id = editable?
-                     getFieldValue ( row.find( "td.zcrud-column-data-id" ) ).trim():
-                     row.find( "td.zcrud-column-data-id" ).text().trim();
-            var name = editable?
-                     getFieldValue ( row.find( "td.zcrud-column-data-name" ) ).trim():
-                     row.find( "td.zcrud-column-data-name" ).text().trim();
-            assert.equal( id, expectedRecord.id );
-            assert.equal( name, expectedRecord.name );
+            checkRecordInList( assert, key, expectedRecord, editable );
         }
         
         // Check record from storage
@@ -1102,6 +1106,7 @@ module.exports = (function() {
         getCurrentList: getCurrentList,
         keyDown: keyDown,
         keyUp: keyUp,
+        checkRecordInList: checkRecordInList,
         checkRecord: checkRecord,
         checkNoRecord: checkNoRecord,
         clickDeleteListButton: clickDeleteListButton,
