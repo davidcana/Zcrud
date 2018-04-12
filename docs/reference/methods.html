@@ -17,41 +17,41 @@
             <li>
                 <a id="addRecord"></a>
                 <div class="header">
-                    <span class="name">addRecord (!)</span>
+                    <span class="name">addRecord( data )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
                     Add a new record to the table. Possible arguments:
                     <ul>
-                        <li><em>record</em> (object, required). The record object that will be added to the table.</li>
-                        <li><em>clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not add record to the server, only adds to the table.</li>
-                        <li><em>url</em> (string, optional, default: action property of page). You can supply different URL to create the new record on the server.</li>
-                        <li><em>success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully added to the table.</li>
-                        <li><em>error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during adding of the new record.</li>
+                        <li><em>data.record</em> (object, required). The record object that will be added to the table.</li>
+                        <li><em>data.clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not add record to the server, only adds to the table.</li>
+                        <li><em>data.url</em> (string, optional, default: action property of page). You can supply different URL to create the new record on the server.</li>
+                        <li><em>data.success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully added to the table.</li>
+                        <li><em>data.error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during adding of the new record.</li>
                     </ul>
                 </div>
             </li>
             <li>
                 <a id="deleteRecord"></a>
                 <div class="header">
-                    <span class="name">deleteRecord (!)</span>
+                    <span class="name">deleteRecord( data )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
                     Delete an existing record from the table. Possible arguments:
                     <ul>
-                        <li><em>key</em> (string, required). The id of the record to delete.</li>
-                        <li><em>clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not add record to the server, only adds to the table.</li>
-                        <li><em>url</em> (string, optional, default: action property of page). You can supply different URL to create the new record on the server.</li>
-                        <li><em>success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully added to the table.</li>
-                        <li><em>error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during adding of the new record.</li>
+                        <li><em>data.key</em> (string, required). The id of the record to delete.</li>
+                        <li><em>data.clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not add record to the server, only adds to the table.</li>
+                        <li><em>data.url</em> (string, optional, default: action property of page). You can supply different URL to create the new record on the server.</li>
+                        <li><em>data.success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully added to the table.</li>
+                        <li><em>data.error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during adding of the new record.</li>
                     </ul>
                 </div>
             </li>
             <li>
                 <a id="deselectRecords"></a>
                 <div class="header">
-                    <span class="name">deselectRecords (tested!)</span>
+                    <span class="name">deselectRecords( records )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -64,7 +64,7 @@
             <li>
                 <a id="deselectRows"></a>
                 <div class="header">
-                    <span class="name">deselectRows (tested!)</span>
+                    <span class="name">deselectRows( rows )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -77,7 +77,7 @@
             <li>
                 <a id="destroy"></a>
                 <div class="header">
-                    <span class="name">destroy</span>
+                    <span class="name">destroy( )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -87,7 +87,7 @@
             <li>
                 <a id="getRowByKey"></a>
                 <div class="header">
-                    <span class="name">getRowByKey (tested!)</span>
+                    <span class="name">getRowByKey( key )</span>
                     <span class="return">jQuery selection object</span>
                 </div>
                 <div class="body">
@@ -100,7 +100,7 @@
             <li>
                 <a id="getRecordByKey"></a>
                 <div class="header">
-                    <span class="name">getRecordByKey (tested!)</span>
+                    <span class="name">getRecordByKey( key )</span>
                     <span class="return">object</span>
                 </div>
                 <div class="body">
@@ -113,7 +113,7 @@
             <li>
                 <a id="init"></a>
                 <div class="header">
-                    <span class="name">init</span>
+                    <span class="name">init( options, callback )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -127,7 +127,7 @@
             <li>
                 <a id="load"></a>
                 <div class="header">
-                    <span class="name">load (tested!)</span>
+                    <span class="name">load( )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -141,7 +141,7 @@
             <li>
                 <a id="selectedRecords"></a>
                 <div class="header">
-                    <span class="name">selectedRecords (tested!)</span>
+                    <span class="name">selectedRecords( )</span>
                     <span class="return">array of objects</span>
                 </div>
                 <div class="body">
@@ -151,7 +151,7 @@
             <li>
                 <a id="selectedRows"></a>
                 <div class="header">
-                    <span class="name">selectedRows (tested!)</span>
+                    <span class="name">selectedRows( )</span>
                     <span class="return">jQuery selection object</span>
                 </div>
                 <div class="body">
@@ -161,7 +161,7 @@
             <li>
                 <a id="selectRecords"></a>
                 <div class="header">
-                    <span class="name">selectRecords (tested!)</span>
+                    <span class="name">selectRecords( records )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -174,7 +174,7 @@
             <li>
                 <a id="selectRows"></a>
                 <div class="header">
-                    <span class="name">selectRows (tested!)</span>
+                    <span class="name">selectRows( rows )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -187,7 +187,7 @@
             <li>
                 <a id="showCreateForm"></a>
                 <div class="header">
-                    <span class="name">showCreateForm (tested!)</span>
+                    <span class="name">showCreateForm( )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -197,7 +197,7 @@
             <li>
                 <a id="showDeleteForm"></a>
                 <div class="header">
-                    <span class="name">showDeleteForm (tested!)</span>
+                    <span class="name">showDeleteForm( key )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -210,7 +210,7 @@
             <li>
                 <a id="showUpdateForm"></a>
                 <div class="header">
-                    <span class="name">showUpdateForm (tested!)</span>
+                    <span class="name">showUpdateForm( key )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
@@ -223,18 +223,18 @@
             <li>
                 <a id="updateRecord"></a>
                 <div class="header">
-                    <span class="name">updateRecord (!)</span>
+                    <span class="name">updateRecord( data )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
                     Update an existing record on the table. Possible arguments:
                     <ul>
-                        <li><em>key</em> (string, required). The id of the record to update.</li>
-                        <li><em>record</em> (object, required). The record object that will be updated.</li>
-                        <li><em>clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not send the record to the server, only updates the table.</li>
-                        <li><em>url</em> (string, optional, default: action property of page). You can supply different URL to update the record on the server.</li>
-                        <li><em>success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully updated.</li>
-                        <li><em>error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during updating the record.</li>
+                        <li><em>data.key</em> (string, required). The id of the record to update.</li>
+                        <li><em>data.record</em> (object, required). The record object that will be updated.</li>
+                        <li><em>data.clientOnly</em> (boolean, optional, default: false). If this is true, ZCrud does not send the record to the server, only updates the table.</li>
+                        <li><em>data.url</em> (string, optional, default: action property of page). You can supply different URL to update the record on the server.</li>
+                        <li><em>data.success</em> (function, optional, default: none). A callback function that can be used to be notified when record is successfully updated.</li>
+                        <li><em>data.error</em> (function, optional, default: none). A callback function that can be used to be notified if any error occurs during updating the record.</li>
                     </ul>
                 </div>
             </li>
