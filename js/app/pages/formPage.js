@@ -389,47 +389,53 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         }
         
         // Add success and error functions to data if not present yet. Add URL to data if not present yet
-        if ( data.success == undefined ){
-            data.success = function( dataFromServer ){
+        var userSuccess = data.success;
+        data.success = function( dataFromServer ){
 
-                // Update record
-                record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
+            // Update record
+            record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
 
-                eventFunction({
-                    record: record,
-                    serverResponse: dataFromServer,
-                    options: options
-                }, 
-                event );
-                triggerFormClosedEvent( event, $form );
-                
-                // Show list
-                var dictionaryExtension = {
-                    status: {
-                        message: successMessage,
-                        date: new Date().toLocaleString()
-                    }
-                };
-                if ( dataFromServer.clientOnly ){
-                    listPage.showFromClientOnly( true, dictionaryExtension, data );
-                } else {
-                    //context.getListPage( options ).show(
-                    listPage.show( true, dictionaryExtension);
+            eventFunction({
+                record: record,
+                serverResponse: dataFromServer,
+                options: options
+            }, 
+            event );
+            triggerFormClosedEvent( event, $form );
+
+            // Show list
+            var dictionaryExtension = {
+                status: {
+                    message: successMessage,
+                    date: new Date().toLocaleString()
                 }
-
-                history.reset( elementId );
             };
-        }
+            if ( dataFromServer.clientOnly ){
+                listPage.showFromClientOnly( true, dictionaryExtension, data );
+            } else {
+                //context.getListPage( options ).show(
+                listPage.show( true, dictionaryExtension );
+            }
+
+            history.reset( elementId );
+            
+            if ( userSuccess ){
+                userSuccess();
+            }
+        };
         
-        if ( data.error == undefined ){
-            data.error = function( dataFromServer ){
-                if ( dataFromServer.message ){
-                    context.showError( options, dataFromServer.message, false );
-                } else {
-                    context.showError( options, 'serverCommunicationError', true );
-                }
-            };
-        }
+        var userError = data.error;
+        data.error = function( dataFromServer ){
+            if ( dataFromServer.message ){
+                context.showError( options, dataFromServer.message, false );
+            } else {
+                context.showError( options, 'serverCommunicationError', true );
+            }
+            
+            if ( userError ){
+                userError();
+            }
+        };
         
         if ( data.url == undefined ){
             data.url = thisOptions.action || options.defaultFormConf.action;

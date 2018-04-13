@@ -990,3 +990,61 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
     );
 });
 
+QUnit.test( "success function updateRecord test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Check record
+            var key = 2;
+            var record =  {
+                "name": "Service " + key,
+                "id":"" + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Update record on server
+            record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "province": "Málaga",
+                "city": "Marbella",
+                "browser": "Firefox",
+            };
+            testUtils.setService( key, record );
+
+            // Update record using method
+            var editedRecord =  {
+                "name": "Service 2 edited",
+                "description": "Service 2 description"
+            };
+            var successCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 
+                'updateRecord', 
+                {
+                    record: editedRecord,
+                    key: key,
+                    success: function(){
+                        ++successCounter;
+                    }
+                } );
+
+            // Check it
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkRecord( assert, key, newRecord );
+            
+            assert.equal( successCounter, 1 );
+            
+            done();
+        }
+    );
+});
