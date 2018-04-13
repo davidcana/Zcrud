@@ -28,6 +28,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var userData = userDataToApply || {};
     
     var filter = userData.filter || {};
+    var userRecords = userData.records;
     
     var thisOptions = options.pages.list;
     var getThisOptions = function(){
@@ -151,14 +152,46 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var showFromClientOnly = function ( showBusyFull, dictionaryExtension, dataToSendToServer ) {
         
-        //alert( 'clientOnly in listpage!' );
-        
         var recordsDiff = History.updateRecordsMap( records, dataToSendToServer, options.key );
         
         clientAndServerSuccessFunction( 
             buildDataFromClient( dataToSendToServer, recordsDiff ),
             showBusyFull, 
             dictionaryExtension );
+    };
+    
+    var getRecordsPaging = function( recordsArray, data ){
+        
+        if ( data.pageNumber && data.pageSize ){
+            var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
+            return recordsArray.slice(
+                firstElementIndex, 
+                firstElementIndex + data.pageSize ); 
+        }
+        
+        return recordsArray;
+    };
+    
+    var buildDataUsingUserRecords = function() {
+        
+        var data = {};
+
+        data.result = 'OK';
+        data.message = '';
+        data.records = getRecordsPaging( userRecords, buildDataToSend() );
+        data.totalNumberOfRecords = userRecords.length;
+
+        return data;
+    };
+    
+    var showUsingRecords = function ( showBusyFull, dictionaryExtension, root, callback ) {
+        
+        clientAndServerSuccessFunction( 
+            buildDataUsingUserRecords(),
+            showBusyFull, 
+            dictionaryExtension, 
+            root, 
+            callback );
     };
     
     var clientAndServerSuccessFunction = function( data, showBusyFull, dictionaryExtension, root, callback ){
@@ -172,41 +205,16 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         }
     };
     
-    // Main method
-    /*
-    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
-        
-        // TODO Uncomment this when ZPT uses promises 
-        //context.showBusy( options, showBusyFull );
-        
-        var listData = {
-            search: buildDataToSend(),
-            success: clientAndServerSuccessFunction,
-            success: function( data ){
-                dataFromServer( data );
-                beforeProcessTemplate( data, dictionaryExtension );
-                context.hideBusy( options, showBusyFull );
-                buildHTMLAndJavascript( root );
-                if ( callback ){
-                    callback( true );
-                }
-            },
-            error: function(){
-                context.hideBusy( options, showBusyFull );
-                context.showError( options, options.messages.serverCommunicationError );
-                if ( callback ){
-                    callback( false );
-                }
-            }
-        };
-
-        crudManager.listRecords( listData, options );
-    };*/
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
 
         // TODO Uncomment this when ZPT uses promises 
         //context.showBusy( options, showBusyFull );
 
+        if ( userRecords ){
+            showUsingRecords( showBusyFull, dictionaryExtension, root, callback );
+            return;
+        }
+        
         crudManager.listRecords( 
             {
                 search: buildDataToSend(),
@@ -460,6 +468,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
+        showUsingRecords: showUsingRecords,
         getId: getId,
         showCreateForm: showCreateForm,
         showEditForm: showEditForm,

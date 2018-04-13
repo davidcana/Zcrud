@@ -424,6 +424,12 @@ exports.load = function( options, data, callback ){
     var listPage =  new ListPage( options, data );
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
+    /*
+    if ( data && data.records ){
+        listPage.showUsingRecords( data.records, callback );
+    } else {
+        listPage.show( true, undefined, undefined, callback );
+    }*/
     
     log.info( '...showing list finished.' );
 };

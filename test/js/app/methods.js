@@ -1050,3 +1050,95 @@ QUnit.test( "success function updateRecord test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "load (using records) test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            
+            // Build records
+            var records = [];
+            var totalNumberOfRecords = 22;
+            for ( var c = 1; c <= totalNumberOfRecords; ++c ){
+                records.push(
+                    {
+                        "id": "" + c,
+                        "name": "Service " + c
+                    }
+                );
+            }
+
+            $( '#departmentsContainer' ).zcrud( 
+                'load',
+                {
+                    records: records
+                });
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of ' + totalNumberOfRecords,
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '>', '>>' ]
+            });
+            
+            var values2 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '2' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 11-20 of ' + totalNumberOfRecords,
+                ids:  values2[ 0 ],
+                names: values2[ 1 ],
+                pageListNotActive: [ '2' ],
+                pageListActive: [ '<<', '<', '1', '3', '>', '>>' ]
+            });
+            
+            var values3 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 21, 22 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '3' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 2,
+                pagingInfo: 'Showing 21-22 of ' + totalNumberOfRecords,
+                ids:  values3[ 0 ],
+                names: values3[ 1 ],
+                pageListNotActive: [ '3', '>', '>>' ],
+                pageListActive: [ '<<', '<', '1', '2' ]
+            });
+            
+            testHelper.pagingTest({
+                action: { 
+                    firstPage: true 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of ' + totalNumberOfRecords,
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '>', '>>' ]
+            });
+            
+            done();
+        }
+    );
+});
