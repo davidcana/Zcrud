@@ -24,7 +24,7 @@ var thisTestOptions = {
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 // Run tests
-QUnit.test( "paging test", function( assert ) {
+QUnit.test( "filtering test", function( assert ) {
 
     var done = assert.async();
     

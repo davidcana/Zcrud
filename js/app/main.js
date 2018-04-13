@@ -417,11 +417,11 @@ exports.init = function( userOptions, callback ){
     return options;
 };
 
-exports.load = function( options, filter, callback ){
+exports.load = function( options, data, callback ){
 
     log.info( 'Showing list...' );
     
-    var listPage =  new ListPage( options, filter );
+    var listPage =  new ListPage( options, data );
     context.putPage( listPage.getId(), listPage );
     listPage.show( true, undefined, undefined, callback );
     

@@ -17,7 +17,7 @@ var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
 
-var ListPage = function ( optionsToApply, filterToApply ) {
+var ListPage = function ( optionsToApply, userDataToApply ) {
     "use strict";
     
     var options = optionsToApply;
@@ -25,7 +25,9 @@ var ListPage = function ( optionsToApply, filterToApply ) {
         return options;
     };
     
-    var filter = filterToApply || {};
+    var userData = userDataToApply || {};
+    
+    var filter = userData.filter || {};
     
     var thisOptions = options.pages.list;
     var getThisOptions = function(){

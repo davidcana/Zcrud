@@ -388,10 +388,12 @@ QUnit.test( "load (using filter) test", function( assert ) {
 
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 
-                'load', 
+                'load',
                 { 
-                    name: 'Service 1'
-                } );
+                    filter: { 
+                        name: 'Service 1'
+                    } 
+                });
             
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
