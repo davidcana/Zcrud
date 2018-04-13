@@ -983,8 +983,8 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
             
-            assert.equal( testUtils.getUrl( 1 ), url );
-
+            assert.equal( testUtils.getLastBatchUpdateUrl(), url );
+            
             done();
         }
     );

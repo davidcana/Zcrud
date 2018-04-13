@@ -40,6 +40,8 @@ module.exports = (function() {
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     var urls = [];
+    var lastListUrl = undefined;
+    var lastBatchUpdateUrl = undefined;
     
     var ajax = function( options ){
         
@@ -56,7 +58,7 @@ module.exports = (function() {
         // Run AJAX
         switch ( table ) {
             case "department":
-                ajaxServices( options, cmd, file, data );
+                ajaxServices( options, cmd, file, data, url );
                 break;
             case "phoneTypes":
                 ajaxPhoneTypes( options );
@@ -74,16 +76,16 @@ module.exports = (function() {
         });
     };
     
-    var ajaxServices = function( options, cmd, file, data ){
+    var ajaxServices = function( options, cmd, file, data, url ){
         
         // Run command
         var dataToSend = undefined;
         switch ( cmd ) {
             case "LIST":
-                dataToSend = ajaxServicesList( file, data );
+                dataToSend = ajaxServicesList( file, data, url );
                 break;
             case "BATCH_UPDATE":
-                dataToSend = ajaxServicesBatchUpdate( file, data );
+                dataToSend = ajaxServicesBatchUpdate( file, data, url );
                 break;
             default:
                 throw "Unknown command in ajax: " + cmd;
@@ -96,8 +98,10 @@ module.exports = (function() {
         }
     };
     
-    var ajaxServicesBatchUpdate = function( file, data ){
+    var ajaxServicesBatchUpdate = function( file, data, url ){
 
+        lastBatchUpdateUrl = url;
+        
         // Init data
         var dataToSend = {};
         //dataToSend.result = 'OK';
@@ -252,7 +256,9 @@ module.exports = (function() {
         return undefined;
     };
     
-    var ajaxServicesList = function( file, data ){
+    var ajaxServicesList = function( file, data, url ){
+        
+        lastListUrl = url;
         
         // Init data
         var dataToSend = {};
@@ -362,11 +368,21 @@ module.exports = (function() {
         return urls[ index ];
     };
     
+    var getLastListUrl = function(){
+        return lastListUrl;
+    };
+    
+    var getLastBatchUpdateUrl = function(){
+        return lastBatchUpdateUrl;
+    };
+ 
     return {
         ajax: ajax,
         getService: getService,
         setService: setService,
         resetServices: resetServices,
-        getUrl: getUrl
+        getUrl: getUrl,
+        getLastListUrl: getLastListUrl,
+        getLastBatchUpdateUrl: getLastBatchUpdateUrl
     };
 })();
