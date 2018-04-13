@@ -213,7 +213,7 @@ zcrud.init( options, function( options ){
 $( '#customButton' ).click( function ( event ) {
     
     alert( JSON.stringify(
-        $( '#departmentsContainer' ).zcrud( 'selectedRecords' ) ) );
+        $( '#departmentsContainer' ).zcrud( 'getSelectedRecords' ) ) );
     
     //$( '#departmentsContainer' ).zcrud( 'destroy' );
     /*alert( JSON.stringify(

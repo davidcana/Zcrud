@@ -411,20 +411,20 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         selectionComponent.deselectRows( rows );
     };
     
-    var selectedRows = function(){
+    var getSelectedRows = function(){
         var selectionComponent = components[ 'selecting' ];
         if ( ! selectionComponent ){
             return;
         }
-        return selectionComponent.selectedRows();
+        return selectionComponent.getSelectedRows();
     };
 
-    var selectedRecords = function(){
+    var getSelectedRecords = function(){
         var selectionComponent = components[ 'selecting' ];
         if ( ! selectionComponent ){
             return;
         }
-        return selectionComponent.selectedRecords();
+        return selectionComponent.getSelectedRecords();
     };
     
     var getComponent = function( id ){
@@ -484,8 +484,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         deselectRecords: deselectRecords,
         selectRows: selectRows,
         deselectRows: deselectRows,
-        selectedRows: selectedRows,
-        selectedRecords: selectedRecords,
+        getSelectedRows: getSelectedRows,
+        getSelectedRecords: getSelectedRecords,
         getComponent: getComponent,
         showStatusMessage: showStatusMessage,
         getRecords: getRecords,

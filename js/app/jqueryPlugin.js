@@ -37,6 +37,10 @@ var context = require( './context.js' );
                 return zcrud.getRecords( getOptions( this ) );
             case 'getRowByKey':
                 return zcrud.getRowByKey( getOptions( this ), arguments[1] );
+            case 'getSelectedRecords':
+                return zcrud.getSelectedRecords( getOptions( this ) );
+            case 'getSelectedRows':
+                return zcrud.getSelectedRows( getOptions( this ) );
             case 'init':
                 //arguments[1].target = this;
                 var options = zcrud.init( arguments[1], arguments[2] );
@@ -49,10 +53,6 @@ var context = require( './context.js' );
             case 'load':
                 zcrud.load( getOptions( this ), arguments[1], arguments[2] );
                 break;
-            case 'selectedRecords':
-                return zcrud.selectedRecords( getOptions( this ) );
-            case 'selectedRows':
-                return zcrud.selectedRows( getOptions( this ) );
             case 'selectRecords':
                 zcrud.selectRecords( getOptions( this ), arguments[1] );
                 break;

@@ -189,7 +189,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var _selectRows = function ( $rows ) {
         
         if ( ! thisOptions.multiple ) {
-            _deselectRows( selectedRows() );
+            _deselectRows( getSelectedRows() );
         }
 
         $rows.addClass( 'zcrud-row-selected' );
@@ -223,7 +223,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
 
         var totalRowCount = getAllTableRows().length;
-        var selectedRowCount = selectedRows().length;
+        var selectedRowCount = getSelectedRows().length;
 
         if ( selectedRowCount == 0 ) {
             getSelectAllCheckbox().prop( 'indeterminate', false );
@@ -280,15 +280,15 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     
     /* Gets all selected rows.
         *************************************************************************/
-    var selectedRows = function(){
+    var getSelectedRows = function(){
         return $( '#' + listPage.getThisOptions().tableId ).find( '.zcrud-row-selected' );
     };
     
-    var selectedRecords = function(){
+    var getSelectedRecords = function(){
 
         var result = [];
 
-        var $selectedRows = selectedRows();
+        var $selectedRows = getSelectedRows();
         $selectedRows.each( function( index ) {
             var key = $( this ).data( 'record-key' );
             var record = listPage.getRecordByKey( key );
@@ -301,8 +301,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var onSelectionChanged = function () {
         
         options.events.selectionChanged({
-            '$rows': selectedRows(),
-            records: selectedRecords(),
+            '$rows': getSelectedRows(),
+            records: getSelectedRecords(),
             options: options
         });
     };
@@ -319,8 +319,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         selectRows: selectRows,
         deselectRecords: deselectRecords,
         deselectRows: deselectRows,
-        selectedRows: selectedRows,
-        selectedRecords: selectedRecords,
+        getSelectedRows: getSelectedRows,
+        getSelectedRecords: getSelectedRecords,
         resetPage: resetPage
     };
 };

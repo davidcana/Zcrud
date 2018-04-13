@@ -913,7 +913,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
             
             var $departmentsContainer = $( '#departmentsContainer' );
             var getSelected = function(){
-                return $departmentsContainer.zcrud( 'selectedRecords' );
+                return $departmentsContainer.zcrud( 'getSelectedRecords' );
             };
             
             var $tbody = $( '#zcrud-list-tbody-department' );

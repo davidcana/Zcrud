@@ -9,8 +9,8 @@ Public methods of ZCrud:
  - getRecordByKey: Get record by key field's value of the record.
  - init: Set options and normalize them.
  - load: Show the list page. 
- - selectedRecords: Return an array with the selected records.
- - selectedRows: Return a jQuery object with the selected rows.
+ - getSelectedRecords: Return an array with the selected records.
+ - getSelectedRows: Return a jQuery object with the selected rows.
  - selectRows: Make rows selected.
  - showCreateForm: Open a 'create new record' form dialog.
  - updateRecord: Update an existing record on the table. (!)
@@ -538,24 +538,24 @@ exports.deselectRows = function( listPageIdSource, rows ){
     listPage.deselectRows( rows );
 };
 
-exports.selectedRows = function( listPageIdSource ){
+exports.getSelectedRows = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    return listPage.selectedRows();
+    return listPage.getSelectedRows();
 };
 
-exports.selectedRecords = function( listPageIdSource ){
+exports.getSelectedRecords = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    return listPage.selectedRecords();
+    return listPage.getSelectedRecords();
 };
 
 var recordOperationCommon = function( listPageIdSource, data, checkRecord, checkKey, method, type ){

@@ -50,7 +50,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
                 $tbody.find( "[data-record-key='" + 3 + "']" ) );
             
             assert.deepEqual( 
-                $departmentsContainer.zcrud( 'selectedRecords' ),
+                $departmentsContainer.zcrud( 'getSelectedRecords' ),
                 [ 
                     {
                         "id": "3",
@@ -58,7 +58,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
                     }
                 ] );
             assert.ok(
-                $departmentsContainer.zcrud( 'selectedRows' ).is(
+                $departmentsContainer.zcrud( 'getSelectedRows' ).is(
                     $tbody.find( "[data-record-key='" + 3 + "']" ) ) );
             
             // Select row with key 5
@@ -67,7 +67,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
                 $tbody.find( "[data-record-key='" + 5 + "']" ) );
 
             assert.deepEqual( 
-                $departmentsContainer.zcrud( 'selectedRecords' ),
+                $departmentsContainer.zcrud( 'getSelectedRecords' ),
                 [ 
                     {
                         "id": "3",
@@ -79,7 +79,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
                     }
                 ] );
             assert.ok(
-                $departmentsContainer.zcrud( 'selectedRows' ).is(
+                $departmentsContainer.zcrud( 'getSelectedRows' ).is(
                     $tbody.find( "[data-record-key='" + 3 + "'], [data-record-key='" + 5 + "']" ) ) );
             
             // Deselect row with key 3
@@ -88,7 +88,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
                 $tbody.find( "[data-record-key='" + 3 + "']" ) );
 
             assert.deepEqual( 
-                $departmentsContainer.zcrud( 'selectedRecords' ),
+                $departmentsContainer.zcrud( 'getSelectedRecords' ),
                 [ 
                     {
                         "id": "5",
@@ -96,7 +96,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
                     }
                 ] );
             assert.ok(
-                $departmentsContainer.zcrud( 'selectedRows' ).is(
+                $departmentsContainer.zcrud( 'getSelectedRows' ).is(
                     $tbody.find( "[data-record-key='" + 5 + "']" ) ) );
             
             done();
@@ -144,7 +144,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
                 ]
             );
             assert.deepEqual( 
-                $departmentsContainer.zcrud( 'selectedRecords' ),
+                $departmentsContainer.zcrud( 'getSelectedRecords' ),
                 [ 
                     {
                         "id": "3",
@@ -152,7 +152,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
                     }
                 ] );
             assert.ok(
-                $departmentsContainer.zcrud( 'selectedRows' ).is(
+                $departmentsContainer.zcrud( 'getSelectedRows' ).is(
                     $tbody.find( "[data-record-key='" + 3 + "']" ) ) );
             
             // Select row with key 5
@@ -170,7 +170,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
                 ] );
 
             assert.deepEqual( 
-                $departmentsContainer.zcrud( 'selectedRecords' ),
+                $departmentsContainer.zcrud( 'getSelectedRecords' ),
                 [ 
                     {
                         "id": "3",
@@ -182,7 +182,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
                     }
                 ] );
             assert.ok(
-                $departmentsContainer.zcrud( 'selectedRows' ).is(
+                $departmentsContainer.zcrud( 'getSelectedRows' ).is(
                     $tbody.find( "[data-record-key='" + 3 + "'], [data-record-key='" + 5 + "']" ) ) );
                     
             // Deselect row with key 3
@@ -196,7 +196,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
                 ] );
 
             assert.deepEqual( 
-                $departmentsContainer.zcrud( 'selectedRecords' ),
+                $departmentsContainer.zcrud( 'getSelectedRecords' ),
                 [ 
                     {
                         "id": "5",
@@ -204,7 +204,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
                     }
                 ] );
             assert.ok(
-                $departmentsContainer.zcrud( 'selectedRows' ).is(
+                $departmentsContainer.zcrud( 'getSelectedRows' ).is(
                     $tbody.find( "[data-record-key='" + 5 + "']" ) ) );
 
             done();
