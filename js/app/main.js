@@ -478,6 +478,16 @@ exports.getRecordByKey = function( listPageIdSource, key ){
     return listPage.getRecordByKey( key );
 };
 
+exports.getRecords = function( listPageIdSource ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
+        return;
+    }
+    return listPage.getRecordsArray();
+};
+
 exports.getRowByKey = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );

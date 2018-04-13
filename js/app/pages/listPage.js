@@ -444,6 +444,9 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var getRecords = function(){
         return records;
     };
+    var getRecordsArray = function(){
+        return buildRecordsArray();
+    };
     
     var getDictionary = function(){
         return dictionary;
@@ -486,6 +489,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getComponent: getComponent,
         showStatusMessage: showStatusMessage,
         getRecords: getRecords,
+        getRecordsArray: getRecordsArray,
         getDictionary: getDictionary,
         getField: getField,
         getFieldByName: getFieldByName,

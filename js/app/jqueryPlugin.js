@@ -33,6 +33,8 @@ var context = require( './context.js' );
                 break;
             case 'getRecordByKey':
                 return zcrud.getRecordByKey( getOptions( this ), arguments[1] );
+            case 'getRecords':
+                return zcrud.getRecords( getOptions( this ) );
             case 'getRowByKey':
                 return zcrud.getRowByKey( getOptions( this ), arguments[1] );
             case 'init':

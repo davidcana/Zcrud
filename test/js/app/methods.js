@@ -1051,7 +1051,7 @@ QUnit.test( "success function updateRecord test", function( assert ) {
     );
 });
 
-QUnit.test( "load (using records) test", function( assert ) {
+QUnit.test( "load (using records) / getRecords test", function( assert ) {
 
     var thisTestOptions = {};
     options = $.extend( true, {}, formOptions, thisTestOptions );
@@ -1064,17 +1064,25 @@ QUnit.test( "load (using records) test", function( assert ) {
 
             testUtils.resetServices();
             
+            var buildRecordsArray = function( first, numberOfRecords ){
+                
+                var result = [];
+                
+                for ( var c = 0; c < numberOfRecords; ++c ){
+                    result.push(
+                        {
+                            "id": "" + ( first + c ),
+                            "name": "Service " + ( first + c )
+                        }
+                    );
+                }
+                
+                return result;
+            };
+            
             // Build records
-            var records = [];
             var totalNumberOfRecords = 22;
-            for ( var c = 1; c <= totalNumberOfRecords; ++c ){
-                records.push(
-                    {
-                        "id": "" + c,
-                        "name": "Service " + c
-                    }
-                );
-            }
+            var records = buildRecordsArray( 1, totalNumberOfRecords );
 
             $( '#departmentsContainer' ).zcrud( 
                 'load',
@@ -1093,6 +1101,10 @@ QUnit.test( "load (using records) test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '>', '>>' ]
             });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                buildRecordsArray( 1, 10 )
+            );
             
             var values2 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
             testHelper.pagingTest({
@@ -1108,6 +1120,10 @@ QUnit.test( "load (using records) test", function( assert ) {
                 pageListNotActive: [ '2' ],
                 pageListActive: [ '<<', '<', '1', '3', '>', '>>' ]
             });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                buildRecordsArray( 11, 10 )
+            );
             
             var values3 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 21, 22 ) );
             testHelper.pagingTest({
@@ -1123,6 +1139,10 @@ QUnit.test( "load (using records) test", function( assert ) {
                 pageListNotActive: [ '3', '>', '>>' ],
                 pageListActive: [ '<<', '<', '1', '2' ]
             });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                buildRecordsArray( 21, 2 )
+            );
             
             testHelper.pagingTest({
                 action: { 
@@ -1137,7 +1157,100 @@ QUnit.test( "load (using records) test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '>', '>>' ]
             });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                buildRecordsArray( 1, 10 )
+            );
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "load (not using records) / getRecords test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+
+            var buildRecordsArray = function( first, numberOfRecords ){
+
+                var result = [];
+
+                for ( var c = 0; c < numberOfRecords; ++c ){
+                    result.push(
+                        {
+                            "id": "" + ( first + c ),
+                            "name": "Service " + ( first + c )
+                        }
+                    );
+                }
+
+                return result;
+            };
+
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                buildRecordsArray( 1, 10 )
+            );
+            
+            var values2 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
+            testHelper.pagingTest({
+                action: { 
+                    pageId: '2' 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 11-20 of 129',
+                ids:  values2[ 0 ],
+                names: values2[ 1 ],
+                pageListNotActive: [ '2' ],
+                pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
+            });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                buildRecordsArray( 11, 10 )
+            );
+            
+            testHelper.pagingTest({
+                action: { 
+                    firstPage: true 
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                buildRecordsArray( 1, 10 )
+            );
+
             done();
         }
     );
