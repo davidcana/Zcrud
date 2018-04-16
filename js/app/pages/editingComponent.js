@@ -49,34 +49,45 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         $this
             .find( '.zcrud-undo-command-button' )
             .off()
-            .click( function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            undo( event );
-        });
+            .click( 
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    undo( event );
+                });
         $this
             .find( '.zcrud-redo-command-button' )
             .off()
-            .click( function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            redo( event );
-        });
+            .click( 
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    redo( event );
+                });
         $this
             .find( '.zcrud-save-command-button' )
             .off()
-            .click( function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            save( event );
-        });
+            .click( 
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    save( event );
+                });
+        $this
+            .find( '.zcrud-new-row-command-button' )
+            .click( 
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    addNewRow( event );
+                });
         
         // Setup validation
         var formId = listPage.getThisOptions().formId;
         validationManager.initFormValidation( formId, $( '#' + formId ), options );
     };
     
-    var bindEventsInRows = function( $preselection ){
+    var bindEventsInRows = function( $preselection, record ){
 
         $preselection
             .find( '.zcrud-column-data input.historyField, .zcrud-column-data textarea.historyField, .zcrud-column-data select.historyField' )
@@ -96,7 +107,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     save( event );
                 }
         });
-        
+        /*
         $preselection
             .find( '.zcrud-new-row-command-button' )
             //.off()
@@ -104,7 +115,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 event.preventDefault();
                 event.stopPropagation();
                 addNewRow( event );
-        });
+        });*/
 
         $preselection
             .find( '.zcrud-delete-row-command-button' )
@@ -116,6 +127,22 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         });
         
         // Bind events for fields
+        var dictionary = listPage.getDictionary();
+        var fields = listPage.getFields();
+        
+        if ( record ){
+            bindEventsForFieldsAnd1Record( 
+                fields, 
+                dictionary, 
+                record, 
+                $preselection );
+        } else {
+            bindEventsForFieldsAndAllRecords( 
+                fields, 
+                dictionary,
+                dictionary.records );
+        }
+        /*
         var dictionary = listPage.getDictionary();
         var records = dictionary.records;
         var fields = listPage.getFields();
@@ -129,6 +156,30 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     $rows.filter( ":eq(" + i + ")" )
                 );
             }
+        }*/
+    };
+    
+    var bindEventsForFieldsAndAllRecords = function( fields, dictionary, records ){
+        
+        var $rows = $( '#' + listPage.getThisOptions().tbodyId ).children().filter( '.zcrud-data-row' );
+        for ( var i = 0; i < records.length; i++ ) {
+            var record = records[ i ];
+            bindEventsForFieldsAnd1Record( 
+                fields, 
+                dictionary, 
+                record, 
+                $rows.filter( ":eq(" + i + ")" ) );
+        }
+    };
+    
+    var bindEventsForFieldsAnd1Record = function( fields, dictionary, record, $row ){
+
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            fieldBuilder.afterProcessTemplateForField(
+                buildProcessTemplateParams( field, record, dictionary ),
+                $row
+            );
         }
     };
     
@@ -164,8 +215,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
     var addNewRow = function( event ){
 
+        var newRecord = {};  // TODO Build new record with default values
         var thisDictionary = $.extend( {}, listPage.getDictionary(), {} );
-        thisDictionary.records = [ {} ];
+        thisDictionary.records = [ newRecord ];
 
         var createHistoryItem = history.putCreate( 
             listPage.getId(), 
@@ -174,7 +226,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var $tr = createHistoryItem.get$Tr();
         
         // Bind events
-        bindEventsInRows( $tr );
+        bindEventsInRows( $tr, newRecord );
         validationManager.initFormValidation( listPage.getThisOptions().formId, $tr, options );
     };
 

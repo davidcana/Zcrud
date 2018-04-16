@@ -432,7 +432,8 @@ module.exports = (function() {
         return get$Tbody().find( "[data-record-key='" + key + "']" );
     };
     var getLastRow = function(){
-        return get$Tbody().find( 'tr:last' );
+        return get$Tbody().find( 'tr.zcrud-data-row:last' );
+        //return get$Tbody().find( 'tr:last' );
     };
     
     var getFieldValue = function( $selection ){
@@ -1008,6 +1009,14 @@ module.exports = (function() {
             stringValue );
     };
     
+    var updateLastRowDatetimePickerInList = function( fieldName, field, stringValue ){
+
+        updateDatetimePickerFrom$field( 
+            getLastRow().find( ".zcrud-column-data-" + fieldName ), 
+            field, 
+            stringValue );
+    };
+    
     var updateDatetimePickerFrom$field = function( $field, field, stringValue ){
 
         var instance = 
@@ -1145,6 +1154,7 @@ module.exports = (function() {
         //clickDatetimeOK: clickDatetimeOK,
         updateDatetimePickerInSubform: updateDatetimePickerInSubform,
         updateDatetimePickerInList: updateDatetimePickerInList,
+        updateLastRowDatetimePickerInList: updateLastRowDatetimePickerInList,
         get$SubFormFieldRow: get$SubFormFieldRow
     };
 })();

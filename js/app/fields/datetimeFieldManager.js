@@ -627,6 +627,7 @@ var DatetimeFieldManager = function() {
 
         $datetime
             .find( '.toggle-picker' )
+            .off( 'click' )
             .click( 
             function ( event ) {
                 event.preventDefault();

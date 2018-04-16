@@ -168,6 +168,15 @@ module.exports = function(grunt) {
                 src: 'test/js/app/editableList-update-allFields.js',
                 dest: 'build/editableList-update-allFields.js'
             },
+            editableListCreateAllfields: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/editableList-create-allFields.js',
+                dest: 'build/editableList-create-allFields.js'
+            },
             subformChange: {
                 options: {
                     browserifyOptions: {
