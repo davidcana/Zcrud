@@ -314,6 +314,232 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
     );
 });
 
+QUnit.test( "create date test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+
+            var varName = 'date';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 0 doesn't exist
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            testHelper.checkNoRecord( assert, key, record2, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Create record
+            var clientRecord = $.extend( true, {}, record2 );
+            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                clientRecord[ varName ] );
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( clientRecord );
+            testHelper.assertHistory( assert, 4, 0, false );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListLastRow( assert, clientRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "create date using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+
+            var varName = 'date';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 0 doesn't exist
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            testHelper.checkNoRecord( assert, key, record2, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Create record
+            var clientRecord = $.extend( true, {}, record );
+            var varValue = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                record2[ varName ] );
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( clientRecord );
+            testHelper.updateLastRowDatetimePickerInList( 
+                varName, 
+                options.fields[ varName ], 
+                varValue );
+            testHelper.assertHistory( assert, 4, 0, false );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 1, false );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListLastRow( assert, clientRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
+            
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "create inline date using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'date';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+            options.fields[ varName ].customOptions.inline = true;
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 0 doesn't exist
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            testHelper.checkNoRecord( assert, key, record2, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Create record
+            var clientRecord = $.extend( true, {}, record );
+            var varValue = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                record2[ varName ] );
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( clientRecord );
+            
+            testHelper.updateLastRowDatetimePickerInList( 
+                varName, 
+                options.fields[ varName ], 
+                varValue );
+            
+            testHelper.assertHistory( assert, 4, 0, false );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListLastRow( assert, clientRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
+            done();
+        }
+    );
+});
+
 /*
 QUnit.test( "update time test", function( assert ) {
 
