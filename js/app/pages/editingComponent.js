@@ -107,15 +107,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     save( event );
                 }
         });
-        /*
-        $preselection
-            .find( '.zcrud-new-row-command-button' )
-            //.off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                addNewRow( event );
-        });*/
 
         $preselection
             .find( '.zcrud-delete-row-command-button' )
@@ -142,21 +133,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 dictionary,
                 dictionary.records );
         }
-        /*
-        var dictionary = listPage.getDictionary();
-        var records = dictionary.records;
-        var fields = listPage.getFields();
-        var $rows = $( '#' + listPage.getThisOptions().tbodyId ).children().filter( '.zcrud-data-row' );
-        for ( var i = 0; i < records.length; i++ ) {
-            var record = records[ i ];
-            for ( var c = 0; c < fields.length; c++ ) {
-                var field = fields[ c ];
-                fieldBuilder.afterProcessTemplateForField(
-                    buildProcessTemplateParams( field, record, dictionary ),
-                    $rows.filter( ":eq(" + i + ")" )
-                );
-            }
-        }*/
     };
     
     var bindEventsForFieldsAndAllRecords = function( fields, dictionary, records ){
@@ -200,12 +176,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var $tr =  $( event.target ).closest( 'tr' );
         var key = $tr.attr( 'data-record-key' );
         var rowIndex = $tr.attr( 'data-record-index' );
-        /*
-        alert( 'deleteRow' 
-              + '\nkey: ' + key
-              + '\nrowIndex: ' + rowIndex 
-              + '\ndeleteRow: ' + records[ key ].name);
-        */
+
         history.putDelete( listPage.getId(), options, rowIndex, key, $tr );
 
         if ( autoSaveMode ){
@@ -248,9 +219,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
     var save = function( event ){
 
-        var dataToSend = history.buildDataToSend( 
-            //options, 
-            //thisOptions, 
+        var dataToSend = history.buildDataToSend(  
             options.key, 
             thisOptions.dataToSend, 
             listPage.getDictionary().records,
@@ -319,13 +288,15 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 delete records[ key ];
                 key = newKey;
             }
-            records[ key ] = extendedRegister;
+            //records[ key ] = extendedRegister;
+            listPage.updateRecord( key, extendedRegister );
             triggerEvent( options.events.recordUpdated, records[ key ], dataFromServer );
         }
 
         // Add all new records
         for ( key in dataToSend.newRecords ) {
-            records[ key ] = dataToSend.newRecords[ key ];
+            //records[ key ] = dataToSend.newRecords[ key ];
+            listPage.addRecord( key, dataToSend.newRecords[ key ] );
             triggerEvent( options.events.recordAdded, records[ key ], dataFromServer );
         }
 
@@ -333,7 +304,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         for ( var c = 0; c < dataToSend.recordsToRemove.length; c++ ) {
             key = dataToSend.recordsToRemove[ c ];
             var deletedRecord = $.extend( true, {}, records[ key ] );
-            delete records[ key ];
+            //delete records[ key ];
+            listPage.deleteRecord( key );
             triggerEvent( options.events.recordDeleted, deletedRecord, dataFromServer );
         }
     };
@@ -346,25 +318,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             options: options
         });
     };
-    /*
-    var beforeProcessTemplate = function(){
-        
-        var dictionary = listPage.getDictionary();
-        var records = dictionary.records;
-        var fields = listPage.getFields();
-        for ( var i = 0; i < records.length; i++ ) {
-            var record = records[ i ];
-            for ( var c = 0; c < fields.length; c++ ) {
-                var field = fields[ c ];
-                fieldBuilder.beforeProcessTemplateForField(
-                    buildProcessTemplateParams( field, record, dictionary )
-                );
-            }
-        }
-    };*/
     
     return {
-        //beforeProcessTemplate: beforeProcessTemplate,
         bindEvents: bindEvents,
         getThisOptions: getThisOptions
     };

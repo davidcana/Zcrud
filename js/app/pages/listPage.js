@@ -468,6 +468,31 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return pagingComponent.getTotalNumberOfRecords();
     };
     
+    var addRecord = function( key, record ){
+        records[ key ] = record;
+        dictionary.records.push( record );
+    };
+    var updateRecord = function( key, record ){
+        records[ key ] = record;
+        dictionary.records[ getIndexInDictionaryByKey( key ) ] = record;
+    };
+    var deleteRecord = function( key ){
+        delete records[ key ];
+        dictionary.records.splice( getIndexInDictionaryByKey( key ), 1 );
+    };
+    var getIndexInDictionaryByKey = function( key ){
+        for ( var c = 0; c < dictionary.records.length; c++ ) {
+            var record = dictionary.records[ c ];
+            if ( key == record[ options.key ] ){
+                return c;
+            }
+        }
+        
+        var message = 'Record not found in dictionary!'
+        alert( message );
+        throw message;
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -496,7 +521,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getFields: getFields,
         getPostTemplate: getPostTemplate,
         get$form: get$form,
-        instanceNewForm: instanceNewForm
+        instanceNewForm: instanceNewForm,
+        addRecord: addRecord,
+        updateRecord: updateRecord,
+        deleteRecord: deleteRecord
     };
     
     configure();
