@@ -21,7 +21,6 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( "create text area test", function( assert ) {
 
     var done = assert.async();
@@ -759,8 +758,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
     );
 });
 
-/*
-QUnit.test( "update inline time using picker test", function( assert ) {
+QUnit.test( "create checkbox test", function( assert ) {
 
     var done = assert.async();
 
@@ -769,23 +767,25 @@ QUnit.test( "update inline time using picker test", function( assert ) {
         options,
         function( options ){
 
-            var varName = 'time';
+
+            var varName = 'important';
             context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
-            options.fields[ varName ].customOptions.inline = true;
-            
+
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
 
             var editable = true;
 
-            // Assert register with key 2 exists
-            var key = 2;
+            // Assert register with key 0 doesn't exist
+            var key = 0;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = true;
+            testHelper.checkNoRecord( assert, key, record2, editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -800,48 +800,44 @@ QUnit.test( "update inline time using picker test", function( assert ) {
                 editable: editable
             });
 
-            // Edit record
-            var editedRecord = {};
-            editedRecord[ varName ] = "02:10";
-            testHelper.updateDatetimePickerInList( 
-                key, 
-                varName, 
-                options.fields[ varName ], 
-                editedRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            testHelper.assertHistory( assert, 4, 0, false );
+
             // Undo
-            testHelper.clickUndoButton( 4 );
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 4, false );
+            testHelper.clickUndoButton();
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 1, false );
 
             // Redo
-            testHelper.clickRedoButton( 4 );
-            testHelper.checkEditableListForm( assert, key, newRecord );
+            testHelper.clickRedoButton();
+            testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 4, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            assert.deepEqual( testUtils.getService( key ), record2 );
 
             done();
         }
     );
 });
 
-QUnit.test( "update checkbox test", function( assert ) {
+QUnit.test( "create radio test", function( assert ) {
 
     var done = assert.async();
-    
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'important' ] );
+
+
+            var varName = 'phoneType';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -849,13 +845,15 @@ QUnit.test( "update checkbox test", function( assert ) {
 
             var editable = true;
 
-            // Assert register with key 2 exists
-            var key = 2;
+            // Assert register with key 0 doesn't exist
+            var key = 0;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, record, editable );
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = "officePhone_option";
+            testHelper.checkNoRecord( assert, key, record2, editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -870,45 +868,44 @@ QUnit.test( "update checkbox test", function( assert ) {
                 editable: editable
             });
 
-            // Edit record
-            var editedRecord =  {
-                "important": true
-            };
-            testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            testHelper.assertHistory( assert, 4, 0, false );
 
             // Undo
             testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 1, false );
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 1, false );
 
             // Redo
             testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
+            testHelper.checkEditableListLastRow( assert, record2 );
+            testHelper.assertHistory( assert, 4, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, newRecord, editable );
-            
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
             done();
         }
     );
 });
 
-QUnit.test( "update radio test", function( assert ) {
+QUnit.test( "create select test", function( assert ) {
 
     var done = assert.async();
-    
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+
+
+            var varName = 'province';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -916,13 +913,15 @@ QUnit.test( "update radio test", function( assert ) {
 
             var editable = true;
 
-            // Assert register with key 2 exists
-            var key = 2;
+            // Assert register with key 0 doesn't exist
+            var key = 0;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, record, editable );
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = "Málaga";
+            testHelper.checkNoRecord( assert, key, record2, editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -936,213 +935,49 @@ QUnit.test( "update radio test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-
-            // Edit record
-            var editedRecord =  {
-                "phoneType": "officePhone_option"
-            };
-            testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
-
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 1, false );
-
-            // Redo
-            testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
-
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            testHelper.checkRecord( assert, key, newRecord, editable );
-            
-            done();
-        }
-    );
-});
-
-QUnit.test( "update 2 radios test", function( assert ) {
-
-    var done = assert.async();
-    
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            var editable = true;
-
-            // Assert register with key 2 exists
-            var key = 2;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            testHelper.checkRecord( assert, key, record, editable );
-
-            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
-            testHelper.pagingTest({
-                options: options,
-                assert: assert,
-                visibleRows: 5,
-                pagingInfo: 'Showing 1-5 of 129',
-                ids:  values[ 0 ],
-                names: values[ 1 ],
-                pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
-                editable: editable
-            });
-
-            // Edit record
-            var editedRecord =  {
-                "phoneType": "officePhone_option"
-            };
-            testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
-
-            // Assert register with key 4 exists
-            var key2 = 4;
-            var record2 =  {
-                "id": "" + key2,
-                "name": "Service " + key2
-            };
-            testHelper.checkRecord( assert, key2, record2, editable );
-
-            // Edit record 2
-            var editedRecord2 =  {
-                "phoneType": "cellPhone_option"
-            };
-            testHelper.fillEditableList( editedRecord2, key2 );
-            var newRecord2 = $.extend( true, {}, record2, editedRecord2 );
-            testHelper.checkEditableListForm( assert, key2, newRecord2 );
-
-            // Undo (1)
-            testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key2, record2, editable );
-            testHelper.assertHistory( assert, 1, 1, true );
-
-            // Undo (2)
-            testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 2, false );
-
-            // Redo (1)
-            testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            testHelper.assertHistory( assert, 1, 1, true );
-
-            // Redo (2)
-            testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key2, newRecord2 );
-            testHelper.assertHistory( assert, 2, 0, true ); 
-
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            testHelper.checkRecord( assert, key, newRecord, editable );
-            testHelper.checkRecord( assert, key2, newRecord2, editable );
-            
-            done();
-        }
-    );
-});
-
-QUnit.test( "update select test", function( assert ) {
-
-    var done = assert.async();
-    
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            var editable = true;
-
-            // Assert register with key 2 exists
-            var key = 2;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            testHelper.checkRecord( assert, key, record, editable );
-
-            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
-            testHelper.pagingTest({
-                options: options,
-                assert: assert,
-                visibleRows: 5,
-                pagingInfo: 'Showing 1-5 of 129',
-                ids:  values[ 0 ],
-                names: values[ 1 ],
-                pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
-                editable: editable
-            });
-            //alert(
-            //    testHelper.getSelectOptions( 'province', testHelper.get$row( key ) ) );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'province', testHelper.get$row( key ) ),
+                testHelper.getSelectOptions( 'province', testHelper.getLastRow() ),
                 [ 'Cádiz', 'Málaga' ] );
             
-            // Edit record
-            var editedRecord =  {
-                "province": "Málaga"
-            };
-            testHelper.fillEditableList( editedRecord, key );
-
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            testHelper.assertHistory( assert, 4, 0, false );
 
             // Undo
             testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 1, false );
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 1, false );
 
             // Redo
             testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
+            testHelper.checkEditableListLastRow( assert, record2 );
+            testHelper.assertHistory( assert, 4, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, newRecord, editable );
-            
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
             done();
         }
     );
 });
 
-QUnit.test( "update 2 linked select test", function( assert ) {
+QUnit.test( "create 2 linked select test", function( assert ) {
 
     var done = assert.async();
-    
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
+
+
+            var varName = 'province';
+            var varName2 = 'city';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName, varName2 ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -1150,16 +985,18 @@ QUnit.test( "update 2 linked select test", function( assert ) {
 
             var editable = true;
 
-            // Assert register with key 2 exists
-            var key = 2;
+            // Assert register with key 0 doesn't exist
+            var key = 0;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, record, editable );
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
-                [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = "Málaga";
+            var record2Step2 = {};
+            record2Step2[ varName2 ] = "Marbella";
+            var record3 = $.extend( true, {}, record2, record2Step2 );
+            testHelper.checkNoRecord( assert, key, record2, editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -1173,82 +1010,79 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-            
-            // Edit record
-            var editedRecord =  {
-                "province": "Málaga"
-            };
-            testHelper.fillEditableList( editedRecord, key );
-
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
-
-            var editedRecord2 =  {
-                "city": "Marbella"
-            };
-            testHelper.fillEditableList( editedRecord2, key );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
+                testHelper.getSelectOptions( 'province', testHelper.getLastRow() ),
+                [ 'Cádiz', 'Málaga' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
+                [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
+            
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            testHelper.assertHistory( assert, 4, 0, false );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
                 [ 'Estepona', 'Marbella' ] );
-
-            var newRecord2 = $.extend( true, {}, newRecord, editedRecord2 );
-            testHelper.checkEditableListForm( assert, key, newRecord2 );
-
-            testHelper.assertHistory( assert, 2, 0, true );
-
+            testHelper.fillNewRowEditableList( record2Step2 );
+            testHelper.assertHistory( assert, 5, 0, false );
+            testHelper.checkEditableListLastRow( assert, record3 );
+            
             // Undo (1)
             testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord, editable );
-            testHelper.assertHistory( assert, 1, 1, true );
+            testHelper.checkEditableListLastRow( assert, record2 );
+            testHelper.assertHistory( assert, 4, 1, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
                 [ 'Estepona', 'Marbella' ] );
-
+            
             // Undo (2)
             testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 2, true );
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 2, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
-
+            
             // Redo (1)
             testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            testHelper.assertHistory( assert, 1, 1, true );
+            testHelper.checkEditableListLastRow( assert, record2 );
+            testHelper.assertHistory( assert, 4, 1, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
                 [ 'Estepona', 'Marbella' ] );
-
+            
             // Redo (2)
             testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord2 );
-            testHelper.assertHistory( assert, 2, 0, true );
+            testHelper.checkEditableListLastRow( assert, record2 );
+            testHelper.assertHistory( assert, 5, 0, false );
             assert.deepEqual(
-                testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
+                testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
                 [ 'Estepona', 'Marbella' ] );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, newRecord2, editable );
-            
+            assert.deepEqual( testUtils.getService( key ), record3 );
+
             done();
         }
     );
 });
 
-QUnit.test( "update datalist test", function( assert ) {
+QUnit.test( "create datalist test", function( assert ) {
 
     var done = assert.async();
-    
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
+
+
+            var varName = 'browser';
+            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -1256,13 +1090,15 @@ QUnit.test( "update datalist test", function( assert ) {
 
             var editable = true;
 
-            // Assert register with key 2 exists
-            var key = 2;
+            // Assert register with key 0 doesn't exist
+            var key = 0;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, record, editable );
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = "Firefox";
+            testHelper.checkNoRecord( assert, key, record2, editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -1277,32 +1113,28 @@ QUnit.test( "update datalist test", function( assert ) {
                 editable: editable
             });
 
-            // Edit record
-            var editedRecord =  {
-                "browser": "Firefox"
-            };
-            testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            testHelper.checkEditableListForm( assert, key, newRecord );
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            testHelper.assertHistory( assert, 4, 0, false );
 
             // Undo
             testHelper.clickUndoButton();
-            testHelper.checkEditableListForm( assert, key, record, editable );
-            testHelper.assertHistory( assert, 0, 1, false );
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 1, false );
 
             // Redo
             testHelper.clickRedoButton();
-            testHelper.checkEditableListForm( assert, key, newRecord );
-            testHelper.assertHistory( assert, 1, 0, true );
+            testHelper.checkEditableListLastRow( assert, record2 );
+            testHelper.assertHistory( assert, 4, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, newRecord, editable );
-            
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
             done();
         }
     );
 });
-*/

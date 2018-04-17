@@ -1138,6 +1138,7 @@ module.exports = (function() {
         assertHistory: assertHistory,
         setFormVal: setFormVal,
         get$row: get$row,
+        getLastRow: getLastRow,
         getSelectOptions: getSelectOptions,
         fillSubform: fillSubform,
         fillSubformNewRow: fillSubformNewRow,
