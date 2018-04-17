@@ -8,6 +8,7 @@ QUnit.testSuites([
     { name: "selecting Test Suite", path: "./selecting.html" },
     { name: "delete Test Suite", path: "./delete.html" },
     { name: "create Test Suite", path: "./create.html" },
+    { name: "create all fields Test Suite", path: "./create-allFields.html" },
     { name: "update Test Suite", path: "./update.html" },
     { name: "editable list change Test Suite", path: "./editableList-change.html" },
     { name: "editable list create Test Suite", path: "./editableList-create.html" },

@@ -993,6 +993,14 @@ module.exports = (function() {
         $field.find( '.save-button:visible' ).click();
     };
     
+    var updateDatetimePickerInForm = function( fieldName, field, stringValue ){
+
+        updateDatetimePickerFrom$field( 
+            get$FormFieldByNameClass( fieldName ), 
+            field, 
+            stringValue );
+    };
+    
     var updateDatetimePickerInSubform = function( subformName, fieldName, subformIndex, field, stringValue ){
         
         updateDatetimePickerFrom$field( 
@@ -1153,6 +1161,7 @@ module.exports = (function() {
         //setDatetimeMonth: setDatetimeMonth,
         //setDatetimeDay: setDatetimeDay,
         //clickDatetimeOK: clickDatetimeOK,
+        updateDatetimePickerInForm: updateDatetimePickerInForm,
         updateDatetimePickerInSubform: updateDatetimePickerInSubform,
         updateDatetimePickerInList: updateDatetimePickerInList,
         updateLastRowDatetimePickerInList: updateLastRowDatetimePickerInList,

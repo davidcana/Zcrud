@@ -312,15 +312,27 @@ module.exports = (function() {
         return zptParser;
     };
     
-    var updateListVisibleFields = function( options, fieldIdList ){
+    var updateFormVisibleFields = function( options, fieldIdList ){
         
+        var fields = options.fields;
+        for ( var id in fields ){
+            var field = fields[ id ];
+            var value = fieldIdList.indexOf( id ) !== -1;
+            field.create = value;
+            field.edit = value;
+            field.delete = value;
+        }
+    };
+
+    var updateListVisibleFields = function( options, fieldIdList ){
+
         var fields = options.fields;
         for ( var id in fields ){
             var field = fields[ id ];
             field.list = fieldIdList.indexOf( id ) !== -1;
         }
     };
-    
+
     var updateSubformFields = function( subformField, fieldIdList ){
         
         var fields = subformField.fields;
@@ -371,6 +383,7 @@ module.exports = (function() {
         declareRemotePageUrl: declareRemotePageUrl,
         initZPT: initZPT,
         getZPTParser: getZPTParser,
+        updateFormVisibleFields: updateFormVisibleFields,
         updateListVisibleFields: updateListVisibleFields,
         updateSubformFields: updateSubformFields,
         getField: getField,
