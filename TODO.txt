@@ -29,6 +29,10 @@ ZCrud 0.1.0
 
 
 * Write tests. (in progress!)
-
-* Write docs.
+* Write docs. (in progress!)
 * Support of several instances running at the same web page.
+
+* Pending tests:
+    - Server side validation.
+    - Delete form with subform.
+    - One instance with data from server using filter; another editable instance load records from the first one (using a button) and send data to server.
