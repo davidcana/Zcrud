@@ -144,6 +144,17 @@ module.exports = (function() {
         
         return record[ field.id ];
     };
+    /*
+    var getValueFromRecordForViewing = function( field, record, params ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.getValueFromRecordForViewing ) ){
+            return fieldManager.getValueFromRecordForViewing( field, record, params );
+        }
+
+        return record[ field.id ];
+    };*/
     
     var getTemplate = function( field, options ){
         
@@ -162,6 +173,17 @@ module.exports = (function() {
 
         if ( fieldManager && $.isFunction( fieldManager.getPostTemplate ) ){
             return fieldManager.getPostTemplate( field );
+        }
+
+        return undefined;
+    };
+    
+    var getViewTemplate = function( field ){
+
+        var fieldManager = fieldManagers[ field.type ];
+
+        if ( fieldManager && $.isFunction( fieldManager.getViewTemplate ) ){
+            return fieldManager.getViewTemplate( field );
         }
 
         return undefined;
@@ -238,8 +260,10 @@ module.exports = (function() {
         getValue: getValue,
         getValueFromForm: getValueFromForm,
         getValueFromRecord: getValueFromRecord,
+        //getValueFromRecordForViewing: getValueFromRecordForViewing,
         getTemplate: getTemplate,
         getPostTemplate: getPostTemplate,
+        getViewTemplate: getViewTemplate,
         //getLabelFor: getLabelFor,
         setValueToForm: setValueToForm,
         mustHideLabel: mustHideLabel,

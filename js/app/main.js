@@ -311,6 +311,9 @@ exports.init = function( userOptions, callback ){
         if ( field.template == undefined ){
             field.template = fieldBuilder.getTemplate( field, options );
         }
+        if ( field.viewTemplate == undefined ){
+            field.viewTemplate = fieldBuilder.getViewTemplate( field );
+        }
         context.declareRemotePageUrl( field.template, options.templates.declaredRemotePageUrls );
         if ( field.formFieldAttributes == undefined ){
             field.formFieldAttributes = {};

@@ -101,17 +101,24 @@
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcRecordKey'; value record[ options/key ]">
-                <div class="zcrud-field"
-                     data-trepeat="field instance/getFields()"
-                     data-tdefine="id field/id">
+                <div data-trepeat="field instance/getFields()"
+                     data-tdefine="id field/id;
+                                   value record[ id ];
+                                   template field/viewTemplate"
+                     data-tattributes="class string:zcrud-field zcrud-field-${id}">
                     <div data-tcontent="field/title || tr:string:${id}_title" class="zcrud-field-label">
                         The name of the field
                     </div>
                     <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
                         The description of this field.
                     </div>
-                    <div class="zcrud-property" data-tcontent="record[ id ]">
+                    <div data-tcondition="not: template" 
+                         data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) value"
+                         class="zcrud-property">
                         The value
+                    </div>
+                    <div data-tcondition="template" data-muse-macro="template">
+                        The field
                     </div>
                 </div>
                 <div class="zcrud-button-panel">

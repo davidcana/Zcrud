@@ -57,5 +57,37 @@
                 </div>
             </div>
         </div>
+        
+        <div data-mdefine-macro="view" data-tomit-tag="">
+            <div class="zcrud-subform-content"
+                 data-tdefine="subformField field;
+                               subformRecords value">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-trepeat="field subformField/getFields()" 
+                                data-tattributes="style cond: field/width (string:width:${field/width}) null;
+                                                  class string:zcrud-column-header zcrud-column-header-${field/id}">
+                                <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-tdefine="editable true;
+                                         renderIds false">
+                        <tr data-trepeat="record subformRecords"
+                            data-tattributes="data-subform-record-key record[ subformField/subformKey ];
+                                              data-subform-record-index repeat/record/index();
+                                              class 'zcrud-data-row zcrud-data-entity'"
+                            data-tdefine="data-subform-record-index repeat/record/index()">
+                            <td data-trepeat="field subformField/getFields()"
+                                data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
+                                data-tdefine="value record[ field/id ]">
+                                <span data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) value">Field value</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </body>
 </html>

@@ -55,6 +55,9 @@
     "deleteSuccess": "Record deleted!",
     "listUpdateSuccess": "All operations done!",
     "serverCommunicationError": "An error occurred while communicating to the server!",
+    "undefinedValueToShow": "(not set)",
+    "true": "True",
+    "false": "False",
     
     "_buttons": "",
     "Add new record": "Add new record",

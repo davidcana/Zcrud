@@ -231,6 +231,10 @@ var SubformManager = function() {
         return 'subform@templates/fields/subforms.html';   
     };
     
+    var getViewTemplate = function(){
+        return 'view@templates/fields/subforms.html';   
+    };
+    
     var buildFields = function( field ){
 
         var fields = [];
@@ -261,6 +265,7 @@ var SubformManager = function() {
         getValueFromRecord: getValueFromRecord,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getTemplate: getTemplate,
+        getViewTemplate: getViewTemplate,
         buildFields: buildFields,
         mustHideLabel: mustHideLabel,
         filterValue: filterValue

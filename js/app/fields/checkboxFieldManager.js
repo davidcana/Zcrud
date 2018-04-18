@@ -3,7 +3,7 @@
 */
 "use strict";
 
-//var context = require( '../context.js' );
+var context = require( '../context.js' );
 var $ = require( 'jquery' );
 
 var CheckboxFieldManager = function() {
@@ -21,10 +21,27 @@ var CheckboxFieldManager = function() {
     var setValueToForm = function( field, value, $this ){
         return $this.prop( 'checked', value === undefined? false: value );
     };
-    
+    /*
     var getValueFromRecord = function( field, record ){
         var value = record[ field.id ];
         return value == undefined? false: value;
+    };*/
+    
+    var getValueFromRecord = function( field, record, params ){
+        
+        // Get the value
+        var value = record[ field.id ];
+        value = value == undefined? false: value;
+        
+        switch( params.source ) {
+            case 'create':
+            case 'update':
+                return value;
+            case 'delete':
+                return value? context.translate( 'true' ): context.translate( 'false' )
+            default:
+                throw "Unknown source in CheckboxFieldManager: " + params.source;
+        }
     };
     
     return {

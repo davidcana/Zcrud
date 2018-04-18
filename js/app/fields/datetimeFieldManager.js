@@ -222,7 +222,16 @@ var DatetimeFieldManager = function() {
         switch( field.type ) {
             case 'date':
             case 'datetime':
-                return new Date( value );
+                var dateInstance = new Date( value );
+                switch( params.source ) {
+                    case 'create':
+                    case 'update':
+                        return dateInstance;
+                    case 'delete':
+                        return formatToClient( field, dateInstance );
+                    default:
+                        throw "Unknown source in CheckboxFieldManager: " + params.source;
+                }
             case 'time':
                 return value;
         }

@@ -682,6 +682,32 @@ module.exports = (function() {
         assert.deepEqual( getSubformVal( 'members' ), record.members );
     };
     
+    var checkViewField = function( assert, id, record, $form ){
+        assert.equal( 
+            $form.find( '.zcrud-field-' + id + ' .zcrud-property' ).html(),
+            record[ id ] );
+    };
+    
+    var checkDeleteForm = function( assert, record ){
+        
+        var $form = get$Form();
+        
+        checkViewField( assert, 'id', record, $form );
+        checkViewField( assert, 'name', record, $form );
+        checkViewField( assert, 'description', record, $form );
+        checkViewField( assert, 'date', record, $form );
+        checkViewField( assert, 'time', record, $form );
+        checkViewField( assert, 'datetime', record, $form );
+        checkViewField( assert, 'phoneType', record, $form );
+        checkViewField( assert, 'province', record, $form );
+        checkViewField( assert, 'city', record, $form );
+        checkViewField( assert, 'browser', record, $form );
+        checkViewField( assert, 'important', record, $form );
+        checkViewField( assert, 'number', record, $form );
+        
+        //assert.deepEqual( getSubformVal( 'members' ), record.members );
+    };
+    
     var setFormCheckboxVal = function( record, name, $row, subformName ){
         
         if ( record[ name ] === undefined ){
@@ -1136,6 +1162,7 @@ module.exports = (function() {
         clickFormSubmitButton: clickFormSubmitButton,
         fillForm: fillForm,
         checkForm: checkForm,
+        checkDeleteForm: checkDeleteForm,
         fillEditableList: fillEditableList,
         fillNewRowEditableList: fillNewRowEditableList,
         checkEditableListForm: checkEditableListForm,
