@@ -521,7 +521,7 @@ QUnit.test( "update time test", function( assert ) {
         options,
         function( options ){
 
-            var varName = 'date';
+            var varName = 'time';
             context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
@@ -553,7 +553,7 @@ QUnit.test( "update time test", function( assert ) {
 
             // Edit record
             var editedRecord = {};
-            editedRecord[ varName ] = "10/12/2017";
+            editedRecord[ varName ] = "03:10";
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
@@ -588,7 +588,7 @@ QUnit.test( "update time using picker test", function( assert ) {
         options,
         function( options ){
 
-            var varName = 'date';
+            var varName = 'time';
             context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
@@ -620,7 +620,7 @@ QUnit.test( "update time using picker test", function( assert ) {
 
             // Edit record
             var editedRecord = {};
-            editedRecord[ varName ] = "10/12/2017";
+            editedRecord[ varName ] = "03:10";
             testHelper.updateDatetimePickerInList( 
                 key, 
                 varName, 

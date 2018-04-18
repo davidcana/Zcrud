@@ -21,7 +21,7 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create text area test", function( assert ) {
+QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
     
@@ -36,520 +36,534 @@ QUnit.test( "create text area test", function( assert ) {
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
-            
-            // Assert register with key 0 doesn't exist
-            var key = 0;
+
+            // Assert register with key 2 exists
+            var key = 2;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "Service " + key + " description";
-            testHelper.checkNoRecord( assert, key, record2 );
-            
-            // Go to create form and create record
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( record2 );
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 0, false );
-            
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-            
-            // Redo
-            testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 0, true );
-            
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkRecord( assert, key, record );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
-            
-            done();
-        }
-    );
-});
-
-QUnit.test( "create datetime test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'datetime';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T20:00:00.000" );
-            testHelper.checkNoRecord( assert, key, record2 );
-            
-            // Create record
-            var clientRecord = $.extend( true, {}, record2 );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
-                clientRecord[ varName ] );
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
-            testHelper.assertHistory( assert, 3, 0, false );
-            
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-
-            // Redo
-            testHelper.clickRedoButton();
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 3, 0, true );
-
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create datetime using picker test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'datetime';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T20:00:00.000Z" );
-            testHelper.checkNoRecord( assert, key, record2 );
-            
-            // Create record
-            var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
-                record2[ varName ] );
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
-            testHelper.updateDatetimePickerInForm( 
-                varName, 
-                options.fields[ varName ], 
-                varValue );
-            testHelper.assertHistory( assert, 3, 0, false );
-            
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-            
-            // Redo
-            testHelper.clickRedoButton();
-            clientRecord[ varName ] = varValue;
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 3, 0, true );
-            
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create inline datetime using picker test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'datetime';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-            options.fields[ varName ].customOptions.inline = true;
-            
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T03:10:00.000" );
-            testHelper.checkNoRecord( assert, key, record2 );
-            
-            // Create record
-            var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
-                record2[ varName ] );
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
-            testHelper.updateDatetimePickerInForm( 
-                varName, 
-                options.fields[ varName ], 
-                varValue );
-            testHelper.assertHistory( assert, 8, 0, false );
-            
-            // Undo
-            testHelper.clickUndoButton( 6 );
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 6, false );
-            
-            // Redo
-            testHelper.clickRedoButton( 6 );
-            clientRecord[ varName ] = varValue;
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 8, 0, true );
-            
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create date test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-
-            var varName = 'date';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
-            testHelper.checkNoRecord( assert, key, record2 );
-
-            // Create record
-            var clientRecord = $.extend( true, {}, record2 );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
-                clientRecord[ varName ] );
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
-            testHelper.assertHistory( assert, 3, 0, false );
+            // Edit record
+            var editedRecord = {};
+            editedRecord[ varName ] = "Service " + key + " description";
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.clickUpdateListButton( key );
+            testHelper.fillForm( editedRecord );
 
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
+            testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 3, 0, true );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
+            testHelper.checkRecord( assert, key, newRecord );
+            
             done();
         }
     );
 });
 
-QUnit.test( "create date using picker test", function( assert ) {
+QUnit.test( "update datetime test", function( assert ) {
 
     var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-
-            var varName = 'date';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
-            testHelper.checkNoRecord( assert, key, record2 );
-
-            // Create record
-            var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
-                record2[ varName ] );
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
-            testHelper.updateDatetimePickerInForm( 
-                varName, 
-                options.fields[ varName ], 
-                varValue );
-            testHelper.assertHistory( assert, 3, 0, false );
-            
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-            
-            // Redo
-            testHelper.clickRedoButton();
-            clientRecord[ varName ] = varValue;
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 3, 0, true );
-            
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create inline date using picker test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'date';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-            options.fields[ varName ].customOptions.inline = true;
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
-            testHelper.checkNoRecord( assert, key, record2 );
-
-            // Create record
-            var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
-                record2[ varName ] );
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
-            
-            testHelper.updateDatetimePickerInForm( 
-                varName, 
-                options.fields[ varName ], 
-                varValue );
-            
-            testHelper.assertHistory( assert, 3, 0, false );
-            
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-
-            // Redo
-            testHelper.clickRedoButton();
-            clientRecord[ varName ] = varValue;
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 3, 0, true );
-
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create time test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'time';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "03:05";
-            testHelper.checkNoRecord( assert, key, record2 );
-
-            // Create record
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( record2 );
-            
-            testHelper.assertHistory( assert, 3, 0, false );
-
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-
-            // Redo
-            testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 0, true );
-
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create time using picker test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'time';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "03:05";
-            testHelper.checkNoRecord( assert, key, record2 );
-
-            // Create record
-            var clientRecord = $.extend( true, {}, record );
-            var varValue = record2[ varName ];
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
-            testHelper.updateDatetimePickerInForm( 
-                varName, 
-                options.fields[ varName ], 
-                varValue );
     
-            testHelper.assertHistory( assert, 3, 0, false );
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
+            var varName = 'datetime';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+            
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = new Date( "2017-09-10T20:00:00.000" );
+            var clientRecord = $.extend( true, {}, editedRecord );
+            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                clientRecord[ varName ] );
+            testHelper.fillForm( clientRecord );
+            
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            testHelper.checkForm( assert, newClientRecord );
+            
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-
+            testHelper.assertHistory( assert, 0, 1, false );
+            
             // Redo
             testHelper.clickRedoButton();
-            clientRecord[ varName ] = varValue;
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 3, 0, true );
+            testHelper.checkForm( assert, newClientRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+            
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            
+            testHelper.checkRecord( assert, key, newRecord );
+            
+            done();
+        }
+    );
+});
 
+QUnit.test( "update datetime using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'datetime';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = new Date( "2017-09-10T20:00:00.000" );
+            var varValue = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                editedRecord[ varName ] );
+            testHelper.updateDatetimePickerInForm( 
+                varName, 
+                options.fields[ varName ], 
+                varValue );
+            
+            var clientRecord = $.extend( true, {}, editedRecord );
+            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                clientRecord[ varName ] );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            testHelper.checkForm( assert, newClientRecord );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newClientRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+            
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            testHelper.checkRecord( assert, key, newRecord );
 
             done();
         }
     );
 });
 
-QUnit.test( "create inline time using picker test", function( assert ) {
+QUnit.test( "update inline datetime using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'datetime';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            options.fields[ varName ].customOptions.inline = true;
+            
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = new Date( "2017-09-10T03:05:00.000" );
+            var varValue = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                editedRecord[ varName ] );
+            testHelper.updateDatetimePickerInForm( 
+                varName, 
+                options.fields[ varName ], 
+                varValue );
+            
+            var clientRecord = $.extend( true, {}, editedRecord );
+            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                clientRecord[ varName ] );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            testHelper.checkForm( assert, newClientRecord );
+            
+            // Undo
+            testHelper.clickUndoButton( 5 );
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 5, false );
+            
+            // Redo
+            testHelper.clickRedoButton( 5 );
+            testHelper.checkForm( assert, newClientRecord );
+            testHelper.assertHistory( assert, 5, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update date test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'date';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            var clientRecord = $.extend( true, {}, editedRecord );
+            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                clientRecord[ varName ] );
+            testHelper.fillForm( clientRecord );
+
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            testHelper.checkForm( assert, newClientRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newClientRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update date using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'date';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            var varValue = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                editedRecord[ varName ] );
+            testHelper.updateDatetimePickerInForm( 
+                varName, 
+                options.fields[ varName ], 
+                varValue );
+
+            var clientRecord = $.extend( true, {}, editedRecord );
+            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                clientRecord[ varName ] );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            testHelper.checkForm( assert, newClientRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newClientRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update inline date using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'date';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            options.fields[ varName ].customOptions.inline = true;
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            var varValue = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                editedRecord[ varName ] );
+            testHelper.updateDatetimePickerInForm( 
+                varName, 
+                options.fields[ varName ], 
+                varValue );
+
+            var clientRecord = $.extend( true, {}, editedRecord );
+            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
+                options.fields[ varName ],
+                clientRecord[ varName ] );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            testHelper.checkForm( assert, newClientRecord );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newClientRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update time test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'time';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = "03:05";
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update time using picker test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var varName = 'time';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = "03:05";
+            testHelper.updateDatetimePickerInForm( 
+                varName, 
+                options.fields[ varName ], 
+                editedRecord[ varName ] );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update inline time using picker test", function( assert ) {
 
     var done = assert.async();
 
@@ -561,355 +575,354 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             var varName = 'time';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].customOptions.inline = true;
-
+            
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 0 doesn't exist
-            var key = 0;
+            // Assert register with key 2 exists
+            var key = 2;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "03:05";
-            testHelper.checkNoRecord( assert, key, record2 );
+            testHelper.checkRecord( assert, key, record );
 
-            // Create record
-            var clientRecord = $.extend( true, {}, record );
-            var varValue = record2[ varName ];
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( clientRecord );
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord = {};
+            editedRecord[ varName ] = "02:10";
             testHelper.updateDatetimePickerInForm( 
                 varName, 
                 options.fields[ varName ], 
-                varValue );
+                editedRecord[ varName ] );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
             
-            testHelper.assertHistory( assert, 6, 0, false );
-
             // Undo
             testHelper.clickUndoButton( 4 );
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 4, false );
+            testHelper.assertHistory( assert, 0, 4, false );
 
             // Redo
             testHelper.clickRedoButton( 4 );
-            clientRecord[ varName ] = varValue;
-            testHelper.checkForm( assert, clientRecord );
-            testHelper.assertHistory( assert, 6, 0, true );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            testHelper.checkRecord( assert, key, newRecord );
 
             done();
         }
     );
 });
 
-QUnit.test( "create checkbox test", function( assert ) {
+QUnit.test( "update checkbox test", function( assert ) {
 
     var done = assert.async();
-
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            var varName = 'important';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+    
+            context.updateFormVisibleFields( options, [ 'id', 'name', 'important' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 0 doesn't exist
-            var key = 0;
+            // Assert register with key 2 exists
+            var key = 2;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = true;
-            testHelper.checkNoRecord( assert, key, record2 );
+            testHelper.checkRecord( assert, key, record );
 
-            // Create record
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( record2 );
-            testHelper.assertHistory( assert, 3, 0, false );
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "important": true
+            };
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
 
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
+            testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 0, true );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create radio test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'phoneType';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-
-            testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
-
-            // Assert register with key 0 doesn't exist
-            var key = 0;
-            var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-            };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "officePhone_option";
-            testHelper.checkNoRecord( assert, key, record2 );
-
-            // Create record
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( record2 );
-            testHelper.assertHistory( assert, 3, 0, false );
-
-            // Undo
-            testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-
-            // Redo
-            testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 0, true );
-
-            assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
-
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
-            done();
-        }
-    );
-});
-
-QUnit.test( "create select test", function( assert ) {
-
-    var done = assert.async();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            var varName = 'province';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-            delete options.fields[ varName ].defaultValue;
+            testHelper.checkRecord( assert, key, newRecord );
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "update radio test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
+            context.updateFormVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 0 doesn't exist
-            var key = 0;
+            // Assert register with key 2 exists
+            var key = 2;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "Málaga";
-            testHelper.checkNoRecord( assert, key, record2 );
+            testHelper.checkRecord( assert, key, record );
 
-            // Create record
-            testHelper.clickCreateListButton();
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "phoneType": "officePhone_option"
+            };
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "update select test", function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+    
+            context.updateFormVisibleFields( options, [ 'id', 'name', 'province' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+            
+            // Edit record
+            testHelper.clickUpdateListButton( key );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'province' ),
                 [ 'Cádiz', 'Málaga' ] );
-            testHelper.fillForm( record2 );
-            testHelper.assertHistory( assert, 3, 0, false );
-            
+            var editedRecord =  {
+                "province": "Málaga"
+            };
+            testHelper.fillForm( editedRecord );
+
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
-            
+            testHelper.assertHistory( assert, 0, 1, false );
+
             // Redo
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 0, true );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
+            testHelper.checkRecord( assert, key, newRecord );
+            
             done();
         }
     );
 });
 
-QUnit.test( "create 2 linked select test", function( assert ) {
+QUnit.test( "update 2 linked select test", function( assert ) {
 
     var done = assert.async();
-
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
+    
+            context.updateFormVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
 
-            var varName = 'province';
-            var varName2 = 'city';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName, varName2 ] );
-            delete options.fields[ varName ].defaultValue;
-            
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 0 doesn't exist
-            var key = 0;
+            // Assert register with key 2 exists
+            var key = 2;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "Málaga";
-            var record2Step2 = {};
-            record2Step2[ varName2 ] = "Marbella";
-            var record3 = $.extend( true, {}, record2, record2Step2 );
-            testHelper.checkNoRecord( assert, key, record2 );
+            testHelper.checkRecord( assert, key, record );
             
-            // Create record
-            testHelper.clickCreateListButton();
-            assert.deepEqual(
-                testHelper.getSelectOptions( 'province' ),
-                [ 'Cádiz', 'Málaga' ] );
+            // Edit record
+            testHelper.clickUpdateListButton( key );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
-            testHelper.fillForm( record2 );
-            testHelper.assertHistory( assert, 3, 0, false );
-            
+            var editedRecord =  {
+                "province": "Málaga"
+            };
+            testHelper.fillForm( editedRecord );
+
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+
+            var editedRecord2 =  {
+                "city": "Marbella"
+            };
+            testHelper.fillForm( editedRecord2 );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Estepona', 'Marbella' ] );
-            testHelper.fillForm( record2Step2 );
-            testHelper.assertHistory( assert, 4, 0, false );
-            testHelper.checkForm( assert, record3 );
-            
+
+            var newRecord2 = $.extend( true, {}, newRecord, editedRecord2 );
+            testHelper.checkForm( assert, newRecord2 );
+
+            testHelper.assertHistory( assert, 2, 0, true );
+
             // Undo (1)
             testHelper.clickUndoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 1, false );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 1, true );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Estepona', 'Marbella' ] );
-            
+
             // Undo (2)
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 2, false );
+            testHelper.assertHistory( assert, 0, 2, true );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
-            
+
             // Redo (1)
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 1, false );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 1, true );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Estepona', 'Marbella' ] );
-            
+
             // Redo (2)
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record3 );
-            testHelper.assertHistory( assert, 4, 0, false );
+            testHelper.checkForm( assert, newRecord2 );
+            testHelper.assertHistory( assert, 2, 0, true );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Estepona', 'Marbella' ] );
-            
+
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record3 );
-
+            testHelper.checkRecord( assert, key, newRecord2 );
+            
             done();
         }
     );
 });
 
-QUnit.test( "create datalist test", function( assert ) {
+QUnit.test( "update datalist test", function( assert ) {
 
     var done = assert.async();
-
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-
-            var varName = 'browser';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+    
+            context.updateFormVisibleFields( options, [ 'id', 'name', 'browser' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 0 doesn't exist
-            var key = 0;
+            // Assert register with key 2 exists
+            var key = 2;
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
-            record2[ varName ] = "Firefox";
-            testHelper.checkNoRecord( assert, key, record2 );
+            testHelper.checkRecord( assert, key, record );
 
-            // Create record
-            testHelper.clickCreateListButton();
-            testHelper.fillForm( record2 );
-            testHelper.assertHistory( assert, 3, 0, false );
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "browser": "Firefox"
+            };
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
 
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, record );
-            testHelper.assertHistory( assert, 2, 1, false );
+            testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
             testHelper.clickRedoButton();
-            testHelper.checkForm( assert, record2 );
-            testHelper.assertHistory( assert, 3, 0, true );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
 
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
-
+            testHelper.checkRecord( assert, key, newRecord );
+            
             done();
         }
     );

@@ -285,6 +285,15 @@ module.exports = function(grunt) {
                 src: 'test/js/app/createAllfields.js',
                 dest: 'build/createAllfields.js'
             },
+            updateAllfields: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/updateAllfields.js',
+                dest: 'build/updateAllfields.js'
+            }
         },
         compress: {
             main: {
