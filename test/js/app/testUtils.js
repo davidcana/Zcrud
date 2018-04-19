@@ -375,6 +375,10 @@ module.exports = (function() {
         services[ key ] = clone( service );
     };
     
+    var removeService = function( key ){
+        delete services[ key ];
+    };
+    
     var getUrl = function( index ){
         return urls[ index ];
     };
@@ -391,6 +395,7 @@ module.exports = (function() {
         ajax: ajax,
         getService: getService,
         setService: setService,
+        removeService: removeService,
         resetServices: resetServices,
         getUrl: getUrl,
         getLastListUrl: getLastListUrl,
