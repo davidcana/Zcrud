@@ -90,18 +90,19 @@ module.exports = (function() {
             default:
                 throw "Unknown command in ajax: " + cmd;
         }
-
+        
+        /*
         if ( dataToSend.result == 'OK' ){
             options.success( dataToSend );
         } else {
-            //options.error( dataToSend );
             var request = {
                 responseText: dataToSend.message
             };
             var status = 'error';
             var error = '';
             options.error( request, status, error );
-        }
+        }*/
+        options.success( dataToSend );
     };
     
     var ajaxServicesBatchUpdate = function( file, data, url ){
@@ -181,6 +182,10 @@ module.exports = (function() {
         }
         
         dataToSend.result = dataToSend.result || error? 'Error': 'OK';
+        if ( dataToSend.message != '' ){
+            dataToSend.translateMessage = false;
+        }
+        
         return dataToSend;
     };
     

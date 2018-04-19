@@ -72,10 +72,39 @@ module.exports = (function() {
     
     var ajaxError = function( request, status, error, options, context, userErrorFunction ){
         
-        context.showError( options, request.responseText, false );
+        context.showError( 
+            options, 
+            request && request.responseText? request.responseText: 'Undefined error', 
+            false );
         
         if ( userErrorFunction ){
-            userErrorFunction( request, status, error, options, context );
+            userErrorFunction( 
+                {
+                    request: request,
+                    status: status,
+                    error: error,
+                    options: options,
+                    context: context
+                }
+            );
+        }
+    };
+    
+    var serverSideError = function( dataFromServer, options, context, userErrorFunction ){
+
+        context.showError( 
+            options, 
+            dataFromServer && dataFromServer.message? dataFromServer.message: 'Undefined error', 
+            dataFromServer && dataFromServer.translateMessage );
+
+        if ( userErrorFunction ){
+            userErrorFunction( 
+                {
+                    dataFromServer: dataFromServer,
+                    options: options,
+                    context: context
+                }
+            );
         }
     };
     
@@ -83,6 +112,7 @@ module.exports = (function() {
         configureTemplate: configureTemplate,
         normalizeNumber: normalizeNumber,
         findIndexInArray: findIndexInArray,
-        ajaxError: ajaxError
+        ajaxError: ajaxError,
+        serverSideError: serverSideError
     };
 })();

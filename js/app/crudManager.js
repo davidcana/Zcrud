@@ -96,6 +96,7 @@ module.exports = (function() {
 
         if ( data.clientOnly ){
             if ( authIsOK( data, options, eventData ) ){
+                dataToSend.result = 'OK';
                 successFunction(
                     data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
             } else {

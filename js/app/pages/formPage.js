@@ -390,17 +390,26 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         // Add success and error functions to data if not present yet. Add URL to data if not present yet
         var userSuccess = data.success;
+        var userError = data.error;
+        
         data.success = function( dataFromServer ){
 
+            // Check server side validation
+            if ( ! dataFromServer || dataFromServer.result != 'OK' ){
+                pageUtils.serverSideError( dataFromServer, options, context, userError );
+                return false;
+            }
+            
             // Update record
             record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
 
-            eventFunction({
-                record: record,
-                serverResponse: dataFromServer,
-                options: options
-            }, 
-            event );
+            eventFunction(
+                {
+                    record: record,
+                    serverResponse: dataFromServer,
+                    options: options
+                }, 
+                event );
             triggerFormClosedEvent( event, $form );
 
             // Show list
@@ -424,7 +433,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             }
         };
         
-        var userError = data.error;
         data.error = function( request, status, error ){
             pageUtils.ajaxError( request, status, error, options, context, userError );
         };
@@ -480,7 +488,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         var data = history.buildDataToSendForAddRecordMethod( userData.record );
         
         addAllRecordMethodProperties( userData, data );
-
+        
         return saveCommon( 
             id, 
             event,

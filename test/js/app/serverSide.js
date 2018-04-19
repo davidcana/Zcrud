@@ -6,15 +6,22 @@ require( '../../../js/app/jqueryPlugin.js' );
 var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
+var testUtils = require( './testUtils.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
+var fatalErrorFunctionCounter = 0;
+options.fatalErrorFunction = function( message ){
+    ++fatalErrorFunctionCounter;
+};
+
 // Run tests
 QUnit.test( "create duplicated key test", function( assert ) {
 
     var done = assert.async();
+    fatalErrorFunctionCounter = 0;
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -42,8 +49,11 @@ QUnit.test( "create duplicated key test", function( assert ) {
             testHelper.checkForm( assert, clientRecord );
             
             // Submit and show the list again
+            assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-
+            assert.equal( fatalErrorFunctionCounter, 1 );
+            
+            assert.deepEqual( testUtils.getService( key ), record );
             
             done();
         }
