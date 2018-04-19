@@ -425,17 +425,21 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         };
         
         var userError = data.error;
+        data.error = function( request, status, error ){
+            pageUtils.ajaxError( request, status, error, options, context, userError );
+        };
+        /*
         data.error = function( dataFromServer ){
             if ( dataFromServer.message ){
                 context.showError( options, dataFromServer.message, false );
             } else {
                 context.showError( options, 'serverCommunicationError', true );
             }
-            
+
             if ( userError ){
                 userError();
             }
-        };
+        };*/
         
         if ( data.url == undefined ){
             data.url = thisOptions.action || options.defaultFormConf.action;

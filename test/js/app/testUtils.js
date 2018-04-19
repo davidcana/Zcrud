@@ -94,7 +94,13 @@ module.exports = (function() {
         if ( dataToSend.result == 'OK' ){
             options.success( dataToSend );
         } else {
-            options.error( dataToSend );
+            //options.error( dataToSend );
+            var request = {
+                responseText: dataToSend.message
+            };
+            var status = 'error';
+            var error = '';
+            options.error( request, status, error );
         }
     };
     

@@ -1,6 +1,7 @@
 /* 
     context singleton class
 */
+
 module.exports = (function() {
     "use strict";
     
@@ -69,9 +70,19 @@ module.exports = (function() {
         return result;*/
     };
     
+    var ajaxError = function( request, status, error, options, context, userErrorFunction ){
+        
+        context.showError( options, request.responseText, false );
+        
+        if ( userErrorFunction ){
+            userErrorFunction( request, status, error, options, context );
+        }
+    };
+    
     return {
         configureTemplate: configureTemplate,
         normalizeNumber: normalizeNumber,
-        findIndexInArray: findIndexInArray
+        findIndexInArray: findIndexInArray,
+        ajaxError: ajaxError
     };
 })();

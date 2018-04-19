@@ -247,12 +247,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     history.reset( listPage.getId() );
                     updateRecords( dataToSend, dataFromServer );
                 },
+                /*
                 error: function( dataFromServer ){
                     if ( dataFromServer.message ){
                         context.showError( options, dataFromServer.message, false );
                     } else {
                         context.showError( options, 'serverCommunicationError', true );
                     }
+                },*/
+                error: function( request, status, error ){
+                    pageUtils.ajaxError( request, status, error, options, context, undefined );
                 },
                 url: thisOptions.batchUpdateAction
             };

@@ -293,6 +293,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/updateAllfields.js',
                 dest: 'build/updateAllfields.js'
+            },
+            serverSide: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/serverSide.js',
+                dest: 'build/serverSide.js'
             }
         },
         compress: {
