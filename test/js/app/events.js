@@ -240,11 +240,11 @@ QUnit.test( "events update form test", function( assert ) {
                 serverRecord2, 
                 {
                     "message":"",
-                    "existingRecords":{
-                        "2": serverRecord2
-                    },
+                    //"existingRecords":{
+                    //    "2": serverRecord2
+                    //},
                     "newRecords":[],
-                    "recordsToRemove":[],
+                    //"recordsToRemove":[],
                     "result":"OK"},  
                 options );
             checkOpenCloseEvent( 
@@ -386,9 +386,9 @@ QUnit.test( "events create form test", function( assert ) {
                 serverRecord2, 
                 {
                     "message":"",
-                    "existingRecords": {},
+                    //"existingRecords": {},
                     "newRecords": [ serverRecord2 ],
-                    "recordsToRemove": [],
+                    //"recordsToRemove": [],
                     "result":"OK"
                 },  
                 options );
@@ -537,9 +537,9 @@ QUnit.test( "event delete form test", function( assert ) {
                 expectedRecord, 
                 {
                     "message":"",
-                    "existingRecords": {},
+                    //"existingRecords": {},
                     "newRecords": [],
-                    "recordsToRemove": [ '' + key ],
+                    //"recordsToRemove": [ '' + key ],
                     "result":"OK"
                 },  
                 options );
@@ -628,11 +628,11 @@ QUnit.test( "event update editable list test", function( assert ) {
                 newRecord, 
                 {
                     "message":"",
-                    "existingRecords":{
-                        "2": newRecord
-                    },
+                    //"existingRecords":{
+                    //    "2": newRecord
+                    //},
                     "newRecords":[],
-                    "recordsToRemove":[],
+                    //"recordsToRemove":[],
                     "result":"OK"},  
                 options );
             
@@ -705,9 +705,9 @@ QUnit.test( "event create editable list test", function( assert ) {
                 newRecord, 
                 {
                     "message":"",
-                    "existingRecords":{},
+                    //"existingRecords":{},
                     "newRecords":[ newRecord ],
-                    "recordsToRemove":[],
+                    //"recordsToRemove":[],
                     "result":"OK"},  
                 options );
             
@@ -781,9 +781,9 @@ QUnit.test( "event delete editable list test", function( assert ) {
                 record, 
                 {
                     "message":"",
-                    "existingRecords":{},
+                    //"existingRecords":{},
                     "newRecords": [],
-                    "recordsToRemove": [ '' + key ],
+                    //"recordsToRemove": [ '' + key ],
                     "result":"OK"},  
                 options );
             

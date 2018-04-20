@@ -113,9 +113,9 @@ module.exports = (function() {
         // Init data
         var dataToSend = {};
         dataToSend.message = '';
-        dataToSend.existingRecords = {};
+        //dataToSend.existingRecords = {};
         dataToSend.newRecords = [];
-        dataToSend.recordsToRemove = [];
+        //dataToSend.recordsToRemove = [];
         var error = false;
 
         // Add all existing services
@@ -146,7 +146,7 @@ module.exports = (function() {
                 id = newId;
             }
             services[ id ] = extendedService;
-            dataToSend.existingRecords[ id ] = extendedService;     
+            //dataToSend.existingRecords[ id ] = extendedService;     
         }
         
         // Add all new services
@@ -180,7 +180,7 @@ module.exports = (function() {
             }
 
             delete services[ id ];
-            dataToSend.recordsToRemove.push( id );                
+            //dataToSend.recordsToRemove.push( id );                
         }
         
         dataToSend.result = dataToSend.result || error? 'Error': 'OK';

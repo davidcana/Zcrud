@@ -452,3 +452,45 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "editable list create record with undefined key test", function( assert ) {
+
+    var done = assert.async();
+    fatalErrorFunctionCounter = 0;
+    options = editableListTestOptions;
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert record with key 1 exists
+            var key = 130;
+            var record =  {
+                "name": "Service with no key"
+            };
+            assert.deepEqual( testUtils.getService( key ), undefined );
+
+            // Try to create
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record );
+
+            // Check errors before and after button submit
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            
+            //testHelper.clickEditableListSubmitButton();
+            //assert.equal( fatalErrorFunctionCounter, 0 );
+
+            //testHelper.checkRecord( assert, key, record, editable, true );
+
+            done();
+        }
+    );
+});

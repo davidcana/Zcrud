@@ -289,24 +289,26 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         
         // Update all existing records
         for ( var key in dataToSend.existingRecords ) {
-            var modifiedRegister = dataToSend.existingRecords[ key ];
-            var currentRegister = records[ key ];
-            var newKey = modifiedRegister[ options.key ];
-            var extendedRegister = $.extend( true, {}, currentRegister, modifiedRegister );
+            var modifiedRecord = dataToSend.existingRecords[ key ];
+            var currentRecord = records[ key ];
+            var newKey = modifiedRecord[ options.key ];
+            var extendedRecord = $.extend( true, {}, currentRecord, modifiedRecord );
 
             var currentKey = key;
             if ( newKey && key !== newKey ){
                 delete records[ key ];
                 key = newKey;
             }
-            listPage.updateRecord( currentKey, extendedRegister );
+            listPage.updateRecord( currentKey, extendedRecord );
             triggerEvent( options.events.recordUpdated, records[ key ], dataFromServer );
         }
 
-        // Add all new records
-        for ( key in dataToSend.newRecords ) {
-            listPage.addRecord( key, dataToSend.newRecords[ key ] );
-            triggerEvent( options.events.recordAdded, records[ key ], dataFromServer );
+        // Add all new records using dataFromServer
+        for ( var index in dataFromServer.newRecords ) {
+            var newRecord = dataFromServer.newRecords[ index ];
+            key = newRecord[ options.key ];
+            listPage.addRecord( key, newRecord );
+            triggerEvent( options.events.recordAdded, newRecord, dataFromServer );
         }
 
         // Remove all records to remove
