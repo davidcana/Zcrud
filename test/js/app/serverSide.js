@@ -36,7 +36,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 0 not exists
+            // Assert register with key 2 exists
             var key = 2;
             var record =  {
                 "id": "" + key,
@@ -44,7 +44,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
             };
             testHelper.checkRecord( assert, key, record );
             
-            // Go to create form and create record
+            // Go to create form and try to create record
             testHelper.clickCreateListButton();
             var newRecord =  {
                 "id": "" + key,
@@ -81,7 +81,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 1 exists
+            // Assert register with key 2 exists
             var key = 2;
             var record =  {
                 "id": "" + key,
@@ -135,7 +135,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
             };
             testHelper.checkRecord( assert, key, record );
 
-            // Go to update form and update key
+            // Go to update form and try to update key
             testHelper.clickUpdateListButton( key );
             var newKey = 3;
             var newRecord =  {
@@ -171,7 +171,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // Assert register with key 0 not exists
+            // Assert register with key 2 exists
             var key = 2;
             var record =  {
                 "id": "" + key,
@@ -179,7 +179,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
             };
             testHelper.checkRecord( assert, key, record );
 
-            // Go to update form and update key
+            // Go to delete form
             testHelper.clickDeleteListButton( key );
             
             // Remove service
@@ -269,7 +269,7 @@ QUnit.test( "editable list update record with no duplicated key test", function(
             };
             testHelper.checkRecord( assert, key, record, editable, true );
             
-            // Try to create
+            // Update record
             var newKey = 999;
             var newRecord =  {
                 "id": "" + newKey,
@@ -329,7 +329,7 @@ QUnit.test( "editable list update record with duplicated key test", function( as
             };
             testHelper.checkRecord( assert, key, record, editable, true );
 
-            // Try to create
+            // Try to update
             var newKey = 3;
             var record2 =  {
                 "id": "" + newKey,
@@ -395,6 +395,59 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 1 );
 
+            done();
+        }
+    );
+});
+
+QUnit.test( "form create record with undefined key test", function( assert ) {
+
+    var done = assert.async();
+    fatalErrorFunctionCounter = 0;
+    options = formTestOptions;
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            delete options.fields[ 'province' ].defaultValue;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            var newRecord =  {
+                "name": "Service (no key)",
+                "description": "Service with no key"
+            };
+            testHelper.fillForm( newRecord );
+            testHelper.checkForm( assert, newRecord );
+            
+            // Submit 
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            var fullNewRecord = $.extend( true, {}, newRecord );
+            var key = 130;
+            fullNewRecord.id = "" + key;
+            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+
+            testHelper.pagingTest({
+                action: { 
+                    lastPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 121-130 of 130',
+                ids:  "121/122/123/124/125/126/127/128/129/130",
+                names: "Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service (no key)",
+                pageListNotActive: [ '13', '>', '>>' ],
+                pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ]
+            });
+            
             done();
         }
     );

@@ -24,6 +24,7 @@ module.exports = (function() {
         '12': { name: 'Service 12' }
     };*/
     var numberOfServices = 130;
+    var serviceIndex = numberOfServices - 1;
     var resetServices = function( newServices ){
         
         if ( newServices ){
@@ -111,7 +112,6 @@ module.exports = (function() {
         
         // Init data
         var dataToSend = {};
-        //dataToSend.result = 'OK';
         dataToSend.message = '';
         dataToSend.existingRecords = {};
         dataToSend.newRecords = [];
@@ -152,6 +152,9 @@ module.exports = (function() {
         // Add all new services
         for ( var c = 0; c < data.newRecords.length; c++ ) {
             var newService = data.newRecords[ c ];
+            if ( newService.id == undefined ){
+                newService.id = buildServiceId();
+            }
             id = newService.id;
             currentService = services[ id ];
 
@@ -162,8 +165,7 @@ module.exports = (function() {
             }
 
             services[ id ] = newService;
-            dataToSend.newRecords.push( newService );
-            //dataToSend.newRecords[ id ] = newService;                
+            dataToSend.newRecords.push( newService );               
         }
         
         // Remove all services to remove
@@ -187,6 +189,16 @@ module.exports = (function() {
         }
         
         return dataToSend;
+    };
+    
+    var buildServiceId = function(){
+        
+        var service = undefined; 
+        while ( ! service ) {
+            service = services[ serviceIndex++ ];
+        }
+        
+        return serviceIndex;
     };
     
     var servicesSubformsListBatchUpdate = function( currentService, modifiedService, dataToSend ){
