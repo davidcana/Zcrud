@@ -238,6 +238,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 newRecords: dataToSend.newRecords,
                 recordsToRemove: dataToSend.recordsToRemove,
                 success: function( dataFromServer ){
+                    
+                    // Check server side validation
+                    if ( ! dataFromServer || dataFromServer.result != 'OK' ){
+                        pageUtils.serverSideError( dataFromServer, options, context, undefined );
+                        return false;
+                    }
                     listPage.showStatusMessage({
                         status:{
                             message: 'listUpdateSuccess',
@@ -288,18 +294,17 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             var newKey = modifiedRegister[ options.key ];
             var extendedRegister = $.extend( true, {}, currentRegister, modifiedRegister );
 
+            var currentKey = key;
             if ( newKey && key !== newKey ){
                 delete records[ key ];
                 key = newKey;
             }
-            //records[ key ] = extendedRegister;
-            listPage.updateRecord( key, extendedRegister );
+            listPage.updateRecord( currentKey, extendedRegister );
             triggerEvent( options.events.recordUpdated, records[ key ], dataFromServer );
         }
 
         // Add all new records
         for ( key in dataToSend.newRecords ) {
-            //records[ key ] = dataToSend.newRecords[ key ];
             listPage.addRecord( key, dataToSend.newRecords[ key ] );
             triggerEvent( options.events.recordAdded, records[ key ], dataFromServer );
         }
@@ -308,7 +313,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         for ( var c = 0; c < dataToSend.recordsToRemove.length; c++ ) {
             key = dataToSend.recordsToRemove[ c ];
             var deletedRecord = $.extend( true, {}, records[ key ] );
-            //delete records[ key ];
             listPage.deleteRecord( key );
             triggerEvent( options.events.recordDeleted, deletedRecord, dataFromServer );
         }
