@@ -665,6 +665,20 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         }*/
     };
     
+    var getAllTr$FromCreateItems = function(){
+        
+        var result = [];
+        
+        for ( var c = 0; c < current; ++c ){
+            var historyItem = items[ c ];
+            if ( historyItem.type === 'create' ){
+                result.push( historyItem.get$Tr() );
+            }
+        }
+        
+        return result;
+    };
+    
     var self = {
         putChange: putChange,
         putCreate: putCreate,
@@ -690,7 +704,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         createNestedObject: createNestedObject,
         getRegisterFromDataToSend: getRegisterFromDataToSend,
         buildDataToSendForAddRecordMethod: buildDataToSendForAddRecordMethod,
-        buildDataToSendForUpdateRecordMethod: buildDataToSendForUpdateRecordMethod
+        buildDataToSendForUpdateRecordMethod: buildDataToSendForUpdateRecordMethod,
+        getAllTr$FromCreateItems: getAllTr$FromCreateItems
     };
     
     return self;

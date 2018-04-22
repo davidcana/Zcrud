@@ -470,26 +470,170 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             $( '#departmentsContainer' ).zcrud( 'load' );
 
             var editable = true;
-
+            
             // Assert record with key 1 exists
             var key = 130;
             var record =  {
                 "name": "Service with no key"
             };
             assert.deepEqual( testUtils.getService( key ), undefined );
-
+            
             // Try to create
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( record );
-
+            
             // Check errors before and after button submit
             assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
             
-            //testHelper.clickEditableListSubmitButton();
-            //assert.equal( fatalErrorFunctionCounter, 0 );
+            var fullNewRecord = $.extend( true, {}, record );
+            fullNewRecord.id = "" + key;
+            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+            
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 11,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  "1/2/3/4/5/6/7/8/9/10/130",
+                names: "Service 1/Service 2/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service with no key",
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+            
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 121, 130 ) );
+            testHelper.pagingTest({
+                action: { 
+                    lastPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 121-130 of 130',
+                ids:  values[ 0 ],
+                names: "Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service with no key",
+                pageListNotActive: [ '13', '>', '>>' ],
+                pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ],
+                editable: editable
+            });
+            
+            values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                action: { 
+                    firstPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 130',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+            
+            done();
+        }
+    );
+});
 
-            //testHelper.checkRecord( assert, key, record, editable, true );
+QUnit.test( "editable list create record with undefined key test and then update it", function( assert ) {
 
+    var done = assert.async();
+    fatalErrorFunctionCounter = 0;
+    options = editableListTestOptions;
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+            
+            // Assert record with key 1 exists
+            var key = 130;
+            var record =  {
+                "name": "Service with no key"
+            };
+            assert.deepEqual( testUtils.getService( key ), undefined );
+            
+            // Try to create
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record );
+            
+            // Check errors before and after button submit
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            
+            var fullNewRecord = $.extend( true, {}, record );
+            fullNewRecord.id = "" + key;
+            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+            
+            // Update it 
+            record =  {
+                "name": "Service with key"
+            };
+            testHelper.fillEditableList( record, key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            
+            fullNewRecord = $.extend( true, {}, record );
+            fullNewRecord.id = "" + key;
+            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+            
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 11,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  "1/2/3/4/5/6/7/8/9/10/130",
+                names: "Service 1/Service 2/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service with key",
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+                        
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 121, 130 ) );
+            testHelper.pagingTest({
+                action: { 
+                    lastPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 121-130 of 130',
+                ids:  values[ 0 ],
+                names: "Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service with key",
+                pageListNotActive: [ '13', '>', '>>' ],
+                pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ],
+                editable: editable
+            });
+                        
+            values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                action: { 
+                    firstPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 130',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
             done();
         }
     );

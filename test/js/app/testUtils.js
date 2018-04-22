@@ -35,7 +35,8 @@ module.exports = (function() {
         services = {};
         for ( var c = 1; c < numberOfServices; ++c ){
             services[ c ] = { name: 'Service ' + c };
-        }  
+        }
+        serviceIndex = numberOfServices - 1;
     };
     resetServices();
     
@@ -193,12 +194,12 @@ module.exports = (function() {
     
     var buildServiceId = function(){
         
-        var service = undefined; 
-        while ( ! service ) {
-            service = services[ serviceIndex++ ];
+        var service = services[ ++serviceIndex ]; 
+        while ( service ) {
+            service = services[ ++serviceIndex ];
         }
         
-        return serviceIndex;
+        return '' + serviceIndex;
     };
     
     var servicesSubformsListBatchUpdate = function( currentService, modifiedService, dataToSend ){

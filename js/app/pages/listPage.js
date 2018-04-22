@@ -493,6 +493,29 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         throw message;
     };
     
+    /*
+    var update$trs = function( $trArray, records ){
+        
+        var thisDictionary = $.extend( {}, dictionary );
+        
+        for ( var c = 0; c < $trArray.length; ++c ){
+            var $tr = $trArray[ c ];
+            var record = records[ c ];
+            
+            if ( ! record ){
+                continue;
+            }
+            
+            thisDictionary.record = record;
+            
+            context.getZPTParser().run({
+                root: $tr[0],
+                dictionary: thisDictionary,
+                notRemoveGeneratedTags: false
+            });   
+        }
+    };*/
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -525,6 +548,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         addRecord: addRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord
+        //update$trs: update$trs
     };
     
     configure();

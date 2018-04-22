@@ -87,7 +87,8 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         doAction: doAction,
         get$Tr: get$Tr,
         saveEnabled: saveEnabled,
-        getSubformName: getSubformName
+        getSubformName: getSubformName,
+        type: 'create'
     };
 };
 

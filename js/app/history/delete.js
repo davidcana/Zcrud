@@ -104,7 +104,8 @@ var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, 
         get$Tr: get$Tr,
         getKey: getKey,
         saveEnabled: saveEnabled,
-        getSubformName: getSubformName
+        getSubformName: getSubformName,
+        type: 'delete'
     };
 };
 

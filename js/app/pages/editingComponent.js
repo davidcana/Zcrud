@@ -250,17 +250,13 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                             date: new Date().toLocaleString()   
                         }
                     });
-                    history.reset( listPage.getId() );
+                    
                     updateRecords( dataToSend, dataFromServer );
+                    updateKeys( 
+                        history.getAllTr$FromCreateItems(), 
+                        dataFromServer.newRecords );
+                    history.reset( listPage.getId() );
                 },
-                /*
-                error: function( dataFromServer ){
-                    if ( dataFromServer.message ){
-                        context.showError( options, dataFromServer.message, false );
-                    } else {
-                        context.showError( options, 'serverCommunicationError', true );
-                    }
-                },*/
                 error: function( request, status, error ){
                     pageUtils.ajaxError( request, status, error, options, context, undefined );
                 },
@@ -327,6 +323,28 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             serverResponse: dataFromServer,
             options: options
         });
+    };
+    
+    var updateKeys = function( $trArray, records ){
+        
+        if ( $trArray.length != records.length ){
+            alert( 'Error trying to update keys: $trArray and records length does not match!' );
+            return;    
+        }
+        
+        var field = listPage.getField( options.key );
+        
+        for ( var c = 0; c < records.length; ++c ){
+            var record = records[ c ];
+            var $tr = $trArray[ c ];
+            var value = record[ options.key ];
+            
+            // Update key value of field
+            $tr.find( "[name='" + field.id + "']").val( value );
+            
+            // Update key value in attribute of $tr
+            $tr.attr( 'data-record-key', value );
+        }
     };
     
     return {

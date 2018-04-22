@@ -185,7 +185,8 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
         previousValue: previousValue,
         $this: $this,
         saveEnabled: saveEnabled,
-        getSubformName: getSubformName
+        getSubformName: getSubformName,
+        type: 'change'
     };
 };
 
