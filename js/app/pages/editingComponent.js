@@ -340,7 +340,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             var value = record[ options.key ];
             
             // Update key value of field
-            $tr.find( "[name='" + field.id + "']").val( value );
+            if ( field ){
+                $tr.find( "[name='" + field.id + "']").val( value );
+            }
             
             // Update key value in attribute of $tr
             $tr.attr( 'data-record-key', value );

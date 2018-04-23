@@ -302,6 +302,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/serverSide.js',
                 dest: 'build/serverSide.js'
+            },
+            noKeyField: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/noKeyField.js',
+                dest: 'build/noKeyField.js'
             }
         },
         compress: {

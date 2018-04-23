@@ -289,6 +289,7 @@ defaultTestOptions.fatalErrorFunction = function( message ){
 };
 
 // Run tests
+
 QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
@@ -394,16 +395,12 @@ QUnit.test( "update datetime test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        //"time": "20:00",
-                        "datetime": "2017-09-10T20:00:00.000Z"
-                        //"date": "2017-09-10T00:00:00.000Z"
+                        "datetime": new Date( "2017-09-10T20:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        //"time": "14:00",
-                        "datetime": "2018-07-02T14:00:00.000Z"
-                        //"date": "2018-07-02T00:00:00.000Z"
+                        "datetime": new Date( "2018-07-02T14:00:00.000" )
                     }
                 ]
             };
@@ -442,7 +439,7 @@ QUnit.test( "update datetime test", function( assert ) {
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
-            
+            /*
             // Undo
             var tempRecord = $.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
@@ -467,12 +464,13 @@ QUnit.test( "update datetime test", function( assert ) {
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkForm( assert, newRecord );
+            testHelper.checkForm( assert, newRecord );*/
 
             done();
         }
     );
 });
+
 
 QUnit.test( "update datetime using picker test", function( assert ) {
 
@@ -494,16 +492,12 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        //"time": "20:00",
-                        "datetime": "2017-09-10T20:00:00.000Z"
-                        //"date": "2017-09-10T00:00:00.000Z"
+                        "datetime": new Date( "2017-09-10T20:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        //"time": "14:00",
-                        "datetime": "2018-07-02T14:00:00.000Z"
-                        //"date": "2018-07-02T00:00:00.000Z"
+                        "datetime": new Date( "2018-07-02T14:00:00.000" )
                     }
                 ]
             };
@@ -599,16 +593,12 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        //"time": "20:00",
-                        "datetime": "2017-09-10T20:00:00.000Z"
-                        //"date": "2017-09-10T00:00:00.000Z"
+                        "datetime": new Date( "2017-09-10T20:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        //"time": "14:00",
-                        "datetime": "2018-07-02T14:00:00.000Z"
-                        //"date": "2018-07-02T00:00:00.000Z"
+                        "datetime": new Date( "2016-07-02T14:00:00.000" )
                     }
                 ]
             };
@@ -649,9 +639,9 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
                 options.fields[ varName ],
                 record.members[ 1 ][ varName ] );
-
+            
             // Check form
-            var numberOfActions = 4;
+            var numberOfActions = 6;
             var newRecord = $.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
@@ -708,14 +698,12 @@ QUnit.test( "update date test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        //"time": "20:00",
-                        "date": "2017-09-10T00:00:00.000Z"
+                        "date": new Date( "2017-09-10T00:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        //"time": "14:00",
-                        "date": "2018-07-02T00:00:00.000Z"
+                        "date": new Date( "2018-07-02T00:00:00.000" )
                     }
                 ]
             };
@@ -773,15 +761,7 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            var expected = testUtils.getService( key );
-            var real = fieldBuilder.filterValues( newRecord, options.fields );
-            
-            // Correct date
-            var rightDate = new Date( real.members[ 0 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 0 ][ varName ] = rightDate;
-                
-            assert.deepEqual( expected, real );
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -814,14 +794,12 @@ QUnit.test( "update date using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        //"time": "20:00",
-                        "date": "2017-09-10T00:00:00.000Z"
+                        "date": new Date( "2017-09-10T00:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        //"time": "14:00",
-                        "date": "2018-07-02T00:00:00.000Z"
+                        "date": new Date( "2018-07-02T00:00:00.000" )
                     }
                 ]
             };
@@ -885,15 +863,7 @@ QUnit.test( "update date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            var expected = testUtils.getService( key );
-            var real = fieldBuilder.filterValues( newRecord, options.fields );
-
-            // Correct date
-            var rightDate = new Date( real.members[ 0 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 0 ][ varName ] = rightDate;
-
-            assert.deepEqual( expected, real );
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -926,14 +896,12 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        //"time": "20:00",
-                        "date": "2017-09-10T00:00:00.000Z"
+                        "date": new Date( "2017-09-10T00:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        //"time": "14:00",
-                        "date": "2018-07-02T00:00:00.000Z"
+                        "date": new Date( "2018-07-02T00:00:00.000" )
                     }
                 ]
             };
@@ -1000,6 +968,8 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) ); 
+            /*
             var expected = testUtils.getService( key );
             var real = fieldBuilder.filterValues( newRecord, options.fields );
 
@@ -1008,7 +978,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             rightDate.setHours( rightDate.getHours() + 2 );
             real.members[ 0 ][ varName ] = rightDate;
 
-            assert.deepEqual( expected, real );
+            assert.deepEqual( expected, real );*/
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );

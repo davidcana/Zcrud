@@ -25,7 +25,7 @@ module.exports = (function() {
     };*/
     var numberOfServices = 130;
     var serviceIndex = numberOfServices - 1;
-    var resetServices = function( newServices ){
+    var resetServices = function( newServices, addDescriptions ){
         
         if ( newServices ){
             services = newServices;
@@ -34,7 +34,13 @@ module.exports = (function() {
         
         services = {};
         for ( var c = 1; c < numberOfServices; ++c ){
-            services[ c ] = { name: 'Service ' + c };
+            var service = { 
+                name: 'Service ' + c 
+            };
+            services[ c ] = service;
+            if ( addDescriptions ){
+                service.description = service.name + ' description';
+            }
         }
         serviceIndex = numberOfServices - 1;
     };
@@ -239,6 +245,9 @@ module.exports = (function() {
         // Add all new items
         for ( var c = 0; c < data.newRecords.length; c++ ) {
             var newItem = data.newRecords[ c ];
+            if ( newItem.code == undefined ){
+                newItem.code = buildItemCode( current );
+            }
             current.push( newItem );
         }
         
@@ -255,6 +264,18 @@ module.exports = (function() {
         }
     };
 
+    var buildItemCode = function( members ){
+
+        var max = 0;
+        for ( var c = 0; c < members.length; ++c ){
+            var currentCode = members[ c ].code;
+            if ( currentCode > max ){
+                max = currentCode;
+            }
+        }
+        return "" + ( 1 + parseInt( max ) );
+    };
+    
     var removeSubformItem = function( current, rowId ){
 
         for ( var rowIndex in current ){
@@ -385,7 +406,8 @@ module.exports = (function() {
     };
     
     var setService = function( key, service ){
-        services[ key ] = clone( service );
+        //services[ key ] = clone( service );
+        services[ key ] = $.extend( true, {}, service );
     };
     
     var removeService = function( key ){

@@ -188,7 +188,9 @@ module.exports = (function() {
         
         assert.equal( countVisibleRows( options ), testOptions.visibleRows );
         assert.equal( pagingInfo( options ), testOptions.pagingInfo );
-        assert.equal( getColumnValues( 'id', testOptions.editable ), testOptions.ids );
+        if ( testOptions.ids ){
+            assert.equal( getColumnValues( 'id', testOptions.editable ), testOptions.ids );
+        }
         assert.equal( getColumnValues( 'name', testOptions.editable ), testOptions.names );
         checkPageListInfo( assert, options, testOptions.pageListNotActive, testOptions.pageListActive );
     };
@@ -440,7 +442,7 @@ module.exports = (function() {
         return $selection.find( 'input' ).val();
     };
     
-    var checkRecordInList = function( assert, key, expectedRecord, editable ){
+    var checkRecordInList = function( assert, key, expectedRecord, editable, noCheckId ){
 
         // Check record from ZCrud
         var record = get$Container().zcrud( 'getRecordByKey', key );
@@ -455,7 +457,9 @@ module.exports = (function() {
         var name = editable?
             getFieldValue ( row.find( "td.zcrud-column-data-name" ) ).trim():
         row.find( "td.zcrud-column-data-name" ).text().trim();
-        assert.equal( id, expectedRecord.id );
+        if ( ! noCheckId ){
+            assert.equal( id, expectedRecord.id );
+        }
         assert.equal( name, expectedRecord.name );
     };
     

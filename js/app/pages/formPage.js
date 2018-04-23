@@ -256,6 +256,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 buildProcessTemplateParams( field ) );
         }
         
+        // Add key if there is no field key
+        if ( newRecord[ options.key ] == undefined ){
+            newRecord[ options.key ] = record[ options.key ];
+        }
+        
         return newRecord;
     };
     

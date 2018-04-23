@@ -428,12 +428,12 @@ QUnit.test( "create datetime test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        "datetime": "2017-09-10T20:00:00.000Z"
+                        "datetime": new Date( "2017-09-10T20:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        "datetime": "2018-07-02T14:00:00.000Z"
+                        "datetime": new Date( "2018-07-02T14:00:00.000" )
                     }
                 ]
             };
@@ -556,12 +556,12 @@ QUnit.test( "create datetime using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        "datetime": "2017-09-10T20:00:00.000Z"
+                        "datetime": new Date( "2017-09-10T20:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        "datetime": "2018-07-02T14:00:00.000Z"
+                        "datetime": new Date( "2018-07-02T14:00:00.000" )
                     }
                 ]
             };
@@ -693,12 +693,12 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        "datetime": "2017-09-10T20:00:00.000Z"
+                        "datetime": new Date( "2017-09-10T20:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        "datetime": "2018-07-02T14:00:00.000Z"
+                        "datetime": new Date( "2018-07-02T14:00:00.000" )
                     }
                 ]
             };
@@ -832,12 +832,12 @@ QUnit.test( "create date test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        "date": "2017-09-10T00:00:00.000Z"
+                        "date": new Date( "2017-09-10T00:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        "date": "2018-07-02T00:00:00.000Z"
+                        "date": new Date( "2018-07-02T00:00:00.000" )
                     }
                 ]
             };
@@ -927,6 +927,8 @@ QUnit.test( "create date test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( editedRecord, options.fields ) );
+            /*
             var expected = testUtils.getService( key );
             var real = fieldBuilder.filterValues( editedRecord, options.fields );
             
@@ -938,7 +940,7 @@ QUnit.test( "create date test", function( assert ) {
             rightDate.setHours( rightDate.getHours() + 2 );
             real.members[ 1 ][ varName ] = rightDate;
             
-            assert.deepEqual( expected, real );
+            assert.deepEqual( expected, real );*/
             
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -971,12 +973,12 @@ QUnit.test( "create date using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        "date": "2017-09-10T00:00:00.000Z"
+                        "date": new Date( "2017-09-10T00:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        "date": "2018-07-02T00:00:00.000Z"
+                        "date": new Date( "2018-07-02T00:00:00.000" )
                     }
                 ]
             };
@@ -1074,6 +1076,8 @@ QUnit.test( "create date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( editedRecord, options.fields ) );
+            /*
             var expected = testUtils.getService( key );
             var real = fieldBuilder.filterValues( editedRecord, options.fields );
 
@@ -1085,7 +1089,7 @@ QUnit.test( "create date using picker test", function( assert ) {
             rightDate.setHours( rightDate.getHours() + 2 );
             real.members[ 1 ][ varName ] = rightDate;
 
-            assert.deepEqual( expected, real );
+            assert.deepEqual( expected, real );*/
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -1118,12 +1122,12 @@ QUnit.test( "create inline date using picker test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Bart Simpson",
-                        "date": "2017-09-10T00:00:00.000Z"
+                        "date": new Date( "2017-09-10T00:00:00.000" )
                     },
                     {
                         "code": "2",
                         "name": "Lisa Simpson",
-                        "date": "2018-07-02T00:00:00.000Z"
+                        "date": new Date( "2018-07-02T00:00:00.000" )
                     }
                 ]
             };
@@ -1224,6 +1228,8 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
+            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( editedRecord, options.fields ) );
+            /*
             var expected = testUtils.getService( key );
             var real = fieldBuilder.filterValues( editedRecord, options.fields );
 
@@ -1235,7 +1241,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             rightDate.setHours( rightDate.getHours() + 2 );
             real.members[ 1 ][ varName ] = rightDate;
             
-            assert.deepEqual( expected, real );
+            assert.deepEqual( expected, real );*/
             
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );

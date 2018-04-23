@@ -35,7 +35,7 @@ var SubformManager = function() {
         
         var fieldBuilder = params.fieldBuilder; // To avoid circular refs
         var dictionary = params.formPage.getDictionary();
-        var subformRecords = record[ field.id ];
+        var subformRecords = record[ field.id ] || [];
         var subformFields = field.fields;
         
         for ( var i = 0; i < subformRecords.length; i++ ) {
