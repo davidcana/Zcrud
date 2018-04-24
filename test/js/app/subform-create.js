@@ -91,6 +91,69 @@ QUnit.test( "subform create test", function( assert ) {
     );
 });
 
+QUnit.test( "subform create and form create test", function( assert ) {
+
+    var done = assert.async();
+    delete options.fields[ 'province' ].defaultValue;
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // 
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": []
+            };
+            
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+
+            // Add subform record 1
+            var subformRecord1 = {
+                "code": "1",
+                "name": "Bart Simpson",
+                "description": "Description of Bart Simpson"
+            };
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord1, 'members' );
+            
+            // Add subform record 2
+            var subformRecord2 = {
+                "code": "2",
+                "name": "Lisa Simpson",
+                "description": "Description of Lisa Simpson"
+            }
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord2, 'members' );
+
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( subformRecord1 );
+            editedRecord.members.push( subformRecord2 );
+            testHelper.checkForm( assert, editedRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+            
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord );
+
+            done();
+        }
+    );
+});
+
 QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
 
     var done = assert.async();

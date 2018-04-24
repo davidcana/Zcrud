@@ -409,12 +409,30 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             key = row[ keyField ];
 
             dataToSend.newRecords.push( row );
+            
+            buildNewSubformsRowDataToSend( row, sendOnlyModified, fields );
         }
         
         // Build delete
         dataToSend.recordsToRemove = actionsObject.deleted;
         
         return dataToSend;
+    };
+    
+    var buildNewSubformsRowDataToSend = function( row, sendOnlyModified, fields ){
+
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            if ( field.type == 'subform' && row[ field.id ] ){
+                var subformDataToSend = build1RowDataToSend( 
+                    row[ field.id ], 
+                    {}, 
+                    sendOnlyModified, 
+                    field.subformKey, 
+                    buildFieldArrayFromMap( field.fields ) );
+                row[ field.id ] = subformDataToSend;
+            }
+        }
     };
     
     var buildSubformsRowDataToSend = function( row, record, sendOnlyModified, fields ){
@@ -429,10 +447,20 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                         field.subformKey ), 
                     sendOnlyModified, 
                     field.subformKey, 
-                    field.fields );
+                    buildFieldArrayFromMap( field.fields ) );
                 row[ field.id ] = subformDataToSend;
             }
         }
+    };
+    
+    var buildFieldArrayFromMap = function( fieldMap ){
+        
+        var result = [];
+        for ( var index in fieldMap ){
+            var field = fieldMap[ index ];
+            result.push( field );
+        }
+        return result;
     };
     
     var buildRecordsMap = function( recordsArray, keyField ){

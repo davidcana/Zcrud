@@ -19,7 +19,6 @@ editableListTestOptions.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( "create form test", function( assert ) {
 
     var done = assert.async();
@@ -667,6 +666,91 @@ QUnit.test( "delete subform test", function( assert ) {
                 ]
             };
             assert.deepEqual( testUtils.getService( key ), newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "create form and subform test", function( assert ) {
+
+    var done = assert.async();
+    var options = subformTestOptions;
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices( undefined, true );
+
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Setup register
+            var record =  {
+                "name": "Service no key",
+                "description": "Service description",
+                "phoneType": "officePhone_option",
+                "province": "Málaga",
+                "city": "Marbella",
+                "browser": "Firefox",
+                "important": true,
+                "members": []
+            };
+            
+            // Check
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            });
+
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+            
+            // Add subform record 1
+            var subformRecord1 = {
+                "name": "Bart Simpson",
+                "description": "Description of Bart Simpson"
+            };
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord1, 'members' );
+
+            // Add subform record 2
+            var subformRecord2 = {
+                "name": "Lisa Simpson",
+                "description": "Description of Lisa Simpson"
+            }
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord2, 'members' );
+
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( subformRecord1 );
+            editedRecord.members.push( subformRecord2 );
+            testHelper.checkForm( assert, editedRecord );
+            
+            // Submit
+            testHelper.clickFormSubmitButton();
+            
+            // Check storage
+            var fullRecord = $.extend( true, {}, editedRecord );
+            var key = "130";
+            fullRecord.id = key;
+            fullRecord.members[ 0 ].code = "1";
+            fullRecord.members[ 1 ].code = "2";
+            assert.deepEqual( testUtils.getService( key ), fullRecord );
+            
+            // Go to edit form again and check the form again
+            testHelper.goToLastPage( options );
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord )
 
             done();
         }

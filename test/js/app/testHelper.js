@@ -1196,6 +1196,7 @@ module.exports = (function() {
         updateDatetimePickerInSubform: updateDatetimePickerInSubform,
         updateDatetimePickerInList: updateDatetimePickerInList,
         updateLastRowDatetimePickerInList: updateLastRowDatetimePickerInList,
-        get$SubFormFieldRow: get$SubFormFieldRow
+        get$SubFormFieldRow: get$SubFormFieldRow,
+        goToLastPage: goToLastPage
     };
 })();

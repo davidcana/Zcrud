@@ -170,8 +170,14 @@ module.exports = (function() {
                 dataToSend.message += 'Service with key "' + id + '" found trying to create it!';
                 continue;
             }
-
+            
+            var newServiceClone = $.extend( true, {}, newService );
+            if ( newService.members ){
+                newService.members = [];
+            }
+            servicesSubformsListBatchUpdate( newService, newServiceClone, dataToSend );
             services[ id ] = newService;
+            
             dataToSend.newRecords.push( newService );               
         }
         
