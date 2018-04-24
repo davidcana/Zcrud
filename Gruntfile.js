@@ -311,6 +311,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/noKeyField.js',
                 dest: 'build/noKeyField.js'
+            },
+            fieldListBuilder: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/fieldListBuilder.js',
+                dest: 'build/fieldListBuilder.js'
             }
         },
         compress: {
