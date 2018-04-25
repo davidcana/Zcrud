@@ -13,6 +13,7 @@ var crudManager = require( '../crudManager.js' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
 var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
 var History = require( '../history/history.js' );
+var fieldListBuilder = require( '../fieldListBuilder.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -98,7 +99,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             components[ componentId ] = thisComponent;
         }
     };
-    
+    /*
     var buildFields = function(){
         
         fields = [];
@@ -111,6 +112,19 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             fields.push( field );
             fieldsMap[ fieldId ] = field;
         });
+    };*/
+    /*
+    var buildFields = function(){
+
+        fields = fieldListBuilder.build( thisOptions.fields, options );
+        fieldsMap = fieldListBuilder.buildMapFromArray( fields );
+    };
+    */
+    var buildFields = function(){
+
+        var fieldsCache = fieldListBuilder.get( 'list', options );
+        fields = fieldsCache.fieldsArray;
+        fieldsMap = fieldsCache.fieldsMap;
     };
     
     var buildDataToSend = function(){
@@ -221,7 +235,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 success: clientAndServerSuccessFunction,
                 error: function(){
                     context.hideBusy( options, showBusyFull );
-                    context.showError( options, options.messages.serverCommunicationError );
+                    context.showError( options, 'Server communication error!' );
                     if ( callback ){
                         callback( false );
                     }

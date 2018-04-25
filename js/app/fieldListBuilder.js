@@ -3,9 +3,49 @@
 */
 var $ = require( 'jquery' );
 var normalizer = require( './normalizer.js' );
+var fieldBuilder = require( './fields/fieldBuilder' );
 
 module.exports = (function() {
     "use strict";
+    
+    var get = function( pageId, options ){
+        
+        var pageOptions = options.pages[ pageId ];
+        if ( ! pageOptions ){
+            throw 'Page id not found: ' + pageId;
+        }
+        
+        if ( pageOptions.fieldsCache ){
+            return pageOptions.fieldsCache;
+        }
+        
+        var fieldsArray = build( pageOptions.fields, options );
+        var fieldsMap = buildMapFromArray( fieldsArray, fieldBuilder.buildFields );
+        
+        var fieldsCache = {
+            fieldsArray: fieldsArray,
+            fieldsMap: fieldsMap
+        };
+        pageOptions.fieldsCache = fieldsCache;
+        
+        return fieldsCache;
+    };
+    
+    var buildMapFromArray = function( fieldsArray, functionToApplyToField ){
+        
+        var result = {};
+        
+        for ( var c = 0; c < fieldsArray.length; ++c ){
+            var field = fieldsArray[ c ];
+            result[ field.id ] = field;
+            
+            if ( functionToApplyToField ){
+                functionToApplyToField( field );
+            }
+        }
+        
+        return result;
+    };
     
     var build = function( items, options ) {
 
@@ -32,10 +72,6 @@ module.exports = (function() {
         
         return result;
     };
-    /*
-    var getField = function( item, options ){
-        return options.fields[ item ];
-    };*/
     
     var buildFieldsFromFieldSubset = function( item, options, result ) {
         
@@ -83,11 +119,17 @@ module.exports = (function() {
         }
         
         // Must be a page id
-        return options.pages[ source ].fields;
+        try {
+            return options.pages[ source ].fieldsCache.fieldsArray;
+        } catch ( e ) {
+            throw 'Not built fields from source ' + source;
+        }
     };
     
     var self = {
-        build: build
+        get: get,
+        build: build,
+        buildMapFromArray: buildMapFromArray
     };
     
     return self;

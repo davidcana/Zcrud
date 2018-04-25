@@ -160,7 +160,7 @@ var OptionListProviderManager = function() {
             },
             error  : function ( data ) {
                 data = options.ajax.ajaxPostFilter( data );
-                throw self.options.messages.cannotLoadOptionsFor + fieldId;
+                throw 'Can not load options for ' + fieldId;
             }
         };
         

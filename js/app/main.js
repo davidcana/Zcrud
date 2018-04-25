@@ -32,6 +32,10 @@ exports.init = function( userOptions, callback ){
         // Build the list of file paths
         var filePaths = [];
         var fileNames = options.i18n.files[ options.i18n.language ];
+        if ( ! fileNames ){
+            throw( 'No file names set to init i18n subsystem!' );
+        }
+            
         for ( var c = 0; c < fileNames.length; c++ ) {
             var fileName = fileNames[ c ];
             var filePath = options.i18n.filesPath? options.i18n.filesPath + '/' + fileName: fileName;
@@ -43,7 +47,6 @@ exports.init = function( userOptions, callback ){
             var i18nArray = [];
             for ( var c = 0; c < filePaths.length; c++ ) {
                 var filePath = filePaths[ c ];
-                //var fileName = fileNames[ c ];
                 var i18n =  new zpt.I18n( options.i18n.language, i18nMap[ filePath ] );
                 i18nArray.push( i18n );
             }

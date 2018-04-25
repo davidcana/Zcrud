@@ -12,6 +12,7 @@ module.exports = {
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            fields: [ 'name', 'description' ],
             components: {
                 paging: {
                     isOn: true,
@@ -35,11 +36,23 @@ module.exports = {
                 }
             }
         }, create: {
-            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }, update: {
-            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }, delete: {
-            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }
     },
     
@@ -52,7 +65,7 @@ module.exports = {
         name: {
         },
         description: {
-            list: true,
+            //list: true,
             width: '85%',
             type: 'textarea',
             formFieldAttributes: {
@@ -61,7 +74,7 @@ module.exports = {
             }
         },
         phoneType: {
-            list: false,
+            //list: false,
             type: 'radio',
             translateOptions: true,
             options: function(){
@@ -69,13 +82,13 @@ module.exports = {
             }
         },
         province: {
-            list: false,
+            //list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            list: false,
+            //list: false,
             type: 'select',
             dependsOn: 'province',
             options: function( data ){
@@ -93,16 +106,16 @@ module.exports = {
             }
         },
         browser: {
-            list: false,
+            //list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            list: false,
+            //list: false,
             type: 'checkbox'
         },
         members: {
-            list: false,
+            //list: false,
             type: 'subform',
             subformKey: 'code',
             fields: { 

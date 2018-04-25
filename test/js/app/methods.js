@@ -691,7 +691,7 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
                 width: '30%'
             },
             description: {
-                list: true,
+                //list: true,
                 width: '50%'
             }
         }

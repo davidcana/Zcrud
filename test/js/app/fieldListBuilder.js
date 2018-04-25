@@ -5,12 +5,12 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
+var testUtils = require( './testUtils.js' );
 var testHelper = require( './testHelper.js' );
 var fieldListBuilder = require( '../../../js/app/fieldListBuilder.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
-var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = undefined;
 
 var buildIdsArray = function( fieldsArray ){
     
@@ -24,9 +24,10 @@ var buildIdsArray = function( fieldsArray ){
 };
 
 // Run tests
-QUnit.test( "Field list builder test", function( assert ) {
+QUnit.test( "Field list from general fields builder test", function( assert ) {
     
     var done = assert.async();
+    options = defaultTestOptions;
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -66,7 +67,7 @@ QUnit.test( "Field list builder test", function( assert ) {
                     "customOptions": {},
                     "elementId": "zcrud-description",
                     "elementName": "description",
-                    "list": false,
+                    //"list": false,
                     "name": "description",
                     "sorting": true,
                     "template": "textarea@templates/fields/basic.html",
@@ -238,3 +239,101 @@ QUnit.test( "Field list builder test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "Field list from page id builder test", function( assert ) {
+
+    var done = assert.async();
+    options = {
+        entityId: 'department',
+        saveUserPreferences: false,
+
+        pages: {
+            list: {
+                action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+                fields: [ 'id', 'name' ],
+            }, create: {
+                fields: [ 'id', 'name', 'name2' ],
+            }, update: {
+                fields: [ 'id', 'name', 'name2', 'name3' ],
+            }, delete: {
+                fields: [ 'id', 'name', 'name2', 'name3', 'name4' ],
+            }
+        },
+
+        defaultFormConf: {
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+        },
+
+        fields: {
+            id: {
+                key: true,
+                sorting: false
+            },
+            name: {
+                width: '10%'
+            },
+            name2: {
+                width: '20%'
+            },
+            name3: {
+                width: '30%'
+            },
+            name4: {
+                width: '40%'
+            }
+        },
+        
+        ajax: {
+            ajaxFunction: testUtils.ajax    
+        },
+        
+        i18n: {
+            language: 'en',
+            filesPath: 'i18n',
+            i18nArrayVarName: 'i18nArray',
+            files: { 
+                en: [ 'en-common.json', 'en-services.json' ],
+                es: [ 'es-common.json', 'es-services.json' ] 
+            }
+        }
+    };
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // A fieldSubset only (with all default fields)
+            var items = [ 
+                {
+                    "type": "fieldSubset",
+                    "source": "list"
+                }
+            ];
+            var expected = [
+                "id",
+                "name"
+            ];
+            var fields = fieldListBuilder.build( items, options );
+            assert.deepEqual( buildIdsArray( fields ), expected );
+            
+            // A fieldSubset only (with all default fields except name)
+            items = [ 
+                {
+                    "type": "fieldSubset",
+                    "source": "list",
+                    "except": [ "name" ]
+                }
+            ];
+            expected = [
+                "id"
+            ];
+            fields = fieldListBuilder.build( items, options );
+            assert.deepEqual( buildIdsArray( fields ), expected );
+            
+            done();
+        }
+    );
+});
+

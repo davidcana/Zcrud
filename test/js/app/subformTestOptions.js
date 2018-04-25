@@ -12,6 +12,7 @@ module.exports = {
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            fields: [ 'id', 'name' ],
             components: {
                 paging: {
                     isOn: true,
@@ -35,11 +36,23 @@ module.exports = {
                 }
             }
         }, create: {
-            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }, update: {
-            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }, delete: {
-            //action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }
     },
     
@@ -51,16 +64,16 @@ module.exports = {
     fields: {
         id: {
             key: true,
-            create: true,
-            edit: true,
-            delete: true,
+            //create: true,
+            //edit: true,
+            //delete: true,
             sorting: false
         },
         name: {
             width: '90%'
         },
         description: {
-            list: false,
+            //list: false,
             type: 'textarea',
             //template: "descriptionTextarea",
             formFieldAttributes: {
@@ -69,22 +82,22 @@ module.exports = {
             }
         },
         date: {
-            list: false,
+            //list: false,
             type: 'date',
             customOptions: {
                 inline: false
             }
         },
         time: {
-            list: false,
+            //list: false,
             type: 'time'
         },
         datetime: {
-            list: false,
+            //list: false,
             type: 'datetime'
         },
         phoneType: {
-            list: false,
+            //list: false,
             type: 'radio',
             translateOptions: true,
             options: function(){
@@ -92,13 +105,13 @@ module.exports = {
             }
         },
         province: {
-            list: false,
+            //list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            list: false,
+            //list: false,
             type: 'select',
             dependsOn: 'province',
             options: function( data ){
@@ -116,19 +129,19 @@ module.exports = {
             }
         },
         browser: {
-            list: false,
+            //list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            list: false,
+            //list: false,
             type: 'checkbox'
         },
         number: {
-            list: false
+            //list: false
         },
         members: {
-            list: false,
+            //list: false,
             type: 'subform',
             fields: { 
                 code: { 

@@ -3,7 +3,6 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
-//var Qunit = require( 'qunit' );
 var testUtils = require( './testUtils' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
@@ -15,6 +14,7 @@ var options = {
     pages: {
         list: {
             action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            fields: [ 'id', 'name' ],
             components: {
                 sorting: {
                     isOn: false,
@@ -34,26 +34,38 @@ var options = {
                 }
             }
         }, create: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=CREATE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }, update: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=UPDATE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }, delete: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=DELETE&table=department'
+            fields: [
+                {
+                    "type": "fieldSubset"
+                }
+            ]
         }
     },
     
     fields: {
         id: {
             key: true,
-            create: true,
-            edit: true,
-            delete: true,
+            //create: true,
+            //edit: true,
+            //delete: true,
             sorting: false
         },
         name: {
         },
         description: {
-            list: false,
+            //list: false,
             type: 'textarea',
             //template: "descriptionTextarea",
             formFieldAttributes: {
@@ -62,22 +74,22 @@ var options = {
             }
         },
         date: {
-            list: false,
+            //list: false,
             type: 'date',
             customOptions: {
                 inline: false
             }
         },
         time: {
-            list: false,
+            //list: false,
             type: 'time'
         },
         datetime: {
-            list: false,
+            //list: false,
             type: 'datetime'
         },
         phoneType: {
-            list: true,
+            //list: true,
             type: 'radio',
             translateOptions: true,
             //options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes',
@@ -97,13 +109,13 @@ var options = {
             //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         },
         province: {
-            list: false,
+            //list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            list: false,
+            //list: false,
             type: 'select',
             dependsOn: 'province',
             options: function( data ){
@@ -124,16 +136,16 @@ var options = {
             }
         },
         browser: {
-            list: false,
+            //list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            list: false,
+            //list: false,
             type: 'checkbox'
         },
         number: {
-            list: false
+            //list: false
         }
     },
 

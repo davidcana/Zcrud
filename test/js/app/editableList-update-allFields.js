@@ -23,15 +23,13 @@ options.fatalErrorFunction = function( message ){
 QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
+    var varName = 'description';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            
-            var varName = 'description';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -91,14 +89,13 @@ QUnit.test( "update text area test", function( assert ) {
 QUnit.test( "update datetime test", function( assert ) {
 
     var done = assert.async();
+    var varName = 'datetime';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            var varName = 'datetime';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -158,14 +155,13 @@ QUnit.test( "update datetime test", function( assert ) {
 QUnit.test( "update datetime using picker test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'datetime';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            var varName = 'datetime';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -230,14 +226,14 @@ QUnit.test( "update datetime using picker test", function( assert ) {
 QUnit.test( "update inline datetime using picker test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'datetime';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
 
-            var varName = 'datetime';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].customOptions.inline = true;
             
             testUtils.resetServices();
@@ -303,14 +299,13 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
 QUnit.test( "update date test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'date';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            var varName = 'date';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -370,14 +365,13 @@ QUnit.test( "update date test", function( assert ) {
 QUnit.test( "update date using picker test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'date';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            var varName = 'date';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -442,14 +436,14 @@ QUnit.test( "update date using picker test", function( assert ) {
 QUnit.test( "update inline date using picker test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'date';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            var varName = 'date';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+            
             options.fields[ varName ].customOptions.inline = true;
 
             testUtils.resetServices();
@@ -515,14 +509,13 @@ QUnit.test( "update inline date using picker test", function( assert ) {
 QUnit.test( "update time test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'time';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            var varName = 'time';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -582,14 +575,13 @@ QUnit.test( "update time test", function( assert ) {
 QUnit.test( "update time using picker test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'time';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-
-            var varName = 'time';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -653,14 +645,14 @@ QUnit.test( "update time using picker test", function( assert ) {
 QUnit.test( "update inline time using picker test", function( assert ) {
 
     var done = assert.async();
-
+    var varName = 'time';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
 
-            var varName = 'time';
-            context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].customOptions.inline = true;
             
             testUtils.resetServices();
@@ -725,13 +717,12 @@ QUnit.test( "update inline time using picker test", function( assert ) {
 QUnit.test( "update checkbox test", function( assert ) {
 
     var done = assert.async();
+    context.updateListVisibleFields( options, [ 'id', 'name', 'important' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'important' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -792,13 +783,12 @@ QUnit.test( "update checkbox test", function( assert ) {
 QUnit.test( "update radio test", function( assert ) {
 
     var done = assert.async();
+    context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -859,13 +849,12 @@ QUnit.test( "update radio test", function( assert ) {
 QUnit.test( "update 2 radios test", function( assert ) {
 
     var done = assert.async();
+    context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -953,13 +942,12 @@ QUnit.test( "update 2 radios test", function( assert ) {
 QUnit.test( "update select test", function( assert ) {
 
     var done = assert.async();
+    context.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -1026,13 +1014,12 @@ QUnit.test( "update select test", function( assert ) {
 QUnit.test( "update 2 linked select test", function( assert ) {
 
     var done = assert.async();
+    context.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
@@ -1132,13 +1119,12 @@ QUnit.test( "update 2 linked select test", function( assert ) {
 QUnit.test( "update datalist test", function( assert ) {
 
     var done = assert.async();
+    context.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
         function( options ){
-    
-            context.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;

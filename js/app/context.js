@@ -313,6 +313,12 @@ module.exports = (function() {
     };
     
     var updateFormVisibleFields = function( options, fieldIdList ){
+        options.pages.create.fields = fieldIdList;
+        options.pages.update.fields = fieldIdList;
+        options.pages.delete.fields = fieldIdList;
+    };
+    /*
+    var updateFormVisibleFields = function( options, fieldIdList ){
         
         var fields = options.fields;
         for ( var id in fields ){
@@ -322,8 +328,8 @@ module.exports = (function() {
             field.edit = value;
             field.delete = value;
         }
-    };
-
+    };*/
+    /*
     var updateListVisibleFields = function( options, fieldIdList ){
 
         var fields = options.fields;
@@ -331,8 +337,11 @@ module.exports = (function() {
             var field = fields[ id ];
             field.list = fieldIdList.indexOf( id ) !== -1;
         }
+    };*/
+    var updateListVisibleFields = function( options, fieldIdList ){
+        options.pages.list.fields = fieldIdList;
     };
-
+    
     var updateSubformFields = function( subformField, fieldIdList ){
         
         var fields = subformField.fields;

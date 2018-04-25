@@ -177,7 +177,10 @@ module.exports = {
         language: 'en',
         filesPath: 'i18n',
         i18nArrayVarName: 'i18nArray',
-        files: {}
+        files: { 
+            en: [ 'en-common.json' ],
+            es: [ 'es-common.json' ] 
+        }
     },
     /*
         serverDataFormat: {
