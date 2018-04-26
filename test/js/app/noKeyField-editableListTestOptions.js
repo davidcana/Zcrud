@@ -12,7 +12,7 @@ module.exports = {
     key: 'id',
     pages: {
         list: {
-            action: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
             fields: [ 'name', 'description' ],
             components: {
                 sorting: {

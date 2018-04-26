@@ -119,11 +119,14 @@ module.exports = {
                     deleteRegisterRow: undefined,
                 }
             }
-        }, create: {
+        }, 
+        create: {
             template: "formDefaultTemplate@templates/forms.html"
-        }, update: {
+        }, 
+        update: {
             template: "formDefaultTemplate@templates/forms.html"
-        }, delete: {
+        }, 
+        delete: {
             template: "deleteDefaultTemplate@templates/forms.html"
         }
     },
@@ -182,13 +185,6 @@ module.exports = {
             es: [ 'es-common.json' ] 
         }
     },
-    /*
-        serverDataFormat: {
-            datetime: 'm/d/Y H:i', 
-            date: 'm/d/Y',          
-            time: 'H:i',            
-            decimalSeparator: '.'
-        },*/
 
     logging: {
         isOn: false,

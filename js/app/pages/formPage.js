@@ -468,7 +468,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         };*/
         
         if ( data.url == undefined ){
-            data.url = thisOptions.action || options.defaultFormConf.action;
+            data.url = thisOptions.url || options.defaultFormConf.url;
         }
         
         // Do the CRUD!

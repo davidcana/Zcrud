@@ -18,7 +18,7 @@ var defaultTestOptions = {
 
     pages: {
         list: {
-            action: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
             fields: [ 'id', 'name' ],
             components: {
                 paging: {
@@ -64,7 +64,7 @@ var defaultTestOptions = {
     },
 
     defaultFormConf: {
-        action: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+        url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
         dataToSend: 'modified'
     },
 
