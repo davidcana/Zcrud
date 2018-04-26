@@ -233,8 +233,6 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options );
             assert.deepEqual( buildIdsArray( fields ), expected );
             
-            // TODO Test "source": pageId
-            
             done();
         }
     );
@@ -252,11 +250,29 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name' ],
             }, create: {
-                fields: [ 'id', 'name', 'name2' ],
+                fields: [
+                    {
+                        "type": "fieldSubset",
+                        "source": "list"
+                    },
+                    'name2'
+                ],
             }, update: {
-                fields: [ 'id', 'name', 'name2', 'name3' ],
+                fields: [
+                    {
+                        "type": "fieldSubset",
+                        "source": "list"
+                    },
+                    'name3'
+                ],
             }, delete: {
-                fields: [ 'id', 'name', 'name2', 'name3', 'name4' ],
+                fields: [
+                    {
+                        "type": "fieldSubset",
+                        "source": "update"
+                    },
+                    'name4'
+                ],
             }
         },
 
@@ -332,8 +348,152 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options );
             assert.deepEqual( buildIdsArray( fields ), expected );
             
+            // A fieldSubset only already built
+            items = [ 
+                {
+                    "type": "fieldSubset",
+                    "source": "create"
+                }
+            ];
+            expected = [
+                "id",
+                "name",
+                "name2"
+            ];
+            fields = fieldListBuilder.build( items, options );
+            assert.deepEqual( buildIdsArray( fields ), expected );
+            
+            // A fieldSubset only not built
+            items = [ 
+                {
+                    "type": "fieldSubset",
+                    "source": "delete"
+                }
+            ];
+            expected = [
+                "id",
+                "name",
+                "name3",
+                "name4"
+            ];
+            fields = fieldListBuilder.build( items, options );
+            assert.deepEqual( buildIdsArray( fields ), expected );
+            
             done();
         }
     );
 });
 
+QUnit.test( "Field list from page id builder with circular references test", function( assert ) {
+
+    var done = assert.async();
+    options = {
+        entityId: 'department',
+        saveUserPreferences: false,
+
+        pages: {
+            list: {
+                action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+                fields: [ 'id', 'name' ],
+            }, create: {
+                fields: [
+                    {
+                        "type": "fieldSubset",
+                        "source": "create"
+                    }
+                ],
+            }, update: {
+                fields: [
+                    {
+                        "type": "fieldSubset",
+                        "source": "delete"
+                    }
+                ],
+            }, delete: {
+                fields: [
+                    {
+                        "type": "fieldSubset",
+                        "source": "update"
+                    }
+                ],
+            }
+        },
+
+        defaultFormConf: {
+            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+        },
+
+        fields: {
+            id: {
+                key: true,
+                sorting: false
+            },
+            name: {
+                width: '10%'
+            },
+            name2: {
+                width: '20%'
+            },
+            name3: {
+                width: '30%'
+            },
+            name4: {
+                width: '40%'
+            }
+        },
+
+        ajax: {
+            ajaxFunction: testUtils.ajax    
+        },
+
+        i18n: {
+            language: 'en',
+            filesPath: 'i18n',
+            i18nArrayVarName: 'i18nArray',
+            files: { 
+                en: [ 'en-common.json', 'en-services.json' ],
+                es: [ 'es-common.json', 'es-services.json' ] 
+            }
+        }
+    };
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // A fieldSubset only (circular reference)
+            var items = [ 
+                {
+                    "type": "fieldSubset",
+                    "source": "create"
+                }
+            ];
+            var errors = 0;
+            try {
+                var fields = fieldListBuilder.build( items, options );
+            } catch ( e ) {
+                ++errors;
+            }
+            assert.equal( errors, 1 );
+            
+            // A fieldSubset only (circular reference)
+            items = [ 
+                {
+                    "type": "fieldSubset",
+                    "source": "update"
+                }
+            ];
+            errors = 0;
+            try {
+                fields = fieldListBuilder.build( items, options );
+            } catch ( e ) {
+                ++errors;
+            }
+            assert.equal( errors, 1 );
+            
+            done();
+        }
+    );
+});

@@ -8,7 +8,7 @@ var fieldBuilder = require( './fields/fieldBuilder' );
 module.exports = (function() {
     "use strict";
     
-    var get = function( pageId, options ){
+    var get = function( pageId, options, pageIdArray ){
         
         var pageOptions = options.pages[ pageId ];
         if ( ! pageOptions ){
@@ -19,7 +19,15 @@ module.exports = (function() {
             return pageOptions.fieldsCache;
         }
         
-        var fieldsArray = build( pageOptions.fields, options );
+        // To avoid circular references
+        if ( ! pageIdArray ){
+            pageIdArray = [];
+        } else if ( -1 !== pageIdArray.indexOf( pageId ) ){
+            throw 'Circular reference trying to build fields for ' + pageId + ' page!';
+        }
+        pageIdArray.push( pageId );
+        
+        var fieldsArray = build( pageOptions.fields, options, pageIdArray );
         var fieldsMap = buildMapFromArray( fieldsArray, fieldBuilder.buildFields );
         
         var fieldsCache = {
@@ -47,7 +55,7 @@ module.exports = (function() {
         return result;
     };
     
-    var build = function( items, options ) {
+    var build = function( items, options, pageIdArray ) {
 
         var result = [];
         
@@ -61,7 +69,7 @@ module.exports = (function() {
                 
             // Is fieldSubset?
             } else if ( item.type == 'fieldSubset' ){
-                buildFieldsFromFieldSubset( item, options, result );
+                buildFieldsFromFieldSubset( item, options, result, pageIdArray );
                 
             // Must be a field instance
             } else {
@@ -73,14 +81,14 @@ module.exports = (function() {
         return result;
     };
     
-    var buildFieldsFromFieldSubset = function( item, options, result ) {
+    var buildFieldsFromFieldSubset = function( item, options, result, pageIdArray ) {
         
         var start = item.start;
         var end = item.end;
         var except = item.except;
         var source = item.source; // 'default' or page id
         
-        var allFields = buildFieldsFromSource( source, options );
+        var allFields = buildFieldsFromSource( source, options, pageIdArray );
         
         var started = ! start;
         var ended = false;
@@ -107,7 +115,7 @@ module.exports = (function() {
         }
     };
     
-    var buildFieldsFromSource = function( source, options ){
+    var buildFieldsFromSource = function( source, options, pageIdArray ){
         
         // Is default?
         if ( ! source || source === '' || source === 'default' ){
@@ -119,11 +127,13 @@ module.exports = (function() {
         }
         
         // Must be a page id
+        return get( source, options, pageIdArray ).fieldsArray;
+        /*
         try {
             return options.pages[ source ].fieldsCache.fieldsArray;
         } catch ( e ) {
             throw 'Not built fields from source ' + source;
-        }
+        }*/
     };
     
     var self = {
