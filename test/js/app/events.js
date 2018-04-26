@@ -231,7 +231,7 @@ QUnit.test( "events update form test", function( assert ) {
                     },
                     "newRecords": [],
                     "recordsToRemove": [],
-                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
                 }, 
                 options );
             checkRecordEvent( 
@@ -376,7 +376,7 @@ QUnit.test( "events create form test", function( assert ) {
                     "existingRecords": {},
                     "newRecords": [ serverRecord2 ],
                     "recordsToRemove": [],
-                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
                 }, 
                 options );
             
@@ -527,7 +527,7 @@ QUnit.test( "event delete form test", function( assert ) {
                     "existingRecords": {},
                     "newRecords": [],
                     "recordsToRemove": [ '' + key ],
-                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
                 }, 
                 options );
             
@@ -619,7 +619,7 @@ QUnit.test( "event update editable list test", function( assert ) {
                     },
                     "newRecords": [],
                     "recordsToRemove": [],
-                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
                 }, 
                 options );
             checkRecordEvent( 
@@ -696,7 +696,7 @@ QUnit.test( "event create editable list test", function( assert ) {
                     "existingRecords": {},
                     "newRecords": [ newRecord ],
                     "recordsToRemove": [],
-                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
                 }, 
                 options );
             checkRecordEvent( 
@@ -772,7 +772,7 @@ QUnit.test( "event delete editable list test", function( assert ) {
                     "existingRecords": {},
                     "newRecords": [],
                     "recordsToRemove": [ '' + key ],
-                    "url": "http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
                 }, 
                 options );
             checkRecordEvent( 

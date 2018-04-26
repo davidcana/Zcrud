@@ -13,7 +13,7 @@ var options = {
     
     pages: {
         list: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            action: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
             fields: [ 'id', 'name' ],
             components: {
                 sorting: {
@@ -26,7 +26,7 @@ var options = {
                 },
                 editing: {
                     isOn: true,
-                    batchUpdateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+                    batchUpdateAction: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
                     event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
                     dataToSend: 'modified', // possible values: 'modified', 'all',
                     modifiedFieldsClass: 'zcrud-modified-field',
@@ -92,7 +92,7 @@ var options = {
             //list: true,
             type: 'radio',
             translateOptions: true,
-            //options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes',
+            //options: 'http://localhost/CRUDManager.do?table=phoneTypes',
             options: function(){
                 return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
             }

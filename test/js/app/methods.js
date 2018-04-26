@@ -968,7 +968,7 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
             testUtils.setService( key, record );
 
             // Update record using method
-            var url = 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department&customArg=myValue';
+            var url = 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department&customArg=myValue';
             var editedRecord =  {
                 "name": "Service 2 edited",
                 "description": "Service 2 description"

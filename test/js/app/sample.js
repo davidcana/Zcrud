@@ -14,7 +14,7 @@ var options = {
     
     pages: {
         list: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            action: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
             fields: [ 'id', 'name' ],
             components: {
                 sorting: {
@@ -59,7 +59,7 @@ var options = {
     },
     
     defaultFormConf: {
-        action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+        action: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
     },
     
     fields: {
@@ -101,7 +101,7 @@ var options = {
             //list: false,
             type: 'radio',
             translateOptions: true,
-            //options: 'http://localhost:8080/cerbero/CRUDManager.do?table=phoneTypes',
+            //options: 'http://localhost/CRUDManager.do?table=phoneTypes',
             options: function(){
                 return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
             }

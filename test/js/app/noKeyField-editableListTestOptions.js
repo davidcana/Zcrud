@@ -12,7 +12,7 @@ module.exports = {
     key: 'id',
     pages: {
         list: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            action: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
             fields: [ 'name', 'description' ],
             components: {
                 sorting: {
@@ -25,7 +25,7 @@ module.exports = {
                 },
                 editing: {
                     isOn: true,
-                    batchUpdateAction: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+                    batchUpdateAction: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
                     event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
                     dataToSend: 'modified', // possible values: 'modified', 'all',
                     modifiedFieldsClass: 'zcrud-modified-field',

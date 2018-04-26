@@ -11,7 +11,7 @@ module.exports = {
     key: 'id',
     pages: {
         list: {
-            action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=LIST&table=department',
+            action: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
             fields: [ 'name', 'description' ],
             components: {
                 paging: {
@@ -57,7 +57,7 @@ module.exports = {
     },
     
     defaultFormConf: {
-        action: 'http://localhost:8080/cerbero/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+        action: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
         dataToSend: 'modified'
     },
     
