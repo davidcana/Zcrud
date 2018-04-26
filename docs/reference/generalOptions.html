@@ -90,6 +90,8 @@
                     
                     Suboptions are:
                     <ul>
+                        <li><em>url</em>. The server URL to connect.</li>
+                        <li><em>files</em>. Defines the list of fields of this page.</li>
                         <li><em>event</em> (possible values: 'fieldChange', 'batch' ). The event used to save the changes. If set to 'fieldChange' every time a field is changed ZCrud will send the chnage to the server; if set to 'batch' the user must clic a 'Save' button.</li>
                         <li><em>dataToSend</em> (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.</li>
                         <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
@@ -386,6 +388,7 @@
                     
                     Each <em>page</em> can contain these configuration options:
                     <ul>
+                        <li><em>url</em>. The server URL to connect.</li>
                         <li><em>template</em>. The template that ZCrud will use to build the page.</li>
                         <li><em>buttons</em>. Defines the buttons in the page. See <a href="fields.html#buttons">field buttons</a> for details.</li>
                         <li><em>components</em>. A lot of configuration options grouped by component. Nowadays only for lists. There are 5 components:

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ZCrud API reference - Fields</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud API reference - Fields - Lists of fields</h1>
+        
+        <p>
+            The <a href="generalOptions.html#fields">fields general option</a> defines all the fields that ZCrud will manage. An example:
+        </p>
+        <pre class="brush: javascript">
+    fields: {
+        id: {
+            key: true,
+            sorting: false
+        },
+        name: {
+            width: '90%'
+        },
+        description: {
+            type: 'textarea',
+            formFieldAttributes: {
+                rows: 6,
+                cols: 80
+            }
+        },
+        date: {
+            type: 'date',
+            customOptions: {
+                inline: false
+            }
+        },
+        time: {
+            type: 'time'
+        },
+        datetime: {
+            type: 'datetime'
+        },
+        phoneType: {
+            type: 'radio',
+            translateOptions: true,
+            options: function(){
+                return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
+            }
+        },
+        province: {
+            type: 'select',
+            options: [ 'Cádiz', 'Málaga' ],
+            defaultValue: 'Cádiz'
+        },
+        city: {
+            type: 'select',
+            dependsOn: 'province',
+            options: function( data ){
+                if ( ! data.dependedValues.province ){
+                    return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
+                }
+                switch ( data.dependedValues.province ) {
+                case 'Cádiz':
+                    return [ 'Algeciras', 'Tarifa' ];
+                case 'Málaga':
+                    return [ 'Estepona', 'Marbella' ];
+                default:
+                    throw 'Unknown province: ' + data.dependedValues.province;
+                }
+            }
+        },
+        browser: {
+            type: 'datalist',
+            options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+        },
+        important: {
+            type: 'checkbox'
+        }
+    }
+        </pre>
+        
+        <p>
+            Each page must define their own list of fields. These can be taken from the <em>fields general option</em>, explicitily set or use the list of fields of another page.
+        </p>
+        
+        <p>
+            We have 3 options to define a list of fields:
+        </p>
+        <ol>
+            <li>
+                <em>Define a full field instance</em>. Don't forget to set the id of each field! An example:
+                <pre class="brush: javascript">
+        fields: [
+            {
+                "id": "name",
+                "type": "text",
+                "width": "90%"
+            },
+            {
+                "id": "description",
+                "type": "textarea",
+                "formFieldAttributes": {
+                    "cols": 80,
+                    "rows": 6
+                }
+            }
+        ]
+                </pre>
+            </li>
+            <li>
+                <em>Refer to a field in fields general option using its id</em>. An example:
+                <pre class="brush: javascript">
+        fields: [  
+            "name", 
+            "description"
+        ]
+                </pre>
+            </li>
+            <li>
+                <em>Use a fieldSubset</em>. An example:
+                <pre class="brush: javascript">
+        fields: [
+            {
+                "type": "fieldSubset",
+                "source": "default",
+                "start": "name",
+                "end": "browser",
+                "except": [ "date", "time", "phoneType", "city" ]
+            }
+        ]
+                </pre>
+                <p>
+                    The previous fieldSubset builds the next list of fields: [ 'name', 'description', 'datetime', 'province', 'browser' ].
+                </p>
+                
+                <p>
+                    Configuration options of a fieldSubset are:
+                </p>
+                <ul>
+                    <li><em>type</em>. Must be <strong>fieldSubset</strong> to work.</li>
+                    <li><em>source</em> (possible values: 'default', 'create', 'update' or 'delete' ) (default value is 'default'). The source of the fields. If it is <em>default</em> the fields are the fields in general options. If not use the fields of the specified page.</li>
+                    <li><em>start</em>. The first field to include. If not set ZCrud will use the first field.</li>
+                    <li><em>end</em>. The last field to include. If not set ZCrud will use the last field.</li>
+                    <li><em>except</em>. An array with the ids of the fields to exclude.</li>
+                </ul>
+            </li>
+        </ol>
+        
+        We can combine any number of elements of the 3 types. Let's see an example using all options:
+        <pre class="brush: javascript">
+        fields: [
+            {
+                "type": "fieldSubset",
+                "source": "default",
+                "end": "description"
+            },
+            {
+                "id": "time",
+                "type": "time"
+            },
+            'date',
+            'city'
+        ]
+        </pre>
+        <p>
+            This fieldSubset builds the next list of fields: [ 'id', 'name', 'description', 'time', 'date', 'city' ].
+        </p>
+    </body>
+</html>
