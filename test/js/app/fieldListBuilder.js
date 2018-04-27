@@ -279,10 +279,11 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
         defaultFormConf: {
             url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
         },
-
+        
+        key : 'id',
         fields: {
             id: {
-                key: true,
+                //key: true,
                 sorting: false
             },
             name: {
@@ -422,10 +423,11 @@ QUnit.test( "Field list from page id builder with circular references test", fun
         defaultFormConf: {
             url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
         },
-
+        
+        key : 'id',
         fields: {
             id: {
-                key: true,
+                //key: true,
                 sorting: false
             },
             name: {

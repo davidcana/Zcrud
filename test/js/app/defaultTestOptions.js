@@ -59,9 +59,10 @@ module.exports = {
         url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
     },
     
+    key : 'id',
     fields: {
         id: {
-            key: true,
+            //key: true,
             //create: true,
             //edit: true,
             //delete: true,

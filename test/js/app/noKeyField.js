@@ -64,8 +64,9 @@ QUnit.test( "create form test", function( assert ) {
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 121, 130 ) );
+            
             testHelper.pagingTest({
-                url: { 
+                action: { 
                     lastPage: true 
                 },
                 options: options,
@@ -257,7 +258,7 @@ QUnit.test( "editable list create test", function( assert ) {
             
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 121, 130 ) );
             testHelper.pagingTest({
-                url: { 
+                action: { 
                     lastPage: true 
                 },
                 options: options,
@@ -272,7 +273,7 @@ QUnit.test( "editable list create test", function( assert ) {
             
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
-                url: { 
+                action: { 
                     firstPage: true
                 },
                 options: options,

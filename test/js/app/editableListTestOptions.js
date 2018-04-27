@@ -57,10 +57,11 @@ module.exports = {
             ]
         }
     },
-
+    
+    key : 'id',
     fields: {
         id: {
-            key: true,
+            //key: true,
             //create: true,
             //edit: true,
             //delete: true,

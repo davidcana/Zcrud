@@ -78,10 +78,11 @@ module.exports = (function() {
         // Set id
         field.id = id;
 
-        // Set the key
+        // Set the name
+        /*
         if ( field.key ){
             options.key = id;
-        }
+        }*/
         field.name = id;
 
         // Set defaults when undefined

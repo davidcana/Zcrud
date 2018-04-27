@@ -61,9 +61,10 @@ module.exports = {
         dataToSend: 'modified'
     },
     
+    key : 'id',
     fields: {
         id: {
-            key: true,
+            //key: true,
             //create: true,
             //edit: true,
             //delete: true,
