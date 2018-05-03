@@ -455,6 +455,17 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         });
     };
     
+    var updateBottomPanel = function( dictionaryExtension ){
+        
+        var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
+
+        context.getZPTParser().run({
+            root: $( '#' + id ).find( '.zcrud-bottom-panel' )[0],
+            dictionary: thisDictionary,
+            notRemoveGeneratedTags: false
+        });
+    };
+    
     var getRecords = function(){
         return records;
     };
@@ -550,6 +561,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getSelectedRecords: getSelectedRecords,
         getComponent: getComponent,
         showStatusMessage: showStatusMessage,
+        updateBottomPanel: updateBottomPanel,
         getRecords: getRecords,
         getRecordsArray: getRecordsArray,
         getDictionary: getDictionary,

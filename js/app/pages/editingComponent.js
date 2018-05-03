@@ -251,11 +251,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                         }
                     });
                     
-                    updateRecords( dataToSend, dataFromServer );
+                    // Update records in list and update paging component
+                    var delta = updateRecords( dataToSend, dataFromServer );
+                    listPage.getComponent( 'paging' ).dataFromClient( delta );
+                    listPage.updateBottomPanel();
+                    
                     updateKeys( 
                         history.getAllTr$FromCreateItems(), 
                         dataFromServer.newRecords );
                     history.reset( listPage.getId() );
+                    
                 },
                 error: function( request, status, error ){
                     pageUtils.ajaxError( request, status, error, options, context, undefined );
@@ -279,8 +284,13 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         return dataToSend;
     };
 
+    var updatePagingComponent = function( delta ){
+        listPage.getComponent( 'paging' ).dataFromClient( delta );
+    };
+    
     var updateRecords = function( dataToSend, dataFromServer ){
 
+        var delta = 0;
         var records = listPage.getRecords();
         
         // Update all existing records
@@ -301,6 +311,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         // Add all new records using dataFromServer
         for ( var index in dataFromServer.newRecords ) {
+            ++delta;
             var newRecord = dataFromServer.newRecords[ index ];
             key = newRecord[ options.key ];
             listPage.addRecord( key, newRecord );
@@ -309,11 +320,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         // Remove all records to remove
         for ( var c = 0; c < dataToSend.recordsToRemove.length; c++ ) {
+            --delta;
             key = dataToSend.recordsToRemove[ c ];
             var deletedRecord = $.extend( true, {}, records[ key ] );
             listPage.deleteRecord( key );
             triggerEvent( options.events.recordDeleted, deletedRecord, dataFromServer );
         }
+        
+        return delta;
     };
     
     var triggerEvent = function( eventFunction, record, dataFromServer ){

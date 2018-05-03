@@ -410,7 +410,7 @@ QUnit.test( "editable list delete test", function( assert ) {
                 options: options,
                 assert: assert,
                 visibleRows: 9,
-                pagingInfo: 'Showing 1-10 of 129',
+                pagingInfo: 'Showing 1-9 of 128',
                 names: 'Service 1/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],

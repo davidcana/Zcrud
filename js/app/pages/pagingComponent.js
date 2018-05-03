@@ -340,6 +340,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         thisPageSize = data.records.length;
     };
     
+    var dataFromClient = function( delta ){
+        totalNumberOfRecords += delta;
+        thisPageSize += delta;
+    };
+    
     var builGoToPageList = function( numberOfPages ){
 
         //Skip some pages is there are too many pages
@@ -399,6 +404,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         getPageSizes: getPageSizes,
         addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
+        dataFromClient: dataFromClient,
         buildInfo: buildInfo,
         bindEvents: bindEvents,
         getPageSize: getPageSize,
