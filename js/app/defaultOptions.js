@@ -131,7 +131,7 @@ module.exports = {
         }
     },
 
-    defaultFormConf: {
+    defaultPageConf: {
         event: 'batch',    // possible values: 'fieldChange', 'batch'
         dataToSend: 'all', // possible values: 'modified', 'all',
         modifiedFieldsClass: 'zcrud-modified-field',

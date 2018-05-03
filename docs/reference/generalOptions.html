@@ -53,16 +53,16 @@
                 </div>
             </li>
             <li>
-                <a id="defaultFormConf"></a>
+                <a id="defaultPageConf"></a>
                 <div class="header">
-                    <span class="name">defaultFormConf</span>
+                    <span class="name">defaultPageConf</span>
                     <span class="dataType">object</span>
                     <span class="default">an object</span>
                 </div>
                 <div class="body">
-                    Makes it easy to set up some default options about forms. This options can be overwritten in the configuration option of a page. The default value is:
+                    Makes it easy to set up some default options about pages. This options can be overwritten in the configuration option of a page. The default value is:
                     <pre class="brush: javascript">
-        defaultFormConf: {
+        defaultPageConf: {
             event: 'batch',    // possible values: 'fieldChange', 'batch'
             dataToSend: 'all', // possible values: 'modified', 'all',
             modifiedFieldsClass: 'zcrud-modified-field',
@@ -91,7 +91,7 @@
                     Suboptions are:
                     <ul>
                         <li><em>url</em>. The server URL to connect.</li>
-                        <li><em>files</em>. Defines the list of fields of this page.</li>
+                        <li><em>fields</em>. Defines the list of fields of this page.</li>
                         <li><em>event</em> (possible values: 'fieldChange', 'batch' ). The event used to save the changes. If set to 'fieldChange' every time a field is changed ZCrud will send the chnage to the server; if set to 'batch' the user must clic a 'Save' button.</li>
                         <li><em>dataToSend</em> (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.</li>
                         <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>

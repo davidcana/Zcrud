@@ -16,7 +16,9 @@ module.exports = (function() {
         $.each( options.fields, function ( fieldId, field ) {
             normalizeFieldOptions( fieldId, field, options );
         });
-
+        
+        normalizePagesOptions( options );
+        
         normalizeGeneralOptionsPostFields( options );
     };
 
@@ -157,6 +159,14 @@ module.exports = (function() {
         field.customOptions = $.extend( true, {}, defaultFieldOptions, field.customOptions );
     };
 
+    var normalizePagesOptions = function( options ){
+        
+        var defaultPageConf = options.defaultPageConf;
+        $.each( options.pages, function ( pageId, page ) {
+            var pageConf = $.extend( true, {}, defaultPageConf, page );
+            options.pages[ pageId ] = pageConf;
+        });
+    };
     
     return {
         run: normalize,

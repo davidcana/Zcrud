@@ -276,7 +276,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             }
         },
 
-        defaultFormConf: {
+        defaultPageConf: {
             url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
         },
         
@@ -420,7 +420,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
             }
         },
 
-        defaultFormConf: {
+        defaultPageConf: {
             url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
         },
         

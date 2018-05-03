@@ -154,7 +154,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         history = new History( 
             options, 
-            thisOptions.formConf || options.defaultFormConf, 
+            thisOptions,
             self, 
             true );
     };
@@ -454,21 +454,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         data.error = function( request, status, error ){
             pageUtils.ajaxError( request, status, error, options, context, userError );
         };
-        /*
-        data.error = function( dataFromServer ){
-            if ( dataFromServer.message ){
-                context.showError( options, dataFromServer.message, false );
-            } else {
-                context.showError( options, 'serverCommunicationError', true );
-            }
-
-            if ( userError ){
-                userError();
-            }
-        };*/
         
         if ( data.url == undefined ){
-            data.url = thisOptions.url || options.defaultFormConf.url;
+            data.url = thisOptions.url;
         }
         
         // Do the CRUD!
@@ -493,7 +481,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             event,
             history.buildDataToSend( 
                 options.key, 
-                options.defaultFormConf.dataToSend, 
+                thisOptions.dataToSend, 
                 [ ],
                 fields ),
             $form );
@@ -536,7 +524,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             event,
             history.buildDataToSend( 
                 options.key, 
-                options.defaultFormConf.dataToSend, 
+                thisOptions.dataToSend,
                 [ record ], 
                 fields ),
             $form );
@@ -556,7 +544,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         var data = history.buildDataToSendForUpdateRecordMethod( 
             options.key,
-            options.defaultFormConf.dataToSend, 
+            thisOptions.dataToSend,
             currentRecord,
             userData.record,
             fieldsMap,

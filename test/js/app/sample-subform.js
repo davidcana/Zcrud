@@ -61,7 +61,7 @@ var defaultTestOptions = {
         }
     },
 
-    defaultFormConf: {
+    defaultPageConf: {
         url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
         dataToSend: 'modified'
     },
