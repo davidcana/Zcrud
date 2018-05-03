@@ -398,7 +398,8 @@ form.zcrud-form {
 }
 form.zcrud-form .zcrud-field,
 form.zcrud-form fieldset {
-    margin: 0.5em 1em 1em 0.5em;
+    margin: 0 .5em .5em 0;
+    padding: 0.5em;
 }
 form.zcrud-form fieldset {
     border: 1px solid #8cacbb;
@@ -481,7 +482,7 @@ vertical-align: bottom;
     font-weight: 600;
 }
 
-/* Modified fieds */
+/* Modified fields */
 td.zcrud-modified-field {
     /*background-color: #f23411;*/
     background-image: url('./square-dirty.gif');
@@ -489,12 +490,14 @@ td.zcrud-modified-field {
     background-position: left top;
 
 }
-tr.zcrud-modified-row td {
-    background-color: #f0a49a;
+tr.zcrud-modified-row td,
+div.zcrud-modified-field {
+    background-color: #f0cac6;
 }
+/*
 div.zcrud-modified-field {
     background-color: #e1cc59;
-}
+}*/
 
 /* Busy indicator */
 .zcrud-busy {
