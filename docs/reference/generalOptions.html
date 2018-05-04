@@ -53,54 +53,6 @@
                 </div>
             </li>
             <li>
-                <a id="defaultPageConf"></a>
-                <div class="header">
-                    <span class="name">defaultPageConf</span>
-                    <span class="dataType">object</span>
-                    <span class="default">an object</span>
-                </div>
-                <div class="body">
-                    Makes it easy to set up some default options about pages. This options can be overwritten in the configuration option of a page. The default value is:
-                    <pre class="brush: javascript">
-        defaultPageConf: {
-            event: 'batch',    // possible values: 'fieldChange', 'batch'
-            dataToSend: 'all', // possible values: 'modified', 'all',
-            modifiedFieldsClass: 'zcrud-modified-field',
-            modifiedRowsClass: 'zcrud-modified-row',
-            hideTr: function( $tr ){
-                $tr.fadeOut();
-            },
-            showTr: function( $tr ){
-                $tr.fadeIn();
-            },
-            buttons: {
-                toolbar: {
-                    undo: true,
-                    redo: true,
-                    cancel: true
-                },
-                byRow: {
-                    openEditRegisterForm: true,
-                    openDeleteRegisterForm: true,
-                    deleteRegisterRow: true,
-                }
-            }
-        }
-                    </pre>
-                    
-                    Suboptions are:
-                    <ul>
-                        <li><em>url</em>. The server URL to connect.</li>
-                        <li><em>fields</em>. Defines the list of fields of this page.</li>
-                        <li><em>event</em> (possible values: 'fieldChange', 'batch' ). The event used to save the changes. If set to 'fieldChange' every time a field is changed ZCrud will send the chnage to the server; if set to 'batch' the user must clic a 'Save' button.</li>
-                        <li><em>dataToSend</em> (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.</li>
-                        <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
-                        <li><em>hideTr</em> and <em>showTr</em>. Functions to customize hide/show rows.</li>
-                        <li><em>buttons</em>. Defines the buttons in a form. See <a href="fields.html#buttons">field buttons</a> for details.</li>
-                    </ul>
-                </div>
-            </li>
-            <li>
                 <a id="entityId"></a>
                 <div class="header">
                     <span class="name">entityId</span>
@@ -312,160 +264,14 @@
                 </div>
             </li>
             <li>
-                <a id="pages"></a>
+                <a id="pageConf"></a>
                 <div class="header">
-                    <span class="name">pages</span>
+                    <span class="name">pageConf</span>
                     <span class="dataType">object</span>
                     <span class="default">an object</span>
                 </div>
                 <div class="body">
-                    The <em>pages</em> property contains 4 elements, the 4 <em>pages</em> managed by ZCrud:
-                    <ul>
-                        <li><em>create</em>. A form that creates a new record.</li>
-                        <li><em>delete</em>. A form that deletes an existing record.</li>
-                        <li><em>list</em>. Shows a list of records.</li>
-                        <li><em>update</em>. A form that updates an existing record.</li>
-                    </ul>
-                    
-                    Default value:
-                    <pre class="brush: javascript">
-        pages: {
-            'list': {
-                template: 'listDefaultTemplate@templates/lists.html',
-                components: {
-                    paging: {
-                        isOn: true,
-                        defaultPageSize: 10,
-                        pageSizes: [10, 25, 50, 100, 250, 500],
-                        pageSizeChangeArea: true,
-                        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                        maxNumberOfAllShownPages: 5,
-                        block1NumberOfPages: 1,
-                        block2NumberOfPages: 5,
-                        block3NumberOfPages: 1
-                    },
-                    sorting: {
-                        isOn: false,
-                        loadFromLocalStorage: true,
-                        default: {
-                            fieldId: undefined,
-                            type: undefined
-                        },
-                        allowUser: false
-                    },
-                    filtering: {
-                        isOn: false,
-                        filteringComponentId: 'zcrud-filtering',
-                        elementIdSuffix: '-filter'
-                    },
-                    selecting: {
-                        isOn: false,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
-                    },
-                    editing: {
-                        isOn: false,
-                        event: 'batch',    // possible values: 'fieldChange', 'batch'
-                        dataToSend: 'all', // possible values: 'modified', 'all',
-                        modifiedFieldsClass: 'zcrud-modified-field',
-                        modifiedRowsClass: 'zcrud-modified-row',
-                        hideTr: function( $tr ){
-                            $tr.fadeOut();
-                        },
-                        showTr: function( $tr ){
-                            $tr.fadeIn();
-                        }
-                    }
-                },
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: undefined,
-                        openNewRegisterForm: undefined,
-                        undo: undefined,
-                        redo: undefined,
-                        save: undefined
-                    },
-                    byRow: {
-                        openEditRegisterForm: undefined,
-                        openDeleteRegisterForm: undefined,
-                        deleteRegisterRow: undefined,
-                    }
-                }
-            }, 'create': {
-                template: "formDefaultTemplate@templates/forms.html"
-            }, 'update': {
-                template: "formDefaultTemplate@templates/forms.html"
-            }, 'delete': {
-                template: "deleteDefaultTemplate@templates/forms.html"
-            }
-        }
-                    </pre>
-                    
-                    Each <em>page</em> can contain these configuration options:
-                    <ul>
-                        <li><em>url</em>. The server URL to connect.</li>
-                        <li><em>template</em>. The template that ZCrud will use to build the page.</li>
-                        <li><em>buttons</em>. Defines the buttons in the page. See <a href="fields.html#buttons">field buttons</a> for details.</li>
-                        <li><em>components</em>. A lot of configuration options grouped by component. Nowadays only for lists. There are 5 components:
-                            <ul>
-                                <li>
-                                    <em>paging</em>. All about paging. On by default. Suboptions:
-                                    <ul>
-                                        <li><em>isOn</em>. On/off paging.</li>
-                                        <li><em>defaultPageSize</em>. Default number of items to show per page.</li>
-                                        <li><em>pageSizes</em>. A list of page sizes. The user can select any of these.</li>
-                                        <li><em>pageSizeChangeArea</em>. .</li>
-                                        <li><em>gotoPageArea</em>. Type of <em>Go to page</em> element. Possible values a are 'textbox', 'combobox' and 'none'.</li>
-                                        <li><em>maxNumberOfAllShownPages</em>. ZCrud will not show more than this number of page links.</li>
-                                        <li><em>block1NumberOfPages</em>. Maximum number of pages to show (first pages).</li>
-                                        <li><em>block2NumberOfPages</em>. Maximum number of pages to show around current page.</li>
-                                        <li><em>block3NumberOfPages</em>. Maximum number of pages to show (last pages).</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <em>sorting</em>. All about sorting. Off by default.
-                                    <ul>
-                                        <li><em>isOn</em>. On/off sorting.</li>
-                                        <li><em>loadFromLocalStorage</em>. .</li>
-                                        <li>
-                                            <em>default</em>. Default sorting:
-                                            <ul>
-                                                <li><em>fieldId</em>. Sort by this field.</li>
-                                                <li><em>type</em>. Sort type (<em>asc</em> or <em>desc</em>).</li>
-                                            </ul>
-                                        </li>
-                                        <li><em>allowUser</em>. .</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <em>filtering</em>. All about filtering. Off by default.
-                                    <ul>
-                                        <li><em>isOn</em>. On/off filtering.</li>
-                                        <li><em>filteringComponentId</em>. .</li>
-                                        <li><em>elementIdSuffix</em>. .</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <em>selecting</em>. All about selecting. Off by default.
-                                    <ul>
-                                        <li><em>isOn</em>. On/off selecting.</li>
-                                        <li><em>multiple</em>. Defines whether multiple selection is allowed.</li>
-                                        <li><em>mode</em>. Defines the selecting mode. Possible values are <em>checkbox</em> (must click a checkbox) and <em>onRowClick</em> (must click on the row, no checkbox present).</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <em>editing</em>. All about editing. Off by default.
-                                    <ul>
-                                        <li><em>isOn</em>. On/off editing. If true the list is a editable list; if false it is an only read list.</li>
-                                        <li><em>event</em> (possible values: 'fieldChange', 'batch' ). The event used to save the changes. If set to 'fieldChange' every time a field is changed ZCrud will send the chnage to the server; if set to 'batch' the user must clic a 'Save' button.</li>
-                                        <li><em>dataToSend</em> (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.</li>
-                                        <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
-                                        <li><em>hideTr</em> and <em>showTr</em>. Functions to customize hide/show rows.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    All about pages. See <a href="pages.html">pages</a> for details.
                 </div>
             </li>
             <li>
