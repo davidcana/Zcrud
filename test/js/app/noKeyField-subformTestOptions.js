@@ -9,63 +9,67 @@ module.exports = {
     saveUserPreferences: false,
     
     key: 'id',
-    pages: {
-        list: {
-            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-            fields: [ 'name', 'description' ],
-            components: {
-                paging: {
-                    isOn: true,
-                    defaultPageSize: 10,
-                    pageSizes: [10, 25, 50, 100, 250, 500],
-                    pageSizeChangeArea: true,
-                    gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                    maxNumberOfAllShownPages: 5,
-                    block1NumberOfPages: 1,
-                    block2NumberOfPages: 5,
-                    block3NumberOfPages: 1
-                },
-                sorting: {
-                    isOn: false
-                },
-                selecting: {
-                    isOn: false
-                },
-                filtering: {
-                    isOn: false
+
+    pageConf: {
+        defaultPageConf: {
+            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+            dataToSend: 'modified'
+        },
+        pages: {
+            list: {
+                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                fields: [ 'name', 'description' ],
+                components: {
+                    paging: {
+                        isOn: true,
+                        defaultPageSize: 10,
+                        pageSizes: [10, 25, 50, 100, 250, 500],
+                        pageSizeChangeArea: true,
+                        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        maxNumberOfAllShownPages: 5,
+                        block1NumberOfPages: 1,
+                        block2NumberOfPages: 5,
+                        block3NumberOfPages: 1
+                    },
+                    sorting: {
+                        isOn: false
+                    },
+                    selecting: {
+                        isOn: false
+                    },
+                    filtering: {
+                        isOn: false
+                    }
                 }
+            }, 
+            create: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            update: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            delete: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
             }
-        }, create: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, update: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, delete: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
         }
-    },
-    
-    defaultPageConf: {
-        url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-        dataToSend: 'modified'
     },
     
     fields: {
         name: {
         },
         description: {
-            //list: true,
             width: '85%',
             type: 'textarea',
             formFieldAttributes: {
@@ -74,7 +78,6 @@ module.exports = {
             }
         },
         phoneType: {
-            //list: false,
             type: 'radio',
             translateOptions: true,
             options: function(){
@@ -82,13 +85,11 @@ module.exports = {
             }
         },
         province: {
-            //list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            //list: false,
             type: 'select',
             dependsOn: 'province',
             options: function( data ){
@@ -106,16 +107,13 @@ module.exports = {
             }
         },
         browser: {
-            //list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            //list: false,
             type: 'checkbox'
         },
         members: {
-            //list: false,
             type: 'subform',
             subformKey: 'code',
             fields: { 

@@ -8,13 +8,15 @@ var testHelper = require( './testHelper.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {
-    pages: {
-        list: {
-            components: {
-                filtering: {
-                    isOn: true,
-                    fields: {
-                        name: 'name'
+    pageConf: {
+        pages: {
+            list: {
+                components: {
+                    filtering: {
+                        isOn: true,
+                        fields: {
+                            name: 'name'
+                        }
                     }
                 }
             }

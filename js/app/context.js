@@ -277,9 +277,9 @@ module.exports = (function() {
     var getListPage = function( listPageIdSource ){
         
         try {
-            var listPageId = typeof listPageIdSource === 'object'? listPageIdSource.pages.list.id: listPageIdSource;
+            var listPageId = typeof listPageIdSource === 'object'? listPageIdSource.pageConf.pages.list.id: listPageIdSource;
         } catch ( e ) {
-            alert( 'Exception trying to get options.pages.list.id!' );
+            alert( 'Exception trying to get options.pageConf.pages.list.id!' );
             return false;
         }
         
@@ -313,33 +313,13 @@ module.exports = (function() {
     };
     
     var updateFormVisibleFields = function( options, fieldIdList ){
-        options.pages.create.fields = fieldIdList;
-        options.pages.update.fields = fieldIdList;
-        options.pages.delete.fields = fieldIdList;
+        options.pageConf.pages.create.fields = fieldIdList;
+        options.pageConf.pages.update.fields = fieldIdList;
+        options.pageConf.pages.delete.fields = fieldIdList;
     };
-    /*
-    var updateFormVisibleFields = function( options, fieldIdList ){
-        
-        var fields = options.fields;
-        for ( var id in fields ){
-            var field = fields[ id ];
-            var value = fieldIdList.indexOf( id ) !== -1;
-            field.create = value;
-            field.edit = value;
-            field.delete = value;
-        }
-    };*/
-    /*
-    var updateListVisibleFields = function( options, fieldIdList ){
 
-        var fields = options.fields;
-        for ( var id in fields ){
-            var field = fields[ id ];
-            field.list = fieldIdList.indexOf( id ) !== -1;
-        }
-    };*/
     var updateListVisibleFields = function( options, fieldIdList ){
-        options.pages.list.fields = fieldIdList;
+        options.pageConf.pages.list.fields = fieldIdList;
     };
     
     var updateSubformFields = function( subformField, fieldIdList ){

@@ -11,62 +11,62 @@ var options = {
     
     entityId: 'department',
     
-    pages: {
-        list: {
-            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-            fields: [ 'id', 'name' ],
-            components: {
-                sorting: {
-                    isOn: false,
-                    default: {
-                        fieldId: 'name',
-                        type: 'asc'
+    pageConf: {
+        pages: {
+            list: {
+                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                fields: [ 'id', 'name' ],
+                components: {
+                    sorting: {
+                        isOn: false,
+                        default: {
+                            fieldId: 'name',
+                            type: 'asc'
+                        },
+                        allowUser: false
                     },
-                    allowUser: false
-                },
-                editing: {
-                    isOn: true,
-                    batchUpdateAction: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-                    event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
-                    dataToSend: 'modified', // possible values: 'modified', 'all',
-                    modifiedFieldsClass: 'zcrud-modified-field',
-                    modifiedRowsClass: 'zcrud-modified-row'
+                    editing: {
+                        isOn: true,
+                        batchUpdateAction: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+                        event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
+                        dataToSend: 'modified', // possible values: 'modified', 'all',
+                        modifiedFieldsClass: 'zcrud-modified-field',
+                        modifiedRowsClass: 'zcrud-modified-row'
+                    }
                 }
+            }, 
+            create: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            update: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            delete: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
             }
-        }, create: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, update: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, delete: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
         }
     },
     
     key : 'id',
     fields: {
         id: {
-            //key: true,
-            //create: true,
-            //edit: true,
-            //delete: true,
             sorting: false
         },
         name: {
         },
         description: {
-            //list: false,
             type: 'textarea',
             //template: "descriptionTextarea",
             formFieldAttributes: {
@@ -75,22 +75,18 @@ var options = {
             }
         },
         date: {
-            //list: false,
             type: 'date',
             customOptions: {
                 inline: false
             }
         },
         time: {
-            //list: false,
             type: 'time'
         },
         datetime: {
-            //list: false,
             type: 'datetime'
         },
         phoneType: {
-            //list: true,
             type: 'radio',
             translateOptions: true,
             //options: 'http://localhost/CRUDManager.do?table=phoneTypes',
@@ -110,13 +106,11 @@ var options = {
             //options: { '1': 'Home phone', '2': 'Office phone', '3': 'Cell phone' }
         },
         province: {
-            //list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            //list: false,
             type: 'select',
             dependsOn: 'province',
             options: function( data ){
@@ -137,16 +131,13 @@ var options = {
             }
         },
         browser: {
-            //list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            //list: false,
             type: 'checkbox'
         },
         number: {
-            //list: false
         }
     },
 

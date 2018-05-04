@@ -10,7 +10,7 @@ module.exports = (function() {
     
     var get = function( pageId, options, pageIdArray ){
         
-        var pageOptions = options.pages[ pageId ];
+        var pageOptions = options.pageConf.pages[ pageId ];
         if ( ! pageOptions ){
             throw 'Page id not found: ' + pageId;
         }
@@ -128,12 +128,6 @@ module.exports = (function() {
         
         // Must be a page id
         return get( source, options, pageIdArray ).fieldsArray;
-        /*
-        try {
-            return options.pages[ source ].fieldsCache.fieldsArray;
-        } catch ( e ) {
-            throw 'Not built fields from source ' + source;
-        }*/
     };
     
     var self = {

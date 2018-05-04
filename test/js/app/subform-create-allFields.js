@@ -16,72 +16,71 @@ var defaultTestOptions = {
     entityId: 'department',
     saveUserPreferences: false,
 
-    pages: {
-        list: {
-            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-            fields: [ 'id', 'name' ],
-            components: {
-                paging: {
-                    isOn: true,
-                    defaultPageSize: 10,
-                    pageSizes: [10, 25, 50, 100, 250, 500],
-                    pageSizeChangeArea: true,
-                    gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                    maxNumberOfAllShownPages: 5,
-                    block1NumberOfPages: 1,
-                    block2NumberOfPages: 5,
-                    block3NumberOfPages: 1
-                },
-                sorting: {
-                    isOn: false
-                },
-                selecting: {
-                    isOn: false
-                },
-                filtering: {
-                    isOn: false
+    pageConf: {
+        defaultPageConf: {
+            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+            dataToSend: 'modified'
+        },
+        pages: {
+            list: {
+                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                fields: [ 'id', 'name' ],
+                components: {
+                    paging: {
+                        isOn: true,
+                        defaultPageSize: 10,
+                        pageSizes: [10, 25, 50, 100, 250, 500],
+                        pageSizeChangeArea: true,
+                        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        maxNumberOfAllShownPages: 5,
+                        block1NumberOfPages: 1,
+                        block2NumberOfPages: 5,
+                        block3NumberOfPages: 1
+                    },
+                    sorting: {
+                        isOn: false
+                    },
+                    selecting: {
+                        isOn: false
+                    },
+                    filtering: {
+                        isOn: false
+                    }
                 }
+            }, 
+            create: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            update: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            delete: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
             }
-        }, create: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, update: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, delete: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
         }
-    },
-
-    defaultPageConf: {
-        url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-        dataToSend: 'modified'
     },
 
     key : 'id',
     fields: {
         id: {
-            //key: true,
-            //create: true,
-            //edit: true,
-            //delete: true,
             sorting: false
         },
         name: {
             width: '90%'
         },
         description: {
-            //list: false,
             type: 'textarea',
             formFieldAttributes: {
                 rows: 6,
@@ -89,28 +88,24 @@ var defaultTestOptions = {
             }
         },
         time: {
-            //list: false,
             type: 'time',
             customOptions: {
                 inline: false
             }
         },
         datetime: {
-            //list: false,
             type: 'datetime',
             customOptions: {
                 inline: false
             }
         },
         date: {
-            //list: false,
             type: 'date',
             customOptions: {
                 inline: false
             }
         },
         phoneType: {
-            //list: false,
             type: 'radio',
             translateOptions: true,
             options: function(){
@@ -118,13 +113,11 @@ var defaultTestOptions = {
             }
         },
         province: {
-            //list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            //list: false,
             type: 'select',
             dependsOn: 'province',
             options: function( data ){
@@ -142,19 +135,15 @@ var defaultTestOptions = {
             }
         },
         browser: {
-            //list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            //list: false,
             type: 'checkbox'
         },
         number: {
-            //list: false
         },
         members: {
-            //list: false,
             type: 'subform',
             fields: { 
                 code: { 

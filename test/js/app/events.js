@@ -887,13 +887,15 @@ QUnit.test( "events update with failed validation form test", function( assert )
 QUnit.test( "selectionChanged event test", function( assert ) {
 
     var thisTestOptions = {
-        pages: {
-            list: {
-                components: {
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        selecting: {
+                            isOn: true,
+                            multiple: true,
+                            mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        }
                     }
                 }
             }

@@ -8,13 +8,15 @@ var testHelper = require( './testHelper.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {
-    pages: {
-        list: {
-            components: {
-                selecting: {
-                    isOn: true,
-                    multiple: true,
-                    mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+    pageConf: {
+        pages: {
+            list: {
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
                 }
             }
         }

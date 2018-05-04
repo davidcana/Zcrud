@@ -10,52 +10,58 @@ module.exports = {
     saveUserPreferences: false,
     
     key: 'id',
-    pages: {
-        list: {
-            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-            fields: [ 'name', 'description' ],
-            components: {
-                sorting: {
-                    isOn: false,
-                    default: {
-                        fieldId: 'name',
-                        type: 'asc'
+    
+    pageConf: {
+        pages: {
+            list: {
+                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                fields: [ 'name', 'description' ],
+                components: {
+                    sorting: {
+                        isOn: false,
+                        default: {
+                            fieldId: 'name',
+                            type: 'asc'
+                        },
+                        allowUser: false
                     },
-                    allowUser: false
-                },
-                editing: {
-                    isOn: true,
-                    batchUpdateAction: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-                    event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
-                    dataToSend: 'modified', // possible values: 'modified', 'all',
-                    modifiedFieldsClass: 'zcrud-modified-field',
-                    modifiedRowsClass: 'zcrud-modified-row',
-                    hideTr: function( $tr ){
-                        $tr.hide();
-                    },
-                    showTr: function( $tr ){
-                        $tr.show();
+                    editing: {
+                        isOn: true,
+                        batchUpdateAction: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+                        event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
+                        dataToSend: 'modified', // possible values: 'modified', 'all',
+                        modifiedFieldsClass: 'zcrud-modified-field',
+                        modifiedRowsClass: 'zcrud-modified-row',
+                        hideTr: function( $tr ){
+                            $tr.hide();
+                        },
+                        showTr: function( $tr ){
+                            $tr.show();
+                        }
                     }
                 }
+            }, 
+            create: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            update: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
+            }, 
+            delete: {
+                fields: [
+                    {
+                        "type": "fieldSubset"
+                    }
+                ]
             }
-        }, create: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, update: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
-        }, delete: {
-            fields: [
-                {
-                    "type": "fieldSubset"
-                }
-            ]
         }
     },
 
@@ -63,7 +69,6 @@ module.exports = {
         name: {
         },
         description: {
-            //list: true,
             type: 'textarea',
             formFieldAttributes: {
                 rows: 6,
@@ -71,7 +76,6 @@ module.exports = {
             }
         },
         phoneType: {
-            //list: false,
             type: 'radio',
             translateOptions: true,
             options: function(){
@@ -79,13 +83,11 @@ module.exports = {
             }
         },
         province: {
-            //list: false,
             type: 'select',
             options: [ 'Cádiz', 'Málaga' ],
             defaultValue: 'Cádiz'
         },
         city: {
-            //list: false,
             type: 'select',
             dependsOn: 'province',
             options: function( data ){
@@ -106,12 +108,10 @@ module.exports = {
             }
         },
         browser: {
-            //list: false,
             type: 'datalist',
             options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
-            //list: false,
             type: 'checkbox'
         }
     },

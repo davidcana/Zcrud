@@ -245,39 +245,43 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
         entityId: 'department',
         saveUserPreferences: false,
 
-        pages: {
-            list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-                fields: [ 'id', 'name' ],
-            }, create: {
-                fields: [
-                    {
-                        "type": "fieldSubset",
-                        "source": "list"
-                    },
-                    'name2'
-                ],
-            }, update: {
-                fields: [
-                    {
-                        "type": "fieldSubset",
-                        "source": "list"
-                    },
-                    'name3'
-                ],
-            }, delete: {
-                fields: [
-                    {
-                        "type": "fieldSubset",
-                        "source": "update"
-                    },
-                    'name4'
-                ],
+        pageConf: {
+            defaultPageConf: {
+                url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+            },
+            pages: {
+                list: {
+                    url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                    fields: [ 'id', 'name' ],
+                }, 
+                create: {
+                    fields: [
+                        {
+                            "type": "fieldSubset",
+                            "source": "list"
+                        },
+                        'name2'
+                    ],
+                }, 
+                update: {
+                    fields: [
+                        {
+                            "type": "fieldSubset",
+                            "source": "list"
+                        },
+                        'name3'
+                    ],
+                }, 
+                delete: {
+                    fields: [
+                        {
+                            "type": "fieldSubset",
+                            "source": "update"
+                        },
+                        'name4'
+                    ],
+                }
             }
-        },
-
-        defaultPageConf: {
-            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
         },
         
         key : 'id',
@@ -392,36 +396,40 @@ QUnit.test( "Field list from page id builder with circular references test", fun
         entityId: 'department',
         saveUserPreferences: false,
 
-        pages: {
-            list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-                fields: [ 'id', 'name' ],
-            }, create: {
-                fields: [
-                    {
-                        "type": "fieldSubset",
-                        "source": "create"
-                    }
-                ],
-            }, update: {
-                fields: [
-                    {
-                        "type": "fieldSubset",
-                        "source": "delete"
-                    }
-                ],
-            }, delete: {
-                fields: [
-                    {
-                        "type": "fieldSubset",
-                        "source": "update"
-                    }
-                ],
+        pageConf: {
+            defaultPageConf: {
+                url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+            },
+            pages: {
+                list: {
+                    url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                    fields: [ 'id', 'name' ],
+                }, 
+                create: {
+                    fields: [
+                        {
+                            "type": "fieldSubset",
+                            "source": "create"
+                        }
+                    ],
+                }, 
+                update: {
+                    fields: [
+                        {
+                            "type": "fieldSubset",
+                            "source": "delete"
+                        }
+                    ],
+                }, 
+                delete: {
+                    fields: [
+                        {
+                            "type": "fieldSubset",
+                            "source": "update"
+                        }
+                    ],
+                }
             }
-        },
-
-        defaultPageConf: {
-            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
         },
         
         key : 'id',

@@ -113,7 +113,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         switch ( type ) {
         case 'create':
-            thisOptions = options.pages.create;
+            thisOptions = options.pageConf.pages.create;
             title = "Create form";
             submitFunction = submitCreate;
             eventFunction = options.events.recordAdded;
@@ -127,7 +127,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             }
             break;
         case 'update':
-            thisOptions = options.pages.update;
+            thisOptions = options.pageConf.pages.update;
             title = "Edit form";
             submitFunction = submitUpdate;
             eventFunction = options.events.recordUpdated;
@@ -138,7 +138,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             successMessage = 'updateSuccess';
             break;
         case 'delete':
-            thisOptions = options.pages.delete;
+            thisOptions = options.pageConf.pages.delete;
             title = "Delete form";
             submitFunction = submitDelete;
             eventFunction = options.events.recordDeleted;

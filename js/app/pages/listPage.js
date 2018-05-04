@@ -31,7 +31,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var filter = userData.filter || {};
     var userRecords = userData.records;
     
-    var thisOptions = options.pages.list;
+    var thisOptions = options.pageConf.pages.list;
     var getThisOptions = function(){
         return thisOptions;
     };

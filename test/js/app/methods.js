@@ -18,13 +18,15 @@ var options = undefined;
 QUnit.test( "selection related methods test (using selectRows)", function( assert ) {
 
     var thisTestOptions = {
-        pages: {
-            list: {
-                components: {
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        selecting: {
+                            isOn: true,
+                            multiple: true,
+                            mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        }
                     }
                 }
             }
@@ -107,13 +109,15 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
 QUnit.test( "selection related methods test (using selectRecords)", function( assert ) {
 
     var thisTestOptions = {
-        pages: {
-            list: {
-                components: {
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        selecting: {
+                            isOn: true,
+                            multiple: true,
+                            mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        }
                     }
                 }
             }
@@ -691,7 +695,6 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
                 width: '30%'
             },
             description: {
-                //list: true,
                 width: '50%'
             }
         }

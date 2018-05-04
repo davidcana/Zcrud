@@ -57,101 +57,102 @@ module.exports = {
         selectionChanged: function ( data ) {}
     },
 
-    pages: {
-        list: {
-            template: "listDefaultTemplate@templates/lists.html",
-            components: {
-                paging: {
-                    isOn: true,
-                    defaultPageSize: 10,
-                    pageSizes: [10, 25, 50, 100, 250, 500],
-                    pageSizeChangeArea: true,
-                    gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                    maxNumberOfAllShownPages: 5,
-                    block1NumberOfPages: 1,
-                    block2NumberOfPages: 5,
-                    block3NumberOfPages: 1
-                },
-                sorting: {
-                    isOn: false,
-                    loadFromLocalStorage: true,
-                    default: {
-                        fieldId: undefined,
-                        type: undefined
-                    },
-                    allowUser: false
-                },
-                filtering: {
-                    isOn: false,
-                    filteringComponentId: 'zcrud-filtering',
-                    elementIdSuffix: '-filter'
-                },
-                selecting: {
-                    isOn: false,
-                    multiple: true,
-                    mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
-                },
-                editing: {
-                    isOn: false,
-                    event: 'batch',    // possible values: 'fieldChange', 'batch'
-                    dataToSend: 'all', // possible values: 'modified', 'all',
-                    modifiedFieldsClass: 'zcrud-modified-field',
-                    modifiedRowsClass: 'zcrud-modified-row',
-                    hideTr: function( $tr ){
-                        $tr.fadeOut();
-                    },
-                    showTr: function( $tr ){
-                        $tr.fadeIn();
-                    }
-                }
+    pageConf: {
+        defaultPageConf: {
+            event: 'batch',    // possible values: 'fieldChange', 'batch'
+            dataToSend: 'all', // possible values: 'modified', 'all',
+            modifiedFieldsClass: 'zcrud-modified-field',
+            modifiedRowsClass: 'zcrud-modified-row',
+            hideTr: function( $tr ){
+                $tr.fadeOut();
+            },
+            showTr: function( $tr ){
+                $tr.fadeIn();
             },
             buttons: {
                 toolbar: {
-                    newRegisterRow: undefined,
-                    openNewRegisterForm: undefined,
-                    undo: undefined,
-                    redo: undefined,
-                    save: undefined
+                    undo: true,
+                    redo: true,
+                    cancel: true
                 },
                 byRow: {
-                    openEditRegisterForm: undefined,
-                    openDeleteRegisterForm: undefined,
-                    deleteRegisterRow: undefined,
+                    openEditRegisterForm: true,
+                    openDeleteRegisterForm: true,
+                    deleteRegisterRow: true,
                 }
             }
-        }, 
-        create: {
-            template: "formDefaultTemplate@templates/forms.html"
-        }, 
-        update: {
-            template: "formDefaultTemplate@templates/forms.html"
-        }, 
-        delete: {
-            template: "deleteDefaultTemplate@templates/forms.html"
-        }
-    },
-
-    defaultPageConf: {
-        event: 'batch',    // possible values: 'fieldChange', 'batch'
-        dataToSend: 'all', // possible values: 'modified', 'all',
-        modifiedFieldsClass: 'zcrud-modified-field',
-        modifiedRowsClass: 'zcrud-modified-row',
-        hideTr: function( $tr ){
-            $tr.fadeOut();
         },
-        showTr: function( $tr ){
-            $tr.fadeIn();
-        },
-        buttons: {
-            toolbar: {
-                undo: true,
-                redo: true,
-                cancel: true
-            },
-            byRow: {
-                openEditRegisterForm: true,
-                openDeleteRegisterForm: true,
-                deleteRegisterRow: true,
+        pages: {
+            list: {
+                template: "listDefaultTemplate@templates/lists.html",
+                components: {
+                    paging: {
+                        isOn: true,
+                        defaultPageSize: 10,
+                        pageSizes: [10, 25, 50, 100, 250, 500],
+                        pageSizeChangeArea: true,
+                        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        maxNumberOfAllShownPages: 5,
+                        block1NumberOfPages: 1,
+                        block2NumberOfPages: 5,
+                        block3NumberOfPages: 1
+                    },
+                    sorting: {
+                        isOn: false,
+                        loadFromLocalStorage: true,
+                        default: {
+                            fieldId: undefined,
+                            type: undefined
+                        },
+                        allowUser: false
+                    },
+                    filtering: {
+                        isOn: false,
+                        filteringComponentId: 'zcrud-filtering',
+                        elementIdSuffix: '-filter'
+                    },
+                    selecting: {
+                        isOn: false,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
+                    },
+                    editing: {
+                        isOn: false,
+                        event: 'batch',    // possible values: 'fieldChange', 'batch'
+                        dataToSend: 'all', // possible values: 'modified', 'all',
+                        modifiedFieldsClass: 'zcrud-modified-field',
+                        modifiedRowsClass: 'zcrud-modified-row',
+                        hideTr: function( $tr ){
+                            $tr.fadeOut();
+                        },
+                        showTr: function( $tr ){
+                            $tr.fadeIn();
+                        }
+                    }
+                },
+                buttons: {
+                    toolbar: {
+                        newRegisterRow: undefined,
+                        openNewRegisterForm: undefined,
+                        undo: undefined,
+                        redo: undefined,
+                        save: undefined
+                    },
+                    byRow: {
+                        openEditRegisterForm: undefined,
+                        openDeleteRegisterForm: undefined,
+                        deleteRegisterRow: undefined,
+                    }
+                }
+            }, 
+            create: {
+                template: "formDefaultTemplate@templates/forms.html"
+            }, 
+            update: {
+                template: "formDefaultTemplate@templates/forms.html"
+            }, 
+            delete: {
+                template: "deleteDefaultTemplate@templates/forms.html"
             }
         }
     },

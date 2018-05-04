@@ -59,7 +59,7 @@ module.exports = (function() {
         
         // Load data from server using AJAX
         var thisOptions = {
-            url    : data.url || options.pages.list.url,
+            url    : data.url || options.pageConf.pages.list.url,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction

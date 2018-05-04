@@ -30,7 +30,7 @@ module.exports = (function() {
         }
 
         // Normalize list options
-        var listOptions = options.pages.list;
+        var listOptions = options.pageConf.pages.list;
         if ( listOptions.formId == undefined ){
             listOptions.formId = 'zcrud-list-form-' + options.entityId;
         }
@@ -138,8 +138,8 @@ module.exports = (function() {
         options.allDeclaredRemotePageUrls = options.templates.declaredRemotePageUrls.slice();
         context.declareRemotePageUrl( options.templates.busyTemplate, options.allDeclaredRemotePageUrls );
 
-        for ( var i in options.pages ) {
-            var template = options.pages[ i ].template;
+        for ( var i in options.pageConf.pages ) {
+            var template = options.pageConf.pages[ i ].template;
             context.declareRemotePageUrl( template, options.allDeclaredRemotePageUrls );
         }
         //alert( JSON.stringify( options.allDeclaredRemotePageUrls ) );
@@ -161,10 +161,10 @@ module.exports = (function() {
 
     var normalizePagesOptions = function( options ){
         
-        var defaultPageConf = options.defaultPageConf;
-        $.each( options.pages, function ( pageId, page ) {
+        var defaultPageConf = options.pageConf.defaultPageConf;
+        $.each( options.pageConf.pages, function ( pageId, page ) {
             var pageConf = $.extend( true, {}, defaultPageConf, page );
-            options.pages[ pageId ] = pageConf;
+            options.pageConf.pages[ pageId ] = pageConf;
         });
     };
     
