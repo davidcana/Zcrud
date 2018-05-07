@@ -17,7 +17,24 @@ var buildIdsArray = function( fieldsArray ){
     var result = [];
     
     for ( var c = 0; c < fieldsArray.length; ++c ){
-        result.push( fieldsArray[ c ].id );
+        var item = fieldsArray[ c ];
+        
+        if ( item.type == "fieldContainer" ){
+            var container = result[ result.length - 1 ];
+            if ( ! container || container.id != item.id ){
+                container = {
+                    type: item.type,
+                    id: item.id,
+                    tag: item.tag,
+                    fields: []
+                };
+                result.push( container );
+            }
+            container.fields = buildIdsArray( item.fields );
+            
+        } else {
+            result.push( item.id );
+        }
     }
     
     return result;
@@ -38,7 +55,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             // Empty array
             var items = [];
             var expected = [];
-            var fields = fieldListBuilder.build( items, options );
+            var fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( fields, expected );
             
             // Strings only
@@ -67,14 +84,13 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                     "customOptions": {},
                     "elementId": "zcrud-description",
                     "elementName": "description",
-                    //"list": false,
                     "name": "description",
                     "sorting": true,
                     "template": "textarea@templates/fields/basic.html",
                     "viewTemplate": undefined
                 }
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( fields, expected );
             
             // Fields only
@@ -123,7 +139,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                     "viewTemplate": undefined
                 }
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( fields, expected );
             
             // A fieldSubset only (with all default fields)
@@ -147,7 +163,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 "important",
                 "number"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
 
             // A fieldSubset only (starting with datetime)
@@ -167,7 +183,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 "important",
                 "number"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             // A fieldSubset only (ending with phoneType)
@@ -187,7 +203,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 "datetime",
                 "phoneType"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             // A fieldSubset only (starting with description and ending with browser)
@@ -209,7 +225,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 "city",
                 "browser"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             // A fieldSubset only (starting with description and ending with browser except time and phoneType)
@@ -230,7 +246,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 "city",
                 "browser"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             done();
@@ -336,7 +352,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 "id",
                 "name"
             ];
-            var fields = fieldListBuilder.build( items, options );
+            var fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             // A fieldSubset only (with all default fields except name)
@@ -350,7 +366,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             expected = [
                 "id"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             // A fieldSubset only already built
@@ -365,7 +381,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 "name",
                 "name2"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             // A fieldSubset only not built
@@ -381,7 +397,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 "name3",
                 "name4"
             ];
-            fields = fieldListBuilder.build( items, options );
+            fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
             done();
@@ -482,7 +498,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
             ];
             var errors = 0;
             try {
-                var fields = fieldListBuilder.build( items, options );
+                var fields = fieldListBuilder.build( items, options ).fieldsArray;
             } catch ( e ) {
                 ++errors;
             }
@@ -497,11 +513,233 @@ QUnit.test( "Field list from page id builder with circular references test", fun
             ];
             errors = 0;
             try {
-                fields = fieldListBuilder.build( items, options );
+                fields = fieldListBuilder.build( items, options ).fieldsArray;
             } catch ( e ) {
                 ++errors;
             }
             assert.equal( errors, 1 );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "Field list from general fields with fieldContainer builder test", function( assert ) {
+
+    var done = assert.async();
+    options = defaultTestOptions;
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // A fieldContainer only (with all default fields)
+            var items = [ 
+                {
+                    "type": "fieldContainer",
+                    "tag": "fieldSet",
+                    "contents": [ 'name', 'description' ]
+                }
+            ];
+            var expected = [
+                {
+                    "id": "name",
+                    "type": "text",
+                    "width": "90%",
+                    "customOptions": {},
+                    "elementId": "zcrud-name",
+                    "elementName": "name",
+                    "formFieldAttributes": {},
+                    "name": "name",
+                    "sorting": true,
+                    "template": "text@templates/fields/basic.html",
+                    "viewTemplate": undefined
+                },
+                {
+                    "id": "description",
+                    "type": "textarea",
+                    "formFieldAttributes": {
+                        "cols": 80,
+                        "rows": 6
+                    },
+                    "customOptions": {},
+                    "elementId": "zcrud-description",
+                    "elementName": "description",
+                    "name": "description",
+                    "sorting": true,
+                    "template": "textarea@templates/fields/basic.html",
+                    "viewTemplate": undefined
+                }
+            ];
+            var expectedView = [
+                {
+                    "type": "fieldContainer",
+                    "id": 1,
+                    "tag": "fieldSet",
+                    "fields": expected
+                }
+            ];
+            
+            var fullObjectFields = fieldListBuilder.build( items, options );
+            assert.deepEqual( fullObjectFields.fieldsArray, expected );
+            assert.deepEqual( fullObjectFields.view, expectedView );
+            
+            // A fieldContainer only (with fields only)
+            items = [ 
+                {
+                    "type": "fieldContainer",
+                    "tag": "fieldSet",
+                    "contents": [ 
+                        {
+                            "id": "name",
+                            "type": "text",
+                            "width": "90%"
+                        },
+                        {
+                            "id": "description",
+                            "type": "textarea",
+                            "formFieldAttributes": {
+                                "cols": 80,
+                                "rows": 6
+                            }
+                        }
+                    ]
+                }
+            ];
+            expected = [
+                {
+                    "id": "name",
+                    "type": "text",
+                    "width": "90%",
+                    "customOptions": {},
+                    "elementId": "zcrud-name",
+                    "elementName": "name",
+                    "formFieldAttributes": {},
+                    "name": "name",
+                    "sorting": true,
+                    "template": "text@templates/fields/basic.html",
+                    "viewTemplate": undefined
+                },
+                {
+                    "id": "description",
+                    "type": "textarea",
+                    "formFieldAttributes": {
+                        "cols": 80,
+                        "rows": 6
+                    },
+                    "customOptions": {},
+                    "elementId": "zcrud-description",
+                    "elementName": "description",
+                    "name": "description",
+                    "sorting": true,
+                    "template": "textarea@templates/fields/basic.html",
+                    "viewTemplate": undefined
+                }
+            ];
+            expectedView = [
+                {
+                    "type": "fieldContainer",
+                    "id": 2,
+                    "tag": "fieldSet",
+                    "fields": expected
+                }
+            ];
+            fullObjectFields = fieldListBuilder.build( items, options );
+            assert.deepEqual( fullObjectFields.fieldsArray, expected );
+            assert.deepEqual( fullObjectFields.view, expectedView );
+            
+            // A fieldContainer only (with a fieldSubset only starting with description and ending with browser except time and phoneType)
+            items = [ 
+                {
+                    "type": "fieldContainer",
+                    "tag": "fieldSet",
+                    "contents": [ 
+                        {
+                            "type": "fieldSubset",
+                            "source": "default",
+                            "start": "description",
+                            "end": "browser",
+                            "except": [ "time", "phoneType" ]
+                        }
+                    ]
+                }
+            ];
+            expected = [
+                "description",
+                "date",
+                "datetime",
+                "province",
+                "city",
+                "browser"
+            ];
+            expectedView = [
+                {
+                    "type": "fieldContainer",
+                    "id": 3,
+                    "tag": "fieldSet",
+                    "fields": expected
+                }
+            ];
+            
+            fullObjectFields = fieldListBuilder.build( items, options );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.fieldsArray ), 
+                expected );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.view ), 
+                expectedView );
+            
+            // A string and a fieldContainer (with a fieldSubset only starting with description and ending with browser except time and phoneType)
+            items = [ 
+                'id',
+                {
+                    "type": "fieldContainer",
+                    "tag": "div",
+                    "contents": [ 
+                        {
+                            "type": "fieldSubset",
+                            "source": "default",
+                            "start": "description",
+                            "end": "browser",
+                            "except": [ "time", "phoneType" ]
+                        }
+                    ]
+                }
+            ];
+            expected = [
+                "id",
+                "description",
+                "date",
+                "datetime",
+                "province",
+                "city",
+                "browser"
+            ];
+            expectedView = [
+                "id",
+                {
+                    "type": "fieldContainer",
+                    "id": 4,
+                    "tag": "div",
+                    "fields": [
+                        "description",
+                        "date",
+                        "datetime",
+                        "province",
+                        "city",
+                        "browser"
+                    ]
+                }
+            ];
+            fullObjectFields = fieldListBuilder.build( items, options );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.fieldsArray ), 
+                expected );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.view ), 
+                expectedView );
             
             done();
         }

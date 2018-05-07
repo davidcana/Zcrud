@@ -7,6 +7,8 @@ var fieldBuilder = require( './fields/fieldBuilder' );
 
 module.exports = (function() {
     "use strict";
+
+    var containerCounter = 0;
     
     var get = function( pageId, options, pageIdArray ){
         
@@ -27,37 +29,30 @@ module.exports = (function() {
         }
         pageIdArray.push( pageId );
         
-        var fieldsArray = build( pageOptions.fields, options, pageIdArray );
-        var fieldsMap = buildMapFromArray( fieldsArray, fieldBuilder.buildFields );
-        
-        var fieldsCache = {
-            fieldsArray: fieldsArray,
-            fieldsMap: fieldsMap
-        };
+        var fieldsCache = build( 
+            pageOptions.fields, 
+            options, 
+            pageIdArray, 
+            fieldBuilder.buildFields );
         pageOptions.fieldsCache = fieldsCache;
         
         return fieldsCache;
     };
-    
-    var buildMapFromArray = function( fieldsArray, functionToApplyToField ){
+
+    var build = function( items, options, pageIdArray, functionToApplyToField ) {
         
-        var result = {};
+        var result = {
+            fieldsArray: [],
+            fieldsMap: {},
+            view: []
+        };
         
-        for ( var c = 0; c < fieldsArray.length; ++c ){
-            var field = fieldsArray[ c ];
-            result[ field.id ] = field;
-            
-            if ( functionToApplyToField ){
-                functionToApplyToField( field );
-            }
-        }
+        buildPass( result, items, options, pageIdArray, functionToApplyToField );
         
         return result;
     };
     
-    var build = function( items, options, pageIdArray ) {
-
-        var result = [];
+    var buildPass = function( result, items, options, pageIdArray, functionToApplyToField, containerId, containerTag ) {
         
         for ( var c = 0; c < items.length; ++c ){
             
@@ -65,23 +60,63 @@ module.exports = (function() {
             
             // Is string?
             if ( $.type( item ) === 'string' ){
-                result.push( options.fields[ item ] );
+                addField( options.fields[ item ], result, functionToApplyToField, containerId, containerTag );
                 
             // Is fieldSubset?
             } else if ( item.type == 'fieldSubset' ){
-                buildFieldsFromFieldSubset( item, options, result, pageIdArray );
+                buildFieldsFromFieldSubset( result, item, options, pageIdArray, functionToApplyToField, containerId, containerTag );
+                
+            // Is fieldContainer?
+            } else if ( item.type == 'fieldContainer' ){
+                buildFieldsFromFieldContainer( result, item, options, pageIdArray, functionToApplyToField );
                 
             // Must be a field instance
             } else {
                 normalizer.normalizeFieldOptions( item.id, item, options );
-                result.push( item );
+                addField( item, result, functionToApplyToField, containerId, containerTag );
             }
         }
-        
-        return result;
     };
     
-    var buildFieldsFromFieldSubset = function( item, options, result, pageIdArray ) {
+    var addField = function( field, result, functionToApplyToField, containerId, containerTag ){
+        
+        result.fieldsArray.push( field );
+        result.fieldsMap[ field.id ] = field;
+        
+        if ( containerId ){
+            var container = result.view[ result.view.length - 1 ];
+            if ( ! container || container.id != containerId ){
+                container = {
+                    type: "fieldContainer",
+                    id: containerId,
+                    tag: containerTag,
+                    fields: []
+                };
+                result.view.push( container );
+            }
+            container.fields.push( field );
+        } else {
+            result.view.push( field );
+        }
+        
+        if ( functionToApplyToField ){
+            functionToApplyToField( field );
+        }
+    };
+    
+    var buildFieldsFromFieldContainer = function( result, item, options, pageIdArray, functionToApplyToField ) {
+
+        buildPass( 
+            result, 
+            item.contents, 
+            options, 
+            pageIdArray, 
+            functionToApplyToField,
+            ++containerCounter,
+            item.tag );
+    };
+    
+    var buildFieldsFromFieldSubset = function( result, item, options, pageIdArray, functionToApplyToField, containerId, containerTag ) {
         
         var start = item.start;
         var end = item.end;
@@ -106,7 +141,7 @@ module.exports = (function() {
             }
             
             if ( started && ( except? -1 === except.indexOf( id ): true ) ){
-                result.push( field );
+                addField( field, result, functionToApplyToField, containerId, containerTag );
             }
             
             if ( ended ){
@@ -132,8 +167,8 @@ module.exports = (function() {
     
     var self = {
         get: get,
-        build: build,
-        buildMapFromArray: buildMapFromArray
+        build: build
+        //buildMapFromArray: buildMapFromArray
     };
     
     return self;

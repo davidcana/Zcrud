@@ -158,33 +158,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             self, 
             true );
     };
-    /*
-    var buildFields = function( filterFunction ){
 
-        fields = [];
-        fieldsMap = {};
-
-        $.each( options.fields, function ( fieldId, field ) {
-            var filtered = filterFunction( field );
-
-            if ( options.key == field.id && ! filtered ) {
-                return;
-            }
-            if ( filtered == false ){
-                return;
-            }
-            fields.push( field );
-            fieldsMap[ fieldId ] = field;
-
-            fieldBuilder.buildFields( field );
-        });
-    };*/
-    /*
-    var buildFields = function( filterFunction ){
-        
-        fields = fieldListBuilder.build( thisOptions.fields, options );
-        fieldsMap = fieldListBuilder.buildMapFromArray( fields, fieldBuilder.buildFields );
-    };*/
     var buildFields = function(){
         
         var fieldsCache = fieldListBuilder.get( type, options );

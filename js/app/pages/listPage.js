@@ -99,27 +99,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             components[ componentId ] = thisComponent;
         }
     };
-    /*
-    var buildFields = function(){
-        
-        fields = [];
-        fieldsMap = {};
-        
-        $.each( options.fields, function ( fieldId, field ) {
-            if ( field.list == false ) {
-                return;
-            }
-            fields.push( field );
-            fieldsMap[ fieldId ] = field;
-        });
-    };*/
-    /*
-    var buildFields = function(){
 
-        fields = fieldListBuilder.build( thisOptions.fields, options );
-        fieldsMap = fieldListBuilder.buildMapFromArray( fields );
-    };
-    */
     var buildFields = function(){
 
         var fieldsCache = fieldListBuilder.get( 'list', options );
