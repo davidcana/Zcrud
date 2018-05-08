@@ -47,6 +47,17 @@ module.exports = {
         }
     },
 
+    containers: {
+        types: {
+            'fieldSet': {
+                template: 'fieldSet@templates/containers/basic.html'
+            },
+            'div': {
+                template: 'div@templates/containers/basic.html'
+            }
+        }
+    },
+    
     events: {
         formClosed: function ( data, event ) {},
         formCreated: function ( data ) {},

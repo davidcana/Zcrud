@@ -35,6 +35,8 @@
     "members_title": "Miembros",
     "members_description": "Los miembros del departmento",
     "code_title": "Codigo",
+    "location_title": "Localización",
+    "location_description": "Información relacionada con el lugar",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

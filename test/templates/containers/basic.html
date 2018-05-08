@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of containers</title>
+    </head>
+    <body> 
+        <div data-mdefine-macro="fieldSet">
+            <fieldset>
+                <legend data-tcontent="container/title || tr:string:${container/id}_title">Legend</legend>
+                <div class="zcrud-container-help" 
+                      data-tdefine="description container/description || tr:string:${container/id}_description"
+                      data-tcontent="description"
+                      data-tcondition="description">
+                    The description of this container.
+                </div>
+                <div data-muse-macro="'viewItemsInForm@templates/forms.html'"
+                     data-tdefine="viewItems container/fields">
+                    The fields
+                </div>
+            </fieldset>
+        </div>
+        
+    </body>
+</html>

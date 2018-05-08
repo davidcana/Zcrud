@@ -142,6 +142,11 @@ module.exports = (function() {
             var template = options.pageConf.pages[ i ].template;
             context.declareRemotePageUrl( template, options.allDeclaredRemotePageUrls );
         }
+        
+        for ( i in options.containers.types ) {
+            template = options.containers.types[ i ].template;
+            context.declareRemotePageUrl( template, options.allDeclaredRemotePageUrls );
+        }
         //alert( JSON.stringify( options.allDeclaredRemotePageUrls ) );
     };
 

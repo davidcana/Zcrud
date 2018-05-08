@@ -56,6 +56,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     };
     //var autoSaveMode = false;
     
+    var view = undefined;
+    var getView = function(){
+        return view;
+    };
+    
     var fieldsMap = undefined;
     var fields = undefined;
     var getFields = function(){
@@ -164,6 +169,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         var fieldsCache = fieldListBuilder.get( type, options );
         fields = fieldsCache.fieldsArray;
         fieldsMap = fieldsCache.fieldsMap;
+        view = fieldsCache.view;
     };
     
     // Build the form
@@ -609,6 +615,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         getId: getId,
         getTitle: getTitle,
         getFields: getFields,
+        getView: getView,
         getPostTemplate: getPostTemplate,
         mustHideLabel: mustHideLabel,
         getHistory: getHistory,

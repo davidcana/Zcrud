@@ -35,6 +35,8 @@
     "members_title": "Members",
     "members_description": "The members of the department",
     "code_title": "Code",
+    "location_title": "Location",
+    "location_description": "Data about the location",
     
     "_options": "",
     "homePhone_option": "Home phone",

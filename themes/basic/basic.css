@@ -407,7 +407,8 @@ form.zcrud-form fieldset {
     width: auto;
     border-radius: 10px;
 }
-form.zcrud-form .zcrud-field-help {
+form.zcrud-form .zcrud-field-help,
+form.zcrud-form .zcrud-container-help {
     display: block;
     font-size: 90%;
     color: #76797c;

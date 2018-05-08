@@ -51,6 +51,15 @@ module.exports = function(grunt) {
                 src: 'test/js/app/sample-subform.js',
                 dest: 'build/sample-subform.js'
             },
+            sampleContainer: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/sample-container.js',
+                dest: 'build/sample-container.js'
+            },
             paging: {
                 options: {
                     browserifyOptions: {

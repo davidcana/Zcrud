@@ -21,11 +21,13 @@ var buildIdsArray = function( fieldsArray ){
         
         if ( item.type == "fieldContainer" ){
             var container = result[ result.length - 1 ];
-            if ( ! container || container.id != item.id ){
+            if ( ! container || container.containerCounter != item.containerCounter ){
                 container = {
                     type: item.type,
                     id: item.id,
+                    containerCounter: item.containerCounter,
                     tag: item.tag,
+                    template: item.template,
                     fields: []
                 };
                 result.push( container );
@@ -539,6 +541,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             var items = [ 
                 {
                     "type": "fieldContainer",
+                    "id": "intro",
                     "tag": "fieldSet",
                     "contents": [ 'name', 'description' ]
                 }
@@ -576,8 +579,10 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             var expectedView = [
                 {
                     "type": "fieldContainer",
-                    "id": 1,
+                    "id": "intro",
+                    "containerCounter": 1,
                     "tag": "fieldSet",
+                    "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
                 }
             ];
@@ -590,6 +595,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             items = [ 
                 {
                     "type": "fieldContainer",
+                    "id": "intro",
                     "tag": "fieldSet",
                     "contents": [ 
                         {
@@ -641,8 +647,10 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             expectedView = [
                 {
                     "type": "fieldContainer",
-                    "id": 2,
+                    "id": "intro",
+                    "containerCounter": 2,
                     "tag": "fieldSet",
+                    "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
                 }
             ];
@@ -654,7 +662,9 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             items = [ 
                 {
                     "type": "fieldContainer",
+                    "id": "intro",
                     "tag": "fieldSet",
+                    "template": "fieldSet@templates/containers/basic.html",
                     "contents": [ 
                         {
                             "type": "fieldSubset",
@@ -677,8 +687,10 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             expectedView = [
                 {
                     "type": "fieldContainer",
-                    "id": 3,
+                    "id": "intro",
+                    "containerCounter": 3,
                     "tag": "fieldSet",
+                    "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
                 }
             ];
@@ -696,6 +708,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 'id',
                 {
                     "type": "fieldContainer",
+                    "id": "intro",
                     "tag": "div",
                     "contents": [ 
                         {
@@ -721,8 +734,10 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 "id",
                 {
                     "type": "fieldContainer",
-                    "id": 4,
+                    "id": "intro",
+                    "containerCounter": 4,
                     "tag": "div",
+                    "template": "div@templates/containers/basic.html",
                     "fields": [
                         "description",
                         "date",

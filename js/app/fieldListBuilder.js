@@ -52,7 +52,7 @@ module.exports = (function() {
         return result;
     };
     
-    var buildPass = function( result, items, options, pageIdArray, functionToApplyToField, containerId, containerTag ) {
+    var buildPass = function( result, items, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId ) {
         
         for ( var c = 0; c < items.length; ++c ){
             
@@ -60,11 +60,11 @@ module.exports = (function() {
             
             // Is string?
             if ( $.type( item ) === 'string' ){
-                addField( options.fields[ item ], result, functionToApplyToField, containerId, containerTag );
+                addField( options.fields[ item ], result, options, functionToApplyToField, containerCounter, containerTag, containerId );
                 
             // Is fieldSubset?
             } else if ( item.type == 'fieldSubset' ){
-                buildFieldsFromFieldSubset( result, item, options, pageIdArray, functionToApplyToField, containerId, containerTag );
+                buildFieldsFromFieldSubset( result, item, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId );
                 
             // Is fieldContainer?
             } else if ( item.type == 'fieldContainer' ){
@@ -73,25 +73,30 @@ module.exports = (function() {
             // Must be a field instance
             } else {
                 normalizer.normalizeFieldOptions( item.id, item, options );
-                addField( item, result, functionToApplyToField, containerId, containerTag );
+                addField( item, result, options, functionToApplyToField, containerCounter, containerTag, containerId );
             }
         }
     };
     
-    var addField = function( field, result, functionToApplyToField, containerId, containerTag ){
+    var addField = function( field, result, options, functionToApplyToField, containerCounter, containerTag, containerId ){
         
         result.fieldsArray.push( field );
         result.fieldsMap[ field.id ] = field;
         
-        if ( containerId ){
+        if ( containerCounter ){
             var container = result.view[ result.view.length - 1 ];
-            if ( ! container || container.id != containerId ){
+            if ( ! container || container.containerCounter != containerCounter ){
                 container = {
                     type: "fieldContainer",
+                    containerCounter: containerCounter,
                     id: containerId,
                     tag: containerTag,
+                    template: options.containers.types[ containerTag ].template,
                     fields: []
                 };
+                if ( ! container.template ){
+                    throw 'Container with tag "' + containerTag + '" has got no template!';
+                }
                 result.view.push( container );
             }
             container.fields.push( field );
@@ -113,10 +118,11 @@ module.exports = (function() {
             pageIdArray, 
             functionToApplyToField,
             ++containerCounter,
-            item.tag );
+            item.tag,
+            item.id );
     };
     
-    var buildFieldsFromFieldSubset = function( result, item, options, pageIdArray, functionToApplyToField, containerId, containerTag ) {
+    var buildFieldsFromFieldSubset = function( result, item, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId ) {
         
         var start = item.start;
         var end = item.end;
@@ -141,7 +147,7 @@ module.exports = (function() {
             }
             
             if ( started && ( except? -1 === except.indexOf( id ): true ) ){
-                addField( field, result, functionToApplyToField, containerId, containerTag );
+                addField( field, result, options, functionToApplyToField, containerCounter, containerTag, containerId );
             }
             
             if ( ended ){
