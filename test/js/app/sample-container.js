@@ -52,8 +52,19 @@ var options = {
             update: {
                 fields: [
                     {
+                        "type": "fieldContainer",
+                        "id": "basicData",
+                        "tag": "fieldSet",
+                        "contents": [ 
+                            'id',
+                            'name',
+                            'description'
+                        ]
+                    },
+                    {
                         "type": "fieldSubset",
                         "source": "default",
+                        "start": "date",
                         "end": "phoneType"
                     },
                     {

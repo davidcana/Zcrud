@@ -37,6 +37,8 @@
     "code_title": "Codigo",
     "location_title": "Localización",
     "location_description": "Información relacionada con el lugar",
+    "basicData_title": "Datos básicos",
+    "basicData_description": "Los datos básicos del departamento",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

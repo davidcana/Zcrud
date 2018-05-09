@@ -37,6 +37,8 @@
     "code_title": "Code",
     "location_title": "Location",
     "location_description": "Data about the location",
+    "basicData_title": "Basic data",
+    "basicData_description": "Basic data about the departament",
     
     "_options": "",
     "homePhone_option": "Home phone",

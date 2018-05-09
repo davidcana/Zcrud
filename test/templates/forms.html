@@ -26,12 +26,12 @@
             <form class="zcrud-form zcrud-data-entity" 
                   data-tattributes="id instance/getId()"
                   data-tdefine="data-record-index 0;
-                                renderIds true">
+                                renderIds true;
+                                viewItems instance/getView()">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
-                <div data-muse-macro="'viewItemsInForm'"
-                     data-tdefine="viewItems instance/getView()">
+                <div data-muse-macro="'viewItemsInForm'">
                     The fields
                 </div>
                 <div class="zcrud-post-templates">
@@ -77,22 +77,23 @@
                         </div>
                     </div>
                 </div>
-                <div data-tcondition="not: isContainer"
-                     data-tdefine="field viewItem;
-                                   id field/id; 
-                                   value record[ id ]"
-                     data-tattributes="class string:zcrud-field zcrud-field-${id} zcrud-like-field-${field/name}">
-                    <label data-tomit-tag="instance/mustHideLabel( field )">
-                        <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
-                            The label of this field.
-                        </span>
-                        <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
-                            The description of this field.
-                        </span>
-                        <span data-muse-macro="field/template">
-                            The field
-                        </span>
-                    </label>
+                <div data-tcondition="not: isContainer">
+                    <div data-tdefine="field viewItem;
+                                       id field/id; 
+                                       value record[ id ]"
+                         data-tattributes="class string:zcrud-field zcrud-field-${id} zcrud-like-field-${field/name}">
+                        <label data-tomit-tag="instance/mustHideLabel( field )">
+                            <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
+                                The label of this field.
+                            </span>
+                            <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
+                                The description of this field.
+                            </span>
+                            <span data-muse-macro="field/template">
+                                The field
+                            </span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
