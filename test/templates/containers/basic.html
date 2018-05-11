@@ -14,7 +14,7 @@
                       data-tcondition="description">
                     The description of this container.
                 </div>
-                <div data-muse-macro="'viewItemsInForm2'">
+                <div data-muse-macro="'viewItemsInForm@templates/forms.html'">
                     The fields
                 </div>
             </fieldset>
@@ -28,41 +28,11 @@
                      data-tcondition="description">
                     The description of this container.
                 </div>
-                <div data-muse-macro="'viewItemsInForm2'">
+                <div data-muse-macro="'viewItemsInForm@templates/forms.html'">
                     The fields
                 </div>
             </div>
         </div>
         
-        <div data-mdefine-macro="viewItemsInForm2">
-            <div data-trepeat="viewItem viewItems"
-                 data-tdefine="isContainer2 (eq: viewItem/type 'fieldContainer')">
-                <div data-tcondition="isContainer2">
-                    <div data-tdefine="container viewItem">
-                        <div data-muse-macro="container/template">
-                            The container
-                        </div>
-                    </div>
-                </div>
-                <div data-tcondition="not: isContainer2">
-                    <div data-tdefine="field viewItem;
-                                       id field/id; 
-                                       value record[ id ]"
-                         data-tattributes="class string:zcrud-field zcrud-field-${id} zcrud-like-field-${field/name}">
-                        <label data-tomit-tag="instance/mustHideLabel( field )">
-                            <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
-                                The label of this field.
-                            </span>
-                            <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
-                                The description of this field.
-                            </span>
-                            <span data-muse-macro="field/template">
-                                The field
-                            </span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
 </html>

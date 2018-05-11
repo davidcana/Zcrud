@@ -11,6 +11,10 @@ var OptionListProviderManager = function() {
     
     var cache = {};
     
+    var getOptionsFromBlank = function( field, options ){
+        return getOptionsFromRecord( [], field, options );
+    };
+    
     var getOptionsFromRecord = function( record, field, options ){
         
         var params = {
@@ -483,6 +487,7 @@ var OptionListProviderManager = function() {
         getValueFromRecord: getValueFromRecord,
         getTemplate: getTemplate,
         //getLabelFor: getLabelFor,
+        getOptionsFromBlank: getOptionsFromBlank,
         getOptionsFromRecord: getOptionsFromRecord,
         getPostTemplate: getPostTemplate,
         mustHideLabel: mustHideLabel

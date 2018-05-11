@@ -75,7 +75,7 @@
         </div>
         <div data-mdefine-macro="datalist-definition">
             <datalist data-tattributes="id string:${field/elementId}-datalist"
-                      data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
+                      data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromBlank( field, options )">
                 <option data-trepeat="option optionsList"
                         data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
                         data-tattributes="value option/value;

@@ -20,6 +20,7 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
+
 QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
