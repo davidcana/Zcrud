@@ -527,7 +527,8 @@ QUnit.test( "Field list from page id builder with circular references test", fun
 });
 
 QUnit.test( "Field list from general fields with fieldContainer builder test", function( assert ) {
-
+    
+    fieldListBuilder.resetCounter();
     var done = assert.async();
     options = defaultTestOptions;
 
@@ -756,6 +757,126 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 buildIdsArray( fullObjectFields.view ), 
                 expectedView );
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "Field list from another view builder test", function( assert ) {
+    
+    fieldListBuilder.resetCounter();
+    var done = assert.async();
+    var thisTestOptions = {
+        pageConf: {
+            pages: {
+                create: {
+                    fields: [
+                        {
+                            "type": "fieldSubset"
+                        }
+                    ]
+                }, 
+                update: {
+                    fields: [
+                        {
+                            "type": "fieldContainer",
+                            "id": "basicData",
+                            "tag": "fieldSet",
+                            "contents": [ 
+                                'id',
+                                'name',
+                                'description'
+                            ]
+                        },
+                        {
+                            "type": "fieldSubset",
+                            "source": "default",
+                            "start": "date",
+                            "end": "phoneType"
+                        },
+                        {
+                            "type": "fieldContainer",
+                            "id": "location",
+                            "tag": "fieldSet",
+                            "contents": [ 
+                                'province',
+                                'city'
+                            ]
+                        },
+                        'browser',
+                        'important'
+                    ]
+                }, 
+                delete: {
+                    fields: [
+                        {
+                            "type": "viewSubset",
+                            "source": "update",
+                            "except": [ 'time' ],
+                            "end": "location"
+                        }
+                    ]
+                }
+            }
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var expected = 	
+                [
+                    "id",
+                    "name",
+                    "description",
+                    "date",
+                    "datetime",
+                    "phoneType",
+                    "province",
+                    "city"
+                ];
+            var expectedView = 
+                [
+                    {
+                        "containerCounter": 1,
+                        "fields": [
+                            "id",
+                            "name",
+                            "description"
+                        ],
+                        "id": "basicData",
+                        "tag": "fieldSet",
+                        "template": "fieldSet@templates/containers/basic.html",
+                        "type": "fieldContainer"
+                    },
+                    "date",
+                    "datetime",
+                    "phoneType",
+                    {
+                        "containerCounter": 2,
+                        "fields": [
+                            "province",
+                            "city"
+                        ],
+                        "id": "location",
+                        "tag": "fieldSet",
+                        "template": "fieldSet@templates/containers/basic.html",
+                        "type": "fieldContainer"
+                    }
+                ];
+            var fullObjectFields = fieldListBuilder.get( 'delete', options );
+            
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.fieldsArray ), 
+                expected );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.view ), 
+                expectedView );
+
             done();
         }
     );

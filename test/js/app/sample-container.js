@@ -83,7 +83,8 @@ var options = {
             delete: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "viewSubset",
+                        "source": "update"
                     }
                 ]
             }

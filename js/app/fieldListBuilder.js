@@ -9,6 +9,9 @@ module.exports = (function() {
     "use strict";
 
     var containerCounter = 0;
+    var resetCounter = function(){
+        containerCounter = 0;
+    };
     
     var get = function( pageId, options, pageIdArray ){
         
@@ -70,6 +73,10 @@ module.exports = (function() {
             } else if ( item.type == 'fieldContainer' ){
                 buildFieldsFromFieldContainer( result, item, options, pageIdArray, functionToApplyToField );
                 
+            // Is viewSubset?
+            } else if ( item.type == 'viewSubset' ){
+                buildFieldsFromViewSubset( result, item, options, pageIdArray, functionToApplyToField );
+                
             // Must be a field instance
             } else {
                 normalizer.normalizeFieldOptions( item.id, item, options );
@@ -106,6 +113,58 @@ module.exports = (function() {
         
         if ( functionToApplyToField ){
             functionToApplyToField( field );
+        }
+    };
+    
+    var buildFieldsFromViewSubset = function( result, item, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId ) {
+        
+        var start = item.start;
+        var end = item.end;
+        var except = item.except;
+        var source = item.source; // page id
+
+        var view = get( source, options, pageIdArray ).view;
+
+        var started = ! start;
+        var ended = false;
+
+        for ( var c = 0; c < view.length; ++c ){
+
+            var viewItem = view[ c ];
+            var id = viewItem.id;
+
+            if ( id === start ){
+                started = true;
+            }
+            if ( id === end ){
+                ended = true;
+            }
+
+            if ( started && ( except? -1 === except.indexOf( id ): true ) ){
+                
+                // Is a fieldContainer?
+                if ( viewItem.type == "fieldContainer" ){
+                    var container = viewItem;
+                    for ( var i = 0; i < container.fields.length; ++i ){
+                        addField( 
+                            container.fields[ i ], 
+                            result, 
+                            options, 
+                            functionToApplyToField, 
+                            container.containerCounter, 
+                            container.tag, 
+                            container.id );
+                    }   
+                    
+                // Must be a field
+                } else {
+                    addField( viewItem, result, options, functionToApplyToField, containerCounter, containerTag, containerId );
+                }
+            }
+
+            if ( ended ){
+                return;
+            }
         }
     };
     
@@ -173,8 +232,8 @@ module.exports = (function() {
     
     var self = {
         get: get,
-        build: build
-        //buildMapFromArray: buildMapFromArray
+        build: build,
+        resetCounter: resetCounter
     };
     
     return self;
