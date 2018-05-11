@@ -42,21 +42,35 @@ module.exports = {
             create: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "fieldContainer",
+                        "id": "basicData",
+                        "tag": "fieldSet",
+                        "contents": [ 
+                            'id',
+                            'name',
+                            'description'
+                        ]
+                    },
+                    {
+                        "type": "fieldSubset",
+                        "source": "default",
+                        "start": "date"
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "viewSubset",
+                        "source": "create"
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "viewSubset",
+                        "source": "create"
                     }
                 ]
             }
