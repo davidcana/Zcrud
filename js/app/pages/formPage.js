@@ -116,41 +116,44 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     // Configure instance depending on type parameter
     var configure = function(){
         
+        thisOptions = options.pageConf.pages[ type ];
+        buildFields();
+        
         switch ( type ) {
         case 'create':
-            thisOptions = options.pageConf.pages.create;
+            //thisOptions = options.pageConf.pages.create;
             title = "Create form";
             submitFunction = submitCreate;
             eventFunction = options.events.recordAdded;
-            buildFields(
+            /*buildFields(
                 function( field ){
                     return field.create;
-                });
+                });*/
             successMessage = 'createSuccess';
             if ( ! record ) {
                 record = buildDefaultValuesRecord();
             }
             break;
         case 'update':
-            thisOptions = options.pageConf.pages.update;
+            //thisOptions = options.pageConf.pages.update;
             title = "Edit form";
             submitFunction = submitUpdate;
             eventFunction = options.events.recordUpdated;
-            buildFields(
+            /*buildFields(
                 function( field ){
                     return field.edit;
-                });
+                });*/
             successMessage = 'updateSuccess';
             break;
         case 'delete':
-            thisOptions = options.pageConf.pages.delete;
+            //thisOptions = options.pageConf.pages.delete;
             title = "Delete form";
             submitFunction = submitDelete;
             eventFunction = options.events.recordDeleted;
-            buildFields(
+            /*buildFields(
                 function( field ){
                     return field.delete;
-                });
+                });*/
             successMessage = 'deleteSuccess';
             break; 
         default:
@@ -265,8 +268,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         }, options.dictionary );
         
         dictionary.instance = self;
-        dictionary.optionListProviderManager = optionListProviderManager;
-        dictionary.datetimeFieldManager = datetimeFieldManager;
+        
+        fieldBuilder.addFieldManagersToDictionary( dictionary );
+        //dictionary.optionListProviderManager = optionListProviderManager;
+        //dictionary.datetimeFieldManager = datetimeFieldManager;
     };
     
     var buildProcessTemplateParams = function( field ){
