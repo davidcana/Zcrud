@@ -88,7 +88,7 @@
         </p>
         
         <p>
-            We have 3 options to define a list of fields:
+            We have 5 options to define a list of fields:
         </p>
         <ol>
             <li>
@@ -148,9 +148,68 @@
                     <li><em>except</em>. An array with the ids of the fields to exclude.</li>
                 </ul>
             </li>
+            <li>
+                <em>Use a fieldContainer</em>. A <em>fieldContainer</em> is a HTML element that contains fields. Nowadays ZCrud supports 2 types of fieldContainers: 
+                <ul>
+                    <li><em>fieldSet</em>. A fieldset element.</li>
+                    <li><em>div</em>. A div element.</li>
+                </ul>
+                
+                An example:
+                <pre class="brush: javascript">
+        fields: [
+            {
+                "type": "fieldContainer",
+                "id": "basicData",
+                "tag": "fieldSet",
+                "contents": [ 
+                    'id',
+                    'name',
+                    'description'
+                ]
+            }
+        ]
+                </pre>
+                <p>
+                    The previous fieldContainer builds the next list of fields: [ 'id', name', 'description' ].
+                </p>
+                <p>
+                    Configuration options of a fieldContainer are:
+                </p>
+                <ul>
+                    <li><em>type</em>. Must be <strong>fieldSubset</strong> to work.</li>
+                    <li><em>id</em>. An unique id.</li>
+                    <li><em>tag</em> (possible values: 'fieldSet' or 'div' ) . .</li>
+                    <li><em>contents</em>. A list of fields.</li>
+                </ul>
+            </li>
+            
+            <li>
+                <em>Use a viewSubset</em>. Useful to define the same fields or near the same fields to 2 or more pages. An example:
+                <pre class="brush: javascript">
+        fields: [
+            {
+                "type": "viewSubset",
+                "source": "update",
+                "except": [ 'time' ],
+                "end": "location"
+            }
+        ]
+                </pre>
+                <p>
+                    Configuration options of a fieldSubset are:
+                </p>
+                <ul>
+                    <li><em>source</em> (possible values: 'create', 'update' or 'delete' ). The page source of the fields.</li>
+                    <li><em>type</em>. Must be <strong>viewSubset</strong> to work.</li>
+                    <li><em>start</em>. The first field to include. If not set ZCrud will use the first field.</li>
+                    <li><em>end</em>. The last field to include. If not set ZCrud will use the last field.</li>
+                    <li><em>except</em>. An array with the ids of the fields to exclude.</li>
+                </ul>
+            </li>
         </ol>
         
-        We can combine any number of elements of the 3 types. Let's see an example using all options:
+        We can combine any number of elements of all types. Let's see an example using some options:
         <pre class="brush: javascript">
         fields: [
             {
