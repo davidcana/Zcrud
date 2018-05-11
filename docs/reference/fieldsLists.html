@@ -88,7 +88,7 @@
         </p>
         
         <p>
-            We have 5 options to define a list of fields:
+            We have 5 elements to define a list of fields:
         </p>
         <ol>
             <li>
@@ -179,7 +179,7 @@
                 <ul>
                     <li><em>type</em>. Must be <strong>fieldSubset</strong> to work.</li>
                     <li><em>id</em>. An unique id.</li>
-                    <li><em>tag</em> (possible values: 'fieldSet' or 'div' ) . .</li>
+                    <li><em>tag</em> (possible values: 'fieldSet' or 'div' ). The tag used by ZCrud to group its contents.</li>
                     <li><em>contents</em>. A list of fields.</li>
                 </ul>
             </li>
@@ -200,8 +200,8 @@
                     Configuration options of a fieldSubset are:
                 </p>
                 <ul>
-                    <li><em>source</em> (possible values: 'create', 'update' or 'delete' ). The page source of the fields.</li>
                     <li><em>type</em>. Must be <strong>viewSubset</strong> to work.</li>
+                    <li><em>source</em> (possible values: 'create', 'update' or 'delete' ). The page source of the fields.</li>
                     <li><em>start</em>. The first field to include. If not set ZCrud will use the first field.</li>
                     <li><em>end</em>. The last field to include. If not set ZCrud will use the last field.</li>
                     <li><em>except</em>. An array with the ids of the fields to exclude.</li>
