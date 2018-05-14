@@ -48,21 +48,21 @@ var defaultTestOptions = {
             create: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "fieldsGroup"
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "fieldsGroup"
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "fieldsGroup"
                     }
                 ]
             }

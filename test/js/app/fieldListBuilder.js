@@ -21,12 +21,10 @@ var buildIdsArray = function( fieldsArray ){
         
         if ( item.type == "fieldContainer" ){
             var container = result[ result.length - 1 ];
-            //if ( ! container || container.containerCounter != item.containerCounter ){
             if ( ! container || container.id != item.id ){
                 container = {
                     type: item.type,
                     id: item.id,
-                    //containerCounter: item.containerCounter,
                     tag: item.tag,
                     template: item.template,
                     fields: []
@@ -528,7 +526,6 @@ QUnit.test( "Field list from page id builder with circular references test", fun
 
 QUnit.test( "Field list from general fields with fieldContainer builder test", function( assert ) {
     
-    fieldListBuilder.resetCounter();
     var done = assert.async();
     options = defaultTestOptions;
 
@@ -584,7 +581,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    /*"containerCounter": 1,*/
                     "tag": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
@@ -655,7 +651,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    /*"containerCounter": 1,*/
                     "tag": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
@@ -692,7 +687,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    /*"containerCounter": 1,*/
                     "tag": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
@@ -737,7 +731,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    /*"containerCounter": 1,*/
                     "tag": "div",
                     "template": "div@templates/containers/basic.html",
                     "fields": [
@@ -765,7 +758,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
 
 QUnit.test( "Field list from another view builder test", function( assert ) {
     
-    fieldListBuilder.resetCounter();
     var done = assert.async();
     var thisTestOptions = {
         pageConf: {
@@ -847,7 +839,6 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
             var expectedView = 
                 [
                     {
-                        /*"containerCounter": 1,*/
                         "fields": [
                             "id",
                             "name",
@@ -862,7 +853,6 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                     "datetime",
                     "phoneType",
                     {
-                        /*"containerCounter": 1,*/
                         "fields": [
                             "province",
                             "city"

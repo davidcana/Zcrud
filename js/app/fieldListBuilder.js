@@ -7,11 +7,6 @@ var fieldBuilder = require( './fields/fieldBuilder' );
 
 module.exports = (function() {
     "use strict";
-
-    var containerCounter = 0;
-    var resetCounter = function(){
-        containerCounter = 0;
-    };
     
     var get = function( pageId, options, pageIdArray ){
         
@@ -55,7 +50,7 @@ module.exports = (function() {
         return result;
     };
 
-    var buildPass = function( result, items, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId ) {
+    var buildPass = function( result, items, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
 
         for ( var c = 0; c < items.length; ++c ){
 
@@ -65,34 +60,32 @@ module.exports = (function() {
                 options, 
                 pageIdArray, 
                 functionToApplyToField, 
-                containerCounter, 
                 containerTag, 
                 containerId )
         }
     };
     
-    var buildPass1Item = function( result, item, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId ) {
+    var buildPass1Item = function( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
 
         // Is string?
         if ( $.type( item ) === 'string' ){
-            addField( options.fields[ item ], result, options, functionToApplyToField, containerCounter, containerTag, containerId );
+            addField( options.fields[ item ], result, options, functionToApplyToField, containerTag, containerId );
 
         // Is fieldsGroup?
         } else if ( item.type == 'fieldsGroup' ){
-            buildFieldsFromFieldsGroup( result, item, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId );
+            buildFieldsFromFieldsGroup( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId );
 
         // Must be a field instance
         } else {
             normalizer.normalizeFieldOptions( item.id, item, options );
-            addField( item, result, options, functionToApplyToField, containerCounter, containerTag, containerId );
+            addField( item, result, options, functionToApplyToField, containerTag, containerId );
         }
     };
     
-    var buildFieldsFromFieldsGroup = function( result, item, options, pageIdArray, functionToApplyToField, containerCounter, containerTag, containerId ) {
+    var buildFieldsFromFieldsGroup = function( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
         
         // Get configuration if it is a container
         if ( item.container && item.container.tag != 'none' ){
-            ++containerCounter;
             containerTag = item.container.tag;
             containerId = item.container.id;
         }
@@ -131,8 +124,6 @@ module.exports = (function() {
                             result, 
                             options, 
                             functionToApplyToField, 
-                            //container.containerCounter || containerCounter, 
-                            containerCounter,
                             container.tag, 
                             container.id );
                     }   
@@ -144,8 +135,7 @@ module.exports = (function() {
                         viewItem, 
                         options, 
                         pageIdArray, 
-                        functionToApplyToField, 
-                        containerCounter, 
+                        functionToApplyToField,  
                         containerTag, 
                         containerId );
                 }
@@ -158,19 +148,16 @@ module.exports = (function() {
         
     };
     
-    var addField = function( field, result, options, functionToApplyToField, containerCounter, containerTag, containerId ){
+    var addField = function( field, result, options, functionToApplyToField, containerTag, containerId ){
         
         result.fieldsArray.push( field );
         result.fieldsMap[ field.id ] = field;
         
-        //if ( containerCounter ){
         if ( containerId ){
             var container = result.view[ result.view.length - 1 ];
-            //if ( ! container || container.containerCounter != containerCounter ){
             if ( ! container || container.id != containerId ){
                 container = {
                     type: "fieldContainer",
-                    //containerCounter: containerCounter,
                     id: containerId,
                     tag: containerTag,
                     template: options.containers.types[ containerTag ].template,
@@ -229,8 +216,7 @@ module.exports = (function() {
     
     var self = {
         get: get,
-        build: build,
-        resetCounter: resetCounter
+        build: build
     };
     
     return self;
