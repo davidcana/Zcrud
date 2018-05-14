@@ -45,7 +45,7 @@ module.exports = (function() {
             view: []
         };
         
-        buildPass( result, items, options, pageIdArray, functionToApplyToField, 0 );
+        buildPass( result, items, options, pageIdArray, functionToApplyToField );
         
         return result;
     };
