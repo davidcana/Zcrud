@@ -45,36 +45,40 @@ var options = {
             create: {
                 fields: [
                     {
-                        "type": "fieldSubset"
+                        "type": "fieldsGroup"
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldContainer",
-                        "id": "basicData",
-                        "tag": "fieldSet",
-                        "contents": [ 
+                        "type": "fieldsGroup",
+                        "source": [ 
                             'id',
                             'name',
                             'description'
-                        ]
+                        ],
+                        "container": {
+                            "id": "basicData",
+                            "tag": "fieldSet"
+                        }
                     },
                     {
-                        "type": "fieldSubset",
+                        "type": "fieldsGroup",
                         "source": "default",
                         "start": "date",
                         "end": "phoneType"
                     },
                     {
-                        "type": "fieldContainer",
-                        "id": "location",
-                        "tag": "fieldSet",
-                        "contents": [ 
+                        "type": "fieldsGroup",
+                        "source": [ 
                             'province',
                             'city'
-                        ]
+                        ],
+                        "container": {
+                            "id": "location",
+                            "tag": "fieldSet"
+                        }
                     },
                     'browser',
                     'important'
@@ -83,7 +87,7 @@ var options = {
             delete: {
                 fields: [
                     {
-                        "type": "viewSubset",
+                        "type": "fieldsGroup",
                         "source": "update"
                     }
                 ]

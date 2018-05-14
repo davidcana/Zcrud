@@ -42,17 +42,19 @@ module.exports = {
             create: {
                 fields: [
                     {
-                        "type": "fieldContainer",
-                        "id": "basicData",
-                        "tag": "fieldSet",
-                        "contents": [ 
+                        "type": "fieldsGroup",
+                        "source": [ 
                             'id',
                             'name',
-                            'description'
-                        ]
+                            'description' 
+                        ],
+                        "container": {
+                            "id": "basicData",
+                            "tag": "fieldSet"
+                        }
                     },
                     {
-                        "type": "fieldSubset",
+                        "type": "fieldsGroup",
                         "source": "default",
                         "start": "date"
                     }
@@ -61,7 +63,7 @@ module.exports = {
             update: {
                 fields: [
                     {
-                        "type": "viewSubset",
+                        "type": "fieldsGroup",
                         "source": "create"
                     }
                 ]
@@ -69,7 +71,7 @@ module.exports = {
             delete: {
                 fields: [
                     {
-                        "type": "viewSubset",
+                        "type": "fieldsGroup",
                         "source": "create"
                     }
                 ]

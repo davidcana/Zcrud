@@ -21,11 +21,12 @@ var buildIdsArray = function( fieldsArray ){
         
         if ( item.type == "fieldContainer" ){
             var container = result[ result.length - 1 ];
-            if ( ! container || container.containerCounter != item.containerCounter ){
+            //if ( ! container || container.containerCounter != item.containerCounter ){
+            if ( ! container || container.id != item.id ){
                 container = {
                     type: item.type,
                     id: item.id,
-                    containerCounter: item.containerCounter,
+                    //containerCounter: item.containerCounter,
                     tag: item.tag,
                     template: item.template,
                     fields: []
@@ -43,6 +44,7 @@ var buildIdsArray = function( fieldsArray ){
 };
 
 // Run tests
+
 QUnit.test( "Field list from general fields builder test", function( assert ) {
     
     var done = assert.async();
@@ -144,10 +146,10 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( fields, expected );
             
-            // A fieldSubset only (with all default fields)
+            // A fieldsGroup only (with all default fields)
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "default"
                 }
             ];
@@ -167,11 +169,11 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
-
-            // A fieldSubset only (starting with datetime)
+            
+            // A fieldsGroup only (starting with datetime)
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "default",
                     "start": "datetime"
                 }
@@ -188,10 +190,10 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
-            // A fieldSubset only (ending with phoneType)
+            // A fieldsGroup only (ending with phoneType)
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "default",
                     "end": "phoneType"
                 }
@@ -208,10 +210,10 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
-            // A fieldSubset only (starting with description and ending with browser)
+            // A fieldsGroup only (starting with description and ending with browser)
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "default",
                     "start": "description",
                     "end": "browser"
@@ -230,10 +232,10 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
-            // A fieldSubset only (starting with description and ending with browser except time and phoneType)
+            // A fieldsGroup only (starting with description and ending with browser except time and phoneType)
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "default",
                     "start": "description",
                     "end": "browser",
@@ -275,7 +277,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 create: {
                     fields: [
                         {
-                            "type": "fieldSubset",
+                            "type": "fieldsGroup",
                             "source": "list"
                         },
                         'name2'
@@ -284,7 +286,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 update: {
                     fields: [
                         {
-                            "type": "fieldSubset",
+                            "type": "fieldsGroup",
                             "source": "list"
                         },
                         'name3'
@@ -293,7 +295,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 delete: {
                     fields: [
                         {
-                            "type": "fieldSubset",
+                            "type": "fieldsGroup",
                             "source": "update"
                         },
                         'name4'
@@ -305,7 +307,6 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
         key : 'id',
         fields: {
             id: {
-                //key: true,
                 sorting: false
             },
             name: {
@@ -343,10 +344,10 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // A fieldSubset only (with all default fields)
+            // A fieldsGroup only (with all default fields)
             var items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "list"
                 }
             ];
@@ -357,10 +358,10 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             var fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
-            // A fieldSubset only (with all default fields except name)
+            // A fieldsGroup only (with all default fields except name)
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "list",
                     "except": [ "name" ]
                 }
@@ -371,10 +372,10 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
-            // A fieldSubset only already built
+            // A fieldsGroup only already built
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "create"
                 }
             ];
@@ -386,10 +387,10 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
             
-            // A fieldSubset only not built
+            // A fieldsGroup only not built
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "delete"
                 }
             ];
@@ -426,7 +427,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
                 create: {
                     fields: [
                         {
-                            "type": "fieldSubset",
+                            "type": "fieldsGroup",
                             "source": "create"
                         }
                     ],
@@ -434,7 +435,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
                 update: {
                     fields: [
                         {
-                            "type": "fieldSubset",
+                            "type": "fieldsGroup",
                             "source": "delete"
                         }
                     ],
@@ -442,7 +443,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
                 delete: {
                     fields: [
                         {
-                            "type": "fieldSubset",
+                            "type": "fieldsGroup",
                             "source": "update"
                         }
                     ],
@@ -453,7 +454,6 @@ QUnit.test( "Field list from page id builder with circular references test", fun
         key : 'id',
         fields: {
             id: {
-                //key: true,
                 sorting: false
             },
             name: {
@@ -491,10 +491,10 @@ QUnit.test( "Field list from page id builder with circular references test", fun
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'load' );
 
-            // A fieldSubset only (circular reference)
+            // A fieldsGroup only (circular reference)
             var items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "create"
                 }
             ];
@@ -506,10 +506,10 @@ QUnit.test( "Field list from page id builder with circular references test", fun
             }
             assert.equal( errors, 1 );
             
-            // A fieldSubset only (circular reference)
+            // A fieldsGroup only (circular reference)
             items = [ 
                 {
-                    "type": "fieldSubset",
+                    "type": "fieldsGroup",
                     "source": "update"
                 }
             ];
@@ -541,10 +541,13 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             // A fieldContainer only (with all default fields)
             var items = [ 
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "tag": "fieldSet",
-                    "contents": [ 'name', 'description' ]
+                    "type": "fieldsGroup",
+                    "source": [ 'name', 'description' ],
+                    "container": {
+                        "id": "intro",
+                        "tag": "fieldSet",
+                        "template": "fieldSet@templates/containers/basic.html"
+                    }
                 }
             ];
             var expected = [
@@ -581,7 +584,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "containerCounter": 1,
+                    /*"containerCounter": 1,*/
                     "tag": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
@@ -595,10 +598,8 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             // A fieldContainer only (with fields only)
             items = [ 
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "tag": "fieldSet",
-                    "contents": [ 
+                    "type": "fieldsGroup",
+                    "source": [ 
                         {
                             "id": "name",
                             "type": "text",
@@ -612,7 +613,12 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                                 "rows": 6
                             }
                         }
-                    ]
+                    ],
+                    "container": {
+                        "id": "intro",
+                        "tag": "fieldSet",
+                        "template": "fieldSet@templates/containers/basic.html"
+                    }
                 }
             ];
             expected = [
@@ -649,7 +655,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "containerCounter": 2,
+                    /*"containerCounter": 1,*/
                     "tag": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
@@ -659,22 +665,19 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             assert.deepEqual( fullObjectFields.fieldsArray, expected );
             assert.deepEqual( fullObjectFields.view, expectedView );
             
-            // A fieldContainer only (with a fieldSubset only starting with description and ending with browser except time and phoneType)
+            // A fieldContainer only (with a fieldsGroup only starting with description and ending with browser except time and phoneType)
             items = [ 
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "tag": "fieldSet",
-                    "template": "fieldSet@templates/containers/basic.html",
-                    "contents": [ 
-                        {
-                            "type": "fieldSubset",
-                            "source": "default",
-                            "start": "description",
-                            "end": "browser",
-                            "except": [ "time", "phoneType" ]
-                        }
-                    ]
+                    "type": "fieldsGroup",
+                    "source": "default",
+                    "start": "description",
+                    "end": "browser",
+                    "except": [ "time", "phoneType" ],
+                    "container": {
+                        "id": "intro",
+                        "tag": "fieldSet",
+                        "template": "fieldSet@templates/containers/basic.html"
+                    }
                 }
             ];
             expected = [
@@ -689,7 +692,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "containerCounter": 3,
+                    /*"containerCounter": 1,*/
                     "tag": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
@@ -704,22 +707,20 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 buildIdsArray( fullObjectFields.view ), 
                 expectedView );
             
-            // A string and a fieldContainer (with a fieldSubset only starting with description and ending with browser except time and phoneType)
+            // A string and a fieldContainer (with a fieldsGroup only starting with description and ending with browser except time and phoneType)
             items = [ 
                 'id',
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "tag": "div",
-                    "contents": [ 
-                        {
-                            "type": "fieldSubset",
-                            "source": "default",
-                            "start": "description",
-                            "end": "browser",
-                            "except": [ "time", "phoneType" ]
-                        }
-                    ]
+                    "type": "fieldsGroup",
+                    "source": "default",
+                    "start": "description",
+                    "end": "browser",
+                    "except": [ "time", "phoneType" ],
+                    "container": {
+                        "id": "intro",
+                        "tag": "div",
+                        "template": "fieldSet@templates/containers/basic.html"
+                    }
                 }
             ];
             expected = [
@@ -736,7 +737,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "containerCounter": 4,
+                    /*"containerCounter": 1,*/
                     "tag": "div",
                     "template": "div@templates/containers/basic.html",
                     "fields": [
@@ -772,36 +773,40 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                 create: {
                     fields: [
                         {
-                            "type": "fieldSubset"
+                            "type": "fieldsGroup"
                         }
                     ]
                 }, 
                 update: {
                     fields: [
                         {
-                            "type": "fieldContainer",
-                            "id": "basicData",
-                            "tag": "fieldSet",
-                            "contents": [ 
+                            "type": "fieldsGroup",
+                            "source": [ 
                                 'id',
                                 'name',
-                                'description'
-                            ]
+                                'description' 
+                            ],
+                            "container": {
+                                "id": "basicData",
+                                "tag": "fieldSet"
+                            }
                         },
                         {
-                            "type": "fieldSubset",
+                            "type": "fieldsGroup",
                             "source": "default",
                             "start": "date",
                             "end": "phoneType"
                         },
                         {
-                            "type": "fieldContainer",
-                            "id": "location",
-                            "tag": "fieldSet",
-                            "contents": [ 
+                            "type": "fieldsGroup",
+                            "source": [ 
                                 'province',
                                 'city'
-                            ]
+                            ],
+                            "container": {
+                                "id": "location",
+                                "tag": "fieldSet"
+                            }
                         },
                         'browser',
                         'important'
@@ -810,7 +815,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                 delete: {
                     fields: [
                         {
-                            "type": "viewSubset",
+                            "type": "fieldsGroup",
                             "source": "update",
                             "except": [ 'time' ],
                             "end": "location"
@@ -842,7 +847,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
             var expectedView = 
                 [
                     {
-                        "containerCounter": 1,
+                        /*"containerCounter": 1,*/
                         "fields": [
                             "id",
                             "name",
@@ -857,7 +862,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                     "datetime",
                     "phoneType",
                     {
-                        "containerCounter": 2,
+                        /*"containerCounter": 1,*/
                         "fields": [
                             "province",
                             "city"
