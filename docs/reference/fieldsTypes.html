@@ -14,6 +14,7 @@
         
         <h1>ZCrud API reference - Fields - Field types</h1>
         
+        <h2>Field types</h2>
         <p>
             The list of field types is:
         </p>
@@ -45,7 +46,7 @@
                 <div class="header">
                     <span class="name">date</span>
                     <span class="dataType">date</span>
-                    <span class="customOptions">inline</span>
+                    <span class="customOptions"><a href="#inline">inline</a>, <a href="#minYear">minYear</a>, <a href="#maxYear">maxYear</a></span>
                 </div>
                 <div class="body">
                     Manages date values (no time part).
@@ -56,7 +57,7 @@
                 <div class="header">
                     <span class="name">datetime</span>
                     <span class="dataType">date</span>
-                    <span class="customOptions">inline</span>
+                    <span class="customOptions"><a href="#inline">inline</a>, <a href="#minYear">minYear</a>, <a href="#maxYear">maxYear</a>, <a href="#maxHour">maxHour</a>, <a href="#minutesStep">minutesStep</a>, <a href="#timerDelay">timerDelay</a></span>
                 </div>
                 <div class="body">
                     Manages date and time values.
@@ -122,7 +123,7 @@
                 <div class="header">
                     <span class="name">time</span>
                     <span class="dataType">string</span>
-                    <span class="customOptions">inline</span>
+                    <span class="customOptions"><a href="#inline">inline</a>, <a href="#maxHour">maxHour</a>, <a href="#minutesStep">minutesStep</a>, <a href="#timerDelay">timerDelay</a></span>
                 </div>
                 <div class="body">
                     Manages time values (no date part).
@@ -130,5 +131,83 @@
             </li>
         </ul>
 
+        <h2>Custom options</h2>
+        <p>
+            The list of custom options is:
+        </p>
+        <ul class="customOptionsList">
+            <li>
+                <a id="inline"></a>
+                <div class="header">
+                    <span class="name">inline</span>
+                    <span class="dataType">boolean</span>
+                    <span class="appliesTo">date, datetime and time</span>
+                    <span class="default">false</span>
+                </div>
+                <div class="body">
+                    Defines whether the element is inline (true) or if it will be visible only after clicking a button (false).
+                </div>
+            </li>
+            <li>
+                <a id="maxHour"></a>
+                <div class="header">
+                    <span class="name">maxHour</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">23 (datetime) or 99 (time)</span>
+                </div>
+                <div class="body">
+                    The maximum value allowed for the hour.
+                </div>
+            </li>
+            <li>
+                <a id="maxYear"></a>
+                <div class="header">
+                    <span class="name">maxYear</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">2050</span>
+                </div>
+                <div class="body">
+                    The maximum value allowed for the year.
+                </div>
+            </li>
+            <li>
+                <a id="minutesStep"></a>
+                <div class="header">
+                    <span class="name">minutesStep</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">5</span>
+                </div>
+                <div class="body">
+                    This property defines the number of minutes to add or substract every time the user click on the buttons to modify its value.
+                </div>
+            </li>
+            <li>
+                <a id="minYear"></a>
+                <div class="header">
+                    <span class="name">minYear</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">1950</span>
+                </div>
+                <div class="body">
+                    The minimum value allowed for the year.
+                </div>
+            </li>
+            <li>
+                <a id="timerDelay"></a>
+                <div class="header">
+                    <span class="name">timerDelay</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">100</span>
+                </div>
+                <div class="body">
+                    Delay to apply when keeping buttons pressed.
+                </div>
+            </li>
+        </ul>
     </body>
 </html>
