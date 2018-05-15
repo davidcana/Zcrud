@@ -18,6 +18,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var filterRecord = undefined;
+    var elementIdSuffix = '-filter';
     
     var bindEvents = function(){
         
@@ -86,7 +87,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 newFilterField = $.extend( true, {}, options.fields[ filterField ], filterField );
             }
             
-            newFilterField.elementId += thisOptions.elementIdSuffix;
+            //newFilterField.elementId += thisOptions.elementIdSuffix;
+            newFilterField.elementId += elementIdSuffix;
             edited.push( newFilterField );
         });
         

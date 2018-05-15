@@ -118,9 +118,7 @@ module.exports = {
                         allowUser: false
                     },
                     filtering: {
-                        isOn: false,
-                        filteringComponentId: 'zcrud-filtering',
-                        elementIdSuffix: '-filter'
+                        isOn: false
                     },
                     selecting: {
                         isOn: false,

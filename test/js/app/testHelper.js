@@ -16,15 +16,14 @@ module.exports = (function() {
     };
     var get$Tbody = function(){
         return $( '#zcrud-list-tbody-department' );
-        //return get$Container().filter( 'tbody' );
+        //return get$Container().find( 'tbody' );
     };
     var get$Filtering = function(){
-        return $( '#zcrud-filtering' );
-        //return get$Container().filter( '.zcrud-filtering' );
+        return get$Container().find( '.zcrud-filter-panel' );
     };
     var get$Form = function(){
         return $( '#department-form' );
-        //return get$Container().filter( '.zcrud-form' );
+        //return get$Container().find( '.zcrud-form' );
     };
     var get$FormFieldByNameClass = function( name ){
         return get$Form().find( ".zcrud-field-" + name );
@@ -39,7 +38,7 @@ module.exports = (function() {
     };
     var get$List = function(){
         return $( '#zcrud-list-department' );
-        //return get$Container().filter( '.zcrud-list' );
+        //return get$Container().find( '.zcrud-list' );
     };  
     
     var getCurrentList = function( options ){
