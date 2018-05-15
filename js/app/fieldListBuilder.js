@@ -45,27 +45,19 @@ module.exports = (function() {
             view: []
         };
         
-        buildPass( result, items, options, pageIdArray, functionToApplyToField );
-        
-        return result;
-    };
-
-    var buildPass = function( result, items, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
-
         for ( var c = 0; c < items.length; ++c ){
-
-            buildPass1Item( 
+            build1Pass( 
                 result, 
                 items[ c ], 
                 options, 
                 pageIdArray, 
-                functionToApplyToField, 
-                containerTag, 
-                containerId )
+                functionToApplyToField )
         }
+    
+        return result;
     };
     
-    var buildPass1Item = function( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
+    var build1Pass = function( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
 
         // Is string?
         if ( $.type( item ) === 'string' ){
@@ -130,7 +122,7 @@ module.exports = (function() {
 
                 // Must be a field
                 } else {
-                    buildPass1Item( 
+                    build1Pass( 
                         result, 
                         viewItem, 
                         options, 
