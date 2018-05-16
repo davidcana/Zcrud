@@ -63,12 +63,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var updateList = function(){
-        //listPage.show( false );
         
         listPage.show( 
             false,
             undefined, 
-            [ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + listPage.getComponent( 'paging' ).getId() )[0] ] );
+            [ $( '#' + listPage.getThisOptions().tbodyId )[0], listPage.getComponent( 'paging' ).get$()[0] ] );
+            //[ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + listPage.getComponent( 'paging' ).getId() )[0] ] );
     };
     
     var normalizeOptions = function(){

@@ -144,7 +144,6 @@
         </div>
         
         <div data-mdefine-macro="bottomPanel" 
-             class="zcrud-bottom-panel"
              data-tdefine="component instance/getComponent( 'paging' );
                            pagingInfo component/buildInfo();
                            currentPageNumber pagingInfo/pageNumber;
@@ -155,7 +154,7 @@
                            firstSuffix cond: pagingInfo/isFirstPage ' zcrud-page-number-disabled' '';
                            lastSuffix cond: pagingInfo/isLastPage ' zcrud-page-number-disabled' '';
                            thisOptions component/getThisOptions()"
-             data-tattributes="id component/getId()"
+             data-tattributes="class component/getClass()"
              data-idomain="i18nArray">
             
             <div class="zcrud-left-area">
@@ -194,18 +193,24 @@
                 </span>
                 <span class="zcrud-goto-page">
                     <span data-tcontent="tr:'Go to page:'">Go to page: </span>
-                    <select data-tdefine="goToPageList pagingInfo/goToPageList;
-                                          currentPageNumber pagingInfo/pageNumber"
-                            data-tattributes="id thisOptions/goToPageComboboxId">
-                        <option data-trepeat="pageNumber goToPageList"
-                                data-tattributes="value pageNumber; selected cond: (eq: pageNumber currentPageNumber) 'selected' null"
-                                data-tcontent="pageNumber">&nbsp;</option>
-                    </select>
+                    <span data-tcondition="eq: thisOptions/gotoPageFieldType 'combobox'">
+                        <select data-tdefine="goToPageList pagingInfo/goToPageList;
+                                              currentPageNumber pagingInfo/pageNumber"
+                                data-tattributes="class thisOptions/goToPageFieldClass">
+                            <option data-trepeat="pageNumber goToPageList"
+                                    data-tattributes="value pageNumber; selected cond: (eq: pageNumber currentPageNumber) 'selected' null"
+                                    data-tcontent="pageNumber">&nbsp;</option>
+                        </select>
+                    </span>
+                    <span data-tcondition="eq: thisOptions/gotoPageFieldType 'textbox'">
+                        <input data-tattributes="class thisOptions/goToPageFieldClass;
+                                                 thisOptions/gotoPageFieldAttributes">
+                    </span>
                 </span>
                 <span class="zcrud-page-size-change">
                     <span data-tcontent="tr:'Row count:'">Row count: </span>
                     <select data-tdefine="currentPageSize component/getPageSize()"
-                            data-tattributes="id thisOptions/pageSizeChangeComboboxId">
+                            data-tattributes="class thisOptions/pageSizeChangeFieldClass">
                         <option data-trepeat="pageSize component/getPageSizes()"
                                 data-tattributes="value pageSize; selected cond: (eq: pageSize currentPageSize) 'selected' null"
                                 data-tcontent="pageSize">&nbsp;</option>

@@ -21,6 +21,9 @@ module.exports = (function() {
     var get$Filtering = function(){
         return get$Container().find( '.zcrud-filter-panel' );
     };
+    var get$BottomPanel = function(){
+        return get$Container().find( '.zcrud-bottom-panel' );
+    };
     var get$Form = function(){
         return $( '#department-form' );
         //return get$Container().find( '.zcrud-form' );
@@ -121,11 +124,33 @@ module.exports = (function() {
     var getPageByClass  = function( options, cssClass ){
         return getCurrentList( options ).find( '.zcrud-page-list' ).children().filter( '.' + cssClass );
     };
+
+    var triggerKeyPressed = function( $field, code ){
+        
+        var event = $.Event( 'keypress' );
+        
+        event.ctrlKey = false;
+        event.shiftKey = false;
+        event.altKey = false;
+        event.keyCode = code;
+        event.which = code;
+        
+        $field.trigger( event );
+    };
     
-    var goToPageUsingCombobox = function( options, pageId ){
-        var $combobox = $( '#' + options.pageConf.pages.list.components.paging.goToPageComboboxId );
-        $combobox.val( pageId );
-        $combobox.trigger( 'change' );
+    var goToPageUsingField = function( options, pageId ){
+        
+        var $field = get$BottomPanel().find( '.zcrud-go-to-page-field' );
+        
+        if ( options.pageConf.pages.list.components.paging.gotoPageFieldType == 'combobox' ){
+            $field.val( pageId );
+            $field.trigger( 'change' );
+        } else if ( options.pageConf.pages.list.components.paging.gotoPageFieldType == 'textbox' ){
+            $field.val( pageId );
+            triggerKeyPressed( $field, 13 );
+        } else {
+            throw 'Invalid options.pageConf.pages.list.components.paging.gotoPageFieldType: ' + options.pageConf.pages.list.components.paging.gotoPageFieldType;
+        }
     };
     
     var goToClass = function( options, cssClass ){
@@ -148,10 +173,16 @@ module.exports = (function() {
         goToClass( options, 'zcrud-page-number-last' );
     };
     
+    /*
     var changeSize = function( options, size ){
         var $combobox = $( '#' + options.pageConf.pages.list.components.paging.pageSizeChangeComboboxId );
         $combobox.val( size );
         $combobox.trigger( 'change' );
+    };*/
+    var changeSize = function( options, size ){
+        var $field = get$BottomPanel().find( '.zcrud-page-size-change-field' );
+        $field.val( size );
+        $field.trigger( 'change' );
     };
     
     var filtering = function( options, filter ){
@@ -168,8 +199,8 @@ module.exports = (function() {
         if ( testOptions.action ){
             if ( testOptions.action.pageId ){
                 goToPage( options, testOptions.action.pageId );
-            } else if ( testOptions.action.pageIdCombo ){
-                goToPageUsingCombobox( options, testOptions.action.pageIdCombo );
+            } else if ( testOptions.action.pageIdField ){
+                goToPageUsingField( options, testOptions.action.pageIdField );
             } else if ( testOptions.action.nextPage ){
                 goToNextPage( options );
             } else if ( testOptions.action.previousPage ){
@@ -292,7 +323,7 @@ module.exports = (function() {
         });
         pagingTest({
             action: { 
-                pageIdCombo: '8'
+                pageIdField: '8'
             },
             options: options,
             assert: assert,

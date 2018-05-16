@@ -51,7 +51,8 @@
                         defaultPageSize: 10,
                         pageSizes: [10, 25, 50, 100, 250, 500],
                         pageSizeChangeArea: true,
-                        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        gotoPageFieldAttributes: {},
                         maxNumberOfAllShownPages: 5,
                         block1NumberOfPages: 1,
                         block2NumberOfPages: 5,
@@ -160,10 +161,11 @@
                             <em>paging</em>. All about paging. On by default. Suboptions:
                             <ul>
                                 <li><em>isOn</em>. On/off paging.</li>
-                                <li><em>defaultPageSize</em>. Default number of items to show per page.</li>
-                                <li><em>pageSizes</em>. A list of page sizes. The user can select any of these.</li>
-                                <li><em>pageSizeChangeArea</em>. .</li>
-                                <li><em>gotoPageArea</em>. Type of <em>Go to page</em> element. Possible values a are 'textbox', 'combobox' and 'none'.</li>
+                                <li><em>defaultPageSize</em>. Default number of items to show per page. Default value is <em>10</em>.</li>
+                                <li><em>pageSizes</em>. A list of page sizes. The user can select any of these. Default value is <em>[10, 25, 50, 100, 250, 500]</em>.</li>
+                                <li><em>pageSizeChangeArea</em>. Defines whether the list of page sizes is shown. Default value is <em>true</em>.</li>
+                                <li><em>gotoPageFieldType</em>. Type of <em>Go to page</em> field. Possible values a are 'textbox', 'combobox' and 'none'.</li>
+                                <li><em>gotoPageFieldAttributes</em>. Attributes to add to <em>Go to page</em> field. Default value is <em>{}</em>.</li>
                                 <li><em>maxNumberOfAllShownPages</em>. ZCrud will not show more than this number of page links.</li>
                                 <li><em>block1NumberOfPages</em>. Maximum number of pages to show (first pages).</li>
                                 <li><em>block2NumberOfPages</em>. Maximum number of pages to show around current page.</li>

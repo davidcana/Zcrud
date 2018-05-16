@@ -15,19 +15,18 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var getThisOptions = function(){
         return thisOptions;
     };
+    var cssClass = 'zcrud-bottom-panel';
+    var getClass = function(){
+        return cssClass;
+    };
     
     // Init some vars if needed
-    var id = thisOptions.id;
-    if ( id == undefined ){
-        id = 'zcrud-paging-' + options.entityId;
+    if ( thisOptions.goToPageFieldClass == undefined ){
+        thisOptions.goToPageFieldClass = 'zcrud-go-to-page-field';
     }
-    if ( thisOptions.goToPageComboboxId == undefined ){
-        thisOptions.goToPageComboboxId = 'zcrud-go-to-page-combobox-' + options.entityId;
+    if ( thisOptions.pageSizeChangeFieldClass == undefined ){
+        thisOptions.pageSizeChangeFieldClass = 'zcrud-page-size-change-field';
     }
-    if ( thisOptions.pageSizeChangeComboboxId == undefined ){
-        thisOptions.pageSizeChangeComboboxId = 'zcrud-page-size-change-' + options.entityId;
-    }
-    
     
     var pageNumber = 1; // The current page
     var totalNumberOfRecords = undefined;
@@ -63,7 +62,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
 
         // Change page size on combobox change
-        $( '#' + thisOptions.pageSizeChangeComboboxId )
+        get$().find( '.' + thisOptions.pageSizeChangeFieldClass )
             .off() // Remove previous event handlers
             .change( function() {
                 changePageSize(
@@ -76,11 +75,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         listPage.show( 
             false,
             undefined, 
-            [ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + id )[0] ] );
+            [ $( '#' + listPage.getThisOptions().tbodyId )[0], get$()[0] ] );
+            //[ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + id )[0] ] );
     };
     
-    /* Changes current page to given value.
-    *************************************************************************/
+    // Change current page to given value
     var changePage = function ( newPageNumber ) {
         
         newPageNumber = pageUtils.normalizeNumber( parseInt( newPageNumber ), 1, calculatePageCount(), 1 );
@@ -107,77 +106,65 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         pageSize = parseInt( newPageSize );
         pageNumber = 1;
-        //alert( 'changePageSize:' + pageSize );
         
         saveSettings();
         updateList();
-        
-        /*
-        //if user sets one of the options on the combobox, then select it.
-        var $pageSizeChangeCombobox = this._$bottomPanel.find('.zcrud-page-size-change select');
-        if ($pageSizeChangeCombobox.length > 0) {
-            if (parseInt($pageSizeChangeCombobox.val()) != pageSize) {
-                var selectedOption = $pageSizeChangeCombobox.find('option[value=' + pageSize + ']');
-                if (selectedOption.length > 0) {
-                    $pageSizeChangeCombobox.val(pageSize);
-                }
-            }
-        }
-        */
     };
     
     var bindEventsToGoToPage = function() {
         
-        if ( ! thisOptions.gotoPageArea || thisOptions.gotoPageArea == 'none' ) {
+        if ( ! thisOptions.gotoPageFieldType || thisOptions.gotoPageFieldType == 'none' ) {
             return;
         }
         
         // Goto page input
-        if ( thisOptions.gotoPageArea == 'combobox' ) {
-            $( '#' + thisOptions.goToPageComboboxId )
+        if ( thisOptions.gotoPageFieldType == 'combobox' ) {
+            get$().find( '.' + thisOptions.goToPageFieldClass )
                 .off() // Remove previous event handlers
                 .change( function() {
                 changePage(
                     parseInt( $( this ).val() ) );
             });
-
-        } else { //textbox
-            // TODO Implement this
-            /*
-            self._$gotoPageInput = $('<input type="text" maxlength="10" value="' + self._currentPageNo + '" />')
-                .appendTo(this._$gotoPageArea)
-                .keypress(function(event) {
-                    if (event.which == 13) { //enter
+            return;
+            
+        } else if ( thisOptions.gotoPageFieldType == 'textbox' ) {
+            get$().find( '.' + thisOptions.goToPageFieldClass )
+                .off() // Remove previous event handlers
+                .keypress( function( event ) {
+                    if ( event.which == 13 ) { // enter
                         event.preventDefault();
-                        self._changePage(parseInt(self._$gotoPageInput.val()));
-                    } else if (event.which == 43) { // +
+                        changePage(
+                            parseInt( $( this ).val() ) );
+                    } else if ( event.which == 43 ) { // +
                         event.preventDefault();
-                        self._changePage(parseInt(self._$gotoPageInput.val()) + 1);
-                    } else if (event.which == 45) { // -
+                        changePage( pageNumber + 1 );
+                        get$().find( '.' + thisOptions.goToPageFieldClass ).focus();
+                    } else if ( event.which == 45 ) { // -
                         event.preventDefault();
-                        self._changePage(parseInt(self._$gotoPageInput.val()) - 1);
+                        changePage( pageNumber - 1 );
+                        get$().find( '.' + thisOptions.goToPageFieldClass ).focus();
                     } else {
-                        //Allow only digits
-                        var isValid = (
-                            (47 < event.keyCode && event.keyCode < 58 && event.shiftKey == false && event.altKey == false)
-                                || (event.keyCode == 8)
-                                || (event.keyCode == 9)
-                        );
+                        // Allow only digits
+                        var isValid =
+                            ( 47 < event.keyCode && event.keyCode < 58 && event.shiftKey == false && event.altKey == false )
+                            || ( event.keyCode == 8 )
+                            || ( event.keyCode == 9 );
 
-                        if (!isValid) {
+                        if ( ! isValid ) {
                             event.preventDefault();
                         }
                     }
-                });*/
-
+                });
+            return;
         }
+        
+        throw 'Not valid paging component / gotoPageFieldType value:' + thisOptions.gotoPageFieldType;
     };
     
-    /* Binds click events of all page links to change the page.
-    *************************************************************************/
+    // Bind click events of all page links to change the page
     var bindEventsToPageNumberButtons = function () {
         
-        $( '#' + id )
+        get$()
             .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
             .not( '.zcrud-page-number-disabled' )
             .off() // Remove previous event handlers
@@ -347,7 +334,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     
     var builGoToPageList = function( numberOfPages ){
 
-        //Skip some pages is there are too many pages
+        // Skip some pages is there are too many pages
         var pageStep = 1;
         if ( numberOfPages > 10000 ) {
             pageStep = 100;
@@ -390,17 +377,18 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         setPageNumber( 1 );
     };
     
-    var getId = function(){
-        return id;
-    };
-    
     var getTotalNumberOfRecords = function(){
         return totalNumberOfRecords;
+    };
+    
+    var get$ = function(){
+        return listPage.get$().find( '.' + cssClass );
     };
     
     loadSettings();
     
     return {
+        getClass: getClass,
         getPageSizes: getPageSizes,
         addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
@@ -411,7 +399,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         getThisOptions: getThisOptions,
         setPageNumber: setPageNumber,
         goToFirstPage: goToFirstPage,
-        getId: getId,
-        getTotalNumberOfRecords: getTotalNumberOfRecords
+        getTotalNumberOfRecords: getTotalNumberOfRecords,
+        get$: get$
     };
 };

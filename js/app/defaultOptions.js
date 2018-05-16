@@ -102,7 +102,8 @@ module.exports = {
                         defaultPageSize: 10,
                         pageSizes: [10, 25, 50, 100, 250, 500],
                         pageSizeChangeArea: true,
-                        gotoPageArea: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        gotoPageFieldAttributes: {},
                         maxNumberOfAllShownPages: 5,
                         block1NumberOfPages: 1,
                         block2NumberOfPages: 5,

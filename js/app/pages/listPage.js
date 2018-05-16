@@ -370,7 +370,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var getRowByKey = function( key ){
-        return $( '#' + id ).find( "[data-record-key='" + key + "']" );
+        return get$().find( "[data-record-key='" + key + "']" );
     };
     
     var selectRecords = function( rows ){
@@ -430,7 +430,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
         
         context.getZPTParser().run({
-            root: $( '#' + id ).find( '.zcrud-status' )[0],
+            root: get$().find( '.zcrud-status' )[0],
             dictionary: thisDictionary
         });
     };
@@ -440,7 +440,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
 
         context.getZPTParser().run({
-            root: $( '#' + id ).find( '.zcrud-bottom-panel' )[0],
+            //root: get$().find( '.zcrud-bottom-panel' )[0],
+            root: components[ 'paging' ].get$()[0],
             dictionary: thisDictionary,
             notRemoveGeneratedTags: false
         });
@@ -463,6 +464,9 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
 
     var get$form = function(){
         return $( '#' + thisOptions.formId );
+    };
+    var get$ = function(){
+        return $( '#' + id );
     };
     
     var getTotalNumberOfRecords = function(){
@@ -550,6 +554,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getFields: getFields,
         getPostTemplate: getPostTemplate,
         get$form: get$form,
+        get$: get$,
         instanceNewForm: instanceNewForm,
         addRecord: addRecord,
         updateRecord: updateRecord,
