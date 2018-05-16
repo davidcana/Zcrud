@@ -53,6 +53,34 @@
                 </div>
             </li>
             <li>
+                <a id="containers"></a>
+                <div class="header">
+                    <span class="name">containers</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Defines the available <em>containers</em> for defining <a href="fieldsLists.html">field lists</a>. A <em>container</em> groups some fields: it is a simple template. It is easy to customize  existing <em>containers</em> or add new <em>containers</em> to ZCrud. The default value is:
+                    <pre class="brush: javascript">
+    containers: {
+        types: {
+            'fieldSet': {
+                template: 'fieldSet@templates/containers/basic.html'
+            },
+            'div': {
+                template: 'div@templates/containers/basic.html'
+            }
+        }
+    }
+                    </pre>
+
+                    Suboptions are:
+                    <ul>
+                        <li><em>types</em>. Each element is a type of container.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
                 <a id="entityId"></a>
                 <div class="header">
                     <span class="name">entityId</span>

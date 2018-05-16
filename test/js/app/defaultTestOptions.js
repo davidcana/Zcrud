@@ -50,7 +50,7 @@ module.exports = {
                         ],
                         "container": {
                             "id": "basicData",
-                            "tag": "fieldSet"
+                            "containerType": "fieldSet"
                         }
                     },
                     {

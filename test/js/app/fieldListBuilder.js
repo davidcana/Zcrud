@@ -25,7 +25,7 @@ var buildIdsArray = function( fieldsArray ){
                 container = {
                     type: item.type,
                     id: item.id,
-                    tag: item.tag,
+                    containerType: item.containerType,
                     template: item.template,
                     fields: []
                 };
@@ -542,7 +542,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     "source": [ 'name', 'description' ],
                     "container": {
                         "id": "intro",
-                        "tag": "fieldSet",
+                        "containerType": "fieldSet",
                         "template": "fieldSet@templates/containers/basic.html"
                     }
                 }
@@ -581,7 +581,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "tag": "fieldSet",
+                    "containerType": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
                 }
@@ -612,7 +612,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     ],
                     "container": {
                         "id": "intro",
-                        "tag": "fieldSet",
+                        "containerType": "fieldSet",
                         "template": "fieldSet@templates/containers/basic.html"
                     }
                 }
@@ -651,7 +651,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "tag": "fieldSet",
+                    "containerType": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
                 }
@@ -670,7 +670,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     "except": [ "time", "phoneType" ],
                     "container": {
                         "id": "intro",
-                        "tag": "fieldSet",
+                        "containerType": "fieldSet",
                         "template": "fieldSet@templates/containers/basic.html"
                     }
                 }
@@ -687,7 +687,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "tag": "fieldSet",
+                    "containerType": "fieldSet",
                     "template": "fieldSet@templates/containers/basic.html",
                     "fields": expected
                 }
@@ -712,7 +712,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     "except": [ "time", "phoneType" ],
                     "container": {
                         "id": "intro",
-                        "tag": "div",
+                        "containerType": "div",
                         "template": "fieldSet@templates/containers/basic.html"
                     }
                 }
@@ -731,7 +731,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "type": "fieldContainer",
                     "id": "intro",
-                    "tag": "div",
+                    "containerType": "div",
                     "template": "div@templates/containers/basic.html",
                     "fields": [
                         "description",
@@ -780,7 +780,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                             ],
                             "container": {
                                 "id": "basicData",
-                                "tag": "fieldSet"
+                                "containerType": "fieldSet"
                             }
                         },
                         {
@@ -797,7 +797,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                             ],
                             "container": {
                                 "id": "location",
-                                "tag": "fieldSet"
+                                "containerType": "fieldSet"
                             }
                         },
                         'browser',
@@ -845,7 +845,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                             "description"
                         ],
                         "id": "basicData",
-                        "tag": "fieldSet",
+                        "containerType": "fieldSet",
                         "template": "fieldSet@templates/containers/basic.html",
                         "type": "fieldContainer"
                     },
@@ -858,7 +858,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                             "city"
                         ],
                         "id": "location",
-                        "tag": "fieldSet",
+                        "containerType": "fieldSet",
                         "template": "fieldSet@templates/containers/basic.html",
                         "type": "fieldContainer"
                     }

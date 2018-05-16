@@ -57,28 +57,28 @@ module.exports = (function() {
         return result;
     };
     
-    var build1Pass = function( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
+    var build1Pass = function( result, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
 
         // Is string?
         if ( $.type( item ) === 'string' ){
-            addField( options.fields[ item ], result, options, functionToApplyToField, containerTag, containerId );
+            addField( options.fields[ item ], result, options, functionToApplyToField, containerType, containerId );
 
         // Is fieldsGroup?
         } else if ( item.type == 'fieldsGroup' ){
-            buildFieldsFromFieldsGroup( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId );
+            buildFieldsFromFieldsGroup( result, item, options, pageIdArray, functionToApplyToField, containerType, containerId );
 
         // Must be a field instance
         } else {
             normalizer.normalizeFieldOptions( item.id, item, options );
-            addField( item, result, options, functionToApplyToField, containerTag, containerId );
+            addField( item, result, options, functionToApplyToField, containerType, containerId );
         }
     };
     
-    var buildFieldsFromFieldsGroup = function( result, item, options, pageIdArray, functionToApplyToField, containerTag, containerId ) {
+    var buildFieldsFromFieldsGroup = function( result, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
         
         // Get configuration if it is a container
-        if ( item.container && item.container.tag != 'none' ){
-            containerTag = item.container.tag;
+        if ( item.container && item.container.containerType != 'none' ){
+            containerType = item.container.containerType;
             containerId = item.container.id;
         }
         
@@ -116,7 +116,7 @@ module.exports = (function() {
                             result, 
                             options, 
                             functionToApplyToField, 
-                            container.tag, 
+                            container.containerType, 
                             container.id );
                     }   
 
@@ -128,7 +128,7 @@ module.exports = (function() {
                         options, 
                         pageIdArray, 
                         functionToApplyToField,  
-                        containerTag, 
+                        containerType, 
                         containerId );
                 }
             }
@@ -140,7 +140,7 @@ module.exports = (function() {
         
     };
     
-    var addField = function( field, result, options, functionToApplyToField, containerTag, containerId ){
+    var addField = function( field, result, options, functionToApplyToField, containerType, containerId ){
         
         result.fieldsArray.push( field );
         result.fieldsMap[ field.id ] = field;
@@ -151,12 +151,12 @@ module.exports = (function() {
                 container = {
                     type: "fieldContainer",
                     id: containerId,
-                    tag: containerTag,
-                    template: options.containers.types[ containerTag ].template,
+                    containerType: containerType,
+                    template: options.containers.types[ containerType ].template,
                     fields: []
                 };
                 if ( ! container.template ){
-                    throw 'Container with tag "' + containerTag + '" has got no template!';
+                    throw 'Container with containerType "' + containerType + '" has got no template!';
                 }
                 result.view.push( container );
             }

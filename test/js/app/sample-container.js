@@ -60,7 +60,7 @@ var options = {
                         ],
                         "container": {
                             "id": "basicData",
-                            "tag": "fieldSet"
+                            "containerType": "fieldSet"
                         }
                     },
                     {
@@ -77,7 +77,7 @@ var options = {
                         ],
                         "container": {
                             "id": "location",
-                            "tag": "fieldSet"
+                            "containerType": "fieldSet"
                         }
                     },
                     'browser',
