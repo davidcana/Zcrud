@@ -21,14 +21,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var history = new History( options, thisOptions, listPage );
-    var autoSaveMode = undefined;
+    var autoSaveMode = false;
     
     var bindEvents = function(){
 
         var $this = $( '#' + listPage.getId() );
 
         // Init autoSaveMode
-        //var autoSaveMode = undefined;
+        /*
         var editableEvent = thisOptions.event;
         switch ( editableEvent ){
             case 'fieldChange':
@@ -40,7 +40,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             default:
                 alert( 'Unknown event in editable list: ' + editableEvent );
                 return;
-        }
+        }*/
 
         // Register change of the field
         bindEventsInRows( $this );
@@ -205,16 +205,18 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var undo = function( event ){
 
         history.undo( listPage.getId() );
+        /*
         if ( autoSaveMode ){
             save( event );
-        }
+        }*/
     };
     var redo = function( event ){
 
         history.redo( listPage.getId() );
+        /*
         if ( autoSaveMode ){
             save( event );
-        }
+        }*/
     };
 
     var save = function( event ){
@@ -265,7 +267,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 error: function( request, status, error ){
                     pageUtils.ajaxError( request, status, error, options, context, undefined );
                 },
-                url: thisOptions.batchUpdateAction
+                url: thisOptions.url
             };
             //alert( thisOptions.dataToSend + '\n' + JSON.stringify( data ) );
             crudManager.batchUpdate( 

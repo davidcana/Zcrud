@@ -70,7 +70,6 @@ module.exports = {
 
     pageConf: {
         defaultPageConf: {
-            event: 'batch',    // possible values: 'fieldChange', 'batch'
             dataToSend: 'all', // possible values: 'modified', 'all',
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
@@ -128,7 +127,6 @@ module.exports = {
                     },
                     editing: {
                         isOn: false,
-                        event: 'batch',    // possible values: 'fieldChange', 'batch'
                         dataToSend: 'all', // possible values: 'modified', 'all',
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',

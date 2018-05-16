@@ -19,7 +19,6 @@
         <pre class="brush: javascript">
     pageConf: {
         defaultPageConf: {
-            event: 'batch',    // possible values: 'fieldChange', 'batch'
             dataToSend: 'all', // possible values: 'modified', 'all',
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
@@ -77,7 +76,6 @@
                     },
                     editing: {
                         isOn: false,
-                        event: 'batch',    // possible values: 'fieldChange', 'batch'
                         dataToSend: 'all', // possible values: 'modified', 'all',
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',
@@ -206,7 +204,7 @@
                             <em>editing</em>. All about editing. Off by default.
                             <ul>
                                 <li><em>isOn</em>. On/off editing. If true the list is a editable list; if false it is an only read list.</li>
-                                <li><em>event</em> (possible values: 'fieldChange', 'batch' ). The event used to save the changes. If set to 'fieldChange' every time a field is changed ZCrud will send the chnage to the server; if set to 'batch' the user must clic a 'Save' button.</li>
+                                <li><em>url</em>. The server URL to connect.</li>
                                 <li><em>dataToSend</em> (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.</li>
                                 <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
                                 <li><em>hideTr</em> and <em>showTr</em>. Functions to customize hide/show rows.</li>
@@ -224,17 +222,6 @@
                 </div>
                 <div class="body">
                     (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.
-                </div>
-            </li>
-            <li>
-                <a id="event"></a>
-                <div class="header">
-                    <span class="name">event</span>
-                    <span class="dataType">string</span>
-                    <span class="default">'batch'</span>
-                </div>
-                <div class="body">
-                    (possible values: 'fieldChange', 'batch' ). The event used to save the changes. If set to 'fieldChange' every time a field is changed ZCrud will send the chnage to the server; if set to 'batch' the user must clic a 'Save' button.
                 </div>
             </li>
             <li>

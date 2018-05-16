@@ -29,8 +29,7 @@ module.exports = {
                     },
                     editing: {
                         isOn: true,
-                        batchUpdateAction: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-                        event: 'batch',    // possible values: 'fieldChange', 'rowChange', 'batch'
+                        url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
                         dataToSend: 'modified', // possible values: 'modified', 'all',
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',
