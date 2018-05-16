@@ -219,7 +219,7 @@ var SubformManager = function() {
         
         formPage.getHistory().putDelete( 
             formPage.getId(), 
-            options, 
+            //options, 
             0, 
             $tr.attr( 'data-subform-record-key' ), 
             $tr,

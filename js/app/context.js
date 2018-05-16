@@ -350,6 +350,10 @@ module.exports = (function() {
         };
     };
     
+    var getJsonBuilder = function( options ){
+        return options.jsonBuilder;
+    };
+    
     return {
         put: put,
         get: get,
@@ -377,7 +381,8 @@ module.exports = (function() {
         updateSubformFields: updateSubformFields,
         getField: getField,
         getFieldData: getFieldData,
-        subformSeparator: subformSeparator
+        subformSeparator: subformSeparator,
         //getFormPage: getFormPage
+        getJsonBuilder: getJsonBuilder
     };
 })();

@@ -121,28 +121,18 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         switch ( type ) {
         case 'create':
-            //thisOptions = options.pageConf.pages.create;
             title = "Create form";
             submitFunction = submitCreate;
             eventFunction = options.events.recordAdded;
-            /*buildFields(
-                function( field ){
-                    return field.create;
-                });*/
             successMessage = 'createSuccess';
             if ( ! record ) {
                 record = buildDefaultValuesRecord();
             }
             break;
         case 'update':
-            //thisOptions = options.pageConf.pages.update;
             title = "Edit form";
             submitFunction = submitUpdate;
             eventFunction = options.events.recordUpdated;
-            /*buildFields(
-                function( field ){
-                    return field.edit;
-                });*/
             successMessage = 'updateSuccess';
             break;
         case 'delete':
@@ -150,10 +140,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             title = "Delete form";
             submitFunction = submitDelete;
             eventFunction = options.events.recordDeleted;
-            /*buildFields(
-                function( field ){
-                    return field.delete;
-                });*/
             successMessage = 'deleteSuccess';
             break; 
         default:
@@ -204,6 +190,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     };
     
     // Set, get, update and build record
+    /*
     var buildRecordFromForm = function( $form ){
         
         var newRecord = {};
@@ -214,7 +201,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         }
         
         return newRecord;
-    };
+    };*/
     /*
     var updateRecordFromDefaultValues = function(){
         
@@ -270,8 +257,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         dictionary.instance = self;
         
         fieldBuilder.addFieldManagersToDictionary( dictionary );
-        //dictionary.optionListProviderManager = optionListProviderManager;
-        //dictionary.datetimeFieldManager = datetimeFieldManager;
     };
     
     var buildProcessTemplateParams = function( field ){
@@ -403,9 +388,12 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 return false;
             }
             
-            // Update record
-            record = type == 'delete'? record: history.getRegisterFromDataToSend( data, type );
-
+            // Update record if needed
+            if ( type != 'delete' ){
+                record = context.getJsonBuilder( options ).getRegisterFromDataToSend( data, type );
+            }
+             
+            // Trigger event
             eventFunction(
                 {
                     record: record,
@@ -425,7 +413,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             if ( dataFromServer.clientOnly ){
                 listPage.showFromClientOnly( true, dictionaryExtension, data );
             } else {
-                //context.getListPage( options ).show(
                 listPage.show( true, dictionaryExtension );
             }
 
@@ -464,11 +451,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return saveCommon( 
             id, 
             event,
-            history.buildDataToSend( 
+            context.getJsonBuilder( options ).buildDataToSend( 
                 options.key, 
                 thisOptions.dataToSend, 
                 [ ],
-                fields ),
+                fields,
+                undefined,
+                history ),
             $form );
     };
     
@@ -476,7 +465,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         var event = undefined;
         var $form = get$form();
-        var data = history.buildDataToSendForAddRecordMethod( userData.record );
+        var data = context.getJsonBuilder( options ).buildDataToSendForAddRecordMethod( userData.record );
         
         addAllRecordMethodProperties( userData, data );
         
@@ -507,11 +496,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return saveCommon( 
             id, 
             event,
-            history.buildDataToSend( 
+            context.getJsonBuilder( options ).buildDataToSend(
                 options.key, 
                 thisOptions.dataToSend,
                 [ record ], 
-                fields ),
+                fields,
+                undefined,
+                history ),
             $form );
     };
     
@@ -527,13 +518,14 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             return;
         }
         
-        var data = history.buildDataToSendForUpdateRecordMethod( 
+        var data = context.getJsonBuilder( options ).buildDataToSendForUpdateRecordMethod( 
             options.key,
             thisOptions.dataToSend,
             currentRecord,
             userData.record,
             fieldsMap,
-            fields );
+            fields,
+            history );
 
         addAllRecordMethodProperties( userData, data );
 
@@ -549,7 +541,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return saveCommon( 
             id, 
             event,
-            history.buildDataToSendForRemoving( 
+            context.getJsonBuilder( options ).buildDataToSendForRemoving(
                 [ $( '#zcRecordKey' ).val() ] ),
             $form );
     };
@@ -558,7 +550,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
         var event = undefined;
         var $form = get$form();
-        var data = history.buildDataToSendForRemoving( 
+        var data = context.getJsonBuilder( options ).buildDataToSendForRemoving(
             [ userData.key ] );
 
         addAllRecordMethodProperties( userData, data );
@@ -573,7 +565,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     var cancelForm = function( event, $form ){
         triggerFormClosedEvent( event, $form );
         listPage.show( false );
-        //context.getListPage( options ).show( false );
     };
     
     var getDictionary = function(){
@@ -613,7 +604,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         show: show,
         setRecord: setRecord,
         getRecord: getRecord,
-        //updateRecordFromDefaultValues: updateRecordFromDefaultValues,
         getDictionary: getDictionary,
         getThisOptions: getThisOptions,
         getType: getType,

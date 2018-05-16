@@ -177,7 +177,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var key = $tr.attr( 'data-record-key' );
         var rowIndex = $tr.attr( 'data-record-index' );
 
-        history.putDelete( listPage.getId(), options, rowIndex, key, $tr );
+        history.putDelete( 
+            listPage.getId(), 
+            //options, 
+            rowIndex, 
+            key, 
+            $tr );
 
         if ( autoSaveMode ){
             save( event );
@@ -220,12 +225,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
 
     var save = function( event ){
-
-        var dataToSend = history.buildDataToSend(  
+        
+        var dataToSend = context.getJsonBuilder( options ).buildDataToSend(
             options.key, 
             thisOptions.dataToSend, 
             listPage.getDictionary().records,
-            listPage.getFields() );
+            listPage.getFields(),
+            undefined,
+            history );
         
         if ( dataToSend.existingRecords && Object.keys( dataToSend.existingRecords ).length == 0 
             && dataToSend.newRecords && dataToSend.newRecords.length == 0 

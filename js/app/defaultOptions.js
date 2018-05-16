@@ -200,6 +200,8 @@ module.exports = {
         level: log4javascript.Level.ERROR,
     },
 
+    jsonBuilder: require( './jsonBuilders/onlyChanges.js' ),
+    
     fatalErrorFunction: function( message ){
         alert( message );
     }
