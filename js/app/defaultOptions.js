@@ -70,7 +70,6 @@ module.exports = {
 
     pageConf: {
         defaultPageConf: {
-            dataToSend: 'all', // possible values: 'modified', 'all',
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
             hideTr: function( $tr ){
@@ -127,7 +126,6 @@ module.exports = {
                     },
                     editing: {
                         isOn: false,
-                        dataToSend: 'all', // possible values: 'modified', 'all',
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',
                         hideTr: function( $tr ){

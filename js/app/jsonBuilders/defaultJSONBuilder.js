@@ -121,21 +121,6 @@ module.exports = (function() {
     var buildJSONForAll = function( sendOnlyModified, keyField, records, fields, forcedActionsObject, history ){
         
         var actionsObject = forcedActionsObject || history.buildActionsObject( records );
-        
-        // Get sendOnlyModified
-        /*
-        var sendOnlyModified = undefined;
-        switch( dataToSendOption ){
-            case 'all':
-                sendOnlyModified = false;
-                break;
-            case 'modified':
-                sendOnlyModified = true;
-                break;
-            default:
-                alert( 'Unknown dataToSend option in history: ' + dataToSendOption );
-                return false;
-        }*/
 
         // Build jsonObject now
         var jsonObject = build1Row( 

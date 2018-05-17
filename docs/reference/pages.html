@@ -19,7 +19,6 @@
         <pre class="brush: javascript">
     pageConf: {
         defaultPageConf: {
-            dataToSend: 'all', // possible values: 'modified', 'all',
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
             hideTr: function( $tr ){
@@ -76,7 +75,6 @@
                     },
                     editing: {
                         isOn: false,
-                        dataToSend: 'all', // possible values: 'modified', 'all',
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',
                         hideTr: function( $tr ){
@@ -205,23 +203,11 @@
                             <ul>
                                 <li><em>isOn</em>. On/off editing. If true the list is a editable list; if false it is an only read list.</li>
                                 <li><em>url</em>. The server URL to connect.</li>
-                                <li><em>dataToSend</em> (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.</li>
                                 <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
                                 <li><em>hideTr</em> and <em>showTr</em>. Functions to customize hide/show rows.</li>
                             </ul>
                         </li>
                     </ul>
-                </div>
-            </li>
-            <li>
-                <a id="dataToSend"></a>
-                <div class="header">
-                    <span class="name">dataToSend</span>
-                    <span class="dataType">string</span>
-                    <span class="default">'all'</span>
-                </div>
-                <div class="body">
-                    (possible values: 'modified', 'all' ). If value is 'modified' only the changed values are sent to the server; if is 'all' ZCrud will send all the data.
                 </div>
             </li>
             <li>

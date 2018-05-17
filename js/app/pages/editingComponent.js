@@ -294,19 +294,15 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         return jsonObject;
     };
-    /*
-    var updatePagingComponent = function( delta ){
-        listPage.getComponent( 'paging' ).dataFromClient( delta );
-    };*/
     
-    var updateRecords = function( dataToSend, dataFromServer ){
+    var updateRecords = function( jsonObjectToSend, dataFromServer ){
 
         var delta = 0;
         var records = listPage.getRecords();
         
         // Update all existing records
-        for ( var key in dataToSend.existingRecords ) {
-            var modifiedRecord = dataToSend.existingRecords[ key ];
+        for ( var key in jsonObjectToSend.existingRecords ) {
+            var modifiedRecord = jsonObjectToSend.existingRecords[ key ];
             var currentRecord = records[ key ];
             var newKey = modifiedRecord[ options.key ];
             var extendedRecord = $.extend( true, {}, currentRecord, modifiedRecord );
@@ -330,9 +326,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
 
         // Remove all records to remove
-        for ( var c = 0; c < dataToSend.recordsToRemove.length; c++ ) {
+        for ( var c = 0; c < jsonObjectToSend.recordsToRemove.length; c++ ) {
             --delta;
-            key = dataToSend.recordsToRemove[ c ];
+            key = jsonObjectToSend.recordsToRemove[ c ];
             var deletedRecord = $.extend( true, {}, records[ key ] );
             listPage.deleteRecord( key );
             triggerEvent( options.events.recordDeleted, deletedRecord, dataFromServer );

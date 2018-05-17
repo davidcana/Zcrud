@@ -381,17 +381,6 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         return actionsObject;
     };
-    /*
-    var getActiveItems = function(){
-
-        var result = [];
-
-        for ( var c = 0; c < current; ++c ){
-            result.push( items[ c ] );
-        }
-
-        return result;
-    };*/
     
     var self = {
         putChange: putChange,
@@ -416,30 +405,29 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         getAllTr$FromCreateItems: getAllTr$FromCreateItems,
         instanceChange: instanceChange,
         buildActionsObject: buildActionsObject
-        //getActiveItems: getActiveItems
     };
     
     return self;
 };
 
-History.updateRecordsMap = function( records, dataToSend, keyField ){
+History.updateRecordsMap = function( records, jsonObject, keyField ){
 
     var diff = 0;
     
-    $.each( dataToSend.existingRecords, function ( id, record ) {
+    $.each( jsonObject.existingRecords, function ( id, record ) {
         var currentRecord = records[ id ];
         records[ id ] = $.extend( true, {}, currentRecord, record );
     });
 
-    for ( var c = 0; c < dataToSend.newRecords.length; ++c ){
-        var currentRecord = dataToSend.newRecords[ c ];
+    for ( var c = 0; c < jsonObject.newRecords.length; ++c ){
+        var currentRecord = jsonObject.newRecords[ c ];
         var key = currentRecord[ keyField ];
         records[ key ] = currentRecord;
         ++diff;
     }
 
-    for ( c = 0; c < dataToSend.recordsToRemove.length; ++c ){
-        delete records[ dataToSend.recordsToRemove[ c ] ];
+    for ( c = 0; c < jsonObject.recordsToRemove.length; ++c ){
+        delete records[ jsonObject.recordsToRemove[ c ] ];
         --diff;
     }
     
