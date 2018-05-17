@@ -972,16 +972,6 @@ QUnit.test( "update inline date using picker test", function( assert ) {
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) ); 
-            /*
-            var expected = testUtils.getService( key );
-            var real = fieldBuilder.filterValues( newRecord, options.fields );
-
-            // Correct date
-            var rightDate = new Date( real.members[ 0 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 0 ][ varName ] = rightDate;
-
-            assert.deepEqual( expected, real );*/
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );

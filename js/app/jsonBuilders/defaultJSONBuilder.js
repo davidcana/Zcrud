@@ -1,5 +1,5 @@
 /* 
-    Class onlyChanges 
+    Class defaultJSONBuilder 
 */
 var HistoryDelete = require( '../history/delete.js' );
 var $ = require( 'jquery' );
@@ -118,11 +118,12 @@ module.exports = (function() {
         return recordsMap;
     };
     
-    var buildJSONForAll = function( keyField, dataToSendOption, records, fields, forcedActionsObject, history ){
+    var buildJSONForAll = function( sendOnlyModified, keyField, records, fields, forcedActionsObject, history ){
         
         var actionsObject = forcedActionsObject || history.buildActionsObject( records );
         
         // Get sendOnlyModified
+        /*
         var sendOnlyModified = undefined;
         switch( dataToSendOption ){
             case 'all':
@@ -134,7 +135,7 @@ module.exports = (function() {
             default:
                 alert( 'Unknown dataToSend option in history: ' + dataToSendOption );
                 return false;
-        }
+        }*/
 
         // Build jsonObject now
         var jsonObject = build1Row( 
@@ -160,7 +161,7 @@ module.exports = (function() {
         return data;
     };
     
-    var buildJSONForUpdateRecordMethod = function( keyField, dataToSendOption, currentRecord, editedRecord, fieldsMap, fields, history ){
+    var buildJSONForUpdateRecordMethod = function( sendOnlyModified, keyField, currentRecord, editedRecord, fieldsMap, fields, history ){
 
         // Build actionsObject
         var records = [ currentRecord ];
@@ -186,8 +187,8 @@ module.exports = (function() {
         });
         
         return buildJSONForAll( 
-            keyField, 
-            dataToSendOption, 
+            sendOnlyModified,
+            keyField,  
             records, 
             fields,
             actionsObject );

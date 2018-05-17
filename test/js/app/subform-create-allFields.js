@@ -931,19 +931,6 @@ QUnit.test( "create date test", function( assert ) {
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( editedRecord, options.fields ) );
-            /*
-            var expected = testUtils.getService( key );
-            var real = fieldBuilder.filterValues( editedRecord, options.fields );
-            
-            // Correct dates
-            var rightDate = new Date( real.members[ 0 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 0 ][ varName ] = rightDate;
-            rightDate = new Date( real.members[ 1 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 1 ][ varName ] = rightDate;
-            
-            assert.deepEqual( expected, real );*/
             
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -1080,19 +1067,6 @@ QUnit.test( "create date using picker test", function( assert ) {
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( editedRecord, options.fields ) );
-            /*
-            var expected = testUtils.getService( key );
-            var real = fieldBuilder.filterValues( editedRecord, options.fields );
-
-            // Correct dates
-            var rightDate = new Date( real.members[ 0 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 0 ][ varName ] = rightDate;
-            rightDate = new Date( real.members[ 1 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 1 ][ varName ] = rightDate;
-
-            assert.deepEqual( expected, real );*/
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -1232,19 +1206,6 @@ QUnit.test( "create inline date using picker test", function( assert ) {
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( editedRecord, options.fields ) );
-            /*
-            var expected = testUtils.getService( key );
-            var real = fieldBuilder.filterValues( editedRecord, options.fields );
-
-            // Correct date
-            var rightDate = new Date( real.members[ 0 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 0 ][ varName ] = rightDate;
-            rightDate = new Date( real.members[ 1 ][ varName ] );
-            rightDate.setHours( rightDate.getHours() + 2 );
-            real.members[ 1 ][ varName ] = rightDate;
-            
-            assert.deepEqual( expected, real );*/
             
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );

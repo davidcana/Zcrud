@@ -172,9 +172,9 @@ QUnit.test( "events update form test", function( assert ) {
             var editedServerRecord = {
                 "name": "Service " + key + " edited",
                 "description": "Service " + key + " description",
-                "date": new Date( '2017-10-02T00:00:00.000Z' ),
+                "date": new Date( '2017-10-02T00:00:00.000' ),
                 "time": "18:50",
-                "datetime": new Date( '2017-09-10T00:00:00.000Z' ),
+                "datetime": new Date( '2017-09-10T00:00:00.000' ),
                 "phoneType": "officePhone_option",
                 "province": "Málaga",
                 "city": "Marbella",
@@ -214,11 +214,6 @@ QUnit.test( "events update form test", function( assert ) {
             var serverRecord2 = $.extend( true, {}, record, editedServerRecord );
             serverRecord2 = fieldBuilder.filterValues( serverRecord2, options.fields );
             
-            // Correct date
-            var rightDate = new Date( serverRecord2[ 'date' ] );
-            rightDate.setHours( rightDate.getHours() - 2 );
-            serverRecord2[ 'date' ] = rightDate;
-            
             checkFormSubmittingEvent( 
                 assert, 
                 dataArray[1], 
@@ -227,7 +222,7 @@ QUnit.test( "events update form test", function( assert ) {
                 {
                     "command": "batchUpdate",
                     "existingRecords": {
-                        "2": serverRecord2
+                        "2": editedServerRecord
                     },
                     "newRecords": [],
                     "recordsToRemove": [],
@@ -302,9 +297,9 @@ QUnit.test( "events create form test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key,
                 "description": "Service " + key + " description",
-                "date": new Date( '2017-10-02T00:00:00.000Z' ),
+                "date": new Date( '2017-10-02T00:00:00.000' ),
                 "time": "18:50",
-                "datetime": new Date( '2017-09-10T00:00:00.000Z' ),
+                "datetime": new Date( '2017-09-10T00:00:00.000' ),
                 "phoneType": "officePhone_option",
                 "province": "Málaga",
                 "city": "Marbella",
@@ -360,11 +355,6 @@ QUnit.test( "events create form test", function( assert ) {
                 });
             
             var serverRecord2 = fieldBuilder.filterValues( serverRecord, options.fields );
-            
-            // Correct date
-            var rightDate = new Date( serverRecord2[ 'date' ] );
-            rightDate.setHours( rightDate.getHours() - 2 );
-            serverRecord2[ 'date' ] = rightDate;
             
             checkFormSubmittingEvent( 
                 assert, 
