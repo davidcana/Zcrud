@@ -368,19 +368,19 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         });
     };
     
-    var saveCommon = function( elementId, event, data, $form ){
+    var saveCommon = function( elementId, event, jsonObject, $form ){
 
         // Return if there is no operation to do
-        if ( ! data ){
+        if ( ! jsonObject ){
             alert( 'No operation to do!' );
             return false;
         }
         
         // Add success and error functions to data if not present yet. Add URL to data if not present yet
-        var userSuccess = data.success;
-        var userError = data.error;
+        var userSuccess = jsonObject.success;
+        var userError = jsonObject.error;
         
-        data.success = function( dataFromServer ){
+        jsonObject.success = function( dataFromServer ){
 
             // Check server side validation
             if ( ! dataFromServer || dataFromServer.result != 'OK' ){
@@ -390,7 +390,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             
             // Update record if needed
             if ( type != 'delete' ){
-                record = context.getJsonBuilder( options ).getRegisterFromDataToSend( data, type );
+                record = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
             }
              
             // Trigger event
@@ -411,7 +411,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 }
             };
             if ( dataFromServer.clientOnly ){
-                listPage.showFromClientOnly( true, dictionaryExtension, data );
+                listPage.showFromClientOnly( true, dictionaryExtension, jsonObject );
             } else {
                 listPage.show( true, dictionaryExtension );
             }
@@ -423,27 +423,27 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             }
         };
         
-        data.error = function( request, status, error ){
+        jsonObject.error = function( request, status, error ){
             pageUtils.ajaxError( request, status, error, options, context, userError );
         };
         
-        if ( data.url == undefined ){
-            data.url = thisOptions.url;
+        if ( jsonObject.url == undefined ){
+            jsonObject.url = thisOptions.url;
         }
         
         // Do the CRUD!
         crudManager.batchUpdate( 
-            data, 
+            jsonObject, 
             options, 
             event,
             {
                 $form: $form,
                 formType: type,
-                dataToSend: data,
+                dataToSend: jsonObject,
                 options: options
             });
         
-        return data;
+        return jsonObject;
     };
     
     var submitCreate = function( event, $form ){
@@ -451,7 +451,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return saveCommon( 
             id, 
             event,
-            context.getJsonBuilder( options ).buildDataToSend( 
+            context.getJSONBuilder( options ).buildJSONForAll( 
                 options.key, 
                 thisOptions.dataToSend, 
                 [ ],
@@ -465,14 +465,14 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         var event = undefined;
         var $form = get$form();
-        var data = context.getJsonBuilder( options ).buildDataToSendForAddRecordMethod( userData.record );
+        var jsonObject = context.getJSONBuilder( options ).buildJSONForAddRecordMethod( userData.record );
         
-        addAllRecordMethodProperties( userData, data );
+        addAllRecordMethodProperties( userData, jsonObject );
         
         return saveCommon( 
             id, 
             event,
-            data,
+            jsonObject,
             $form );
     };
     
@@ -496,7 +496,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return saveCommon( 
             id, 
             event,
-            context.getJsonBuilder( options ).buildDataToSend(
+            context.getJSONBuilder( options ).buildJSONForAll(
                 options.key, 
                 thisOptions.dataToSend,
                 [ record ], 
@@ -518,7 +518,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             return;
         }
         
-        var data = context.getJsonBuilder( options ).buildDataToSendForUpdateRecordMethod( 
+        var jsonObject = context.getJSONBuilder( options ).buildJSONForUpdateRecordMethod( 
             options.key,
             thisOptions.dataToSend,
             currentRecord,
@@ -527,12 +527,12 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             fields,
             history );
 
-        addAllRecordMethodProperties( userData, data );
+        addAllRecordMethodProperties( userData, jsonObject );
 
         return saveCommon( 
             id, 
             event,
-            data,
+            jsonObject,
             $form );
     };
     
@@ -541,7 +541,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return saveCommon( 
             id, 
             event,
-            context.getJsonBuilder( options ).buildDataToSendForRemoving(
+            context.getJSONBuilder( options ).buildJSONForRemoving(
                 [ $( '#zcRecordKey' ).val() ] ),
             $form );
     };
@@ -550,15 +550,15 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
         var event = undefined;
         var $form = get$form();
-        var data = context.getJsonBuilder( options ).buildDataToSendForRemoving(
+        var jsonObject = context.getJSONBuilder( options ).buildJSONForRemoving(
             [ userData.key ] );
 
-        addAllRecordMethodProperties( userData, data );
+        addAllRecordMethodProperties( userData, jsonObject );
 
         return saveCommon( 
             id, 
             event,
-            data,
+            jsonObject,
             $form );
     };
     

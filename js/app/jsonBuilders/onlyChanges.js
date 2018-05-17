@@ -7,7 +7,7 @@ var $ = require( 'jquery' );
 module.exports = (function() {
     "use strict";
     
-    var buildEmptyDataToSend = function(){
+    var buildEmpty = function(){
         
         return {
             existingRecords: {},
@@ -16,29 +16,16 @@ module.exports = (function() {
         };
     };
     
-    var buildActionsObject = function( records, history ){
-
-        var actionsObject = history.buildEmptyActionsObject();
-        var items = history.getActiveItems();
+    var buildJSONForRemoving = function( recordsToRemove ){
         
-        for ( var c = 0; c < items.length; ++c ){
-            var historyItem = items[ c ];
-            historyItem.doAction( actionsObject, records );
-        }
-
-        return actionsObject;
-    };
-    
-    var buildDataToSendForRemoving = function( recordsToRemove ){
-        
-        var data = buildEmptyDataToSend();
+        var data = buildEmpty();
         data.recordsToRemove = recordsToRemove;
         return data;
     };
 
-    var build1RowDataToSend = function( actionsObject, records, sendOnlyModified, keyField, fields ){
+    var build1Row = function( actionsObject, records, sendOnlyModified, keyField, fields ){
         
-        var dataToSend = buildEmptyDataToSend();
+        var jsonObject = buildEmpty();
         
         // Build modified
         for ( var rowIndex in actionsObject.modified ){
@@ -53,9 +40,9 @@ module.exports = (function() {
             if ( ! sendOnlyModified ){
                 row = $.extend( true, {}, record, row );
             }
-            dataToSend.existingRecords[ key ] = row;
+            jsonObject.existingRecords[ key ] = row;
             
-            buildSubformsRowDataToSend( row, record, sendOnlyModified, fields );
+            buildSubformsRow( row, record, sendOnlyModified, fields );
         }
 
         // Build new
@@ -63,39 +50,39 @@ module.exports = (function() {
             row = actionsObject.new[ rowIndex ];
             key = row[ keyField ];
 
-            dataToSend.newRecords.push( row );
+            jsonObject.newRecords.push( row );
             
-            buildNewSubformsRowDataToSend( row, sendOnlyModified, fields );
+            buildNewSubformsRow( row, sendOnlyModified, fields );
         }
         
         // Build delete
-        dataToSend.recordsToRemove = actionsObject.deleted;
+        jsonObject.recordsToRemove = actionsObject.deleted;
         
-        return dataToSend;
+        return jsonObject;
     };
     
-    var buildNewSubformsRowDataToSend = function( row, sendOnlyModified, fields ){
+    var buildNewSubformsRow = function( row, sendOnlyModified, fields ){
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
             if ( field.type == 'subform' && row[ field.id ] ){
-                var subformDataToSend = build1RowDataToSend( 
+                var subform = build1Row( 
                     row[ field.id ], 
                     {}, 
                     sendOnlyModified, 
                     field.subformKey, 
                     buildFieldArrayFromMap( field.fields ) );
-                row[ field.id ] = subformDataToSend;
+                row[ field.id ] = subform;
             }
         }
     };
     
-    var buildSubformsRowDataToSend = function( row, record, sendOnlyModified, fields ){
+    var buildSubformsRow = function( row, record, sendOnlyModified, fields ){
     
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
             if ( field.type == 'subform' && record[ field.id ] && row[ field.id ] ){
-                var subformDataToSend = build1RowDataToSend( 
+                var subform = build1Row( 
                     row[ field.id ], 
                     buildRecordsMap( 
                         record[ field.id ], 
@@ -103,7 +90,7 @@ module.exports = (function() {
                     sendOnlyModified, 
                     field.subformKey, 
                     buildFieldArrayFromMap( field.fields ) );
-                row[ field.id ] = subformDataToSend;
+                row[ field.id ] = subform;
             }
         }
     };
@@ -131,9 +118,9 @@ module.exports = (function() {
         return recordsMap;
     };
     
-    var buildDataToSend = function( keyField, dataToSendOption, records, fields, forcedActionsObject, history ){
+    var buildJSONForAll = function( keyField, dataToSendOption, records, fields, forcedActionsObject, history ){
         
-        var actionsObject = forcedActionsObject || buildActionsObject( records, history );
+        var actionsObject = forcedActionsObject || history.buildActionsObject( records );
         
         // Get sendOnlyModified
         var sendOnlyModified = undefined;
@@ -149,8 +136,8 @@ module.exports = (function() {
                 return false;
         }
 
-        // Build dataToSend now
-        var dataToSend = build1RowDataToSend( 
+        // Build jsonObject now
+        var jsonObject = build1Row( 
             actionsObject, 
             records, 
             sendOnlyModified, 
@@ -158,22 +145,22 @@ module.exports = (function() {
             fields );
 
         // Return false if there is no record to modify, to create or to delete
-        if ( Object.keys( dataToSend.existingRecords ).length == 0 
-            && dataToSend.newRecords.length == 0 
-            && dataToSend.recordsToRemove == 0 ){
+        if ( Object.keys( jsonObject.existingRecords ).length == 0 
+            && jsonObject.newRecords.length == 0 
+            && jsonObject.recordsToRemove == 0 ){
             return false;
         }
-        return dataToSend;
+        return jsonObject;
     };
     
-    var buildDataToSendForAddRecordMethod = function( record ){
+    var buildJSONForAddRecordMethod = function( record ){
 
-        var data = buildEmptyDataToSend();
+        var data = buildEmpty();
         data.newRecords.push( record );
         return data;
     };
     
-    var buildDataToSendForUpdateRecordMethod = function( keyField, dataToSendOption, currentRecord, editedRecord, fieldsMap, fields, history ){
+    var buildJSONForUpdateRecordMethod = function( keyField, dataToSendOption, currentRecord, editedRecord, fieldsMap, fields, history ){
 
         // Build actionsObject
         var records = [ currentRecord ];
@@ -186,7 +173,7 @@ module.exports = (function() {
                 var field = fieldsMap[ id ];
                 
                 if ( field.type == 'subform' ){
-                    buildSubformDataToSend( actionsObject, records, field, currentValue, newValue, field.subformKey, history );
+                    buildSubform( actionsObject, records, field, currentValue, newValue, field.subformKey, history );
                     
                 } else {
                     var historyItem = history.instanceChange( 
@@ -198,7 +185,7 @@ module.exports = (function() {
             }
         });
         
-        return buildDataToSend( 
+        return buildJSONForAll( 
             keyField, 
             dataToSendOption, 
             records, 
@@ -217,7 +204,7 @@ module.exports = (function() {
         return object;
     };
     
-    var buildSubformDataToSend = function( actionsObject, records, field, currentRows, newRows, keyField, history ){
+    var buildSubform = function( actionsObject, records, field, currentRows, newRows, keyField, history ){
         
         var currentRowsMap = buildMap( currentRows, keyField );
         var newRowsMap = buildMap( newRows, keyField );
@@ -234,11 +221,11 @@ module.exports = (function() {
             
             if ( currentRow === undefined ){
                 // new row
-                buildSubformDataToSend_creates( actionsObject, records, newRow, rowIndex, field.fields, history );
+                buildSubform_creates( actionsObject, records, newRow, rowIndex, field.fields, history );
 
             } else {
                 // update row
-                buildSubformDataToSend_updates( actionsObject, records, newRow, currentRow, rowIndex, field.fields, field, history );
+                buildSubform_updates( actionsObject, records, newRow, currentRow, rowIndex, field.fields, field, history );
             }
         }
         
@@ -260,7 +247,7 @@ module.exports = (function() {
         }
     };
     
-    var buildSubformDataToSend_creates = function( actionsObject, records, newRow, rowIndex, fields, history ){
+    var buildSubform_creates = function( actionsObject, records, newRow, rowIndex, fields, history ){
 
         var id = undefined;
         var idsDone = {};
@@ -279,7 +266,7 @@ module.exports = (function() {
         }
     };
     
-    var buildSubformDataToSend_updates = function( actionsObject, records, newRow, currentRow, rowIndex, fields, parentField, history ){
+    var buildSubform_updates = function( actionsObject, records, newRow, currentRow, rowIndex, fields, parentField, history ){
         
         var id = undefined;
         var historyItem = undefined;
@@ -301,26 +288,26 @@ module.exports = (function() {
         }
     };
     
-    var getRegisterFromDataToSend = function( dataToSend, formType ){
+    var getRecordFromJSON = function( jsonObject, formType ){
 
         switch ( formType ) {
             case 'create':
-                return dataToSend.newRecords[ 0 ];
+                return jsonObject.newRecords[ 0 ];
             case 'update':
-                return dataToSend.existingRecords[ Object.keys( dataToSend.existingRecords )[ 0 ] ];
+                return jsonObject.existingRecords[ Object.keys( jsonObject.existingRecords )[ 0 ] ];
             case 'delete':
-                return dataToSend.recordsToRemove[ 0 ];
+                return jsonObject.recordsToRemove[ 0 ];
             default:
                 throw "Unknown FormPage type: " + formType;
         }
     };
     
     var self = {
-        buildDataToSendForRemoving: buildDataToSendForRemoving,
-        buildDataToSend: buildDataToSend,
-        buildDataToSendForAddRecordMethod: buildDataToSendForAddRecordMethod,
-        buildDataToSendForUpdateRecordMethod: buildDataToSendForUpdateRecordMethod,
-        getRegisterFromDataToSend: getRegisterFromDataToSend
+        buildJSONForAll: buildJSONForAll,
+        buildJSONForRemoving: buildJSONForRemoving,
+        buildJSONForAddRecordMethod: buildJSONForAddRecordMethod,
+        buildJSONForUpdateRecordMethod: buildJSONForUpdateRecordMethod,
+        getRecordFromJSON: getRecordFromJSON
     };
     
     return self;

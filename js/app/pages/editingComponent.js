@@ -84,7 +84,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         
         // Setup validation
         var formId = listPage.getThisOptions().formId;
-        validationManager.initFormValidation( formId, $( '#' + formId ), options );
+        validationManager.initFormValidation( 
+            formId, 
+            $( '#' + formId ), 
+            options );
     };
     
     var bindEventsInRows = function( $preselection, record ){
@@ -226,7 +229,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
     var save = function( event ){
         
-        var dataToSend = context.getJsonBuilder( options ).buildDataToSend(
+        var jsonObject = context.getJSONBuilder( options ).buildJSONForAll(
             options.key, 
             thisOptions.dataToSend, 
             listPage.getDictionary().records,
@@ -234,18 +237,18 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             undefined,
             history );
         
-        if ( dataToSend.existingRecords && Object.keys( dataToSend.existingRecords ).length == 0 
-            && dataToSend.newRecords && dataToSend.newRecords.length == 0 
-            && dataToSend.deleted && dataToSend.deleted.recordsToRemove == 0){
+        if ( jsonObject.existingRecords && Object.keys( jsonObject.existingRecords ).length == 0 
+            && jsonObject.newRecords && jsonObject.newRecords.length == 0 
+            && jsonObject.deleted && jsonObject.deleted.recordsToRemove == 0){
             alert( 'No operations done!' );
             return false;
         }
 
-        if ( dataToSend ){
-            var data = {
-                existingRecords: dataToSend.existingRecords,
-                newRecords: dataToSend.newRecords,
-                recordsToRemove: dataToSend.recordsToRemove,
+        if ( jsonObject ){
+            var newJSONObject = {
+                existingRecords: jsonObject.existingRecords,
+                newRecords: jsonObject.newRecords,
+                recordsToRemove: jsonObject.recordsToRemove,
                 success: function( dataFromServer ){
                     
                     // Check server side validation
@@ -261,7 +264,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     });
                     
                     // Update records in list and update paging component
-                    var delta = updateRecords( dataToSend, dataFromServer );
+                    var delta = updateRecords( jsonObject, dataFromServer );
                     listPage.getComponent( 'paging' ).dataFromClient( delta );
                     listPage.updateBottomPanel();
                     
@@ -276,26 +279,26 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 },
                 url: thisOptions.url
             };
-            //alert( thisOptions.dataToSend + '\n' + JSON.stringify( data ) );
+
             crudManager.batchUpdate( 
-                data, 
+                newJSONObject, 
                 options, 
                 event,
                 {
                     $form: listPage.get$form(),
                     formType: 'list',
-                    dataToSend: data,
+                    dataToSend: newJSONObject,
                     options: options
                 }
             );
         }
 
-        return dataToSend;
+        return jsonObject;
     };
-
+    /*
     var updatePagingComponent = function( delta ){
         listPage.getComponent( 'paging' ).dataFromClient( delta );
-    };
+    };*/
     
     var updateRecords = function( dataToSend, dataFromServer ){
 

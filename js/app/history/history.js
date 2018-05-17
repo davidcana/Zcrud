@@ -369,7 +369,19 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         return result;
     };
-    
+
+    var buildActionsObject = function( records ){
+
+        var actionsObject = buildEmptyActionsObject();
+        
+        for ( var c = 0; c < current; ++c ){
+            var historyItem = items[ c ];
+            historyItem.doAction( actionsObject, records );
+        }
+
+        return actionsObject;
+    };
+    /*
     var getActiveItems = function(){
 
         var result = [];
@@ -379,7 +391,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         }
 
         return result;
-    };
+    };*/
     
     var self = {
         putChange: putChange,
@@ -403,7 +415,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         createNestedObject: createNestedObject,
         getAllTr$FromCreateItems: getAllTr$FromCreateItems,
         instanceChange: instanceChange,
-        getActiveItems: getActiveItems
+        buildActionsObject: buildActionsObject
+        //getActiveItems: getActiveItems
     };
     
     return self;
