@@ -4,10 +4,10 @@
 module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     "use strict";
     
-    var context = require( '../context.js' );
+    var context = require( '../../context.js' );
     var $ = require( 'jquery' );
-    var pageUtils = require( './pageUtils.js' );
-    var fieldBuilder = require( '../fields/fieldBuilder' );
+    var pageUtils = require( '../pageUtils.js' );
+    var fieldBuilder = require( '../../fields/fieldBuilder' );
     
     var options = optionsToApply;
     var listPage = listPageToApply;

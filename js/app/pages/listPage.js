@@ -4,11 +4,11 @@
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
 var FormPage = require( './formPage.js' );
-var PagingComponent = require( './pagingComponent.js' );
-var SortingComponent = require( './sortingComponent.js' );
-var SelectingComponent = require( './selectingComponent.js' );
-var FilteringComponent = require( './filteringComponent.js' );
-var EditingComponent = require( './editingComponent.js' );
+var PagingComponent = require( './components/pagingComponent.js' );
+var SortingComponent = require( './components/sortingComponent.js' );
+var SelectingComponent = require( './components/selectingComponent.js' );
+var FilteringComponent = require( './components/filteringComponent.js' );
+var EditingComponent = require( './components/editingComponent.js' );
 var crudManager = require( '../crudManager.js' );
 var fieldBuilder = require( '../fields/fieldBuilder' );
 var optionListProviderManager = require( '../fields/optionListProviderManager.js' );

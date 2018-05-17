@@ -4,13 +4,13 @@
 module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     "use strict";
     
-    var context = require( '../context.js' );
+    var context = require( '../../context.js' );
     var $ = require( 'jquery' );
-    var pageUtils = require( './pageUtils.js' );
-    var fieldBuilder = require( '../fields/fieldBuilder' );
-    var History = require( '../history/history.js' );
-    var crudManager = require( '../crudManager.js' );
-    var validationManager = require( '../validationManager.js' );
+    var pageUtils = require( '../pageUtils.js' );
+    var fieldBuilder = require( '../../fields/fieldBuilder' );
+    var History = require( '../../history/history.js' );
+    var crudManager = require( '../../crudManager.js' );
+    var validationManager = require( '../../validationManager.js' );
     
     var options = optionsToApply;
     var listPage = listPageToApply;
