@@ -30,5 +30,6 @@ QUnit.testSuites([
     { name: "methods Test Suite", path: "./methods.html" },
     { name: "server side Test Suite", path: "./serverSide.html" },
     { name: "no key field Test Suite", path: "./noKeyField.html" },
-    { name: "field list builder Test Suite", path: "./fieldListBuilder.html" }
+    { name: "field list builder Test Suite", path: "./fieldListBuilder.html" },
+    { name: "JSON Test Suite", path: "./json.html" }
 ]);

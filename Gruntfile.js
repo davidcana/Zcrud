@@ -329,6 +329,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/fieldListBuilder.js',
                 dest: 'build/fieldListBuilder.js'
+            },
+            json: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/json.js',
+                dest: 'build/json.js'
             }
         },
         compress: {

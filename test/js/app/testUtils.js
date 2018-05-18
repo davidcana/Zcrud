@@ -50,6 +50,17 @@ module.exports = (function() {
     var urls = [];
     var lastListUrl = undefined;
     var lastBatchUpdateUrl = undefined;
+    var jsonUpdatesArray = [];
+    
+    var reset = function(){
+    
+        resetServices();
+        
+        urls = [];
+        lastListUrl = undefined;
+        lastBatchUpdateUrl = undefined;
+        jsonUpdatesArray = [];
+    };
     
     var ajax = function( options ){
         
@@ -116,6 +127,8 @@ module.exports = (function() {
     var ajaxServicesBatchUpdate = function( file, data, url ){
 
         lastBatchUpdateUrl = url;
+        jsonUpdatesArray.push( 
+            $.extend( true, {}, data ) );
         
         // Init data
         var dataToSend = {};
@@ -431,7 +444,11 @@ module.exports = (function() {
     var getLastBatchUpdateUrl = function(){
         return lastBatchUpdateUrl;
     };
- 
+    
+    var getJSONUpdate = function( index ){
+        return jsonUpdatesArray[ index ];
+    };
+    
     return {
         ajax: ajax,
         getService: getService,
@@ -440,6 +457,8 @@ module.exports = (function() {
         resetServices: resetServices,
         getUrl: getUrl,
         getLastListUrl: getLastListUrl,
-        getLastBatchUpdateUrl: getLastBatchUpdateUrl
+        getLastBatchUpdateUrl: getLastBatchUpdateUrl,
+        getJSONUpdate: getJSONUpdate,
+        reset: reset
     };
 })();
