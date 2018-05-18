@@ -252,7 +252,12 @@
                     <span class="default">require( './jsonBuilders/onlyChangesJSONBuilder.js' )</span>
                 </div>
                 <div class="body">
-                    Defines the javascript class required to build javascript objects to send to server as JSON.
+                    Defines the javascript class required to build javascript objects to send to server as JSON. Currently there are 2 options:
+                    <ul>
+                        <li><em>./jsonBuilders/onlyChangesJSONBuilder.js</em>. Only the properties updated by the user are sent.</li>
+                        <li><em>./jsonBuilders/allJSONBuilder.js</em>. All the properties are sent.</li>
+                    </ul>
+                    The behaviour of both are the same when creating and deleting records, only differ when updating existing records.
                 </div>
             </li>
             <li>
