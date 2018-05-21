@@ -4,13 +4,7 @@
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
 var FormPage = require( './formPage.js' );
-var PagingComponent = require( './components/pagingComponent.js' );
-var SortingComponent = require( './components/sortingComponent.js' );
-var SelectingComponent = require( './components/selectingComponent.js' );
-var FilteringComponent = require( './components/filteringComponent.js' );
-var EditingComponent = require( './components/editingComponent.js' );
 var crudManager = require( '../crudManager.js' );
-var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fieldListBuilder.js' );
 var $ = require( 'jquery' );
@@ -58,39 +52,23 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var configure = function(){
 
         buildFields();
-        
-        registerComponent( 
-            'paging',
-            function(){
-                return new PagingComponent( options, thisOptions.components.paging, self );
-            }
-        );
-        registerComponent( 
-            'sorting',
-            function(){
-                return new SortingComponent( options, thisOptions.components.sorting, self );
-            }
-        );
-        registerComponent( 
-            'selecting',
-            function(){
-                return new SelectingComponent( options, thisOptions.components.selecting, self );
-            }
-        );
-        registerComponent( 
-            'filtering',
-            function(){
-                return new FilteringComponent( options, thisOptions.components.filtering, self );
-            }
-        );
-        registerComponent( 
-            'editing',
-            function(){
-                return new EditingComponent( options, thisOptions.components.editing, self );
-            }
-        );
+        registerAllComponents();
     };
     
+    var registerAllComponents = function() {
+        
+        for ( var componentId in thisOptions.components ){
+            var component = thisOptions.components[ componentId ];
+            var ConstructorClass = component.constructorClass;
+            registerComponent( 
+                componentId,
+                function(){
+                    return new ConstructorClass( options, component, self );
+                }
+            );
+        }
+    }
+
     var registerComponent = function( componentId, constructorFunction ){
         
         var thisComponent = thisOptions.components[ componentId ].isOn? constructorFunction(): undefined;
@@ -372,56 +350,17 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return get$().find( "[data-record-key='" + key + "']" );
     };
     
-    var selectRecords = function( rows ){
-        var selectionComponent = components[ 'selecting' ];
-        if ( ! selectionComponent ){
-            return;
-        }
-        selectionComponent.selectRecords( rows );
-    };
-    
-    var deselectRecords = function( rows ){
-        var selectionComponent = components[ 'selecting' ];
-        if ( ! selectionComponent ){
-            return;
-        }
-        selectionComponent.deselectRecords( rows );
-    };
-    
-    var selectRows = function( rows ){
-        var selectionComponent = components[ 'selecting' ];
-        if ( ! selectionComponent ){
-            return;
-        }
-        selectionComponent.selectRows( rows );
-    };
-    
-    var deselectRows = function( rows ){
-        var selectionComponent = components[ 'selecting' ];
-        if ( ! selectionComponent ){
-            return;
-        }
-        selectionComponent.deselectRows( rows );
-    };
-    
-    var getSelectedRows = function(){
-        var selectionComponent = components[ 'selecting' ];
-        if ( ! selectionComponent ){
-            return;
-        }
-        return selectionComponent.getSelectedRows();
-    };
-
-    var getSelectedRecords = function(){
-        var selectionComponent = components[ 'selecting' ];
-        if ( ! selectionComponent ){
-            return;
-        }
-        return selectionComponent.getSelectedRecords();
-    };
-    
     var getComponent = function( id ){
         return components[ id ];
+    };
+    var getSecureComponent = function( id ){
+        
+        var component = getComponent( id );
+        if ( component ){
+            return component;
+        }
+        
+        throw 'Error in list form trying to get component: ' + id;
     };
     
     var showStatusMessage = function( dictionaryExtension ){
@@ -501,29 +440,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         throw message;
     };
     
-    /*
-    var update$trs = function( $trArray, records ){
-        
-        var thisDictionary = $.extend( {}, dictionary );
-        
-        for ( var c = 0; c < $trArray.length; ++c ){
-            var $tr = $trArray[ c ];
-            var record = records[ c ];
-            
-            if ( ! record ){
-                continue;
-            }
-            
-            thisDictionary.record = record;
-            
-            context.getZPTParser().run({
-                root: $tr[0],
-                dictionary: thisDictionary,
-                notRemoveGeneratedTags: false
-            });   
-        }
-    };*/
-    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -536,13 +452,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getRowByKey: getRowByKey,
         getOptions: getOptions,
         getThisOptions: getThisOptions,
-        selectRecords: selectRecords,
-        deselectRecords: deselectRecords,
-        selectRows: selectRows,
-        deselectRows: deselectRows,
-        getSelectedRows: getSelectedRows,
-        getSelectedRecords: getSelectedRecords,
         getComponent: getComponent,
+        getSecureComponent: getSecureComponent,
         showStatusMessage: showStatusMessage,
         updateBottomPanel: updateBottomPanel,
         getRecords: getRecords,
@@ -558,7 +469,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         addRecord: addRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord
-        //update$trs: update$trs
     };
     
     configure();

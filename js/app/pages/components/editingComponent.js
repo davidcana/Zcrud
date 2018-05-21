@@ -263,7 +263,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     
                     // Update records in list and update paging component
                     var delta = updateRecords( jsonObject, dataFromServer );
-                    listPage.getComponent( 'paging' ).dataFromClient( delta );
+                    var pagingComponent = listPage.getSecureComponent( 'paging' );
+                    if ( pagingComponent ){
+                        pagingComponent.dataFromClient( delta );
+                    }
                     listPage.updateBottomPanel();
                     
                     updateKeys( 

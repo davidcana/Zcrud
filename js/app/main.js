@@ -169,7 +169,7 @@ exports.selectRecords = function( listPageIdSource, rows ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    listPage.selectRecords( rows );
+    listPage.getSecureComponent( 'selecting' ).selectRecords( rows );
 };
 
 exports.deselectRecords = function( listPageIdSource, rows ){
@@ -179,7 +179,7 @@ exports.deselectRecords = function( listPageIdSource, rows ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    listPage.deselectRecords( rows );
+    listPage.getSecureComponent( 'selecting' ).deselectRecords( rows );
 };
 
 exports.selectRows = function( listPageIdSource, rows ){
@@ -189,7 +189,7 @@ exports.selectRows = function( listPageIdSource, rows ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    listPage.selectRows( rows );
+    listPage.getSecureComponent( 'selecting' ).selectRows( rows );
 };
 
 exports.deselectRows = function( listPageIdSource, rows ){
@@ -199,7 +199,7 @@ exports.deselectRows = function( listPageIdSource, rows ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    listPage.deselectRows( rows );
+    listPage.getSecureComponent( 'selecting' ).deselectRows( rows );
 };
 
 exports.getSelectedRows = function( listPageIdSource ){
@@ -209,7 +209,7 @@ exports.getSelectedRows = function( listPageIdSource ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    return listPage.getSelectedRows();
+    return listPage.getSecureComponent( 'selecting' ).getSelectedRows();
 };
 
 exports.getSelectedRecords = function( listPageIdSource ){
@@ -219,7 +219,7 @@ exports.getSelectedRecords = function( listPageIdSource ){
         alert( 'No list found using that source:' + listPageIdSource );
         return;
     }
-    return listPage.getSelectedRecords();
+    return listPage.getSecureComponent( 'selecting' ).getSelectedRecords();
 };
 
 var recordOperationCommon = function( listPageIdSource, data, checkRecord, checkKey, method, type ){

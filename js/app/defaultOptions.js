@@ -103,6 +103,7 @@ module.exports = {
                 components: {
                     paging: {
                         isOn: true,
+                        constructorClass: require( './pages/components/pagingComponent.js' ),
                         defaultPageSize: 10,
                         pageSizes: [10, 25, 50, 100, 250, 500],
                         pageSizeChangeArea: true,
@@ -115,6 +116,7 @@ module.exports = {
                     },
                     sorting: {
                         isOn: false,
+                        constructorClass: require( './pages/components/sortingComponent.js' ),
                         loadFromLocalStorage: true,
                         default: {
                             fieldId: undefined,
@@ -123,15 +125,18 @@ module.exports = {
                         allowUser: false
                     },
                     filtering: {
-                        isOn: false
+                        isOn: false,
+                        constructorClass: require( './pages/components/filteringComponent.js' ),
                     },
                     selecting: {
                         isOn: false,
+                        constructorClass: require( './pages/components/selectingComponent.js' ),
                         multiple: true,
                         mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
                     },
                     editing: {
                         isOn: false,
+                        constructorClass: require( './pages/components/editingComponent.js' ),
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',
                         hideTr: function( $tr ){

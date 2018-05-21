@@ -31,8 +31,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var filter = function(){
+        
         filterRecord = buildFilterRecordFromForm();
-        listPage.getComponent( 'paging' ).goToFirstPage();
+        
+        var pagingComponent = listPage.getSecureComponent( 'paging' );
+        if ( pagingComponent ){
+            pagingComponent.goToFirstPage();
+        }
+        
         updateList();
     };
     
@@ -63,11 +69,19 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     
     var updateList = function(){
         
-        listPage.show( 
-            false,
-            undefined, 
-            [ $( '#' + listPage.getThisOptions().tbodyId )[0], listPage.getComponent( 'paging' ).get$()[0] ] );
-            //[ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + listPage.getComponent( 'paging' ).getId() )[0] ] );
+        // Get root
+        var pagingComponent = listPage.getSecureComponent( 'paging' );
+        var root = pagingComponent?
+            [ 
+                $( '#' + listPage.getThisOptions().tbodyId )[0], 
+                pagingComponent.get$()[0] 
+            ]:
+            [ 
+                $( '#' + listPage.getThisOptions().tbodyId )[0]
+            ];
+        
+        // Show list page
+        listPage.show( false, undefined, root );
     };
     
     var normalizeOptions = function(){
