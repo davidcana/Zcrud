@@ -201,7 +201,7 @@ module.exports = {
 
     logging: {
         isOn: false,
-        level: log4javascript.Level.ERROR,
+        level: log4javascript.Level.ERROR
     },
 
     jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
