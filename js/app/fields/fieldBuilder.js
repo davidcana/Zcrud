@@ -11,7 +11,7 @@ module.exports = (function() {
     
     var register = function( fieldManager, fieldTypes ) {
         
-        var fieldTypes = fieldTypes || fieldManager.types;
+        fieldTypes = fieldTypes || fieldManager.types;
         
         if ( $.isArray( fieldTypes ) ){ 
             for ( var c = 0; c < fieldTypes.length; c++ ) {
@@ -29,7 +29,7 @@ module.exports = (function() {
     
     var unregister = function( fieldManager, fieldTypes ) {
         
-        var fieldTypes = fieldTypes || fieldManager.types;
+        fieldTypes = fieldTypes || fieldManager.types;
         
         if ( $.isArray( fieldTypes ) ){
             for ( var c = 0; c < fieldTypes.length; c++ ) {
@@ -41,12 +41,23 @@ module.exports = (function() {
         }
     };
     
+    var registerAll = function( managers ){
+        /*
+        if ( Object.keys( fieldManagers ).length !== 0 ){
+            return;
+        }*/
+        
+        for ( var i = 0; i < managers.length; ++i ){
+            register( managers[ i ] );
+        }
+    };
+    /*
     var registerAll = function(){
         register( require( './datetimeFieldManager.js' ) );
         register( require( './optionListProviderManager.js' ) );
         register( require( './checkboxFieldManager.js' ) );
         register( require( './subformManager.js' ) );
-    }();
+    }();*/
     /*
     var beforeProcessTemplateForField = function( params ){
         

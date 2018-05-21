@@ -21,6 +21,12 @@ module.exports = {
 
     fields: {},
     fieldsConfig: {
+        managers: [
+            require( './fields/datetimeFieldManager.js' ),
+            require( './fields/optionListProviderManager.js' ),
+            require( './fields/checkboxFieldManager.js' ),
+            require( './fields/subformManager.js' )
+        ],
         defaultFieldOptions: {
             datetime: {
                 inline: false,
