@@ -7,7 +7,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var context = require( '../../context.js' );
     var $ = require( 'jquery' );
     var pageUtils = require( '../pageUtils.js' );
-    var fieldBuilder = require( '../../fields/fieldBuilder' );
     
     var options = optionsToApply;
     var listPage = listPageToApply;
@@ -44,7 +43,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         
         for ( var c = 0; c < thisOptions.fields.length; c++ ) {
             var field = thisOptions.fields[ c ];
-            var value = fieldBuilder.getValueFromForm( field, options, $this );
+            var value = context.getFieldBuilder().getValueFromForm( field, options, $this );
             
             if ( value != undefined && value != '' ){
                 record[ field.id ] = value;

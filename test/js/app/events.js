@@ -3,10 +3,10 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
-var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
+var context = require( '../../../js/app/context.js' );
 var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
@@ -144,7 +144,7 @@ QUnit.test( "events update form test", function( assert ) {
                 "name": "Service " + key,
                 "id": "" + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -197,7 +197,7 @@ QUnit.test( "events update form test", function( assert ) {
             // Submit and show the list again
             var $form = $( '#zcrud-form-department' );
             testHelper.clickFormSubmitButton();
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newClientRecord, options.fields ) );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newClientRecord, options.fields ) );
             
             assert.deepEqual( 
                 counters,  
@@ -212,7 +212,7 @@ QUnit.test( "events update form test", function( assert ) {
                 });
             
             var serverRecord2 = $.extend( true, {}, record, editedServerRecord );
-            serverRecord2 = fieldBuilder.filterValues( serverRecord2, options.fields );
+            serverRecord2 = context.getFieldBuilder().filterValues( serverRecord2, options.fields );
             
             checkFormSubmittingEvent( 
                 assert, 
@@ -341,7 +341,7 @@ QUnit.test( "events create form test", function( assert ) {
             // Submit and show the list again
             var $form = $( '#zcrud-form-department' );
             testHelper.clickFormSubmitButton();
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( clientRecord, options.fields ) );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( clientRecord, options.fields ) );
             assert.deepEqual( 
                 counters,  
                 {
@@ -354,7 +354,7 @@ QUnit.test( "events create form test", function( assert ) {
                     selectionChanged: 0
                 });
             
-            var serverRecord2 = fieldBuilder.filterValues( serverRecord, options.fields );
+            var serverRecord2 = context.getFieldBuilder().filterValues( serverRecord, options.fields );
             
             checkFormSubmittingEvent( 
                 assert, 
@@ -808,7 +808,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -867,7 +867,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
             
             // Click cancel and check record
             testHelper.clickFormCancelButton();
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ) );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
 
             done();
         }

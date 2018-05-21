@@ -3,7 +3,6 @@
 */
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
-var fieldBuilder = require( '../fields/fieldBuilder' );
 var validationManager = require( '../validationManager.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
@@ -189,32 +188,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         }
     };
     
-    // Set, get, update and build record
-    /*
-    var buildRecordFromForm = function( $form ){
-        
-        var newRecord = {};
-        
-        for ( var c = 0; c < fields.length; c++ ) {
-            var field = fields[ c ];
-            newRecord[ field.id ] = fieldBuilder.getValueFromForm( field, options, $form );
-        }
-        
-        return newRecord;
-    };*/
-    /*
-    var updateRecordFromDefaultValues = function(){
-        
-        record = {};
-        
-        for ( var c = 0; c < fields.length; c++ ) {
-            var field = fields[ c ];
-            if ( field.defaultValue ){
-                record[ field.id ] = field.defaultValue;
-            }
-        }
-    };*/
-    
     var buildDefaultValuesRecord = function(){
 
         var defaultRecord = {};
@@ -233,7 +206,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            newRecord[ field.id ] = fieldBuilder.getValueFromRecord( 
+            newRecord[ field.id ] = context.getFieldBuilder().getValueFromRecord( 
                 field, 
                 record, 
                 buildProcessTemplateParams( field ) );
@@ -256,7 +229,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         dictionary.instance = self;
         
-        fieldBuilder.addFieldManagersToDictionary( dictionary );
+        context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
     };
     
     var buildProcessTemplateParams = function( field ){
@@ -268,8 +241,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             record: record,
             source: type,
             dictionary: dictionary,
-            formPage: self,
-            fieldBuilder: fieldBuilder
+            formPage: self
+            //fieldBuilder: fieldBuilder
         };
     };
     
@@ -277,7 +250,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         /*
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            fieldBuilder.beforeProcessTemplateForField(
+            context.getFieldBuilder().beforeProcessTemplateForField(
                 buildProcessTemplateParams( field )
             );
         }*/
@@ -292,7 +265,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            fieldBuilder.afterProcessTemplateForField(
+            context.getFieldBuilder().afterProcessTemplateForField(
                 buildProcessTemplateParams( field ),
                 $form
             );
@@ -358,7 +331,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 var field = getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
-                    fieldBuilder.getValue( field, $this ), 
+                    context.getFieldBuilder().getValue( field, $this ), 
                     0,
                     id,
                     field );
@@ -571,11 +544,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     };
 
     var getPostTemplate = function( field ){
-        return fieldBuilder.getPostTemplate( field );
+        return context.getFieldBuilder().getPostTemplate( field );
     };
         
     var mustHideLabel = function( field ){
-        return fieldBuilder.mustHideLabel( field );
+        return context.getFieldBuilder().mustHideLabel( field );
     };
     
     /* Events */

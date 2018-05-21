@@ -4,7 +4,7 @@
 "use strict";
 
 var $ = require( 'jquery' );
-var fieldBuilder = require( '../fields/fieldBuilder' );
+var context = require( '../../../js/app/context.js' );
 
 var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
@@ -25,7 +25,7 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     };
     
     var setValue = function( value ){
-        fieldBuilder.setValueToForm( field, value, $this, ! history.isFormMode()  );
+        context.getFieldBuilder().setValueToForm( field, value, $this, ! history.isFormMode()  );
     };
     
     var undo = function(){

@@ -353,6 +353,14 @@ module.exports = (function() {
     var getJSONBuilder = function( options ){
         return options.jsonBuilder;
     };
+
+    var fieldBuilder = undefined;
+    var setFieldBuilder = function( fieldBuildertoApply ){
+        fieldBuilder = fieldBuildertoApply;
+    };
+    var getFieldBuilder = function(){
+        return fieldBuilder;
+    };
     
     return {
         put: put,
@@ -383,6 +391,8 @@ module.exports = (function() {
         getFieldData: getFieldData,
         subformSeparator: subformSeparator,
         //getFormPage: getFormPage
-        getJSONBuilder: getJSONBuilder
+        getJSONBuilder: getJSONBuilder,
+        setFieldBuilder: setFieldBuilder,
+        getFieldBuilder: getFieldBuilder
     };
 })();

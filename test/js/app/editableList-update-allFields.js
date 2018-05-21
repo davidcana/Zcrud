@@ -3,7 +3,6 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
-var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
@@ -110,7 +109,7 @@ QUnit.test( "update datetime test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
             
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -146,7 +145,7 @@ QUnit.test( "update datetime test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
             
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
             
             done();
         }
@@ -176,7 +175,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -217,7 +216,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }
@@ -249,7 +248,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -290,7 +289,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }
@@ -320,7 +319,7 @@ QUnit.test( "update date test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -356,7 +355,7 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }
@@ -386,7 +385,7 @@ QUnit.test( "update date using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -427,7 +426,7 @@ QUnit.test( "update date using picker test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }
@@ -459,7 +458,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -500,7 +499,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }
@@ -530,7 +529,7 @@ QUnit.test( "update time test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -566,7 +565,7 @@ QUnit.test( "update time test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }
@@ -596,7 +595,7 @@ QUnit.test( "update time using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -636,7 +635,7 @@ QUnit.test( "update time using picker test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }
@@ -668,7 +667,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( record, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ), editable );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
@@ -708,7 +707,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
 
-            testHelper.checkRecord( assert, key, fieldBuilder.filterValues( newRecord, options.fields ), editable );
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ), editable );
 
             done();
         }

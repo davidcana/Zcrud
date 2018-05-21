@@ -3,7 +3,6 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
-var fieldBuilder = require( '../../../js/app/fields/fieldBuilder.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
@@ -209,8 +208,7 @@ var defaultTestOptions = {
     },
 
     logging: {
-        isOn: true,
-        level: log4javascript.Level.DEBUG
+        isOn: true
     }
 };
 
@@ -461,7 +459,7 @@ QUnit.test( "update datetime test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
             
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -563,7 +561,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -668,7 +666,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -764,7 +762,7 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) ); 
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -866,7 +864,7 @@ QUnit.test( "update date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) ); 
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -971,7 +969,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) ); 
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -1067,7 +1065,7 @@ QUnit.test( "update time test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );
@@ -1168,7 +1166,7 @@ QUnit.test( "update time using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), fieldBuilder.filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( fatalErrorFunctionCounter, 0 );

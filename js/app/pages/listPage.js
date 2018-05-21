@@ -10,7 +10,6 @@ var SelectingComponent = require( './components/selectingComponent.js' );
 var FilteringComponent = require( './components/filteringComponent.js' );
 var EditingComponent = require( './components/editingComponent.js' );
 var crudManager = require( '../crudManager.js' );
-var fieldBuilder = require( '../fields/fieldBuilder' );
 var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fieldListBuilder.js' );
@@ -252,7 +251,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         dictionary.instance = self;
         
-        fieldBuilder.addFieldManagersToDictionary( dictionary );
+        context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
     };
     
     // Reset all components
@@ -459,7 +458,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var getPostTemplate = function( field ){
-        return fieldBuilder.getPostTemplate( field );
+        return context.getFieldBuilder().getPostTemplate( field );
     };
 
     var get$form = function(){

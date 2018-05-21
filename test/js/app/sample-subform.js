@@ -206,8 +206,7 @@ var defaultTestOptions = {
     },
 
     logging: {
-        isOn: true,
-        level: log4javascript.Level.DEBUG
+        isOn: true
     }
 };
 

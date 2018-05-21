@@ -9,7 +9,7 @@ var context = require( '../context.js' );
 
 var SubformManager = function() {
     
-    var filterValue = function( record, field, fieldBuilder ){
+    var filterValue = function( record, field ){
         
         var newRecords = [];
         var subformRecords = record[ field.id ];
@@ -23,7 +23,7 @@ var SubformManager = function() {
                 var subformField = subformFields[ c ];
                 var value = subformRecord[ subformField.id ];
                 if ( value != undefined ){
-                    newRecord[ subformField.id ] = fieldBuilder.filterValue( subformRecord, subformField );
+                    newRecord[ subformField.id ] = context.getFieldBuilder().filterValue( subformRecord, subformField );
                 }
             }
         }
@@ -33,7 +33,7 @@ var SubformManager = function() {
     
     var getValueFromRecord = function( field, record, params ){
         
-        var fieldBuilder = params.fieldBuilder; // To avoid circular refs
+        //var fieldBuilder = params.fieldBuilder; 
         var dictionary = params.formPage.getDictionary();
         var subformRecords = record[ field.id ] || [];
         var subformFields = field.fields;
@@ -42,7 +42,7 @@ var SubformManager = function() {
             var subformRecord = subformRecords[ i ];
             for ( var c in subformFields ){
                 var subformField = subformFields[ c ];
-                subformRecord[ subformField.id ] = fieldBuilder.getValueFromRecord( 
+                subformRecord[ subformField.id ] = context.getFieldBuilder().getValueFromRecord( 
                     subformField, 
                     subformRecord, 
                     buildProcessTemplateParams( subformField, subformRecord, dictionary, params ) );
@@ -101,7 +101,7 @@ var SubformManager = function() {
     var bindEventsInRows = function( params, $subform, $tr ){
         
         var formPage = params.formPage;
-        var fieldBuilder = params.fieldBuilder; // To avoid circular refs
+        //var fieldBuilder = params.fieldBuilder; 
         var $selection = $subform || $tr;
         //var $selection = $subform || $tr.parents( '.zcrud-data-entity' ).first();
         
@@ -118,7 +118,7 @@ var SubformManager = function() {
                 var $tr = $tr || $this.closest( 'tr' );
                 formPage.getHistory().putChange( 
                     $this, 
-                    fieldBuilder.getValue( field, $this ), 
+                    context.getFieldBuilder().getValue( field, $this ), 
                     0,
                     formPage.getId(),
                     field,
@@ -142,57 +142,38 @@ var SubformManager = function() {
                 params.field.fields, 
                 [], 
                 formPage.getDictionary(), 
-                fieldBuilder, 
                 params );
         } else {
             bindEventsForFields(
                 $subform,
                 params.field.fields,
                 formPage.getDictionary(),
-                fieldBuilder,
                 params
             );
         }
     };
     
-    var bindEventsForFields = function( $subform, fields, dictionary, fieldBuilder, params ){
+    var bindEventsForFields = function( $subform, fields, dictionary, params ){
         
         var records = params.value || [];
         var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
         for ( var i = 0; i < records.length; i++ ) {
             var record = records[ i ];
             var $row = $rows.filter( ":eq(" + i + ")" );
-            bindEventsForFieldsIn1Row( $row, fields, record, dictionary, fieldBuilder, params );
+            bindEventsForFieldsIn1Row( $row, fields, record, dictionary, params );
         }
     };
     
-    var bindEventsForFieldsIn1Row = function( $row, fields, record, dictionary, fieldBuilder, params ){
+    var bindEventsForFieldsIn1Row = function( $row, fields, record, dictionary, params ){
 
         for ( var c in fields ){
             var field = fields[ c ];
-            fieldBuilder.afterProcessTemplateForField(
+            context.getFieldBuilder().afterProcessTemplateForField(
                 buildProcessTemplateParams( field, record, dictionary, params ),
                 $row
             );
         }
     };
-    /*
-    var bindEventsForFields = function( $subform, fields, formPage, fieldBuilder, params ){
-
-        var dictionary = formPage.getDictionary();
-        var records = params.value || [];
-        var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
-        for ( var i = 0; i < records.length; i++ ) {
-            var record = records[ i ];
-            for ( var c in fields ){
-                var field = fields[ c ];
-                fieldBuilder.afterProcessTemplateForField(
-                    buildProcessTemplateParams( field, record, dictionary, params ),
-                    $rows.filter( ":eq(" + i + ")" )
-                );
-            }
-        }
-    };*/
     
     var buildProcessTemplateParams = function( field, record, dictionary, params ){
 
@@ -204,15 +185,15 @@ var SubformManager = function() {
             record: record,
             source: params.source,
             dictionary: dictionary,
-            formPage: params.formPage,
-            fieldBuilder: params.fieldBuilder
+            formPage: params.formPage
+            //fieldBuilder: params.fieldBuilder
         };
     };
     
     var deleteRow = function( params, event ){
         
         var formPage = params.formPage;
-        var options = params.options;
+        //var options = params.options;
         var field = params.field;
         
         var $tr =  $( event.target ).closest( 'tr' );

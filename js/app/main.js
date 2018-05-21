@@ -68,6 +68,7 @@ exports.init = function( userOptions, callback ){
     
     // Register all field managers
     fieldBuilder.registerAll( options.fieldsConfig.managers );
+    context.setFieldBuilder( fieldBuilder );
     
     // Normalize options
     normalizer.run( options );

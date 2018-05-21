@@ -2,8 +2,8 @@
     fieldListBuilder singleton class
 */
 var $ = require( 'jquery' );
+var context = require( './context.js' );
 var normalizer = require( './normalizer.js' );
-var fieldBuilder = require( './fields/fieldBuilder' );
 
 module.exports = (function() {
     "use strict";
@@ -31,7 +31,7 @@ module.exports = (function() {
             pageOptions.fields, 
             options, 
             pageIdArray, 
-            fieldBuilder.buildFields );
+            context.getFieldBuilder().buildFields );
         pageOptions.fieldsCache = fieldsCache;
         
         return fieldsCache;

@@ -7,7 +7,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var context = require( '../../context.js' );
     var $ = require( 'jquery' );
     var pageUtils = require( '../pageUtils.js' );
-    var fieldBuilder = require( '../../fields/fieldBuilder' );
     var History = require( '../../history/history.js' );
     var crudManager = require( '../../crudManager.js' );
     var validationManager = require( '../../validationManager.js' );
@@ -102,7 +101,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 var field = listPage.getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
-                    fieldBuilder.getValue( field, $this ),
+                    context.getFieldBuilder().getValue( field, $this ),
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
                     listPage.getId(),
                     field );
@@ -155,7 +154,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            fieldBuilder.afterProcessTemplateForField(
+            context.getFieldBuilder().afterProcessTemplateForField(
                 buildProcessTemplateParams( field, record, dictionary ),
                 $row
             );

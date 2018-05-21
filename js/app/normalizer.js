@@ -2,7 +2,6 @@
     normalizer singleton class
 */
 var context = require( './context.js' );
-var fieldBuilder = require( './fields/fieldBuilder.js' );
 var $ = require( 'jquery' );
 
 module.exports = (function() {
@@ -10,9 +9,9 @@ module.exports = (function() {
 
     // Normalizes some options (sets default values)
     var normalize = function( options ) {
-
+        
         normalizeGeneralOptions( options );
-
+        
         $.each( options.fields, function ( fieldId, field ) {
             normalizeFieldOptions( fieldId, field, options );
         });
@@ -76,7 +75,9 @@ module.exports = (function() {
 
     // Normalizes some options for a field (sets default values)
     var normalizeFieldOptions = function ( id, field, options, parent ) {
-
+        
+        var fieldBuilder = context.getFieldBuilder();
+        
         // Set id
         field.id = id;
 
