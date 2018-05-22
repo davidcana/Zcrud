@@ -74,8 +74,8 @@ module.exports = (function() {
         
         context.showError( 
             options, 
-            request && request.responseText? request.responseText: 'Undefined error', 
-            false );
+            false, 
+            request && request.responseText? request.responseText: 'Undefined error' );
         
         if ( userErrorFunction ){
             userErrorFunction( 
@@ -94,6 +94,7 @@ module.exports = (function() {
 
         context.showError( 
             options, 
+            false,
             dataFromServer && dataFromServer.message? dataFromServer.message: 'Undefined error', 
             dataFromServer && dataFromServer.translateMessage );
 

@@ -242,7 +242,6 @@ var SubformManager = function() {
     return {
         id: 'subformManager',
         addToDictionary: false,
-        //setValueToForm: setValueToForm,
         getValueFromRecord: getValueFromRecord,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getTemplate: getTemplate,

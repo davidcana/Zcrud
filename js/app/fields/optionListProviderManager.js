@@ -327,7 +327,6 @@ var OptionListProviderManager = function() {
             
             //when depended combobox changes
             $dependsOnDropdown.change(function () {
-                //alert( $( this ).val() );
                 
                 //Refresh options
                 params.dependedValues = createDependedValuesUsingForm( params.field, params.options, $selection, params ) ;

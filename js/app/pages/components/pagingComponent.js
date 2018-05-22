@@ -88,7 +88,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
 
         pageNumber = newPageNumber;
-        //alert( 'changePage: ' + pageNumber );
         
         updateList();
     };

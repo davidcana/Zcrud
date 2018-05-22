@@ -6,9 +6,10 @@
 var $ = require( 'jquery' );
 var context = require( '../../../js/app/context.js' );
 
-var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
+var Change = function( historyToApply, optionsToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
     var history = historyToApply;
+    var options = optionsToApply;
     var editableOptions = editableOptionsToApply;
     var rowIndex = rowIndexToApply;
     var name = nameToApply;
@@ -25,7 +26,13 @@ var Change = function( historyToApply, editableOptionsToApply, rowIndexToApply, 
     };
     
     var setValue = function( value ){
-        context.getFieldBuilder().setValueToForm( field, value, $this, ! history.isFormMode()  );
+        
+        context.getFieldBuilder().setValueToForm( 
+            field, 
+            value, 
+            $this, 
+            ! history.isFormMode(), 
+            options );
     };
     
     var undo = function(){

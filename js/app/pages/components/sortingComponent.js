@@ -54,7 +54,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             .off() // Remove previous event handlers
             .click( function ( e ) {
                 e.preventDefault();
-                //alert( 'Sort!\nfield: ' + $( this ).data( 'sort-field-id' ) + '\ntype: ' + $( this ).data( 'sort-type' ) );
                 changeSort( 
                     $( this ).data( 'sort-field-id'), 
                     $( this ).data( 'sort-type' ) );
@@ -73,7 +72,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             sortType = formType == 'asc'? 'desc': 'asc';
         }
         
-        //alert( 'changeSort\nfield: ' + sortFieldId + '\ntype: ' + sortType );
         saveSettings();
         updateList();
     };

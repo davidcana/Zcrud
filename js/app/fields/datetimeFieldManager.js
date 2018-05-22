@@ -45,16 +45,16 @@ var DatetimeFieldManager = function() {
         return getValueFromString( record[ field.id ], field );
     };
     
-    var setValueToForm = function( field, value, $this ){
+    var setValueToForm = function( field, value, $this, options ){
         
         switch( field.type ) {
             case 'datetime':
                 var manageTime = true;
             case 'date':
-                setValueToFormForDatetime( field, value, $this, manageTime );
+                setValueToFormForDatetime( field, value, $this, manageTime, options );
                 return;
             case 'time':
-                setValueToFormForTime( field, value, $this );
+                setValueToFormForTime( field, value, $this, options );
                 return;
         }
 
@@ -75,7 +75,7 @@ var DatetimeFieldManager = function() {
         }
     };
     
-    var setValueToFormForDatetime = function( field, value, $this, manageTime ){
+    var setValueToFormForDatetime = function( field, value, $this, manageTime, options ){
 
         var formattedValue = formatToClient( field, value );
         $this
@@ -93,7 +93,8 @@ var DatetimeFieldManager = function() {
             goToDate( 
                 value,
                 $datetime, 
-                dictionary
+                dictionary,
+                options
             );
             
             if ( manageTime ){
@@ -209,7 +210,8 @@ var DatetimeFieldManager = function() {
         
         return buildDatetimeInstance( 
             field, 
-            get$datetime( $selection, field ) );
+            get$datetime( $selection, field ),
+            options );
     };
 
     var getValueFromRecord = function( field, record, params ){
@@ -297,7 +299,6 @@ var DatetimeFieldManager = function() {
     
     var getDateInfo = function( field, selectedDate ){
         
-        //var referenceDate = selectedDate? selectedDate: new Date();
         var referenceDate = getReferenceDate( selectedDate );
         
         return getDateInfoFromObject( field, referenceDate, selectedDate );
@@ -501,7 +502,7 @@ var DatetimeFieldManager = function() {
             thisDate.setMonth( thisDate.getMonth() - 1 );
         }
 
-        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ) );
+        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ), params.options );
     };
     
     var goToNextMonth = function( event, $datetime, params ){
@@ -515,7 +516,7 @@ var DatetimeFieldManager = function() {
             thisDate.setMonth( thisDate.getMonth() + 1 );
         }
 
-        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ) );
+        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ), params.options );
     };
     
     var goToPreviousYear = function( event, $datetime, params ){
@@ -524,7 +525,7 @@ var DatetimeFieldManager = function() {
 
         thisDate.setFullYear( thisDate.getFullYear() - 1 );
 
-        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ) );
+        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ), params.options );
     };
     
     var goToNextYear = function( event, $datetime, params ){
@@ -533,18 +534,18 @@ var DatetimeFieldManager = function() {
 
         thisDate.setFullYear( thisDate.getFullYear() + 1 );
 
-        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ) );
+        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ), params.options );
     };
     
     var update = function( event, $datetime, params ){
 
         var thisDate = getSelectedYearAndMonthDate( event, params.field );
 
-        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ) );
+        goToDate( thisDate, $datetime, buildDictionaryFromParams( params ), params.options );
     };
     
     var goToday = function( event, $datetime, params ){
-        goToDate( new Date(), $datetime, buildDictionaryFromParams( params ) );
+        goToDate( new Date(), $datetime, buildDictionaryFromParams( params ), params.options );
     };
     
     var buildDictionaryFromParams = function( params ){
@@ -558,7 +559,7 @@ var DatetimeFieldManager = function() {
         return dictionary;
     };
     
-    var goToDate = function( referenceDate, $datetime, dictionary ){
+    var goToDate = function( referenceDate, $datetime, dictionary, options ){
             
         // Build selectedDate
         var selectedDate = dictionary.value? 
@@ -566,10 +567,10 @@ var DatetimeFieldManager = function() {
             undefined;
         
         // Update the date picker
-        updateDatePicker( dictionary.field, referenceDate, selectedDate, $datetime );
+        updateDatePicker( dictionary.field, referenceDate, selectedDate, $datetime, options );
     };
     
-    var updateDatePicker = function( field, referenceDate, selectedDate, $datetime ){
+    var updateDatePicker = function( field, referenceDate, selectedDate, $datetime, options ){
         
         dictionary.dateInfo = getDateInfoFromObject( 
             field, 
@@ -577,7 +578,6 @@ var DatetimeFieldManager = function() {
             selectedDate );
 
         // Refresh template
-        //zpt.run({
         context.getZPTParser().run({
             root: $datetime.find( '.datepicker' )[ 0 ],
             dictionary: dictionary,
@@ -585,7 +585,7 @@ var DatetimeFieldManager = function() {
         });
 
         // Bind events
-        bindDatePickerEvents( field, $datetime );
+        bindDatePickerEvents( field, $datetime, options );
     };
     
     var get$datetime = function( $selection, field ){
@@ -620,7 +620,7 @@ var DatetimeFieldManager = function() {
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
-                save( $datetime, params.field, true );
+                save( $datetime, params.field, true, params.options );
             }
         );
 
@@ -765,10 +765,10 @@ var DatetimeFieldManager = function() {
             }
         );
         
-        bindDatePickerEvents( params.field, $datetime );
+        bindDatePickerEvents( params.field, $datetime, params.options );
     };
     
-    var bindDatePickerEvents = function( field, $datetime ){
+    var bindDatePickerEvents = function( field, $datetime, options ){
         
         $datetime
             .find( '.date' )
@@ -776,7 +776,7 @@ var DatetimeFieldManager = function() {
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
-                updateCalendarValue( field, $datetime, $( this ) );
+                updateCalendarValue( field, $datetime, $( this ), options );
             }
         );
     };
@@ -802,7 +802,7 @@ var DatetimeFieldManager = function() {
         
         // Save value if inline
         if ( params.field.customOptions.inline ){
-            save( $datetime, params.field, false );
+            save( $datetime, params.field, false, params.options );
         }
     };
     
@@ -852,7 +852,7 @@ var DatetimeFieldManager = function() {
         
         // Save value if inline
         if ( params.field.customOptions.inline ){
-            save( $datetime, params.field, false );
+            save( $datetime, params.field, false, params.options );
         }
     };
     
@@ -872,13 +872,13 @@ var DatetimeFieldManager = function() {
         return $timePicker.find( '.minutes' );
     };
     
-    var updateCalendarValue = function( field, $datetime, $cell ){
+    var updateCalendarValue = function( field, $datetime, $cell, options ){
 
         $datetime.find( '.' + selectedDateClass ).removeClass( selectedDateClass );
         $cell.addClass( selectedDateClass );
         
         if ( field.customOptions.inline ){
-            save( $datetime, field, false );
+            save( $datetime, field, false, options );
         }
     };
     
@@ -886,7 +886,7 @@ var DatetimeFieldManager = function() {
         return $datetime.find( '.' + selectedDateClass );
     };
     
-    var buildDatetimeInstance = function( field, $datetime ){
+    var buildDatetimeInstance = function( field, $datetime, options ){
         
         var processDate = false;
         var processTime = false;
@@ -917,7 +917,8 @@ var DatetimeFieldManager = function() {
 
             var $selectedDate = get$selectedCell( $datetime );
             if ( ! $selectedDate ){
-                alert( 'No selected items!' );
+                context.showError( options, false, 'No selected items!' );
+                return undefined;
             } else {
                 day = $selectedDate.attr( 'data-date' );
                 month = $selectedDate.attr( 'data-month' );
@@ -941,9 +942,9 @@ var DatetimeFieldManager = function() {
             '';
     };
     
-    var buildDatetimeValue = function( field, $datetime ){
+    var buildDatetimeValue = function( field, $datetime, options ){
         
-        var datatimeInstance = buildDatetimeInstance( field, $datetime );
+        var datatimeInstance = buildDatetimeInstance( field, $datetime, options );
 
         return formatToClient( field, datatimeInstance );
     };
@@ -956,14 +957,14 @@ var DatetimeFieldManager = function() {
         return $datetime.find( "[name='" + field.name + "']" );
     };
     
-    var save = function( $datetime, field, hide ){
+    var save = function( $datetime, field, hide, options ){
         
         // Build client values
         var value = undefined;
         switch( field.type ) {
             case 'datetime':
             case 'date':
-                value = buildDatetimeValue( field, $datetime );
+                value = buildDatetimeValue( field, $datetime, options );
                 break;
             case 'time':
                 value = buildTimeValue( field, $datetime );
@@ -1015,7 +1016,6 @@ var DatetimeFieldManager = function() {
             var pickerValue = $input.attr( pickerValueAttr );
 
             if ( pickerValue !== currentValue ){
-                //alert( 'currentValue: ' + currentValue + '\npickerValue: ' + pickerValue );
                 updateDatetime( params.field, currentValue, $datetime );
                 $input.attr( pickerValueAttr, currentValue );
             }

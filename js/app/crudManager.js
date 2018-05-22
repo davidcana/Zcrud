@@ -117,7 +117,7 @@ module.exports = (function() {
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         } else {
-            context.showError( options, 'invalidFormData', true );
+            context.showError( options, false, 'invalidFormData', true );
         }
     };
     

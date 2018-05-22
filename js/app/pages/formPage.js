@@ -184,7 +184,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             afterProcessTemplate( get$form() );
             
         } catch( e ){
-            alert ( 'Error trying to show form: ' + e );    
+            context.showError( options, 'Error trying to show form: ' + e );    
         }
     };
     
@@ -345,7 +345,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
         // Return if there is no operation to do
         if ( ! jsonObject ){
-            alert( 'No operation to do!' );
+            context.showError( options, 'No operation to do!' );
             return false;
         }
         
@@ -487,7 +487,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         var currentRecord = listPage.getRecordByKey( userData.key );
         
         if ( ! currentRecord ){
-            alert( 'Current record not found in updateRecord method!' );
+            context.showError( options, 'Current record not found in updateRecord method!' );
             return;
         }
         

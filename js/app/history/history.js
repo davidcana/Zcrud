@@ -11,7 +11,7 @@ var $ = require( 'jquery' );
 var History = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
     "use strict";
     
-    //var options = optionsToApply;
+    var options = optionsToApply;
     var editableOptions = editableOptionsToApply;
     var dictionaryProvider = dictionaryProviderToApply;
     var formMode = formModeToApply;
@@ -64,6 +64,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         // Instance, put and return historyItem
         var historyItem = new HistoryChange(
             self,
+            options,
             editableOptions,
             rowIndex,
             name,
@@ -92,6 +93,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         var $this = undefined;
         var historyItem = new HistoryChange(
             self,
+            options, 
             editableOptions,
             rowIndex,
             name,
@@ -228,7 +230,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         var historyItem = isUndoEnabled()? items[ --current ]: undefined;
         if ( ! historyItem ){
-            alert( 'Unable to undo!' );
+            context.showError( options, false, 'Unable to undo!' );
             return;
         }
 
@@ -244,7 +246,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         var historyItem = isRedoEnabled()? items[ current++ ]: undefined;
         if ( ! historyItem ){
-            alert( 'Unable to redo!' );
+            context.showError( options, false, 'Unable to redo!' );
             return;
         }
 

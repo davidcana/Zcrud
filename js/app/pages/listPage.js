@@ -192,7 +192,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 success: clientAndServerSuccessFunction,
                 error: function(){
                     context.hideBusy( options, showBusyFull );
-                    context.showError( options, 'Server communication error!' );
+                    context.showError( options, false, 'Server communication error!' );
                     if ( callback ){
                         callback( false );
                     }

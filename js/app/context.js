@@ -7,18 +7,12 @@ module.exports = (function() {
     var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     var pageUtils = require( './pages/pageUtils.js' );
-    //var FormPage = require( './pages/formPage.js' );
     
     var defaultConf = {
-        /*mainContainerDivId: 'zcrud-main-container',*/
         busyDivId: 'zcrud-busy'
-        //messageDivId: 'zcrud-message',
-        /*defaultMessageDelay: 5000,*/
-        //busyTemplate: "'busyDefaultTemplate@templates/misc.html'"
     };
     var zptParser = undefined;
     var subformSeparator = '-';
-    //var subformSeparator = '/';
     
     /* Cache */
     var cache = {};
@@ -29,36 +23,6 @@ module.exports = (function() {
         return cache[ id ];
     };
     
-    /* mainPage */
-    /*
-    var mainPage = undefined;
-    var setMainPage = function( mainPageToApply ){
-        mainPage = mainPageToApply;
-    };
-    var getMainPage = function(){
-        return mainPage;
-    };*/
-    
-    /* mainContainer */
-    /*
-    var mainContainerDiv = undefined;
-    var getMainContainerDiv = function(){
-        if ( ! mainContainerDiv ){
-            mainContainerDiv = $( '#' + defaultConf.mainContainerDivId );
-        }
-        return mainContainerDiv;
-    };*/
-    
-    /* message */
-    /*
-    var messageDiv = undefined;
-    var getMessageDiv = function(){
-        if ( ! messageDiv ){
-            messageDiv = $( '#' + defaultConf.messageDivId );
-        }
-        return messageDiv;
-    };*/
-    
     /* busy */
     var busyDiv = undefined;
     var getBusyDiv = function(){
@@ -67,23 +31,9 @@ module.exports = (function() {
         }
         return busyDiv;
     };
-    /*
-    var buildDeclaredRemotePageUrls = function( templatePath ){
-        
-        var result = [];
-    
-        var index = templatePath.lastIndexOf( '@' );
-        
-        if ( index != -1 ){
-            result.push( templatePath.substring( 1 + index ) );
-        }
-        
-        return result;
-    };*/
     var showBusy = function ( options, fullVersion ) {
         
         if ( fullVersion ){
-            //var templatePath = defaultConf.busyTemplate;
             var templatePath = options.templates.busyTemplate;
                 
             pageUtils.configureTemplate( options, templatePath );
@@ -106,74 +56,8 @@ module.exports = (function() {
 
         getBusyDiv().hide();
     };
-    /*
-    var showBusy = function ( message, delay ) {
-        
-        //Show a transparent overlay to prevent clicking to the table
-        getBusyDiv()
-            .width( getMainContainerDiv().width() )
-            .height( getMainContainerDiv().height() )
-            .addClass( 'zcrud-busy-panel-background-invisible' )
-            .show();
-
-        var makeVisible = function () {
-            getBusyDiv().removeClass( 'zcrud-busy-panel-background-invisible' );
-            getMessageDiv().html( message ).show();
-        };
-
-        if ( delay ) {
-            if ( busyTimer ) {
-                return;
-            }
-
-            busyTimer = setTimeout( makeVisible, delay );
-        } else {
-            makeVisible();
-        }
-    };*/
     
-    /* Hides busy indicator and unblocks table UI.
-    *************************************************************************/
-    /*
-    var hideBusy = function () {
-        clearTimeout( busyTimer );
-        busyTimer = null;
-        getBusyDiv().hide();
-        getMessageDiv().html( '' ).hide();
-    };*/
-    
-    /* Returns true if ZCrud is busy.
-    *************************************************************************/
-    /*
-    var isBusy = function () {
-        return false;
-        //return messageDiv().is( ':visible' );
-    };*/
-    
-    /* Shows message with given message.
-    *************************************************************************/
-    /*
-    var messageTimer = undefined;
-    var hideMessage = function () {
-        getMessageDiv().html( '' );
-    };
-    var showMessage = function ( message, delay ) {
-        getMessageDiv().html( message );
-        startHideMessageTimer( delay );
-    };
-    var showError = function ( message, delay ) {
-        showMessage( message, delay );
-    };
-    var startHideMessageTimer = function ( delay ) {
-        
-        var delay = delay || defaultConf.defaultMessageDelay;
-        
-        if ( messageTimer ) {
-            return;
-        }
-
-        messageTimer = setTimeout( hideMessage, delay );
-    };*/
+    // I18n
     var i18nArray = undefined;
     var setI18nArray = function( i18nArrayToApply, options ){
         i18nArray = i18nArrayToApply;
@@ -184,13 +68,16 @@ module.exports = (function() {
         //return id;
     };
     
-    var showError = function ( options, message, mustTranslate, params, format, subformat ) {
+    // Errors
+    var showError = function ( options, throwException, message, mustTranslate, params, format, subformat ) {
         var translated = 
             mustTranslate? 
             translate( message, params, format, subformat ): 
             message;
         options.fatalErrorFunction( translated );
-        //alert( translated );
+        if ( throwException ){
+            throw translated;
+        }
     };
     
     // Form validation language
@@ -269,8 +156,8 @@ module.exports = (function() {
     };
 
     var getSelectorString = function( $jqueryObject ){
+        
         var selector = (typeof($jqueryObject.attr('id')) !== 'undefined' || $jqueryObject.attr('id') !== null) ? '#' + $jqueryObject.attr('id') :  '.' + $jqueryObject.attr('class');
-        //alert(selector);
         return selector;
     };
     
@@ -302,26 +189,25 @@ module.exports = (function() {
         }
     };
     
+    // ZPT
     var initZPT = function( zptOptions ){
 
         zptParser = zpt.buildParser( zptOptions );
         zptParser.init( zptOptions.callback );
     };
-    
     var getZPTParser = function(){
         return zptParser;
     };
     
+    // Update visible fields (for testing purposes)
     var updateFormVisibleFields = function( options, fieldIdList ){
         options.pageConf.pages.create.fields = fieldIdList;
         options.pageConf.pages.update.fields = fieldIdList;
         options.pageConf.pages.delete.fields = fieldIdList;
     };
-
     var updateListVisibleFields = function( options, fieldIdList ){
         options.pageConf.pages.list.fields = fieldIdList;
     };
-    
     var updateSubformFields = function( subformField, fieldIdList ){
         
         var fields = subformField.fields;
@@ -333,6 +219,7 @@ module.exports = (function() {
         subformField.fields = temp;
     };
     
+    // Fields
     var getField = function( fields, fullName ){
 
         var fieldData = getFieldData( fullName );
@@ -340,7 +227,6 @@ module.exports = (function() {
             fields[ fieldData.subformName ].fields[ fieldData.name ]:
         fields[ fieldData.name ];
     };
-
     var getFieldData = function( fullName ){
 
         var subformSeparatorIndex = fullName.indexOf( subformSeparator );
@@ -350,10 +236,12 @@ module.exports = (function() {
         };
     };
     
+    // JSONBuilder
     var getJSONBuilder = function( options ){
         return options.jsonBuilder;
     };
 
+    // fieldBuilder
     var fieldBuilder = undefined;
     var setFieldBuilder = function( fieldBuildertoApply ){
         fieldBuilder = fieldBuildertoApply;
@@ -365,12 +253,6 @@ module.exports = (function() {
     return {
         put: put,
         get: get,
-        //setMainPage: setMainPage,
-        //getMainPage: getMainPage,
-        showBusy: showBusy,
-        hideBusy: hideBusy,
-        //isBusy: isBusy,
-        //showMessage: showMessage,
         setI18nArray: setI18nArray,
         translate: translate,
         showError: showError,
@@ -390,9 +272,10 @@ module.exports = (function() {
         getField: getField,
         getFieldData: getFieldData,
         subformSeparator: subformSeparator,
-        //getFormPage: getFormPage
         getJSONBuilder: getJSONBuilder,
         setFieldBuilder: setFieldBuilder,
-        getFieldBuilder: getFieldBuilder
+        getFieldBuilder: getFieldBuilder,
+        showBusy: showBusy,
+        hideBusy: hideBusy
     };
 })();
