@@ -37,7 +37,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 autoSaveMode = false;
                 break;
             default:
-                context.showError( options, 'Unknown event in editable list: ' + editableEvent );
+                context.showError( options, true, 'Unknown event in editable list: ' + editableEvent );
                 return;
         }*/
 
@@ -238,7 +238,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         if ( jsonObject.existingRecords && Object.keys( jsonObject.existingRecords ).length == 0 
             && jsonObject.newRecords && jsonObject.newRecords.length == 0 
             && jsonObject.deleted && jsonObject.deleted.recordsToRemove == 0){
-            context.showError( options, 'No operations done!' );
+            context.showError( options, false, 'No operations done!' );
             return false;
         }
 
@@ -351,7 +351,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var updateKeys = function( $trArray, records ){
         
         if ( $trArray.length != records.length ){
-            context.showError( options, 'Error trying to update keys: $trArray and records length does not match!' );
+            context.showError( options, true, 'Error trying to update keys: $trArray and records length does not match!' );
             return;    
         }
         
