@@ -26,7 +26,7 @@ module.exports = (function() {
             dictionaryAddOn[ fieldManager.id ] = fieldManager;
         }
     };
-    
+    /*
     var unregister = function( fieldManager, fieldTypes ) {
         
         fieldTypes = fieldTypes || fieldManager.types;
@@ -39,18 +39,21 @@ module.exports = (function() {
         } else { 
             delete fieldManagers[ fieldTypes ];
         }
-    };
-    
+    };*/
     var registerAll = function( managers ){
-        /*
-        if ( Object.keys( fieldManagers ).length !== 0 ){
-            return;
-        }*/
+
+        for ( var i = 0; i < managers.length; ++i ){
+            var item = managers[ i ];
+            register( item.fieldManager, item.fieldTypes );
+        }
+    };
+    /*
+    var registerAll = function( managers ){
         
         for ( var i = 0; i < managers.length; ++i ){
             register( managers[ i ] );
         }
-    };
+    };*/
     /*
     var registerAll = function(){
         register( require( './datetimeFieldManager.js' ) );
@@ -263,7 +266,7 @@ module.exports = (function() {
     
     var self = {
         register: register,
-        unregister: unregister,
+        //unregister: unregister,
         registerAll: registerAll,
         //beforeProcessTemplateForField: beforeProcessTemplateForField,
         afterProcessTemplateForField: afterProcessTemplateForField,

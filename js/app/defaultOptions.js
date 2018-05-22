@@ -22,10 +22,22 @@ module.exports = {
     fields: {},
     fieldsConfig: {
         managers: [
-            require( './fields/datetimeFieldManager.js' ),
-            require( './fields/optionListProviderManager.js' ),
-            require( './fields/checkboxFieldManager.js' ),
-            require( './fields/subformManager.js' )
+            {
+                fieldTypes: [ 'date', 'datetime', 'time' ],
+                fieldManager: require( './fields/datetimeFieldManager.js' )
+            },
+            {
+                fieldTypes: [ 'datalist', 'select', 'radio' ],
+                fieldManager: require( './fields/optionListProviderManager.js' )
+            },
+            {
+                fieldTypes: [ 'checkbox' ],
+                fieldManager: require( './fields/checkboxFieldManager.js' )
+            },
+            {
+                fieldTypes: [ 'subform' ],
+                fieldManager: require( './fields/subformManager.js' )
+            }
         ],
         defaultFieldOptions: {
             datetime: {

@@ -1084,6 +1084,6 @@ var DatetimeFieldManager = function() {
     };
 }();
 
-DatetimeFieldManager.types = [ 'date', 'datetime', 'time' ];
+//DatetimeFieldManager.types = [ 'date', 'datetime', 'time' ];
 
 module.exports = DatetimeFieldManager;

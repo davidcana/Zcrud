@@ -253,6 +253,6 @@ var SubformManager = function() {
     };
 }();
 
-SubformManager.types = [ 'subform' ];
+//SubformManager.types = [ 'subform' ];
 
 module.exports = SubformManager;

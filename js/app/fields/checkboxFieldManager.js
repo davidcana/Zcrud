@@ -54,6 +54,6 @@ var CheckboxFieldManager = function() {
     };
 }();
 
-CheckboxFieldManager.types = [ 'checkbox' ];
+//CheckboxFieldManager.types = [ 'checkbox' ];
 
 module.exports = CheckboxFieldManager;
