@@ -8,8 +8,6 @@ var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
-var optionListProviderManager = require( '../fields/optionListProviderManager.js' );
-var datetimeFieldManager = require( '../fields/datetimeFieldManager.js' );
 var fieldListBuilder = require( '../fieldListBuilder.js' );
 
 var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageToApply ) {

@@ -97,7 +97,6 @@ var OptionListProviderManager = function() {
             } else {
                 $radios.prop( 'checked', false ); 
             }
-            //$this.prop( 'checked', value? true: false );
             return;
         case 'select':
         //case 'optgroup':
