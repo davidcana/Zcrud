@@ -170,6 +170,24 @@
                     Defines some default options for fields. An example:
                     <pre class="brush: javascript">
         fieldsConfig: {
+            managers: [
+                {
+                    fieldTypes: [ 'date', 'datetime', 'time' ],
+                    fieldManager: require( './fields/datetimeFieldManager.js' )
+                },
+                {
+                    fieldTypes: [ 'datalist', 'select', 'radio' ],
+                    fieldManager: require( './fields/optionsFieldManager.js' )
+                },
+                {
+                    fieldTypes: [ 'checkbox' ],
+                    fieldManager: require( './fields/checkboxFieldManager.js' )
+                },
+                {
+                    fieldTypes: [ 'subform' ],
+                    fieldManager: require( './fields/subformManager.js' )
+                }
+            ],
             defaultFieldOptions: {
                 datetime: {
                     inline: false,
@@ -199,6 +217,7 @@
                     
                     The options are:
                     <ul>
+                        <li><em>managers</em>. Some types of fields need some javascript code to work. This section shows the javascript classes for each field type.</li>
                         <li><em>defaultFieldOptions</em>. Default custom options for fields, by type.</li>
                         <li><em>getDefaultFieldTemplate</em>. A function to build the path of the template of a field.</li>
                     </ul>

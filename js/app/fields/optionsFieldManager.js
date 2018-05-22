@@ -1,5 +1,5 @@
 /*
-    OptionListProviderManager singleton class
+    OptionsFieldManager singleton class
 */
 "use strict";
 
@@ -8,7 +8,7 @@ var optionProvider = require( './optionProvider.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
     
-var OptionListProviderManager = function() {
+var OptionsFieldManager = function() {
     
     var afterProcessTemplateForFieldInCreateOrUpdate = function( params, $selection ){
         
@@ -66,7 +66,7 @@ var OptionListProviderManager = function() {
             // Nothing to do
             break; 
         default:
-            throw "Unknown source in OptionListProviderManager: " + params.source;
+            throw "Unknown source in OptionsFieldManager: " + params.source;
         }
     };
     
@@ -83,7 +83,7 @@ var OptionListProviderManager = function() {
                 return $selection.find( "input[name='" + field.name + "']").val();
         }
 
-        throw "Unknown field type in optionListProviderManager: " + field.type;
+        throw "Unknown field type in optionsFieldManager: " + field.type;
     };
     
     var setValueToForm = function( field, value, $this ){
@@ -107,7 +107,7 @@ var OptionListProviderManager = function() {
             return;
         }
         
-        throw "Unknown field type in optionListProviderManager: " + field.type;
+        throw "Unknown field type in optionsFieldManager: " + field.type;
     };
 
     var getValueFromRecord = function( field, record, params ){
@@ -127,7 +127,7 @@ var OptionListProviderManager = function() {
                     return tempValue;
                 }
             default:
-                throw "Unknown source in OptionListProviderManager: " + params.source;
+                throw "Unknown source in OptionsFieldManager: " + params.source;
         }
     };
     var getDisplayTextMapFromArrayOptions = function( optionsArray, field ){
@@ -157,7 +157,7 @@ var OptionListProviderManager = function() {
                 return 'datalist-definition@templates/fields/basic.html';
         }
 
-        throw "Unknown field type in optionListProviderManager: " + field.type;
+        throw "Unknown field type in optionsFieldManager: " + field.type;
     };
 
     var mustHideLabel = function( field ){
@@ -171,7 +171,7 @@ var OptionListProviderManager = function() {
                 return false;
         }
 
-        throw "Unknown field type in optionListProviderManager: " + field.type;
+        throw "Unknown field type in optionsFieldManager: " + field.type;
     };
     
     var getOptionsFromBlank = function( field, options ){
@@ -183,7 +183,7 @@ var OptionListProviderManager = function() {
     };
     
     return {
-        id: 'optionListProviderManager',
+        id: 'optionsFieldManager',
         addToDictionary: true,
         afterProcessTemplateForField: afterProcessTemplateForField,
         getValueFromForm: getValueFromForm,
@@ -198,6 +198,6 @@ var OptionListProviderManager = function() {
 }();
 
 // TODO Implement support of optgroup
-//OptionListProviderManager.types = [ 'datalist', 'select', 'optgroup', 'radio' ];
+//OptionsFieldManager.types = [ 'datalist', 'select', 'optgroup', 'radio' ];
 
-module.exports = OptionListProviderManager;
+module.exports = OptionsFieldManager;

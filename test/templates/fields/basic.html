@@ -37,7 +37,7 @@
                                       value value;
                                       class 'historyField';
                                       field/formFieldAttributes"
-                    data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )">
+                    data-tdefine="optionsList optionsListFromForm || optionsFieldManager/getOptionsFromRecord( record, field, options )">
                 <option data-trepeat="option optionsList"
                         data-tattributes="value option/value; 
                                           selected cond: (eq: option/value value) 'selected' null"
@@ -47,7 +47,7 @@
 
         <div data-mdefine-macro="radio" data-tomit-tag=""
              data-tattributes="field/formFieldAttributes">
-            <div data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromRecord( record, field, options )"
+            <div data-tdefine="optionsList optionsListFromForm || optionsFieldManager/getOptionsFromRecord( record, field, options )"
                  data-tattributes="class 'zcrud-radio-container'"
                  data-idomain="i18nArray">
                 <div data-trepeat="option optionsList">
@@ -75,7 +75,7 @@
         </div>
         <div data-mdefine-macro="datalist-definition">
             <datalist data-tattributes="id string:${field/elementId}-datalist"
-                      data-tdefine="optionsList optionsListFromForm || optionListProviderManager/getOptionsFromBlank( field, options )">
+                      data-tdefine="optionsList optionsListFromForm || optionsFieldManager/getOptionsFromBlank( field, options )">
                 <option data-trepeat="option optionsList"
                         data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
                         data-tattributes="value option/value;

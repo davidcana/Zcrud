@@ -28,7 +28,7 @@ module.exports = {
             },
             {
                 fieldTypes: [ 'datalist', 'select', 'radio' ],
-                fieldManager: require( './fields/optionListProviderManager.js' )
+                fieldManager: require( './fields/optionsFieldManager.js' )
             },
             {
                 fieldTypes: [ 'checkbox' ],

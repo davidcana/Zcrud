@@ -46,6 +46,7 @@
                 components: {
                     paging: {
                         isOn: true,
+                        constructorClass: require( './pages/components/pagingComponent.js' ),
                         defaultPageSize: 10,
                         pageSizes: [10, 25, 50, 100, 250, 500],
                         pageSizeChangeArea: true,
@@ -58,6 +59,7 @@
                     },
                     sorting: {
                         isOn: false,
+                        constructorClass: require( './pages/components/sortingComponent.js' ),
                         loadFromLocalStorage: true,
                         default: {
                             fieldId: undefined,
@@ -66,15 +68,18 @@
                         allowUser: false
                     },
                     filtering: {
-                        isOn: false
+                        isOn: false,
+                        constructorClass: require( './pages/components/filteringComponent.js' ),
                     },
                     selecting: {
                         isOn: false,
+                        constructorClass: require( './pages/components/selectingComponent.js' ),
                         multiple: true,
                         mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
                     },
                     editing: {
                         isOn: false,
+                        constructorClass: require( './pages/components/editingComponent.js' ),
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',
                         hideTr: function( $tr ){
@@ -157,6 +162,7 @@
                             <em>paging</em>. All about paging. On by default. Suboptions:
                             <ul>
                                 <li><em>isOn</em>. On/off paging.</li>
+                                <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
                                 <li><em>defaultPageSize</em>. Default number of items to show per page. Default value is <em>10</em>.</li>
                                 <li><em>pageSizes</em>. A list of page sizes. The user can select any of these. Default value is <em>[10, 25, 50, 100, 250, 500]</em>.</li>
                                 <li><em>pageSizeChangeArea</em>. Defines whether the list of page sizes is shown. Default value is <em>true</em>.</li>
@@ -172,6 +178,7 @@
                             <em>sorting</em>. All about sorting. Off by default.
                             <ul>
                                 <li><em>isOn</em>. On/off sorting.</li>
+                                <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
                                 <li><em>loadFromLocalStorage</em>. If <em>true</em> ZCrud will save/load sorting preferences in local storage.</li>
                                 <li>
                                     <em>default</em>. Default sorting:
@@ -187,6 +194,7 @@
                             <em>filtering</em>. All about filtering. Off by default.
                             <ul>
                                 <li><em>isOn</em>. On/off filtering.</li>
+                                <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
                                 <li><em>fields</em>. The list of fields to define the filter.</li>
                             </ul>
                         </li>
@@ -194,6 +202,7 @@
                             <em>selecting</em>. All about selecting. Off by default.
                             <ul>
                                 <li><em>isOn</em>. On/off selecting.</li>
+                                <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
                                 <li><em>multiple</em>. Defines whether multiple selection is allowed.</li>
                                 <li><em>mode</em>. Array of string that defines the selecting mode. Possible values are <em>checkbox</em> (must click a checkbox) and <em>onRowClick</em> (must click on the row, no checkbox present). Default value is <em>[ 'checkbox', 'onRowClick']</em>.</li>
                             </ul>
@@ -202,6 +211,7 @@
                             <em>editing</em>. All about editing. Off by default.
                             <ul>
                                 <li><em>isOn</em>. On/off editing. If true the list is a editable list; if false it is an only read list.</li>
+                                <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
                                 <li><em>url</em>. The server URL to connect.</li>
                                 <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
                                 <li><em>hideTr</em> and <em>showTr</em>. Functions to customize hide/show rows.</li>

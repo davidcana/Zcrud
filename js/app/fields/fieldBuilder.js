@@ -26,20 +26,7 @@ module.exports = (function() {
             dictionaryAddOn[ fieldManager.id ] = fieldManager;
         }
     };
-    /*
-    var unregister = function( fieldManager, fieldTypes ) {
-        
-        fieldTypes = fieldTypes || fieldManager.types;
-        
-        if ( $.isArray( fieldTypes ) ){
-            for ( var c = 0; c < fieldTypes.length; c++ ) {
-                delete fieldManagers[ fieldTypes[ c ] ];
-            }
-            
-        } else { 
-            delete fieldManagers[ fieldTypes ];
-        }
-    };*/
+
     var registerAll = function( managers ){
 
         for ( var i = 0; i < managers.length; ++i ){
@@ -47,29 +34,6 @@ module.exports = (function() {
             register( item.fieldManager, item.fieldTypes );
         }
     };
-    /*
-    var registerAll = function( managers ){
-        
-        for ( var i = 0; i < managers.length; ++i ){
-            register( managers[ i ] );
-        }
-    };*/
-    /*
-    var registerAll = function(){
-        register( require( './datetimeFieldManager.js' ) );
-        register( require( './optionListProviderManager.js' ) );
-        register( require( './checkboxFieldManager.js' ) );
-        register( require( './subformManager.js' ) );
-    }();*/
-    /*
-    var beforeProcessTemplateForField = function( params ){
-        
-        var fieldManager = fieldManagers[ params.field.type ];
-        
-        if ( fieldManager && $.isFunction( fieldManager.beforeProcessTemplateForField ) ){
-            fieldManager.beforeProcessTemplateForField( params );
-        }
-    };*/
     
     var afterProcessTemplateForField = function( params, $selection ){
         
@@ -79,36 +43,6 @@ module.exports = (function() {
             fieldManager.afterProcessTemplateForField( params, $selection );
         }
     };
-    /*
-    var afterProcessTemplateForFieldAndRecords = function( params, records ){
-
-        var fieldManager = fieldManagers[ params.field.type ];
-
-        if ( fieldManager && $.isFunction( fieldManager.afterProcessTemplateForField ) ){
-            for ( var i = 0; i < records.length; i++ ) {
-                var record = records[ i ];
-                params.record = record;
-                params.value = record[ params.field.id ];
-                fieldManager.afterProcessTemplateForField( params );
-            }
-        }
-    };*/
-    /*
-    var setValueToForm = function( field, value, $this, defaultBlur ){
-
-        var fieldManager = fieldManagers[ field.type ];
-
-        if ( fieldManager && $.isFunction( fieldManager.setValueToForm ) ){
-            fieldManager.setValueToForm( field, value, $this );
-            return;
-        }
-
-        $this.val( value );
-        //if ( defaultBlur ){
-            //$this.blur();
-            $this.keyup();
-        //}
-    };*/
     
     var setValueToForm = function( field, value, $this, defaultBlur ){
 

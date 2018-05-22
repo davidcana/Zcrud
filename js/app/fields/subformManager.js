@@ -101,9 +101,7 @@ var SubformManager = function() {
     var bindEventsInRows = function( params, $subform, $tr ){
         
         var formPage = params.formPage;
-        //var fieldBuilder = params.fieldBuilder; 
         var $selection = $subform || $tr;
-        //var $selection = $subform || $tr.parents( '.zcrud-data-entity' ).first();
         
         $selection
             .find( 'input.historyField, textarea.historyField, select.historyField' )
@@ -178,7 +176,6 @@ var SubformManager = function() {
     var buildProcessTemplateParams = function( field, record, dictionary, params ){
 
         return {
-            //id: 'optionListProviderManager',
             field: field, 
             value: record[ field.id ],
             options: params.options,
@@ -186,7 +183,6 @@ var SubformManager = function() {
             source: params.source,
             dictionary: dictionary,
             formPage: params.formPage
-            //fieldBuilder: params.fieldBuilder
         };
     };
     
