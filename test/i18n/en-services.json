@@ -39,10 +39,16 @@
     "location_description": "Data about the location",
     "basicData_title": "Basic data",
     "basicData_description": "Basic data about the departament",
+    "hobbies_title": "Hobbies",
+    "hobbies_description": "Your favourites hobbies, you can select several of them",
     
     "_options": "",
     "homePhone_option": "Home phone",
     "officePhone_option": "Office phone",
-    "cellPhone_option": "Cell phone"
-    
+    "cellPhone_option": "Cell phone",
+    "reading_option": "Reading",
+    "videogames_option": "Videogames",
+    "sports_option": "Sports",
+    "cards_option": "Cards"
+
 }

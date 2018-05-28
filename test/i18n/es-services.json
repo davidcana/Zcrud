@@ -39,9 +39,16 @@
     "location_description": "Información relacionada con el lugar",
     "basicData_title": "Datos básicos",
     "basicData_description": "Los datos básicos del departamento",
+    "hobbies_title": "Aficiones",
+    "hobbies_description": "Sus aficiones favoritas, puede seleccionar varias",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",
     "officePhone_option": "Teléfono del trabajo",
-    "cellPhone_option": "Teléfono móvil"
+    "cellPhone_option": "Teléfono móvil",
+    "reading_option": "Lectura",
+    "videogames_option": "Videojuegos",
+    "sports_option": "Deportaes",
+    "cards_option": "Cartas"
+    
 }

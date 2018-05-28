@@ -144,6 +144,11 @@ module.exports = {
             type: 'checkbox'
         },
         number: {
+        },
+        hobbies: {
+            type: 'checkboxes',
+            translateOptions: true,
+            options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
         }
     },
 

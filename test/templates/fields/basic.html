@@ -94,5 +94,24 @@
                    type="checkbox">
         </div>
         
+        <div data-mdefine-macro="checkboxes" data-tomit-tag=""
+             data-tattributes="field/formFieldAttributes">
+            <div data-tdefine="optionsList optionsListFromForm || optionsFieldManager/getOptionsFromRecord( record, field, options )"
+                 data-tattributes="class 'zcrud-checkboxes-container'"
+                 data-idomain="i18nArray">
+                <div data-trepeat="option optionsList">
+                    <label>
+                        <input type="checkbox"
+                               data-tdefine="nameIndex data-subform-record-index || data-record-index;
+                                             isChecked cond: (exists: value) (lt: -1 value/indexOf(option/value)) false"
+                               data-tattributes="name string:${field/elementName}[${nameIndex}];
+                                                 value option/value;
+                                                 checked cond: isChecked 'checked' null;
+                                                 class 'historyField zcrud-active';">
+                        <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                    </label>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

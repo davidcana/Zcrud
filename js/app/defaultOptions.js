@@ -27,7 +27,7 @@ module.exports = {
                 fieldManager: require( './fields/datetimeFieldManager.js' )
             },
             {
-                fieldTypes: [ 'datalist', 'select', 'radio' ],
+                fieldTypes: [ 'datalist', 'select', 'radio', 'checkboxes' ],
                 fieldManager: require( './fields/optionsFieldManager.js' )
             },
             {

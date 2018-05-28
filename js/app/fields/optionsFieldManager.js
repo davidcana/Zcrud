@@ -70,12 +70,26 @@ var OptionsFieldManager = function() {
         }
     };
     
+    var getValueFromSelectionAndField = function( field, $selection ){
+        
+        //var checkboxesValue = [];
+        var $checkboxesContainer = $selection.parents( '.zcrud-checkboxes-container' ).first();
+        return $checkboxesContainer.find( "input[type='checkbox'][name='" + field.name + "[0]']:checked" ).map(
+            function() {
+                return $( this ).val();
+            }
+        ).get();
+        //return checkboxesValue;
+    };
+    
     var getValueFromForm = function( field, options, $selection ){
 
         switch( field.type ) {
+            case 'checkboxes':
+                return getValueFromSelectionAndField( field, $selection );
             case 'radio':
-                var selected = $selection.find( "input[type='radio'][name='" + field.name + "[0]']:checked" );
-                return selected.length > 0? selected.val(): undefined;
+                var $selectedRadio = $selection.find( "input[type='radio'][name='" + field.name + "[0]']:checked" );
+                return $selectedRadio.length > 0? $selectedRadio.val(): undefined;
             case 'select':
                 return $selection.find( "select[name='" + field.name + "']").val();
             //case 'optgroup':
@@ -89,27 +103,51 @@ var OptionsFieldManager = function() {
     var setValueToForm = function( field, value, $this ){
         
         switch( field.type ) {
-        case 'radio':
-            var $container = $this.parents( '.zcrud-radio-container' ).first();
-            var $radios = $container.find( 'input:radio.zcrud-active' );
-            if ( value ){
-                $radios.filter( '[value=' + value + ']' ).prop( 'checked', true );   
-            } else {
-                $radios.prop( 'checked', false ); 
-            }
-            return;
-        case 'select':
-        //case 'optgroup':
-        case 'datalist':
-            $this.val( value );
-            $this.trigger( "change", [ true ] );
-            //$this.change(); 
-            return;
+            case 'checkboxes':  
+                var $checkboxesContainer = $this.parents( '.zcrud-checkboxes-container' ).first();
+                var $checkboxes = $checkboxesContainer.find( 'input:checkbox.zcrud-active' );
+                $checkboxes.prop( 'checked', false ); 
+                if ( value ){
+                    for ( var i = 0; i < value.length; ++i ){
+                        $checkboxes.filter( '[value=' + value[ i ] + ']' ).prop( 'checked', true );   
+                    }
+                }
+                return;
+            case 'radio':
+                var $radiosContainer = $this.parents( '.zcrud-radio-container' ).first();
+                var $radios = $radiosContainer.find( 'input:radio.zcrud-active' );
+                if ( value ){
+                    $radios.filter( '[value=' + value + ']' ).prop( 'checked', true );   
+                } else {
+                    $radios.prop( 'checked', false ); 
+                }
+                return;
+            case 'select':
+            //case 'optgroup':
+            case 'datalist':
+                $this.val( value );
+                $this.trigger( "change", [ true ] ); 
+                return;
         }
         
         throw "Unknown field type in optionsFieldManager: " + field.type;
     };
+    
+    var getValue = function( $this, field ){
 
+        switch( field.type ) {
+            case 'checkboxes':
+                return getValueFromSelectionAndField( field, $this );
+            case 'radio':
+            case 'select':
+            //case 'optgroup':
+            case 'datalist':
+                return $this.val();
+        }
+
+        throw "Unknown field type in optionsFieldManager: " + field.type;
+    };
+    
     var getValueFromRecord = function( field, record, params ){
 
         switch( params.source ) {
@@ -130,6 +168,7 @@ var OptionsFieldManager = function() {
                 throw "Unknown source in OptionsFieldManager: " + params.source;
         }
     };
+    
     var getDisplayTextMapFromArrayOptions = function( optionsArray, field ){
         
         var map = {};
@@ -149,6 +188,7 @@ var OptionsFieldManager = function() {
     var getPostTemplate = function( field ){
 
         switch( field.type ) {
+            case 'checkboxes':
             case 'radio':
             case 'select':
             //case 'optgroup':
@@ -163,6 +203,7 @@ var OptionsFieldManager = function() {
     var mustHideLabel = function( field ){
         
         switch( field.type ) {
+            case 'checkboxes':
             case 'radio':
                 return true;
             case 'select':
@@ -186,6 +227,7 @@ var OptionsFieldManager = function() {
         id: 'optionsFieldManager',
         addToDictionary: true,
         afterProcessTemplateForField: afterProcessTemplateForField,
+        getValue: getValue,
         getValueFromForm: getValueFromForm,
         setValueToForm: setValueToForm,
         getValueFromRecord: getValueFromRecord,
