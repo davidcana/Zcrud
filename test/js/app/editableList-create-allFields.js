@@ -1113,3 +1113,69 @@ QUnit.test( "create datalist test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "create checkboxes test", function( assert ) {
+
+    var done = assert.async();
+    var varName = 'hobbies';
+    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 0 doesn't exist
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = [ 'reading_option', 'sports_option' ];
+            testHelper.checkNoRecord( assert, key, record2, editable );
+
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: editable
+            });
+
+            // Create record
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( record2 );
+            testHelper.assertHistory( assert, 5, 0, false );
+            
+            // Undo (2 times)
+            testHelper.clickUndoButton( 2 );
+            testHelper.checkEditableListLastRow( assert, record );
+            testHelper.assertHistory( assert, 3, 2, false );
+            
+            // Redo (2 times)
+            testHelper.clickRedoButton( 2 );
+            testHelper.checkEditableListLastRow( assert, record2 );
+            testHelper.assertHistory( assert, 5, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
+            done();
+        }
+    );
+});

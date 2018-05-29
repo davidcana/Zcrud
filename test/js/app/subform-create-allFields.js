@@ -278,6 +278,11 @@ defaultTestOptions.fields.members.fields = {
     browser: {
         type: 'datalist',
         options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+    },
+    hobbies: {
+        type: 'checkboxes',
+        translateOptions: true,
+        options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
     }
 };
 
@@ -2186,6 +2191,125 @@ QUnit.test( "create datalist test", function( assert ) {
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, false );
 
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkForm( assert, editedRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "create checkboxes test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, defaultTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // Setup services
+            testUtils.resetServices();
+            var key = 4;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "hobbies": [ 'reading_option', 'videogames_option' ]
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "hobbies": [ 'reading_option', 'cards_option' ]
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+
+            var varName = 'hobbies';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+
+            // Add subform record 3
+            var subformRecord3 = {
+                "code": "3",
+                "name": "Homer Simpson",
+                "hobbies": [ 'sports_option', 'cards_option' ]
+            };
+            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
+
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( subformRecord3Clone );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 5, 0, true );
+            
+            // Undo (1) (2 times)
+            delete editedRecord.members[ 2 ][ varName ];
+            testHelper.clickUndoButton( 2 );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 2, false );
+            
+            // Undo (2)
+            editedRecord.members[ 2 ][ 'name' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 3, false );
+            
+            // Undo (3)
+            editedRecord.members[ 2 ][ 'code' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 4, false );
+            
+            // Undo (4)
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 5, false );
+            
+            // Redo (1)
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 4, false );
+            
+            // Redo (2)
+            editedRecord.members[ 2 ][ 'code' ] = subformRecord3[ 'code' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 3, false );
+            
+            // Redo (3)
+            editedRecord.members[ 2 ][ 'name' ] = subformRecord3[ 'name' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 2, false );
+            
+            // Redo (4) (2 times)
+            editedRecord.members[ 2 ][ varName ] = subformRecord3[ varName ];
+            testHelper.clickRedoButton( 2 );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 5, 0, false );
+            
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
 

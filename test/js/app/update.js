@@ -54,7 +54,8 @@ QUnit.test( "update test", function( assert ) {
                     "city": "Tarifa",
                     "browser": "Firefox",
                     "important": true,
-                    "number": "3"
+                    "number": "3",
+                    "hobbies": [ 'reading_option', 'sports_option' ]
                 };
 
                 testHelper.fillForm( editedRecord );

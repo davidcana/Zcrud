@@ -36,7 +36,8 @@ QUnit.test( "create test", function( assert ) {
                 "city": "Marbella",
                 "browser": "Firefox",
                 "important": true,
-                "number": "3"
+                "number": "3",
+                "hobbies": [ 'reading_option', 'sports_option' ]
             };
             testHelper.checkNoRecord( assert, key );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -54,7 +55,6 @@ QUnit.test( "create test", function( assert ) {
             // Go to create form and create record
             testHelper.clickCreateListButton();
             testHelper.fillForm( record );
-            
             testHelper.checkForm( assert, record );
             
             // Submit and show the list again

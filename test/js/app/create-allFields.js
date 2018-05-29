@@ -913,3 +913,56 @@ QUnit.test( "create datalist test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "create checkboxes test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+
+            var varName = 'hobbies';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 0 doesn't exist
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            var record2 = $.extend( true, {}, record );
+            record2[ varName ] = [ 'reading_option', 'sports_option' ];
+            testHelper.checkNoRecord( assert, key, record2 );
+
+            // Create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record2 );
+            testHelper.assertHistory( assert, 4, 0, false );
+            
+            // Undo (2 times)
+            testHelper.clickUndoButton( 2 );
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 2, 2, false );
+            
+            // Redo (2 times)
+            testHelper.clickRedoButton( 2 );
+            testHelper.checkForm( assert, record2 );
+            testHelper.assertHistory( assert, 4, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            assert.deepEqual( testUtils.getService( key ), record2 );
+
+            done();
+        }
+    );
+});

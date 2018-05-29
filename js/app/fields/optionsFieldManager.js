@@ -72,14 +72,13 @@ var OptionsFieldManager = function() {
     
     var getValueFromSelectionAndField = function( field, $selection ){
         
-        //var checkboxesValue = [];
         var $checkboxesContainer = $selection.parents( '.zcrud-checkboxes-container' ).first();
-        return $checkboxesContainer.find( "input[type='checkbox'][name='" + field.name + "[0]']:checked" ).map(
+        //return $checkboxesContainer.find( "input[type='checkbox'][name='" + field.name + "[0]']:checked" ).map(
+        return $checkboxesContainer.find( "input[type='checkbox']:checked" ).map(
             function() {
                 return $( this ).val();
             }
         ).get();
-        //return checkboxesValue;
     };
     
     var getValueFromForm = function( field, options, $selection ){
@@ -159,6 +158,9 @@ var OptionsFieldManager = function() {
                 var tempValue = record[ field.id ];
                 try {
                     var map = getDisplayTextMapFromArrayOptions( optionsList, field );
+                    if ( field.type == 'checkboxes' ){
+                        return getMultipleValueFromRecord( map, tempValue );
+                    }
                     var inMapValue = map[ tempValue ];
                     return inMapValue? inMapValue: tempValue;
                 } catch ( e ){
@@ -167,6 +169,22 @@ var OptionsFieldManager = function() {
             default:
                 throw "Unknown source in OptionsFieldManager: " + params.source;
         }
+    };
+    
+    var getMultipleValueFromRecord = function( optionsMap, value ){ 
+        
+        var result = '';
+        
+        for ( var i in value ) {
+            var currentValue = value[ i ];
+            var translatedText = optionsMap[ currentValue ];
+            if ( i > 0 ){
+                result += ', ';
+            }
+            result += translatedText;
+        }
+        
+        return result;
     };
     
     var getDisplayTextMapFromArrayOptions = function( optionsArray, field ){

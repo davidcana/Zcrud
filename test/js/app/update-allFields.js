@@ -926,3 +926,56 @@ QUnit.test( "update datalist test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "update checkboxes test", function( assert ) {
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            context.updateFormVisibleFields( options, [ 'id', 'name', 'hobbies' ] );
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "hobbies": [ 'reading_option', 'sports_option' ]
+            };
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+            
+            // Undo (2 times)
+            testHelper.clickUndoButton( 2 );
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 2, false );
+            
+            // Redo (2 times)
+            testHelper.clickRedoButton( 2 );
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 2, 0, true );
+
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+
+            done();
+        }
+    );
+});

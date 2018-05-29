@@ -615,6 +615,7 @@ module.exports = (function() {
         setFormVal( record, 'browser' );  
         setFormCheckboxVal( record, 'important' );  
         setFormVal( record, 'number' );
+        setFormCheckboxesVal( record, 'hobbies' );  
         fillSubform( record, 'members' );
     };
 
@@ -649,6 +650,7 @@ module.exports = (function() {
         setFormVal( subformRecord, 'browser', $row, subformName );
         setFormCheckboxVal( subformRecord, 'important', $row, subformName );
         setFormVal( subformRecord, 'number', $row, subformName );
+        setFormCheckboxesVal( subformRecord, 'hobbies', $row, subformName );
     };
     
     var fillSubformNewRow = function( subformRecord, subformName ){
@@ -673,6 +675,14 @@ module.exports = (function() {
         var value2IsVoid = isVoid( value2 );
 
         return value1IsVoid || value2IsVoid? value1IsVoid && value2IsVoid: value1 === value2;
+    };
+    
+    var areEquivalentArrays = function( value1, value2 ){
+
+        var value1IsVoid = isVoid( value1 );
+        var value2IsVoid = isVoid( value2 );
+
+        return value1IsVoid || value2IsVoid? value1IsVoid && value2IsVoid: value1.values == value2.values;
     };
     
     var checkForm = function( assert, record ){
@@ -713,7 +723,11 @@ module.exports = (function() {
         assert.ok( 
             areEquivalent( 
                 getFormVal( 'number' ), record.number ) );
-        assert.deepEqual( getSubformVal( 'members' ), record.members );
+        assert.ok( 
+            areEquivalentArrays( 
+                getFormCheckboxesVal( 'hobbies' ), record.hobbies ) );
+        assert.deepEqual( 
+            getSubformVal( 'members' ), record.members );
     };
     
     var checkViewField = function( assert, id, record, $form ){
@@ -738,8 +752,28 @@ module.exports = (function() {
         checkViewField( assert, 'browser', record, $form );
         checkViewField( assert, 'important', record, $form );
         checkViewField( assert, 'number', record, $form );
-        
+        checkViewField( assert, 'hobbies', record, $form );
         //assert.deepEqual( getSubformVal( 'members' ), record.members );
+    };
+    
+    var setFormCheckboxesVal = function( record, name, $row, subformName ){
+
+        var value = record[ name ];
+        if ( value === undefined ){
+            return;
+        }
+
+        var $element = $row || get$Form();
+        var $checkboxes = $element.find( '.zcrud-checkboxes-container-' + buildElementName( name, subformName ) + ' input:checkbox.zcrud-active' );
+        $checkboxes.prop( 'checked', false ); 
+        if ( value ){
+            for ( var i = 0; i < value.length; ++i ){
+                $checkboxes.filter( '[value=' + value[ i ] + ']' )
+                    .prop( 'checked', true )
+                    .trigger( 'change' )
+                    .trigger( 'blur' );   
+            }
+        }
     };
     
     var setFormCheckboxVal = function( record, name, $row, subformName ){
@@ -801,6 +835,26 @@ module.exports = (function() {
         return $element.find( "[name='" + buildElementName( name, subformName ) +"']" ).val();
     };
     
+    var getFormCheckboxesVal = function( name, $row, subformName ){
+
+        var $element = $row || get$Form();
+        var rowIndex = $row? $row.index() - 1: 0;
+        var nameAttr = name + '[' + rowIndex + ']';
+        var $selected = $element.find( "input:checkbox[name='" + buildElementName( nameAttr, subformName ) +"']:checked" );
+        
+        if ( ! $selected ){
+            return undefined;
+        }
+        
+        var result = $selected.map(
+            function() {
+                return $( this ).val();
+            }
+        ).get();
+        
+        return result.length == 0? undefined: result;
+    };
+    
     var getFormRadioVal = function( name, $row, subformName ){
 
         var $element = $row || get$Form();
@@ -855,11 +909,6 @@ module.exports = (function() {
                 var row = {};
                 result.push( row );
 
-                /*
-                row[ 'code' ] = getFormVal( 'code', $this, name );
-                row[ 'name' ] = getFormVal( 'name', $this, name );
-                row[ 'description' ] = getFormVal( 'description', $this, name );
-                */
                 putSubformVal( row, 'code', getFormVal( 'code', $this, name ) );
                 putSubformVal( row, 'name', getFormVal( 'name', $this, name ) );
                 putSubformVal( row, 'description', getFormVal( 'description', $this, name ) );
@@ -872,6 +921,7 @@ module.exports = (function() {
                 putSubformVal( row, 'browser', getFormVal( 'browser', $this, name ) );
                 putSubformVal( row, 'important', getFormCheckboxVal( 'important', $this, name ) );
                 putSubformVal( row, 'number', getFormVal( 'number', $this, name ) );
+                putSubformVal( row, 'hobbies', getFormCheckboxesVal( 'hobbies', $this, name ) );
         });
         
         return result;
@@ -898,6 +948,7 @@ module.exports = (function() {
         setFormVal( record, 'browser', $row );
         setFormCheckboxVal( record, 'important', $row );
         setFormVal( record, 'number', $row );
+        setFormCheckboxesVal( record, 'hobbies', $row );
     };
     
     var fillNewRowEditableList = function( record ){

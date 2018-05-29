@@ -278,6 +278,11 @@ defaultTestOptions.fields.members.fields = {
     browser: {
         type: 'datalist',
         options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+    },
+    hobbies: {
+        type: 'checkboxes',
+        translateOptions: true,
+        options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
     }
 };
 
@@ -290,7 +295,6 @@ defaultTestOptions.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
@@ -440,7 +444,7 @@ QUnit.test( "update datetime test", function( assert ) {
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
-            /*
+            
             // Undo
             var tempRecord = $.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
@@ -465,7 +469,7 @@ QUnit.test( "update datetime test", function( assert ) {
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
             assert.equal( fatalErrorFunctionCounter, 0 );
-            testHelper.checkForm( assert, newRecord );*/
+            testHelper.checkForm( assert, newRecord );
 
             done();
         }
@@ -1753,3 +1757,87 @@ QUnit.test( "update datalist test", function( assert ) {
     );
 });
 
+QUnit.test( "update chackboxes test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, defaultTestOptions );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // Setup services
+            testUtils.resetServices();
+            var key = 4;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "hobbies": [ 'reading_option', 'videogames_option' ]
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "hobbies": [ 'reading_option', 'cards_option' ]
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+
+            var varName = 'hobbies';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "members": {
+                    "1": {
+                        "hobbies": [ 'sports_option', 'cards_option' ]
+                    }
+                }
+            };
+            testHelper.fillForm( editedRecord );
+
+            // Check form
+            var newRecord = $.extend( true, {}, record );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 2, 0, true );
+            
+            // Undo (2 times)
+            var tempRecord = $.extend( true, {} , newRecord );
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            testHelper.clickUndoButton( 2 );
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 0, 2, false );
+            
+            // Redo (2 times)
+            tempRecord = $.extend( true, {} , newRecord );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.clickRedoButton( 2 );
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 2, 0, false );
+
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), newRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});

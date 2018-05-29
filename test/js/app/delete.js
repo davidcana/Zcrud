@@ -110,7 +110,6 @@ QUnit.test( "delete with subform test", function( assert ) {
                     {
                         "code": "2",
                         "name": "Lisa Simpson"
-                        //"description": "Description of Lisa Simpson"
                     }
                 ]
             };
@@ -153,7 +152,8 @@ QUnit.test( "english delete form test", function( assert ) {
                 "province": "Cádiz",
                 "city": "Tarifa",
                 "browser": "Firefox",
-                "important": true
+                "important": true,
+                "hobbies": [ 'reading_option', 'sports_option' ]
             };
             testUtils.setService( key, record );
             
@@ -173,6 +173,7 @@ QUnit.test( "english delete form test", function( assert ) {
             clientRecord.number = '(not set)';
             clientRecord.phoneType = 'Office phone';
             clientRecord.important = 'True';
+            clientRecord.hobbies = 'Reading, Sports';
             
             $( '#departmentsContainer' ).zcrud( 'load' );
 
@@ -212,7 +213,8 @@ QUnit.test( "spanish delete form test", function( assert ) {
                 "province": "Cádiz",
                 "city": "Tarifa",
                 "browser": "Firefox",
-                "important": true
+                "important": true,
+                "hobbies": [ 'reading_option', 'sports_option' ]
             };
             testUtils.setService( key, record );
 
@@ -232,7 +234,8 @@ QUnit.test( "spanish delete form test", function( assert ) {
             clientRecord.number = '(no establecido)';
             clientRecord.phoneType = 'Teléfono del trabajo';
             clientRecord.important = 'Verdadero';
-
+            clientRecord.hobbies = 'Lectura, Deportes';
+            
             $( '#departmentsContainer' ).zcrud( 'load' );
 
             // Go to delete form and cancel
