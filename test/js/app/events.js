@@ -211,8 +211,8 @@ QUnit.test( "events update form test", function( assert ) {
                     selectionChanged: 0
                 });
             
-            var serverRecord2 = $.extend( true, {}, record, editedServerRecord );
-            serverRecord2 = context.getFieldBuilder().filterValues( serverRecord2, options.fields );
+            //var serverRecord2 = $.extend( true, {}, record, editedServerRecord );
+            //serverRecord2 = context.getFieldBuilder().filterValues( serverRecord2, options.fields );
             
             checkFormSubmittingEvent( 
                 assert, 
@@ -232,14 +232,11 @@ QUnit.test( "events update form test", function( assert ) {
             checkRecordEvent( 
                 assert, 
                 dataArray[2], 
-                serverRecord2, 
+                //serverRecord2, 
+                editedServerRecord,
                 {
                     "message":"",
-                    //"existingRecords":{
-                    //    "2": serverRecord2
-                    //},
                     "newRecords":[],
-                    //"recordsToRemove":[],
                     "result":"OK"},  
                 options );
             checkOpenCloseEvent( 

@@ -361,9 +361,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             
             // Update record if needed
             if ( type != 'delete' ){
-                //record = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
-                var recordFromJSON = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
-                record = $.extend( true, {}, record, recordFromJSON );
+                record = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
+                //var recordFromJSON = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
+                //record = $.extend( true, {}, record, recordFromJSON );
             }
              
             // Trigger event
