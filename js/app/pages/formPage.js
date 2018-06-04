@@ -204,8 +204,12 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
+            /*
             newRecord[ field.id ] = context.getFieldBuilder().getValueFromRecord( 
                 field, 
+                record, 
+                buildProcessTemplateParams( field ) );*/
+            newRecord[ field.id ] = field.getValueFromRecord( 
                 record, 
                 buildProcessTemplateParams( field ) );
         }
@@ -227,7 +231,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         dictionary.instance = self;
         
-        context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
+        //context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
     };
     
     var buildProcessTemplateParams = function( field ){
@@ -263,10 +267,15 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            context.getFieldBuilder().afterProcessTemplateForField(
+            field.afterProcessTemplateForField(
                 buildProcessTemplateParams( field ),
                 $form
             );
+            /*
+            context.getFieldBuilder().afterProcessTemplateForField(
+                buildProcessTemplateParams( field ),
+                $form
+            );*/
         }
         
         triggerFormCreatedEvent( $form );
@@ -329,7 +338,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 var field = getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
-                    context.getFieldBuilder().getValue( field, $this ), 
+                    //context.getFieldBuilder().getValue( field, $this ), 
+                    field.getValue( $this ), 
                     0,
                     id,
                     field );
@@ -542,11 +552,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     };
 
     var getPostTemplate = function( field ){
-        return context.getFieldBuilder().getPostTemplate( field );
+        //return context.getFieldBuilder().getPostTemplate( field );
+        return field.getPostTemplate();
     };
         
     var mustHideLabel = function( field ){
-        return context.getFieldBuilder().mustHideLabel( field );
+        //return context.getFieldBuilder().mustHideLabel( field );
+        return field.mustHideLabel();
     };
     
     /* Events */

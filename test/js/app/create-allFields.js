@@ -7,7 +7,6 @@ var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 var context = require( '../../../js/app/context.js' );
-var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
@@ -101,8 +100,7 @@ QUnit.test( "create datetime test", function( assert ) {
             
             // Create record
             var clientRecord = $.extend( true, {}, record2 );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.clickCreateListButton();
             testHelper.fillForm( clientRecord );
@@ -157,8 +155,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             
             // Create record
             var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateListButton();
             testHelper.fillForm( clientRecord );
@@ -219,8 +216,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             
             // Create record
             var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateListButton();
             testHelper.fillForm( clientRecord );
@@ -281,8 +277,7 @@ QUnit.test( "create date test", function( assert ) {
 
             // Create record
             var clientRecord = $.extend( true, {}, record2 );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.clickCreateListButton();
             testHelper.fillForm( clientRecord );
@@ -338,8 +333,7 @@ QUnit.test( "create date using picker test", function( assert ) {
 
             // Create record
             var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateListButton();
             testHelper.fillForm( clientRecord );
@@ -400,8 +394,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
 
             // Create record
             var clientRecord = $.extend( true, {}, record );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateListButton();
             testHelper.fillForm( clientRecord );

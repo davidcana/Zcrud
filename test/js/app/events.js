@@ -7,7 +7,6 @@ var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 var context = require( '../../../js/app/context.js' );
-var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
 var formOptions = require( './defaultTestOptions.js' );
@@ -183,11 +182,9 @@ QUnit.test( "events update form test", function( assert ) {
                 "number": "3"
             };
             var editedClientRecord = $.extend( true, {}, editedServerRecord );
-            editedClientRecord[ 'date' ] = datetimeFieldManager.formatToClient(
-                options.fields[ 'date' ],
+            editedClientRecord[ 'date' ] = options.fields[ 'date' ].formatToClient(
                 editedClientRecord[ 'date' ] );
-            editedClientRecord[ 'datetime' ] = datetimeFieldManager.formatToClient(
-                options.fields[ 'datetime' ],
+            editedClientRecord[ 'datetime' ] = options.fields[ 'datetime' ].formatToClient(
                 editedClientRecord[ 'datetime' ] );
             testHelper.fillForm( editedClientRecord );
 
@@ -305,11 +302,9 @@ QUnit.test( "events create form test", function( assert ) {
                 "number": "3"
             };
             var clientRecord = $.extend( true, {}, serverRecord );
-            clientRecord[ 'date' ] = datetimeFieldManager.formatToClient(
-                options.fields[ 'date' ],
+            clientRecord[ 'date' ] = options.fields[ 'date' ].formatToClient(
                 clientRecord[ 'date' ] );
-            clientRecord[ 'datetime' ] = datetimeFieldManager.formatToClient(
-                options.fields[ 'datetime' ],
+            clientRecord[ 'datetime' ] = options.fields[ 'datetime' ].formatToClient(
                 clientRecord[ 'datetime' ] );
             testHelper.checkNoRecord( assert, key );
 

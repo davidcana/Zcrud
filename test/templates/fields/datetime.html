@@ -7,7 +7,7 @@
     <body>                        
         <div data-mdefine-macro="date">
             <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
-                <input data-tdefine="formattedValue datetimeFieldManager/formatToClient( field, value )"
+                <input data-tdefine="formattedValue field/formatToClient( value )"
                        data-tattributes="id cond: renderIds field/elementId null;
                                          name field/elementName;
                                          value formattedValue;
@@ -18,7 +18,7 @@
                 <button type="button" class="toggle-picker">...</button>
             </div>
             
-            <div data-tdefine="dateInfo datetimeFieldManager/getDateInfo( field, value );
+            <div data-tdefine="dateInfo field/getDateInfo( value );
                                inlinePart cond: field/customOptions/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
                 <div>
@@ -43,11 +43,11 @@
                                          field/formFieldAttributes"
                        type="text">
                 <button type="button" class="toggle-picker"
-                        data-tdefine="timeInfo datetimeFieldManager/getTimeInfo( field, value );
+                        data-tdefine="timeInfo field/getTimeInfo( value );
                                       inlinePart cond: field/customOptions/inline ' inline' ''">...</button>
             </div>
             
-            <div data-tdefine="timeInfo datetimeFieldManager/getTimeInfo( field, value );
+            <div data-tdefine="timeInfo field/getTimeInfo( value );
                                inlinePart cond: field/customOptions/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
                 <div>
@@ -63,7 +63,7 @@
         
         <div data-mdefine-macro="datetime">
             <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
-                <input data-tdefine="formattedValue datetimeFieldManager/formatToClient( field, value )"
+                <input data-tdefine="formattedValue field/formatToClient( value )"
                        data-tattributes="id cond: renderIds field/elementId null;
                                          name field/elementName;
                                          value formattedValue;
@@ -74,7 +74,7 @@
                 <button type="button" class="toggle-picker">...</button>
             </div>
             
-            <div data-tdefine="dateTimeInfo datetimeFieldManager/getDateTimeInfo( field, value );
+            <div data-tdefine="dateTimeInfo field/getDateTimeInfo( value );
                                dateInfo dateTimeInfo/dateInfo;
                                timeInfo dateTimeInfo/timeInfo;
                                inlinePart cond: field/customOptions/inline ' inline' ''"

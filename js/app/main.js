@@ -67,7 +67,8 @@ exports.init = function( userOptions, callback ){
     var options = $.extend( true, {}, defaultOptions, userOptions );
     
     // Register all field managers
-    fieldBuilder.registerAll( options.fieldsConfig.managers );
+    //fieldBuilder.registerAll( options.fieldsConfig.managers );
+    fieldBuilder.registerAllConstructors( options.fieldsConfig.constructors );
     context.setFieldBuilder( fieldBuilder );
     
     // Normalize options

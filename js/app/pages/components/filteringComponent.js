@@ -49,7 +49,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         
         for ( var c = 0; c < thisOptions.fields.length; c++ ) {
             var field = thisOptions.fields[ c ];
-            var value = context.getFieldBuilder().getValueFromForm( field, options, $this );
+            //var value = context.getFieldBuilder().getValueFromForm( field, options, $this );
+            var value = field.getValueFromForm( $this );
             
             if ( value != undefined && value != '' ){
                 record[ field.id ] = value;

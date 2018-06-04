@@ -21,24 +21,27 @@ module.exports = {
 
     fields: {},
     fieldsConfig: {
-        managers: [
-            {
-                fieldTypes: [ 'date', 'datetime', 'time' ],
-                fieldManager: require( './fields/datetimeFieldManager.js' )
-            },
-            {
-                fieldTypes: [ 'datalist', 'select', 'radio', 'checkboxes' ],
-                fieldManager: require( './fields/optionsFieldManager.js' )
-            },
-            {
-                fieldTypes: [ 'checkbox' ],
-                fieldManager: require( './fields/checkboxFieldManager.js' )
-            },
-            {
-                fieldTypes: [ 'subform' ],
-                fieldManager: require( './fields/subformManager.js' )
-            }
-        ],
+        constructors: {
+            default: require( './fields/field.js' ),
+            mapping: [
+                {
+                    fieldTypes: [ 'date', 'datetime', 'time' ],
+                    constructor: require( './fields/datetime.js' )
+                },
+                {
+                    fieldTypes: [ 'datalist', 'select', 'radio', 'checkboxes' ],
+                    constructor: require( './fields/optionsField.js' )
+                },
+                {
+                    fieldTypes: [ 'checkbox' ],
+                    constructor: require( './fields/checkbox.js' )
+                },
+                {
+                    fieldTypes: [ 'subform' ],
+                    constructor: require( './fields/subform.js' )
+                }
+            ]
+        },
         defaultFieldOptions: {
             datetime: {
                 inline: false,

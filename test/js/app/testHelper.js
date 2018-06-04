@@ -3,7 +3,6 @@
 */
 var $ = require( 'jquery' );
 var testUtils = require( './testUtils.js' );
-var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 var context = require( '../../../js/app/context.js' );
 
 module.exports = (function() {
@@ -1140,9 +1139,9 @@ module.exports = (function() {
 
         var instance = 
             field.type == 'time'? 
-            datetimeFieldManager.buildTimeObjectFromString( field, stringValue ):
-        datetimeFieldManager.getValueFromString( stringValue, field );
-
+            field.buildTimeObjectFromString( stringValue ):
+            field.getValueFromString( stringValue )
+        
         if ( ! field.customOptions.inline ){
             togglePicker( $field );
         }
@@ -1168,54 +1167,33 @@ module.exports = (function() {
             clickDatetimeOK( $field );
         }
     };
-    /*
-    var updateDatetimePicker = function( subformName, fieldName, subformIndex, field, stringValue ){
-
-        var $field = get$SubFormFieldByNameClass( subformName, fieldName, subformIndex );
-        var instance = 
-            field.type == 'time'? 
-            datetimeFieldManager.buildTimeObjectFromString( field, stringValue ):
-        datetimeFieldManager.getValueFromString( stringValue, field );
-
-        if ( ! field.customOptions.inline ){
-            togglePicker( $field );
-        }
-
-        if ( field.type == 'datetime' || field.type == 'date' ){
-            if ( instance.getFullYear() != getDatetimeYear( $field ) ){
-                setDatetimeYear( $field, instance.getFullYear() );
-            }
-            if ( instance.getMonth() != getDatetimeMonth( $field ) ){
-                setDatetimeMonth( $field, instance.getMonth() );
-            }
-            setDatetimeDay( $field, instance.getDate() );
-        }
-
-        if ( field.type == 'datetime' || field.type == 'time' ){
-            var hours = field.type == 'time'? instance.hours: instance.getHours();
-            var minutes = field.type == 'time'? instance.minutes: instance.getMinutes();
-            setDatetimeHours( $field, hours );
-            setDatetimeMinutes( $field, minutes, field );
-        }
-
-        if ( ! field.customOptions.inline ){
-            clickDatetimeOK( $field );
-        }
-    };*/
     
     var clickDatetimePickerDay = function( day ){
-        
-        //getDatetimePicker( index )
-        //$( ".datetime .calendar td [data-date='" + day + "'] div" )
         $( "td.date[data-date='" + day + "']" ).click();
-        //$( "[data-date='" + day + "'] div" ).click();
-            //.trigger( 'click' );
-        /*
-            .filter(
-                function() {
-                    return $( this ).text() === "" + day; 
-                }).trigger( 'click' );*/
     };
+    
+    var checkAllPropertiesInFirstInSecond = function( assert, first, second ){
+        
+        if ( isPrimitive( first ) || $.isFunction( first ) ){
+            assert.equal( first, second );
+            
+        } else if ( $.isArray( first ) ){
+            for ( var i = 0; i < first.length; ++i ){
+                checkAllPropertiesInFirstInSecond( assert, first[ i ], second[ i ] );
+            }
+            
+        } else {
+            $.each( first, function ( propertyId, propertyInFirst ){
+                var propertyInSecond = second[ propertyId ];
+                checkAllPropertiesInFirstInSecond( assert, propertyInFirst, propertyInSecond );
+            });
+        }
+    };
+    
+    var isPrimitive = function ( arg ) {
+        var type = typeof arg;
+        return arg == null || ( type != "object" && type != "function" );
+    }
     
     return {
         countVisibleRows: countVisibleRows,
@@ -1278,6 +1256,7 @@ module.exports = (function() {
         updateDatetimePickerInList: updateDatetimePickerInList,
         updateLastRowDatetimePickerInList: updateLastRowDatetimePickerInList,
         get$SubFormFieldRow: get$SubFormFieldRow,
-        goToLastPage: goToLastPage
+        goToLastPage: goToLastPage,
+        checkAllPropertiesInFirstInSecond: checkAllPropertiesInFirstInSecond
     };
 })();

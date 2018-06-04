@@ -8,7 +8,6 @@ var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
-var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var defaultTestOptions = {
 
@@ -432,11 +431,9 @@ QUnit.test( "update datetime test", function( assert ) {
             
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
@@ -534,13 +531,11 @@ QUnit.test( "update datetime using picker test", function( assert ) {
 
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
-
+            
             // Check form
             var newRecord = $.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
@@ -638,11 +633,9 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
@@ -735,13 +728,11 @@ QUnit.test( "update date test", function( assert ) {
 
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
-
+            
             // Check form
             var newRecord = $.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
@@ -837,11 +828,9 @@ QUnit.test( "update date using picker test", function( assert ) {
             
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
@@ -941,13 +930,11 @@ QUnit.test( "update inline date using picker test", function( assert ) {
 
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
-
+            
             // Check form
             var numberOfActions = 1;
             var newRecord = $.extend( true, {}, record );
@@ -1038,13 +1025,11 @@ QUnit.test( "update time test", function( assert ) {
 
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
-
+            
             // Check form
             var newRecord = $.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
@@ -1139,13 +1124,11 @@ QUnit.test( "update time using picker test", function( assert ) {
 
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
-
+            
             // Check form
             var newRecord = $.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
@@ -1242,13 +1225,11 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             
             // Transform date instances into string
             var record = $.extend( true, {}, serverRecord );
-            record.members[ 0 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
-            record.members[ 1 ][ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
-
+            
             // Check form
             var numberOfActions = 2;
             var newRecord = $.extend( true, {}, record );
@@ -1600,6 +1581,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             newRecord.members[ 1 ][ varName2 ] = editedRecord.members[ 1 ][ varName2 ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 2, 0, true );
+            
             assert.deepEqual(
                 testHelper.getSelectOptions( 'members-city', testHelper.get$SubFormFieldRow( 'members', 0 ) ),
                 [ 'Algeciras', 'Tarifa' ] );

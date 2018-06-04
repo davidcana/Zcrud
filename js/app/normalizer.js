@@ -12,9 +12,7 @@ module.exports = (function() {
         
         normalizeGeneralOptions( options );
         
-        $.each( options.fields, function ( fieldId, field ) {
-            normalizeFieldOptions( fieldId, field, options );
-        });
+        options.fields = normalizeFieldGroupOptions( options.fields, options );
         
         normalizePagesOptions( options );
         
@@ -72,38 +70,55 @@ module.exports = (function() {
             byRow.deleteRegisterRow = editableListIsOn;
         }
     };
+    
+    var normalizeFieldGroupOptions = function ( fields, options, parent ) {
 
-    // Normalizes some options for a field (sets default values)
-    var normalizeFieldOptions = function ( id, field, options, parent ) {
-        
-        var fieldBuilder = context.getFieldBuilder();
-        
+        var fieldInstances = {};
+
+        $.each( fields, function ( fieldId, field ) {
+            fieldInstances[ fieldId ] = buildFullFieldInstance( fieldId, field, options, parent );
+        });
+
+        return fieldInstances;
+    };
+    
+    var buildFullFieldInstance = function( id, field, options, parent ){
+        var newFieldInstance = buildFieldInstance( id, field );
+        normalizeFieldInstance( id, newFieldInstance, options, parent );
+        return newFieldInstance;
+    };
+    
+    var buildFieldInstance = function ( id, field ) {
+
         // Set id
         field.id = id;
 
-        // Set the name
-        /*
-        if ( field.key ){
-            options.key = id;
-        }*/
-        field.name = id;
-
-        // Set defaults when undefined
+        // Set type
         if ( field.type == undefined ) {
             field.type = 'text';
         }
+
+        return context.getFieldBuilder().createFieldInstance( field );
+    };
+
+    // Normalizes some options for a field (sets default values)
+    var normalizeFieldInstance = function ( id, field, options, parent ) {
+
+        // Set the name
+        field.name = id;
+
+        // Set defaults when undefined
         if ( field.elementId == undefined ) {
             field.elementId = 'zcrud-' + id;
         }
         if ( field.elementName == undefined ) {
             field.elementName = parent? parent.id + context.subformSeparator + id: id;
         }
-        //field.labelFor = fieldBuilder.getLabelFor( field, options );
         if ( field.template == undefined ){
-            field.template = fieldBuilder.getTemplate( field, options );
+            field.template = field.getTemplate( options );
         }
         if ( field.viewTemplate == undefined ){
-            field.viewTemplate = fieldBuilder.getViewTemplate( field );
+            field.viewTemplate = field.getViewTemplate();
         }
         context.declareRemotePageUrl( field.template, options.templates.declaredRemotePageUrls );
         if ( field.formFieldAttributes == undefined ){
@@ -127,9 +142,7 @@ module.exports = (function() {
 
         // Normalize subfields in this field
         if ( field.fields ){
-            $.each( field.fields, function ( subfieldId, subfield ) {
-                normalizeFieldOptions( subfieldId, subfield, options, field );
-            });
+            field.fields = normalizeFieldGroupOptions( field.fields, options, field );
         }
     };
 
@@ -148,7 +161,6 @@ module.exports = (function() {
             template = options.containers.types[ i ].template;
             context.declareRemotePageUrl( template, options.allDeclaredRemotePageUrls );
         }
-        //alert( JSON.stringify( options.allDeclaredRemotePageUrls ) );
     };
 
     var normalizeCustomOptionsField = function( field, options ){
@@ -176,6 +188,6 @@ module.exports = (function() {
     
     return {
         run: normalize,
-        normalizeFieldOptions: normalizeFieldOptions
+        buildFullFieldInstance: buildFullFieldInstance
     };
 })();

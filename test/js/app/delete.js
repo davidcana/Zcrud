@@ -6,7 +6,6 @@ require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
-var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
@@ -161,11 +160,9 @@ QUnit.test( "english delete form test", function( assert ) {
             
             var varName1 = 'datetime';
             var varName2 = 'date';
-            clientRecord[ varName1 ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName1 ],
+            clientRecord[ varName1 ] = options.fields[ varName1 ].formatToClient(
                 record[ varName1 ] );
-            clientRecord[ varName2 ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName2 ],
+            clientRecord[ varName2 ] = options.fields[ varName2 ].formatToClient(
                 record[ varName2 ] );
             
             // Translated values
@@ -222,13 +219,11 @@ QUnit.test( "spanish delete form test", function( assert ) {
 
             var varName1 = 'datetime';
             var varName2 = 'date';
-            clientRecord[ varName1 ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName1 ],
+            clientRecord[ varName1 ] = options.fields[ varName1 ].formatToClient(
                 record[ varName1 ] );
-            clientRecord[ varName2 ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName2 ],
+            clientRecord[ varName2 ] = options.fields[ varName2 ].formatToClient(
                 record[ varName2 ] );
-
+            
             // Translated values
             clientRecord.description = '(no establecido)';
             clientRecord.number = '(no establecido)';

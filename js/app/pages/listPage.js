@@ -229,7 +229,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         dictionary.instance = self;
         
-        context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
+        //context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
     };
     
     // Reset all components
@@ -397,7 +397,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var getPostTemplate = function( field ){
-        return context.getFieldBuilder().getPostTemplate( field );
+        //return context.getFieldBuilder().getPostTemplate( field );
+        return field.getPostTemplate();
     };
 
     var get$form = function(){

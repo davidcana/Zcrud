@@ -6,7 +6,6 @@ require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
-var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var formTestOptions = require( './noKeyFieldTestOptions.js' );
 var editableListTestOptions = require( './noKeyField-editableListTestOptions.js' );

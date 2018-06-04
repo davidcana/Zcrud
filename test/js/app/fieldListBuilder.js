@@ -41,7 +41,6 @@ var buildIdsArray = function( fieldsArray ){
 };
 
 // Run tests
-
 QUnit.test( "Field list from general fields builder test", function( assert ) {
     
     var done = assert.async();
@@ -92,7 +91,8 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 }
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
-            assert.deepEqual( fields, expected );
+            //assert.deepEqual( fields, expected );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expected, fields );
             
             // Fields only
             items = [ 
@@ -141,7 +141,8 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 }
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
-            assert.deepEqual( fields, expected );
+            //assert.deepEqual( fields, expected );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expected, fields );
             
             // A fieldsGroup only (with all default fields)
             items = [ 
@@ -589,8 +590,10 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             ];
             
             var fullObjectFields = fieldListBuilder.build( items, options );
-            assert.deepEqual( fullObjectFields.fieldsArray, expected );
-            assert.deepEqual( fullObjectFields.view, expectedView );
+            //assert.deepEqual( fullObjectFields.fieldsArray, expected );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expected, fullObjectFields.fieldsArray );
+            //assert.deepEqual( fullObjectFields.view, expectedView );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expectedView, fullObjectFields.view );
             
             // A fieldContainer only (with fields only)
             items = [ 
@@ -657,9 +660,12 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     "fields": expected
                 }
             ];
+            
             fullObjectFields = fieldListBuilder.build( items, options );
-            assert.deepEqual( fullObjectFields.fieldsArray, expected );
-            assert.deepEqual( fullObjectFields.view, expectedView );
+            //assert.deepEqual( fullObjectFields.fieldsArray, expected );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expected, fullObjectFields.fieldsArray );
+            //assert.deepEqual( fullObjectFields.view, expectedView );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expectedView, fullObjectFields.view );
             
             // A fieldContainer only (with a fieldsGroup only starting with description and ending with browser except time and phoneType)
             items = [ 
@@ -744,6 +750,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     ]
                 }
             ];
+            
             fullObjectFields = fieldListBuilder.build( items, options );
             assert.deepEqual( 
                 buildIdsArray( fullObjectFields.fieldsArray ), 

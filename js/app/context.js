@@ -223,9 +223,7 @@ module.exports = (function() {
     var getField = function( fields, fullName ){
 
         var fieldData = getFieldData( fullName );
-        return fieldData.subformName?
-            fields[ fieldData.subformName ].fields[ fieldData.name ]:
-        fields[ fieldData.name ];
+        return fieldData.subformName? fields[ fieldData.subformName ].fields[ fieldData.name ]: fields[ fieldData.name ];
     };
     var getFieldData = function( fullName ){
 

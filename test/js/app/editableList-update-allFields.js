@@ -192,6 +192,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             // Edit record
             var editedRecord = {};
             editedRecord[ varName ] = "10/12/2017 16:00";
+            
             testHelper.updateDatetimePickerInList( 
                 key, 
                 varName, 
@@ -200,7 +201,6 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );

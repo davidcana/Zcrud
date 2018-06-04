@@ -26,9 +26,14 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
     };
     
     var setValue = function( value ){
-        
+        /*
         context.getFieldBuilder().setValueToForm( 
             field, 
+            value, 
+            $this, 
+            ! history.isFormMode(), 
+            options );*/
+        field.setValueToForm(  
             value, 
             $this, 
             ! history.isFormMode(), 

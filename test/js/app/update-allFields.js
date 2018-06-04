@@ -7,7 +7,6 @@ var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 var context = require( '../../../js/app/context.js' );
-var datetimeFieldManager = require( '../../../js/app/fields/datetimeFieldManager.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
@@ -102,8 +101,7 @@ QUnit.test( "update datetime test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T20:00:00.000" );
             var clientRecord = $.extend( true, {}, editedRecord );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.fillForm( clientRecord );
             
@@ -160,8 +158,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T20:00:00.000" );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
                 varName, 
@@ -169,8 +166,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                 varValue );
             
             var clientRecord = $.extend( true, {}, editedRecord );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             var newRecord = $.extend( true, {}, record, editedRecord );
             var newClientRecord = $.extend( true, {}, record, clientRecord );
@@ -226,8 +222,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T03:05:00.000" );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
                 varName, 
@@ -235,8 +230,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                 varValue );
             
             var clientRecord = $.extend( true, {}, editedRecord );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             var newRecord = $.extend( true, {}, record, editedRecord );
             var newClientRecord = $.extend( true, {}, record, clientRecord );
@@ -292,8 +286,7 @@ QUnit.test( "update date test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
             var clientRecord = $.extend( true, {}, editedRecord );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.fillForm( clientRecord );
 
@@ -350,8 +343,7 @@ QUnit.test( "update date using picker test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
                 varName, 
@@ -359,8 +351,7 @@ QUnit.test( "update date using picker test", function( assert ) {
                 varValue );
 
             var clientRecord = $.extend( true, {}, editedRecord );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             var newRecord = $.extend( true, {}, record, editedRecord );
             var newClientRecord = $.extend( true, {}, record, clientRecord );
@@ -416,8 +407,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
-            var varValue = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
                 varName, 
@@ -425,8 +415,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                 varValue );
 
             var clientRecord = $.extend( true, {}, editedRecord );
-            clientRecord[ varName ] = datetimeFieldManager.formatToClient(
-                options.fields[ varName ],
+            clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             var newRecord = $.extend( true, {}, record, editedRecord );
             var newClientRecord = $.extend( true, {}, record, clientRecord );

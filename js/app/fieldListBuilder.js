@@ -31,7 +31,10 @@ module.exports = (function() {
             pageOptions.fields, 
             options, 
             pageIdArray, 
-            context.getFieldBuilder().buildFields );
+            function( field ){
+                field.buildFields();
+            } );
+
         pageOptions.fieldsCache = fieldsCache;
         
         return fieldsCache;
@@ -69,8 +72,8 @@ module.exports = (function() {
 
         // Must be a field instance
         } else {
-            normalizer.normalizeFieldOptions( item.id, item, options );
-            addField( item, result, options, functionToApplyToField, containerType, containerId );
+            var newField = normalizer.buildFullFieldInstance( item.id, item, options );
+            addField( newField, result, options, functionToApplyToField, containerType, containerId );
         }
     };
     
@@ -94,7 +97,6 @@ module.exports = (function() {
         var ended = false;
 
         for ( var c = 0; c < view.length; ++c ){
-
             var viewItem = view[ c ];
             var id = viewItem.id;
 
@@ -186,8 +188,8 @@ module.exports = (function() {
 
                 // Must be a field instance
                 } else {
-                    normalizer.normalizeFieldOptions( item.id, item, options );
-                    result.push( item );
+                    var newField = normalizer.buildFullFieldInstance( item.id, item, options );
+                    result.push( newField );
                 }
             }
             return result;

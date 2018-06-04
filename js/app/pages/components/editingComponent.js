@@ -101,7 +101,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 var field = listPage.getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
-                    context.getFieldBuilder().getValue( field, $this ),
+                    //context.getFieldBuilder().getValue( field, $this ),
+                    field.getValue( $this ),
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
                     listPage.getId(),
                     field );
@@ -154,10 +155,15 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            context.getFieldBuilder().afterProcessTemplateForField(
+            field.afterProcessTemplateForField(
                 buildProcessTemplateParams( field, record, dictionary ),
                 $row
             );
+            /*
+            context.getFieldBuilder().afterProcessTemplateForField(
+                buildProcessTemplateParams( field, record, dictionary ),
+                $row
+            );*/
         }
     };
     
