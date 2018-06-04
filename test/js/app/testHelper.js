@@ -228,8 +228,6 @@ module.exports = (function() {
         
         var assert = testOptions.assert;
         var options = testOptions.options;
-        //var ids = testOptions.ids;
-        //var names = testOptions.names;
         var values = testOptions.values;
         var c = 0;
         
@@ -238,8 +236,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 10,
             pagingInfo: 'Showing 1-10 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
@@ -253,8 +249,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 10,
             pagingInfo: 'Showing 11-20 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '2' ],
@@ -268,8 +262,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 10,
             pagingInfo: 'Showing 21-30 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '3' ],
@@ -283,8 +275,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 10,
             pagingInfo: 'Showing 11-20 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '2' ],
@@ -298,8 +288,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 10,
             pagingInfo: 'Showing 1-10 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
@@ -313,8 +301,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 9,
             pagingInfo: 'Showing 121-129 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '13', '>', '>>' ],
@@ -328,8 +314,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 10,
             pagingInfo: 'Showing 71-80 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '8' ],
@@ -343,8 +327,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 25,
             pagingInfo: 'Showing 1-25 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
@@ -358,8 +340,6 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 25,
             pagingInfo: 'Showing 26-50 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '2' ],
@@ -373,32 +353,12 @@ module.exports = (function() {
             assert: assert,
             visibleRows: 10,
             pagingInfo: 'Showing 1-10 of 129',
-            //ids: ids[ c ],
-            //names: names[ c++ ],
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
             pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
         });
     };
-    /*
-    var buildIdsList = function( start, end ){
-        
-        var result = '' + start;
-        for ( var c = 1 + start; c <= end; ++c ){
-            result += '/' + c;
-        }
-        return result;
-    };
-    
-    var buildServicesList = function( start, end ){
-
-        var result = 'Service ' + start;
-        for ( var c = 1 + start; c <= end; ++c ){
-            result += '/Service ' + c;
-        }
-        return result;
-    };*/
     
     var buildValuesList = function( start, end ){
 

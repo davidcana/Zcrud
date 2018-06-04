@@ -246,8 +246,7 @@ var OptionProvider = function() {
         for ( var i = 0; i < field.dependsOn.length; i++ ) {
             var dependedFieldId = field.dependsOn[ i ];
             var dependedField = context.getField( params.options.fields, dependedFieldId );
-            dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.elementName + "']").val();
-            //dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.name + "']").val();
+            dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.name + "']").val();
         }
         
         return dependedValues;

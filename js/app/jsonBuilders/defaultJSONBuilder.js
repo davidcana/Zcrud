@@ -227,7 +227,7 @@ module.exports = (function() {
                     0, 
                     key, 
                     undefined,
-                    field.elementName );
+                    field.name );
                 historyItem.doAction( actionsObject, records );
             }
         }

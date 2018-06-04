@@ -35,8 +35,7 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
         var dependsOnField = context.getField( params.options.fields, dependsOn );
 
         // Find the depended combobox
-        //var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']");
-        var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.elementName + "']");
+        var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']");
         
         // When depended combobox changes
         $dependsOnDropdown.change(

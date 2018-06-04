@@ -51,7 +51,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex, subformRowKey ) {
         
         // Get names
-        var fullName = field.elementName;
+        var fullName = field.name;
         var subformSeparatorIndex = fullName.indexOf( context.subformSeparator );
         var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
         var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
@@ -84,7 +84,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     var instanceChange = function( newValue, rowIndex, field, subformRowIndex, subformRowKey ) {
 
         // Get names
-        var fullName = field.elementName;
+        var fullName = field.name;
         var subformSeparatorIndex = fullName.indexOf( context.subformSeparator );
         var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
         var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
@@ -128,7 +128,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             rowIndex, 
             key, 
             $tr,
-            field? field.elementName: undefined );
+            field? field.name: undefined );
 
         put( id, historyItem );
         

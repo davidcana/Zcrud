@@ -232,7 +232,7 @@ Subform.prototype.buildFields = function(){
         if ( subfield.subformKey ){
             subformInstance.subformKey = subfieldId;
         }
-        subfield.name = subformInstance.id + context.subformSeparator + subfieldId;
+        //subfield.name = subformInstance.id + context.subformSeparator + subfieldId;
 
         fields.push( subfield );
     });

@@ -105,14 +105,11 @@ module.exports = (function() {
     var normalizeFieldInstance = function ( id, field, options, parent ) {
 
         // Set the name
-        field.name = id;
-
+        field.name = parent? parent.id + context.subformSeparator + id: id;
+        
         // Set defaults when undefined
         if ( field.elementId == undefined ) {
             field.elementId = 'zcrud-' + id;
-        }
-        if ( field.elementName == undefined ) {
-            field.elementName = parent? parent.id + context.subformSeparator + id: id;
         }
         if ( field.template == undefined ){
             field.template = field.getTemplate( options );
