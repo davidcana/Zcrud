@@ -395,11 +395,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var getDictionary = function(){
         return dictionary;
     };
-    
-    var getPostTemplate = function( field ){
-        //return context.getFieldBuilder().getPostTemplate( field );
-        return field.getPostTemplate();
-    };
 
     var get$form = function(){
         return $( '#' + thisOptions.formId );
@@ -463,7 +458,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getField: getField,
         getFieldByName: getFieldByName,
         getFields: getFields,
-        getPostTemplate: getPostTemplate,
         get$form: get$form,
         get$: get$,
         instanceNewForm: instanceNewForm,

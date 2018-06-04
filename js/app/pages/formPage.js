@@ -550,16 +550,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     var getDictionary = function(){
         return dictionary;
     };
-
-    var getPostTemplate = function( field ){
-        //return context.getFieldBuilder().getPostTemplate( field );
-        return field.getPostTemplate();
-    };
-        
-    var mustHideLabel = function( field ){
-        //return context.getFieldBuilder().mustHideLabel( field );
-        return field.mustHideLabel();
-    };
     
     /* Events */
     var triggerFormClosedEvent = function( event, $form ){
@@ -593,8 +583,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         getTitle: getTitle,
         getFields: getFields,
         getView: getView,
-        getPostTemplate: getPostTemplate,
-        mustHideLabel: mustHideLabel,
         getHistory: getHistory,
         getFieldByName: getFieldByName,
         getParentFieldByName: getParentFieldByName,

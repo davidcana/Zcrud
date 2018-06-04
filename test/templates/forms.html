@@ -38,7 +38,7 @@
                 </div>
                 <div class="zcrud-post-templates">
                     <div data-trepeat="field instance/getFields()"
-                         data-tdefine="postTemplate instance/getPostTemplate(field)">
+                         data-tdefine="postTemplate field/getPostTemplate()">
                         <div data-tcondition="postTemplate" data-muse-macro="postTemplate"><!--empty--></div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                                        id field/id; 
                                        value record[ id ]"
                          data-tattributes="class string:zcrud-field zcrud-field-${id} zcrud-like-field-${field/name}">
-                        <label data-tomit-tag="instance/mustHideLabel( field )">
+                        <label data-tomit-tag="field/mustHideLabel()">
                             <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
                                 The label of this field.
                             </span>
