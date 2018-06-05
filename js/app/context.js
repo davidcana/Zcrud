@@ -24,6 +24,7 @@ module.exports = (function() {
     };
     
     /* busy */
+    /*
     var busyDiv = undefined;
     var getBusyDiv = function(){
         if ( ! busyDiv ){
@@ -55,7 +56,7 @@ module.exports = (function() {
         }
 
         getBusyDiv().hide();
-    };
+    };*/
     
     // I18n
     var i18nArray = undefined;
@@ -65,7 +66,6 @@ module.exports = (function() {
     };
     var translate = function( id, params, format, subformat ){
         return zpt.i18nHelper.tr( i18nArray, id, params, format || 'string', subformat );
-        //return id;
     };
     
     // Errors
@@ -272,8 +272,8 @@ module.exports = (function() {
         subformSeparator: subformSeparator,
         getJSONBuilder: getJSONBuilder,
         setFieldBuilder: setFieldBuilder,
-        getFieldBuilder: getFieldBuilder,
-        showBusy: showBusy,
-        hideBusy: hideBusy
+        getFieldBuilder: getFieldBuilder
+        //showBusy: showBusy,
+        //hideBusy: hideBusy
     };
 })();

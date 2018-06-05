@@ -134,7 +134,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         componentsMap.dataFromServer( data );
         beforeProcessTemplate( data, dictionaryExtension );
-        context.hideBusy( options, showBusyFull );
+        //context.hideBusy( options, showBusyFull );
         buildHTMLAndJavascript( root );
         if ( callback ){
             callback( true );
