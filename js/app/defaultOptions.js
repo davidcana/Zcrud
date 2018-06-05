@@ -118,7 +118,7 @@ module.exports = {
                 components: {
                     paging: {
                         isOn: true,
-                        constructorClass: require( './pages/components/pagingComponent.js' ),
+                        constructorClass: require( './components/pagingComponent.js' ),
                         defaultPageSize: 10,
                         pageSizes: [10, 25, 50, 100, 250, 500],
                         pageSizeChangeArea: true,
@@ -131,7 +131,7 @@ module.exports = {
                     },
                     sorting: {
                         isOn: false,
-                        constructorClass: require( './pages/components/sortingComponent.js' ),
+                        constructorClass: require( './components/sortingComponent.js' ),
                         loadFromLocalStorage: true,
                         default: {
                             fieldId: undefined,
@@ -141,17 +141,17 @@ module.exports = {
                     },
                     filtering: {
                         isOn: false,
-                        constructorClass: require( './pages/components/filteringComponent.js' ),
+                        constructorClass: require( './components/filteringComponent.js' ),
                     },
                     selecting: {
                         isOn: false,
-                        constructorClass: require( './pages/components/selectingComponent.js' ),
+                        constructorClass: require( './components/selectingComponent.js' ),
                         multiple: true,
                         mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
                     },
                     editing: {
                         isOn: false,
-                        constructorClass: require( './pages/components/editingComponent.js' ),
+                        constructorClass: require( './components/editingComponent.js' ),
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row',
                         hideTr: function( $tr ){
