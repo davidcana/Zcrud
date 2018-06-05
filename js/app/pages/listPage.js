@@ -7,6 +7,7 @@ var FormPage = require( './formPage.js' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fieldListBuilder.js' );
+var ComponentsMap = require( '../components/componentsMap.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -32,7 +33,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var dictionary = undefined;
     var records = {};
     var id = thisOptions.id;
-    var components = {};
     
     var fieldsMap = {};
     var getField = function( fieldId ){
@@ -48,33 +48,13 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return fields;
     };
     
+    var componentsMap = undefined;
+    
     // Initial configuration
     var configure = function(){
 
         buildFields();
-        registerAllComponents();
-    };
-    
-    var registerAllComponents = function() {
-        
-        for ( var componentId in thisOptions.components ){
-            var component = thisOptions.components[ componentId ];
-            var ConstructorClass = component.constructorClass;
-            registerComponent( 
-                componentId,
-                function(){
-                    return new ConstructorClass( options, component, self );
-                }
-            );
-        }
-    }
-
-    var registerComponent = function( componentId, constructorFunction ){
-        
-        var thisComponent = thisOptions.components[ componentId ].isOn? constructorFunction(): undefined;
-        if ( thisComponent ){
-            components[ componentId ] = thisComponent;
-        }
+        componentsMap = new ComponentsMap( options, thisOptions.components, self );
     };
 
     var buildFields = function(){
@@ -86,27 +66,12 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var buildDataToSend = function(){
         
-        var data = {};  
-        data.filter = filter;
+        var data = {};
         
-        for ( var id in components ){
-            var component = components[ id ];
-            if ( component && $.isFunction( component.addToDataToSend ) ){
-                component.addToDataToSend( data );
-            }
-        }
+        data.filter = filter;
+        componentsMap.buildDataToSend( data );
         
         return data;
-    };
-    
-    var dataFromServer = function( data ){
-        
-        for ( var id in components ){
-            var component = components[ id ];
-            if ( component && $.isFunction( component.dataFromServer ) ){
-                component.dataFromServer( data );
-            }
-        }
     };
     
     var buildDataFromClient = function( dataToSendToServer, recordsDiff ) {
@@ -167,7 +132,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var clientAndServerSuccessFunction = function( data, showBusyFull, dictionaryExtension, root, callback ){
         
-        dataFromServer( data );
+        componentsMap.dataFromServer( data );
         beforeProcessTemplate( data, dictionaryExtension );
         context.hideBusy( options, showBusyFull );
         buildHTMLAndJavascript( root );
@@ -177,9 +142,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
-
-        // TODO Uncomment this when ZPT uses promises 
-        //context.showBusy( options, showBusyFull );
 
         if ( userRecords ){
             showUsingRecords( showBusyFull, dictionaryExtension, root, callback );
@@ -191,7 +153,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 search: buildDataToSend(),
                 success: clientAndServerSuccessFunction,
                 error: function(){
-                    context.hideBusy( options, showBusyFull );
+                    //context.hideBusy( options, showBusyFull );
                     context.showError( options, false, 'Server communication error!' );
                     if ( callback ){
                         callback( false );
@@ -206,12 +168,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         updateDictionary( data, dictionaryExtension );
         buildRecords();
         
-        for ( var id in components ){
-            var component = components[ id ];
-            if ( component && $.isFunction( component.beforeProcessTemplate ) ){
-                component.beforeProcessTemplate();
-            }
-        }
+        componentsMap.beforeProcessTemplate();
     };
     
     var updateDictionary = function( data, dictionaryExtension ){
@@ -228,19 +185,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         }
         
         dictionary.instance = self;
-        
-        //context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
-    };
-    
-    // Reset all components
-    var resetPage = function(){
-        
-        for ( var id in components ){
-            var component = components[ id ];
-            if ( component && $.isFunction( component.resetPage ) ){
-                component.resetPage();
-            }
-        }
     };
     
     var buildHTMLAndJavascript = function( root ){
@@ -249,7 +193,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             pageUtils.configureTemplate( options, "'" + thisOptions.template + "'" );
             
         } else {
-            resetPage();
+            componentsMap.resetPage();
         }
         
         context.getZPTParser().run({
@@ -288,10 +232,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             });
         
         // Bind events of components
-        for ( var id in components ){
-            var component = components[ id ];
-            component.bindEvents();
-        }
+        componentsMap.bindEvents();
     };
     
     var showCreateForm = function( event ){
@@ -351,16 +292,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var getComponent = function( id ){
-        return components[ id ];
+        return componentsMap.getComponent( id );
     };
     var getSecureComponent = function( id ){
-        
-        var component = getComponent( id );
-        if ( component ){
-            return component;
-        }
-        
-        throw 'Error in list form trying to get component: ' + id;
+        return componentsMap.getSecureComponent( id );
     };
     
     var showStatusMessage = function( dictionaryExtension ){
@@ -378,8 +313,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
 
         context.getZPTParser().run({
-            //root: get$().find( '.zcrud-bottom-panel' )[0],
-            root: components[ 'paging' ].get$()[0],
+            root: getComponent( 'paging' ).get$()[0],
             dictionary: thisDictionary,
             notRemoveGeneratedTags: false
         });
@@ -404,7 +338,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var getTotalNumberOfRecords = function(){
-        var pagingComponent = components[ 'paging' ];
+        var pagingComponent = getComponent( 'paging' );
         if ( ! pagingComponent ){
             return Object.keys( records ).length;
         }
