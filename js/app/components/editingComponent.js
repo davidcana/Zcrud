@@ -101,7 +101,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 var field = listPage.getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
-                    //context.getFieldBuilder().getValue( field, $this ),
                     field.getValue( $this ),
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
                     listPage.getId(),
@@ -159,11 +158,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 buildProcessTemplateParams( field, record, dictionary ),
                 $row
             );
-            /*
-            context.getFieldBuilder().afterProcessTemplateForField(
-                buildProcessTemplateParams( field, record, dictionary ),
-                $row
-            );*/
         }
     };
     
@@ -200,9 +194,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var addNewRow = function( event ){
 
         var newRecord = {};  // TODO Build new record with default values
-        var thisDictionary = $.extend( {}, listPage.getDictionary(), {} );
-        thisDictionary.records = [ newRecord ];
-
+        var thisDictionary = buildDictionaryForNewRow( newRecord );
+        
         var createHistoryItem = history.putCreate( 
             listPage.getId(), 
             thisDictionary,
@@ -214,6 +207,17 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         validationManager.initFormValidation( listPage.getThisOptions().formId, $tr, options );
     };
 
+    
+    var buildDictionaryForNewRow = function( newRecord ){
+        
+        var thisDictionary = $.extend( true, {}, listPage.getDictionary() );
+        
+        thisDictionary.records = [ newRecord ];
+        thisDictionary.editable = true;
+        
+        return thisDictionary;
+    };
+    
     // History methods
     var undo = function( event ){
 

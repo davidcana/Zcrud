@@ -58,4 +58,8 @@ Field.prototype.filterValue = function( record ){
     return record[ this.id ];
 };
 
+Field.prototype.getThisOptions = function(){
+    return this;
+};
+
 module.exports = Field;

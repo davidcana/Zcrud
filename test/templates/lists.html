@@ -42,65 +42,12 @@
                         </span>
                     </div>
                 </div>
-                <table class="zcrud" 
-                       data-idomain="i18nArray"
-                       data-tattributes="id instance/getThisOptions()/tableId">
-                    <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
-                                         selectingComponent instance/getComponent( 'selecting' );
-                                         selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
-                                         byRow instance/getThisOptions()/buttons/byRow">
-                        <tr>
-                            <th data-tcondition="selectingCheckbox">
-                                <input class="zcrud-select-all-rows" type="checkbox">
-                            </th>
-                            <th data-trepeat="field instance/getFields()" 
-                                data-tdefine="sortingOn and: sortingComponent field/sorting;
-                                              sortablePart cond: sortingOn ' zcrud-column-header-sortable' '';
-                                              sortType cond: sortingComponent sortingComponent/getTypeForFieldId( field/id ) null;
-                                              sortTypePart cond: (and: sortingOn (exists:sortType)) (string: zcrud-column-header-sorted-${sortType}) ''"
-                                data-tattributes="style cond: field/width (string:width:${field/width}) null;
-                                                  class string:zcrud-column-header zcrud-column-header-${field/id}${sortablePart}${sortTypePart};
-                                                  data-sort-field-id field/id;
-                                                  data-sort-type sortType">
-                                <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
-                            </th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"><!--empty--></th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"><!--empty--></th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"><!--empty--></th>
-                        </tr>
-                    </thead>
-                    <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
-                           data-tdefine="selectingComponent instance/getComponent( 'selecting' );
-                                         selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
-                                         editable exists: instance/getComponent( 'editing' );
-                                         byRow instance/getThisOptions()/buttons/byRow;
-                                         renderIds false">
-                        <tr data-trepeat="record records"
-                            data-tattributes="data-record-key record[ options/key ];
-                                              data-record-index repeat/record/index();
-                                              class 'zcrud-data-row zcrud-data-entity'"
-                            data-tdefine="data-record-index repeat/record/index()">
-                            <td data-tcondition="selectingCheckbox">
-                                <input class="zcrud-select-row" type="checkbox">
-                            </td>
-                            <td data-trepeat="field instance/getFields()"
-                                data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
-                                data-tdefine="value record[ field/id ]">
-                                <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
-                                <span data-tcondition="editable" data-muse-macro="field/template"><!--empty--></span>
-                            </td>
-                            <td data-tcondition="byRow/openEditRegisterForm">
-                                <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
-                            </td>
-                            <td data-tcondition="byRow/openDeleteRegisterForm">
-                                <button title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
-                            </td>
-                            <td data-tcondition="byRow/deleteRegisterRow">
-                                <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                
+                <div data-muse-macro="'table'"
+                     data-tdefine="editable instance/isEditable()">
+                    The ZCrud table
+                </div>
+                
                 <div class="zcrud-post-templates">
                     <div data-trepeat="field instance/getFields()"
                          data-tdefine="postTemplate field/getPostTemplate()">
@@ -113,6 +60,66 @@
                 </div>
             </form>
         </div>
+        
+        <table data-mdefine-macro="table" 
+               class="zcrud"
+               data-idomain="i18nArray"
+               data-tattributes="id instance/getThisOptions()/tableId">
+            <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
+                                 selectingComponent instance/getComponent( 'selecting' );
+                                 selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
+                                 byRow instance/getThisOptions()/buttons/byRow">
+                <tr>
+                    <th data-tcondition="selectingCheckbox">
+                        <input class="zcrud-select-all-rows" type="checkbox">
+                    </th>
+                    <th data-trepeat="field instance/getFields()" 
+                        data-tdefine="sortingOn and: sortingComponent field/sorting;
+                                      sortablePart cond: sortingOn ' zcrud-column-header-sortable' '';
+                                      sortType cond: sortingComponent sortingComponent/getTypeForFieldId( field/id ) null;
+                                      sortTypePart cond: (and: sortingOn (exists:sortType)) (string: zcrud-column-header-sorted-${sortType}) ''"
+                        data-tattributes="style cond: field/width (string:width:${field/width}) null;
+                                          class string:zcrud-column-header zcrud-column-header-${field/id}${sortablePart}${sortTypePart};
+                                          data-sort-field-id field/id;
+                                          data-sort-type sortType">
+                        <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
+                    </th>
+                    <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"><!--empty--></th>
+                    <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"><!--empty--></th>
+                    <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"><!--empty--></th>
+                </tr>
+            </thead>
+            <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
+                   data-tdefine="selectingComponent instance/getComponent( 'selecting' );
+                                 selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
+                                 byRow instance/getThisOptions()/buttons/byRow;
+                                 renderIds false">
+                <tr data-trepeat="record records"
+                    data-tattributes="data-record-key record[ options/key ];
+                                      data-record-index repeat/record/index();
+                                      class 'zcrud-data-row zcrud-data-entity'"
+                    data-tdefine="data-record-index repeat/record/index()">
+                    <td data-tcondition="selectingCheckbox">
+                        <input class="zcrud-select-row" type="checkbox">
+                    </td>
+                    <td data-trepeat="field instance/getFields()"
+                        data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
+                        data-tdefine="value record[ field/id ]">
+                        <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
+                        <span data-tcondition="editable" data-muse-macro="field/template"><!--empty--></span>
+                    </td>
+                    <td data-tcondition="byRow/openEditRegisterForm">
+                        <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
+                    </td>
+                    <td data-tcondition="byRow/openDeleteRegisterForm">
+                        <button title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
+                    </td>
+                    <td data-tcondition="byRow/deleteRegisterRow">
+                        <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         
         <div data-mdefine-macro="filterPanel" 
              class="zcrud-filter-panel"

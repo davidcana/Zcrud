@@ -370,6 +370,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         throw message;
     };
     
+    var isEditable = function(){
+        return getComponent( 'editing' )? true: false;
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -397,7 +401,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         instanceNewForm: instanceNewForm,
         addRecord: addRecord,
         updateRecord: updateRecord,
-        deleteRecord: deleteRecord
+        deleteRecord: deleteRecord,
+        isEditable: isEditable
     };
     
     configure();
