@@ -10,6 +10,8 @@ var validationManager = require( '../validationManager.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
+    
+    this.fieldsArray = [];
 };
 
 Subform.prototype = new Field();
@@ -222,7 +224,7 @@ Subform.prototype.getViewTemplate = function(){
 Subform.prototype.getViewTemplate = function(){
     return 'view@templates/fields/subforms.html';   
 };
-
+/*
 Subform.prototype.buildFields = function(){
     var subformInstance = this;
     var fields = [];
@@ -239,6 +241,21 @@ Subform.prototype.buildFields = function(){
     this.getFields = function(){
         return fields;
     };
+};*/
+Subform.prototype.buildFields = function(){
+    var subformInstance = this;
+    this.fieldsArray = [];
+    
+    $.each( this.fields, function ( subfieldId, subfield ) {
+        if ( subfield.subformKey ){
+            subformInstance.subformKey = subfieldId;
+        }
+        subformInstance.fieldsArray.push( subfield );
+    });
+};
+
+Subform.prototype.getFields = function(){
+    return this.fieldsArray;
 };
 
 Subform.prototype.mustHideLabel = function(){
