@@ -44,23 +44,29 @@ module.exports = {
         },
         defaultFieldOptions: {
             datetime: {
-                inline: false,
-                minYear: 1950,
-                maxYear: 2050,
-                maxHour: 23,
-                minutesStep: 5,
-                timerDelay: 100
+                customOptions: {
+                    inline: false,
+                    minYear: 1950,
+                    maxYear: 2050,
+                    maxHour: 23,
+                    minutesStep: 5,
+                    timerDelay: 100
+                }
             },
             date: {
-                inline: false,
-                minYear: 1950,
-                maxYear: 2050
+                customOptions: {
+                    inline: false,
+                    minYear: 1950,
+                    maxYear: 2050
+                }
             },
             time: {
-                inline: false,
-                maxHour: 99,
-                minutesStep: 5,
-                timerDelay: 100
+                customOptions: {
+                    inline: false,
+                    maxHour: 99,
+                    minutesStep: 5,
+                    timerDelay: 100
+                }
             }
         },
         getDefaultFieldTemplate: function( field ){

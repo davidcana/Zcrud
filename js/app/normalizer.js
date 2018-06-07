@@ -83,8 +83,13 @@ module.exports = (function() {
     };
     
     var buildFullFieldInstance = function( id, field, options, parent ){
+        
+        field = copyDefaultFieldProperties( field, options );
+        
         var newFieldInstance = buildFieldInstance( id, field );
+        
         normalizeFieldInstance( id, newFieldInstance, options, parent );
+        
         return newFieldInstance;
     };
     
@@ -134,15 +139,27 @@ module.exports = (function() {
             }
         }
 
-        // 
-        normalizeCustomOptionsField( field, options );
-
+        // Create customOptions if needed
+        if ( ! field.customOptions ){
+            field.customOptions = {};
+        }
+        
         // Normalize subfields in this field
         if ( field.fields ){
             field.fields = normalizeFieldGroupOptions( field.fields, options, field );
         }
     };
+    
+    var copyDefaultFieldProperties = function( field, options ){
 
+        var defaultFieldOptions = options.fieldsConfig.defaultFieldOptions[ field.type ];
+        if ( ! defaultFieldOptions ){
+            return field;
+        }
+
+        return $.extend( true, {}, defaultFieldOptions, field );
+    };
+    
     var normalizeGeneralOptionsPostFields = function( options ) {
 
         // Add remote page URLs to allDeclaredRemotePageUrls array
@@ -158,20 +175,6 @@ module.exports = (function() {
             template = options.containers.types[ i ].template;
             context.declareRemotePageUrl( template, options.allDeclaredRemotePageUrls );
         }
-    };
-
-    var normalizeCustomOptionsField = function( field, options ){
-
-        if ( ! field.customOptions ){
-            field.customOptions = {};
-        }
-
-        var defaultFieldOptions = options.fieldsConfig.defaultFieldOptions[ field.type ];
-        if ( ! defaultFieldOptions ){
-            defaultFieldOptions = {};
-        }
-
-        field.customOptions = $.extend( true, {}, defaultFieldOptions, field.customOptions );
     };
 
     var normalizePagesOptions = function( options ){
