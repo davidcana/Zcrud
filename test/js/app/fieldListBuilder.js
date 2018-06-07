@@ -6,7 +6,7 @@ require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testUtils = require( './testUtils.js' );
 var testHelper = require( './testHelper.js' );
-var fieldListBuilder = require( '../../../js/app/fieldListBuilder.js' );
+var fieldListBuilder = require( '../../../js/app/fields/fieldListBuilder.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var options = undefined;

@@ -8,7 +8,7 @@ var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
-var fieldListBuilder = require( '../fieldListBuilder.js' );
+var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 
 var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageToApply ) {
     "use strict";
