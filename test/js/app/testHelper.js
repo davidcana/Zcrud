@@ -32,11 +32,11 @@ module.exports = (function() {
     };
     var get$SubFormFieldByNameClass = function( subformName, fieldName, subformIndex ){
         return get$FormFieldByNameClass( subformName )
-            .find( "[data-subform-record-index='" + subformIndex + "'] .zcrud-column-data-" + fieldName );
+            .find( "[data-record-index='" + subformIndex + "'] .zcrud-column-data-" + fieldName );
     };
     var get$SubFormFieldRow = function( subformName, subformIndex ){
         return get$FormFieldByNameClass( subformName )
-            .find( "[data-subform-record-index='" + subformIndex + "']" );
+            .find( "[data-record-index='" + subformIndex + "']" );
     };
     var get$List = function(){
         return $( '#zcrud-list-department' );
@@ -514,11 +514,11 @@ module.exports = (function() {
         get$Form().find( '.zcrud-form-submit-command-button' ).trigger( 'click' );
     };
     var clickCreateSubformRowButton = function( subformName ){
-        get$FormFieldByNameClass( subformName ).find( '.zcrud-subform-new-row-command-button' ).trigger( 'click' );
+        get$FormFieldByNameClass( subformName ).find( '.zcrud-new-row-command-button' ).trigger( 'click' );
     };
     var clickDeleteSubformRowButton = function( subformName, subformIndex ){
         get$FormFieldByNameClass( subformName )
-            .find( "[data-subform-record-index='" + subformIndex + "'] .zcrud-subform-delete-row-command-button"  )
+            .find( "[data-record-index='" + subformIndex + "'] .zcrud-delete-row-command-button"  )
             .trigger( 'click' );
     };
     
@@ -589,8 +589,7 @@ module.exports = (function() {
         for ( var index in subformRecords ){
             
             var subformRecord = subformRecords[ index ];
-            //var $row = get$Form().find( "[data-subform-record-index='" + index + "']" );
-            var $row = get$FormFieldByNameClass( name ).find( "[data-subform-record-index='" + index + "']" );
+            var $row = get$FormFieldByNameClass( name ).find( "[data-record-index='" + index + "']" );
             fillSubformRow( subformRecord, $row, name );
         }
     };

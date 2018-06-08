@@ -72,7 +72,7 @@ Subform.prototype.afterProcessTemplateForField = function( params, $form ){
     var $subform = this.get$subform( params.formPage );
     this.bindEventsInRows( params, $subform, undefined );
     $subform
-        .find( '.zcrud-subform-new-row-command-button' )
+        .find( '.zcrud-new-row-command-button' )
         .off()
         .click( 
         function ( event ) {
@@ -128,12 +128,12 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
             0,
             formPage.getId(),
             field,
-            $tr.attr( 'data-subform-record-index' ),
-            $tr.attr( 'data-subform-record-key' ) );
+            $tr.attr( 'data-record-index' ),
+            $tr.attr( 'data-record-key' ) );
     });
 
     $selection
-        .find( '.zcrud-subform-delete-row-command-button' )
+        .find( '.zcrud-delete-row-command-button' )
         .off()
         .click( function ( event ) {
             event.preventDefault();
@@ -207,10 +207,10 @@ Subform.prototype.deleteRow = function( params, event ){
         formPage.getId(), 
         //options, 
         0, 
-        $tr.attr( 'data-subform-record-key' ), 
+        $tr.attr( 'data-record-key' ), 
         $tr,
         this,
-        $tr.attr( 'data-subform-record-index' ) );
+        $tr.attr( 'data-record-index' ) );
 };
 
 Subform.prototype.getTemplate = function( options ){
@@ -260,6 +260,16 @@ Subform.prototype.getFields = function(){
 
 Subform.prototype.mustHideLabel = function(){
     return true;
+};
+
+Subform.prototype.getComponent = function( id ){
+    //return componentsMap.getComponent( id );
+    return null;
+};
+
+Subform.prototype.getSecureComponent = function( id ){
+    //return componentsMap.getSecureComponent( id );
+    return null;
 };
 
 module.exports = Subform;

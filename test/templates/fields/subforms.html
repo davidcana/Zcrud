@@ -27,10 +27,10 @@
                                          renderIds false;
                                          byRow subformField/buttons/byRow">
                         <tr data-trepeat="record subformRecords"
-                            data-tattributes="data-subform-record-key record[ subformField/subformKey ];
-                                              data-subform-record-index repeat/record/index();
+                            data-tattributes="data-record-key record[ subformField/subformKey ];
+                                              data-record-index repeat/record/index();
                                               class 'zcrud-data-row zcrud-data-entity'"
-                            data-tdefine="data-subform-record-index repeat/record/index()">
+                            data-tdefine="data-record-index repeat/record/index()">
                             <td data-trepeat="field subformField/getFields()"
                                 data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
                                 data-tdefine="value record[ field/id ]">
@@ -45,13 +45,13 @@
                                 <button title="Delete record" class="zcrud-subform-delete-command-button"><!--empty--></button>
                             </td>
                             <td data-tcondition="byRow/deleteRegisterRow">
-                                <button title="Delete record" class="zcrud-subform-delete-row-command-button"><!--empty--></button>
+                                <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="zcrud-subform-toolbar">
-                    <button class="zcrud-subform-new-row-command-button" 
+                    <button class="zcrud-new-row-command-button" 
                             data-tattributes="title tr:'Add new record'" 
                             data-tcondition="toolbar/newRegisterRow"><!--empty--></button>
                 </div>
@@ -75,10 +75,10 @@
                     <tbody data-tdefine="editable true;
                                          renderIds false">
                         <tr data-trepeat="record subformRecords"
-                            data-tattributes="data-subform-record-key record[ subformField/subformKey ];
-                                              data-subform-record-index repeat/record/index();
+                            data-tattributes="data-record-key record[ subformField/subformKey ];
+                                              data-record-index repeat/record/index();
                                               class 'zcrud-data-row zcrud-data-entity'"
-                            data-tdefine="data-subform-record-index repeat/record/index()">
+                            data-tdefine="data-record-index repeat/record/index()">
                             <td data-trepeat="field subformField/getFields()"
                                 data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
                                 data-tdefine="value record[ field/id ]">

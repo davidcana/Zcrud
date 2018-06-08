@@ -132,8 +132,7 @@ div.zcrud-main-container div.zcrud-title {
 
 /* Commands buttons */
 div.zcrud-main-container .zcrud-new-command-button,
-div.zcrud-main-container .zcrud-new-row-command-button,
-div.zcrud-main-container .zcrud-subform-new-row-command-button {
+div.zcrud-main-container .zcrud-new-row-command-button {
     background: url('./add.png') no-repeat center;
     background-size: 16px 16px;
     height: 30px;
@@ -149,8 +148,7 @@ div.zcrud-main-container .zcrud-edit-command-button:hover {
     opacity: 0.8;
 }
 div.zcrud-main-container .zcrud-delete-command-button,
-div.zcrud-main-container .zcrud-delete-row-command-button,
-div.zcrud-main-container .zcrud-subform-delete-row-command-button {
+div.zcrud-main-container .zcrud-delete-row-command-button {
     background: url('./delete.png') no-repeat center;
     background-size: 16px 16px;
     height: 30px;

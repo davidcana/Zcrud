@@ -53,7 +53,7 @@
                 <div data-trepeat="option optionsList">
                     <label>
                         <input type="radio"
-                               data-tdefine="nameIndex data-subform-record-index || data-record-index"
+                               data-tdefine="nameIndex data-record-index"
                                data-tattributes="name string:${field/name}[${nameIndex}];
                                                  value option/value;
                                                  checked cond: (eq: option/value value) 'checked' null;
@@ -102,7 +102,7 @@
                 <div data-trepeat="option optionsList">
                     <label>
                         <input type="checkbox"
-                               data-tdefine="nameIndex data-subform-record-index || data-record-index;
+                               data-tdefine="nameIndex data-record-index;
                                              isChecked cond: (exists: value) (lt: -1 value/indexOf(option/value)) false"
                                data-tattributes="name string:${field/name}[${nameIndex}];
                                                  value option/value;
