@@ -31,7 +31,6 @@ Subform.prototype.filterValue = function( record ){
             var value = subformRecord[ subformField.id ];
             if ( value != undefined ){
                 newRecord[ subformField.id ] = subformField.filterValue( subformRecord );
-                //newRecord[ subformField.id ] = context.getFieldBuilder().filterValue( subformRecord, subformField );
             }
         }
     }
@@ -88,9 +87,12 @@ Subform.prototype.addNewRow = function( params ){
     var options = params.options;
 
     var thisDictionary = $.extend( {}, formPage.getDictionary(), {} );
-    thisDictionary.subformRecords = [ {} ];
-    thisDictionary.subformField = this;
-
+    thisDictionary.subformRecords = [ {} ]; // To remove
+    thisDictionary.subformField = this;     // To remove
+    thisDictionary.editable = true;
+    thisDictionary.instance = this;
+    thisDictionary.records = [ {} ];
+    
     var createHistoryItem = formPage.getHistory().putCreate( 
         formPage.getId(), 
         thisDictionary,
@@ -270,6 +272,10 @@ Subform.prototype.getComponent = function( id ){
 Subform.prototype.getSecureComponent = function( id ){
     //return componentsMap.getSecureComponent( id );
     return null;
+};
+
+Subform.prototype.getKey = function(){
+    return this.subformKey;
 };
 
 module.exports = Subform;

@@ -84,18 +84,19 @@
                                           data-sort-type sortType">
                         <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
                     </th>
-                    <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"><!--empty--></th>
-                    <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"><!--empty--></th>
-                    <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"><!--empty--></th>
+                    <th class="zcrud-command-column-header" data-tcondition="and: (not: hideRowButtons) byRow/openEditRegisterForm"><!--empty--></th>
+                    <th class="zcrud-command-column-header" data-tcondition="and: (not: hideRowButtons) byRow/openDeleteRegisterForm"><!--empty--></th>
+                    <th class="zcrud-command-column-header" data-tcondition="and: (not: hideRowButtons) byRow/deleteRegisterRow"><!--empty--></th>
                 </tr>
             </thead>
             <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
                    data-tdefine="selectingComponent instance/getComponent( 'selecting' );
                                  selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
                                  byRow instance/getThisOptions()/buttons/byRow;
-                                 renderIds false">
+                                 renderIds false;
+                                 key instance/getKey()">
                 <tr data-trepeat="record records"
-                    data-tattributes="data-record-key record[ options/key ];
+                    data-tattributes="data-record-key record[ key ];
                                       data-record-index repeat/record/index();
                                       class 'zcrud-data-row zcrud-data-entity'"
                     data-tdefine="data-record-index repeat/record/index()">
@@ -105,16 +106,16 @@
                     <td data-trepeat="field instance/getFields()"
                         data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
                         data-tdefine="value record[ field/id ]">
-                        <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
+                        <span data-tcondition="not: editable" data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) value">Field value</span>
                         <span data-tcondition="editable" data-muse-macro="field/template"><!--empty--></span>
                     </td>
-                    <td data-tcondition="byRow/openEditRegisterForm">
+                    <td data-tcondition="and: (not: hideRowButtons) byRow/openEditRegisterForm">
                         <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
                     </td>
-                    <td data-tcondition="byRow/openDeleteRegisterForm">
+                    <td data-tcondition="and: (not: hideRowButtons) byRow/openDeleteRegisterForm">
                         <button title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
                     </td>
-                    <td data-tcondition="byRow/deleteRegisterRow">
+                    <td data-tcondition="and: (not: hideRowButtons) byRow/deleteRegisterRow">
                         <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
                     </td>
                 </tr>

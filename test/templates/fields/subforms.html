@@ -4,8 +4,25 @@
         <meta charset="utf-8">
         <title>Templates of subforms</title>
     </head>
-    <body> 
+    <body>
         <div data-mdefine-macro="subform" data-tomit-tag="">
+            <div class="zcrud-subform-content">
+                <div data-muse-macro="'table@templates/lists.html'"
+                     data-tdefine="editable true;
+                                   instance field;
+                                   records value">
+                    The ZCrud table
+                </div>
+                
+                <div class="zcrud-subform-toolbar">
+                    <button class="zcrud-new-row-command-button" 
+                            data-tattributes="title tr:'Add new record'" 
+                            data-tcondition="field/buttons/toolbar/newRegisterRow"><!--empty--></button>
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="subform_bak" data-tomit-tag="">
             <div class="zcrud-subform-content"
                  data-tdefine="subformField field;
                                toolbar subformField/buttons/toolbar;
@@ -59,6 +76,19 @@
         </div>
         
         <div data-mdefine-macro="view" data-tomit-tag="">
+            <div class="zcrud-subform-content">
+                <div data-muse-macro="'table@templates/lists.html'"
+                     data-tdefine="editable false;
+                                   instance field;
+                                   records value;
+                                   renderIds false;
+                                   hideRowButtons true">
+                    The ZCrud table
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="view_bak" data-tomit-tag="">
             <div class="zcrud-subform-content"
                  data-tdefine="subformField field;
                                subformRecords value">

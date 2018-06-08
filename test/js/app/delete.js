@@ -118,8 +118,8 @@ QUnit.test( "delete with subform test", function( assert ) {
             
             testHelper.clickDeleteListButton( key );
             
-            var subformText = $( '#zcrud-form-department .zcrud-field-members .zcrud-data-row .zcrud-column-data' ).text().replace(/  +/g, ' ').replace(/\r?\n|\r/g, '').trim();
-            assert.equal( subformText, '1  Bart Simpson  Description of Bart Simpson  2  Lisa Simpson  (not set)' );
+            var subformText = $( '#zcrud-form-department .zcrud-field-members .zcrud-data-row .zcrud-column-data' ).text().replace(/  +/g, ' ').replace(/\r?\n|\r/g, '').trim().replace(/  +/g, ' ');
+            assert.equal( subformText, '1 Bart Simpson Description of Bart Simpson 2 Lisa Simpson (not set)' );
             //alert( subformText );
             
             done();

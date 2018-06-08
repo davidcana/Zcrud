@@ -374,6 +374,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return getComponent( 'editing' )? true: false;
     };
     
+    var getKey = function(){
+        return options.key;
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -402,7 +406,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         addRecord: addRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
-        isEditable: isEditable
+        isEditable: isEditable,
+        getKey: getKey
     };
     
     configure();
