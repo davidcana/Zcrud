@@ -18,27 +18,22 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, pageToApply )
     };
     
     var registerAllComponents = function() {
-        
-        // TODO Optimize this
+
         for ( var componentId in thisOptions ){
             var component = thisOptions[ componentId ];
-            var ConstructorClass = component.constructorClass;
-            registerComponent( 
-                componentId,
-                component, 
-                function(){
-                    return new ConstructorClass( options, component, page );
-                }
-            );
+            if ( component.isOn ){
+                registerComponent( componentId, component );
+            }
         }
     }
 
-    var registerComponent = function( componentId, component, constructorFunction ){
+    var registerComponent = function( componentId, component ){
         
-        var thisComponent = component.isOn? constructorFunction(): undefined;
-        if ( thisComponent ){
-            components[ componentId ] = thisComponent;
-        }
+        // Get ConstructorClass
+        var ConstructorClass = component.constructorClass;
+        
+        // Build component using ConstructorClass and add to components
+        components[ componentId ] = new ConstructorClass( options, component, page );
     };
     
     var getComponent = function( id ){
