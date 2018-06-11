@@ -252,15 +252,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         };
     };
     
-    var beforeProcessTemplate = function(){
-        /*
-        for ( var c = 0; c < fields.length; c++ ) {
-            var field = fields[ c ];
-            context.getFieldBuilder().beforeProcessTemplateForField(
-                buildProcessTemplateParams( field )
-            );
-        }*/
-        
+    var beforeProcessTemplate = function(){        
         updateDictionary();
     };
     
@@ -275,11 +267,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 buildProcessTemplateParams( field ),
                 $form
             );
-            /*
-            context.getFieldBuilder().afterProcessTemplateForField(
-                buildProcessTemplateParams( field ),
-                $form
-            );*/
         }
         
         triggerFormCreatedEvent( $form );

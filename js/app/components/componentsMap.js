@@ -82,7 +82,7 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, pageToApply )
             }
         }
     };
-    
+    /*
     var beforeProcessTemplate = function(){
 
         for ( var id in components ){
@@ -91,13 +91,15 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, pageToApply )
                 component.beforeProcessTemplate();
             }
         }
-    };
+    };*/ 
     
     var bindEvents = function() {
 
         for ( var id in components ){
             var component = components[ id ];
-            component.bindEvents();
+            if ( component && $.isFunction( component.bindEvents ) ){
+                component.bindEvents();
+            }
         }
     };
     
@@ -107,7 +109,7 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, pageToApply )
         resetPage: resetPage,
         buildDataToSend: buildDataToSend,
         dataFromServer: dataFromServer,
-        beforeProcessTemplate: beforeProcessTemplate,
+        //beforeProcessTemplate: beforeProcessTemplate,
         bindEvents: bindEvents
     };
     

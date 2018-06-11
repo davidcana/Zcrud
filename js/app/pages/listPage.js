@@ -168,7 +168,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         updateDictionary( data, dictionaryExtension );
         buildRecords();
         
-        componentsMap.beforeProcessTemplate();
+        //componentsMap.beforeProcessTemplate();
     };
     
     var updateDictionary = function( data, dictionaryExtension ){
