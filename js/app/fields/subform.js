@@ -7,6 +7,7 @@ var Field = require( './field.js' );
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
 var validationManager = require( '../validationManager.js' );
+var ComponentsMap = require( '../components/componentsMap.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
@@ -276,6 +277,10 @@ Subform.prototype.getSecureComponent = function( id ){
 
 Subform.prototype.getKey = function(){
     return this.subformKey;
+};
+
+Subform.prototype.configure = function( options, formPage ){
+    this.componentsMap = new ComponentsMap( options, this.components, formPage );
 };
 
 module.exports = Subform;

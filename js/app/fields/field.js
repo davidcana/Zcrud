@@ -9,6 +9,10 @@ var Field = function( properties ) {
     $.extend( true, this, properties );
 };
 
+Field.prototype.configure = function(){
+    // Nothing to do
+};
+
 Field.prototype.afterProcessTemplateForField = function( params, $selection ){
     // Nothing to do
 };

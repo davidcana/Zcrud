@@ -156,6 +156,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         fields = fieldsCache.fieldsArray;
         fieldsMap = fieldsCache.fieldsMap;
         view = fieldsCache.view;
+        
+        for ( var c = 0; c < fields.length; ++c ){
+            fields[ c ].configure( options, self );
+        }
     };
     
     // Build the form

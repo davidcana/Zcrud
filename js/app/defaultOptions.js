@@ -67,6 +67,43 @@ module.exports = {
                     minutesStep: 5,
                     timerDelay: 100
                 }
+            },
+            subform: {
+                components: {
+                    paging: {
+                        isOn: false,
+                        constructorClass: require( './components/pagingComponent.js' ),
+                        defaultPageSize: 10,
+                        pageSizes: [10, 25, 50, 100, 250, 500],
+                        pageSizeChangeArea: true,
+                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        gotoPageFieldAttributes: {},
+                        maxNumberOfAllShownPages: 5,
+                        block1NumberOfPages: 1,
+                        block2NumberOfPages: 5,
+                        block3NumberOfPages: 1
+                    },
+                    sorting: {
+                        isOn: false,
+                        constructorClass: require( './components/sortingComponent.js' ),
+                        loadFromLocalStorage: true,
+                        default: {
+                            fieldId: undefined,
+                            type: undefined
+                        },
+                        allowUser: false
+                    },
+                    filtering: {
+                        isOn: false,
+                        constructorClass: require( './components/filteringComponent.js' ),
+                    },
+                    selecting: {
+                        isOn: false,
+                        constructorClass: require( './components/selectingComponent.js' ),
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
+                    }
+                }
             }
         },
         getDefaultFieldTemplate: function( field ){

@@ -19,6 +19,7 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, pageToApply )
     
     var registerAllComponents = function() {
         
+        // TODO Optimize this
         for ( var componentId in thisOptions ){
             var component = thisOptions[ componentId ];
             var ConstructorClass = component.constructorClass;
