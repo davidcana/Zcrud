@@ -233,8 +233,8 @@ module.exports = {
     },
 
     templates: {
-        declaredRemotePageUrls: [],
-        busyTemplate: "busyDefaultTemplate@templates/misc.html"
+        declaredRemotePageUrls: []
+        //busyTemplate: "busyDefaultTemplate@templates/misc.html"
     },
 
     ajax: {

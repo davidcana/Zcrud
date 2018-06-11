@@ -164,7 +164,7 @@ module.exports = (function() {
 
         // Add remote page URLs to allDeclaredRemotePageUrls array
         options.allDeclaredRemotePageUrls = options.templates.declaredRemotePageUrls.slice();
-        context.declareRemotePageUrl( options.templates.busyTemplate, options.allDeclaredRemotePageUrls );
+        //context.declareRemotePageUrl( options.templates.busyTemplate, options.allDeclaredRemotePageUrls );
 
         for ( var i in options.pageConf.pages ) {
             var template = options.pageConf.pages[ i ].template;

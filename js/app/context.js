@@ -8,13 +8,10 @@ module.exports = (function() {
     var zpt = require( 'zpt' );
     var pageUtils = require( './pages/pageUtils.js' );
     
-    var defaultConf = {
-        busyDivId: 'zcrud-busy'
-    };
     var zptParser = undefined;
     var subformSeparator = '-';
     
-    /* Cache */
+    // Cache
     var cache = {};
     var put = function ( id, data ){
         cache[ id ] = data;
@@ -22,41 +19,6 @@ module.exports = (function() {
     var get = function ( id ){
         return cache[ id ];
     };
-    
-    /* busy */
-    /*
-    var busyDiv = undefined;
-    var getBusyDiv = function(){
-        if ( ! busyDiv ){
-            busyDiv = $( '#' + defaultConf.busyDivId );
-        }
-        return busyDiv;
-    };
-    var showBusy = function ( options, fullVersion ) {
-        
-        if ( fullVersion ){
-            var templatePath = options.templates.busyTemplate;
-                
-            pageUtils.configureTemplate( options, templatePath );
-
-            zpt.run({
-                //root: options.target[0],
-                root: options.body,
-                dictionary: {}
-            });
-            return;
-        }
-        
-        getBusyDiv().show();
-    };
-    var hideBusy = function ( options, fullVersion ) {
-
-        if ( fullVersion ){
-            return;
-        }
-
-        getBusyDiv().hide();
-    };*/
     
     // I18n
     var i18nArray = undefined;
@@ -132,7 +94,7 @@ module.exports = (function() {
         return language;
     };
     
-    // options
+    // Options
     var putOptions = function( jqueryObject, options ){
         put( 'options_' + getSelectorString( jqueryObject ), options );
     };
@@ -147,7 +109,7 @@ module.exports = (function() {
         return get( 'options_' + id );
     };*/
     
-    // pages
+    // Pages
     var putPage = function( id, page ){
         put( 'page_' + id, page );
     };
@@ -239,7 +201,7 @@ module.exports = (function() {
         return options.jsonBuilder;
     };
 
-    // fieldBuilder
+    // Field builder
     var fieldBuilder = undefined;
     var setFieldBuilder = function( fieldBuildertoApply ){
         fieldBuilder = fieldBuildertoApply;
@@ -273,7 +235,5 @@ module.exports = (function() {
         getJSONBuilder: getJSONBuilder,
         setFieldBuilder: setFieldBuilder,
         getFieldBuilder: getFieldBuilder
-        //showBusy: showBusy,
-        //hideBusy: hideBusy
     };
 })();

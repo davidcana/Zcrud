@@ -48,11 +48,6 @@ Subform.prototype.getValueFromRecord = function( record, params ){
         var subformRecord = subformRecords[ i ];
         for ( var c in subformFields ){
             var subformField = subformFields[ c ];
-            /*
-            subformRecord[ subformField.id ] = context.getFieldBuilder().getValueFromRecord( 
-                subformField, 
-                subformRecord, 
-                this.buildProcessTemplateParams( subformField, subformRecord, dictionary, params ) );*/
             subformRecord[ subformField.id ] = subformField.getValueFromRecord(  
                 subformRecord, 
                 this.buildProcessTemplateParams( subformField, subformRecord, dictionary, params ) );
@@ -126,7 +121,6 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
         var $tr = $tr || $this.closest( 'tr' );
         formPage.getHistory().putChange( 
             $this, 
-            //context.getFieldBuilder().getValue( field, $this ), 
             field.getValue( $this ), 
             0,
             formPage.getId(),
@@ -179,11 +173,6 @@ Subform.prototype.bindEventsForFieldsIn1Row = function( $row, fields, record, di
             this.buildProcessTemplateParams( field, record, dictionary, params ),
             $row
         );
-        /*
-        context.getFieldBuilder().afterProcessTemplateForField(
-            this.buildProcessTemplateParams( field, record, dictionary, params ),
-            $row
-        );*/
     }
 };
 

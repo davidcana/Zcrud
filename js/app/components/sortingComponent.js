@@ -79,7 +79,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var updateList = function(){
         
         listPage.show( 
-            false,
             undefined, 
             [ $( '#' + listPage.getThisOptions().tableId )[0] ] );
     };

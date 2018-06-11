@@ -208,11 +208,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            /*
-            newRecord[ field.id ] = context.getFieldBuilder().getValueFromRecord( 
-                field, 
-                record, 
-                buildProcessTemplateParams( field ) );*/
             newRecord[ field.id ] = field.getValueFromRecord( 
                 record, 
                 buildProcessTemplateParams( field ) );
@@ -234,8 +229,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         }, options.dictionary );
         
         dictionary.instance = self;
-        
-        //context.getFieldBuilder().addFieldManagersToDictionary( dictionary );
     };
     
     var buildProcessTemplateParams = function( field ){
@@ -329,7 +322,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 var field = getFieldByName( $this.prop( 'name' ) );
                 history.putChange( 
                     $this, 
-                    //context.getFieldBuilder().getValue( field, $this ), 
                     field.getValue( $this ), 
                     0,
                     id,
@@ -385,9 +377,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 }
             };
             if ( dataFromServer.clientOnly ){
-                listPage.showFromClientOnly( true, dictionaryExtension, jsonObject );
+                listPage.showFromClientOnly( dictionaryExtension, jsonObject );
             } else {
-                listPage.show( true, dictionaryExtension );
+                listPage.show( dictionaryExtension );
             }
 
             history.reset( elementId );
@@ -535,7 +527,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     
     var cancelForm = function( event, $form ){
         triggerFormClosedEvent( event, $form );
-        listPage.show( false );
+        listPage.show();
     };
     
     var getDictionary = function(){

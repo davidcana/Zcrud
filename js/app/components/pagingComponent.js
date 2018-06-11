@@ -73,10 +73,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var updateList = function(){
         
         listPage.show( 
-            false,
             undefined, 
             [ $( '#' + listPage.getThisOptions().tbodyId )[0], get$()[0] ] );
-            //[ $( '#' + listPage.getThisOptions().tbodyId )[0], $( '#' + id )[0] ] );
     };
     
     // Change current page to given value

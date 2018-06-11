@@ -86,13 +86,12 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return data;
     };
     
-    var showFromClientOnly = function ( showBusyFull, dictionaryExtension, dataToSendToServer ) {
+    var showFromClientOnly = function ( dictionaryExtension, dataToSendToServer ) {
         
         var recordsDiff = History.updateRecordsMap( records, dataToSendToServer, options.key );
         
         clientAndServerSuccessFunction( 
             buildDataFromClient( dataToSendToServer, recordsDiff ),
-            showBusyFull, 
             dictionaryExtension );
     };
     
@@ -120,31 +119,29 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return data;
     };
     
-    var showUsingRecords = function ( showBusyFull, dictionaryExtension, root, callback ) {
+    var showUsingRecords = function ( dictionaryExtension, root, callback ) {
         
         clientAndServerSuccessFunction( 
             buildDataUsingUserRecords(),
-            showBusyFull, 
             dictionaryExtension, 
             root, 
             callback );
     };
     
-    var clientAndServerSuccessFunction = function( data, showBusyFull, dictionaryExtension, root, callback ){
+    var clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
         
         componentsMap.dataFromServer( data );
         beforeProcessTemplate( data, dictionaryExtension );
-        //context.hideBusy( options, showBusyFull );
         buildHTMLAndJavascript( root );
         if ( callback ){
             callback( true );
         }
     };
     
-    var show = function ( showBusyFull, dictionaryExtension, root, callback ) {
+    var show = function ( dictionaryExtension, root, callback ) {
 
         if ( userRecords ){
-            showUsingRecords( showBusyFull, dictionaryExtension, root, callback );
+            showUsingRecords( dictionaryExtension, root, callback );
             return;
         }
         
@@ -153,7 +150,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 search: buildDataToSend(),
                 success: clientAndServerSuccessFunction,
                 error: function(){
-                    //context.hideBusy( options, showBusyFull );
                     context.showError( options, false, 'Server communication error!' );
                     if ( callback ){
                         callback( false );
@@ -167,8 +163,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
 
         updateDictionary( data, dictionaryExtension );
         buildRecords();
-        
-        //componentsMap.beforeProcessTemplate();
     };
     
     var updateDictionary = function( data, dictionaryExtension ){

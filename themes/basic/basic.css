@@ -389,7 +389,7 @@ form.zcrud-form .zcrud-subform-content {
     padding: .5em;
 }
 
-/* Busy elements */
+/* Busy message */
 #zcrud-busy-message {
     cursor: wait;
     margin: .5em;
@@ -445,7 +445,6 @@ vertical-align: bottom;
 
 /* Modified fields */
 td.zcrud-modified-field {
-    /*background-color: #f23411;*/
     background-image: url('./square-dirty.gif');
     background-repeat: no-repeat;
     background-position: left top;
@@ -456,24 +455,6 @@ div.zcrud-modified-field {
     background-color: #f0cac6;
 }
 /*
-div.zcrud-modified-field {
-    background-color: #e1cc59;
-}*/
-
-/* Busy indicator */
-.zcrud-busy {
-    position: fixed;
-    z-index: 999;
-    top: 50%;
-    left: 50%;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
 @-webkit-keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);
@@ -489,7 +470,7 @@ div.zcrud-modified-field {
     100% {
         transform: rotate(360deg);
     }
-}
+}*/
 
 /* Datetime picker */
 .datetime {
