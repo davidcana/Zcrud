@@ -239,14 +239,9 @@ div.zcrud-main-container table.zcrud>thead th {
     vertical-align: middle;
     text-align: left;
 }
-div.zcrud-main-container table.zcrud>thead th .zcrud-column-resize-handler {
-    position: absolute;
-    height: 24px;
-    width: 8px;
-    right: -8px;
-    top: -2px;
-    z-index: 2;
-    cursor: col-resize;
+div.zcrud-main-container .zcrud-subform-content table.zcrud>thead th {
+    font-weight: 800;
+    font-size: 1em;
 }
 div.zcrud-main-container table.zcrud>thead th.zcrud-command-column-header {
     text-align: center;
@@ -258,9 +253,6 @@ div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-sortable {
 div.zcrud-main-container table.zcrud>thead th.zcrud-column-header {
     height: 24px;
     margin-left: 4px;
-}
-div.zcrud-main-container table.zcrud>thead th.zcrud-column-header .zcrud-column-resize-handler {
-    height: 28px;
 }
 div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-sortable {
     background: url('./column-sortable.png') no-repeat left;
