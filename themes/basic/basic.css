@@ -252,13 +252,6 @@ div.zcrud-main-container table.zcrud>thead th.zcrud-command-column-header {
     text-align: center;
     width: 1%;
 }
-div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-selecting {
-    text-align: center;
-    width: 1%;
-}
-div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-selecting input {
-    cursor: pointer;
-}
 div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-sortable {
     cursor: pointer;
 }
@@ -302,10 +295,18 @@ div.zcrud-main-container table.zcrud>tbody>tr.zcrud-data-row:hover {
     background-color: #d1d0d0;
 }
 
+/* Selecting */
+div.zcrud-main-container th.zcrud-column-header-selecting {
+    text-align: center;
+    width: 1%;
+}
+div.zcrud-main-container th.zcrud-column-header-selecting input {
+    cursor: pointer;
+}
+
 /* Selected rows */
 div.zcrud-main-container tr.zcrud-row-selected {
-    color: #fff;
-    background-color: #4fabff;
+    background-color: #94c5f2 !important;
 }
 
 /* Bottom panel */
