@@ -1,7 +1,7 @@
 /* 
     selectingComponent class
 */
-module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -9,14 +9,15 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var pageUtils = require( '../pages/pageUtils.js' );
     
     var options = optionsToApply;
-    var listPage = listPageToApply;
+    var parent = parentToApply;
+    var page = pageToApply;
     
     var thisOptions = thisOptionsToApply;
     var getThisOptions = function(){
         return thisOptions;
     };
     
-    var shiftKeyDown = false; // True, if shift key is currently down.
+    var shiftKeyDown = false; // True, if shift key is currently down
     var modeOnRowClickOn =  -1 != thisOptions.mode.indexOf( 'onRowClick' );
     var modeCheckBoxOn =  -1 != thisOptions.mode.indexOf( 'checkbox' );
     
@@ -41,29 +42,21 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     // Return a reference to the 'select/deselect all' checkbox (jQuery object)
-    var $selectAllCheckbox = undefined; 
-    var getSelectAllCheckbox = function(){
-        
-        if ( ! $selectAllCheckbox ){
-            $selectAllCheckbox = $( '#' + listPage.getThisOptions().tableId ).find( '.zcrud-select-all-rows' );
-        }
-        return $selectAllCheckbox;
+    var get$selectAllCheckbox = function(){
+        return parent.get$().find( '.zcrud-select-all-rows' );
     };
     
-    var getTableBody = function(){
-        return $( '#' + listPage.getThisOptions().tbodyId );
-    };
-    var getAllTableRows = function(){
-        return getTableBody().find( '>tr.zcrud-data-row' );
+    var get$allTableRows = function(){
+        return parent.get$().find( 'tr.zcrud-data-row' );
     };
     
     var bindSelectAllHeader = function(){
         
-        getSelectAllCheckbox().click( function () {
+        get$selectAllCheckbox().click( function () {
             
-            var allTableRows = getAllTableRows();
+            var allTableRows = get$allTableRows();
             if ( allTableRows.length <= 0 ) {
-                getSelectAllCheckbox().attr( 'checked', false );
+                get$selectAllCheckbox().attr( 'checked', false );
                 return;
             }
 
@@ -81,53 +74,53 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         
         // Select/deselect on row click
         if ( modeOnRowClickOn ) {
-            getAllTableRows().click( function () {
+            get$allTableRows().click( function () {
                 invertRowSelection( $( this ) );
             });
         }
 
         // Select/deselect checkbox column
         if ( ! modeOnRowClickOn && modeCheckBoxOn ) {
-            getAllTableRows().find( '.zcrud-select-row' ).click( function () {
+            get$allTableRows().find( '.zcrud-select-row' ).click( function () {
                 invertRowSelection( $( this ).parents( 'tr' ) );
             });
         }
     };
     
     var bindEvents = function(){
+        
         bindKeyboardEvents();   
         bindSelectAllHeader();
         bindRowsEvents();
     };
     
-    /* Inverts selection state of a single row.
-        *************************************************************************/
+    // Invert selection state of a single row
     var invertRowSelection = function ( $row ) {
         
         if ( $row.hasClass( 'zcrud-row-selected' ) ) {
             _deselectRows( $row );
             
         } else {
-            //Shift key?
+            // Shift key?
             if ( shiftKeyDown ) {
-                var $mappedArray = buildMappedArray( getAllTableRows() );
-                //var $tableRows = getAllTableRows();
+                var $mappedArray = buildMappedArray( get$allTableRows() );
                 var rowIndex = findRowIndex( $row, $mappedArray );
-                //try to select row and above rows until first selected row
+                
+                // Try to select row and above rows until first selected row
                 var beforeIndex = findFirstSelectedRowIndexBeforeIndex( rowIndex, $mappedArray ) + 1;
                 if ( beforeIndex > 0 && beforeIndex < rowIndex ) {
                     _selectRows( 
                         buildJqueryWrapped(
                             $mappedArray.slice( beforeIndex, rowIndex + 1 ) ) );
                 } else {
-                    //try to select row and below rows until first selected row
+                    // Try to select row and below rows until first selected row
                     var afterIndex = findFirstSelectedRowIndexAfterIndex( rowIndex, $mappedArray ) - 1;
                     if ( afterIndex > rowIndex ) {
                         _selectRows( 
                             buildJqueryWrapped(
                                 $mappedArray.slice( rowIndex, afterIndex + 1 ) ) );
                     } else {
-                        //just select this row
+                        // Just select this row
                         _selectRows( $row );
                     }
                 }
@@ -139,9 +132,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         onSelectionChanged();
     };
 
-    /* Finds index of a row in table.
-        *************************************************************************/
+    // Find index of a row in table.
     var findRowIndex = function ( $row, $tableRows ) {
+        
         return pageUtils.findIndexInArray( $row, $tableRows, function ( $row1, $row2 ) {
             return $row1.html() === $row2.html();
         });
@@ -155,13 +148,13 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var buildJqueryWrapped = function( array ){
+        
         return $( array ).map ( function (){
             return this.toArray();
         });
     };
     
-    /* Search for a selected row (that is before given row index) to up and returns it's index 
-        *************************************************************************/
+    // Look for a selected row (that is before given row index) to up and returns it's index 
     var findFirstSelectedRowIndexBeforeIndex = function ( rowIndex, $tableRows ) {
         
         for ( var i = rowIndex - 1; i >= 0; --i ) {
@@ -172,8 +165,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         return -1;
     };
     
-    /* Search for a selected row (that is after given row index) to down and returns it's index 
-        *************************************************************************/
+    // Look for a selected row (that is after given row index) to down and returns it's index 
     var findFirstSelectedRowIndexAfterIndex = function ( rowIndex, $tableRows ) {
         
         for ( var i = rowIndex + 1; i < $tableRows.length; ++i ) {
@@ -184,16 +176,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         return -1;
     };
     
-    /* Makes row/rows 'selected'.
-        *************************************************************************/
+    // Make row/rows 'selected'
     var _selectRows = function ( $rows ) {
         
         if ( ! thisOptions.multiple ) {
-            _deselectRows( getSelectedRows() );
+            _deselectRows( get$selectedRows() );
         }
 
         $rows.addClass( 'zcrud-row-selected' );
-        //this._jqueryuiThemeAddClass($rows, 'ui-state-highlight');
 
         if ( modeCheckBoxOn ) {
             $rows.find( '.zcrud-select-row' ).prop( 'checked', true );
@@ -202,8 +192,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         refreshSelectAllCheckboxState();
     };
     
-    /* Makes row/rows 'non selected'.
-        *************************************************************************/
+    // Make row/rows 'non selected'
     var _deselectRows =  function ( $rows ) {
         
         $rows.removeClass( 'zcrud-row-selected' );
@@ -214,28 +203,27 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         refreshSelectAllCheckboxState();
     };
     
-    /* Updates state of the 'select/deselect' all checkbox according to count of selected rows.
-        *************************************************************************/
+    // Update state of the 'select/deselect' all checkbox according to count of selected rows
     var refreshSelectAllCheckboxState = function () {
         
         if ( ! modeCheckBoxOn || ! thisOptions.multiple ) {
             return;
         }
 
-        var totalRowCount = getAllTableRows().length;
-        var selectedRowCount = getSelectedRows().length;
+        var totalRowCount = get$allTableRows().length;
+        var selectedRowCount = get$selectedRows().length;
 
         if ( selectedRowCount == 0 ) {
-            getSelectAllCheckbox().prop( 'indeterminate', false );
-            getSelectAllCheckbox().attr( 'checked', false );
+            get$selectAllCheckbox().prop( 'indeterminate', false );
+            get$selectAllCheckbox().attr( 'checked', false );
             
         } else if ( selectedRowCount == totalRowCount ) {
-            getSelectAllCheckbox().prop( 'indeterminate', false );
-            getSelectAllCheckbox().attr( 'checked', true );
+            get$selectAllCheckbox().prop( 'indeterminate', false );
+            get$selectAllCheckbox().attr( 'checked', true );
             
         } else {
-            getSelectAllCheckbox().attr( 'checked', false );
-            getSelectAllCheckbox().prop( 'indeterminate', true );
+            get$selectAllCheckbox().attr( 'checked', false );
+            get$selectAllCheckbox().prop( 'indeterminate', true );
         }
     };
     
@@ -274,24 +262,23 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
 
         if ( selector ){
-            operationFunction( getAllTableRows().filter( selector ) );
+            operationFunction( get$allTableRows().filter( selector ) );
         }
     };
     
-    /* Gets all selected rows.
-        *************************************************************************/
-    var getSelectedRows = function(){
-        return $( '#' + listPage.getThisOptions().tableId ).find( '.zcrud-row-selected' );
+    // Get all selected rows
+    var get$selectedRows = function(){
+        return parent.get$().find( '.zcrud-row-selected' );
     };
     
     var getSelectedRecords = function(){
 
         var result = [];
 
-        var $selectedRows = getSelectedRows();
+        var $selectedRows = get$selectedRows();
         $selectedRows.each( function( index ) {
             var key = $( this ).data( 'record-key' );
-            var record = listPage.getRecordByKey( key );
+            var record = parent.getRecordByKey( key );
             result.push( record );
         });
         
@@ -301,15 +288,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var onSelectionChanged = function () {
         
         options.events.selectionChanged({
-            '$rows': getSelectedRows(),
+            '$rows': get$selectedRows(),
             records: getSelectedRecords(),
             options: options
         });
     };
     
     var resetPage = function(){
-        getSelectAllCheckbox().prop( 'indeterminate', false );
-        getSelectAllCheckbox().attr( 'checked', false );
+        
+        get$selectAllCheckbox().prop( 'indeterminate', false )
+                               .attr( 'checked', false );
     };
     
     return {
@@ -319,7 +307,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         selectRows: selectRows,
         deselectRecords: deselectRecords,
         deselectRows: deselectRows,
-        getSelectedRows: getSelectedRows,
+        getSelectedRows: get$selectedRows,
         getSelectedRecords: getSelectedRecords,
         resetPage: resetPage
     };

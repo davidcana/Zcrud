@@ -301,7 +301,9 @@ div.zcrud-main-container table.zcrud>tbody>tr.zcrud-data-row:nth-child(even) {
 div.zcrud-main-container table.zcrud>tbody>tr.zcrud-data-row:hover {
     background-color: #d1d0d0;
 }
-div.zcrud-main-container table.zcrud>tbody>tr.zcrud-row-selected {
+
+/* Selected rows */
+div.zcrud-main-container tr.zcrud-row-selected {
     color: #fff;
     background-color: #4fabff;
 }

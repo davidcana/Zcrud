@@ -19,6 +19,7 @@ Subform.prototype = new Field();
 Subform.prototype.constructor = Subform;
 
 Subform.prototype.filterValue = function( record ){
+    
     var newRecords = [];
     var subformRecords = record[ this.id ];
     var subformFields = this.fields;
@@ -40,6 +41,7 @@ Subform.prototype.filterValue = function( record ){
 };
 
 Subform.prototype.getValueFromRecord = function( record, params ){
+    
     var dictionary = params.formPage.getDictionary();
     var subformRecords = record[ this.id ] || [];
     var subformFields = this.fields;
@@ -63,6 +65,7 @@ Subform.prototype.get$subform = function( formPage ){
 }
 
 Subform.prototype.afterProcessTemplateForField = function( params, $form ){
+    
     var subformInstance = this;
     var $subform = this.get$subform( params.formPage );
     this.bindEventsInRows( params, $subform, undefined );
@@ -76,9 +79,12 @@ Subform.prototype.afterProcessTemplateForField = function( params, $form ){
             subformInstance.addNewRow( params );
         }
     );
+    // Bind events of components
+    this.componentsMap.bindEvents();
 };
 
 Subform.prototype.addNewRow = function( params ){
+    
     var formPage = params.formPage;
     var options = params.options;
 
@@ -104,6 +110,7 @@ Subform.prototype.addNewRow = function( params ){
 };
 
 Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
+    
     var subformInstance = this;
     var formPage = params.formPage;
     var $selection = $subform || $tr;
@@ -156,6 +163,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
 };
 
 Subform.prototype.bindEventsForFields = function( $subform, fields, dictionary, params ){
+    
     var records = params.value || [];
     var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
     for ( var i = 0; i < records.length; i++ ) {
@@ -177,6 +185,7 @@ Subform.prototype.bindEventsForFieldsIn1Row = function( $row, fields, record, di
 };
 
 Subform.prototype.buildProcessTemplateParams = function( field, record, dictionary, params ){
+    
     return {
         field: field, 
         value: record[ field.id ],
@@ -255,13 +264,11 @@ Subform.prototype.mustHideLabel = function(){
 };
 
 Subform.prototype.getComponent = function( id ){
-    //return componentsMap.getComponent( id );
-    return null;
+    return this.componentsMap.getComponent( id );
 };
 
 Subform.prototype.getSecureComponent = function( id ){
-    //return componentsMap.getSecureComponent( id );
-    return null;
+    return this.componentsMap.getSecureComponent( id );
 };
 
 Subform.prototype.getKey = function(){
@@ -269,7 +276,26 @@ Subform.prototype.getKey = function(){
 };
 
 Subform.prototype.configure = function( options, formPage ){
-    this.componentsMap = new ComponentsMap( options, this.components, formPage );
+    this.componentsMap = new ComponentsMap( options, this.components, this, formPage );
+};
+
+Subform.prototype.getRecordByKey = function( key ){
+    
+    var parentRecord = this.page.getRecord();
+    
+    if ( ! parentRecord ){
+        return undefined;
+    }
+    
+    var subformValue = parentRecord[ this.id ];
+    
+    for ( var c = 0; c < subformValue.length; ++c ){
+        var currentRecord = subformValue[ c ];
+        if ( currentRecord[ this.subformKey ] == key ){
+            return currentRecord;
+        }
+    }
+    return undefined;
 };
 
 module.exports = Subform;

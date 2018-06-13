@@ -48,18 +48,23 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return fields;
     };
     
+    var currentFormPage = undefined;
+    var getCurrentFormPage = function(){
+        return currentFormPage;
+    };
+    
     var componentsMap = undefined;
     
     // Initial configuration
     var configure = function(){
 
         buildFields();
-        componentsMap = new ComponentsMap( options, thisOptions.components, self );
+        componentsMap = new ComponentsMap( options, thisOptions.components, self, self );
     };
 
     var buildFields = function(){
 
-        var fieldsCache = fieldListBuilder.get( 'list', options );
+        var fieldsCache = fieldListBuilder.get( 'list', options, undefined, self );
         fields = fieldsCache.fieldsArray;
         fieldsMap = fieldsCache.fieldsMap;
     };
@@ -244,8 +249,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var showForm = function( type, record ){
-        var formPage =  new FormPage( options, type, record, self );        
-        formPage.show();
+        currentFormPage =  new FormPage( options, type, record, self );        
+        currentFormPage.show();
     };
     
     var instanceNewForm = function( type, record ){
@@ -401,7 +406,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
         isEditable: isEditable,
-        getKey: getKey
+        getKey: getKey,
+        getCurrentFormPage: getCurrentFormPage
     };
     
     configure();

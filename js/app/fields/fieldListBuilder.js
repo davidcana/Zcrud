@@ -8,7 +8,7 @@ var normalizer = require( '../normalizer.js' );
 module.exports = (function() {
     "use strict";
     
-    var get = function( pageId, options, pageIdArray ){
+    var get = function( pageId, options, pageIdArray, page ){
         
         var pageOptions = options.pageConf.pages[ pageId ];
         if ( ! pageOptions ){
@@ -37,6 +37,13 @@ module.exports = (function() {
 
         pageOptions.fieldsCache = fieldsCache;
         
+        // Set the page to all fields if needed
+        if ( page ){
+            for ( var c = 0; c < fieldsCache.fieldsArray.length; ++c ){
+                fieldsCache.fieldsArray[ c ].setPage( page );
+            }
+        }
+        
         return fieldsCache;
     };
 
@@ -54,7 +61,7 @@ module.exports = (function() {
                 items[ c ], 
                 options, 
                 pageIdArray, 
-                functionToApplyToField )
+                functionToApplyToField );
         }
     
         return result;

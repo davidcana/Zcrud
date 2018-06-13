@@ -148,6 +148,7 @@ module.exports = {
                     redo: true,
                     cancel: true
                 },
+                toolbarExtension: undefined,
                 byRow: {
                     openEditRegisterForm: true,
                     openDeleteRegisterForm: true,

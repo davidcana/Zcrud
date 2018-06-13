@@ -5,28 +5,36 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
+var testUtils = require( './testUtils.js' );
 
-var defaultTestOptions = require( './defaultTestOptions.js' );
-var thisTestOptions = {
-    pageConf: {
-        pages: {
-            list: {
-                components: {
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+var listTestOptions = require( './defaultTestOptions.js' );
+var subformTestOptions = require( './subformTestOptions.js' );
+var thisTestOptions = undefined;
+var options = undefined;
+        
+// Run tests
+
+QUnit.test( "list selecting test", function( assert ) {
+    
+    // Setup services
+    testUtils.resetServices();
+    
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        selecting: {
+                            isOn: true,
+                            multiple: true,
+                            mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        }
                     }
                 }
             }
         }
-    }
-};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
-        
-// Run tests
-QUnit.test( "selecting test", function( assert ) {
-
+    };
+    options = $.extend( true, {}, listTestOptions, thisTestOptions );
     var done = assert.async();
     
     $( '#departmentsContainer' ).zcrud( 
@@ -285,6 +293,249 @@ QUnit.test( "selecting test", function( assert ) {
                 pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
             });
             assert.equal( getSelected().length, 0 );
+            
+            done();
+        }
+    );
+});
+
+
+QUnit.test( "subform selecting test", function( assert ) {
+
+    // Setup services
+    testUtils.resetServices();
+    var key = 4;
+    var record =  {
+        "id": "" + key,
+        "name": "Service " + key,
+        "members": [
+            {
+                "code": "1",
+                "name": "Bart Simpson",
+                "description": "Description of Bart Simpson"
+            },
+            {
+                "code": "2",
+                "name": "Lisa Simpson",
+                "description": "Description of Lisa Simpson"
+            },
+            {
+                "code": "3",
+                "name": "Marge Simpson",
+                "description": "Description of Marge Simpson"
+            },
+            {
+                "code": "4",
+                "name": "Homer Simpson",
+                "description": "Description of Homer Simpson"
+            }
+        ]
+    };
+    testUtils.setService( key, record );
+    
+    thisTestOptions = {
+        pageConf: {
+            defaultPageConf: {
+                buttons: {
+                    toolbarExtension: 'customButtons'
+                }
+            }
+        },
+        fields: {
+            members: {
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
+            }
+        },
+        events: {
+            formCreated: function ( data ) {
+                $( '#doAction' ).click( function ( event ) {
+                    event.preventDefault();
+                    
+                    var listPage = $( '#departmentsContainer' ).zcrud( 'getListPage' );
+                    var formPage = listPage.getCurrentFormPage();
+                    alert( 
+                        JSON.stringify(
+                            formPage.getField( 'members' ).getComponent( 'selecting' ).getSelectedRecords()
+                        )
+                    );
+                });
+            }
+        }
+    };
+    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            
+            // Add some functions
+            var $departmentsContainer = $( '#departmentsContainer' );
+            var getSelected = function(){
+                var listPage = $departmentsContainer.zcrud( 'getListPage' );
+                var formPage = listPage.getCurrentFormPage();
+                return formPage.getField( 'members' ).getComponent( 'selecting' ).getSelectedRecords();
+            };
+
+            var $tbody = $departmentsContainer.find( '.zcrud-field-members tbody' );
+            var select = function(){
+                for ( var c = 0; c < arguments.length; c++ ){
+                    var id = arguments[ c ];
+                    $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+                }
+            };
+
+            var toggleSelect = function(){
+                $departmentsContainer.find( ".zcrud-field-members input.zcrud-select-all-rows" ).trigger( 'click' );
+            };
+            
+            // Test it!
+            assert.equal( getSelected().length, 0 );
+            
+            // Select
+            select( '1', '3' );
+            assert.deepEqual( 
+                getSelected(), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            
+            // Deselect
+            select( '1', '3' );
+            assert.equal( getSelected().length, 0 );
+
+            // Select again
+            select( '1' );
+            assert.deepEqual( 
+                getSelected(), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    }
+                ] );
+            
+            // Test ranges
+            testHelper.keyDown( 16 );
+            select( '3' );
+            assert.deepEqual( 
+                getSelected(), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ] );
+            testHelper.keyUp( 16 );
+            
+            // Select all being some selected
+            toggleSelect();
+            assert.deepEqual( 
+                getSelected(), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    },
+                    {
+                        "code": "4",
+                        "name": "Homer Simpson",
+                        "description": "Description of Homer Simpson"
+                    }
+                ] );
+            
+            // Deselect all
+            toggleSelect();
+            assert.equal( getSelected().length, 0 );
+            
+            // Select all being no selected
+            toggleSelect();
+            assert.deepEqual( 
+                getSelected(), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    },
+                    {
+                        "code": "4",
+                        "name": "Homer Simpson",
+                        "description": "Description of Homer Simpson"
+                    }
+                ] );
+            
+            // Deselect some
+            select( '1', '4' );
+            assert.deepEqual( 
+                getSelected(), 
+                [ 
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ] );
+            
+            // TODO Test move to next page, all selected must be deselected
             
             done();
         }

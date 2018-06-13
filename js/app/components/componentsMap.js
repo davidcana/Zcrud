@@ -4,11 +4,12 @@
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
 
-var ComponentsMap = function ( optionsToApply, thisOptionsToApply, pageToApply ) {
+var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
     "use strict";
     
     var options = optionsToApply;
     var thisOptions = thisOptionsToApply;
+    var parent = parentToApply;
     var page = pageToApply;
     var components = {};
     
@@ -33,7 +34,7 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, pageToApply )
         var ConstructorClass = component.constructorClass;
         
         // Build component using ConstructorClass and add to components
-        components[ componentId ] = new ConstructorClass( options, component, page );
+        components[ componentId ] = new ConstructorClass( options, component, parent, page );
     };
     
     var getComponent = function( id ){

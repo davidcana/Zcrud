@@ -267,3 +267,13 @@ exports.deleteRecord = function( listPageIdSource, data ){
         formPage.deleteRecord( data );
     }
 };
+
+exports.getListPage = function( listPageIdSource ){
+
+    var listPage = context.getListPage( listPageIdSource );
+    if ( ! listPage ){
+        alert( 'No list found using that source:' + listPageIdSource );
+        return;
+    }
+    return listPage;
+};

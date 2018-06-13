@@ -38,6 +38,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     var get$form = function(){
         return $( '#' + id );
     };
+    var get$ = function(){
+        return $( '#' + id );
+    };
     
     var title = undefined;
     var getTitle = function(){
@@ -152,7 +155,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
     var buildFields = function(){
         
-        var fieldsCache = fieldListBuilder.get( type, options );
+        var fieldsCache = fieldListBuilder.get( type, options, undefined, self );
         fields = fieldsCache.fieldsArray;
         fieldsMap = fieldsCache.fieldsMap;
         view = fieldsCache.view;
@@ -267,6 +270,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     
     var bindEvents = function( $form ) {
         
+        // Bind events of submit, cancel, undo and redo buttons; also change event
         $form
             .find( '.zcrud-form-submit-command-button' )
             .off()
@@ -565,13 +569,15 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         getId: getId,
         getTitle: getTitle,
         getFields: getFields,
+        getField: getField,
         getView: getView,
         getHistory: getHistory,
         getFieldByName: getFieldByName,
         getParentFieldByName: getParentFieldByName,
         addRecord: addRecord,
         updateRecord: updateRecord,
-        deleteRecord: deleteRecord
+        deleteRecord: deleteRecord,
+        get$: get$
     };
     
     configure();

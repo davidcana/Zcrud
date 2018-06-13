@@ -9,6 +9,10 @@ var Field = function( properties ) {
     $.extend( true, this, properties );
 };
 
+Field.prototype.setPage = function( pageToApply ){
+    this.page = pageToApply;
+};
+
 Field.prototype.configure = function(){
     // Nothing to do
 };
@@ -64,6 +68,10 @@ Field.prototype.filterValue = function( record ){
 
 Field.prototype.getThisOptions = function(){
     return this;
+};
+
+Field.prototype.get$ = function(){
+    return this.page.get$().find( '.zcrud-field-' + this.id );
 };
 
 module.exports = Field;
