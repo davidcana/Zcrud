@@ -33,7 +33,7 @@
     "number_title": "Número",
     "number_description": "El número del departamento",
     "members_title": "Miembros",
-    "members_description": "Los miembros del departmento",
+    "members_description": "Los miembros del departamento",
     "code_title": "Codigo",
     "location_title": "Localización",
     "location_description": "Información relacionada con el lugar",
@@ -41,6 +41,8 @@
     "basicData_description": "Los datos básicos del departamento",
     "hobbies_title": "Aficiones",
     "hobbies_description": "Sus aficiones favoritas, puede seleccionar varias",
+    "externalMembers_title": "Miembros externos",
+    "externalMembers_description": "Los miembros externos del departamento",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

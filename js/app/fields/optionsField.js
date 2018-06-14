@@ -22,17 +22,19 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
         return;
     }
 
+    var page = this.page;
     var $thisDropdown = $selection.find( "[name='" + this.name + "']");
 
     // Build dictionary
-    var dictionary = $.extend( {}, params.dictionary );
+    //var dictionary = $.extend( {}, params.dictionary );
+    var dictionary = $.extend( true, {}, this.page.getDictionary() );
     dictionary.field = this;
     dictionary.type = this.type;
     dictionary.value = params.value;
 
     // For each dependency
     $.each( this.dependsOn, function ( index, dependsOn ) {
-        var dependsOnField = context.getField( params.options.fields, dependsOn );
+        var dependsOnField = context.getField( page.getOptions().fields, dependsOn );
 
         // Find the depended combobox
         var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']");
@@ -41,7 +43,11 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
         $dependsOnDropdown.change(
             function (){
                 // Refresh options
-                params.dependedValues = optionProvider.createDependedValuesUsingForm( params.field, params.options, $selection, params ) ;
+                params.dependedValues = optionProvider.createDependedValuesUsingForm( 
+                    params.field, 
+                    page.getOptions(), 
+                    $selection, 
+                    params ) ;
                 dictionary.optionsListFromForm = optionProvider.buildOptions( params );
                 dictionary.record = params.record;
                 dictionary.value = params.record[ params.field.id ];
@@ -64,6 +70,7 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
 };
 
 OptionsField.prototype.afterProcessTemplateForField = function( params, $selection ){
+    
     switch( params.source ) {
         case 'create':
         case 'update':
@@ -78,6 +85,7 @@ OptionsField.prototype.afterProcessTemplateForField = function( params, $selecti
 };
 
 OptionsField.prototype.getValueFromSelectionAndField = function( $selection ){
+    
     var $checkboxesContainer = $selection.parents( '.zcrud-checkboxes-container' ).first();
     return $checkboxesContainer.find( "input[type='checkbox']:checked" ).map(
         function() {
@@ -86,7 +94,8 @@ OptionsField.prototype.getValueFromSelectionAndField = function( $selection ){
     ).get();
 };
 
-OptionsField.prototype.getValueFromForm = function( options, $selection ){
+OptionsField.prototype.getValueFromForm = function( $selection ){
+    
     switch( this.type ) {
         case 'checkboxes':
             return this.getValueFromSelectionAndField( $selection );
@@ -95,7 +104,7 @@ OptionsField.prototype.getValueFromForm = function( options, $selection ){
             return $selectedRadio.length > 0? $selectedRadio.val(): undefined;
         case 'select':
             return $selection.find( "select[name='" + this.name + "']").val();
-            //case 'optgroup':
+        //case 'optgroup':
         case 'datalist':
             return $selection.find( "input[name='" + this.name + "']").val();
     }
@@ -104,6 +113,7 @@ OptionsField.prototype.getValueFromForm = function( options, $selection ){
 };
 
 OptionsField.prototype.setValueToForm = function( value, $this ){
+    
     switch( this.type ) {
         case 'checkboxes':  
             var $checkboxesContainer = $this.parents( '.zcrud-checkboxes-container' ).first();
@@ -127,7 +137,7 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
             this.throwEventsForSetValueToForm( $this );
             return;
         case 'select':
-            //case 'optgroup':
+        //case 'optgroup':
         case 'datalist':
             $this.val( value );
             $this.trigger( "change", [ true ] );
@@ -139,12 +149,13 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
 };
 
 OptionsField.prototype.getValue = function( $this ){
+    
     switch( this.type ) {
         case 'checkboxes':
             return this.getValueFromSelectionAndField( $this );
         case 'radio':
         case 'select':
-            //case 'optgroup':
+        //case 'optgroup':
         case 'datalist':
             return $this.val();
     }
@@ -153,12 +164,13 @@ OptionsField.prototype.getValue = function( $this ){
 };
 
 OptionsField.prototype.getValueFromRecord = function( record, params ){
+    
     switch( params.source ) {
         case 'create':
         case 'update':
             return record[ this.id ];
         case 'delete':
-            var optionsList = this.getOptionsFromRecord( record, params.options );
+            var optionsList = this.getOptionsFromRecord( record, this.page.getOptions() );
             var tempValue = record[ this.id ];
             try {
                 var map = this.getDisplayTextMapFromArrayOptions( optionsList );
@@ -175,7 +187,8 @@ OptionsField.prototype.getValueFromRecord = function( record, params ){
     }
 };
 
-OptionsField.prototype.getMultipleValueFromRecord = function( optionsMap, value ){ 
+OptionsField.prototype.getMultipleValueFromRecord = function( optionsMap, value ){
+    
     var result = '';
 
     for ( var i in value ) {
@@ -202,11 +215,12 @@ OptionsField.prototype.getDisplayTextMapFromArrayOptions = function( optionsArra
     return map;
 };
 
-OptionsField.prototype.getTemplate = function( options ){
+OptionsField.prototype.getTemplate = function(){
     return this.type + '@templates/fields/basic.html'
 };
 
 OptionsField.prototype.getPostTemplate = function(){
+    
     switch( this.type ) {
         case 'checkboxes':
         case 'radio':
@@ -221,6 +235,7 @@ OptionsField.prototype.getPostTemplate = function(){
 };
 
 OptionsField.prototype.mustHideLabel = function(){
+    
     switch( this.type ) {
         case 'checkboxes':
         case 'radio':

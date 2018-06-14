@@ -41,6 +41,8 @@
     "basicData_description": "Basic data about the departament",
     "hobbies_title": "Hobbies",
     "hobbies_description": "Your favourites hobbies, you can select several of them",
+    "externalMembers_title": "External members",
+    "externalMembers_description": "The external members of the department",
     
     "_options": "",
     "homePhone_option": "Home phone",

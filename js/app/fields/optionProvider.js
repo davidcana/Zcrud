@@ -34,7 +34,7 @@ var OptionProvider = function() {
         
         // Check if it is a function
         if ( $.isFunction( optionsSource ) ) {
-            //prepare parameter to the function
+            // Prepare parameter to the function
             funcParams = $.extend( true, {
                 _cacheCleared: false,
                 dependedValues: {},
@@ -43,22 +43,22 @@ var OptionProvider = function() {
                 }
             }, funcParams );
 
-            //call function and get actual options source
+            // Call function and get actual options source
             optionsSource = optionsSource( funcParams );
         }
         
-        //Build options according to it's source type
+        // Build options according to it's source type
         var optionsList = undefined;
-        if ( typeof optionsSource == 'string' ) { //It is an Url to download options
-            var cacheKey = 'options_' + params.field.id + '_' + optionsSource; //create a unique cache key
+        if ( typeof optionsSource == 'string' ) { // It is an URL to download options
+            var cacheKey = 'options_' + params.field.id + '_' + optionsSource; // Create an unique cache key
             var mustBuild = false;
             if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
-                //if user calls clearCache() or options are not found in the cache, download options
+                // If user calls clearCache() or options are not found in the cache, download options
                 mustBuild = true;
             } else {
-                //found on cache..
-                //if this method (getOptionsForField) is called to get option for a specific value (on funcParams.source == 'list')
-                //and this value is not in cached options, we need to re-download options to get the unfound (probably new) option.
+                // Found on cache!
+                // If this method (getOptionsForField) is called to get option for a specific value (on funcParams.source == 'list')
+                // and this value is not in cached options, we need to re-download options to get the unfound (probably new) option.
                 if ( funcParams.value != undefined ) {
                     var optionForValue = findOptionByValue( cache[ cacheKey ], funcParams.value );
                     if ( optionForValue.displayText == undefined ) { //this value is not in cached options...
@@ -67,6 +67,7 @@ var OptionProvider = function() {
                 }
             }
             
+            // Build options if needed
             if ( mustBuild ){
                 optionsList = buildOptionsFromArrayOrObject(
                     downloadOptions( 
@@ -92,11 +93,11 @@ var OptionProvider = function() {
         
         var optionsList = undefined;
         
-        if ( $.isArray( optionsSource ) ) { //It is an array of options
+        if ( $.isArray( optionsSource ) ) { // It is an array
             optionsList = buildOptionsFromArray( optionsSource );
             sortFieldOptions( optionsList, field.optionsSorting );
             
-        } else { //It is an object that it's properties are options
+        } else { // It is an object
             optionsList = buildOptionsArrayFromObject( optionsSource );
             sortFieldOptions( optionsList, field.optionsSorting );
         }
@@ -104,14 +105,15 @@ var OptionProvider = function() {
         return optionsList;
     };
     
-    // Creates array of options from giving options array
+    // Create array of options from giving options array
     var buildOptionsFromArray = function ( optionsArray ) {
+        
         var list = [];
 
         for ( var i = 0; i < optionsArray.length; i++ ) {
             if ( $.isPlainObject( optionsArray[ i ] ) ) {
                 list.push( optionsArray[ i ] );
-            } else { //assumed as primitive type (int, string...)
+            } else { // Assumed as primitive type (int, string...)
                 list.push({
                     value: optionsArray[ i ],
                     displayText: optionsArray[ i ]
@@ -124,8 +126,9 @@ var OptionProvider = function() {
     
     // Download options for a field from server
     var downloadOptions = function ( fieldId, url, options ) {
+        
         var result = [];
-
+        
         var thisOptions = {
             url    : url,
             async  : false,
@@ -143,27 +146,25 @@ var OptionProvider = function() {
             }
         };
         
-        //options.ajax(
         options.ajax.ajaxFunction(
             $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
 
         return result;
     };
     
-    // Sorts given options according to sorting parameter
+    // Sort given options according to sorting parameter
     var sortFieldOptions = function ( options, sorting ) {
 
         if ( ( ! options ) || ( ! options.length ) || ( ! sorting ) ) {
             return;
         }
 
-        //Determine using value of text
         var dataSelector = undefined;
         if ( sorting.indexOf( 'value' ) == 0) {
             dataSelector = function ( option ) {
                 return option.value;
             };
-        } else { //assume as text
+        } else { // Assume as text
             dataSelector = function ( option ) {
                 return option.displayText;
             };
@@ -174,7 +175,7 @@ var OptionProvider = function() {
             compareFunc = function ( option1, option2 ) {
                 return dataSelector( option1 ).localeCompare( dataSelector( option2 ) );
             };
-        } else { //asuume as numeric
+        } else { // Assume as numeric
             compareFunc = function ( option1, option2 ) {
                 return dataSelector( option1 ) - dataSelector( option2 );
             };
@@ -184,31 +185,33 @@ var OptionProvider = function() {
             options.sort( function ( a, b ) {
                 return compareFunc( b, a );
             });
-        } else { //assume as asc
+        } else { // Assume as asc
             options.sort( function ( a, b ) {
                 return compareFunc( a, b );
             });
         }
     };
     
-    // Finds an option object by given value
+    // Find an option object by given value
     var findOptionByValue = function (options, value) {
         return findItemByProperty( options, 'value', value );
     };
     
-    // Finds an option object by given value
+    // Find an option object by given value
     var findItemByProperty = function ( items, key, value ) {
+        
         for ( var i = 0; i < items.length; i++ ) {
             if ( items[ i ][ key ] == value ) {
                 return items[ i ];
             }
         }
 
-        return {}; //no item found
+        return {};
     };
     
-    // Creates an array of options from given object
+    // Create an array of options from given object
     var buildOptionsArrayFromObject = function ( options ) {
+        
         var list = [];
 
         $.each( options, function ( propName, propValue ) {
@@ -221,7 +224,7 @@ var OptionProvider = function() {
         return list;
     };
     
-    // Creates and returns an object that's properties are depended values of a record
+    // Create and return an object with properties are depended values of a record
     var createDependedValuesUsingRecord = function ( record, field ) {
         
         var dependsOn = field.dependsOn;

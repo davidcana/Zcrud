@@ -14,6 +14,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     "use strict";
 
     var options = optionsToApply;
+    var getOptions = function(){
+        return options;
+    };
     
     var type = typeToApply;
     var getType = function(){
@@ -160,9 +163,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         fieldsMap = fieldsCache.fieldsMap;
         view = fieldsCache.view;
         
+        /*
         for ( var c = 0; c < fields.length; ++c ){
-            fields[ c ].configure( options, self );
-        }
+            fields[ c ].configure( self );
+        }*/
     };
     
     // Build the form
@@ -577,7 +581,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         addRecord: addRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
-        get$: get$
+        get$: get$,
+        getOptions: getOptions
     };
     
     configure();

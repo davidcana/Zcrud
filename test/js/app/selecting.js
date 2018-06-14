@@ -541,3 +541,178 @@ QUnit.test( "subform selecting test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "2 subforms selecting test", function( assert ) {
+
+    // Setup services
+    testUtils.resetServices();
+    var key = 4;
+    var record =  {
+        "id": "" + key,
+        "name": "Service " + key,
+        "members": [
+            {
+                "code": "1",
+                "name": "Bart Simpson",
+                "description": "Description of Bart Simpson"
+            },
+            {
+                "code": "2",
+                "name": "Lisa Simpson",
+                "description": "Description of Lisa Simpson"
+            },
+            {
+                "code": "3",
+                "name": "Marge Simpson",
+                "description": "Description of Marge Simpson"
+            },
+            {
+                "code": "4",
+                "name": "Homer Simpson",
+                "description": "Description of Homer Simpson"
+            }
+        ],
+        "externalMembers": [
+            {
+                "code": "5",
+                "name": "Ned Flanders Simpson",
+                "description": "Description of Ned Flanders"
+            }
+        ]
+    };
+    testUtils.setService( key, record );
+
+    thisTestOptions = {
+        pageConf: {
+            defaultPageConf: {
+                buttons: {
+                    toolbarExtension: '2CustomButtons'
+                }
+            }
+        },
+        fields: {
+            members: {
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
+            },
+            externalMembers: {
+                type: 'subform',
+                fields: { 
+                    code: { 
+                        subformKey: true
+                    },
+                    name: { },
+                    description: {
+                        type: 'textarea',
+                        formFieldAttributes: {
+                            rows: 3,
+                            cols: 80
+                        }
+                    }
+                },
+                buttons: {
+                    toolbar: {
+                        newRegisterRow: true
+                    },
+                    byRow: {
+                        openEditRegisterForm: false,
+                        openDeleteRegisterForm: false,
+                        deleteRegisterRow: true
+                    }
+                },
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
+            }
+        },
+        events: {
+            formCreated: function ( data ) {
+                $( '#copyMembers' ).click( 
+                    function ( event ) {
+                        event.preventDefault();
+                        copyMembers( 'members', 'externalMembers' );
+                    }
+                );
+                $( '#copyExternalMembers' ).click( 
+                    function ( event ) {
+                        event.preventDefault();
+                        copyMembers( 'externalMembers', 'members' );
+                    }
+                );
+            }
+        }
+    };
+    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    var copyMembers = function( fromFieldId, toFieldId ){
+        
+        var listPage = $( '#departmentsContainer' ).zcrud( 'getListPage' );
+        var formPage = listPage.getCurrentFormPage();
+        var selectedRecords = formPage.getField( fromFieldId ).getComponent( 'selecting' ).getSelectedRecords();
+        
+        if ( selectedRecords.length == 0 ){
+            alert( 'Please, select at least one member!' );
+            return;
+        }
+        
+        /*
+        alert( 
+            JSON.stringify( selectedRecords )
+        );*/
+        for ( var c = 0; c < selectedRecords.length; ++c ){
+            var currentRecord = selectedRecords[ c ];
+            alert( 
+                JSON.stringify( currentRecord )
+            );
+            formPage.getField( toFieldId );
+        }
+    };
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+
+            // Add some functions
+            var $departmentsContainer = $( '#departmentsContainer' );
+            var getSelected = function(){
+                var listPage = $departmentsContainer.zcrud( 'getListPage' );
+                var formPage = listPage.getCurrentFormPage();
+                return formPage.getField( 'members' ).getComponent( 'selecting' ).getSelectedRecords();
+            };
+
+            var $tbody = $departmentsContainer.find( '.zcrud-field-members tbody' );
+            var select = function(){
+                for ( var c = 0; c < arguments.length; c++ ){
+                    var id = arguments[ c ];
+                    $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+                }
+            };
+
+            var toggleSelect = function(){
+                $departmentsContainer.find( ".zcrud-field-members input.zcrud-select-all-rows" ).trigger( 'click' );
+            };
+
+            // Test it!
+            assert.equal( getSelected().length, 0 );
+
+
+
+            done();
+        }
+    );
+});

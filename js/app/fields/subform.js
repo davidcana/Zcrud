@@ -42,7 +42,7 @@ Subform.prototype.filterValue = function( record ){
 
 Subform.prototype.getValueFromRecord = function( record, params ){
     
-    var dictionary = params.formPage.getDictionary();
+    var dictionary = this.page.getDictionary();
     var subformRecords = record[ this.id ] || [];
     var subformFields = this.fields;
 
@@ -59,46 +59,39 @@ Subform.prototype.getValueFromRecord = function( record, params ){
     return subformRecords;
 };
 
-Subform.prototype.get$subform = function( formPage ){
-    //return $form.find( '.zcrud-field-' + field.id );
-    return $( '#' + formPage.getId() + ' .zcrud-field-' + this.id );
-}
-
 Subform.prototype.afterProcessTemplateForField = function( params, $form ){
     
     var subformInstance = this;
-    var $subform = this.get$subform( params.formPage );
+    var $subform = this.get$();
     this.bindEventsInRows( params, $subform, undefined );
     $subform
         .find( '.zcrud-new-row-command-button' )
         .off()
         .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            subformInstance.addNewRow( params );
-        }
-    );
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                subformInstance.addNewRow( params );
+            }
+        );
+    
     // Bind events of components
     this.componentsMap.bindEvents();
 };
 
 Subform.prototype.addNewRow = function( params ){
     
-    var formPage = params.formPage;
-    var options = params.options;
-
-    var thisDictionary = $.extend( {}, formPage.getDictionary(), {} );
+    var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
     thisDictionary.subformRecords = [ {} ]; // To remove
     thisDictionary.subformField = this;     // To remove
     thisDictionary.editable = true;
     thisDictionary.instance = this;
     thisDictionary.records = [ {} ];
     
-    var createHistoryItem = formPage.getHistory().putCreate( 
-        formPage.getId(), 
+    var createHistoryItem = this.page.getHistory().putCreate( 
+        this.page.getId(), 
         thisDictionary,
-        $( '#' + formPage.getId() + ' .zcrud-field-' + this.id + ' tbody') );
+        $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody') );
     var $tr = createHistoryItem.get$Tr(); 
 
     // Bind events
@@ -106,57 +99,64 @@ Subform.prototype.addNewRow = function( params ){
 
     // Configure form validation
     //validationManager.addAttributes( $tr, options );
-    validationManager.initFormValidation( formPage.getId(), $tr, options );
+    validationManager.initFormValidation( 
+        this.page.getId(), 
+        $tr, 
+        this.page.getOptions() );
 };
 
 Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
     
     var subformInstance = this;
-    var formPage = params.formPage;
     var $selection = $subform || $tr;
+    var page = this.page;
 
     $selection
         .find( 'input.historyField, textarea.historyField, select.historyField' )
         //.off()
-        .change( function ( event, disableHistory ) {
-        if ( disableHistory ){
-            return;
-        }
-        var $this = $( this );
-        var fullName = $this.prop( 'name' );
-        var field = formPage.getFieldByName( fullName );
-        var $tr = $tr || $this.closest( 'tr' );
-        formPage.getHistory().putChange( 
-            $this, 
-            field.getValue( $this ), 
-            0,
-            formPage.getId(),
-            field,
-            $tr.attr( 'data-record-index' ),
-            $tr.attr( 'data-record-key' ) );
-    });
+        .change( 
+            function ( event, disableHistory ) {
+                if ( disableHistory ){
+                    return;
+                }
+                var $this = $( this );
+                var fullName = $this.prop( 'name' );
+                var field = page.getFieldByName( fullName );
+                var $tr = $tr || $this.closest( 'tr' );
+                page.getHistory().putChange( 
+                    $this, 
+                    field.getValue( $this ), 
+                    0,
+                    page.getId(),
+                    field,
+                    $tr.attr( 'data-record-index' ),
+                    $tr.attr( 'data-record-key' ) );
+            }
+        );
 
     $selection
         .find( '.zcrud-delete-row-command-button' )
         .off()
-        .click( function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            subformInstance.deleteRow( params, event );
-        });
+        .click( 
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                subformInstance.deleteRow( event );
+            }
+        );
 
     if ( $tr ){
         this. bindEventsForFieldsIn1Row( 
             $tr, 
             this.fields, 
             [], 
-            formPage.getDictionary(), 
+            page.getDictionary(), 
             params );
     } else {
         this.bindEventsForFields(
             $subform,
             this.fields,
-            formPage.getDictionary(),
+            page.getDictionary(),
             params
         );
     }
@@ -197,15 +197,12 @@ Subform.prototype.buildProcessTemplateParams = function( field, record, dictiona
     };
 };
 
-Subform.prototype.deleteRow = function( params, event ){
-    var formPage = params.formPage;
-    //var options = params.options;
-    //var field = params.field;
+Subform.prototype.deleteRow = function( event ){
 
     var $tr =  $( event.target ).closest( 'tr' );
 
-    formPage.getHistory().putDelete( 
-        formPage.getId(), 
+    this.page.getHistory().putDelete( 
+        this.page.getId(), 
         //options, 
         0, 
         $tr.attr( 'data-record-key' ), 
@@ -214,7 +211,7 @@ Subform.prototype.deleteRow = function( params, event ){
         $tr.attr( 'data-record-index' ) );
 };
 
-Subform.prototype.getTemplate = function( options ){
+Subform.prototype.getTemplate = function(){
     return 'subform@templates/fields/subforms.html';   
 };
 
@@ -225,24 +222,7 @@ Subform.prototype.getViewTemplate = function(){
 Subform.prototype.getViewTemplate = function(){
     return 'view@templates/fields/subforms.html';   
 };
-/*
-Subform.prototype.buildFields = function(){
-    var subformInstance = this;
-    var fields = [];
 
-    $.each( this.fields, function ( subfieldId, subfield ) {
-
-        if ( subfield.subformKey ){
-            subformInstance.subformKey = subfieldId;
-        }
-
-        fields.push( subfield );
-    });
-
-    this.getFields = function(){
-        return fields;
-    };
-};*/
 Subform.prototype.buildFields = function(){
     var subformInstance = this;
     this.fieldsArray = [];
@@ -274,10 +254,20 @@ Subform.prototype.getSecureComponent = function( id ){
 Subform.prototype.getKey = function(){
     return this.subformKey;
 };
+/*
+Subform.prototype.configure = function( formPage ){
+    //this.componentsMap = new ComponentsMap( formPage.getOptions(), this.components, this, formPage );
+};*/
 
-Subform.prototype.configure = function( options, formPage ){
-    this.componentsMap = new ComponentsMap( options, this.components, this, formPage );
+Subform.prototype.setPage = function( pageToApply ){
+    this.page = pageToApply;
+    this.componentsMap = new ComponentsMap( this.page.getOptions(), this.components, this, this.page );
+    
+    for ( var c = 0; c < this.fieldsArray.length; ++c ){
+        this.fieldsArray[ c ].setPage( this.page );
+    }
 };
+
 
 Subform.prototype.getRecordByKey = function( key ){
     
