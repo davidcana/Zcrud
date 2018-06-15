@@ -34,4 +34,5 @@ ZCrud 0.1.0
 * Support of several instances running at the same web page.
 
 * Pending tests:
+    - 2 subforms test: one read only and another editable. Copy rows from each other.
     - One instance with data from server using filter; another editable instance load records from the first one (using a button) and send data to server.
