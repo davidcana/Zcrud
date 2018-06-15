@@ -42,7 +42,7 @@ QUnit.test( "list selecting test", function( assert ) {
         options,
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'load' );
-
+            /*
             var $departmentsContainer = $( '#departmentsContainer' );
             var getSelected = function(){
                 return $departmentsContainer.zcrud( 'getSelectedRecords' );
@@ -58,7 +58,7 @@ QUnit.test( "list selecting test", function( assert ) {
 
             var toggleSelect = function(){
                 $departmentsContainer.find( "input.zcrud-select-all-rows" ).trigger( 'click' );
-            };
+            };*/
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
@@ -71,12 +71,12 @@ QUnit.test( "list selecting test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            assert.equal( getSelected().length, 0 );
+            assert.equal( testHelper.getSelectedFromList().length, 0 );
 
             // Select
-            select( '3', '5', '7' );
+            testHelper.listSelect( '3', '5', '7' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromList(), 
                 [ 
                     {
                         "id": "3",
@@ -93,13 +93,13 @@ QUnit.test( "list selecting test", function( assert ) {
                 ] );
 
             // Deselect
-            select( '3', '5', '7' );
-            assert.equal( getSelected().length, 0 );
+            testHelper.listSelect( '3', '5', '7' );
+            assert.equal( testHelper.getSelectedFromList().length, 0 );
 
             // Select again
-            select( '3', '5', '7' );
+            testHelper.listSelect( '3', '5', '7' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromList(), 
                 [ 
                     {
                         "id": "3",
@@ -117,9 +117,9 @@ QUnit.test( "list selecting test", function( assert ) {
 
             // Test ranges
             testHelper.keyDown( 16 );
-            select( '9' );
+            testHelper.listSelect( '9' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromList(), 
                 [ 
                     {
                         "id": "3",
@@ -145,9 +145,9 @@ QUnit.test( "list selecting test", function( assert ) {
             testHelper.keyUp( 16 );
 
             // Select all being some selected
-            toggleSelect();
+            testHelper.listToggleSelect();
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromList(), 
                 [ 
                     {
                         "id": "1",
@@ -192,13 +192,13 @@ QUnit.test( "list selecting test", function( assert ) {
                 ] );
 
             // Deselect all
-            toggleSelect();
-            assert.equal( getSelected().length, 0 );
+            testHelper.listToggleSelect();
+            assert.equal( testHelper.getSelectedFromList().length, 0 );
 
             // Select all being no selected
-            toggleSelect();
+            testHelper.listToggleSelect();
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromList(), 
                 [ 
                     {
                         "id": "1",
@@ -243,9 +243,9 @@ QUnit.test( "list selecting test", function( assert ) {
                 ] );
 
             // Deselect some
-            select( '1', '4', '7' );
+            testHelper.listSelect( '1', '4', '7' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromList(), 
                 [ 
                     {
                         "id": "2",
@@ -292,7 +292,7 @@ QUnit.test( "list selecting test", function( assert ) {
                 pageListNotActive: [ '2' ],
                 pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
             });
-            assert.equal( getSelected().length, 0 );
+            assert.equal( testHelper.getSelectedFromList().length, 0 );
             
             done();
         }
@@ -380,6 +380,7 @@ QUnit.test( "subform selecting test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             
+            /*
             // Add some functions
             var $departmentsContainer = $( '#departmentsContainer' );
             var getSelected = function(){
@@ -398,15 +399,15 @@ QUnit.test( "subform selecting test", function( assert ) {
 
             var toggleSelect = function(){
                 $departmentsContainer.find( ".zcrud-field-members input.zcrud-select-all-rows" ).trigger( 'click' );
-            };
+            };*/
             
             // Test it!
-            assert.equal( getSelected().length, 0 );
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
             
             // Select
-            select( '1', '3' );
+            testHelper.subformSelect( 'members', '1', '3' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
                         "code": "1",
@@ -421,26 +422,26 @@ QUnit.test( "subform selecting test", function( assert ) {
                 ]);
             
             // Deselect
-            select( '1', '3' );
-            assert.equal( getSelected().length, 0 );
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
 
             // Select again
-            select( '1' );
+            testHelper.subformSelect( 'members', '1' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
                         "code": "1",
                         "name": "Bart Simpson",
                         "description": "Description of Bart Simpson"
                     }
-                ] );
+                ]);
             
             // Test ranges
             testHelper.keyDown( 16 );
-            select( '3' );
+            testHelper.subformSelect( 'members', '3' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
                         "code": "1",
@@ -461,9 +462,9 @@ QUnit.test( "subform selecting test", function( assert ) {
             testHelper.keyUp( 16 );
             
             // Select all being some selected
-            toggleSelect();
+            testHelper.subformToggleSelect( 'members' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
                         "code": "1",
@@ -488,13 +489,13 @@ QUnit.test( "subform selecting test", function( assert ) {
                 ] );
             
             // Deselect all
-            toggleSelect();
-            assert.equal( getSelected().length, 0 );
+            testHelper.subformToggleSelect( 'members' );
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
             
             // Select all being no selected
-            toggleSelect();
+            testHelper.subformToggleSelect( 'members' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
                         "code": "1",
@@ -519,9 +520,9 @@ QUnit.test( "subform selecting test", function( assert ) {
                 ] );
             
             // Deselect some
-            select( '1', '4' );
+            testHelper.subformSelect( 'members', '1', '4' );
             assert.deepEqual( 
-                getSelected(), 
+                testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
                         "code": "2",
@@ -575,7 +576,7 @@ QUnit.test( "2 subforms selecting test", function( assert ) {
         "externalMembers": [
             {
                 "code": "5",
-                "name": "Ned Flanders Simpson",
+                "name": "Ned Flanders",
                 "description": "Description of Ned Flanders"
             }
         ]
@@ -669,13 +670,8 @@ QUnit.test( "2 subforms selecting test", function( assert ) {
         alert( 
             JSON.stringify( selectedRecords )
         );*/
-        for ( var c = 0; c < selectedRecords.length; ++c ){
-            var currentRecord = selectedRecords[ c ];
-            alert( 
-                JSON.stringify( currentRecord )
-            );
-            formPage.getField( toFieldId );
-        }
+        
+        formPage.getField( toFieldId ).addNewRows( selectedRecords );
     };
     
     $( '#departmentsContainer' ).zcrud( 
@@ -687,31 +683,107 @@ QUnit.test( "2 subforms selecting test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
 
-            // Add some functions
-            var $departmentsContainer = $( '#departmentsContainer' );
-            var getSelected = function(){
-                var listPage = $departmentsContainer.zcrud( 'getListPage' );
-                var formPage = listPage.getCurrentFormPage();
-                return formPage.getField( 'members' ).getComponent( 'selecting' ).getSelectedRecords();
-            };
-
-            var $tbody = $departmentsContainer.find( '.zcrud-field-members tbody' );
-            var select = function(){
-                for ( var c = 0; c < arguments.length; c++ ){
-                    var id = arguments[ c ];
-                    $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
-                }
-            };
-
-            var toggleSelect = function(){
-                $departmentsContainer.find( ".zcrud-field-members input.zcrud-select-all-rows" ).trigger( 'click' );
-            };
-
             // Test it!
-            assert.equal( getSelected().length, 0 );
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
 
-
-
+            // Select
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'members' ), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+            
+            // Deselect
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+            
+            // Select again
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'members' ), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+            
+            // Select at the external members
+            testHelper.subformSelect( 'externalMembers', '5' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'externalMembers' ), 
+                [ 
+                    {
+                        "code": "5",
+                        "name": "Ned Flanders",
+                        "description": "Description of Ned Flanders"
+                    }
+                ]);
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'members' ), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            
+            // Copy selected items from members to external
+            $( '#copyMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4' ]);
+            
+            // Copy selected items from external to members
+            $( '#copyExternalMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4', '5' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            
+            // Select at the external members a repeated item
+            testHelper.subformSelect( 'externalMembers', '1' );
+            
+            // Copy selected items from external to members
+            $( '#copyExternalMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4', '5', '5', '1' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            
             done();
         }
     );

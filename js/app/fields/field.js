@@ -31,7 +31,7 @@ Field.prototype.getValue = function( $this ){
 };
 
 Field.prototype.getValueFromForm = function( $selection ){
-    return $selection.find( "[name='" + this.id + "']").val();
+    return $selection.find( "[name='" + this.name + "']").val();
 };
 
 Field.prototype.getValueFromRecord = function( record, params ){

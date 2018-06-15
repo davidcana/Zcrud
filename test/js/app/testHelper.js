@@ -1150,9 +1150,62 @@ module.exports = (function() {
     };
     
     var isPrimitive = function ( arg ) {
+        
         var type = typeof arg;
         return arg == null || ( type != "object" && type != "function" );
     }
+    
+    // Selecting
+    var getSelectedFromList = function(){
+        return get$Container().zcrud( 'getSelectedRecords' );
+    };
+    var getSelectedFromSubform = function( subformId ){
+
+        var listPage = get$Container().zcrud( 'getListPage' );
+        var formPage = listPage.getCurrentFormPage();
+        return formPage.getField( subformId ).getComponent( 'selecting' ).getSelectedRecords();
+    };
+    
+    var listSelect = function(){
+        
+        var $tbody = get$Tbody();
+        for ( var c = 0; c < arguments.length; c++ ){
+            var id = arguments[ c ];
+            $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+        }
+    };
+    var subformSelect = function(){
+
+        // First argument is subformId
+        var subformId = arguments[ 0 ];
+        var $tbody = get$Container().find( '.zcrud-field-' + subformId + ' tbody' );
+
+        // The remaining are the keys of the records to select
+        for ( var c = 0; c < arguments.length - 1; c++ ){
+            var id = arguments[ 1 + c ];
+            $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+        }
+    };
+    
+    var listToggleSelect = function(){
+        get$Container().find( "input.zcrud-select-all-rows" ).trigger( 'click' );
+    };
+    var subformToggleSelect = function( subformId ){
+        get$Container().find( ".zcrud-field-" + subformId + " input.zcrud-select-all-rows" ).trigger( 'click' );
+    };
+    
+    var getSubformItemsKeys = function( subformId ){
+        
+        var result = [];
+        
+        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row' );
+        $rows.each( function() {
+            var $this = $( this );
+            result.push( $this.attr( 'data-record-key' ) );
+        });
+        
+        return result;
+    };
     
     return {
         countVisibleRows: countVisibleRows,
@@ -1216,6 +1269,13 @@ module.exports = (function() {
         updateLastRowDatetimePickerInList: updateLastRowDatetimePickerInList,
         get$SubFormFieldRow: get$SubFormFieldRow,
         goToLastPage: goToLastPage,
-        checkAllPropertiesInFirstInSecond: checkAllPropertiesInFirstInSecond
+        checkAllPropertiesInFirstInSecond: checkAllPropertiesInFirstInSecond,
+        getSelectedFromList: getSelectedFromList,
+        getSelectedFromSubform: getSelectedFromSubform,
+        listSelect: listSelect,
+        subformSelect: subformSelect,
+        listToggleSelect: listToggleSelect,
+        subformToggleSelect: subformToggleSelect,
+        getSubformItemsKeys: getSubformItemsKeys
     };
 })();

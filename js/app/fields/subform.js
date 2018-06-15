@@ -8,6 +8,7 @@ var context = require( '../context.js' );
 var $ = require( 'jquery' );
 var validationManager = require( '../validationManager.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
+var fieldUtils = require( './fieldUtils.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
@@ -86,7 +87,8 @@ Subform.prototype.addNewRow = function( params ){
     thisDictionary.subformField = this;     // To remove
     thisDictionary.editable = true;
     thisDictionary.instance = this;
-    thisDictionary.records = [ {} ];
+    thisDictionary.records = [ params.defaultRecord || {} ];
+    //thisDictionary.records = [ {} ];
     
     var createHistoryItem = this.page.getHistory().putCreate( 
         this.page.getId(), 
@@ -96,9 +98,9 @@ Subform.prototype.addNewRow = function( params ){
 
     // Bind events
     this.bindEventsInRows( params, undefined, $tr );
-
+    this.componentsMap.bindEventsIn1Row( $tr );
+    
     // Configure form validation
-    //validationManager.addAttributes( $tr, options );
     validationManager.initFormValidation( 
         this.page.getId(), 
         $tr, 
@@ -219,11 +221,8 @@ Subform.prototype.getViewTemplate = function(){
     return 'view@templates/fields/subforms.html';   
 };
 
-Subform.prototype.getViewTemplate = function(){
-    return 'view@templates/fields/subforms.html';   
-};
-
 Subform.prototype.buildFields = function(){
+    
     var subformInstance = this;
     this.fieldsArray = [];
     
@@ -260,6 +259,7 @@ Subform.prototype.configure = function( formPage ){
 };*/
 
 Subform.prototype.setPage = function( pageToApply ){
+    
     this.page = pageToApply;
     this.componentsMap = new ComponentsMap( this.page.getOptions(), this.components, this, this.page );
     
@@ -268,24 +268,46 @@ Subform.prototype.setPage = function( pageToApply ){
     }
 };
 
+Subform.prototype.getRecordByKey = function( key, $row ){
+    return fieldUtils.buildRecord( this.fieldsArray, $row );
+};
+/*
+Subform.prototype.getRecordByKey = function( key, $row ){
 
-Subform.prototype.getRecordByKey = function( key ){
-    
-    var parentRecord = this.page.getRecord();
-    
-    if ( ! parentRecord ){
-        return undefined;
-    }
-    
-    var subformValue = parentRecord[ this.id ];
-    
-    for ( var c = 0; c < subformValue.length; ++c ){
-        var currentRecord = subformValue[ c ];
-        if ( currentRecord[ this.subformKey ] == key ){
-            return currentRecord;
+    var record = {};
+
+    for ( var c = 0; c < this.fieldsArray.length; c++ ) {
+        var field = this.fieldsArray[ c ];
+        var value = field.getValueFromForm( $row );
+
+        if ( value != undefined && value != '' ){
+            record[ field.id ] = value;
         }
     }
-    return undefined;
+
+    return record;
+};*/
+
+Subform.prototype.addNewRows = function( records ){
+    
+    for ( var c = 0; c < records.length; ++c ){
+        var currentRecord = records[ c ];
+        /*
+        alert( 
+            JSON.stringify( currentRecord )
+        );*/
+        this.addNewRow(
+            {
+                field: this, 
+                //value: record[ field.id ],
+                //options: options,
+                defaultRecord: currentRecord,
+                //source: type,
+                //dictionary: dictionary,
+                //formPage: self
+            }
+        );
+    }
 };
 
 module.exports = Subform;

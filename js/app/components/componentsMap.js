@@ -104,6 +104,16 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
         }
     };
     
+    var bindEventsIn1Row = function( $row ) {
+
+        for ( var id in components ){
+            var component = components[ id ];
+            if ( component && $.isFunction( component.bindEventsIn1Row ) ){
+                component.bindEventsIn1Row( $row );
+            }
+        }
+    };
+    
     var self = {
         getComponent: getComponent,
         getSecureComponent: getSecureComponent,
@@ -111,7 +121,8 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
         buildDataToSend: buildDataToSend,
         dataFromServer: dataFromServer,
         //beforeProcessTemplate: beforeProcessTemplate,
-        bindEvents: bindEvents
+        bindEvents: bindEvents,
+        bindEventsIn1Row: bindEventsIn1Row
     };
     
     configure();

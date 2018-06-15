@@ -70,28 +70,32 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
         });
     };
     
-    var bindRowsEvents = function(){
-        
+    var bindRowsEvents = function( $selection ){
+
         // Select/deselect on row click
         if ( modeOnRowClickOn ) {
-            get$allTableRows().click( function () {
+            $selection.click( function () {
                 invertRowSelection( $( this ) );
             });
         }
 
         // Select/deselect checkbox column
         if ( ! modeOnRowClickOn && modeCheckBoxOn ) {
-            get$allTableRows().find( '.zcrud-select-row' ).click( function () {
+            $selection.find( '.zcrud-select-row' ).click( function () {
                 invertRowSelection( $( this ).parents( 'tr' ) );
             });
         }
+    };
+    
+    var bindEventsIn1Row = function( $row ){
+        bindRowsEvents( $row );
     };
     
     var bindEvents = function(){
         
         bindKeyboardEvents();   
         bindSelectAllHeader();
-        bindRowsEvents();
+        bindRowsEvents( get$allTableRows() );
     };
     
     // Invert selection state of a single row
@@ -277,8 +281,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
 
         var $selectedRows = get$selectedRows();
         $selectedRows.each( function( index ) {
-            var key = $( this ).data( 'record-key' );
-            var record = parent.getRecordByKey( key );
+            var $row = $( this );
+            var key = $row.data( 'record-key' );
+            var record = parent.getRecordByKey( key, $row );
             result.push( record );
         });
         
@@ -309,6 +314,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
         deselectRows: deselectRows,
         getSelectedRows: get$selectedRows,
         getSelectedRecords: getSelectedRecords,
-        resetPage: resetPage
+        resetPage: resetPage,
+        bindEventsIn1Row: bindEventsIn1Row
     };
 };

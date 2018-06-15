@@ -7,6 +7,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var context = require( '../context.js' );
     var $ = require( 'jquery' );
     var pageUtils = require( '../pages/pageUtils.js' );
+    var fieldUtils = require( '../fields/fieldUtils.js' );
     
     var options = optionsToApply;
     var listPage = listPageToApply;
@@ -43,22 +44,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var buildFilterRecordFromForm = function(){
-        
-        var record = {};
-        var $this = $( '#' + listPage.getId() );
-        
-        for ( var c = 0; c < thisOptions.fields.length; c++ ) {
-            var field = thisOptions.fields[ c ];
-            var value = field.getValueFromForm( $this );
-            
-            if ( value != undefined && value != '' ){
-                record[ field.id ] = value;
-            }
-        }
-        
-        return record;
+        return fieldUtils.buildRecord( thisOptions.fields, $( '#' + listPage.getId() ) );
     };
-    
+
     var addToDataToSend = function( dataToSend ){
 
         var extendedFilter = $.extend( true, {}, filterRecord, dataToSend.filter );
@@ -70,7 +58,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var updateList = function(){
         
         // Get root
-        var pagingComponent = listPage.getSecureComponent( 'paging' );
+        var pagingComponent = listPage.getComponent( 'paging' );
         var root = pagingComponent?
             [ 
                 $( '#' + listPage.getThisOptions().tbodyId )[0], 
