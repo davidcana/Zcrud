@@ -37,8 +37,10 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
     var undo = function(){
         
         setValue( previousValue );
-        updateCSS( 
-            history.getPreviousItem( rowIndex, name, subformName, subformRowIndex ), 
+        
+        var previousItem = history.getPreviousItem( rowIndex, name, subformName, subformRowIndex );
+        updateCSS(
+            previousItem? previousItem.isDirty(): false, 
             history.getPreviousRecordItem( rowIndex, subformName, subformRowIndex ) );
         /*
         if ( ! history.isFormMode() ){
@@ -84,7 +86,7 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
         updateCSS( true, true );
     };
     
-    var getNewValue = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
+    var getNewValue = function(){
         return newValue;
     };
     
@@ -105,18 +107,7 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
         var record = records[ rowIndex ];
         return record? actionsObject.modified: actionsObject.new;
     };
-    /*
-    var getSubformMap = function( actionsObject, records ){
 
-        var record = getRecordForSubform( records[ rowIndex ] );
-        return record? actionsObject.modified: actionsObject.new;
-    };
-    var getRecordForSubform = function( record ){
-
-        var subformRecords = record? record[ subformName ]: undefined;
-        return subformRecords? subformRecords[ subformRowIndex ]: undefined;
-    };
-    */
     var getSubformMapKey = function(){
         return subformRowKey? 'modified': 'new';
     };
@@ -179,6 +170,10 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
         return true;
     };
     
+    var isDirty = function(){
+        return true;
+    };
+    
     return {
         undo: undo,
         redo: redo,
@@ -190,12 +185,12 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
         subformRowIndex: subformRowIndex,
         field: field,
         name: name,
-        //newValue: newValue,
         getNewValue: getNewValue,
         previousValue: previousValue,
         $this: $this,
         saveEnabled: saveEnabled,
         getSubformName: getSubformName,
+        isDirty: isDirty,
         type: 'change'
     };
 };

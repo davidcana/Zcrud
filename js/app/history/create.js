@@ -17,7 +17,7 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
     var isSubform = subformName !== undefined;
     
     var $tr = undefined;
-    var rowIndex = undefined;
+    var rowIndex = 0;
     var subformRowIndex = undefined;
     
     var getSubformName = function(){
@@ -45,8 +45,8 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         
         var recordIndex = $tr.attr( 'data-record-index' );
         if ( isSubform ){
-            rowIndex = recordIndex;
-            //subformRowIndex = recordIndex;
+            //rowIndex = recordIndex;
+            subformRowIndex = recordIndex;
         } else {
             rowIndex = recordIndex;
         }
@@ -65,25 +65,22 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         }
     };
     
-    var getNewValue = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
-
-        if ( ! isRelatedToField( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ) ){
-            return undefined;
-        }
-
-        return record[ nameToCheck ];
-        //return undefined;
+    var getNewValue = function( nameToGet ){
+        return record[ nameToGet ];
     };
     
     var isRelatedToField = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
         
-        //return rowIndex == rowIndexToCheck 
-        //    && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
-        return false;
+        return rowIndex == rowIndexToCheck 
+            && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
+        //return false;
     };
     
-    var isRelatedToRow = function( rowIndexToCheck ){
-        return rowIndex == rowIndexToCheck;
+    var isRelatedToRow = function( rowIndexToCheck, subformNameToCheck, subformRowIndexToCheck ){
+        
+        return rowIndex == rowIndexToCheck
+        && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
+        //return rowIndex == rowIndexToCheck;
     };
     
     var doAction = function( actionsObject, records ){
@@ -95,6 +92,10 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
     };
     
     var saveEnabled = function(){
+        return false;
+    };
+    
+    var isDirty = function(){
         return false;
     };
     
@@ -111,6 +112,7 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         get$Tr: get$Tr,
         saveEnabled: saveEnabled,
         getSubformName: getSubformName,
+        isDirty: isDirty,
         type: 'create'
     };
 };

@@ -967,7 +967,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             record2Step2[ varName2 ] = "Marbella";
             var record3 = $.extend( true, {}, record2, record2Step2 );
             testHelper.checkNoRecord( assert, key, record2, editable );
-
+            
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
             testHelper.pagingTest({
                 options: options,
@@ -980,6 +980,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
+            
             assert.deepEqual(
                 testHelper.getSelectOptions( 'province', testHelper.getLastRow() ),
                 [ 'Cádiz', 'Málaga' ] );
@@ -1012,7 +1013,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             testHelper.assertHistory( assert, 3, 2, false );
             assert.deepEqual(
                 testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
-                [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
+                [ 'Algeciras', 'Tarifa' ] );
             
             // Redo (1)
             testHelper.clickRedoButton();

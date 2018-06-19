@@ -112,8 +112,8 @@ var defaultTestOptions = {
         },
         province: {
             type: 'select',
-            options: [ 'Cádiz', 'Málaga' ],
-            defaultValue: 'Cádiz'
+            options: [ 'Cádiz', 'Málaga' ]
+            //defaultValue: 'Cádiz'
         },
         city: {
             type: 'select',
@@ -253,8 +253,8 @@ defaultTestOptions.fields.members.fields = {
     },
     province: {
         type: 'select',
-        options: [ 'Cádiz', 'Málaga' ],
-        defaultValue: 'Cádiz'
+        options: [ 'Cádiz', 'Málaga' ]
+        //defaultValue: 'Cádiz'
     },
     city: {
         type: 'select',
@@ -1877,7 +1877,7 @@ QUnit.test( "create select test", function( assert ) {
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
-
+            
             // Undo (1)
             editedRecord.members[ 2 ][ varName ] = '';
             testHelper.clickUndoButton();

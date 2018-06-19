@@ -44,8 +44,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
         return previousItem? 
-               newValue === previousItem.getNewValue(): 
-               //newValue === previousItem.newValue: 
+               newValue === previousItem.getNewValue( name ):
                areEquivalent( 
                     newValue, 
                     getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
@@ -221,7 +220,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
         return previousItem? 
-               previousItem.getNewValue(): 
+               previousItem.getNewValue( name ): 
                getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
     };
     

@@ -89,6 +89,10 @@ var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, 
         return key !== undefined;
     };
     
+    var isDirty = function(){
+        return false;
+    };
+    
     hideRow();
     
     return {
@@ -103,6 +107,7 @@ var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, 
         getKey: getKey,
         saveEnabled: saveEnabled,
         getSubformName: getSubformName,
+        isDirty: isDirty,
         type: 'delete'
     };
 };
