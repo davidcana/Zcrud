@@ -36,22 +36,19 @@ var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, 
     var register = function(){
         // Nothing to do
     };
-
-    var isRelatedToField = function( rowIndexToCheck, nameToCheck ){
+    
+    var getNewValue = function(){
+        return undefined;
+    };
+    
+    var isRelatedToField = function(){
         return false;
     };
     
     var isRelatedToRow = function( rowIndexToCheck ){
         return rowIndex == rowIndexToCheck;
     };
-    /*
-    var doAction = function( actionsObject, records ){
 
-        if ( actionsObject.deleted.indexOf( key ) == -1 ){
-            actionsObject.deleted.push( key );
-        }
-    };
-    */
     var getDeletedMap = function( actionsObject, records ){
 
         var record = records[ rowIndex ];
@@ -101,6 +98,7 @@ var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, 
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
+        getNewValue: getNewValue,
         get$Tr: get$Tr,
         getKey: getKey,
         saveEnabled: saveEnabled,

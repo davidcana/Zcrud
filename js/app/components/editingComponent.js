@@ -10,6 +10,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var History = require( '../history/history.js' );
     var crudManager = require( '../crudManager.js' );
     var validationManager = require( '../validationManager.js' );
+    var fieldUtils = require( '../fields/fieldUtils.js' );
     
     var options = optionsToApply;
     var listPage = listPageToApply;
@@ -193,13 +194,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
     var addNewRow = function( event ){
 
-        var newRecord = {};  // TODO Build new record with default values
+        var newRecord = fieldUtils.buildDefaultValuesRecord( listPage.getFields() );
         var thisDictionary = buildDictionaryForNewRow( newRecord );
         
         var createHistoryItem = history.putCreate( 
             listPage.getId(), 
             thisDictionary,
-            $( '#' + listPage.getThisOptions().tbodyId ) );
+            $( '#' + listPage.getThisOptions().tbodyId ),
+            newRecord );
         var $tr = createHistoryItem.get$Tr();
         
         // Bind events

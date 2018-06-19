@@ -82,18 +82,26 @@ Subform.prototype.afterProcessTemplateForField = function( params, $form ){
 
 Subform.prototype.addNewRow = function( params ){
     
+    var newRecord = params.defaultRecord?
+        params.defaultRecord:
+        fieldUtils.buildDefaultValuesRecord( this.fieldsArray );
+    
     var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
     thisDictionary.subformRecords = [ {} ]; // To remove
     thisDictionary.subformField = this;     // To remove
     thisDictionary.editable = true;
     thisDictionary.instance = this;
-    thisDictionary.records = [ params.defaultRecord || {} ];
-    //thisDictionary.records = [ {} ];
+    thisDictionary.records = [ newRecord ];
+    //thisDictionary.records = params.defaultRecord?
+    //    [ params.defaultRecord ]:
+    //    [ fieldUtils.buildDefaultValuesRecord( this.fieldsArray ) ];
     
     var createHistoryItem = this.page.getHistory().putCreate( 
         this.page.getId(), 
         thisDictionary,
-        $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody') );
+        $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody'),
+        newRecord,
+        this.id );
     var $tr = createHistoryItem.get$Tr(); 
 
     // Bind events
@@ -253,10 +261,6 @@ Subform.prototype.getSecureComponent = function( id ){
 Subform.prototype.getKey = function(){
     return this.subformKey;
 };
-/*
-Subform.prototype.configure = function( formPage ){
-    //this.componentsMap = new ComponentsMap( formPage.getOptions(), this.components, this, formPage );
-};*/
 
 Subform.prototype.setPage = function( pageToApply ){
     
@@ -271,40 +275,15 @@ Subform.prototype.setPage = function( pageToApply ){
 Subform.prototype.getRecordByKey = function( key, $row ){
     return fieldUtils.buildRecord( this.fieldsArray, $row );
 };
-/*
-Subform.prototype.getRecordByKey = function( key, $row ){
-
-    var record = {};
-
-    for ( var c = 0; c < this.fieldsArray.length; c++ ) {
-        var field = this.fieldsArray[ c ];
-        var value = field.getValueFromForm( $row );
-
-        if ( value != undefined && value != '' ){
-            record[ field.id ] = value;
-        }
-    }
-
-    return record;
-};*/
 
 Subform.prototype.addNewRows = function( records ){
     
     for ( var c = 0; c < records.length; ++c ){
         var currentRecord = records[ c ];
-        /*
-        alert( 
-            JSON.stringify( currentRecord )
-        );*/
         this.addNewRow(
             {
                 field: this, 
-                //value: record[ field.id ],
-                //options: options,
-                defaultRecord: currentRecord,
-                //source: type,
-                //dictionary: dictionary,
-                //formPage: self
+                defaultRecord: currentRecord
             }
         );
     }

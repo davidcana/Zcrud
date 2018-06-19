@@ -24,10 +24,21 @@ var FieldUtils = function() {
         return record;
     };
     
+    var buildDefaultValuesRecord = function( fieldsArray ){
 
+        var defaultRecord = {};
+
+        for ( var c = 0; c < fieldsArray.length; c++ ) {
+            var field = fieldsArray[ c ];
+            defaultRecord[ field.id ] = field.defaultValue === undefined? '': field.defaultValue;
+        }
+
+        return defaultRecord;
+    };
     
     return {
-        buildRecord: buildRecord
+        buildRecord: buildRecord,
+        buildDefaultValuesRecord: buildDefaultValuesRecord
     };
 }();
 

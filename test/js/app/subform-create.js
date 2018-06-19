@@ -8,8 +8,7 @@ var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
-var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = $.extend( true, {}, defaultTestOptions );
 
 var fatalErrorFunctionCounter = 0;
 
@@ -18,6 +17,7 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
+
 QUnit.test( "subform create test", function( assert ) {
 
     var done = assert.async();
@@ -351,3 +351,101 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
         }
     );
 });
+
+/*
+QUnit.test( "subform create undo/redo 1 action with default values test", function( assert ) {
+    
+    var defaultMember = {
+        code: '',
+        name: 'Default name',
+        description: 'Default description'
+    };
+    var thisTestOptions = {
+        fields: {
+            members: {
+                fields: { 
+                    name: { 
+                        defaultValue: defaultMember.name
+                    },
+                    description: {
+                        defaultValue: defaultMember.description
+                    }
+                }
+            }
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // 
+            var key = 3;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    }
+                ]
+            };
+            testUtils.setService( key, record );
+
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+
+            // Add subform record 3
+            var subformRecord3 = {
+                "code": "3",
+                "name": "Homer Simpson"
+            };
+            testHelper.clickCreateSubformRowButton( 'members' );
+            
+            testHelper.fillSubformNewRow( subformRecord3, 'members' );
+            
+            // Build editedSubformRecord3
+            var editedSubformRecord3 = $.extend( true, {}, subformRecord3 );
+            editedSubformRecord3.description = defaultMember.description;
+            
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.members.push( editedSubformRecord3 );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 0, false );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            editedRecord.members[2].name = defaultMember.name;
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 1, false );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            editedRecord.members[2].name = subformRecord3.name;
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 0, true );
+
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
+
+            done();
+        }
+    );
+});
+*/

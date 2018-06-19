@@ -6,15 +6,19 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
-var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, $tbodyToApply ) {
+var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, $tbodyToApply, recordToApply, subformNameToApply ) {
     
     var history = historyToApply;
     var editableOptions = editableOptionsToApply; 
     var thisDictionary = thisDictionaryToApply;
     var $tbody = $tbodyToApply;
+    var record = recordToApply;
+    var subformName = subformNameToApply;
+    var isSubform = subformName !== undefined;
     
     var $tr = undefined;
     var rowIndex = undefined;
+    var subformRowIndex = undefined;
     
     var getSubformName = function(){
         return undefined;
@@ -38,7 +42,14 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         });
         
         $tr = $tbody.find( 'tr.zcrud-data-row:last' );
-        rowIndex = $tr.attr( 'data-record-index' );
+        
+        var recordIndex = $tr.attr( 'data-record-index' );
+        if ( isSubform ){
+            rowIndex = recordIndex;
+            //subformRowIndex = recordIndex;
+        } else {
+            rowIndex = recordIndex;
+        }
     };
     
     var register = function(){
@@ -48,15 +59,26 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
     var updateCSS = function( visible ){
 
         if ( visible ){
-            //$tr.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
             $tr.addClass( editableOptions.modifiedRowsClass );
         } else {
-            //$tr.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );
             $tr.removeClass( editableOptions.modifiedRowsClass );
         }
     };
+    
+    var getNewValue = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
 
-    var isRelatedToField = function( rowIndexToCheck, nameToCheck ){
+        if ( ! isRelatedToField( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ) ){
+            return undefined;
+        }
+
+        return record[ nameToCheck ];
+        //return undefined;
+    };
+    
+    var isRelatedToField = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
+        
+        //return rowIndex == rowIndexToCheck 
+        //    && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
         return false;
     };
     
@@ -85,6 +107,7 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
+        getNewValue: getNewValue,
         get$Tr: get$Tr,
         saveEnabled: saveEnabled,
         getSubformName: getSubformName,

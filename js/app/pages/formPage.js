@@ -9,6 +9,7 @@ var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
+var fieldUtils = require( '../fields/fieldUtils.js' );
 
 var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageToApply ) {
     "use strict";
@@ -129,7 +130,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             eventFunction = options.events.recordAdded;
             successMessage = 'createSuccess';
             if ( ! record ) {
-                record = buildDefaultValuesRecord();
+                record = fieldUtils.buildDefaultValuesRecord( fields );
+                //record = buildDefaultValuesRecord();
             }
             break;
         case 'update':
@@ -196,7 +198,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             context.showError( options, true, 'Error trying to show form: ' + e );    
         }
     };
-    
+    /*
     var buildDefaultValuesRecord = function(){
 
         var defaultRecord = {};
@@ -207,7 +209,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         }
         
         return defaultRecord;
-    };
+    };*/
     
     var buildRecordForDictionary = function(){
         

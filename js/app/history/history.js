@@ -44,20 +44,31 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
         return previousItem? 
-               newValue === previousItem.newValue: 
-        areEquivalent( newValue, getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
+               newValue === previousItem.getNewValue(): 
+               //newValue === previousItem.newValue: 
+               areEquivalent( 
+                    newValue, 
+                    getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
+    };
+
+    var buildNameObject = function( field ){
+
+        var fullName = field.name;
+        var subformSeparatorIndex = fullName.indexOf( context.subformSeparator );
+
+        return {
+            subformName: subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex ),
+            name: subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex )
+        };
     };
     
     var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex, subformRowKey ) {
         
-        // Get names
-        var fullName = field.name;
-        var subformSeparatorIndex = fullName.indexOf( context.subformSeparator );
-        var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
-        var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
+        // Build name object
+        var nameObject = buildNameObject( field );
         
         // If repeated do nothing
-        if ( isRepeated( newValue, rowIndex, name, subformName, subformRowIndex ) ){
+        if ( isRepeated( newValue, rowIndex, nameObject.name, nameObject.subformName, subformRowIndex ) ){
             return undefined;
         }
         
@@ -67,12 +78,16 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             options,
             editableOptions,
             rowIndex,
-            name,
+            nameObject.name,
             newValue,
-            getPreviousValue( rowIndex, name, subformName, subformRowIndex ),
+            getPreviousValue( 
+                rowIndex, 
+                nameObject.name, 
+                nameObject.subformName, 
+                subformRowIndex ),
             $this,
             field,
-            subformName,
+            nameObject.subformName,
             subformRowIndex,
             subformRowKey );
         
@@ -83,12 +98,9 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     
     var instanceChange = function( newValue, rowIndex, field, subformRowIndex, subformRowKey ) {
 
-        // Get names
-        var fullName = field.name;
-        var subformSeparatorIndex = fullName.indexOf( context.subformSeparator );
-        var subformName = subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex );
-        var name = subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex );
-
+        // Build name object
+        var nameObject = buildNameObject( field );
+        
         // Instance and return historyItem
         var $this = undefined;
         var historyItem = new HistoryChange(
@@ -96,25 +108,31 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             options, 
             editableOptions,
             rowIndex,
-            name,
+            nameObject.name,
             newValue,
-            getPreviousValue( rowIndex, name, subformName, subformRowIndex ),
+            getPreviousValue( 
+                rowIndex, 
+                nameObject.name, 
+                nameObject.subformName, 
+                subformRowIndex ),
             $this,
             field,
-            subformName,
+            nameObject.subformName,
             subformRowIndex,
             subformRowKey );
 
         return historyItem;
     };
     
-    var putCreate = function( id, thisDictionary, $selection ) {
+    var putCreate = function( id, thisDictionary, $selection, record, subformName ) {
         
         var historyItem = new HistoryCreate( 
             self,
             editableOptions,
             thisDictionary,
-            $selection );
+            $selection,
+            record,
+            subformName );
 
         put( id, historyItem );
         
@@ -192,11 +210,19 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         return record? record[ name ]: undefined;
     };
-    
+    /*
     var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
         
         var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
         return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
+    };*/
+    
+    var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
+
+        var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
+        return previousItem? 
+               previousItem.getNewValue(): 
+               getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
     };
     
     var getPreviousItem = function( rowIndex, name, subformName, subformRowIndex ){
