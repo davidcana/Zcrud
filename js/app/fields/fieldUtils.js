@@ -30,7 +30,9 @@ var FieldUtils = function() {
 
         for ( var c = 0; c < fieldsArray.length; c++ ) {
             var field = fieldsArray[ c ];
-            defaultRecord[ field.id ] = field.defaultValue === undefined? '': field.defaultValue;
+            if ( field.defaultValue !== undefined ){
+                defaultRecord[ field.id ] = field.defaultValue;
+            }
         }
 
         return defaultRecord;

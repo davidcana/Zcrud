@@ -209,12 +209,6 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         return record? record[ name ]: undefined;
     };
-    /*
-    var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
-        
-        var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
-        return previousItem? previousItem.newValue: getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
-    };*/
     
     var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
 
@@ -409,6 +403,86 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         return actionsObject;
     };
     
+    var buildAndAttachRowForDoAction = function( actionsObject, records, rowIndex, subformName, subformRowIndex, subformRowKey, record, searchRow ){
+
+        var subformElementIsNew = subformRowKey == '' || ! subformRowKey? true: false;
+        var map = getMap( actionsObject, records, rowIndex );
+        var subformMapKey = subformName? getSubformMapKey( ! subformElementIsNew ): undefined;
+
+        // Search row
+        var row = undefined;
+        if ( searchRow ){
+            row = map[ rowIndex ];
+            if ( subformName ){
+                row = getSubformRow( 
+                    row, 
+                    subformMapKey, 
+                    subformElementIsNew, 
+                    subformName, 
+                    subformRowIndex, 
+                    subformRowKey );
+            }
+        }
+        
+        // Build empty row if not found
+        if ( ! row ){
+            row = record || {};
+            if ( subformName ){
+                pushNewSubformRow( 
+                    map, 
+                    row, 
+                    subformMapKey, 
+                    subformElementIsNew, 
+                    subformName, 
+                    rowIndex, 
+                    subformRowIndex, 
+                    subformRowKey );
+            } else {
+                map[ rowIndex ] = row;
+            }
+        }
+
+        return row;
+    };
+    
+    var getMap = function( actionsObject, records, rowIndex ){
+
+        var record = records[ rowIndex ];
+        return record? actionsObject.modified: actionsObject.new;
+    };
+    
+    var getSubformMapKey = function( exists ){
+        return exists? 'modified': 'new';
+    };
+    
+    var getSubformRow = function( row, subformMapKey, isNew, subformName, subformRowIndex, subformRowKey ){
+
+        var lastKey = isNew? subformRowIndex: subformRowKey;
+
+        if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ lastKey ] ){
+            row = row[ subformName ][ subformMapKey ][ lastKey ];
+        } else {
+            row = undefined;
+        }
+
+        return row;
+    };
+    
+    var pushNewSubformRow = function( map, row, subformMapKey, isNew, subformName, rowIndex, subformRowIndex, subformRowKey ){
+
+        var subformRows = undefined;
+        if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
+            var subformActionObject = createNestedObject( 
+                map, 
+                [ rowIndex, subformName ], 
+                buildEmptyActionsObject() );
+            subformRows = subformActionObject[ subformMapKey ];
+        } else {
+            subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];
+        }
+        subformRows[ isNew? subformRowIndex: subformRowKey ] = row;
+    };
+    
     var self = {
         putChange: putChange,
         putCreate: putCreate,
@@ -431,7 +505,11 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         createNestedObject: createNestedObject,
         getAllTr$FromCreateItems: getAllTr$FromCreateItems,
         instanceChange: instanceChange,
-        buildActionsObject: buildActionsObject
+        buildActionsObject: buildActionsObject,
+        getSubformMapKey: getSubformMapKey,
+        getMap: getMap,
+        pushNewSubformRow: pushNewSubformRow,
+        buildAndAttachRowForDoAction: buildAndAttachRowForDoAction
     };
     
     return self;

@@ -42,20 +42,12 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
         updateCSS(
             previousItem? previousItem.isDirty(): false, 
             history.getPreviousRecordItem( rowIndex, subformName, subformRowIndex ) );
-        /*
-        if ( ! history.isFormMode() ){
-            $this.blur();
-        }*/
     };
     
     var redo = function(){
         
         setValue( newValue );
         updateCSS( true, true );
-        /*
-        if ( ! history.isFormMode() ){
-            $this.blur();
-        }*/
     };
     
     var updateCSS = function( fieldChanged, registerChanged ){
@@ -102,70 +94,83 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
             && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
     
-    var getMap = function( actionsObject, records ){
+    var doAction = function( actionsObject, records ){
         
-        var record = records[ rowIndex ];
-        return record? actionsObject.modified: actionsObject.new;
+        // Build or get row and then attach it to actionsObject
+        var row = history.buildAndAttachRowForDoAction( 
+            actionsObject, 
+            records, 
+            rowIndex, 
+            subformName, 
+            subformRowIndex, 
+            subformRowKey,
+            undefined,
+            true );
+        
+        // Set new value
+        row[ name ] = newValue;
     };
+    /*
+    var doAction = function( actionsObject, records ){
+        
+        // Build or get row
+        var row = buildAndAttachRowForDoAction( actionsObject, records );
 
-    var getSubformMapKey = function(){
-        return subformRowKey? 'modified': 'new';
+        // Set new value
+        row[ name ] = newValue;
     };
-    
+    var buildAndAttachRowForDoAction = function( actionsObject, records ){
+
+        var subformElementIsNew = subformRowKey == '' || ! subformRowKey? true: false;
+        var map = history.getMap( actionsObject, records, rowIndex );
+        var subformMapKey = subformName? history.getSubformMapKey( ! subformElementIsNew ): undefined;
+
+        // Search row
+        var row = map[ rowIndex ];
+        if ( subformName ){
+            row = getSubformRow( 
+                row, 
+                subformMapKey, 
+                subformElementIsNew, 
+                subformName, 
+                subformRowIndex, 
+                subformRowKey );
+        }
+
+        // Build empty row if not found
+        if ( ! row ){
+            row = {};
+            if ( subformName ){
+                history.pushNewSubformRow( 
+                    map, 
+                    row, 
+                    subformMapKey, 
+                    subformElementIsNew, 
+                    subformName, 
+                    rowIndex, 
+                    subformRowIndex, 
+                    subformRowKey );
+            } else {
+                map[ rowIndex ] = row;
+            }
+        }
+
+        return row;
+    };
     var getSubformRow = function( row, subformMapKey, isNew ){
-        
+
         var lastKey = isNew? subformRowIndex: subformRowKey;
-        
+
         if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ lastKey ] ){
             row = row[ subformName ][ subformMapKey ][ lastKey ];
         } else {
             row = undefined;
         }
-        
+
         return row;
     };
+    */
     
-    var pushNewSubformRow = function( map, row, subformMapKey, isNew ){
-        
-        var subformRows = undefined;
-        if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
-            var subformActionObject = history.createNestedObject( 
-                map, 
-                [ rowIndex, subformName ], 
-                history.buildEmptyActionsObject() );
-            subformRows = subformActionObject[ subformMapKey ];
-        } else {
-            subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];
-        }
-        subformRows[ isNew? subformRowIndex: subformRowKey ] = row;
-    };
-    
-    var doAction = function( actionsObject, records ){
-        
-        var map = getMap( actionsObject, records );
-        var subformMapKey = subformName? getSubformMapKey(): undefined;
-        var subformElementIsNew = 'new' === subformMapKey;
-        
-        // Search row
-        var row = map[ rowIndex ];
-        if ( subformName ){
-            row = getSubformRow( row, subformMapKey, subformElementIsNew );
-        }
-        
-        // Build empty row if not found
-        if ( ! row ){
-            row = {};
-            if ( subformName ){
-                pushNewSubformRow( map, row, subformMapKey, subformElementIsNew );
-            } else {
-                map[ rowIndex ] = row;
-            }
-        }
-        
-        // Set new value
-        row[ name ] = newValue;
-    };
-                    
     var saveEnabled = function(){
         return true;
     };

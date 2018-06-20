@@ -442,7 +442,7 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            //assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             done();
         }

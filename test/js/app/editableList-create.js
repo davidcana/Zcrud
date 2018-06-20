@@ -8,8 +8,7 @@ var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 
 var defaultTestOptions = require( './editableListTestOptions.js' );
-var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = $.extend( true, {}, defaultTestOptions );
 
 var fatalErrorFunctionCounter = 0;
 
@@ -18,6 +17,7 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
+/*
 QUnit.test( "create test", function( assert ) {
     
     var done = assert.async();
@@ -55,13 +55,13 @@ QUnit.test( "create test", function( assert ) {
 
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( newRecord );
-
+            
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-
+            
             testHelper.checkRecord( assert, key, newRecord, editable, true );
-
+            
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 10, 19 ) );
             testHelper.pagingTest({
                 action: { 
@@ -279,4 +279,96 @@ QUnit.test( "create undo/redo 3 action test", function( assert ) {
         }
     );
 });
+*/
+QUnit.test( "create with default values test", function( assert ) {
 
+    var defaultRecord = {
+        number: '0'
+    };
+    var thisTestOptions = {
+        fields: {
+            number: { 
+                defaultValue: defaultRecord.number
+            }
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            fatalErrorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            var editable = true;
+
+            // Assert register with key 0 doesn't exist
+            var key = 0;
+            var clientRecord =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkNoRecord( assert, key, clientRecord, editable );
+            var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 129',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: editable
+            });
+
+            testHelper.clickCreateRowListButton();
+            testHelper.fillNewRowEditableList( clientRecord );
+            var newRecord = $.extend( true, {}, defaultRecord, clientRecord );
+            
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord, editable, true );
+
+            values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 10, 19 ) );
+            testHelper.pagingTest({
+                action: { 
+                    nextPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 11-20 of 130',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '2' ],
+                pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ],
+                editable: true
+            });
+
+            values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );
+            testHelper.pagingTest({
+                action: { 
+                    previousPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 130',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+                editable: true
+            });
+
+            done();
+        }
+    );
+});

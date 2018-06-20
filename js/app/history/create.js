@@ -73,18 +73,44 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
         
         return rowIndex == rowIndexToCheck 
             && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
-        //return false;
     };
     
     var isRelatedToRow = function( rowIndexToCheck, subformNameToCheck, subformRowIndexToCheck ){
         
         return rowIndex == rowIndexToCheck
         && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
-        //return rowIndex == rowIndexToCheck;
     };
-    
+    /*
     var doAction = function( actionsObject, records ){
-        // Nothing to do 
+        
+        var map = history.getMap( actionsObject, records, rowIndex );
+        var subformMapKey = subformName? history.getSubformMapKey( false ): undefined;
+        var subformElementIsNew = true;
+        if ( subformName ){
+            history.pushNewSubformRow( 
+                map, 
+                record, 
+                subformMapKey, 
+                subformElementIsNew, 
+                subformName, 
+                rowIndex, 
+                subformRowIndex );
+        } else {
+            map[ rowIndex ] = record;
+        }
+    };*/
+    var doAction = function( actionsObject, records ){
+
+        // Build or get row and then attach it to actionsObject
+        history.buildAndAttachRowForDoAction( 
+            actionsObject, 
+            records, 
+            rowIndex, 
+            subformName, 
+            subformRowIndex,
+            undefined,
+            record,
+            false );
     };
     
     var get$Tr = function(){
