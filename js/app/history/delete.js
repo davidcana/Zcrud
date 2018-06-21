@@ -94,11 +94,12 @@ var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, 
     };
     
     hideRow();
+    register();
     
     return {
         undo: undo,
         redo: redo,
-        register: register,
+        //register: register,
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,

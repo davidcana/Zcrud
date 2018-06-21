@@ -16,6 +16,10 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     var dictionaryProvider = dictionaryProviderToApply;
     var formMode = formModeToApply;
     
+    var getEditableOptions = function(){
+        return editableOptions;
+    };
+    
     var isFormMode = function(){
         return formMode === true;
     };
@@ -75,7 +79,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         var historyItem = new HistoryChange(
             self,
             options,
-            editableOptions,
+            //editableOptions,
             rowIndex,
             nameObject.name,
             newValue,
@@ -105,7 +109,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         var historyItem = new HistoryChange(
             self,
             options, 
-            editableOptions,
+            //editableOptions,
             rowIndex,
             nameObject.name,
             newValue,
@@ -127,7 +131,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         var historyItem = new HistoryCreate( 
             self,
-            editableOptions,
+            //editableOptions,
             thisDictionary,
             $selection,
             record,
@@ -163,7 +167,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         }
         
         // Add history item to modified object
-        historyItem.register( modified );
+        //historyItem.register( modified );
         
         // Update CSS and HTML
         updateHTML( id );
@@ -487,6 +491,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         putChange: putChange,
         putCreate: putCreate,
         putDelete: putDelete,
+        put: put,
         undo: undo,
         redo: redo,
         isUndoEnabled: isUndoEnabled,
@@ -509,7 +514,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         getSubformMapKey: getSubformMapKey,
         getMap: getMap,
         pushNewSubformRow: pushNewSubformRow,
-        buildAndAttachRowForDoAction: buildAndAttachRowForDoAction
+        buildAndAttachRowForDoAction: buildAndAttachRowForDoAction,
+        getEditableOptions: getEditableOptions
     };
     
     return self;

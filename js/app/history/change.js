@@ -6,11 +6,11 @@
 var $ = require( 'jquery' );
 var context = require( '../../../js/app/context.js' );
 
-var Change = function( historyToApply, optionsToApply, editableOptionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
+var Change = function( historyToApply, optionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
     var history = historyToApply;
     var options = optionsToApply;
-    var editableOptions = editableOptionsToApply;
+    //var editableOptions = editableOptionsToApply;
     var rowIndex = rowIndexToApply;
     var name = nameToApply;
     var newValue = newValueToApply;
@@ -52,25 +52,29 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
     
     var updateCSS = function( fieldChanged, registerChanged ){
 
+        if ( ! $this ){
+            return;
+        }
+        
         if ( history.isFormMode() && ! subformName ){
             if ( fieldChanged ){
-                $this.closest( '.zcrud-field' ).addClass( editableOptions.modifiedFieldsClass );
+                $this.closest( '.zcrud-field' ).addClass( history.getEditableOptions().modifiedFieldsClass );
             } else {
-                $this.closest( '.zcrud-field' ).removeClass( editableOptions.modifiedFieldsClass );   
+                $this.closest( '.zcrud-field' ).removeClass( history.getEditableOptions().modifiedFieldsClass );   
             }
             return;    
         }
         
         if ( fieldChanged ){
-            $this.closest( 'td' ).addClass( editableOptions.modifiedFieldsClass );
+            $this.closest( 'td' ).addClass( history.getEditableOptions().modifiedFieldsClass );
         } else {
-            $this.closest( 'td' ).removeClass( editableOptions.modifiedFieldsClass );
+            $this.closest( 'td' ).removeClass( history.getEditableOptions().modifiedFieldsClass );
         }
 
         if ( registerChanged ){
-            $this.closest( 'tr' ).addClass( editableOptions.modifiedRowsClass );
+            $this.closest( 'tr' ).addClass( history.getEditableOptions().modifiedRowsClass );
         } else {
-            $this.closest( 'tr' ).removeClass( editableOptions.modifiedRowsClass );
+            $this.closest( 'tr' ).removeClass( history.getEditableOptions().modifiedRowsClass );
         }
     };
     
@@ -179,10 +183,12 @@ var Change = function( historyToApply, optionsToApply, editableOptionsToApply, r
         return true;
     };
     
+    register();
+    
     return {
         undo: undo,
         redo: redo,
-        register: register,
+        //register: register,
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,

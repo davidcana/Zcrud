@@ -9,6 +9,8 @@ var $ = require( 'jquery' );
 var validationManager = require( '../validationManager.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
 var fieldUtils = require( './fieldUtils.js' );
+var HistoryCreate = require( '../history/create.js' );
+var HistoryComposition = require( '../history/compositions/composition.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
@@ -80,24 +82,35 @@ Subform.prototype.afterProcessTemplateForField = function( params, $form ){
     this.componentsMap.bindEvents();
 };
 
+Subform.prototype.buildDictionary = function( newRecord ){
+    
+    var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
+    
+    thisDictionary.editable = true;
+    thisDictionary.instance = this;
+    thisDictionary.records = [ newRecord ];
+    
+    return thisDictionary;
+};
+
 Subform.prototype.addNewRow = function( params ){
+    
+    var createHistoryItem = this.buildHistoryItemForNewRow( params );
+    this.page.getHistory().put( 
+        this.page.getId(), 
+        createHistoryItem );
+};
+
+Subform.prototype.buildHistoryItemForNewRow = function( params ){
     
     var newRecord = params.defaultRecord?
         params.defaultRecord:
         fieldUtils.buildDefaultValuesRecord( this.fieldsArray );
     
-    var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
-    thisDictionary.subformRecords = [ {} ]; // To remove
-    thisDictionary.subformField = this;     // To remove
-    thisDictionary.editable = true;
-    thisDictionary.instance = this;
-    thisDictionary.records = [ newRecord ];
-    //thisDictionary.records = params.defaultRecord?
-    //    [ params.defaultRecord ]:
-    //    [ fieldUtils.buildDefaultValuesRecord( this.fieldsArray ) ];
+    var thisDictionary = this.buildDictionary( newRecord );
     
-    var createHistoryItem = this.page.getHistory().putCreate( 
-        this.page.getId(), 
+    var createHistoryItem = new HistoryCreate( 
+        this.page.getHistory(),
         thisDictionary,
         $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody'),
         newRecord,
@@ -113,8 +126,40 @@ Subform.prototype.addNewRow = function( params ){
         this.page.getId(), 
         $tr, 
         this.page.getOptions() );
+    
+    return createHistoryItem;
 };
+/*
+Subform.prototype.addNewRow = function( params ){
 
+    var newRecord = params.defaultRecord?
+        params.defaultRecord:
+    fieldUtils.buildDefaultValuesRecord( this.fieldsArray );
+
+    var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
+    thisDictionary.editable = true;
+    thisDictionary.instance = this;
+    thisDictionary.records = [ newRecord ];
+
+    var createHistoryItem = this.page.getHistory().putCreate( 
+        this.page.getId(), 
+        thisDictionary,
+        $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody'),
+        newRecord,
+        this.id );
+    var $tr = createHistoryItem.get$Tr(); 
+
+    // Bind events
+    this.bindEventsInRows( params, undefined, $tr );
+    this.componentsMap.bindEventsIn1Row( $tr );
+
+    // Configure form validation
+    validationManager.initFormValidation( 
+        this.page.getId(), 
+        $tr, 
+        this.page.getOptions() );
+};
+*/
 Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
     
     var subformInstance = this;
@@ -278,6 +323,40 @@ Subform.prototype.getRecordByKey = function( key, $row ){
 
 Subform.prototype.addNewRows = function( records ){
     
+    var composition = new HistoryComposition();
+    
+    for ( var c = 0; c < records.length; ++c ){
+        var currentRecord = records[ c ];        
+        var createHistoryItem = this.buildHistoryItemForNewRow(
+            {
+                field: this, 
+                defaultRecord: currentRecord
+            }
+        );
+        composition.add( createHistoryItem );
+    }
+    
+    this.page.getHistory().put( this.page.getId(), composition );
+};
+/*
+Subform.prototype.addNewRows = function( records ){
+
+    for ( var c = 0; c < records.length; ++c ){
+        var currentRecord = records[ c ];        
+        var createHistoryItem = this.buildHistoryItemForNewRow(
+            {
+                field: this, 
+                defaultRecord: currentRecord
+            }
+        );
+        this.page.getHistory().put( 
+            this.page.getId(), 
+            createHistoryItem );
+    }
+};*/
+/*
+Subform.prototype.addNewRows = function( records ){
+
     for ( var c = 0; c < records.length; ++c ){
         var currentRecord = records[ c ];
         this.addNewRow(
@@ -288,5 +367,5 @@ Subform.prototype.addNewRows = function( records ){
         );
     }
 };
-
+*/
 module.exports = Subform;

@@ -6,10 +6,10 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
-var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToApply, $tbodyToApply, recordToApply, subformNameToApply ) {
+var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, recordToApply, subformNameToApply ) {
     
     var history = historyToApply;
-    var editableOptions = editableOptionsToApply; 
+    //var editableOptions = editableOptionsToApply; 
     var thisDictionary = thisDictionaryToApply;
     var $tbody = $tbodyToApply;
     var record = recordToApply;
@@ -59,9 +59,9 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
     var updateCSS = function( visible ){
 
         if ( visible ){
-            $tr.addClass( editableOptions.modifiedRowsClass );
+            $tr.addClass( history.getEditableOptions().modifiedRowsClass );
         } else {
-            $tr.removeClass( editableOptions.modifiedRowsClass );
+            $tr.removeClass( history.getEditableOptions().modifiedRowsClass );
         }
     };
     
@@ -126,11 +126,12 @@ var Create = function( historyToApply, editableOptionsToApply, thisDictionaryToA
     };
     
     addRow();
+    register();
     
     return {
         undo: undo,
         redo: redo,
-        register: register,
+        //register: register,
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,

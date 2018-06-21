@@ -686,7 +686,8 @@ QUnit.test( "2 subforms selecting test", function( assert ) {
             // Test it!
             assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
-
+            testHelper.assertHistory( assert, 0, 0, true );
+            
             // Select
             testHelper.subformSelect( 'members', '1', '3' );
             assert.deepEqual( 
@@ -762,6 +763,7 @@ QUnit.test( "2 subforms selecting test", function( assert ) {
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'members' ), 
                 [ '1', '2', '3', '4' ]);
+            testHelper.assertHistory( assert, 1, 0, true );
             
             // Copy selected items from external to members
             $( '#copyExternalMembers' ).click();
@@ -771,6 +773,7 @@ QUnit.test( "2 subforms selecting test", function( assert ) {
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
+            testHelper.assertHistory( assert, 2, 0, true );
             
             // Select at the external members a repeated item
             testHelper.subformSelect( 'externalMembers', '1' );
@@ -783,6 +786,7 @@ QUnit.test( "2 subforms selecting test", function( assert ) {
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
+            testHelper.assertHistory( assert, 3, 0, true );
             
             done();
         }
