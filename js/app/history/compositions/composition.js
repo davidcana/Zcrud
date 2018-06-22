@@ -14,15 +14,16 @@ var Composition = function( itemsArray ) {
         items.push( item );
     };
     
-    var runMethod = function ( object, name /*, args */ ) {
+    /*
+    var runMethod = function ( object, name ) {
         
         var args = Array.prototype.slice.call( arguments, 2 );
         return object[ name ].apply( object, args );
-    }
+    }*/
     
     var runMethodForAll = function( name /*, args */ ){
         
-        var args = Array.prototype.slice.call( arguments, 1 );
+        var args = Array.prototype.slice.call( arguments, 1 )[ 0 ];
         
         for ( var c = 0; c < items.length; ++c ){
             var thisItem = items[ c ];
@@ -30,9 +31,9 @@ var Composition = function( itemsArray ) {
         }
     };
     
-    var runMethodForAllUsingOr = function( name ){
+    var runMethodForAllUsingOr = function( name /*, args */ ){
 
-        var args = Array.prototype.slice.call( arguments, 1 );
+        var args = Array.prototype.slice.call( arguments, 1 )[ 0 ];
         
         for ( var c = 0; c < items.length; ++c ){
             var thisItem = items[ c ];
@@ -45,9 +46,9 @@ var Composition = function( itemsArray ) {
         return false;
     };
 
-    var runMethodForAllUsingNotUndefined = function( name ){
+    var runMethodForAllUsingNotUndefined = function( name /*, args */ ){
 
-        var args = Array.prototype.slice.call( arguments, 1 );
+        var args = Array.prototype.slice.call( arguments, 1 )[ 0 ];
 
         for ( var c = 0; c < items.length; ++c ){
             var thisItem = items[ c ];
@@ -99,7 +100,6 @@ var Composition = function( itemsArray ) {
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
         getNewValue: getNewValue,
-        //previousValue: previousValue,
         saveEnabled: saveEnabled,
         isDirty: isDirty,
         type: 'composition',

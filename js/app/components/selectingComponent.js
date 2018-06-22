@@ -272,7 +272,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
     
     // Get all selected rows
     var get$selectedRows = function(){
-        return parent.get$().find( '.zcrud-row-selected' );
+        return parent.get$().find( '.zcrud-row-selected:not(.zcrud-hidden)' );
     };
     
     var getSelectedRecords = function(){

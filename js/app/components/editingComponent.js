@@ -182,7 +182,6 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         history.putDelete( 
             listPage.getId(), 
-            //options, 
             rowIndex, 
             key, 
             $tr );

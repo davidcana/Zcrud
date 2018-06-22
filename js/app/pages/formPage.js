@@ -565,6 +565,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             });
     };
     
+    var getFieldValue = function( fieldId ){
+        return record[ fieldId ];
+    };
+    
     var self = {
         show: show,
         setRecord: setRecord,
@@ -584,7 +588,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
         get$: get$,
-        getOptions: getOptions
+        getOptions: getOptions,
+        getFieldValue: getFieldValue
     };
     
     configure();

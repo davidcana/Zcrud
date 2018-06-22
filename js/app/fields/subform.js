@@ -10,6 +10,7 @@ var validationManager = require( '../validationManager.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
 var fieldUtils = require( './fieldUtils.js' );
 var HistoryCreate = require( '../history/create.js' );
+var HistoryDelete = require( '../history/delete.js' );
 var HistoryComposition = require( '../history/compositions/composition.js' );
 
 var Subform = function( properties ) {
@@ -254,16 +255,15 @@ Subform.prototype.buildProcessTemplateParams = function( field, record, dictiona
 
 Subform.prototype.deleteRow = function( event ){
 
-    var $tr =  $( event.target ).closest( 'tr' );
+    var $tr = $( event.target ).closest( 'tr' );
 
     this.page.getHistory().putDelete( 
         this.page.getId(), 
-        //options, 
         0, 
         $tr.attr( 'data-record-key' ), 
         $tr,
-        this,
-        $tr.attr( 'data-record-index' ) );
+        this );
+        //$tr.attr( 'data-record-index' ) );
 };
 
 Subform.prototype.getTemplate = function(){
@@ -320,7 +320,106 @@ Subform.prototype.setPage = function( pageToApply ){
 Subform.prototype.getRecordByKey = function( key, $row ){
     return fieldUtils.buildRecord( this.fieldsArray, $row );
 };
+/*
+Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom ){
 
+    // Get records from selection or get all
+    var records = useSelection?
+        this.page.getField( fromSubformId ).getComponent( 'selecting' ).getSelectedRecords():
+    this.page.getFieldValue( fromSubformId );
+
+    var composition = new HistoryComposition();
+
+    for ( var c = 0; c < records.length; ++c ){
+        var currentRecord = records[ c ];        
+
+        // Add creation
+        var createHistoryItem = this.buildHistoryItemForNewRow(
+            {
+                field: this, 
+                defaultRecord: currentRecord
+            }
+        );
+        composition.add( createHistoryItem );
+
+        // Add deletion if needed
+        if ( deleteFrom ){
+            var $tr = createHistoryItem.get$Tr(); 
+            composition.add( 
+                new HistoryDelete( 
+                    this.page.getHistory(), 
+                    0, 
+                    $tr.attr( 'data-record-key' ), 
+                    $tr,
+                    this.name )
+            );
+        }
+    }
+
+    this.page.getHistory().put( this.page.getId(), composition );
+};*/
+
+Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom ){
+    
+    // Get records from selection or get all
+    var records = useSelection?
+        this.page.getField( fromSubformId ).getComponent( 'selecting' ).getSelectedRecords():
+        this.page.getFieldValue( fromSubformId );
+    
+    return this.addNewRows_common( 
+        records, 
+        deleteFrom? 
+            this.page.getField( fromSubformId ): 
+            undefined,
+        useSelection? 
+            this.page.getField( fromSubformId ).getComponent( 'selecting' ).getSelectedRows(): 
+            undefined );
+};
+
+
+Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $selectedRows ){
+
+    if ( ! records || records.length == 0 ){
+        return [];
+    }
+    
+    var composition = new HistoryComposition();
+
+    for ( var c = 0; c < records.length; ++c ){
+        var currentRecord = records[ c ];        
+
+        // Add creation
+        var createHistoryItem = this.buildHistoryItemForNewRow(
+            {
+                field: this, 
+                defaultRecord: currentRecord
+            }
+        );
+        composition.add( createHistoryItem );
+
+        // Add deletion if needed
+        if ( subformToDeleteFrom ){
+            var $tr = $( $selectedRows.get( c ) );
+            composition.add( 
+                new HistoryDelete( 
+                    this.page.getHistory(), 
+                    0, 
+                    $tr.attr( 'data-record-key' ), 
+                    $tr,
+                    subformToDeleteFrom.name )
+            );
+        }
+    }
+
+    this.page.getHistory().put( this.page.getId(), composition );
+    
+    return records;
+};
+
+Subform.prototype.addNewRows = function( records ){
+    return this.addNewRows_common( records );
+};
+/*
 Subform.prototype.addNewRows = function( records ){
     
     var composition = new HistoryComposition();
@@ -337,7 +436,7 @@ Subform.prototype.addNewRows = function( records ){
     }
     
     this.page.getHistory().put( this.page.getId(), composition );
-};
+};*/
 /*
 Subform.prototype.addNewRows = function( records ){
 

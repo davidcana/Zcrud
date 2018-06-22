@@ -17,7 +17,6 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( "subform create test", function( assert ) {
 
     var done = assert.async();
@@ -444,6 +443,130 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
             // Check storage
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
+            done();
+        }
+    );
+});
+
+QUnit.test( "add records to subform test", function( assert ) {
+
+    // Setup services
+    testUtils.resetServices();
+    var key = 4;
+    var record =  {
+        "id": "" + key,
+        "name": "Service " + key,
+        "members": [
+            {
+                "code": "1",
+                "name": "Bart Simpson",
+                "description": "Description of Bart Simpson"
+            },
+            {
+                "code": "2",
+                "name": "Lisa Simpson",
+                "description": "Description of Lisa Simpson"
+            },
+            {
+                "code": "3",
+                "name": "Marge Simpson",
+                "description": "Description of Marge Simpson"
+            },
+            {
+                "code": "4",
+                "name": "Homer Simpson",
+                "description": "Description of Homer Simpson"
+            }
+        ]
+    };
+    testUtils.setService( key, record );
+
+    var thisTestOptions = {
+        pageConf: {
+            defaultPageConf: {
+                buttons: {
+                    toolbarExtension: 'customButton'
+                }
+            }
+        },
+        events: {
+            formCreated: function ( data ) {
+                $( '#addMembers' ).click( 
+                    function ( event ) {
+                        event.preventDefault();
+                        addMembers( 'members', newMembers );
+                    }
+                );
+            }
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    var newMembers = [
+        {
+            "code": "5",
+            "name": "Ned Flanders",
+            "description": "Description of Ned Flanders"
+        },
+        {
+            "code": "6",
+            "name": "Montgomery Burns",
+            "description": "Description of Montgomery Burns"
+        }
+    ];
+    
+    var addMembers = function( fieldId, membersToCopy ){
+
+        var listPage = $( '#departmentsContainer' ).zcrud( 'getListPage' );
+        var formPage = listPage.getCurrentFormPage();
+
+        formPage.getField( fieldId ).addNewRows( membersToCopy );
+    };
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+
+            // Test it!
+            testHelper.assertHistory( assert, 0, 0, true );
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4' ]);
+            
+            // Add items to members
+            $( '#addMembers' ).click();
+            testHelper.assertHistory( assert, 1, 0, true );
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4', '5', '6' ]);
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.assertHistory( assert, 0, 1, true );
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4' ]);
+            
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.assertHistory( assert, 1, 0, true );
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4', '5', '6' ]);
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            record.members = record.members.concat( newMembers );
+            assert.deepEqual( testUtils.getService( key ), record );
+            
             done();
         }
     );

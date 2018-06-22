@@ -1198,7 +1198,7 @@ module.exports = (function() {
         
         var result = [];
         
-        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row' );
+        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hidden)' );
         $rows.each( function() {
             var $this = $( this );
             result.push( $this.attr( 'data-record-key' ) );
