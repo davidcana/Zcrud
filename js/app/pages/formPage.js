@@ -536,7 +536,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     };
     
     var cancelForm = function( event, $form ){
+        
         triggerFormClosedEvent( event, $form );
+        history.reset( id );
         listPage.show();
     };
     
