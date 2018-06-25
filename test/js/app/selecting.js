@@ -800,7 +800,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                     "description": "Description of Marge Simpson"
                 }
             ];
-            //assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testUtils.getService( key ), record );
             
             done();
         }
@@ -1059,6 +1059,41 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '1', '3' ]);
             testHelper.assertHistory( assert, 2, 0, true );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+            
+            // Check storage
+            record.members = [
+                {
+                    "code": "2",
+                    "name": "Lisa Simpson",
+                    "description": "Description of Lisa Simpson"
+                },
+                {
+                    "code": "4",
+                    "name": "Homer Simpson",
+                    "description": "Description of Homer Simpson"
+                },
+                {
+                    "code": "5",
+                    "name": "Ned Flanders",
+                    "description": "Description of Ned Flanders"
+                }
+            ];
+            record.externalMembers = [
+                {
+                    "code": "1",
+                    "name": "Bart Simpson",
+                    "description": "Description of Bart Simpson"
+                },
+                {
+                    "code": "3",
+                    "name": "Marge Simpson",
+                    "description": "Description of Marge Simpson"
+                }
+            ];
+            assert.deepEqual( testUtils.getService( key ), record );
             
             done();
         }

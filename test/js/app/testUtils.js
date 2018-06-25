@@ -7,7 +7,7 @@ module.exports = (function() {
     var $ = require( 'jquery' );
     
     var services = {};
-    var servicesSubformsFields = [ 'members' ];
+    var servicesSubformsFields = [ 'members', 'externalMembers' ];
     /*
     var services = {
         '1': { name: 'Service 1' },
