@@ -54,10 +54,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     var dictionary = undefined;
     var submitFunction = undefined;
     
+    /*
     var history = undefined;
     var getHistory = function(){
         return history;
-    };
+    };*/
     //var autoSaveMode = false;
     
     var view = undefined;
@@ -151,11 +152,19 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             throw "Unknown FormPage type: " + type;
         }
         
+        /*
         history = new History( 
             options, 
             thisOptions,
             self, 
-            true );
+            true );*/
+        context.setHistory(
+            new History( 
+                options, 
+                thisOptions,
+                self, 
+                true ) 
+        );
     };
 
     var buildFields = function(){
@@ -302,7 +311,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 event.preventDefault();
                 event.stopPropagation();
             
-                history.undo( id );
+                context.getHistory().undo( id );
                 /*if ( autoSaveMode ){
                     save( event );
                 }*/
@@ -315,7 +324,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 event.preventDefault();
                 event.stopPropagation();
             
-                history.redo( id );
+                context.getHistory().redo( id );
                 /*if ( autoSaveMode ){
                     save( event );
                 }*/
@@ -330,7 +339,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 }
                 var $this = $( this );
                 var field = getFieldByName( $this.prop( 'name' ) );
-                history.putChange( 
+                context.getHistory().putChange( 
                     $this, 
                     field.getValue( $this ), 
                     0,
@@ -392,7 +401,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 listPage.show( dictionaryExtension );
             }
 
-            history.reset( elementId );
+            context.getHistory().reset( elementId );
             
             if ( userSuccess ){
                 userSuccess();
@@ -432,7 +441,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 [ ],
                 fields,
                 undefined,
-                history ),
+                context.getHistory() ),
             $form );
     };
     
@@ -476,7 +485,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 [ record ], 
                 fields,
                 undefined,
-                history ),
+                context.getHistory() ),
             $form );
     };
     
@@ -498,7 +507,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             userData.record,
             fieldsMap,
             fields,
-            history );
+            context.getHistory() );
 
         addAllRecordMethodProperties( userData, jsonObject );
 
@@ -538,7 +547,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
     var cancelForm = function( event, $form ){
         
         triggerFormClosedEvent( event, $form );
-        history.reset( id );
+        context.getHistory().reset( id );
         listPage.show();
     };
     
@@ -583,7 +592,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         getFields: getFields,
         getField: getField,
         getView: getView,
-        getHistory: getHistory,
+        //getHistory: getHistory,
         getFieldByName: getFieldByName,
         getParentFieldByName: getParentFieldByName,
         addRecord: addRecord,

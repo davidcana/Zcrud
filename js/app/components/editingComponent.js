@@ -20,7 +20,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         return thisOptions;
     };
     
-    var history = new History( options, thisOptions, listPage );
+    //var history = new History( options, thisOptions, listPage );
+    context.setHistory( 
+        new History( options, thisOptions, listPage ) );
     var autoSaveMode = false;
     
     var bindEvents = function(){
@@ -100,7 +102,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 }
                 var $this = $( this );
                 var field = listPage.getFieldByName( $this.prop( 'name' ) );
-                history.putChange( 
+                context.getHistory().putChange( 
                     $this, 
                     field.getValue( $this ),
                     $this.closest( 'tr' ).attr( 'data-record-index' ),
@@ -180,7 +182,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var key = $tr.attr( 'data-record-key' );
         var rowIndex = $tr.attr( 'data-record-index' );
 
-        history.putDelete( 
+        context.getHistory().putDelete( 
             listPage.getId(), 
             rowIndex, 
             key, 
@@ -196,7 +198,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var newRecord = fieldUtils.buildDefaultValuesRecord( listPage.getFields() );
         var thisDictionary = buildDictionaryForNewRow( newRecord );
         
-        var createHistoryItem = history.putCreate( 
+        var createHistoryItem = context.getHistory().putCreate( 
             listPage.getId(), 
             thisDictionary,
             $( '#' + listPage.getThisOptions().tbodyId ),
@@ -222,7 +224,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     // History methods
     var undo = function( event ){
 
-        history.undo( listPage.getId() );
+        context.getHistory().undo( listPage.getId() );
         /*
         if ( autoSaveMode ){
             save( event );
@@ -230,7 +232,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     var redo = function( event ){
 
-        history.redo( listPage.getId() );
+        context.getHistory().redo( listPage.getId() );
         /*
         if ( autoSaveMode ){
             save( event );
@@ -244,7 +246,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             listPage.getDictionary().records,
             listPage.getFields(),
             undefined,
-            history );
+            context.getHistory() );
         
         if ( jsonObject.existingRecords && Object.keys( jsonObject.existingRecords ).length == 0 
             && jsonObject.newRecords && jsonObject.newRecords.length == 0 
@@ -281,9 +283,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     listPage.updateBottomPanel();
                     
                     updateKeys( 
-                        history.getAllTr$FromCreateItems(), 
+                        context.getHistory().getAllTr$FromCreateItems(), 
                         dataFromServer.newRecords );
-                    history.reset( listPage.getId() );
+                    context.getHistory().reset( listPage.getId() );
                     
                 },
                 error: function( request, status, error ){

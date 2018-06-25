@@ -97,7 +97,7 @@ Subform.prototype.buildDictionary = function( newRecord ){
 Subform.prototype.addNewRow = function( params ){
     
     var createHistoryItem = this.buildHistoryItemForNewRow( params );
-    this.page.getHistory().put( 
+    context.getHistory().put( 
         this.page.getId(), 
         createHistoryItem );
 };
@@ -111,7 +111,7 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
     var thisDictionary = this.buildDictionary( newRecord );
     
     var createHistoryItem = new HistoryCreate( 
-        this.page.getHistory(),
+        context.getHistory(),
         thisDictionary,
         $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody'),
         newRecord,
@@ -142,7 +142,7 @@ Subform.prototype.addNewRow = function( params ){
     thisDictionary.instance = this;
     thisDictionary.records = [ newRecord ];
 
-    var createHistoryItem = this.page.getHistory().putCreate( 
+    var createHistoryItem = context.getHistory().putCreate( 
         this.page.getId(), 
         thisDictionary,
         $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody'),
@@ -179,7 +179,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 var fullName = $this.prop( 'name' );
                 var field = page.getFieldByName( fullName );
                 var $tr = $tr || $this.closest( 'tr' );
-                page.getHistory().putChange( 
+                context.getHistory().putChange( 
                     $this, 
                     field.getValue( $this ), 
                     0,
@@ -257,7 +257,7 @@ Subform.prototype.deleteRow = function( event ){
 
     var $tr = $( event.target ).closest( 'tr' );
 
-    this.page.getHistory().putDelete( 
+    context.getHistory().putDelete( 
         this.page.getId(), 
         0, 
         $tr.attr( 'data-record-key' ), 
@@ -347,7 +347,7 @@ Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection,
             var $tr = createHistoryItem.get$Tr(); 
             composition.add( 
                 new HistoryDelete( 
-                    this.page.getHistory(), 
+                    context.getHistory(), 
                     0, 
                     $tr.attr( 'data-record-key' ), 
                     $tr,
@@ -356,7 +356,7 @@ Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection,
         }
     }
 
-    this.page.getHistory().put( this.page.getId(), composition );
+    context.getHistory().put( this.page.getId(), composition );
 };*/
 
 Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom ){
@@ -402,7 +402,7 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
             var $tr = $( $selectedRows.get( c ) );
             composition.add( 
                 new HistoryDelete( 
-                    this.page.getHistory(), 
+                    context.getHistory(), 
                     0, 
                     $tr.attr( 'data-record-key' ), 
                     $tr,
@@ -411,7 +411,7 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
         }
     }
 
-    this.page.getHistory().put( this.page.getId(), composition );
+    context.getHistory().put( this.page.getId(), composition );
     
     return records;
 };
@@ -435,7 +435,7 @@ Subform.prototype.addNewRows = function( records ){
         composition.add( createHistoryItem );
     }
     
-    this.page.getHistory().put( this.page.getId(), composition );
+    context.getHistory().put( this.page.getId(), composition );
 };*/
 /*
 Subform.prototype.addNewRows = function( records ){
@@ -448,7 +448,7 @@ Subform.prototype.addNewRows = function( records ){
                 defaultRecord: currentRecord
             }
         );
-        this.page.getHistory().put( 
+        context.getHistory().put( 
             this.page.getId(), 
             createHistoryItem );
     }

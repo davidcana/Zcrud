@@ -210,6 +210,15 @@ module.exports = (function() {
         return fieldBuilder;
     };
     
+    // History
+    var history = undefined;
+    var setHistory = function( historytoApply ){
+        history = historytoApply;
+    };
+    var getHistory = function(){
+        return history;
+    };
+    
     return {
         put: put,
         get: get,
@@ -234,6 +243,8 @@ module.exports = (function() {
         subformSeparator: subformSeparator,
         getJSONBuilder: getJSONBuilder,
         setFieldBuilder: setFieldBuilder,
-        getFieldBuilder: getFieldBuilder
+        getFieldBuilder: getFieldBuilder,
+        setHistory: setHistory,
+        getHistory: getHistory
     };
 })();
