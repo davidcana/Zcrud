@@ -317,8 +317,18 @@ Subform.prototype.setPage = function( pageToApply ){
     }
 };
 
+Subform.prototype.buildMapValue = function(){
+    
+    return fieldUtils.buildRecordsMap( 
+        this.page.getFieldValue( this.id ), 
+        this.getKey() );
+};
+
 Subform.prototype.getRecordByKey = function( key, $row ){
-    return fieldUtils.buildRecord( this.fieldsArray, $row );
+    
+    return this.readOnly?
+        this.buildMapValue()[ key ]:
+        fieldUtils.buildRecord( this.fieldsArray, $row );
 };
 /*
 Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom ){

@@ -96,7 +96,7 @@
                             <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
                                 The description of this field.
                             </span>
-                            <span data-muse-macro="field/template">
+                            <span data-muse-macro="cond: (or: instance/isReadOnly() field/readOnly) field/viewTemplate field/template">
                                 The field
                             </span>
                         </label>

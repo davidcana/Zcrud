@@ -38,9 +38,23 @@ var FieldUtils = function() {
         return defaultRecord;
     };
     
+    var buildRecordsMap = function( recordsArray, keyField ){
+
+        var recordsMap = {};
+
+        for ( var c = 0; c < recordsArray.length; c++ ) {
+            var record = recordsArray[ c ];
+            var key = record[ keyField ];
+            recordsMap[ key ] = record;
+        }
+
+        return recordsMap;
+    };
+    
     return {
         buildRecord: buildRecord,
-        buildDefaultValuesRecord: buildDefaultValuesRecord
+        buildDefaultValuesRecord: buildDefaultValuesRecord,
+        buildRecordsMap: buildRecordsMap
     };
 }();
 

@@ -580,6 +580,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return record[ fieldId ];
     };
     
+    var isReadOnly = function(){
+        return !! thisOptions.readOnly;
+    };
+    
     var self = {
         show: show,
         setRecord: setRecord,
@@ -600,7 +604,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         deleteRecord: deleteRecord,
         get$: get$,
         getOptions: getOptions,
-        getFieldValue: getFieldValue
+        getFieldValue: getFieldValue,
+        isReadOnly: isReadOnly
     };
     
     configure();
