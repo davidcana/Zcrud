@@ -16,6 +16,7 @@ module.exports = (function() {
         }
         
         if ( pageOptions.fieldsCache ){
+            setPageToFields( pageOptions.fieldsCache, page );
             return pageOptions.fieldsCache;
         }
         
@@ -36,17 +37,21 @@ module.exports = (function() {
             } );
 
         pageOptions.fieldsCache = fieldsCache;
+        setPageToFields( pageOptions.fieldsCache, page );
         
-        // Set the page to all fields if needed
+        return fieldsCache;
+    };
+    
+    // Set the page to all fields if needed
+    var setPageToFields = function( fieldsCache, page ){
+        
         if ( page ){
             for ( var c = 0; c < fieldsCache.fieldsArray.length; ++c ){
                 fieldsCache.fieldsArray[ c ].setPage( page );
             }
         }
-        
-        return fieldsCache;
     };
-
+    
     var build = function( items, options, pageIdArray, functionToApplyToField ) {
         
         var result = {

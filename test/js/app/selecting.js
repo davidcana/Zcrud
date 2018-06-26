@@ -24,7 +24,7 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 };
 
 // Run tests
-
+/*
 QUnit.test( "list selecting test", function( assert ) {
     
     // Setup services
@@ -1099,8 +1099,8 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
         }
     );
 });
-
-QUnit.test( "2 subforms (1 read only) selecting and copy/paste test", function( assert ) {
+*/
+QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) test", function( assert ) {
 
     // Setup services
     testUtils.resetServices();
@@ -1386,7 +1386,98 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste test", function( 
                 }
             ];
             assert.deepEqual( testUtils.getService( key ), record );
+            
+            // Go to edit form again
+            testHelper.clickUpdateListButton( key );
+            
+            // Select again
+            testHelper.subformSelect( 'members', '2' );
+            
+            // Copy selected items from members to external
+            $( '#copyMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3', '2' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4', '5' ]);
+            testHelper.assertHistory( assert, 1, 0, true );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4', '5' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            testHelper.assertHistory( assert, 0, 1, true );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3', '2' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '1', '2', '3', '4', '5' ]);
+            testHelper.assertHistory( assert, 1, 0, true );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
 
+            // Check storage
+            record.members = [
+                {
+                    "code": "1",
+                    "name": "Bart Simpson",
+                    "description": "Description of Bart Simpson"
+                },
+                {
+                    "code": "2",
+                    "name": "Lisa Simpson",
+                    "description": "Description of Lisa Simpson"
+                },
+                {
+                    "code": "3",
+                    "name": "Marge Simpson",
+                    "description": "Description of Marge Simpson"
+                },
+                {
+                    "code": "4",
+                    "name": "Homer Simpson",
+                    "description": "Description of Homer Simpson"
+                },
+                {
+                    "code": "5",
+                    "name": "Ned Flanders",
+                    "description": "Description of Ned Flanders"
+                }
+            ];
+            record.externalMembers = [
+                {
+                    "code": "5",
+                    "name": "Ned Flanders",
+                    "description": "Description of Ned Flanders"
+                },
+                {
+                    "code": "1",
+                    "name": "Bart Simpson",
+                    "description": "Description of Bart Simpson"
+                },
+                {
+                    "code": "3",
+                    "name": "Marge Simpson",
+                    "description": "Description of Marge Simpson"
+                },
+                {
+                    "code": "2",
+                    "name": "Lisa Simpson",
+                    "description": "Description of Lisa Simpson"
+                }
+            ];
+            assert.deepEqual( testUtils.getService( key ), record );
+            
             done();
         }
     );
