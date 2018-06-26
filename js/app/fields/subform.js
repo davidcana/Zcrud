@@ -90,6 +90,7 @@ Subform.prototype.buildDictionary = function( newRecord ){
     thisDictionary.editable = true;
     thisDictionary.instance = this;
     thisDictionary.records = [ newRecord ];
+    thisDictionary.hideRowButtons = this.isReadOnly();
     
     return thisDictionary;
 };
@@ -130,37 +131,7 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
     
     return createHistoryItem;
 };
-/*
-Subform.prototype.addNewRow = function( params ){
 
-    var newRecord = params.defaultRecord?
-        params.defaultRecord:
-    fieldUtils.buildDefaultValuesRecord( this.fieldsArray );
-
-    var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
-    thisDictionary.editable = true;
-    thisDictionary.instance = this;
-    thisDictionary.records = [ newRecord ];
-
-    var createHistoryItem = context.getHistory().putCreate( 
-        this.page.getId(), 
-        thisDictionary,
-        $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody'),
-        newRecord,
-        this.id );
-    var $tr = createHistoryItem.get$Tr(); 
-
-    // Bind events
-    this.bindEventsInRows( params, undefined, $tr );
-    this.componentsMap.bindEventsIn1Row( $tr );
-
-    // Configure form validation
-    validationManager.initFormValidation( 
-        this.page.getId(), 
-        $tr, 
-        this.page.getOptions() );
-};
-*/
 Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
     
     var subformInstance = this;
@@ -284,6 +255,7 @@ Subform.prototype.buildFields = function(){
             subformInstance.subformKey = subfieldId;
         }
         subformInstance.fieldsArray.push( subfield );
+        subfield.setParentField( subformInstance );
     });
 };
 
@@ -330,44 +302,6 @@ Subform.prototype.getRecordByKey = function( key, $row ){
         this.buildMapValue()[ key ]:
         fieldUtils.buildRecord( this.fieldsArray, $row );
 };
-/*
-Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom ){
-
-    // Get records from selection or get all
-    var records = useSelection?
-        this.page.getField( fromSubformId ).getComponent( 'selecting' ).getSelectedRecords():
-    this.page.getFieldValue( fromSubformId );
-
-    var composition = new HistoryComposition();
-
-    for ( var c = 0; c < records.length; ++c ){
-        var currentRecord = records[ c ];        
-
-        // Add creation
-        var createHistoryItem = this.buildHistoryItemForNewRow(
-            {
-                field: this, 
-                defaultRecord: currentRecord
-            }
-        );
-        composition.add( createHistoryItem );
-
-        // Add deletion if needed
-        if ( deleteFrom ){
-            var $tr = createHistoryItem.get$Tr(); 
-            composition.add( 
-                new HistoryDelete( 
-                    context.getHistory(), 
-                    0, 
-                    $tr.attr( 'data-record-key' ), 
-                    $tr,
-                    this.name )
-            );
-        }
-    }
-
-    context.getHistory().put( this.page.getId(), composition );
-};*/
 
 Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom ){
     
@@ -429,52 +363,5 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
 Subform.prototype.addNewRows = function( records ){
     return this.addNewRows_common( records );
 };
-/*
-Subform.prototype.addNewRows = function( records ){
-    
-    var composition = new HistoryComposition();
-    
-    for ( var c = 0; c < records.length; ++c ){
-        var currentRecord = records[ c ];        
-        var createHistoryItem = this.buildHistoryItemForNewRow(
-            {
-                field: this, 
-                defaultRecord: currentRecord
-            }
-        );
-        composition.add( createHistoryItem );
-    }
-    
-    context.getHistory().put( this.page.getId(), composition );
-};*/
-/*
-Subform.prototype.addNewRows = function( records ){
 
-    for ( var c = 0; c < records.length; ++c ){
-        var currentRecord = records[ c ];        
-        var createHistoryItem = this.buildHistoryItemForNewRow(
-            {
-                field: this, 
-                defaultRecord: currentRecord
-            }
-        );
-        context.getHistory().put( 
-            this.page.getId(), 
-            createHistoryItem );
-    }
-};*/
-/*
-Subform.prototype.addNewRows = function( records ){
-
-    for ( var c = 0; c < records.length; ++c ){
-        var currentRecord = records[ c ];
-        this.addNewRow(
-            {
-                field: this, 
-                defaultRecord: currentRecord
-            }
-        );
-    }
-};
-*/
 module.exports = Subform;

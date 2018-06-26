@@ -22,59 +22,6 @@
             </div>
         </div>
         
-        <div data-mdefine-macro="subform_bak" data-tomit-tag="">
-            <div class="zcrud-subform-content"
-                 data-tdefine="subformField field;
-                               toolbar subformField/buttons/toolbar;
-                               subformRecords value">
-                <table>
-                    <thead data-tdefine="byRow subformField/buttons/byRow">
-                        <tr>
-                            <th data-trepeat="field subformField/getFields()" 
-                                data-tattributes="style cond: field/width (string:width:${field/width}) null;
-                                                  class string:zcrud-column-header zcrud-column-header-${field/id}">
-                                <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
-                            </th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/openEditRegisterForm"><!--empty--></th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/openDeleteRegisterForm"><!--empty--></th>
-                            <th class="zcrud-command-column-header" data-tcondition="byRow/deleteRegisterRow"><!--empty--></th>
-                        </tr>
-                    </thead>
-                    <tbody data-tdefine="editable true;
-                                         renderIds false;
-                                         byRow subformField/buttons/byRow">
-                        <tr data-trepeat="record subformRecords"
-                            data-tattributes="data-record-key record[ subformField/subformKey ];
-                                              data-record-index repeat/record/index();
-                                              class 'zcrud-data-row zcrud-data-entity'"
-                            data-tdefine="data-record-index repeat/record/index()">
-                            <td data-trepeat="field subformField/getFields()"
-                                data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
-                                data-tdefine="value record[ field/id ]">
-                                <span data-tcondition="not: editable" data-tcontent="value">Field value</span>
-                                <span data-tcondition="editable"
-                                      data-muse-macro="field/template"><!--empty--></span>
-                            </td>
-                            <td data-tcondition="byRow/openEditRegisterForm">
-                                <button title="Edit record" class="zcrud-subform-edit-command-button"><!--empty--></button>
-                            </td>
-                            <td data-tcondition="byRow/openDeleteRegisterForm">
-                                <button title="Delete record" class="zcrud-subform-delete-command-button"><!--empty--></button>
-                            </td>
-                            <td data-tcondition="byRow/deleteRegisterRow">
-                                <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="zcrud-subform-toolbar">
-                    <button class="zcrud-new-row-command-button" 
-                            data-tattributes="title tr:'Add new record'" 
-                            data-tcondition="toolbar/newRegisterRow"><!--empty--></button>
-                </div>
-            </div>
-        </div>
-        
         <div data-mdefine-macro="view" data-tomit-tag="">
             <div class="zcrud-subform-content">
                 <div data-muse-macro="'table@templates/lists.html'"
@@ -87,37 +34,6 @@
                 </div>
             </div>
         </div>
-        
-        <div data-mdefine-macro="view_bak" data-tomit-tag="">
-            <div class="zcrud-subform-content"
-                 data-tdefine="subformField field;
-                               subformRecords value">
-                <table>
-                    <thead>
-                        <tr>
-                            <th data-trepeat="field subformField/getFields()" 
-                                data-tattributes="style cond: field/width (string:width:${field/width}) null;
-                                                  class string:zcrud-column-header zcrud-column-header-${field/id}">
-                                <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody data-tdefine="editable true;
-                                         renderIds false">
-                        <tr data-trepeat="record subformRecords"
-                            data-tattributes="data-record-key record[ subformField/subformKey ];
-                                              data-record-index repeat/record/index();
-                                              class 'zcrud-data-row zcrud-data-entity'"
-                            data-tdefine="data-record-index repeat/record/index()">
-                            <td data-trepeat="field subformField/getFields()"
-                                data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
-                                data-tdefine="value record[ field/id ]">
-                                <span data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) value">Field value</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+
     </body>
 </html>

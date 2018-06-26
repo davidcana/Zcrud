@@ -24,6 +24,24 @@ var FieldUtils = function() {
         return record;
     };
     
+    var buildRecordFromSelection = function( fieldsArray, $selection ){
+
+        var record = {};
+
+        for ( var c = 0; c < fieldsArray.length; c++ ) {
+            var field = fieldsArray[ c ];
+            var value = field.isReadOnly()?
+                field.getValueFromSelection( $selection ):
+                field.getValueFromForm( $selection );
+
+            if ( value != undefined && value != '' ){
+                record[ field.id ] = value;
+            }
+        }
+
+        return record;
+    };
+    
     var buildDefaultValuesRecord = function( fieldsArray ){
 
         var defaultRecord = {};
@@ -53,6 +71,7 @@ var FieldUtils = function() {
     
     return {
         buildRecord: buildRecord,
+        buildRecordFromSelection: buildRecordFromSelection,
         buildDefaultValuesRecord: buildDefaultValuesRecord,
         buildRecordsMap: buildRecordsMap
     };

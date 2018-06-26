@@ -372,6 +372,9 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var isEditable = function(){
         return getComponent( 'editing' )? true: false;
     };
+    var isReadOnly = function(){
+        return ! isEditable();
+    };
     
     var getKey = function(){
         return options.key;
@@ -407,7 +410,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         deleteRecord: deleteRecord,
         isEditable: isEditable,
         getKey: getKey,
-        getCurrentFormPage: getCurrentFormPage
+        getCurrentFormPage: getCurrentFormPage,
+        isReadOnly: isReadOnly
     };
     
     configure();

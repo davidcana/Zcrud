@@ -38,6 +38,10 @@ Field.prototype.getValueFromRecord = function( record, params ){
     return record[ this.id ];
 };
 
+Field.prototype.getValueFromSelection = function( $selection ){
+    return $selection.find( '.zcrud-like-field-' + this.name ).text().trim();
+};
+
 Field.prototype.getTemplate = function( options ){
     return options.fieldsConfig.getDefaultFieldTemplate( this );
 };
@@ -68,6 +72,14 @@ Field.prototype.getThisOptions = function(){
 
 Field.prototype.get$ = function(){
     return this.page.get$().find( '.zcrud-field-' + this.id );
+};
+
+Field.prototype.isReadOnly = function(){
+    return this.page.isReadOnly() || ( this.parentField && this.parentField.isReadOnly() ) || this.readOnly;
+};
+
+Field.prototype.setParentField = function( parentFieldToApply ){
+    this.parentField = parentFieldToApply;
 };
 
 module.exports = Field;

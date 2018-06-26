@@ -105,9 +105,10 @@
                     </td>
                     <td data-trepeat="field instance/getFields()"
                         data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
-                        data-tdefine="value record[ field/id ]">
-                        <span data-tcondition="not: editable" data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) value">Field value</span>
-                        <span data-tcondition="editable" data-muse-macro="field/template"><!--empty--></span>
+                        data-tdefine="value record[ field/id ];
+                                      fieldIsEditable and: editable (not: field/isReadOnly())">
+                        <span data-tcondition="not: fieldIsEditable" data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) value">Field value</span>
+                        <span data-tcondition="fieldIsEditable" data-muse-macro="field/template"><!--empty--></span>
                     </td>
                     <td data-tcondition="and: (not: hideRowButtons) byRow/openEditRegisterForm">
                         <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>

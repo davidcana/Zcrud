@@ -24,7 +24,7 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 };
 
 // Run tests
-/*
+
 QUnit.test( "list selecting test", function( assert ) {
     
     // Setup services
@@ -1099,7 +1099,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) test", function( assert ) {
 
     // Setup services
@@ -1423,10 +1423,10 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                 [ '1', '2', '3', '4', '5' ]);
             testHelper.assertHistory( assert, 1, 0, true );
             
-            // Submit and show the list again
+            // Submit a second time and show the list again
             testHelper.clickFormSubmitButton();
 
-            // Check storage
+            // Check storage second time
             record.members = [
                 {
                     "code": "1",
@@ -1478,6 +1478,542 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             ];
             assert.deepEqual( testUtils.getService( key ), record );
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) test", function( assert ) {
+
+    // Setup services
+    testUtils.resetServices();
+    var key = 4;
+    var record =  {
+        "id": "" + key,
+        "name": "Service " + key,
+        "members": [
+            {
+                "code": "1",
+                "name": "Bart Simpson",
+                "description": "Description of Bart Simpson"
+            },
+            {
+                "code": "2",
+                "name": "Lisa Simpson",
+                "description": "Description of Lisa Simpson"
+            },
+            {
+                "code": "3",
+                "name": "Marge Simpson",
+                "description": "Description of Marge Simpson"
+            },
+            {
+                "code": "4",
+                "name": "Homer Simpson",
+                "description": "Description of Homer Simpson"
+            }
+        ],
+        "externalMembers": [
+            {
+                "code": "5",
+                "name": "Ned Flanders",
+                "description": "Description of Ned Flanders"
+            }
+        ]
+    };
+    testUtils.setService( key, record );
+
+    thisTestOptions = {
+        pageConf: {
+            defaultPageConf: {
+                buttons: {
+                    toolbarExtension: '2CustomButtons'
+                }
+            }
+        },
+        fields: {
+            members: {
+                readOnly: true,
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
+            },
+            externalMembers: {
+                type: 'subform',
+                fields: { 
+                    code: { 
+                        subformKey: true
+                    },
+                    name: { },
+                    description: {
+                        type: 'textarea',
+                        formFieldAttributes: {
+                            rows: 3,
+                            cols: 80
+                        }
+                    }
+                },
+                buttons: {
+                    toolbar: {
+                        newRegisterRow: true
+                    },
+                    byRow: {
+                        openEditRegisterForm: false,
+                        openDeleteRegisterForm: false,
+                        deleteRegisterRow: true
+                    }
+                },
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
+            }
+        },
+        events: {
+            formCreated: function ( data ) {
+                $( '#copyMembers' ).click( 
+                    function ( event ) {
+                        event.preventDefault();
+                        copyMembers( 'members', 'externalMembers', true );
+                    }
+                );
+                $( '#copyExternalMembers' ).click( 
+                    function ( event ) {
+                        event.preventDefault();
+                        copyMembers( 'externalMembers', 'members', true );
+                    }
+                );
+            }
+        }
+    };
+    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+
+            // Test it!
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+            testHelper.assertHistory( assert, 0, 0, true );
+
+            // Select
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'members' ), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+
+            // Deselect
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+
+            // Select again
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'members' ), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+
+            // Select at the external members
+            testHelper.subformSelect( 'externalMembers', '5' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'externalMembers' ), 
+                [ 
+                    {
+                        "code": "5",
+                        "name": "Ned Flanders",
+                        "description": "Description of Ned Flanders"
+                    }
+                ]);
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'members' ), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            
+            // Cut selected items from members to external
+            $( '#copyMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '2', '4' ]);
+            testHelper.assertHistory( assert, 1, 0, true );
+            
+            // Cut selected items from external to members
+            $( '#copyExternalMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '2', '4', '5' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '1', '3' ]);
+            testHelper.assertHistory( assert, 2, 0, true );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '2', '4' ]);
+            testHelper.assertHistory( assert, 1, 1, true );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            record.members = [
+                {
+                    "code": "2",
+                    "name": "Lisa Simpson",
+                    "description": "Description of Lisa Simpson"
+                },
+                {
+                    "code": "4",
+                    "name": "Homer Simpson",
+                    "description": "Description of Homer Simpson"
+                }
+            ];
+            record.externalMembers = [
+                {
+                    "code": "5",
+                    "name": "Ned Flanders",
+                    "description": "Description of Ned Flanders"
+                },
+                {
+                    "code": "1",
+                    "name": "Bart Simpson",
+                    "description": "Description of Bart Simpson"
+                },
+                {
+                    "code": "3",
+                    "name": "Marge Simpson",
+                    "description": "Description of Marge Simpson"
+                }
+            ];
+            assert.deepEqual( testUtils.getService( key ), record );
+
+            // Go to edit form again
+            testHelper.clickUpdateListButton( key );
+            
+            // Select again
+            testHelper.subformSelect( 'externalMembers', '3', '5' );
+            
+            // Cut selected items from external to members
+            $( '#copyExternalMembers' ).click();
+            
+            // Submit a second time and show the list again
+            testHelper.clickFormSubmitButton();
+            
+            // Check storage a second time
+            record.members = [
+                {
+                    "code": "2",
+                    "name": "Lisa Simpson",
+                    "description": "Description of Lisa Simpson"
+                },
+                {
+                    "code": "4",
+                    "name": "Homer Simpson",
+                    "description": "Description of Homer Simpson"
+                },
+                {
+                    "code": "5",
+                    "name": "Ned Flanders",
+                    "description": "Description of Ned Flanders"
+                },
+                {
+                    "code": "3",
+                    "name": "Marge Simpson",
+                    "description": "Description of Marge Simpson"
+                }
+            ];
+            record.externalMembers = [
+                {
+                    "code": "1",
+                    "name": "Bart Simpson",
+                    "description": "Description of Bart Simpson"
+                }
+            ];
+            assert.deepEqual( testUtils.getService( key ), record );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same record twice) test", function( assert ) {
+
+    // Setup services
+    testUtils.resetServices();
+    var key = 4;
+    var record =  {
+        "id": "" + key,
+        "name": "Service " + key,
+        "members": [
+            {
+                "code": "1",
+                "name": "Bart Simpson",
+                "description": "Description of Bart Simpson"
+            },
+            {
+                "code": "2",
+                "name": "Lisa Simpson",
+                "description": "Description of Lisa Simpson"
+            },
+            {
+                "code": "3",
+                "name": "Marge Simpson",
+                "description": "Description of Marge Simpson"
+            },
+            {
+                "code": "4",
+                "name": "Homer Simpson",
+                "description": "Description of Homer Simpson"
+            }
+        ],
+        "externalMembers": [
+            {
+                "code": "5",
+                "name": "Ned Flanders",
+                "description": "Description of Ned Flanders"
+            }
+        ]
+    };
+    testUtils.setService( key, record );
+
+    thisTestOptions = {
+        pageConf: {
+            defaultPageConf: {
+                buttons: {
+                    toolbarExtension: '2CustomButtons'
+                }
+            }
+        },
+        fields: {
+            members: {
+                readOnly: true,
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
+            },
+            externalMembers: {
+                type: 'subform',
+                fields: { 
+                    code: { 
+                        subformKey: true
+                    },
+                    name: { },
+                    description: {
+                        type: 'textarea',
+                        formFieldAttributes: {
+                            rows: 3,
+                            cols: 80
+                        }
+                    }
+                },
+                buttons: {
+                    toolbar: {
+                        newRegisterRow: true
+                    },
+                    byRow: {
+                        openEditRegisterForm: false,
+                        openDeleteRegisterForm: false,
+                        deleteRegisterRow: true
+                    }
+                },
+                components: {
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
+            }
+        },
+        events: {
+            formCreated: function ( data ) {
+                $( '#copyMembers' ).click( 
+                    function ( event ) {
+                        event.preventDefault();
+                        copyMembers( 'members', 'externalMembers', true );
+                    }
+                );
+                $( '#copyExternalMembers' ).click( 
+                    function ( event ) {
+                        event.preventDefault();
+                        copyMembers( 'externalMembers', 'members', true );
+                    }
+                );
+            }
+        }
+    };
+    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+
+            // Test it!
+            assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+            testHelper.assertHistory( assert, 0, 0, true );
+
+            // Select
+            testHelper.subformSelect( 'members', '1', '3' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'members' ), 
+                [ 
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "3",
+                        "name": "Marge Simpson",
+                        "description": "Description of Marge Simpson"
+                    }
+                ]);
+            assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
+
+            // Cut selected items from members to external
+            $( '#copyMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '2', '4' ]);
+            testHelper.assertHistory( assert, 1, 0, true );
+            
+            // Select
+            testHelper.subformSelect( 'externalMembers', '5', '1' );
+            
+            // Cut selected items from external to members
+            $( '#copyExternalMembers' ).click();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '2', '4', '5', '1' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '3' ]);
+            testHelper.assertHistory( assert, 2, 0, true );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '5', '1', '3' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '2', '4' ]);
+            testHelper.assertHistory( assert, 1, 1, true );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'members' ), 
+                [ '2', '4', '5', '1' ]);
+            assert.deepEqual( 
+                testHelper.getSubformItemsKeys( 'externalMembers' ), 
+                [ '3' ]);
+            testHelper.assertHistory( assert, 2, 0, true );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            record.members = [
+                {
+                    "code": "2",
+                    "name": "Lisa Simpson",
+                    "description": "Description of Lisa Simpson"
+                },
+                {
+                    "code": "4",
+                    "name": "Homer Simpson",
+                    "description": "Description of Homer Simpson"
+                },
+                {
+                    "code": "5",
+                    "name": "Ned Flanders",
+                    "description": "Description of Ned Flanders"
+                },
+                {
+                    "code": "1",
+                    "name": "Bart Simpson",
+                    "description": "Description of Bart Simpson"
+                }
+            ];
+            record.externalMembers = [
+                {
+                    "code": "3",
+                    "name": "Marge Simpson",
+                    "description": "Description of Marge Simpson"
+                }
+            ];
+            assert.deepEqual( testUtils.getService( key ), record );
+
             done();
         }
     );

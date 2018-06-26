@@ -7,6 +7,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
     var context = require( '../context.js' );
     var $ = require( 'jquery' );
     var pageUtils = require( '../pages/pageUtils.js' );
+    var fieldUtils = require( '../fields/fieldUtils.js' );
     
     var options = optionsToApply;
     var parent = parentToApply;
@@ -282,8 +283,9 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
         var $selectedRows = get$selectedRows();
         $selectedRows.each( function( index ) {
             var $row = $( this );
-            var key = $row.data( 'record-key' );
-            var record = parent.getRecordByKey( key, $row );
+            //var key = $row.data( 'record-key' );
+            //var record = parent.getRecordByKey( key, $row );
+            var record = fieldUtils.buildRecordFromSelection( parent.getFields(), $row );
             result.push( record );
         });
         
