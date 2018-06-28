@@ -24,7 +24,6 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 };
 
 // Run tests
-/*
 QUnit.test( "list selecting test", function( assert ) {
     
     // Setup services
@@ -2018,7 +2017,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
         }
     );
 });
-*/
+
 QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting and cut/paste (cuting the same record twice) test", function( assert ) {
 
     // Setup services
