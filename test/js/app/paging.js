@@ -5,11 +5,14 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
+var testUtils = require( './testUtils.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
+var subformsTestOptions = require( './2SubformsTestOptions.js' );
 var options = undefined;
 
 // Run tests
+
 QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     
     options = $.extend( true, {}, defaultTestOptions );
@@ -82,3 +85,30 @@ QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
         }
     );
 });
+
+/*
+QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert ) {
+
+    options = $.extend( true, {}, subformsTestOptions );
+    options.pageConf.pages.list.components.paging.gotoPageFieldType = 'combobox';
+
+    // Setup services
+    var serviceKeys = [ '2' ];
+    var numberOfMembers = 32;
+    var numberOfExternalMembers = 14;
+    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+
+
+            done();
+        }
+    );
+});*/

@@ -46,6 +46,40 @@ module.exports = (function() {
     };
     resetServices();
     
+    var reset2SubformMembersServices = function( serviceKeys, numberOfMembers, numberOfExternalMembers ){
+
+        resetServices();
+        
+        for ( var c = 0; c < serviceKeys.length; ++c ){
+            var key = serviceKeys[ c ];
+            var service = services[ key ];
+
+            addToService( service , 'members', numberOfMembers );
+            addToService( service , 'externalMembers', numberOfExternalMembers );
+        }
+    };
+    var addToService = function( service, subformName, numberOfItems ){
+        
+        var thisArray = service[ subformName ];
+        if ( ! thisArray ){
+            thisArray = [];
+            service[ subformName ] = thisArray;
+        }
+        
+        for ( var c = 0; c < numberOfItems; ++c ){
+            var sufix = "" + ( c + 1 );
+            var name = subformName + " " + sufix;
+            thisArray.push(
+                {
+                    "code": sufix,
+                    "name": name,
+                    "description": "Description of " + name
+                }
+            );
+        }
+    };
+    
+    
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     var urls = [];
     var lastListUrl = undefined;
@@ -106,22 +140,41 @@ module.exports = (function() {
             case "BATCH_UPDATE":
                 dataToSend = ajaxServicesBatchUpdate( file, data, url );
                 break;
+            case "GET":
+                dataToSend = ajaxServicesGet( file, data, url );
+                break;
             default:
                 throw "Unknown command in ajax: " + cmd;
         }
         
-        /*
-        if ( dataToSend.result == 'OK' ){
-            options.success( dataToSend );
-        } else {
-            var request = {
-                responseText: dataToSend.message
-            };
-            var status = 'error';
-            var error = '';
-            options.error( request, status, error );
-        }*/
         options.success( dataToSend );
+    };
+    
+    var ajaxServicesGet = function( file, data, url ){
+
+        lastListUrl = url;
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+        
+        // Build record
+        dataToSend.record = $.extend( true, {}, services[ data.key ] );
+        processSubformsInGet( servicesSubformsFields, dataToSend.record );
+        
+        return dataToSend;
+    };
+    
+    var processSubformsInGet = function( subformsFields ){
+        
+        for ( var c = 0; c < subformsFields.length; ++c ){
+            var subformFieldId = subformsFields[ c ];
+            
+            // Filter them
+            // Sort them
+            // Page them
+        }
     };
     
     var ajaxServicesBatchUpdate = function( file, data, url ){
@@ -133,9 +186,7 @@ module.exports = (function() {
         // Init data
         var dataToSend = {};
         dataToSend.message = '';
-        //dataToSend.existingRecords = {};
         dataToSend.newRecords = [];
-        //dataToSend.recordsToRemove = [];
         var error = false;
 
         // Add all existing services
@@ -165,8 +216,7 @@ module.exports = (function() {
                 delete services[ id ];
                 id = newId;
             }
-            services[ id ] = extendedService;
-            //dataToSend.existingRecords[ id ] = extendedService;     
+            services[ id ] = extendedService;  
         }
         
         // Add all new services
@@ -205,8 +255,7 @@ module.exports = (function() {
                 continue;
             }
 
-            delete services[ id ];
-            //dataToSend.recordsToRemove.push( id );                
+            delete services[ id ];                
         }
         
         dataToSend.result = dataToSend.result || error? 'Error': 'OK';
@@ -455,6 +504,7 @@ module.exports = (function() {
         setService: setService,
         removeService: removeService,
         resetServices: resetServices,
+        reset2SubformMembersServices: reset2SubformMembersServices,
         getUrl: getUrl,
         getLastListUrl: getLastListUrl,
         getLastBatchUpdateUrl: getLastBatchUpdateUrl,
