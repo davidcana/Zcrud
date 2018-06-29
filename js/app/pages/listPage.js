@@ -39,6 +39,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return fieldsMap[ fieldId ];
     };
     var getFieldByName = function( fieldName ){
+        
         // Must remove [] and its contents
         var index = fieldName.indexOf( '[' );
         return getField( index === -1? fieldName: fieldName.substring( 0, index ) );
@@ -240,7 +241,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
 
     var showFormUsingAjax = function( type, event, forcedKey ){
 
-        // Get key of the record to get
+        // Get the key of the record to get
         var key = forcedKey || getKeyFromButton( event );
         if ( key == undefined ){
             throw 'Error trying to load record in listPage: key is null!';
@@ -248,10 +249,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         // Build the data to send to the server
         var search = {
-            key: key,
-            url: thisOptions.getRecordURL
+            key: key
         };
         
+        // Get the record from the server and show the form
         crudManager.getRecord( 
             {
                 url: thisOptions.getRecordURL,
@@ -308,6 +309,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     // Iterate dictionary.records (an array) and put them into records (a map) using the id of each record as the key
     var buildRecords = function(){
+        
         records = {};
         for ( var c = 0; c < dictionary.records.length; c++ ) {
             var record = dictionary.records[ c ];
@@ -315,6 +317,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         }
     };
     var buildRecordsArray = function(){
+        
         var recordsArray = [];
         for ( var index in records ) {
             var record = records[ index ];
@@ -382,6 +385,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var getTotalNumberOfRecords = function(){
+        
         var pagingComponent = getComponent( 'paging' );
         if ( ! pagingComponent ){
             return Object.keys( records ).length;
@@ -390,18 +394,22 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var addRecord = function( key, record ){
+        
         records[ key ] = record;
         dictionary.records.push( record );
     };
     var updateRecord = function( key, record ){
+        
         records[ key ] = record;
         dictionary.records[ getIndexInDictionaryByKey( key ) ] = record;
     };
     var deleteRecord = function( key ){
+        
         delete records[ key ];
         dictionary.records.splice( getIndexInDictionaryByKey( key ), 1 );
     };
     var getIndexInDictionaryByKey = function( key ){
+        
         for ( var c = 0; c < dictionary.records.length; c++ ) {
             var record = dictionary.records[ c ];
             if ( key == record[ options.key ] ){

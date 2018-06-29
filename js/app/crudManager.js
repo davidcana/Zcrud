@@ -72,7 +72,6 @@ module.exports = (function() {
             return;
         }
         
-        // Load data from server using AJAX
         var thisOptions = {
             url    : data.url || options.pageConf.pages.list.url,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
@@ -168,7 +167,6 @@ module.exports = (function() {
             generalErrorFunction( data, options, dataFromServer );
         };
 
-        // Load data from server using AJAX
         var thisOptions = {
             url    : data.url,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
