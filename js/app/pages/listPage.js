@@ -237,16 +237,56 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var showCreateForm = function( event ){
         showForm( 'create' );
     };
+
+    var showFormUsingAjax = function( type, event, forcedKey ){
+
+        // Get key of the record to get
+        var key = forcedKey || getKeyFromButton( event );
+        if ( key == undefined ){
+            throw 'Error trying to load record in listPage: key is null!';
+        }
+        
+        // Build the data to send to the server
+        var search = {
+            key: key,
+            url: thisOptions.getRecordURL
+        };
+        
+        crudManager.getRecord( 
+            {
+                url: thisOptions.getRecordURL,
+                search: search,
+                success: function( dataFromServer ){
+                    showForm( type, dataFromServer.record );
+                },
+                error: function(){
+                    context.showError( options, false, 'Server communication error!' );
+                }
+            }, 
+            options );
+    };
     
     var showEditForm = function( event, forcedKey ){
-        var key = forcedKey || getKeyFromButton( event );
-        showForm( 'update', records[ key ] );
+        showFormUsingAjax( 'update', event, forcedKey );
     };
+    /*
+    var showEditForm = function( event, forcedKey ){
+
+        var key = forcedKey || getKeyFromButton( event );
+        var record = records[ key ];
+        showForm( 'update', record );
+    };*/
     
     var showDeleteForm = function( event, forcedKey ){
-        var key = forcedKey || getKeyFromButton( event );
-        showForm( 'delete', records[ key ] );
+        showFormUsingAjax( 'delete', event, forcedKey );
     };
+    /*
+    var showDeleteForm = function( event, forcedKey ){
+        
+        var key = forcedKey || getKeyFromButton( event );
+        var record = records[ key ];
+        showForm( 'delete', record );
+    };*/
     
     var showForm = function( type, record ){
         currentFormPage =  new FormPage( options, type, record, self );        
@@ -258,6 +298,11 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     }
     
     var getKeyFromButton = function( event ){
+        
+        if ( ! event ){
+            return;
+        }
+        
         return $( event.target ).parent().parent().attr( 'data-record-key' );
     };
     

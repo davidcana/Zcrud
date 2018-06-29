@@ -152,8 +152,6 @@ module.exports = (function() {
     
     var ajaxServicesGet = function( file, data, url ){
 
-        lastListUrl = url;
-
         // Init data
         var dataToSend = {};
         dataToSend.result = 'OK';
@@ -412,12 +410,12 @@ module.exports = (function() {
         return dataToSend;
     };
     
-    var matches = function( register, filter ){
+    var matches = function( record, filter ){
         
         for ( var filterName in filter ) {
             var filterValue = filter[ filterName ];
-            var registerValue = register[ filterName ];
-            if ( registerValue.indexOf( filterValue ) == -1 ){
+            var recordValue = record[ filterName ];
+            if ( recordValue.indexOf( filterValue ) == -1 ){
                 return false;
             }
         }
@@ -435,6 +433,7 @@ module.exports = (function() {
     }
     
     var parseQueryString = function( query ) {
+        
         var vars = query.split( "&" );
         var query_string = {};
         for ( var i = 0; i < vars.length; i++ ) {

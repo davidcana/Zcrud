@@ -15,6 +15,7 @@ module.exports = {
         pages: {
             list: {
                 url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department',
                 fields: [ 'id', 'name' ],
                 components: {
                     paging: {

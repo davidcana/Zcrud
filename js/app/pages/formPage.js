@@ -101,13 +101,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
         return parentId? fieldsMap[ parentId ]: null;
     };
-    /*
-    var getFieldByName = function( fieldName ){
-
-        // Must remove [] and its contents
-        var index = fieldName.indexOf( '[' );
-        return getField( index === -1? fieldName: fieldName.substring( 0, index ) );
-    };*/
     
     var successMessage = undefined;
     
@@ -132,7 +125,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             successMessage = 'createSuccess';
             if ( ! record ) {
                 record = fieldUtils.buildDefaultValuesRecord( fields );
-                //record = buildDefaultValuesRecord();
             }
             break;
         case 'update':
@@ -142,7 +134,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             successMessage = 'updateSuccess';
             break;
         case 'delete':
-            //thisOptions = options.pageConf.pages.delete;
             title = "Delete form";
             submitFunction = submitDelete;
             eventFunction = options.events.recordDeleted;
@@ -173,11 +164,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         fields = fieldsCache.fieldsArray;
         fieldsMap = fieldsCache.fieldsMap;
         view = fieldsCache.view;
-        
-        /*
-        for ( var c = 0; c < fields.length; ++c ){
-            fields[ c ].configure( self );
-        }*/
     };
     
     // Build the form
@@ -207,18 +193,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             context.showError( options, true, 'Error trying to show form: ' + e );    
         }
     };
-    /*
-    var buildDefaultValuesRecord = function(){
-
-        var defaultRecord = {};
-
-        for ( var c = 0; c < fields.length; c++ ) {
-            var field = fields[ c ];
-            defaultRecord[ field.id ] = field.defaultValue === undefined? '': field.defaultValue;
-        }
-        
-        return defaultRecord;
-    };*/
     
     var buildRecordForDictionary = function(){
         
@@ -259,7 +233,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             source: type,
             dictionary: dictionary,
             formPage: self
-            //fieldBuilder: fieldBuilder
         };
     };
     
@@ -374,8 +347,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             // Update record if needed
             if ( type != 'delete' ){
                 record = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
-                //var recordFromJSON = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
-                //record = $.extend( true, {}, record, recordFromJSON );
             }
              
             // Trigger event
