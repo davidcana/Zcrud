@@ -555,6 +555,18 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return !! thisOptions.readOnly;
     };
     
+    var addToDataToSend = function( dataToSend ){
+        
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            var fieldDataToSend = field.buildDataToSend();
+            
+            if ( fieldDataToSend ){
+                dataToSend[ field.id ] = fieldDataToSend;
+            }
+        }
+    };
+    
     var self = {
         show: show,
         setRecord: setRecord,
@@ -576,7 +588,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         get$: get$,
         getOptions: getOptions,
         getFieldValue: getFieldValue,
-        isReadOnly: isReadOnly
+        isReadOnly: isReadOnly,
+        addToDataToSend: addToDataToSend
     };
     
     configure();

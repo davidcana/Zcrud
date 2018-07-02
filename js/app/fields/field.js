@@ -82,4 +82,8 @@ Field.prototype.setParentField = function( parentFieldToApply ){
     this.parentField = parentFieldToApply;
 };
 
+Field.prototype.buildDataToSend = function(){
+    return undefined;
+};
+
 module.exports = Field;

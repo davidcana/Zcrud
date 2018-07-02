@@ -75,7 +75,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         var data = {};
         
         data.filter = filter;
-        componentsMap.buildDataToSend( data );
+        componentsMap.addToDataToSend( data );
         
         return data;
     };
@@ -247,10 +247,14 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             throw 'Error trying to load record in listPage: key is null!';
         }
         
+        // Build the form instance
+        currentFormPage =  new FormPage( options, type, undefined, self ); 
+        
         // Build the data to send to the server
         var search = {
             key: key
         };
+        currentFormPage.addToDataToSend( search );
         
         // Get the record from the server and show the form
         crudManager.getRecord( 
@@ -258,7 +262,9 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 url: thisOptions.getRecordURL,
                 search: search,
                 success: function( dataFromServer ){
-                    showForm( type, dataFromServer.record );
+                    currentFormPage.setRecord( dataFromServer.record );
+                    currentFormPage.show();
+                    //showForm( type, dataFromServer.record );
                 },
                 error: function(){
                     context.showError( options, false, 'Server communication error!' );

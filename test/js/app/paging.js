@@ -12,7 +12,7 @@ var subformsTestOptions = require( './2SubformsTestOptions.js' );
 var options = undefined;
 
 // Run tests
-
+/*
 QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     
     options = $.extend( true, {}, defaultTestOptions );
@@ -85,8 +85,8 @@ QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
         }
     );
 });
+*/
 
-/*
 QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert ) {
 
     options = $.extend( true, {}, subformsTestOptions );
@@ -111,4 +111,4 @@ QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert
             done();
         }
     );
-});*/
+});

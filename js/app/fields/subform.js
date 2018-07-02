@@ -364,4 +364,13 @@ Subform.prototype.addNewRows = function( records ){
     return this.addNewRows_common( records );
 };
 
+Subform.prototype.buildDataToSend = function(){
+    
+    var dataToSend = {};
+    
+    this.componentsMap.addToDataToSend( dataToSend );
+    
+    return Object.keys( dataToSend ).length? dataToSend: undefined;
+};
+
 module.exports = Subform;

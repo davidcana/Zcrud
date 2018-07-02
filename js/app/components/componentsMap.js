@@ -62,7 +62,7 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
         }
     };
     
-    var buildDataToSend = function( data ){
+    var addToDataToSend = function( data ){
 
         for ( var id in components ){
             var component = components[ id ];
@@ -118,7 +118,7 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
         getComponent: getComponent,
         getSecureComponent: getSecureComponent,
         resetPage: resetPage,
-        buildDataToSend: buildDataToSend,
+        addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
         //beforeProcessTemplate: beforeProcessTemplate,
         bindEvents: bindEvents,

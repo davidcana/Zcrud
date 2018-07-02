@@ -159,20 +159,44 @@ module.exports = (function() {
         
         // Build record
         dataToSend.record = $.extend( true, {}, services[ data.key ] );
-        processSubformsInGet( servicesSubformsFields, dataToSend.record );
+        dataToSend.fieldsData = {};
+        processSubformsInGet( data, servicesSubformsFields, dataToSend.record, dataToSend );
         
         return dataToSend;
     };
     
-    var processSubformsInGet = function( subformsFields ){
+    var processSubformsInGet = function( data, subformsFields, record, dataToSend ){
         
         for ( var c = 0; c < subformsFields.length; ++c ){
             var subformFieldId = subformsFields[ c ];
+            var allSubformValues = record[ subformFieldId ] || {};
+            var thisFieldData = data[ subformFieldId ] || {};
             
             // Filter them
+            
             // Sort them
+            
             // Page them
+            var thisFieldDataToSend = {};
+            pageRecords( thisFieldData, thisFieldDataToSend, allSubformValues );
+            record[ subformFieldId ] = thisFieldDataToSend.records;
+            dataToSend.fieldsData[ subformFieldId ] = {
+                totalNumberOfRecords: thisFieldDataToSend.totalNumberOfRecords
+            };
         }
+    };
+    
+    var pageRecords = function( data, dataToSend, allRecords ){
+        
+        if ( data.pageNumber && data.pageSize ){
+            var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
+            dataToSend.records = allRecords.slice(
+                firstElementIndex, 
+                firstElementIndex + data.pageSize ); 
+        } else {
+            dataToSend.records = allRecords;
+        }
+        dataToSend.totalNumberOfRecords = allRecords.length;
     };
     
     var ajaxServicesBatchUpdate = function( file, data, url ){
@@ -397,6 +421,8 @@ module.exports = (function() {
         }
         
         // Page them
+        pageRecords( data, dataToSend, allRecords );
+        /*
         if ( data.pageNumber && data.pageSize ){
             var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
             dataToSend.records = allRecords.slice(
@@ -405,7 +431,7 @@ module.exports = (function() {
         } else {
             dataToSend.records = allRecords;
         }
-        dataToSend.totalNumberOfRecords = allRecords.length;
+        dataToSend.totalNumberOfRecords = allRecords.length;*/
         
         return dataToSend;
     };

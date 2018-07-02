@@ -107,6 +107,19 @@ module.exports = {
                     openDeleteRegisterForm: false,
                     deleteRegisterRow: true
                 }
+            },
+            components: {
+                paging: {
+                    isOn: true,
+                    defaultPageSize: 10,
+                    pageSizes: [10, 25, 50, 100, 250, 500],
+                    pageSizeChangeArea: true,
+                    gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                    maxNumberOfAllShownPages: 5,
+                    block1NumberOfPages: 1,
+                    block2NumberOfPages: 5,
+                    block3NumberOfPages: 1
+                }
             }
         },
         externalMembers: {
