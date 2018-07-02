@@ -169,6 +169,12 @@ module.exports = (function() {
         
         for ( var c = 0; c < subformsFields.length; ++c ){
             var subformFieldId = subformsFields[ c ];
+            
+            // Continue if record does not contain this subform
+            if ( record[ subformFieldId ] === undefined ){
+                continue;
+            }
+            
             var allSubformValues = record[ subformFieldId ] || {};
             var thisFieldData = data[ subformFieldId ] || {};
             
