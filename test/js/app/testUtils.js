@@ -54,11 +54,11 @@ module.exports = (function() {
             var key = serviceKeys[ c ];
             var service = services[ key ];
 
-            addToService( service , 'members', numberOfMembers );
-            addToService( service , 'externalMembers', numberOfExternalMembers );
+            addToService( service , 'members', 'Member', numberOfMembers );
+            addToService( service , 'externalMembers', 'External member', numberOfExternalMembers );
         }
     };
-    var addToService = function( service, subformName, numberOfItems ){
+    var addToService = function( service, subformName, name, numberOfItems ){
         
         var thisArray = service[ subformName ];
         if ( ! thisArray ){
@@ -68,12 +68,12 @@ module.exports = (function() {
         
         for ( var c = 0; c < numberOfItems; ++c ){
             var sufix = "" + ( c + 1 );
-            var name = subformName + " " + sufix;
+            var thisName = name + " " + sufix;
             thisArray.push(
                 {
                     "code": sufix,
-                    "name": name,
-                    "description": "Description of " + name
+                    "name": thisName,
+                    "description": "Description of " + thisName
                 }
             );
         }
