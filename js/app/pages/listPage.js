@@ -263,8 +263,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 search: search,
                 success: function( dataFromServer ){
                     currentFormPage.setRecord( dataFromServer.record );
+                    currentFormPage.processDataFromServer( dataFromServer );
                     currentFormPage.show();
-                    //showForm( type, dataFromServer.record );
                 },
                 error: function(){
                     context.showError( options, false, 'Server communication error!' );

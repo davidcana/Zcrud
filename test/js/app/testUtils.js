@@ -116,9 +116,65 @@ module.exports = (function() {
             case "phoneTypes":
                 ajaxPhoneTypes( options );
                 break;
+            case "members":
+                ajaxMembersFields( 'members', options, data );
+                break;
+            case "externalMembers":
+                ajaxMembersFields( 'externalMembers', options, data );
+                break;
             default:
                 throw "Unknown table in ajax: " + table;
         }
+    };
+    
+    var ajaxMembersFields = function( subformId, options, data ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+        var thisFieldData = data;
+        /*
+        try {
+            var thisFieldData = data[ subformId ];
+        } catch ( e ) {
+            dataToSend.message += 'No configuration set to ' + subformId + ' subform!';
+            options.error( dataToSend );
+            return;
+        }*/
+
+        // Add all records to data
+        var service = services[ data.key ];
+        if ( ! service ){
+            dataToSend.message += 'Service with key "' + data.key + '" not found trying to get ' + subformId + ' subform!';
+            options.error( dataToSend );
+            return;
+        }
+        
+        var input = service[ subformId ] || [];
+        var allRecords = [];
+        
+        // Filter them
+        for ( var id in input ) {
+            var member = input[ id ];
+            if ( ! matches( service, thisFieldData.filter ) ){
+                continue;
+            }
+            member.id = id;
+            allRecords.push( 
+                clone( member ) );
+        }
+
+        // Sort them
+        if ( thisFieldData.sortFieldId && thisFieldData.sortType ){
+            allRecords.sort( 
+                dynamicSort( thisFieldData.sortFieldId, thisFieldData.sortType ) );
+        }
+
+        // Page them
+        pageRecords( thisFieldData, dataToSend, allRecords );
+
+        options.success( dataToSend );
     };
     
     var ajaxPhoneTypes = function( options ){

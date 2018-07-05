@@ -6,15 +6,21 @@
     </head>
     <body>
         <div data-mdefine-macro="subform" data-tomit-tag="">
-            <div class="zcrud-subform-content">
+            <div class="zcrud-subform-content"
+                 data-tdefine="instance field;
+                               pagingComponent instance/getComponent( 'paging' )">
                 <div data-muse-macro="'table@templates/lists.html'"
                      data-tdefine="editable true;
-                                   instance field;
                                    records value">
                     The ZCrud table
                 </div>
                 
-                <div class="zcrud-subform-toolbar">
+                <div data-muse-macro="'bottomPanel@templates/lists.html'"
+                     data-tcondition="pagingComponent">
+                    The bottom panel
+                </div>
+                <div class="zcrud-subform-toolbar"
+                     data-tcondition="not: pagingComponent">
                     <button class="zcrud-new-row-command-button" 
                             data-tattributes="title tr:'Add new record'" 
                             data-tcondition="field/buttons/toolbar/newRegisterRow"><!--empty--></button>

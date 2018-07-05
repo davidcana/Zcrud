@@ -1,7 +1,7 @@
 /* 
     pagingComponent class
 */
-module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -9,7 +9,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
-    var listPage = listPageToApply;
+    var parent = parentToApply;
     
     var thisOptions = thisOptionsToApply;
     var getThisOptions = function(){
@@ -33,6 +33,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var pageSize = parseInt( thisOptions.defaultPageSize );
     var pageSizeLocalStorageId = 'page-size';
     var thisPageSize = undefined;
+    
+    var records = undefined;
+    var getRecords = function(){
+        return records;
+    };
     
     var loadSettings = function(){
 
@@ -70,11 +75,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             });
     };
     
-    var updateList = function(){
+    var updateParent = function(){
         
-        listPage.show( 
+        if ( parent.type == 'subform' ){
+            parent.update();
+            return;
+        }
+        
+        parent.show( 
             undefined, 
-            [ $( '#' + listPage.getThisOptions().tbodyId )[0], get$()[0] ] );
+            [ $( '#' + parent.getThisOptions().tbodyId )[0], get$()[0] ] );
     };
     
     // Change current page to given value
@@ -87,7 +97,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         pageNumber = newPageNumber;
         
-        updateList();
+        updateParent();
     };
     
     var changePageSize = function( newPageSize ) {
@@ -105,7 +115,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         pageNumber = 1;
         
         saveSettings();
-        updateList();
+        
+        updateParent();
     };
     
     var bindEventsToGoToPage = function() {
@@ -321,6 +332,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     
     var dataFromServer = function( data ){
         totalNumberOfRecords = data.totalNumberOfRecords;
+        records = data.records;
         thisPageSize = data.records.length;
     };
     
@@ -379,7 +391,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     };
     
     var get$ = function(){
-        return listPage.get$().find( '.' + cssClass );
+        return parent.get$().find( '.' + cssClass );
     };
     
     loadSettings();
@@ -397,6 +409,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         setPageNumber: setPageNumber,
         goToFirstPage: goToFirstPage,
         getTotalNumberOfRecords: getTotalNumberOfRecords,
-        get$: get$
+        get$: get$,
+        getRecords: getRecords
     };
 };

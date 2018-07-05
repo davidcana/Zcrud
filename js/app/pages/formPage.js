@@ -358,7 +358,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 }, 
                 event );
             triggerFormClosedEvent( event, $form );
-
+            
             // Show list
             var dictionaryExtension = {
                 status: {
@@ -400,6 +400,14 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
             });
         
         return jsonObject;
+    };
+    
+    var processDataFromServer = function( data ){
+        
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            field.dataFromServer( data );
+        }
     };
     
     var submitCreate = function( event, $form ){
@@ -551,6 +559,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return record[ fieldId ];
     };
     
+    var getKey = function(){
+        return getFieldValue( options.key );
+    };
+    
     var isReadOnly = function(){
         return !! thisOptions.readOnly;
     };
@@ -588,8 +600,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         get$: get$,
         getOptions: getOptions,
         getFieldValue: getFieldValue,
+        getKey: getKey,
         isReadOnly: isReadOnly,
-        addToDataToSend: addToDataToSend
+        addToDataToSend: addToDataToSend,
+        processDataFromServer: processDataFromServer
     };
     
     configure();

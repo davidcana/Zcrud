@@ -86,4 +86,8 @@ Field.prototype.buildDataToSend = function(){
     return undefined;
 };
 
+Field.prototype.dataFromServer = function(){
+    // Nothing to do
+};
+
 module.exports = Field;

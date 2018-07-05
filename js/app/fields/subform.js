@@ -12,11 +12,13 @@ var fieldUtils = require( './fieldUtils.js' );
 var HistoryCreate = require( '../history/create.js' );
 var HistoryDelete = require( '../history/delete.js' );
 var HistoryComposition = require( '../history/compositions/composition.js' );
+var crudManager = require( '../crudManager.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
     
     this.fieldsArray = [];
+    this.filter = undefined;
 };
 
 Subform.prototype = new Field();
@@ -371,6 +373,123 @@ Subform.prototype.buildDataToSend = function(){
     this.componentsMap.addToDataToSend( dataToSend );
     
     return Object.keys( dataToSend ).length? dataToSend: undefined;
+};
+
+Subform.prototype.getPagingComponent = function(){
+    return this.componentsMap.getSecureComponent( 'paging' );
+};
+
+Subform.prototype.getTotalNumberOfRecords = function(){
+    return this.getPagingComponent().getTotalNumberOfRecords();
+    //return data.fieldsData[ this.id ].totalNumberOfRecords;
+};
+
+Subform.prototype.getRecords = function(){
+    return this.getPagingComponent().getRecords();
+    //return data.record[ this.id ];
+};
+
+Subform.prototype.dataFromServer = function( data ){
+    
+    this.componentsMap.dataFromServer(
+        {
+            totalNumberOfRecords: data.fieldsData[ this.id ].totalNumberOfRecords,
+            records: data.record[ this.id ]
+        }
+    );
+};
+
+Subform.prototype.update = function ( dictionaryExtension, root, callback ) {
+
+    /*
+    if ( userRecords ){
+        showUsingRecords( dictionaryExtension, root, callback );
+        return;
+    }*/
+
+    var subformInstance = this;
+    
+    crudManager.listRecords( 
+        {
+            url: this.url,
+            search: this.buildDataToSendForUpdate(),
+            success: function( data ){
+                subformInstance.clientAndServerSuccessFunction.call( subformInstance, data );
+            },
+            error: function(){
+                context.showError( 
+                    subformInstance.page.getOptions(), 
+                    false, 
+                    'Server communication error!' );
+                if ( callback ){
+                    callback( false );
+                }
+            }
+        }, 
+        this.page.getOptions()
+    );
+};
+
+Subform.prototype.buildDataToSendForUpdate = function(){
+
+    var data = {
+        key: this.page.getKey(),
+        filter: this.filter
+    };
+
+    this.componentsMap.addToDataToSend( data );
+
+    return data;
+};
+
+Subform.prototype.buildDataToSend = function(){
+
+    var data = {
+        filter: this.filter
+    };
+
+    this.componentsMap.addToDataToSend( data );
+
+    return data;
+};
+
+Subform.prototype.clientAndServerSuccessFunction = function( data, dictionaryExtension, callback ){
+
+    this.componentsMap.dataFromServer( data );
+
+    context.getZPTParser().run({
+        root: [ 
+            this.get$().find( 'tbody' )[0], 
+            this.getPagingComponent().get$()[0]
+        ],
+        dictionary: this.buildDictionaryForUpdate(),
+        notRemoveGeneratedTags: false
+    });
+    
+    this.componentsMap.bindEvents();
+    
+    if ( callback ){
+        callback( true );
+    }
+};
+
+Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
+
+    var options = this.page.getOptions();
+    
+    var dictionary = $.extend( true, options.dictionary, {} );
+    
+    if ( dictionaryExtension ){
+        dictionary = $.extend( {}, dictionary, dictionaryExtension );
+    }
+    
+    dictionary.options = options;
+    dictionary.records = this.getRecords();
+    dictionary.field = this;
+    dictionary.editable = ! this.isReadOnly();
+    dictionary.instance = this;
+    
+    return dictionary;
 };
 
 module.exports = Subform;
