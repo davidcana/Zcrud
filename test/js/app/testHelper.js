@@ -38,6 +38,14 @@ module.exports = (function() {
         return get$FormFieldByNameClass( subformName )
             .find( "[data-record-index='" + subformIndex + "']" );
     };
+    var get$SubformFiltering = function( subformName ){
+        return get$FormFieldByNameClass( subformName )
+            .find( '.zcrud-filter-panel' );
+    };
+    var get$SubformBottomPanel = function( subformName ){
+        return get$FormFieldByNameClass( subformName )
+            .find( '.zcrud-bottom-panel' );
+    };
     var get$List = function(){
         return $( '#zcrud-list-department' );
         //return get$Container().find( '.zcrud-list' );
@@ -48,22 +56,21 @@ module.exports = (function() {
     };
     
     var countVisibleRows = function( options ){
-        //return getCurrentList( options ).find( '.zcrud-data-row:not(:hidden)' ).length;
         return getCurrentList( options ).find( '.zcrud-data-row:not(.zcrud-hidden)' ).length;
     };
-    
     var countVisibleSubformRows = function( subformName ){
-        //return get$FormFieldByNameClass( subformName ).find( '.zcrud-data-row:not(:hidden)' ).length;
         return get$FormFieldByNameClass( subformName ).find( '.zcrud-data-row:not(.zcrud-hidden)' ).length;
     };
     
     var pagingInfo = function( options ){
         return getCurrentList( options ).find( '.zcrud-page-info' ).html();
     };
+    var pagingSubformInfo = function( subformName ){
+        return get$FormFieldByNameClass( subformName ).find( '.zcrud-page-info' ).html();
+    };
     
     var getAllValues = function( selector ){
         return $( selector ).map( function( index, element ) {
-            //return this.innerHTML;
             return this.innerText;
         } ).get().join( '/' );
     }
@@ -79,6 +86,21 @@ module.exports = (function() {
         return isFormField?
             getAllFieldsValues( '.' + 'zcrud-column-data-' + fieldId + ':not(:hidden)' ):
             getAllValues( '.' + 'zcrud-column-data-' + fieldId + ':not(:hidden)' );
+    };
+    var getSubformColumnValues = function( fieldId, subformName, options ){
+        
+        var readOnly = options.fields[ subformName ].readOnly;
+        var $subform = get$FormFieldByNameClass( subformName );
+        var $selection = $subform.find( '.' + 'zcrud-column-data-' + fieldId + ':not(:hidden)' );
+        if ( ! readOnly ){
+            $selection = $selection.find( 'input' );
+        }
+            
+        return $selection.map( 
+            function() {
+                return this.value;
+            }
+        ).get().join( '/' );
     };
     
     var getPageListInfo = function( options ){
@@ -110,9 +132,49 @@ module.exports = (function() {
         assert.deepEqual( info.active, expectedActiveArray );
         assert.deepEqual( info.notActive, expectedNotActiveArray );
     };
+    var checkPageSubformInfo = function( assert, subformName, expectedNotActiveArray, expectedActiveArray ){
 
-    var goToPage = function( options, pageId ){
+        var info = getPageSubformInfo( subformName );
+        assert.deepEqual( info.active, expectedActiveArray );
+        assert.deepEqual( info.notActive, expectedNotActiveArray );
+    };
+    
+    var getPageSubformInfo = function( subformName ){
+
+        var info = {
+            notActive: [],
+            active: []
+        };
+
+        get$FormFieldByNameClass( subformName ).find( '.zcrud-page-list' ).children().filter( ':visible' ).each( 
+            function() {
+                var $this = $( this );
+                var id = $this.text().trim();
+
+                if ( '...' === id ){
+                    return;    
+                }
+
+                var active = ! $this.hasClass( 'zcrud-page-number-disabled' );
+                var currentList = active? info.active: info.notActive;
+                currentList.push( id );
+            }
+        );
+
+        return info;
+    };
+    
+    var goToSubformPage = function( subformName, pageId ){
         
+        var $page = get$FormFieldByNameClass( subformName ).find( '.zcrud-page-list' ).children().filter( 
+            function() {
+                return $( this ).text() == pageId;
+            }
+        );
+        $page.trigger( 'click' );
+    };
+    var goToPage = function( options, pageId ){
+
         var $page = getCurrentList( options ).find( '.zcrud-page-list' ).children().filter( 
             function() {
                 return $( this ).text() == pageId;
@@ -123,7 +185,10 @@ module.exports = (function() {
     var getPageByClass  = function( options, cssClass ){
         return getCurrentList( options ).find( '.zcrud-page-list' ).children().filter( '.' + cssClass );
     };
-
+    var getSubformPageByClass  = function( subformName, cssClass ){
+        return get$FormFieldByNameClass( subformName ).find( '.zcrud-page-list' ).children().filter( '.' + cssClass );
+    };
+    
     var triggerKeyPressed = function( $field, code ){
         
         var event = $.Event( 'keypress' );
@@ -151,6 +216,21 @@ module.exports = (function() {
             throw 'Invalid options.pageConf.pages.list.components.paging.gotoPageFieldType: ' + options.pageConf.pages.list.components.paging.gotoPageFieldType;
         }
     };
+    var goToSubformPageUsingField = function( options, subformName, pageId ){
+
+        var $field = get$SubformBottomPanel( subformName ).find( '.zcrud-go-to-page-field' );
+        
+        var pagingComponent = options.fields[ subformName ].components.paging;
+        if ( pagingComponent.gotoPageFieldType == 'combobox' ){
+            $field.val( pageId );
+            $field.trigger( 'change' );
+        } else if ( pagingComponent.gotoPageFieldType == 'textbox' ){
+            $field.val( pageId );
+            triggerKeyPressed( $field, 13 );
+        } else {
+            throw 'Invalid pagingComponent.gotoPageFieldType: ' + pagingComponent.gotoPageFieldType;
+        }
+    };
     
     var goToClass = function( options, cssClass ){
         getPageByClass( options, cssClass ).trigger( 'click' );
@@ -172,22 +252,89 @@ module.exports = (function() {
         goToClass( options, 'zcrud-page-number-last' );
     };
     
-    /*
-    var changeSize = function( options, size ){
-        var $combobox = $( '#' + options.pageConf.pages.list.components.paging.pageSizeChangeComboboxId );
-        $combobox.val( size );
-        $combobox.trigger( 'change' );
-    };*/
-    var changeSize = function( options, size ){
+    var goToSubformClass = function( subformName, cssClass ){
+        getSubformPageByClass( subformName, cssClass ).trigger( 'click' );
+    };
+    
+    var goToNextSubformPage = function( subformName ){
+        goToSubformClass( subformName, 'zcrud-page-number-next' );
+    };
+
+    var goToPreviousSubformPage = function( subformName ){
+        goToSubformClass( subformName, 'zcrud-page-number-previous' );
+    };
+
+    var goToFirstSubformPage = function( subformName ){
+        goToSubformClass( subformName, 'zcrud-page-number-first' );
+    };
+
+    var goToLastSubformPage = function( subformName ){
+        goToSubformClass( subformName, 'zcrud-page-number-last' );
+    };
+    
+    var changePageSize = function( options, size ){
+        
         var $field = get$BottomPanel().find( '.zcrud-page-size-change-field' );
         $field.val( size );
         $field.trigger( 'change' );
     };
+    var changeSubformPageSize = function( subformName, size ){
+        
+        var $field = get$SubformBottomPanel( subformName ).find( '.zcrud-page-size-change-field' );
+        $field.val( size );
+        $field.trigger( 'change' );
+    };
     
-    var filtering = function( options, filter ){
+    var filterPage = function( options, filter ){
+        
         var filterName = 'name';
         get$Filtering().find( "[name='" + filterName +"']" ).val( filter );
         get$Filtering().find( '.zcrud-filter-submit-button' ).trigger( 'click' );
+    };
+    var filterSubformPage = function( subformName, filter ){
+
+        var filterName = 'name';
+        get$SubformFiltering( subformName ).find( "[name='" + filterName +"']" ).val( filter );
+        get$SubformFiltering( subformName ).find( '.zcrud-filter-submit-button' ).trigger( 'click' );
+    };
+    
+    var pagingSubformTest = function( testOptions ){
+
+        var assert = testOptions.assert;
+        var options = testOptions.options;
+        var subformName = testOptions.subformName;
+        
+        if ( testOptions.action ){
+            if ( testOptions.action.pageId ){
+                goToSubformPage( subformName, testOptions.action.pageId );
+            } else if ( testOptions.action.pageIdField ){
+                goToSubformPageUsingField( options, subformName, testOptions.action.pageIdField );
+            } else if ( testOptions.action.nextPage ){
+                goToNextSubformPage( subformName );
+            } else if ( testOptions.action.previousPage ){
+                goToPreviousSubformPage( subformName );
+            } else if ( testOptions.action.firstPage ){
+                goToFirstSubformPage( subformName );
+            } else if ( testOptions.action.lastPage ){
+                goToLastSubformPage( subformName );
+            } else if ( testOptions.action.changeSize ){
+                changeSubformPageSize( subformName, testOptions.action.changeSize );
+            } else if ( testOptions.action.filter != undefined ){
+                filterSubformPage( subformName, testOptions.action.filter );
+            }
+        }
+
+        assert.equal( countVisibleSubformRows( subformName ), testOptions.visibleRows );
+        assert.equal( pagingSubformInfo( subformName ), testOptions.pagingInfo );
+        if ( testOptions.ids ){
+            assert.equal( 
+                getSubformColumnValues( 'code', subformName, options ), 
+                testOptions.ids );
+        }
+        assert.equal( 
+            getSubformColumnValues( 'name', subformName, options ), 
+            testOptions.names );
+        checkPageSubformInfo( assert, subformName, testOptions.pageListNotActive, testOptions.pageListActive );
     };
     
     var pagingTest = function( testOptions ){
@@ -209,9 +356,9 @@ module.exports = (function() {
             } else if ( testOptions.action.lastPage ){
                 goToLastPage( options );
             } else if ( testOptions.action.changeSize ){
-                changeSize( options, testOptions.action.changeSize );
+                changePageSize( options, testOptions.action.changeSize );
             } else if ( testOptions.action.filter != undefined ){
-                filtering( options, testOptions.action.filter );
+                filterPage( options, testOptions.action.filter );
             }
         }
         
@@ -226,12 +373,13 @@ module.exports = (function() {
     
     var multiplePagingTest = function( testOptions ){
         
+        var pagingTestFunction = testOptions.subformName? pagingSubformTest: pagingTest;
         var assert = testOptions.assert;
         var options = testOptions.options;
         var values = testOptions.values;
         var c = 0;
         
-        pagingTest({
+        pagingTestFunction({
             options: options,
             assert: assert,
             visibleRows: 10,
@@ -239,9 +387,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
-            pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 pageId: '2' 
             },
@@ -252,9 +401,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '2' ],
-            pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
+            pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 nextPage: true
             },
@@ -265,9 +415,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '3' ],
-            pageListActive: [ '<<', '<', '1', '2', '4', '5', '13', '>', '>>' ]
+            pageListActive: [ '<<', '<', '1', '2', '4', '5', '13', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 previousPage: true
             },
@@ -278,9 +429,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '2' ],
-            pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ]
+            pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 firstPage: true
             },
@@ -291,9 +443,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
-            pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 lastPage: true
             },
@@ -304,9 +457,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '13', '>', '>>' ],
-            pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ]
+            pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 pageIdField: '8'
             },
@@ -317,9 +471,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '8' ],
-            pageListActive: [ '<<', '<', '1', '6', '7', '9', '10', '13', '>', '>>' ]
+            pageListActive: [ '<<', '<', '1', '6', '7', '9', '10', '13', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 changeSize: '25'
             },
@@ -330,9 +485,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
-            pageListActive: [ '2', '3', '4', '5', '6', '>', '>>' ]
+            pageListActive: [ '2', '3', '4', '5', '6', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 nextPage: true
             },
@@ -343,9 +499,10 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '2' ],
-            pageListActive: [ '<<', '<', '1', '3', '4', '5', '6', '>', '>>' ]
+            pageListActive: [ '<<', '<', '1', '3', '4', '5', '6', '>', '>>' ],
+            subformName: testOptions.subformName
         });
-        pagingTest({
+        pagingTestFunction({
             action: { 
                 changeSize: '10'
             },
@@ -356,24 +513,42 @@ module.exports = (function() {
             ids:  values[ c ][ 0 ],
             names: values[ c++ ][ 1 ],
             pageListNotActive: [ '<<', '<', '1' ],
-            pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
+            pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
+            subformName: testOptions.subformName
         });
     };
     
-    var buildValuesList = function( start, end ){
+    var buildValuesList = function( start, end, customItemName ){
 
+        var itemName = customItemName || 'Service';
         var ids = '' + start;
-        var services = 'Service ' + start;
+        var items = itemName + ' ' + start;
         for ( var c = 1 + start; c <= end; ++c ){
             ids += '/' + c;
-            services += '/Service ' + c;
+            items += '/' + itemName + ' ' + c;
         }
         
         var result = [];
         result.push( ids );
-        result.push( services );
+        result.push( items );
         return result;
     };
+    /*
+    var buildValuesList = function( start, end, customItemName ){
+
+        var itemName = customItemName || 'Service';
+        var ids = '' + start;
+        var items = 'Service ' + start;
+        for ( var c = 1 + start; c <= end; ++c ){
+            ids += '/' + c;
+            items += '/Service ' + c;
+        }
+
+        var result = [];
+        result.push( ids );
+        result.push( items );
+        return result;
+    };*/
     
     var buildCustomValuesList = function( ){
         

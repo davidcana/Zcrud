@@ -603,7 +603,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         getKey: getKey,
         isReadOnly: isReadOnly,
         addToDataToSend: addToDataToSend,
-        processDataFromServer: processDataFromServer
+        processDataFromServer: processDataFromServer,
+        buildProcessTemplateParams: buildProcessTemplateParams
     };
     
     configure();

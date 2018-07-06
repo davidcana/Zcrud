@@ -12,7 +12,7 @@ var subformsTestOptions = require( './2SubformsTestOptions.js' );
 var options = undefined;
 
 // Run tests
-/*
+
 QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     
     options = $.extend( true, {}, defaultTestOptions );
@@ -85,18 +85,21 @@ QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
         }
     );
 });
-*/
+
 
 QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert ) {
 
     options = $.extend( true, {}, subformsTestOptions );
-    options.pageConf.pages.list.components.paging.gotoPageFieldType = 'combobox';
+    options.fields.members.components.paging.gotoPageFieldType = 'combobox';
 
     // Setup services
-    var serviceKeys = [ '2' ];
-    var numberOfMembers = 32;
+    var serviceKey = 2;
+    var serviceKeys = [ serviceKey ];
+    var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
     testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    var itemName = 'Member';
+    var subformName = 'members';
     
     var done = assert.async();
 
@@ -106,7 +109,77 @@ QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'load' );
 
+            // Go to edit form
+            testHelper.clickUpdateListButton( serviceKey );
+            
+            testHelper.multiplePagingTest({
+                subformName: subformName,
+                options: options,
+                assert: assert,
+                values: [
+                    testHelper.buildValuesList( 1, 10, itemName ),
+                    testHelper.buildValuesList( 11, 20, itemName ),
+                    testHelper.buildValuesList( 21, 30, itemName ),
+                    testHelper.buildValuesList( 11, 20, itemName ),
+                    testHelper.buildValuesList( 1, 10, itemName ),
+                    testHelper.buildValuesList( 121, 129, itemName ),
+                    testHelper.buildValuesList( 71, 80, itemName ),
+                    testHelper.buildValuesList( 1, 25, itemName ),
+                    testHelper.buildValuesList( 26, 50, itemName ),
+                    testHelper.buildValuesList( 1, 10, itemName )
+                ]
+            });
 
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert ) {
+
+    options = $.extend( true, {}, subformsTestOptions );
+    options.fields.members.components.paging.gotoPageFieldType = 'textbox';
+    options.fields.members.components.paging.gotoPageFieldAttributes = {
+        size: 2
+    };
+    
+    // Setup services
+    var serviceKey = 2;
+    var serviceKeys = [ serviceKey ];
+    var numberOfMembers = 129;
+    var numberOfExternalMembers = 14;
+    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    var itemName = 'Member';
+    var subformName = 'members';
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'load' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( serviceKey );
+
+            testHelper.multiplePagingTest({
+                subformName: subformName,
+                options: options,
+                assert: assert,
+                values: [
+                    testHelper.buildValuesList( 1, 10, itemName ),
+                    testHelper.buildValuesList( 11, 20, itemName ),
+                    testHelper.buildValuesList( 21, 30, itemName ),
+                    testHelper.buildValuesList( 11, 20, itemName ),
+                    testHelper.buildValuesList( 1, 10, itemName ),
+                    testHelper.buildValuesList( 121, 129, itemName ),
+                    testHelper.buildValuesList( 71, 80, itemName ),
+                    testHelper.buildValuesList( 1, 25, itemName ),
+                    testHelper.buildValuesList( 26, 50, itemName ),
+                    testHelper.buildValuesList( 1, 10, itemName )
+                ]
+            });
 
             done();
         }

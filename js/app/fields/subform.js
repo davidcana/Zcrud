@@ -65,7 +65,7 @@ Subform.prototype.getValueFromRecord = function( record, params ){
     return subformRecords;
 };
 
-Subform.prototype.afterProcessTemplateForField = function( params, $form ){
+Subform.prototype.afterProcessTemplateForField = function( params ){
     
     var subformInstance = this;
     var $subform = this.get$();
@@ -466,7 +466,10 @@ Subform.prototype.clientAndServerSuccessFunction = function( data, dictionaryExt
         notRemoveGeneratedTags: false
     });
     
-    this.componentsMap.bindEvents();
+    //this.componentsMap.bindEvents();
+    this.afterProcessTemplateForField(
+        this.page.buildProcessTemplateParams( this )
+    );
     
     if ( callback ){
         callback( true );
