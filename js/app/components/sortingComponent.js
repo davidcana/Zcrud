@@ -1,14 +1,14 @@
 /* 
     sortingComponent class
 */
-module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
     var $ = require( 'jquery' );
     
     var options = optionsToApply;
-    var listPage = listPageToApply;
+    var parent = parentToApply;
     
     var thisOptions = thisOptionsToApply;
     var getThisOptions = function(){
@@ -49,7 +49,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     
     var bindEvents = function(){
         
-        $( '#' + listPage.getId() )
+        $( '#' + parent.getId() )
             .find( '.zcrud-column-header-sortable' )
             .off() // Remove previous event handlers
             .click( function ( e ) {
@@ -73,14 +73,19 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
         
         saveSettings();
-        updateList();
+        updateParent();
     };
     
-    var updateList = function(){
+    var updateParent = function(){
         
-        listPage.show( 
+        if ( parent.type == 'subform' ){
+            parent.update();
+            return;
+        }
+        
+        parent.show( 
             undefined, 
-            [ $( '#' + listPage.getThisOptions().tableId )[0] ] );
+            [ $( '#' + parent.getThisOptions().tableId )[0] ] );
     };
     
     var addToDataToSend = function( dataToSend ){
