@@ -126,17 +126,15 @@
         </table>
         
         <div data-mdefine-macro="filterPanel" 
-             class="zcrud-filter-panel"
-             data-tdefine="component instance/getComponent( 'filtering' );
-                           thisOptions component/getThisOptions()"
+             data-tdefine="component instance/getComponent( 'filtering' )"
+             data-tattributes="class component/getClass()"
              data-idomain="i18nArray">
             
-            <span data-trepeat="field thisOptions/fields"
-                  data-tdefine="id field/id; 
-                                value ''"
+            <span data-trepeat="field component/getFields()"
+                  data-tdefine="value ''"
                   data-tattributes="class string:zcrud-filter-field zcrud-filter-field-${id}">
                 <label>
-                    <span data-tcontent="field/title || tr:string:${id}_title">
+                    <span data-tcontent="field/title || tr:string:${field/id}_title">
                         The id of the field
                     </span>
                     <span data-muse-macro="field/template">

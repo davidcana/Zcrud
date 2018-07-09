@@ -1,7 +1,7 @@
 /* 
     filteringComponent class
 */
-module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
+module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     "use strict";
     
     var context = require( '../context.js' );
@@ -10,43 +10,47 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var fieldUtils = require( '../fields/fieldUtils.js' );
     
     var options = optionsToApply;
-    var listPage = listPageToApply;
+    var parent = parentToApply;
     
     var thisOptions = thisOptionsToApply;
     var getThisOptions = function(){
         return thisOptions;
     };
     
-    var filterRecord = undefined;
-    var elementIdSuffix = '-filter';
+    var cssClass = 'zcrud-filter-panel';
+    var getClass = function(){
+        return cssClass;
+    };
     
+    var filterRecord = undefined;
+
     var bindEvents = function(){
         
-        $( '#' + listPage.getId() )
-            .find( '.zcrud-filter-panel .zcrud-filter-submit-button' )
+        get$()
+            .find( '.zcrud-filter-submit-button' )
             .off() // Remove previous event handlers
-            .click( function ( e ) {
-                e.preventDefault();
-                filter();
-        });
+            .click( 
+                function ( e ) {
+                    e.preventDefault();
+                    filter();
+                }
+            );
     };
     
     var filter = function(){
         
-        filterRecord = buildFilterRecordFromForm();
+        filterRecord = fieldUtils.buildRecord( 
+            getFields(), 
+            parent.get$() );
         
-        var pagingComponent = listPage.getSecureComponent( 'paging' );
+        var pagingComponent = parent.getComponent( 'paging' );
         if ( pagingComponent ){
             pagingComponent.goToFirstPage();
         }
         
-        updateList();
+        updateParent();
     };
     
-    var buildFilterRecordFromForm = function(){
-        return fieldUtils.buildRecord( thisOptions.fields, $( '#' + listPage.getId() ) );
-    };
-
     var addToDataToSend = function( dataToSend ){
 
         var extendedFilter = $.extend( true, {}, filterRecord, dataToSend.filter );
@@ -55,31 +59,56 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
     };
     
-    var updateList = function(){
+    var updateParent = function(){
+        
+        if ( parent.type == 'subform' ){
+            parent.update(
+                [
+                    parent.get$().find( 'thead' )[0],
+                    parent.get$().find( 'tbody' )[0],
+                    parent.getPagingComponent().get$()[0]
+                ]
+            );
+            return;
+        }
         
         // Get root
-        var pagingComponent = listPage.getComponent( 'paging' );
+        var pagingComponent = parent.getComponent( 'paging' );
         var root = pagingComponent?
             [ 
-                $( '#' + listPage.getThisOptions().tbodyId )[0], 
+                $( '#' + parent.getThisOptions().tbodyId )[0], 
                 pagingComponent.get$()[0] 
             ]:
             [ 
-                $( '#' + listPage.getThisOptions().tbodyId )[0]
+                $( '#' + parent.getThisOptions().tbodyId )[0]
             ];
         
         // Show list page
-        listPage.show( undefined, root );
+        parent.show( undefined, root );
     };
     
-    var normalizeOptions = function(){
+    var get$ = function(){
+        return parent.get$().find( '.' + cssClass );
+    };
+    
+    var fields = undefined;
+    var getFields = function(){
         
-        var edited = [];
+        if ( ! fields ){
+            fields = buildFields();
+        }
         
+        return fields;
+    };
+    
+    var buildFields = function(){
+
+        var newFields = [];
+
         $.each( thisOptions.fields, function ( filterFieldId, filterField ) {
-            
+
             var newFilterField = undefined;
-            
+
             if ( $.type( filterField ) === 'string' ){
                 // Clone the field from fields if filterField is a string
                 newFilterField = $.extend( true, {}, options.fields[ filterField ] );
@@ -87,18 +116,18 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 // Extend the field from fields if filterField is an object
                 newFilterField = $.extend( true, {}, options.fields[ filterField ], filterField );
             }
-            
-            //newFilterField.elementId += thisOptions.elementIdSuffix;
-            newFilterField.elementId += elementIdSuffix;
-            edited.push( newFilterField );
+
+            newFields.push( newFilterField );
         });
-        
-        thisOptions.fields = edited;
-    }();
+
+        return newFields;
+    };
     
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
-        addToDataToSend: addToDataToSend
+        addToDataToSend: addToDataToSend,
+        getClass: getClass,
+        getFields: getFields
     };
 };
