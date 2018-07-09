@@ -93,6 +93,7 @@ module.exports = {
                 name: { },
                 description: {
                     type: 'textarea',
+                    sorting: false,
                     formFieldAttributes: {
                         rows: 3,
                         cols: 80

@@ -47,6 +47,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         localStorage.setItem( sortTypeLocalStorageId, sortType );
     };
     
+    /*
     var bindEvents = function(){
         
         $( '#' + parent.getId() )
@@ -58,6 +59,20 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
                     $( this ).data( 'sort-field-id'), 
                     $( this ).data( 'sort-type' ) );
         });
+    };*/
+    var bindEvents = function(){
+
+        parent.get$()
+            .find( '.zcrud-column-header-sortable' )
+            .off() // Remove previous event handlers
+            .click( 
+                function ( e ) {
+                    e.preventDefault();
+                    changeSort( 
+                        $( this ).data( 'sort-field-id'), 
+                        $( this ).data( 'sort-type' ) );
+                }
+            );
     };
     
     var changeSort = function ( formFieldId, formType ) {
@@ -79,7 +94,13 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     var updateParent = function(){
         
         if ( parent.type == 'subform' ){
-            parent.update();
+            parent.update(
+                [
+                    parent.get$().find( 'thead' )[0],
+                    parent.get$().find( 'tbody' )[0],
+                    parent.getPagingComponent().get$()[0]
+                ]
+            );
             return;
         }
         

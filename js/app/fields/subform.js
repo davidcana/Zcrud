@@ -381,12 +381,10 @@ Subform.prototype.getPagingComponent = function(){
 
 Subform.prototype.getTotalNumberOfRecords = function(){
     return this.getPagingComponent().getTotalNumberOfRecords();
-    //return data.fieldsData[ this.id ].totalNumberOfRecords;
 };
 
 Subform.prototype.getRecords = function(){
     return this.getPagingComponent().getRecords();
-    //return data.record[ this.id ];
 };
 
 Subform.prototype.dataFromServer = function( data ){
@@ -399,8 +397,8 @@ Subform.prototype.dataFromServer = function( data ){
     );
 };
 
-Subform.prototype.update = function ( dictionaryExtension, root, callback ) {
-
+Subform.prototype.update = function ( root, dictionaryExtension, callback ) {
+//Subform.prototype.update = function ( dictionaryExtension, root, callback ) {
     /*
     if ( userRecords ){
         showUsingRecords( dictionaryExtension, root, callback );
@@ -414,7 +412,7 @@ Subform.prototype.update = function ( dictionaryExtension, root, callback ) {
             url: this.url,
             search: this.buildDataToSendForUpdate(),
             success: function( data ){
-                subformInstance.clientAndServerSuccessFunction.call( subformInstance, data );
+                subformInstance.clientAndServerSuccessFunction.call( subformInstance, data, root, dictionaryExtension );
             },
             error: function(){
                 context.showError( 
@@ -453,14 +451,14 @@ Subform.prototype.buildDataToSend = function(){
     return data;
 };
 
-Subform.prototype.clientAndServerSuccessFunction = function( data, dictionaryExtension, callback ){
+Subform.prototype.clientAndServerSuccessFunction = function( data, root, dictionaryExtension, callback ){
 
     this.componentsMap.dataFromServer( data );
 
     context.getZPTParser().run({
-        root: [ 
-            this.get$().find( 'tbody' )[0], 
-            this.getPagingComponent().get$()[0]
+        root: root || [ 
+                this.get$().find( 'tbody' )[0], 
+                this.getPagingComponent().get$()[0]
         ],
         dictionary: this.buildDictionaryForUpdate(),
         notRemoveGeneratedTags: false

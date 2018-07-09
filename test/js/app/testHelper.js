@@ -10,6 +10,11 @@ module.exports = (function() {
 
     var defaultOptionValue = '';
     
+    var defaultItemName = undefined;
+    var setDefaultItemName = function( defaultItemNameToApply ){
+        defaultItemName = defaultItemNameToApply;
+    };
+    
     var get$Container = function(){
         return $( '#departmentsContainer' );
     };
@@ -533,25 +538,10 @@ module.exports = (function() {
         result.push( items );
         return result;
     };
-    /*
-    var buildValuesList = function( start, end, customItemName ){
-
-        var itemName = customItemName || 'Service';
-        var ids = '' + start;
-        var items = 'Service ' + start;
-        for ( var c = 1 + start; c <= end; ++c ){
-            ids += '/' + c;
-            items += '/Service ' + c;
-        }
-
-        var result = [];
-        result.push( ids );
-        result.push( items );
-        return result;
-    };*/
     
-    var buildCustomValuesList = function( ){
+    var buildCustomValuesList = function(){
         
+        var itemName = defaultItemName || 'Service';
         var ids = '';
         var services = '';
         var addSlash = false;
@@ -564,7 +554,7 @@ module.exports = (function() {
             var item = arguments[ c ];
             if ( ! $.isArray( item ) ){
                 ids += item;
-                services += 'Service ' + item;
+                services += itemName + ' ' + item;
             } else {
                 ids += item[ 0 ];
                 services += item[ 1 ];
@@ -1451,6 +1441,7 @@ module.exports = (function() {
         subformSelect: subformSelect,
         listToggleSelect: listToggleSelect,
         subformToggleSelect: subformToggleSelect,
-        getSubformItemsKeys: getSubformItemsKeys
+        getSubformItemsKeys: getSubformItemsKeys,
+        setDefaultItemName: setDefaultItemName
     };
 })();
