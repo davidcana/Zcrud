@@ -1442,6 +1442,7 @@ module.exports = (function() {
         listToggleSelect: listToggleSelect,
         subformToggleSelect: subformToggleSelect,
         getSubformItemsKeys: getSubformItemsKeys,
-        setDefaultItemName: setDefaultItemName
+        setDefaultItemName: setDefaultItemName,
+        pagingSubformTest: pagingSubformTest
     };
 })();

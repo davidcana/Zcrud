@@ -9,7 +9,7 @@
             <input data-tattributes="id cond: renderIds field/elementId null;
                                      name field/name;
                                      value ( value || '' );
-                                     class 'historyField';
+                                     class cond: isNotHistoryField null 'historyField';
                                      field/formFieldAttributes"
                    type="text">
         </div>
@@ -17,7 +17,7 @@
         <div data-mdefine-macro="textarea" data-tomit-tag="">
             <textarea data-tattributes="id cond: renderIds field/elementId null;
                                         name field/name;
-                                        class 'historyField';
+                                        class cond: isNotHistoryField null 'historyField';
                                         field/formFieldAttributes"
                       data-tcontent="cond: value value ''">The textarea value.</textarea>
         </div>
@@ -26,7 +26,7 @@
             <input data-tattributes="id cond: renderIds field/elementId null;
                                      name field/name;
                                      value value;
-                                     class 'historyField';
+                                     class cond: isNotHistoryField null 'historyField';
                                      field/formFieldAttributes"
                    type="text">
         </div>
@@ -35,7 +35,7 @@
             <select data-tattributes="id cond: renderIds field/elementId null;
                                       name field/name;
                                       value value;
-                                      class 'historyField';
+                                      class cond: isNotHistoryField null 'historyField';
                                       field/formFieldAttributes"
                     data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )">
                 <option data-trepeat="option optionsList"
@@ -69,7 +69,7 @@
                                      name field/name;
                                      list string:${field/elementId}-datalist;
                                      value ( value || '' );
-                                     class 'historyField';
+                                     class cond: isNotHistoryField null 'historyField';
                                      field/formFieldAttributes"
                    type="text">
         </div>
@@ -89,7 +89,7 @@
                                      name field/name;
                                      value value;
                                      checked cond: value 'checked' null;
-                                     class 'historyField';
+                                     class cond: isNotHistoryField null 'historyField';
                                      field/formFieldAttributes"
                    type="checkbox">
         </div>

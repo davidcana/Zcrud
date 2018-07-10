@@ -464,7 +464,6 @@ Subform.prototype.clientAndServerSuccessFunction = function( data, root, diction
         notRemoveGeneratedTags: false
     });
     
-    //this.componentsMap.bindEvents();
     this.afterProcessTemplateForField(
         this.page.buildProcessTemplateParams( this )
     );

@@ -12,7 +12,7 @@
                                          name field/name;
                                          value formattedValue;
                                          data-picker-value formattedValue;
-                                         class 'historyField';
+                                         class cond: isNotHistoryField null 'historyField';
                                          field/formFieldAttributes"
                        type="text">
                 <button type="button" class="toggle-picker">...</button>
@@ -39,7 +39,7 @@
                                          name field/name;
                                          value ( value || '' );
                                          data-picker-value ( value || '' );
-                                         class 'historyField';
+                                         class cond: isNotHistoryField null 'historyField';
                                          field/formFieldAttributes"
                        type="text">
                 <button type="button" class="toggle-picker"
@@ -68,7 +68,7 @@
                                          name field/name;
                                          value formattedValue;
                                          data-picker-value formattedValue;
-                                         class 'historyField';
+                                         class cond: isNotHistoryField null 'historyField';
                                          field/formFieldAttributes"
                        type="text">
                 <button type="button" class="toggle-picker">...</button>

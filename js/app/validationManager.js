@@ -11,6 +11,8 @@ module.exports = (function() {
     var errorClass = 'error';
     var initialized = false;
     
+    var force = ".historyField";
+    
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
     };
@@ -32,7 +34,6 @@ module.exports = (function() {
         addAttributes( $forms, options );
         
         // Set up form validation
-        //setup( id, options );
         var defaultConfigurationOptions = {
             form: '#' + id,
             language: context.getFormValidationLanguage(),
@@ -41,17 +42,6 @@ module.exports = (function() {
         var configurationOptionsToApply = $.extend( {}, defaultConfigurationOptions, options.validation.configuration );
         $.validate( configurationOptionsToApply );
     };
-    /*
-    var setup = function( formId, options ){
-        
-        var defaultConfigurationOptions = {
-            form: '#' + formId,
-            language: context.getFormValidationLanguage(),
-            decimalSeparator: context.translate( 'decimalSeparator' )
-        };
-        var configurationOptionsToApply = $.extend( {}, defaultConfigurationOptions, options.validation.configuration );
-        $.validate( configurationOptionsToApply );
-    };*/
     
     var addAttributes = function( $forms, options ){
         
@@ -66,11 +56,11 @@ module.exports = (function() {
             var $1elem = undefined;
             var $elems = undefined;
             if ( elemRef[ 0 ] === '#' ) {
-                $1elem = $( elemRef );
+                $1elem = $( elemRef + force );
             } else if ( elemRef[ 0 ] === '.' ) {
-                $elems = $forms.find( elemRef );
+                $elems = $forms.find( elemRef + force );
             } else {
-                $elems = $forms.find( "[name='" + elemRef + "']" );
+                $elems = $forms.find( "[name='" + elemRef + "']" + force );
             }
             
             if ( $1elem ){

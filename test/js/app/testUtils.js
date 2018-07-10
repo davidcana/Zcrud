@@ -157,7 +157,7 @@ module.exports = (function() {
         // Filter them
         for ( var id in input ) {
             var member = input[ id ];
-            if ( ! matches( service, thisFieldData.filter ) ){
+            if ( ! matches( member, thisFieldData.filter ) ){
                 continue;
             }
             member.id = id;
