@@ -34,5 +34,15 @@
             </div>
         </div>
         
+        <span data-mdefine-macro="fieldSet-compact">
+            <fieldset data-tdefine="viewItems container/fields">
+                <legend data-tdefine="legend container/title || tr:string:${container/id}_title"
+                        data-tcondition="legend"
+                        data-tcontent="legend">Legend</legend>
+                <span data-muse-macro="viewItemsInFormExternalMacro">
+                    The fields
+                </span>
+            </fieldset>
+        </span>
     </body>
 </html>

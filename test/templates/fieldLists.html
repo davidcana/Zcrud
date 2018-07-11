@@ -6,6 +6,33 @@
     </head>
     <body>        
         <span data-mdefine-macro="compact-editable">
+            <span data-trepeat="viewItem viewItems"
+                  data-tdefine="isContainer (eq: viewItem/type 'fieldContainer')">
+                <span data-tcondition="isContainer">
+                    <span data-tdefine="container viewItem">
+                        <span data-muse-macro="container/template">
+                            The container
+                        </span>
+                    </span>
+                </span>
+                <span data-tcondition="not: isContainer"
+                      data-tdefine="field viewItem;
+                                    value '';
+                                    spanFieldClass spanFieldClass | 'fieldList'"
+                      data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
+                    <label>
+                        <span data-tcontent="field/title || tr:string:${field/id}_title">
+                            The id of the field
+                        </span>
+                        <span data-muse-macro="field/template">
+                            The field
+                        </span>
+                    </label>
+                </span>
+            </span>
+        </span>
+        
+        <span data-mdefine-macro="compact-editable.bak">
             <span data-trepeat="field fields"
                   data-tdefine="value '';
                                 spanFieldClass spanFieldClass | 'fieldList'"
@@ -35,7 +62,7 @@
                     <div data-tdefine="field viewItem;
                                        id field/id; 
                                        value record[ id ]"
-                         data-tattributes="class string:zcrud-field zcrud-field-${id} zcrud-like-field-${field/name}">
+                         data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id} zcrud-like-field-${field/name}">
                         <label data-tomit-tag="field/mustHideLabel()">
                             <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
                                 The label of this field.
@@ -67,7 +94,7 @@
                                        id field/id; 
                                        value record[ id ];
                                        template field/viewTemplate"
-                         data-tattributes="class string:zcrud-field zcrud-field-${id}">
+                         data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
                         <div data-tcontent="field/title || tr:string:${id}_title" class="zcrud-field-label">
                             The name of the field
                         </div>
