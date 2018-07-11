@@ -492,4 +492,10 @@ Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
     return dictionary;
 };
 
+Subform.prototype.isFiltered = function(){
+    
+    var filterComponent = this.getComponent( 'filtering' );
+    return filterComponent && filterComponent.filterIsOn();
+};
+
 module.exports = Subform;

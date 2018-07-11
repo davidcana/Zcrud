@@ -13,6 +13,7 @@ var options = undefined;
 var thisTestOptions = undefined;
 
 // Run tests
+
 QUnit.test( "filtering list test", function( assert ) {
     
     thisTestOptions = {
@@ -48,7 +49,7 @@ QUnit.test( "filtering list test", function( assert ) {
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 41',
+                pagingInfo: 'Showing 1-10 of 41 (filtered)',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],
@@ -63,7 +64,7 @@ QUnit.test( "filtering list test", function( assert ) {
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 11-20 of 41',
+                pagingInfo: 'Showing 11-20 of 41 (filtered)',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '2' ],
@@ -93,7 +94,7 @@ QUnit.test( "filtering list test", function( assert ) {
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 41',
+                pagingInfo: 'Showing 1-10 of 41 (filtered)',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],
@@ -153,7 +154,7 @@ QUnit.test( "filtering subform test", function( assert ) {
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 41',
+                pagingInfo: 'Showing 1-10 of 41 (filtered)',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],
@@ -169,7 +170,7 @@ QUnit.test( "filtering subform test", function( assert ) {
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 11-20 of 41',
+                pagingInfo: 'Showing 11-20 of 41 (filtered)',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '2' ],
@@ -201,7 +202,7 @@ QUnit.test( "filtering subform test", function( assert ) {
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 41',
+                pagingInfo: 'Showing 1-10 of 41 (filtered)',
                 ids:  values[ 0 ],
                 names: values[ 1 ],
                 pageListNotActive: [ '<<', '<', '1' ],

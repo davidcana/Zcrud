@@ -144,6 +144,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         }
     };
     
+    /*
     var show = function ( dictionaryExtension, root, callback ) {
 
         if ( userRecords ){
@@ -151,6 +152,30 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             return;
         }
         
+        var listInstance = self;
+        
+        crudManager.listRecords( 
+            {
+                search: buildDataToSend(),
+                success: function( data ){
+                    listInstance.clientAndServerSuccessFunction.call( listInstance, data, dictionaryExtension, root );
+                },
+                error: function(){
+                    context.showError( options, false, 'Server communication error!' );
+                    if ( callback ){
+                        callback( false );
+                    }
+                }
+            }, 
+            options );
+    };*/
+    var show = function ( dictionaryExtension, root, callback ) {
+
+        if ( userRecords ){
+            showUsingRecords( dictionaryExtension, root, callback );
+            return;
+        }
+
         crudManager.listRecords( 
             {
                 search: buildDataToSend(),
@@ -439,6 +464,12 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return options.key;
     };
     
+    var isFiltered = function(){
+
+        var filterComponent = getComponent( 'filtering' );
+        return filterComponent && filterComponent.filterIsOn();
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -470,7 +501,9 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         isEditable: isEditable,
         getKey: getKey,
         getCurrentFormPage: getCurrentFormPage,
-        isReadOnly: isReadOnly
+        isReadOnly: isReadOnly,
+        clientAndServerSuccessFunction: clientAndServerSuccessFunction,
+        isFiltered: isFiltered
     };
     
     configure();

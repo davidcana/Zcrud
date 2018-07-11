@@ -23,7 +23,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     };
     
     var filterRecord = undefined;
-
+    var fullFilter = undefined;
+    var getFilter = function(){
+        return fullFilter;
+    };
+    
     var bindEvents = function(){
         
         get$()
@@ -50,12 +54,24 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         
         updateParent();
     };
+    /*
+    var addToDataToSend = function( dataToSend ){
+        
+        var filterRecord = fieldUtils.buildRecord( 
+            getFields(), 
+            parent.get$() );
+        
+        fullFilter = $.extend( true, {}, filterRecord, dataToSend.filter );
+        if ( ! $.isEmptyObject( fullFilter ) ){
+            dataToSend.filter = fullFilter;
+        }
+    };*/
     
     var addToDataToSend = function( dataToSend ){
 
-        var extendedFilter = $.extend( true, {}, filterRecord, dataToSend.filter );
-        if ( ! $.isEmptyObject( extendedFilter ) ){
-            dataToSend.filter = extendedFilter;
+        fullFilter = $.extend( true, {}, filterRecord, dataToSend.filter );
+        if ( ! $.isEmptyObject( fullFilter ) ){
+            dataToSend.filter = fullFilter;
         }
     };
     
@@ -123,11 +139,29 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         return newFields;
     };
     
+    var filterIsOn = function(){
+        
+        if ( ! fullFilter ){
+            return false;
+        }
+        
+        for ( var index in fullFilter ){
+            var filterFieldValue = fullFilter[ index ];
+            if ( filterFieldValue != undefined ){
+                return true;
+            }
+        }
+        
+        return false;
+    };
+    
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
         addToDataToSend: addToDataToSend,
         getClass: getClass,
-        getFields: getFields
+        getFields: getFields,
+        getFilter: getFilter,
+        filterIsOn: filterIsOn
     };
 };

@@ -245,7 +245,8 @@
             </div>
             <div class="zcrud-right-area">
                 <span class="zcrud-page-info" 
-                      data-tcontent="tr:'pagingMessage' ( first pagingInfo/first; last pagingInfo/last; total pagingInfo/totalNumberOfRecords )">
+                      data-tdefine="pagingMessage cond:instance/isFiltered() 'pagingWithFilterMessage' 'pagingMessage'"
+                      data-tcontent="tr:pagingMessage ( first pagingInfo/first; last pagingInfo/last; total pagingInfo/totalNumberOfRecords )">
                     Showing 126-128 of 128
                 </span>
             </div>

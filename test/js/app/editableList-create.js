@@ -17,7 +17,7 @@ options.fatalErrorFunction = function( message ){
 };
 
 // Run tests
-/*
+
 QUnit.test( "create test", function( assert ) {
     
     var done = assert.async();
@@ -279,7 +279,7 @@ QUnit.test( "create undo/redo 3 action test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "create with default values test", function( assert ) {
 
     var defaultRecord = {
@@ -325,7 +325,7 @@ QUnit.test( "create with default values test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
             });
-
+            
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( clientRecord );
             var newRecord = $.extend( true, {}, defaultRecord, clientRecord );
@@ -333,9 +333,9 @@ QUnit.test( "create with default values test", function( assert ) {
             assert.equal( fatalErrorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( fatalErrorFunctionCounter, 0 );
-
+            
             testHelper.checkRecord( assert, key, newRecord, editable, true );
-
+            
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 10, 19 ) );
             testHelper.pagingTest({
                 action: { 

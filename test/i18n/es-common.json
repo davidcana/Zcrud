@@ -39,6 +39,7 @@
     "Go to page:": "Ir a página:",
     "Row count:": "Registros por página:",
     "pagingMessage": "Mostrando {first}-{last} de {total}",
+    "pagingWithFilterMessage": "Mostrando {first}-{last} de {total} (filtrado)",
     
     "_form": "",
     "Create form": "Formulario de alta",
