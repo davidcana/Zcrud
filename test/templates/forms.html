@@ -25,15 +25,14 @@
             </div>
             <form class="zcrud-form zcrud-data-entity" 
                   data-tattributes="id instance/getId()"
-                  data-tdefine="viewItemsInFormLocalMacro 'viewItemsInDefaultForm';
-                                viewItemsInFormExternalMacro string:${viewItemsInFormLocalMacro}@templates/forms.html;
+                  data-tdefine="viewItemsInFormExternalMacro 'standard-editable@templates/fieldLists.html';
                                 data-record-index 0;
-                                renderIds true;
+                                renderIds false;
                                 viewItems instance/getView()">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
-                <div data-muse-macro="viewItemsInFormLocalMacro">
+                <div data-muse-macro="viewItemsInFormExternalMacro">
                     The fields
                 </div>
                 <div class="zcrud-post-templates">
@@ -74,37 +73,6 @@
             </form>
         </div>
         
-        <div data-mdefine-macro="viewItemsInDefaultForm">
-            <div data-trepeat="viewItem viewItems"
-                 data-tdefine="isContainer (eq: viewItem/type 'fieldContainer')">
-                <div data-tcondition="isContainer">
-                    <div data-tdefine="container viewItem">
-                        <div data-muse-macro="container/template">
-                            The container
-                        </div>
-                    </div>
-                </div>
-                <div data-tcondition="not: isContainer">
-                    <div data-tdefine="field viewItem;
-                                       id field/id; 
-                                       value record[ id ]"
-                         data-tattributes="class string:zcrud-field zcrud-field-${id} zcrud-like-field-${field/name}">
-                        <label data-tomit-tag="field/mustHideLabel()">
-                            <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
-                                The label of this field.
-                            </span>
-                            <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
-                                The description of this field.
-                            </span>
-                            <span data-muse-macro="cond: field/isReadOnly() field/viewTemplate field/template">
-                                The field
-                            </span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <div data-mdefine-macro="deleteDefaultTemplate" 
              class="zcrud-main-container zcrud-delete-form" 
              style="display: none"
@@ -125,13 +93,12 @@
             </div>
             <form class="zcrud-form" 
                   data-tattributes="id instance/getId()"
-                  data-tdefine="viewItemsInFormLocalMacro 'viewItemsInDeleteForm';
-                                viewItemsInFormExternalMacro string:${viewItemsInFormLocalMacro}@templates/forms.html;
+                  data-tdefine="viewItemsInFormExternalMacro 'standard-readOnly@templates/fieldLists.html';
                                 viewItems instance/getView()">
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcRecordKey'; value record[ options/key ]">
-                <div data-muse-macro="viewItemsInFormLocalMacro">
+                <div data-muse-macro="viewItemsInFormExternalMacro">
                     The fields
                 </div>
                 <div class="zcrud-button-panel">
@@ -147,41 +114,6 @@
                     </button>
                 </div>
             </form>
-        </div>
-        
-        <div data-mdefine-macro="viewItemsInDeleteForm">
-            <div data-trepeat="viewItem viewItems"
-                 data-tdefine="isContainer (eq: viewItem/type 'fieldContainer')">
-                <div data-tcondition="isContainer">
-                    <div data-tdefine="container viewItem">
-                        <div data-muse-macro="container/template">
-                            The container
-                        </div>
-                    </div>
-                </div>
-                <div data-tcondition="not: isContainer">
-                    <div data-tdefine="field viewItem;
-                                       id field/id; 
-                                       value record[ id ];
-                                       template field/viewTemplate"
-                         data-tattributes="class string:zcrud-field zcrud-field-${id}">
-                        <div data-tcontent="field/title || tr:string:${id}_title" class="zcrud-field-label">
-                            The name of the field
-                        </div>
-                        <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
-                            The description of this field.
-                        </div>
-                        <div data-tcondition="not: template" 
-                             data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) value"
-                             class="zcrud-property">
-                            The value
-                        </div>
-                        <div data-tcondition="template" data-muse-macro="template">
-                            The field
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
 </html>

@@ -171,11 +171,6 @@ module.exports = {
                 validation: 'length',
                 length: '3-20'
             },
-            /*
-            '#zcrud-number': {
-                validation: 'number',
-                allowing: 'float'
-            }*/
             "number": {
                 validation: 'number',
                 allowing: 'float'

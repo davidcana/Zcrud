@@ -156,11 +156,11 @@ module.exports = {
     validation: {
         modules: 'security, date',
         rules: {
-            '#zcrud-name': {
+            'name': {
                 validation: 'length',
                 length: '3-20'
             },
-            '#zcrud-number': {
+            'number': {
                 validation: 'number',
                 allowing: 'float'
             }

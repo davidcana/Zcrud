@@ -68,10 +68,10 @@ module.exports = (function() {
     };
     
     var pagingInfo = function( options ){
-        return getCurrentList( options ).find( '.zcrud-page-info' ).html();
+        return getCurrentList( options ).find( '.zcrud-paging-info' ).html();
     };
     var pagingSubformInfo = function( subformName ){
-        return get$FormFieldByNameClass( subformName ).find( '.zcrud-page-info' ).html();
+        return get$FormFieldByNameClass( subformName ).find( '.zcrud-paging-info' ).html();
     };
     
     var getAllValues = function( selector ){

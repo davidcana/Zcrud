@@ -192,7 +192,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled:hover {
     background-color: #2d89ef;
 }
-div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-info {
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-paging-info {
     display: inline-block;
     padding: 4px;
 }
@@ -341,7 +341,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-goto-page {
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-goto-page input[type=text] {
     width: 22px;
 }
-div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-info {
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-paging-info {
     vertical-align: middle;
 }
 

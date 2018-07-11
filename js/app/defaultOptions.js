@@ -234,7 +234,7 @@ module.exports = {
     },
 
     templates: {
-        declaredRemotePageUrls: []
+        declaredRemotePageUrls: [ 'templates/fieldLists.html' ]
         //busyTemplate: "busyDefaultTemplate@templates/misc.html"
     },
 

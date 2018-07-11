@@ -54,7 +54,7 @@
                         <div data-tcondition="postTemplate" data-muse-macro="postTemplate"><!--empty--></div>
                     </div>
                 </div>
-                <div data-muse-macro="'bottomPanel'"
+                <div data-muse-macro="'pagingPanel'"
                      data-tcondition="instance/getComponent( 'paging' )">
                     The bottom panel
                 </div>
@@ -130,6 +130,24 @@
              data-tattributes="class component/getClass()"
              data-idomain="i18nArray">
             
+            <span data-muse-macro="'compact-editable@templates/fieldLists.html'"
+                 data-tdefine="fields component/getFields();
+                               isNotHistoryField true;
+                               spanFieldClass 'zcrud-filter-field'">
+                The list of fields of the filter
+            </span>
+            <button type="button" 
+                    data-tattributes="class 'zcrud-filter-submit-button'"
+                    data-tcontent="tr:'Filter'">
+                Filter
+            </button>
+        </div>
+        
+        <div data-mdefine-macro="filterPanel.bak" 
+             data-tdefine="component instance/getComponent( 'filtering' )"
+             data-tattributes="class component/getClass()"
+             data-idomain="i18nArray">
+
             <span data-trepeat="field component/getFields()"
                   data-tdefine="value ''"
                   data-tattributes="class string:zcrud-filter-field zcrud-filter-field-${id}">
@@ -149,7 +167,7 @@
             </button>
         </div>
         
-        <div data-mdefine-macro="bottomPanel" 
+        <div data-mdefine-macro="pagingPanel" 
              data-tdefine="component instance/getComponent( 'paging' );
                            pagingInfo component/buildInfo();
                            currentPageNumber pagingInfo/pageNumber;
@@ -222,7 +240,8 @@
                                 data-tcontent="pageSize">&nbsp;</option>
                     </select>
                 </span>
-                <span class="zcrud-toolbar" data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">
+                <span class="zcrud-toolbar" 
+                      data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">
                     <button data-tattributes="class 'zcrud-new-row-command-button';
                                               title tr:'Add new record'" 
                             data-tcondition="toolbar/newRegisterRow"><!--empty--></button>
@@ -244,7 +263,7 @@
                 </span>
             </div>
             <div class="zcrud-right-area">
-                <span class="zcrud-page-info" 
+                <span class="zcrud-paging-info" 
                       data-tdefine="pagingMessage cond:instance/isFiltered() 'pagingWithFilterMessage' 'pagingMessage'"
                       data-tcontent="tr:pagingMessage ( first pagingInfo/first; last pagingInfo/last; total pagingInfo/totalNumberOfRecords )">
                     Showing 126-128 of 128

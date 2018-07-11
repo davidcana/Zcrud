@@ -179,7 +179,7 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
             testHelper.clickCreateListButton();
             testHelper.fillForm( record );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
-
+            
             // Set an invalid name
             var badRecord = $.extend( true, {}, record );
             badRecord.name = "" + key;
