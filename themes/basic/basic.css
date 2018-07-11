@@ -449,6 +449,15 @@ tr.zcrud-modified-row td,
 div.zcrud-modified-field {
     background-color: #f0cac6;
 }
+
+/* Filter panel */
+.zcrud-filter-panel {
+    padding: .5em;
+    border: 1px solid #8cacbb;
+}
+.zcrud-filter-panel .zcrud-label::after {
+    content: ": ";
+}
 /*
 @-webkit-keyframes spin {
     0% {
