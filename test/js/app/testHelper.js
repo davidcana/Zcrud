@@ -292,16 +292,36 @@ module.exports = (function() {
     
     var filterPage = function( options, filter ){
         
+        var $selection = get$Filtering();
+        for ( var key in filter ){
+            var filterItem = filter[ key ];
+            $selection.find( "[name='" + key +"']" ).val( filterItem );
+        }
+        $selection.find( '.zcrud-filter-submit-button' ).trigger( 'click' );
+    };
+    /*
+    var filterPage = function( options, filter ){
+
         var filterName = 'name';
         get$Filtering().find( "[name='" + filterName +"']" ).val( filter );
         get$Filtering().find( '.zcrud-filter-submit-button' ).trigger( 'click' );
+    };*/
+    var filterSubformPage = function( subformName, filter ){
+
+        var $selection = get$SubformFiltering( subformName );
+        for ( var key in filter ){
+            var filterItem = filter[ key ];
+            $selection.find( "[name='" + key +"']" ).val( filterItem );
+        }
+        $selection.find( '.zcrud-filter-submit-button' ).trigger( 'click' );
     };
+    /*
     var filterSubformPage = function( subformName, filter ){
 
         var filterName = 'name';
         get$SubformFiltering( subformName ).find( "[name='" + filterName +"']" ).val( filter );
         get$SubformFiltering( subformName ).find( '.zcrud-filter-submit-button' ).trigger( 'click' );
-    };
+    };*/
     
     var pagingSubformTest = function( testOptions ){
 

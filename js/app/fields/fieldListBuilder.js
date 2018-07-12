@@ -8,7 +8,29 @@ var normalizer = require( '../normalizer.js' );
 module.exports = (function() {
     "use strict";
     
-    var get = function( pageId, options, pageIdArray, page ){
+    var getForList = function( listOptions, options, fields ){
+
+        if ( listOptions.fieldsCache ){
+            //setPageToFields( pageOptions.fieldsCache, page );
+            return listOptions.fieldsCache;
+        }
+
+        var fieldsCache = build( 
+            listOptions.fields, 
+            options, 
+            undefined, 
+            function( field ){
+                field.buildFields();
+            },
+            fields );
+
+        listOptions.fieldsCache = fieldsCache;
+        //setPageToFields( pageOptions.fieldsCache, page );
+
+        return fieldsCache;
+    };
+    
+    var getForPage = function( pageId, options, pageIdArray, page ){
         
         var pageOptions = options.pageConf.pages[ pageId ];
         if ( ! pageOptions ){
@@ -52,7 +74,7 @@ module.exports = (function() {
         }
     };
     
-    var build = function( items, options, pageIdArray, functionToApplyToField ) {
+    var build = function( items, options, pageIdArray, functionToApplyToField, fields ) {
         
         var result = {
             fieldsArray: [],
@@ -63,6 +85,7 @@ module.exports = (function() {
         for ( var c = 0; c < items.length; ++c ){
             build1Pass( 
                 result, 
+                fields || options.fields,
                 items[ c ], 
                 options, 
                 pageIdArray, 
@@ -72,15 +95,16 @@ module.exports = (function() {
         return result;
     };
     
-    var build1Pass = function( result, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
+    var build1Pass = function( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
 
         // Is string?
         if ( $.type( item ) === 'string' ){
-            addField( options.fields[ item ], result, options, functionToApplyToField, containerType, containerId );
-
+            addField( fields[ item ], result, options, functionToApplyToField, containerType, containerId );
+            //addField( options.fields[ item ], result, options, functionToApplyToField, containerType, containerId );
+            
         // Is fieldsGroup?
         } else if ( item.type == 'fieldsGroup' ){
-            buildFieldsFromFieldsGroup( result, item, options, pageIdArray, functionToApplyToField, containerType, containerId );
+            buildFieldsFromFieldsGroup( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId );
 
         // Must be a field instance
         } else {
@@ -89,7 +113,7 @@ module.exports = (function() {
         }
     };
     
-    var buildFieldsFromFieldsGroup = function( result, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
+    var buildFieldsFromFieldsGroup = function( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
         
         // Get configuration if it is a container
         if ( item.container && item.container.containerType != 'none' ){
@@ -138,6 +162,7 @@ module.exports = (function() {
                 } else {
                     build1Pass( 
                         result, 
+                        fields,
                         viewItem, 
                         options, 
                         pageIdArray, 
@@ -217,11 +242,12 @@ module.exports = (function() {
         }
         
         // Must be a page id
-        return get( source, options, pageIdArray ).view;
+        return getForPage( source, options, pageIdArray ).view;
     };
     
     var self = {
-        get: get,
+        getForPage: getForPage,
+        getForList: getForList,
         build: build
     };
     

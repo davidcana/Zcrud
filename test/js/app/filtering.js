@@ -23,9 +23,7 @@ QUnit.test( "filtering list test", function( assert ) {
                     components: {
                         filtering: {
                             isOn: true,
-                            fields: {
-                                name: 'name'
-                            }
+                            fields: [ 'id', 'name' ]
                         }
                     }
                 }
@@ -44,7 +42,9 @@ QUnit.test( "filtering list test", function( assert ) {
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
                 action: { 
-                    filter: 'Service 1' 
+                    filter: {
+                        "name": 'Service 1' 
+                    }
                 },
                 options: options,
                 assert: assert,
@@ -74,7 +74,9 @@ QUnit.test( "filtering list test", function( assert ) {
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 action: { 
-                    filter: ''
+                    filter: {
+                        "name": '' 
+                    }
                 },
                 options: options,
                 assert: assert,
@@ -89,16 +91,19 @@ QUnit.test( "filtering list test", function( assert ) {
             values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
                 action: { 
-                    filter: 'Service 1' 
+                    filter: {
+                        "id": '2',
+                        "name": 'Service 1' 
+                    }
                 },
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 41 (filtered)',
-                ids:  values[ 0 ],
-                names: values[ 1 ],
+                pagingInfo: 'Showing 1-10 of 13 (filtered)',
+                ids:  '12/102/112/120/121/122/123/124/125/126',
+                names: 'Service 12/Service 102/Service 112/Service 120/Service 121/Service 122/Service 123/Service 124/Service 125/Service 126',
                 pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
+                pageListActive: [ '2', '>', '>>' ]
             });
             
             done();
@@ -114,9 +119,7 @@ QUnit.test( "filtering subform test", function( assert ) {
                 components: {
                     filtering: {
                         isOn: true,
-                        fields: {
-                            name: 'name'
-                        }
+                        fields: [ 'code', 'name' ]
                     }
                 }
             }
@@ -149,7 +152,9 @@ QUnit.test( "filtering subform test", function( assert ) {
             testHelper.pagingSubformTest({
                 subformName: subformName,
                 action: { 
-                    filter: 'Member 1' 
+                    filter: {
+                        "members-name": 'Member 1' 
+                    }
                 },
                 options: options,
                 assert: assert,
@@ -181,7 +186,9 @@ QUnit.test( "filtering subform test", function( assert ) {
             testHelper.pagingSubformTest({
                 subformName: subformName,
                 action: { 
-                    filter: ''
+                    filter: {
+                        "members-name": '' 
+                    }
                 },
                 options: options,
                 assert: assert,
@@ -197,16 +204,19 @@ QUnit.test( "filtering subform test", function( assert ) {
             testHelper.pagingSubformTest({
                 subformName: subformName,
                 action: { 
-                    filter: 'Member 1' 
+                    filter: {
+                        "members-code": '2',
+                        "members-name": 'Member 1' 
+                    }
                 },
                 options: options,
                 assert: assert,
                 visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 41 (filtered)',
-                ids:  values[ 0 ],
-                names: values[ 1 ],
+                pagingInfo: 'Showing 1-10 of 13 (filtered)',
+                ids: '12/102/112/120/121/122/123/124/125/126',
+                names: 'Member 12/Member 102/Member 112/Member 120/Member 121/Member 122/Member 123/Member 124/Member 125/Member 126',
                 pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
+                pageListActive: [ '2', '>', '>>' ]
             });
 
             done();

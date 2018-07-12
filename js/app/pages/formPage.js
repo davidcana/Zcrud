@@ -160,7 +160,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
 
     var buildFields = function(){
         
-        var fieldsCache = fieldListBuilder.get( type, options, undefined, self );
+        var fieldsCache = fieldListBuilder.getForPage( type, options, undefined, self );
         fields = fieldsCache.fieldsArray;
         fieldsMap = fieldsCache.fieldsMap;
         view = fieldsCache.view;

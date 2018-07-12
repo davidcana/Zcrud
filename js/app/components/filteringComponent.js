@@ -1,13 +1,14 @@
 /* 
     filteringComponent class
 */
+var context = require( '../context.js' );
+var $ = require( 'jquery' );
+var pageUtils = require( '../pages/pageUtils.js' );
+var fieldUtils = require( '../fields/fieldUtils.js' );
+var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
+
 module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     "use strict";
-    
-    var context = require( '../context.js' );
-    var $ = require( 'jquery' );
-    var pageUtils = require( '../pages/pageUtils.js' );
-    var fieldUtils = require( '../fields/fieldUtils.js' );
     
     var options = optionsToApply;
     var parent = parentToApply;
@@ -118,6 +119,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     };
     
     var buildFields = function(){
+        
+        var fieldsCache = fieldListBuilder.getForList( thisOptions, options, parent.getFieldsSource() );
+        return fieldsCache.fieldsArray;
+    };
+    /*
+    var buildFields = function(){
 
         var newFields = [];
 
@@ -137,7 +144,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         });
 
         return newFields;
-    };
+    };*/
     
     var filterIsOn = function(){
         

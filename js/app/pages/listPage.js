@@ -65,7 +65,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
 
     var buildFields = function(){
 
-        var fieldsCache = fieldListBuilder.get( 'list', options, undefined, self );
+        var fieldsCache = fieldListBuilder.getForPage( 'list', options, undefined, self );
         fields = fieldsCache.fieldsArray;
         fieldsMap = fieldsCache.fieldsMap;
     };
@@ -470,6 +470,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return filterComponent && filterComponent.filterIsOn();
     };
     
+    var getFieldsSource = function(){
+        return options.fields;
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -503,7 +507,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getCurrentFormPage: getCurrentFormPage,
         isReadOnly: isReadOnly,
         clientAndServerSuccessFunction: clientAndServerSuccessFunction,
-        isFiltered: isFiltered
+        isFiltered: isFiltered,
+        getFieldsSource: getFieldsSource
     };
     
     configure();

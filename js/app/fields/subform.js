@@ -18,6 +18,7 @@ var Subform = function( properties ) {
     Field.call( this, properties );
     
     this.fieldsArray = [];
+    this.fieldsMap = {};
     this.filter = undefined;
 };
 
@@ -251,12 +252,14 @@ Subform.prototype.buildFields = function(){
     
     var subformInstance = this;
     this.fieldsArray = [];
+    this.fieldsMap = {};
     
     $.each( this.fields, function ( subfieldId, subfield ) {
         if ( subfield.subformKey ){
             subformInstance.subformKey = subfieldId;
         }
         subformInstance.fieldsArray.push( subfield );
+        subformInstance.fieldsMap[ subfieldId ] = subfield;
         subfield.setParentField( subformInstance );
     });
 };
@@ -496,6 +499,10 @@ Subform.prototype.isFiltered = function(){
     
     var filterComponent = this.getComponent( 'filtering' );
     return filterComponent && filterComponent.filterIsOn();
+};
+
+Subform.prototype.getFieldsSource = function(){
+    return this.fieldsMap;
 };
 
 module.exports = Subform;

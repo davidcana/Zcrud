@@ -863,7 +863,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                         "type": "fieldContainer"
                     }
                 ];
-            var fullObjectFields = fieldListBuilder.get( 'delete', options );
+            var fullObjectFields = fieldListBuilder.getForPage( 'delete', options );
             
             assert.deepEqual( 
                 buildIdsArray( fullObjectFields.fieldsArray ), 
