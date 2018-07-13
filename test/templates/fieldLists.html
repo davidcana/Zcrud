@@ -22,7 +22,8 @@
                       data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
                     <label>
                         <span data-tcontent="field/title || tr:string:${field/id}_title"
-                              data-tattributes="class 'zcrud-label'">
+                              data-tattributes="class 'zcrud-label';
+                                                title field/description || tr:string:${field/id}_description">
                             The id of the field
                         </span>
                         <span data-muse-macro="field/template">
@@ -30,22 +31,6 @@
                         </span>
                     </label>
                 </span>
-            </span>
-        </span>
-        
-        <span data-mdefine-macro="compact-editable.bak">
-            <span data-trepeat="field fields"
-                  data-tdefine="value '';
-                                spanFieldClass spanFieldClass | 'fieldList'"
-                  data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
-                <label>
-                    <span data-tcontent="field/title || tr:string:${field/id}_title">
-                        The id of the field
-                    </span>
-                    <span data-muse-macro="field/template">
-                        The field
-                    </span>
-                </label>
             </span>
         </span>
         
@@ -71,7 +56,7 @@
                             <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
                                 The description of this field.
                             </span>
-                            <span data-muse-macro="cond: field/isReadOnly() field/viewTemplate field/template">
+                            <span data-muse-macro="cond: (or: forceEditable (not: field/isReadOnly())) field/template field/viewTemplate">
                                 The field
                             </span>
                         </label>

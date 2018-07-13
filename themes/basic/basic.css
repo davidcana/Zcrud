@@ -352,7 +352,8 @@ form.zcrud-form {
     font-size: 1em;
 }
 form.zcrud-form .zcrud-field,
-form.zcrud-form fieldset {
+form.zcrud-form fieldset,
+form .zcrud-filter-field {
     margin: 0 .5em .5em 0;
     padding: 0.5em;
 }
@@ -362,17 +363,20 @@ form.zcrud-form fieldset {
     width: auto;
     border-radius: 10px;
 }
-form.zcrud-form .zcrud-field-help,
-form.zcrud-form .zcrud-container-help {
+form .zcrud-field-help,
+form .zcrud-container-help {
     display: block;
     font-size: 90%;
     color: #76797c;
     margin: 0 0 0.2em 0;
 }
-form.zcrud-form .zcrud-field-label {
-    display: block;
+form .zcrud-field-label,
+form .zcrud-label {
     font-size: 100%;
     font-weight: bold;
+}
+form .zcrud-field-label {
+    display: block;
 }
 form.zcrud-form legend {
     background: white;
@@ -458,6 +462,12 @@ div.zcrud-modified-field {
 .zcrud-filter-panel .zcrud-label::after {
     content: ": ";
 }
+/*
+.zcrud-filter-panel.zcrud-standard-fields label {
+    display: block;
+    font-size: 100%;
+    font-weight: bold;
+}*/
 /*
 @-webkit-keyframes spin {
     0% {

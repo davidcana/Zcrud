@@ -162,6 +162,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         return false;
     };
     
+    var getInitialRecord = function(){
+        return {};
+    };
+    
+    var getParent = function(){
+        return parent;
+    };
+    
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
@@ -169,6 +177,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         getClass: getClass,
         getFields: getFields,
         getFilter: getFilter,
-        filterIsOn: filterIsOn
+        filterIsOn: filterIsOn,
+        getInitialRecord: getInitialRecord,
+        getParent: getParent
     };
 };

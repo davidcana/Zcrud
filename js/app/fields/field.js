@@ -73,7 +73,17 @@ Field.prototype.getThisOptions = function(){
 Field.prototype.get$ = function(){
     return this.page.get$().find( '.zcrud-field-' + this.id );
 };
-
+/*
+Field.prototype.isReadOnly = function(){
+    
+    var temp = ( this.parentField && this.parentField.isReadOnly() ) || this.readOnly;
+    
+    if ( temp ){
+        return true;
+    }
+    
+    return this.page? this.page.isReadOnly(): false;
+};*/
 Field.prototype.isReadOnly = function(){
     return this.page.isReadOnly() || ( this.parentField && this.parentField.isReadOnly() ) || this.readOnly;
 };
@@ -88,6 +98,10 @@ Field.prototype.buildDataToSend = function(){
 
 Field.prototype.dataFromServer = function(){
     // Nothing to do
+};
+
+Field.prototype.getId = function(){
+    return this.id;
 };
 
 module.exports = Field;

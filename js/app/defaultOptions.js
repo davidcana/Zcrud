@@ -96,6 +96,7 @@ module.exports = {
                     filtering: {
                         isOn: false,
                         constructorClass: require( './components/filteringComponent.js' ),
+                        fieldsTemplate: 'compact-editable@templates/fieldLists.html'
                     },
                     selecting: {
                         isOn: false,
@@ -186,6 +187,7 @@ module.exports = {
                     filtering: {
                         isOn: false,
                         constructorClass: require( './components/filteringComponent.js' ),
+                        fieldsTemplate: 'compact-editable@templates/fieldLists.html'
                     },
                     selecting: {
                         isOn: false,
