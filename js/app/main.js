@@ -94,7 +94,7 @@ exports.load = function( options, data, callback ){
     
     var listPage =  new ListPage( options, data );
     context.putPage( listPage.getId(), listPage );
-    listPage.show( true, undefined, undefined, callback );
+    listPage.show( undefined, undefined, callback );
     
     log.info( '...showing list finished.' );
 };

@@ -144,7 +144,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         }
     };
     
-    /*
+    
     var show = function ( dictionaryExtension, root, callback ) {
 
         if ( userRecords ){
@@ -158,7 +158,12 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             {
                 search: buildDataToSend(),
                 success: function( data ){
-                    listInstance.clientAndServerSuccessFunction.call( listInstance, data, dictionaryExtension, root );
+                    listInstance.clientAndServerSuccessFunction.call( 
+                        listInstance, 
+                        data, 
+                        dictionaryExtension, 
+                        root, 
+                        callback );
                 },
                 error: function(){
                     context.showError( options, false, 'Server communication error!' );
@@ -168,7 +173,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 }
             }, 
             options );
-    };*/
+    };
+    /*
     var show = function ( dictionaryExtension, root, callback ) {
 
         if ( userRecords ){
@@ -188,7 +194,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 }
             }, 
             options );
-    };
+    };*/
     
     var beforeProcessTemplate = function( data, dictionaryExtension ){
 
@@ -210,6 +216,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         }
         
         dictionary.instance = self;
+        dictionary.editable = self.isEditable();
     };
     
     var buildHTMLAndJavascript = function( root ){

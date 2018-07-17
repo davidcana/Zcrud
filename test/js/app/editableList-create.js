@@ -77,7 +77,7 @@ QUnit.test( "create test", function( assert ) {
                 pageListActive: [ '<<', '<', '1', '3', '4', '5', '13', '>', '>>' ],
                 editable: true
             });
-
+            
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 9 ) );
             testHelper.pagingTest({
                 action: { 

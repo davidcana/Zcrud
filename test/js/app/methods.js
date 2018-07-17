@@ -13,7 +13,6 @@ var subformTestOptions = require( './subformTestOptions.js' );
 var options = undefined;
 
 // Run tests
-
 QUnit.test( "selection related methods test (using selectRows)", function( assert ) {
 
     var thisTestOptions = {
@@ -409,6 +408,51 @@ QUnit.test( "load (using filter) test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
             });
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "load (using callback and filter) test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var c = 0;
+    var thisCallback = function(){
+        ++c;
+    };
+    
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 
+                'load',
+                { 
+                    filter: { 
+                        name: 'Service 1'
+                    } 
+                },
+                thisCallback );
+
+            var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 41',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
+            });
+
+            assert.equal( c, 1 );
             
             done();
         }
