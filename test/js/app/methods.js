@@ -1301,3 +1301,43 @@ QUnit.test( "load (not using records) / getRecords test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "load (not loading records) / getRecords test", function( assert ) {
+
+    var thisTestOptions = {};
+    options = $.extend( true, {}, formOptions, thisTestOptions );
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+
+            $( '#departmentsContainer' ).zcrud( 
+                'load',
+                {
+                    load: false
+                });
+
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 0,
+                pagingInfo: 'No records found!',
+                ids: [],
+                names: [],
+                pageListNotActive: [ '<<', '<', '>', '>>' ],
+                pageListActive: []
+            });
+            assert.deepEqual( 
+                $( '#departmentsContainer' ).zcrud( 'getRecords' ),
+                []
+            );
+
+
+            done();
+        }
+    );
+});

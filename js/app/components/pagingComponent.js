@@ -323,10 +323,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
             last: 1 + firstElementIndex + thisPageSize - 1,
             totalNumberOfRecords: totalNumberOfRecords,
             numberOfPages: numberOfPages,
-            goToPageList: builGoToPageList( numberOfPages ),
+            goToPageList: buildGoToPageList( numberOfPages ),
             pageListInfo: buildPageListInfo( numberOfPages ),
             isFirstPage: pageNumber == 1,
-            isLastPage: pageNumber == numberOfPages
+            isLastPage: pageNumber == numberOfPages || numberOfPages == 0
         };
     };
     
@@ -341,7 +341,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         thisPageSize += delta;
     };
     
-    var builGoToPageList = function( numberOfPages ){
+    var buildGoToPageList = function( numberOfPages ){
 
         // Skip some pages is there are too many pages
         var pageStep = 1;

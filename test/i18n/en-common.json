@@ -39,7 +39,8 @@
     "Go to page:": "Go to page:",
     "Row count:": "Row count:",
     "pagingMessage": "Showing {first}-{last} of {total}",
-    "pagingWithFilterMessage": "Showing {first}-{last} of {total} (filtered)",
+    "pagingNoRecordsMessage": "No records found!",
+    "pagingMessageFilteredSuffix": " (filtered)",
     
     "_form": "",
     "Create form": "Create form",

@@ -20,10 +20,18 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return options;
     };
     
-    var userData = userDataToApply || {};
-    
-    var filter = userData.filter || {};
-    var userRecords = userData.records;
+    var filter,
+        userRecords,
+        loadAtFirstExecution;
+    var isFirstExecution = true;
+    var initFromOptions = function( userData ){
+        
+        userData = userData || {};
+        filter = userData.filter || {};
+        userRecords = userData.records;
+        loadAtFirstExecution = userData.load == undefined? true: userData.load;
+    };
+    initFromOptions( userDataToApply || {} );
     
     var thisOptions = options.pageConf.pages.list;
     var getThisOptions = function(){
@@ -113,22 +121,22 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return recordsArray;
     };
     
-    var buildDataUsingUserRecords = function() {
+    var buildDataUsingRecords = function( recordsToUse ) {
         
         var data = {};
 
         data.result = 'OK';
         data.message = '';
-        data.records = getRecordsPaging( userRecords, buildDataToSend() );
-        data.totalNumberOfRecords = userRecords.length;
+        data.records = getRecordsPaging( recordsToUse, buildDataToSend() );
+        data.totalNumberOfRecords = recordsToUse.length;
 
         return data;
     };
     
-    var showUsingRecords = function ( dictionaryExtension, root, callback ) {
+    var showUsingRecords = function ( recordsToUse, dictionaryExtension, root, callback ) {
         
         clientAndServerSuccessFunction( 
-            buildDataUsingUserRecords(),
+            buildDataUsingRecords( recordsToUse ),
             dictionaryExtension, 
             root, 
             callback );
@@ -147,13 +155,20 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var show = function ( dictionaryExtension, root, callback ) {
 
+        // Show list using user records
         if ( userRecords ){
-            showUsingRecords( dictionaryExtension, root, callback );
+            showUsingRecords( userRecords, dictionaryExtension, root, callback );
             return;
         }
         
-        var listInstance = self;
+        // Show list using no records
+        if ( isFirstExecution && ! loadAtFirstExecution ){
+            showUsingRecords( [], dictionaryExtension, root, callback );
+            return;
+        }
         
+        // Show list using records from server
+        var listInstance = self;
         crudManager.listRecords( 
             {
                 search: buildDataToSend(),
@@ -173,28 +188,9 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 }
             }, 
             options );
+        
+        isFirstExecution = false;
     };
-    /*
-    var show = function ( dictionaryExtension, root, callback ) {
-
-        if ( userRecords ){
-            showUsingRecords( dictionaryExtension, root, callback );
-            return;
-        }
-
-        crudManager.listRecords( 
-            {
-                search: buildDataToSend(),
-                success: clientAndServerSuccessFunction,
-                error: function(){
-                    context.showError( options, false, 'Server communication error!' );
-                    if ( callback ){
-                        callback( false );
-                    }
-                }
-            }, 
-            options );
-    };*/
     
     var beforeProcessTemplate = function( data, dictionaryExtension ){
 
