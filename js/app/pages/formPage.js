@@ -11,7 +11,7 @@ var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 
-var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageToApply ) {
+var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPageToApply ) {
     "use strict";
 
     var options = optionsToApply;
@@ -32,7 +32,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         return record;
     };
     
-    var listPage = listPageToApply;
+    var parentPage = parentPageToApply;
     
     var id = options.formId;
     var getId = function(){
@@ -367,9 +367,9 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
                 }
             };
             if ( dataFromServer.clientOnly ){
-                listPage.showFromClientOnly( dictionaryExtension, jsonObject );
+                parentPage.showFromClientOnly( dictionaryExtension, jsonObject );
             } else {
-                listPage.show( dictionaryExtension );
+                parentPage.show( dictionaryExtension );
             }
 
             context.getHistory().reset( elementId );
@@ -473,16 +473,14 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         var event = undefined;
         var $form = get$form();
         
-        var currentRecord = listPage.getRecordByKey( userData.key );
-        
-        if ( ! currentRecord ){
+        if ( ! record ){
             context.showError( options, true, 'Current record not found in updateRecord method!' );
             return;
         }
         
         var jsonObject = context.getJSONBuilder( options ).buildJSONForUpdateRecordMethod( 
             options.key,
-            currentRecord,
+            record,
             userData.record,
             fieldsMap,
             fields,
@@ -527,7 +525,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, listPageTo
         
         triggerFormClosedEvent( event, $form );
         context.getHistory().reset( id );
-        listPage.show();
+        parentPage.show();
     };
     
     var getDictionary = function(){

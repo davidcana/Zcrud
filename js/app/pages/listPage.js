@@ -328,8 +328,14 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         currentFormPage.show();
     };
     
-    var instanceNewForm = function( type, record ){
-        return new FormPage( options, type, record, self );        
+    var instanceNewForm = function( type, key ){
+        
+        return new FormPage( 
+            options, 
+            type, 
+            getRecordByKey( key ), 
+            self
+        );        
     }
     
     var getKeyFromButton = function( event ){

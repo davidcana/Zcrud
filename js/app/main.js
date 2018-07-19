@@ -241,7 +241,7 @@ var recordOperationCommon = function( listPageIdSource, data, checkRecord, check
         return false;
     }
     
-    return listPage.instanceNewForm( type, data.record );
+    return listPage.instanceNewForm( type, data.key );
 };
 
 exports.addRecord = function( listPageIdSource, data ){
