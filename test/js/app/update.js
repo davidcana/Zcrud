@@ -20,7 +20,7 @@ QUnit.test( "update test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
                 // Assert register with key 2 exists
                 var key = 2;

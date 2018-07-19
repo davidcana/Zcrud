@@ -33,7 +33,7 @@ QUnit.test( "update text area test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -86,7 +86,7 @@ QUnit.test( "update datetime test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -144,7 +144,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -208,7 +208,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -271,7 +271,7 @@ QUnit.test( "update date test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -329,7 +329,7 @@ QUnit.test( "update date using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -393,7 +393,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -456,7 +456,7 @@ QUnit.test( "update time test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -509,7 +509,7 @@ QUnit.test( "update time using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -566,7 +566,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -621,7 +621,7 @@ QUnit.test( "update checkbox test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -674,7 +674,7 @@ QUnit.test( "update radio test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -727,7 +727,7 @@ QUnit.test( "update select test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -784,7 +784,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -876,7 +876,7 @@ QUnit.test( "update datalist test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -929,7 +929,7 @@ QUnit.test( "update checkboxes test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;

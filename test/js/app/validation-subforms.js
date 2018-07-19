@@ -27,7 +27,7 @@ QUnit.test( "create with subforms validation test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var key = 0;
             var record =  {
@@ -103,7 +103,7 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
             };
             testUtils.setService( key, record );
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -206,7 +206,7 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -321,7 +321,7 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );

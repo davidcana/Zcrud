@@ -200,13 +200,12 @@ $( '#departmentsContainer' ).zcrud(
     'init',
     options,
     function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
+        $( '#departmentsContainer' ).zcrud( 'renderList' );
     }
 );
 /*
 zcrud.init( options, function( options ){
-    //zcrud.load( options );
-    zcrud.load(
+    zcrud.renderList(
         options,
         {
             name: 'Service 1'

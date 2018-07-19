@@ -27,7 +27,7 @@ $( '#departmentsContainer' ).zcrud(
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var editable = false;
             var checkOnlyStorage = true;
@@ -74,7 +74,7 @@ $( '#departmentsContainer' ).zcrud(
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = false;
             var checkOnlyStorage = true;

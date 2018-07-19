@@ -29,7 +29,7 @@ QUnit.test( "change test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -84,7 +84,7 @@ QUnit.test( "change with errors test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -139,7 +139,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -207,7 +207,7 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
             
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 

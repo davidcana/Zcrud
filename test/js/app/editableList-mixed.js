@@ -46,7 +46,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             pagingTest( assert );
 
@@ -90,7 +90,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -160,7 +160,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -231,7 +231,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -296,7 +296,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 

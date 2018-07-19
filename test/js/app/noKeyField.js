@@ -28,7 +28,7 @@ QUnit.test( "create form test", function( assert ) {
         function( options ){
             
             testUtils.resetServices( undefined, true );
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 130 not exists
             var key = 130;
@@ -97,7 +97,7 @@ QUnit.test( "update form test", function( assert ) {
         function( options ){
 
             testUtils.resetServices( undefined, true );
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 not exists
             var key = 2;
@@ -161,7 +161,7 @@ QUnit.test( "delete form test", function( assert ) {
         function( options ){
 
             testUtils.resetServices( undefined, true );
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -219,7 +219,7 @@ QUnit.test( "editable list create test", function( assert ) {
             testUtils.resetServices( undefined, true );
             fatalErrorFunctionCounter = 0;
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -302,7 +302,7 @@ QUnit.test( "editable list update test", function( assert ) {
             testUtils.resetServices( undefined, true );
             fatalErrorFunctionCounter = 0;
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -370,7 +370,7 @@ QUnit.test( "editable list delete test", function( assert ) {
             testUtils.resetServices( undefined, true );
             fatalErrorFunctionCounter = 0;
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -458,7 +458,7 @@ QUnit.test( "create subform test", function( assert ) {
             };
             testUtils.setService( key, record );
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Check
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -544,7 +544,7 @@ QUnit.test( "update subform test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -634,7 +634,7 @@ QUnit.test( "delete subform test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -683,7 +683,7 @@ QUnit.test( "create form and subform test", function( assert ) {
 
             testUtils.resetServices( undefined, true );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Setup register
             var record =  {

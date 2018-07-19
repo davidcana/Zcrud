@@ -155,16 +155,17 @@
                 </div>
             </li>
             <li>
-                <a id="load"></a>
+                <a id="renderList"></a>
                 <div class="header">
-                    <span class="name">load( data, callback )</span>
+                    <span class="name">renderList( data, callback )</span>
                     <span class="return">-</span>
                 </div>
                 <div class="body">
-                    Load data from server and show the list page. Possible arguments:
+                    Get data from server (if needed) and render the list page. Possible arguments:
                     <ul>
-                        <li><em>data.filter</em> (object, optional, default: undefined). A record used as a filter. Not compatible with <em>data.records</em></li>
-                        <li><em>data.records</em> (array of objects, optional, default: undefined). Defines the records to show, so no server request is done. Not compatible with <em>data.filter</em>.</li>
+                        <li><em>data.filter</em> (object, optional, default: undefined). A record used as a filter.</li>
+                        <li><em>data.load</em> (boolean, optional, default: true). Defines whether ZCrud must get the records from server or not (then use an empty array).</li>
+                        <li><em>data.records</em> (array of objects, optional, default: undefined). Defines the records to show, so no server request is done.</li>
                         <li><em>callback</em> (function, optional, default: undefined). A callback function that will be executed after all asynchronous code.</li>
                     </ul>
                 </div>

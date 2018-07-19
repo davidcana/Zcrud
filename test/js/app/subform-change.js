@@ -47,7 +47,7 @@ QUnit.test( "subform change test", function( assert ) {
             };
             testUtils.setService( key, record );
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
@@ -140,7 +140,7 @@ QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
@@ -251,7 +251,7 @@ QUnit.test( "subform change undo/redo 3 actions test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({

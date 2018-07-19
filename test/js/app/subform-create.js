@@ -46,7 +46,7 @@ QUnit.test( "subform create test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -100,7 +100,7 @@ QUnit.test( "subform create and form create test", function( assert ) {
         options,
         function( options ){
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // 
             var key = 0;
@@ -182,7 +182,7 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -269,7 +269,7 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -401,7 +401,7 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -528,7 +528,7 @@ QUnit.test( "add records to subform test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );

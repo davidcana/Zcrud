@@ -88,7 +88,7 @@ exports.init = function( userOptions, callback ){
     return options;
 };
 
-exports.load = function( options, data, callback ){
+exports.renderList = function( options, data, callback ){
 
     log.info( 'Showing list...' );
     

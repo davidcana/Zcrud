@@ -27,7 +27,7 @@ QUnit.test( "create validation test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 0 not exists
             var key = 0;
@@ -89,7 +89,7 @@ QUnit.test( "update validation test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -155,7 +155,7 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 0 not exists
             var key = 0;
@@ -232,7 +232,7 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;

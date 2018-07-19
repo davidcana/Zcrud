@@ -44,7 +44,7 @@ QUnit.test( "sorting list test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Sort by name
             var $sortableLink = testHelper.getCurrentList( options ).find( '.zcrud-column-header-sortable' );
@@ -112,7 +112,7 @@ QUnit.test( "sorting subform test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
             testHelper.clickUpdateListButton( serviceKey );

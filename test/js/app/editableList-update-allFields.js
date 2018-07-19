@@ -32,7 +32,7 @@ QUnit.test( "update text area test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -98,7 +98,7 @@ QUnit.test( "update datetime test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -164,7 +164,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -237,7 +237,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -308,7 +308,7 @@ QUnit.test( "update date test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -374,7 +374,7 @@ QUnit.test( "update date using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -447,7 +447,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -518,7 +518,7 @@ QUnit.test( "update time test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -584,7 +584,7 @@ QUnit.test( "update time using picker test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -656,7 +656,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -725,7 +725,7 @@ QUnit.test( "update checkbox test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -791,7 +791,7 @@ QUnit.test( "update radio test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -857,7 +857,7 @@ QUnit.test( "update 2 radios test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -950,7 +950,7 @@ QUnit.test( "update select test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -1022,7 +1022,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -1127,7 +1127,7 @@ QUnit.test( "update datalist test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -1193,7 +1193,7 @@ QUnit.test( "update hobbies test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 

@@ -50,8 +50,8 @@ var context = require( './context.js' );
                     context.getSelectorString( this ), 
                     options );*/
                 break;
-            case 'load':
-                zcrud.load( getOptions( this ), arguments[1], arguments[2] );
+            case 'renderList':
+                zcrud.renderList( getOptions( this ), arguments[1], arguments[2] );
                 break;
             case 'selectRecords':
                 zcrud.selectRecords( getOptions( this ), arguments[1] );

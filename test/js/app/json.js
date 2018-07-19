@@ -48,7 +48,7 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             testUtils.reset();
             testUtils.setService( key, record );
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -161,7 +161,7 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
             testUtils.reset();
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -261,7 +261,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // 
             var key = 0;
@@ -360,7 +360,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // 
             var key = 0;
@@ -477,7 +477,7 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             testUtils.reset();
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to delete form and delete record
             testHelper.clickDeleteListButton( key );
@@ -534,7 +534,7 @@ QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert )
             testUtils.reset();
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to delete form and delete record
             testHelper.clickDeleteListButton( key );
@@ -572,7 +572,7 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -630,7 +630,7 @@ QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function(
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -690,7 +690,7 @@ QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", f
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -744,7 +744,7 @@ QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function(
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -797,7 +797,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) t
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Delete records
             var key1 = 3;
@@ -843,7 +843,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: allJSONBuilder) test", fu
         options,
         function( options ){
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Delete records
             var key1 = 3;

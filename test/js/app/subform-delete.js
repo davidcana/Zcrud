@@ -60,7 +60,7 @@ QUnit.test( "delete test", function( assert ) {
             testUtils.setService( key, record );
             
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             testUtils.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -145,7 +145,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
             testUtils.setService( key, record );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testUtils.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -236,7 +236,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             testUtils.setService( key, record );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testUtils.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -331,7 +331,7 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             testUtils.setService( key, record );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testUtils.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );

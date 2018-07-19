@@ -291,7 +291,7 @@ defaultTestOptions.fatalErrorFunction = function( message ){
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
             
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
             testHelper.clickUpdateListButton( key );

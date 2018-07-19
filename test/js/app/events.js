@@ -135,7 +135,7 @@ QUnit.test( "events update form test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Assert register with key 2 exists
             var key = 2;
@@ -283,7 +283,7 @@ QUnit.test( "events create form test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 0 not exists
             var key = 0;
@@ -414,7 +414,7 @@ QUnit.test( "event delete form test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 is OK
             var key = 3;
@@ -553,7 +553,7 @@ QUnit.test( "event update editable list test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -638,7 +638,7 @@ QUnit.test( "event create editable list test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -713,7 +713,7 @@ QUnit.test( "event delete editable list test", function( assert ) {
 
             testUtils.resetServices();
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -792,7 +792,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -893,7 +893,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var $departmentsContainer = $( '#departmentsContainer' );
             var getSelected = function(){

@@ -24,7 +24,7 @@ QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testHelper.multiplePagingTest({
                 options: options,
@@ -62,7 +62,7 @@ QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testHelper.multiplePagingTest({
                 options: options,
@@ -107,7 +107,7 @@ QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( serviceKey );
@@ -158,7 +158,7 @@ QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert 
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( serviceKey );

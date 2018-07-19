@@ -330,7 +330,7 @@ QUnit.test( "update text area test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -414,7 +414,7 @@ QUnit.test( "update datetime test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'datetime' ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -510,7 +510,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -610,7 +610,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             options.fields.members.fields.datetime.customOptions.inline = true;
             
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -711,7 +711,7 @@ QUnit.test( "update date test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -806,7 +806,7 @@ QUnit.test( "update date using picker test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -907,7 +907,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             options.fields.members.fields[ varName ].customOptions.inline = true;
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1009,7 +1009,7 @@ QUnit.test( "update time test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1103,7 +1103,7 @@ QUnit.test( "update time using picker test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1203,7 +1203,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             options.fields.members.fields[ varName ].customOptions.inline = true;
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1304,7 +1304,7 @@ QUnit.test( "update checkbox test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1389,7 +1389,7 @@ QUnit.test( "update radio test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1474,7 +1474,7 @@ QUnit.test( "update select test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1562,7 +1562,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName, varName2 ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1690,7 +1690,7 @@ QUnit.test( "update datalist test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1775,7 +1775,7 @@ QUnit.test( "update chackboxes test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );

@@ -41,7 +41,7 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
@@ -147,7 +147,7 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
             testHelper.clickUpdateListButton( serviceKey );
@@ -257,7 +257,7 @@ QUnit.test( "filtering list (standard list of fields) test", function( assert ) 
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
@@ -365,7 +365,7 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( serviceKey );

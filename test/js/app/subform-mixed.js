@@ -53,7 +53,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
             testUtils.setService( key, record );
             
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -119,7 +119,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             testUtils.setService( key, record );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -192,7 +192,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             testUtils.setService( key, record );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -273,7 +273,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             testUtils.setService( key, record );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -342,7 +342,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             testUtils.setService( key, record );
 
             fatalErrorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );

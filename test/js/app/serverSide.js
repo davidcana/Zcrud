@@ -33,7 +33,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -78,7 +78,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
         function( options ){
             
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -124,7 +124,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -168,7 +168,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
             var key = 2;
@@ -210,7 +210,7 @@ QUnit.test( "editable list create record with duplicated key test", function( as
             testUtils.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -256,7 +256,7 @@ QUnit.test( "editable list update record with no duplicated key test", function(
             testUtils.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var editable = true;
             
@@ -316,7 +316,7 @@ QUnit.test( "editable list update record with duplicated key test", function( as
             testUtils.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -370,7 +370,7 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
             testUtils.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
 
@@ -412,7 +412,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
 
             testUtils.resetServices();
             delete options.fields[ 'province' ].defaultValue;
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to create form and create record
             testHelper.clickCreateListButton();
@@ -466,7 +466,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             testUtils.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
             
@@ -553,7 +553,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             testUtils.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
             

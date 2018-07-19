@@ -50,7 +50,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Empty array
             var items = [];
@@ -338,7 +338,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // A fieldsGroup only (with all default fields)
             var items = [ 
@@ -485,7 +485,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // A fieldsGroup only (circular reference)
             var items = [ 
@@ -531,7 +531,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // A fieldContainer only (with all default fields)
             var items = [ 
@@ -823,7 +823,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var expected = 	
                 [

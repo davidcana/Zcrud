@@ -23,7 +23,7 @@ QUnit.test( "delete test", function( assert ) {
 
             testUtils.resetServices();
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 is OK
             var key = 2;
@@ -114,7 +114,7 @@ QUnit.test( "delete with subform test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             testHelper.clickDeleteListButton( key );
             
@@ -172,7 +172,7 @@ QUnit.test( "english delete form test", function( assert ) {
             clientRecord.important = 'True';
             clientRecord.hobbies = 'Reading, Sports';
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to delete form and cancel
             testHelper.clickDeleteListButton( key );
@@ -231,7 +231,7 @@ QUnit.test( "spanish delete form test", function( assert ) {
             clientRecord.important = 'Verdadero';
             clientRecord.hobbies = 'Lectura, Deportes';
             
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to delete form and cancel
             testHelper.clickDeleteListButton( key );

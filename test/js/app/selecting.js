@@ -51,7 +51,7 @@ QUnit.test( "list selecting test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
@@ -368,7 +368,7 @@ QUnit.test( "subform selecting test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -631,7 +631,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -922,7 +922,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1216,7 +1216,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1599,7 +1599,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -1907,7 +1907,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -2138,7 +2138,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
         'init',
         options,
         function( options ){
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );

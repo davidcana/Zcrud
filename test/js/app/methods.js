@@ -39,7 +39,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var $departmentsContainer = $( '#departmentsContainer' );
             var $tbody = $( '#zcrud-list-tbody-department' );
@@ -130,7 +130,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var $departmentsContainer = $( '#departmentsContainer' );
             var $tbody = $( '#zcrud-list-tbody-department' );
@@ -226,7 +226,7 @@ QUnit.test( "showCreateForm test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             assert.equal( 
                 $( '#zcrud-form-department' ).length,
@@ -271,7 +271,7 @@ QUnit.test( "showUpdateForm test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             assert.equal( 
                 $( '#zcrud-form-department' ).length,
@@ -320,7 +320,7 @@ QUnit.test( "showDeleteForm test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             assert.equal( 
                 $( '#zcrud-form-department' ).length,
@@ -353,7 +353,7 @@ QUnit.test( "getRecordByKey/getRowByKey test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var key = 2;
             var record = $( '#departmentsContainer' ).zcrud( 'getRecordByKey', key );
@@ -390,7 +390,7 @@ QUnit.test( "load (using filter) test", function( assert ) {
 
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 
-                'load',
+                'renderList',
                 { 
                     filter: { 
                         name: 'Service 1'
@@ -432,7 +432,7 @@ QUnit.test( "load (using callback and filter) test", function( assert ) {
 
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 
-                'load',
+                'renderList',
                 { 
                     filter: { 
                         name: 'Service 1'
@@ -471,7 +471,7 @@ QUnit.test( "simple addRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
             var key = 0;
@@ -520,7 +520,7 @@ QUnit.test( "simple deleteRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
             var key = 2;
@@ -567,7 +567,7 @@ QUnit.test( "simple updateRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
             var key = 2;
@@ -620,7 +620,7 @@ QUnit.test( "change key updateRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
             var key = 2;
@@ -697,7 +697,7 @@ QUnit.test( "subform updateRecord test", function( assert ) {
             testUtils.setService( key, record );
             
             // Load from server
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Update record using method
             var editedRecord =  {
@@ -751,7 +751,7 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
             var key = 2;
@@ -835,7 +835,7 @@ QUnit.test( "clientOnly deleteRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
             var key = 2;
@@ -912,7 +912,7 @@ QUnit.test( "clientOnly addRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
             var key = 0;
@@ -993,7 +993,7 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
             var key = 2;
@@ -1050,7 +1050,7 @@ QUnit.test( "success function updateRecord test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
             var key = 2;
@@ -1131,7 +1131,7 @@ QUnit.test( "load (using records) / getRecords test", function( assert ) {
             var records = buildRecordsArray( 1, totalNumberOfRecords );
 
             $( '#departmentsContainer' ).zcrud( 
-                'load',
+                'renderList',
                 {
                     records: records
                 });
@@ -1242,7 +1242,7 @@ QUnit.test( "load (not using records) / getRecords test", function( assert ) {
                 return result;
             };
 
-            $( '#departmentsContainer' ).zcrud( 'load' );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
@@ -1316,7 +1316,7 @@ QUnit.test( "load (not loading records) / getRecords test", function( assert ) {
             testUtils.resetServices();
 
             $( '#departmentsContainer' ).zcrud( 
-                'load',
+                'renderList',
                 {
                     load: false
                 });

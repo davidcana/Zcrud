@@ -180,7 +180,7 @@ $( '#departmentsContainer' ).zcrud(
     'init',
     options,
     function( options ){
-        $( '#departmentsContainer' ).zcrud( 'load' );
+        $( '#departmentsContainer' ).zcrud( 'renderList' );
     }
 );
 
