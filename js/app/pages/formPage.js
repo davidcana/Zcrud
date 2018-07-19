@@ -577,6 +577,32 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         }
     };
     
+    var updateUsingRecordFromServer = function( key, getRecordURL ){
+        
+        // Build the data to send to the server
+        var search = {};
+        if ( key != undefined ){
+            search.key = key;
+        }
+        addToDataToSend( search );
+
+        // Get the record from the server and show the form
+        crudManager.getRecord( 
+            {
+                url: getRecordURL || thisOptions.getRecordURL,
+                search: search,
+                success: function( dataFromServer ){
+                    setRecord( dataFromServer.record );
+                    processDataFromServer( dataFromServer );
+                    show();
+                },
+                error: function(){
+                    context.showError( options, false, 'Server communication error!' );
+                }
+            }, 
+            options );
+    };
+    
     var self = {
         show: show,
         setRecord: setRecord,
@@ -602,7 +628,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         isReadOnly: isReadOnly,
         addToDataToSend: addToDataToSend,
         processDataFromServer: processDataFromServer,
-        buildProcessTemplateParams: buildProcessTemplateParams
+        buildProcessTemplateParams: buildProcessTemplateParams,
+        updateUsingRecordFromServer: updateUsingRecordFromServer
     };
     
     configure();

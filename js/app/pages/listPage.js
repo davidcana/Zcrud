@@ -264,10 +264,11 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var showCreateForm = function( event ){
-        showForm( 'create' );
+        showNewForm( 'create' );
     };
 
-    var showFormUsingAjax = function( type, event, forcedKey ){
+    /*
+    var showNewFormUsingRecordFromServer = function( type, event, forcedKey ){
 
         // Get the key of the record to get
         var key = forcedKey || getKeyFromButton( event );
@@ -299,31 +300,45 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 }
             }, 
             options );
+    };*/
+    var showNewFormUsingRecordFromServer = function( type, event, forcedKey ){
+
+        // Get the key of the record to get
+        var key = forcedKey || getKeyFromButton( event );
+        if ( key == undefined ){
+            throw 'Error trying to load record in listPage: key is null!';
+        }
+
+        // Build the form instance
+        currentFormPage = new FormPage( options, type, undefined, self ); 
+
+        // Update form retrieving record from server
+        currentFormPage.updateUsingRecordFromServer( key, thisOptions.getRecordURL );
     };
     
     var showEditForm = function( event, forcedKey ){
-        showFormUsingAjax( 'update', event, forcedKey );
+        showNewFormUsingRecordFromServer( 'update', event, forcedKey );
     };
     /*
     var showEditForm = function( event, forcedKey ){
 
         var key = forcedKey || getKeyFromButton( event );
         var record = records[ key ];
-        showForm( 'update', record );
+        showNewForm( 'update', record );
     };*/
     
     var showDeleteForm = function( event, forcedKey ){
-        showFormUsingAjax( 'delete', event, forcedKey );
+        showNewFormUsingRecordFromServer( 'delete', event, forcedKey );
     };
     /*
     var showDeleteForm = function( event, forcedKey ){
         
         var key = forcedKey || getKeyFromButton( event );
         var record = records[ key ];
-        showForm( 'delete', record );
+        showNewForm( 'delete', record );
     };*/
     
-    var showForm = function( type, record ){
+    var showNewForm = function( type, record ){
         currentFormPage =  new FormPage( options, type, record, self );        
         currentFormPage.show();
     };
