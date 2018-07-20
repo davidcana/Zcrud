@@ -79,6 +79,24 @@ module.exports = (function() {
         }
     };
     
+    var members;
+    var resetOriginalAndVerifiedMembers = function( name,  numberOfItems ){
+        
+        members = {};
+        members.originalMembers = {};
+        members.verifiedMembers = {};
+        
+        for ( var c = 0; c < numberOfItems; ++c ){
+            var sufix = "" + ( c + 1 );
+            var thisName = name + " " + sufix;
+            members.originalMembers[ c ] = 
+                {
+                    "code": sufix,
+                    "name": thisName,
+                    "description": "Description of " + thisName
+                };
+        }
+    };
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     var urls = [];
@@ -122,8 +140,68 @@ module.exports = (function() {
             case "externalMembers":
                 ajaxMembersFields( 'externalMembers', options, data );
                 break;
+            case "memberCheck":
+                ajaxMembersCheck( 'memberCheck', options, data );
+                break;
             default:
                 throw "Unknown table in ajax: " + table;
+        }
+    };
+    
+    var ajaxMembersCheck = function( options, cmd, file, data, url ){
+
+        // Run command
+        var dataToSend = undefined;
+        switch ( cmd ) {
+            /*case "BATCH_UPDATE":
+                dataToSend = ajaxServicesBatchUpdate( file, data, url );
+                break;*/
+            case "GET":
+                dataToSend = ajaxMembersCheckGet( file, data, url );
+                break;
+            default:
+                throw "Unknown command in ajax: " + cmd;
+        }
+
+        options.success( dataToSend );
+    };
+    
+    var ajaxMembersCheckGet = function( file, data ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+
+        // Build record
+        dataToSend.record = {};
+        dataToSend.fieldsData = {};
+        processMembersSubformsInGet( data, dataToSend.record, dataToSend );
+        
+        return dataToSend;
+    };
+    
+    var processMembersSubformsInGet = function( data, record, dataToSend ){
+
+        var subformsFields = [ 'originalMembers', 'verifiedMembers' ];
+        
+        for ( var c = 0; c < subformsFields.length; ++c ){
+            var subformFieldId = subformsFields[ c ];
+
+            var allSubformValues = members[ subformFieldId ] || {};
+            var thisFieldData = data[ subformFieldId ] || {};
+            
+            // Filter them
+
+            // Sort them
+
+            // Page them
+            var thisFieldDataToSend = {};
+            pageRecords( thisFieldData, thisFieldDataToSend, allSubformValues );
+            record[ subformFieldId ] = thisFieldDataToSend.records;
+            dataToSend.fieldsData[ subformFieldId ] = {
+                totalNumberOfRecords: thisFieldDataToSend.totalNumberOfRecords
+            };
         }
     };
     
@@ -134,14 +212,6 @@ module.exports = (function() {
         dataToSend.result = 'OK';
         dataToSend.message = '';
         var thisFieldData = data;
-        /*
-        try {
-            var thisFieldData = data[ subformId ];
-        } catch ( e ) {
-            dataToSend.message += 'No configuration set to ' + subformId + ' subform!';
-            options.error( dataToSend );
-            return;
-        }*/
 
         // Add all records to data
         var service = services[ data.key ];
@@ -592,6 +662,7 @@ module.exports = (function() {
         removeService: removeService,
         resetServices: resetServices,
         reset2SubformMembersServices: reset2SubformMembersServices,
+        resetOriginalAndVerifiedMembers: resetOriginalAndVerifiedMembers,
         getUrl: getUrl,
         getLastListUrl: getLastListUrl,
         getLastBatchUpdateUrl: getLastBatchUpdateUrl,

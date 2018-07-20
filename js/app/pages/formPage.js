@@ -138,6 +138,15 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
             submitFunction = submitDelete;
             eventFunction = options.events.recordDeleted;
             successMessage = 'deleteSuccess';
+            break;
+        case 'list':
+            title = "List form";
+            submitFunction = submitList;
+            eventFunction = undefined;
+            successMessage = undefined;
+            if ( ! record ) {
+                record = fieldUtils.buildDefaultValuesRecord( fields );
+            }
             break; 
         default:
             throw "Unknown FormPage type: " + type;
@@ -167,14 +176,14 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
     };
     
     // Build the form
-    var show = function(){
+    var show = function( dictionaryExtension, root ){
         
         try {
             if ( ! record ){
                 throw "No record set in form!";
             }
             
-            beforeProcessTemplate();
+            beforeProcessTemplate( dictionaryExtension );
             
             pageUtils.configureTemplate( 
                 options, 
@@ -182,7 +191,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
 
             zpt.run({
                 //root: options.target[0],
-                root: options.body,
+                root: root || options.body,
                 dictionary: dictionary,
                 declaredRemotePageUrls: options.templates.declaredRemotePageUrls
             });
@@ -213,12 +222,30 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         return newRecord;
     };
     
+    /*
     var updateDictionary = function(){
 
         dictionary = $.extend( {
             options: options,
             record: buildRecordForDictionary()
         }, options.dictionary );
+
+        dictionary.instance = self;
+    };*/
+    var updateDictionary = function( dictionaryExtension ){
+
+        var thisDictionary = $.extend( 
+            {
+                options: options,
+                record: buildRecordForDictionary()
+            }, 
+            options.dictionary );
+        
+        if ( dictionaryExtension ){
+            dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
+        } else {
+            dictionary = thisDictionary;
+        }
         
         dictionary.instance = self;
     };
@@ -236,8 +263,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         };
     };
     
-    var beforeProcessTemplate = function(){        
-        updateDictionary();
+    var beforeProcessTemplate = function( dictionaryExtension ){        
+        updateDictionary( dictionaryExtension );
     };
     
     var afterProcessTemplate = function( $form ){
@@ -408,6 +435,21 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
             var field = fields[ c ];
             field.dataFromServer( data );
         }
+    };
+    
+    var submitList = function( event, $form ){
+
+        return saveCommon( 
+            id, 
+            event,
+            context.getJSONBuilder( options ).buildJSONForAll( 
+                //options.key, 
+                undefined,
+                [ ],
+                fields,
+                undefined,
+                context.getHistory() ),
+            $form );
     };
     
     var submitCreate = function( event, $form ){

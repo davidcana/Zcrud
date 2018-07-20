@@ -90,13 +90,24 @@ exports.init = function( userOptions, callback ){
 
 exports.renderList = function( options, data, callback ){
 
-    log.info( 'Showing list...' );
+    log.info( 'Rendering list...' );
     
     var listPage =  new ListPage( options, data );
     context.putPage( listPage.getId(), listPage );
     listPage.show( undefined, undefined, callback );
     
-    log.info( '...showing list finished.' );
+    log.info( '...list rendering finished.' );
+};
+
+exports.renderForm = function( options, data, callback ){
+
+    log.info( 'Rendering form...' );
+
+    var formPage =  new FormPage( options, data );
+    context.putPage( formPage.getId(), formPage );
+    formPage.show( undefined, undefined, callback );
+
+    log.info( '...form rendering finished.' );
 };
 
 exports.destroy = function( options ){

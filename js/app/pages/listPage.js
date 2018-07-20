@@ -200,10 +200,12 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var updateDictionary = function( data, dictionaryExtension ){
 
-        var thisDictionary = $.extend( {
+        var thisDictionary = $.extend(
+            {
                 options: options,
                 records: data.records
-            }, options.dictionary );
+            }, 
+            options.dictionary );
         
         if ( dictionaryExtension ){
             dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
