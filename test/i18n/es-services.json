@@ -45,6 +45,10 @@
     "hobbies_description": "Sus aficiones favoritas, puede seleccionar varias",
     "externalMembers_title": "Miembros externos",
     "externalMembers_description": "Los miembros externos del departamento",
+    "originalMembers_title": "Miembros originales",
+    "originalMembers_description": "La lista inicial de miembros",
+    "verifiedMembers_title": "Miembros verificados",
+    "verifiedMembers_description": "La lista de miembros verificados",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

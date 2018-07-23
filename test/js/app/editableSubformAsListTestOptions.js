@@ -15,6 +15,7 @@ module.exports = {
         },
         pages: {
             list: {
+                template: "formDefaultTemplate@templates/forms.html",
                 fields: [ 
                     {
                         "type": "fieldsGroup"
@@ -40,6 +41,14 @@ module.exports = {
                         rows: 2,
                         cols: 40
                     }
+                }
+            },
+            components: {
+                paging: {
+                    isOn: true
+                },
+                selecting: {
+                    isOn: true
                 }
             },
             buttons: {
@@ -94,7 +103,11 @@ module.exports = {
     ajax:{
         ajaxFunction: testUtils.ajax    
     },
-
+    
+    templates: {
+        declaredRemotePageUrls: [ 'templates/fieldLists.html', 'templates/lists.html' ]
+    },
+    
     events: {},
     
     i18n: {

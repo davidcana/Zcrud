@@ -42,7 +42,6 @@ var context = require( './context.js' );
             case 'getSelectedRows':
                 return zcrud.getSelectedRows( getOptions( this ) );
             case 'init':
-                //arguments[1].target = this;
                 var options = zcrud.init( arguments[1], arguments[2] );
                 options.target = this;
                 context.putOptions( this, options );
@@ -52,6 +51,9 @@ var context = require( './context.js' );
                 break;
             case 'renderList':
                 zcrud.renderList( getOptions( this ), arguments[1], arguments[2] );
+                break;
+            case 'renderForm':
+                zcrud.renderForm( getOptions( this ), arguments[1], arguments[2] );
                 break;
             case 'selectRecords':
                 zcrud.selectRecords( getOptions( this ), arguments[1] );

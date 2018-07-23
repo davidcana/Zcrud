@@ -81,6 +81,25 @@ module.exports = (function() {
     
     var members;
     var resetOriginalAndVerifiedMembers = function( name,  numberOfItems ){
+
+        members = {};
+        members.originalMembers = [];
+        members.verifiedMembers = [];
+
+        for ( var c = 0; c < numberOfItems; ++c ){
+            var sufix = "" + ( c + 1 );
+            var thisName = name + " " + sufix;
+            members.originalMembers.push( 
+                {
+                    "code": sufix,
+                    "name": thisName,
+                    "description": "Description of " + thisName
+                }
+            );
+        }
+    };
+    /*
+    var resetOriginalAndVerifiedMembers = function( name,  numberOfItems ){
         
         members = {};
         members.originalMembers = {};
@@ -96,7 +115,7 @@ module.exports = (function() {
                     "description": "Description of " + thisName
                 };
         }
-    };
+    };*/
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     var urls = [];
@@ -141,7 +160,7 @@ module.exports = (function() {
                 ajaxMembersFields( 'externalMembers', options, data );
                 break;
             case "memberCheck":
-                ajaxMembersCheck( 'memberCheck', options, data );
+                ajaxMembersCheck( options, cmd, file, data, url );
                 break;
             default:
                 throw "Unknown table in ajax: " + table;
@@ -154,7 +173,7 @@ module.exports = (function() {
         var dataToSend = undefined;
         switch ( cmd ) {
             /*case "BATCH_UPDATE":
-                dataToSend = ajaxServicesBatchUpdate( file, data, url );
+                dataToSend = ajaxMembersCheckBatchUpdate( file, data, url );
                 break;*/
             case "GET":
                 dataToSend = ajaxMembersCheckGet( file, data, url );

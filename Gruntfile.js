@@ -338,6 +338,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/json.js',
                 dest: 'build/json.js'
+            },
+            forms: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/forms.js',
+                dest: 'build/forms.js'
             }
         },
         compress: {

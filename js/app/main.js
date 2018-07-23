@@ -103,8 +103,9 @@ exports.renderForm = function( options, data, callback ){
 
     log.info( 'Rendering form...' );
 
-    var formPage =  new FormPage( options, data );
+    var formPage =  new FormPage( options, 'list' );
     context.putPage( formPage.getId(), formPage );
+    formPage.updateUsingRecordFromServer();
     formPage.show( undefined, undefined, callback );
 
     log.info( '...form rendering finished.' );

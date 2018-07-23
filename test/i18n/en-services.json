@@ -45,6 +45,10 @@
     "hobbies_description": "Your favourites hobbies, you can select several of them",
     "externalMembers_title": "External members",
     "externalMembers_description": "The external members of the department",
+    "originalMembers_title": "Original members",
+    "originalMembers_description": "The initial list of members",
+    "verifiedMembers_title": "Verified members",
+    "verifiedMembers_description": "The list of verified members",
     
     "_options": "",
     "homePhone_option": "Home phone",
