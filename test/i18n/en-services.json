@@ -57,6 +57,9 @@
     "reading_option": "Reading",
     "videogames_option": "Videogames",
     "sports_option": "Sports",
-    "cards_option": "Cards"
+    "cards_option": "Cards",
 
+    "_buttons": "",
+    "Copy original members": "Copy original members"
+    
 }

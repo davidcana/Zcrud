@@ -57,6 +57,9 @@
     "reading_option": "Lectura",
     "videogames_option": "Videojuegos",
     "sports_option": "Deportes",
-    "cards_option": "Cartas"
+    "cards_option": "Cartas",
+    
+    "_buttons": "",
+    "Copy original members": "Copiar miembros originales"
     
 }

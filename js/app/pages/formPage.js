@@ -349,6 +349,22 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                     save( event );
                 }*/
         });
+        
+        $form
+            .find( 'button.zcrud-copy-subform-rows-command-button' )
+            .off()
+            .click( 
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    alert( 'button.zcrud-copy-subform-rows-command-button' );
+                    //context.getHistory().redo( id );
+                    /*if ( autoSaveMode ){
+                            save( event );
+                        }*/
+                }
+            );
     };
     
     var saveCommon = function( elementId, event, jsonObject, $form ){

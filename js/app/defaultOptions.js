@@ -212,6 +212,7 @@ module.exports = {
                     toolbar: {
                         newRegisterRow: undefined,
                         openNewRegisterForm: undefined,
+                        copySubformRows: undefined,
                         undo: undefined,
                         redo: undefined,
                         save: undefined

@@ -20,7 +20,20 @@ module.exports = {
                     {
                         "type": "fieldsGroup"
                     }
-                ]
+                ],
+                buttons: {
+                    toolbar: {
+                        undo: true,
+                        redo: true,
+                        copySubformRows: {
+                            source: 'originalMembers',
+                            target: 'verifiedMembers',
+                            onlySelected: true,
+                            removeFromSource: false,
+                            title: 'Copy original members'
+                        }
+                    }
+                }
             }
         }
     },
