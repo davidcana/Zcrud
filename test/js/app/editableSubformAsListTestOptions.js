@@ -29,6 +29,7 @@ module.exports = {
     fields: {
         originalMembers: {
             type: 'subform',
+            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=memberCheck',
             readOnly: true,
             fields: { 
                 code: { 

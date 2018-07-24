@@ -178,11 +178,47 @@ module.exports = (function() {
             case "GET":
                 dataToSend = ajaxMembersCheckGet( file, data, url );
                 break;
+            case "LIST":
+                dataToSend = ajaxMembersCheckList( file, data, url );
+                break;
             default:
                 throw "Unknown command in ajax: " + cmd;
         }
 
         options.success( dataToSend );
+    };
+    
+    var ajaxMembersCheckList = function( file, data, url ){
+
+        lastListUrl = url;
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+
+        // Add all records to data
+        var input = members.originalMembers;
+        var allRecords = [];
+        for ( var c = 0; c < input.length; ++c ) {
+            var member = input[ c ];
+            if ( ! matches( member, data.filter ) ){
+                continue;
+            }
+            allRecords.push( 
+                clone( member ) );
+        }
+
+        // Sort them
+        if ( data.sortFieldId && data.sortType ){
+            allRecords.sort( 
+                dynamicSort( data.sortFieldId, data.sortType ) );
+        }
+
+        // Page them
+        pageRecords( data, dataToSend, allRecords );
+
+        return dataToSend;
     };
     
     var ajaxMembersCheckGet = function( file, data ){
@@ -573,16 +609,6 @@ module.exports = (function() {
         
         // Page them
         pageRecords( data, dataToSend, allRecords );
-        /*
-        if ( data.pageNumber && data.pageSize ){
-            var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
-            dataToSend.records = allRecords.slice(
-                firstElementIndex, 
-                firstElementIndex + data.pageSize ); 
-        } else {
-            dataToSend.records = allRecords;
-        }
-        dataToSend.totalNumberOfRecords = allRecords.length;*/
         
         return dataToSend;
     };

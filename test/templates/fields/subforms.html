@@ -35,14 +35,20 @@
         </div>
         
         <div data-mdefine-macro="view" data-tomit-tag="">
-            <div class="zcrud-subform-content">
+            <div class="zcrud-subform-content"
+                 data-tdefine="instance field;
+                               pagingComponent instance/getComponent( 'paging' )">
                 <div data-muse-macro="'table@templates/lists.html'"
                      data-tdefine="editable false;
-                                   instance field;
                                    records value;
                                    renderIds false;
                                    hideRowButtons true">
                     The ZCrud table
+                </div>
+                
+                <div data-muse-macro="'pagingPanel@templates/lists.html'"
+                     data-tcondition="pagingComponent">
+                    The bottom panel
                 </div>
             </div>
         </div>
