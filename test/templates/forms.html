@@ -53,11 +53,14 @@
                             data-tcontent="tr:'Save'">
                         Save
                     </button>
-                    <button class="zcrud-copy-subform-rows-command-button"
-                            data-tcontent="tr:(toolbar/copySubformRows/title || (string:zcrud-copy-${toolbar/copySubformRows/source}-button))" 
-                            data-tcondition="toolbar/copySubformRows">
-                        Copy rows
-                    </button>
+                    <span data-tcondition="toolbar/copySubformRowsItems">
+                        <button data-trepeat="item instance/getToolbarItemsArray( 'copySubformRowsItems' )"
+                                class="zcrud-copy-subform-rows-command-button"
+                                data-tattributes="data-tButtonId item/id"
+                                data-tcontent="tr:(item/title || (string:zcrud-copy-${item/source}-button))">
+                            Copy rows
+                        </button>
+                    </span>
                     <button class="zcrud-undo-command-button" 
                             data-tcontent="tr:'Undo'"  
                             data-tcondition="toolbar/undo"

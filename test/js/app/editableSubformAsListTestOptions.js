@@ -25,12 +25,14 @@ module.exports = {
                     toolbar: {
                         undo: true,
                         redo: true,
-                        copySubformRows: {
-                            source: 'originalMembers',
-                            target: 'verifiedMembers',
-                            onlySelected: true,
-                            removeFromSource: false,
-                            title: 'Copy original members'
+                        copySubformRowsItems: {
+                            'verifyMembers': {
+                                source: 'originalMembers',
+                                target: 'verifiedMembers',
+                                onlySelected: true,
+                                removeFromSource: false,
+                                title: 'Copy original members'
+                            }
                         }
                     }
                 }

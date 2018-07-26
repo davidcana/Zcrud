@@ -357,14 +357,47 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                 function ( event ) {
                     event.preventDefault();
                     event.stopPropagation();
-
-                    alert( 'button.zcrud-copy-subform-rows-command-button' );
-                    //context.getHistory().redo( id );
+                    //alert( 'button.zcrud-copy-subform-rows-command-button' );
+                    
+                    // Get thisButtonOptions from data-tButtonId attr and toolbar
+                    var $this = $( this );
+                    var thisButtonId = $this.attr( 'data-tButtonId' );
+                    var thisButtonOptions = thisOptions.buttons.toolbar.copySubformRowsItems[ thisButtonId ];
+                    
+                    // Get conf options from thisButtonOptions
+                    var targetId = thisButtonOptions.target;
+                    var sourceId = thisButtonOptions.source;
+                    var onlySelected = thisButtonOptions.onlySelected;
+                    var removeFromSource = thisButtonOptions.removeFromSource;
+                    
+                    // Get the selectedRecords
+                    var targetField = getField( targetId );
+                    var selectedRecords = targetField.addNewRowsFromSubform( 
+                        sourceId, 
+                        onlySelected, 
+                        removeFromSource );
+                    if ( selectedRecords.length == 0 ){
+                        context.showError( options, false, 'Please, select at least one item!' );
+                    }
                     /*if ( autoSaveMode ){
                             save( event );
-                        }*/
+                    }*/
                 }
             );
+    };
+    
+    var getToolbarItemsArray = function( buttonId ){
+        
+        var result = [];
+        var thisButtonOptions = thisOptions.buttons.toolbar[ buttonId ];
+
+        for ( var id in thisButtonOptions ) {
+            var item = thisButtonOptions[ id ];
+            item.id = id;
+            result.push( item );
+        }
+        
+        return result;
     };
     
     var saveCommon = function( elementId, event, jsonObject, $form ){
@@ -687,7 +720,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         addToDataToSend: addToDataToSend,
         processDataFromServer: processDataFromServer,
         buildProcessTemplateParams: buildProcessTemplateParams,
-        updateUsingRecordFromServer: updateUsingRecordFromServer
+        updateUsingRecordFromServer: updateUsingRecordFromServer,
+        getToolbarItemsArray: getToolbarItemsArray
     };
     
     configure();
