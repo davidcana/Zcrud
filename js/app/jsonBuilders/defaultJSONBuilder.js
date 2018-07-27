@@ -278,6 +278,7 @@ module.exports = (function() {
 
         switch ( formType ) {
             case 'create':
+            case 'list':
                 return jsonObject.newRecords[ 0 ];
             case 'update':
                 return jsonObject.existingRecords[ Object.keys( jsonObject.existingRecords )[ 0 ] ];

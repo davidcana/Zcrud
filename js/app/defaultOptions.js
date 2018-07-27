@@ -130,6 +130,7 @@ module.exports = {
         recordAdded: function ( data, event ) {},
         recordDeleted: function ( data, event ) {},
         recordUpdated: function ( data, event ) {},
+        formBatchUpdated: function ( data, event ) {},
         selectionChanged: function ( data ) {}
     },
 

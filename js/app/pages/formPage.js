@@ -142,7 +142,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         case 'list':
             title = "List form";
             submitFunction = submitList;
-            eventFunction = undefined;
+            eventFunction = options.events.formBatchUpdated;
             successMessage = undefined;
             if ( ! record ) {
                 record = fieldUtils.buildDefaultValuesRecord( fields );
@@ -425,7 +425,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                 record = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
             }
              
-            // Trigger event
+            // Trigger events
             eventFunction(
                 {
                     record: record,
@@ -436,6 +436,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
             triggerFormClosedEvent( event, $form );
             
             // Show list
+            updatePage( dataFromServer, jsonObject );
+            /*
             var dictionaryExtension = {
                 status: {
                     message: successMessage,
@@ -446,7 +448,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                 parentPage.showFromClientOnly( dictionaryExtension, jsonObject );
             } else {
                 parentPage.show( dictionaryExtension );
-            }
+            }*/
 
             context.getHistory().reset( elementId );
             
@@ -476,6 +478,27 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
             });
         
         return jsonObject;
+    };
+    
+    var updatePage = function( dataFromServer, jsonObject ){
+        
+        var dictionaryExtension = {
+            status: {
+                message: successMessage,
+                date: new Date().toLocaleString()
+            }
+        };
+        
+        if ( ! parentPage ){
+            alert( 'No parent page!' );
+            return;
+        }
+        
+        if ( dataFromServer.clientOnly ){
+            parentPage.showFromClientOnly( dictionaryExtension, jsonObject );
+        } else {
+            parentPage.show( dictionaryExtension );
+        }
     };
     
     var processDataFromServer = function( data ){
