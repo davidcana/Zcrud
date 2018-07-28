@@ -1395,6 +1395,28 @@ module.exports = (function() {
             $tr.find( "input.zcrud-select-row" ).trigger( 'click' );
         }
     };
+    var subformSelectByText = function(){
+        
+        // First argument is subformId
+        var subformId = arguments[ 0 ];
+        var $tbody = get$Container().find( '.zcrud-field-' + subformId + ' tbody' );
+
+        // Build keyFieldName
+        var keyFieldId = 'code';
+        var $fields = $tbody.find( ".zcrud-column-data-" + keyFieldId );
+        
+        // The remaining are the keys of the records to select
+        for ( var c = 0; c < arguments.length - 1; c++ ){
+            var id = arguments[ 1 + c ];
+            var $field = $fields.filter(
+                function(){
+                    return this.textContent.trim() == id;
+                }
+            );
+            var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
+            $tr.find( "input.zcrud-select-row" ).trigger( 'click' );
+        }
+    };
     var listToggleSelect = function(){
         get$Container().find( "input.zcrud-select-all-rows" ).trigger( 'click' );
     };
@@ -1514,6 +1536,7 @@ module.exports = (function() {
         listSelect: listSelect,
         subformSelect: subformSelect,
         readOnlySubformSelect: readOnlySubformSelect,
+        subformSelectByText: subformSelectByText,
         listToggleSelect: listToggleSelect,
         subformToggleSelect: subformToggleSelect,
         getSubformItemsKeys: getSubformItemsKeys,

@@ -24,7 +24,6 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 };
 
 // Run tests
-/*
 QUnit.test( "list selecting test", function( assert ) {
     
     // Setup services
@@ -2017,7 +2016,6 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
         }
     );
 });
-*/
 
 QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting and cut/paste (cuting the same record twice) test", function( assert ) {
 
@@ -2178,8 +2176,8 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Select
-            testHelper.readOnlySubformSelect( 'externalMembers', '5', '1' );
-            /*
+            testHelper.subformSelectByText( 'externalMembers', '5', '1' );
+            
             // Cut selected items from external to members
             $( '#copyExternalMembers' ).click();
             assert.deepEqual( 
@@ -2189,7 +2187,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                 testHelper.getReadOnlySubformItemsKeys( 'externalMembers' ), 
                 [ '3' ]);
             testHelper.assertHistory( assert, 2, 0, true );
-
+            
             // Undo
             testHelper.clickUndoButton();
             assert.deepEqual( 
@@ -2209,7 +2207,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                 testHelper.getReadOnlySubformItemsKeys( 'externalMembers' ), 
                 [ '3' ]);
             testHelper.assertHistory( assert, 2, 0, true );
-            
+            /*
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
             
