@@ -1359,7 +1359,7 @@ module.exports = (function() {
             $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
         }
     };
-    var subformSelect = function(){
+    var readOnlySubformSelect = function(){
 
         // First argument is subformId
         var subformId = arguments[ 0 ];
@@ -1371,15 +1371,38 @@ module.exports = (function() {
             $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
         }
     };
-    
+    var subformSelect = function(){
+        
+        // First argument is subformId
+        var subformId = arguments[ 0 ];
+        var $tbody = get$Container().find( '.zcrud-field-' + subformId + ' tbody' );
+
+        // Build keyFieldName
+        var keyFieldId = 'code';
+        var keyFieldName = subformId + '-' + keyFieldId;
+        var $fields = $tbody.find( "[name='" + keyFieldName +"']" );
+        
+        // The remaining are the keys of the records to select
+        for ( var c = 0; c < arguments.length - 1; c++ ){
+            var id = arguments[ 1 + c ];
+            var $field = $fields.filter(
+                function(){
+                    return this.value == id;
+                }
+            );
+            //var $field = $fields.find( "[value='" + id +"']" );
+            var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
+            $tr.find( "input.zcrud-select-row" ).trigger( 'click' );
+        }
+    };
     var listToggleSelect = function(){
         get$Container().find( "input.zcrud-select-all-rows" ).trigger( 'click' );
     };
     var subformToggleSelect = function( subformId ){
         get$Container().find( ".zcrud-field-" + subformId + " input.zcrud-select-all-rows" ).trigger( 'click' );
     };
-    
-    var getSubformItemsKeys = function( subformId ){
+    /*
+    var getReadOnlySubformItemsKeys = function( subformId ){
         
         var result = [];
         
@@ -1390,8 +1413,39 @@ module.exports = (function() {
         });
         
         return result;
+    };*/
+    var getReadOnlySubformItemsKeys = function( subformId, keyFieldId ){
+        
+        var result = [];
+        
+        keyFieldId = keyFieldId || 'code';
+        var keyClassSelector = '.zcrud-column-data-' + keyFieldId;
+        
+        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hidden)' );
+        $rows.each( function() {
+            var $this = $( this );
+            var key = $this.find( keyClassSelector ).text().trim();
+            result.push( key );
+        });
+        
+        return result;
     };
-    
+    var getSubformItemsKeys = function( subformId, keyFieldId ){
+        
+        var result = [];
+        
+        keyFieldId = keyFieldId || 'code';
+        var keyFieldName = subformId + '-' + keyFieldId;
+        
+        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hidden)' );
+        $rows.each( function() {
+            var $this = $( this );
+            var key = $this.find( "[name='" + keyFieldName +"']" ).val();
+            result.push( key );
+        });
+        
+        return result;
+    };
     return {
         countVisibleRows: countVisibleRows,
         countVisibleSubformRows: countVisibleSubformRows,
@@ -1459,9 +1513,11 @@ module.exports = (function() {
         getSelectedFromSubform: getSelectedFromSubform,
         listSelect: listSelect,
         subformSelect: subformSelect,
+        readOnlySubformSelect: readOnlySubformSelect,
         listToggleSelect: listToggleSelect,
         subformToggleSelect: subformToggleSelect,
         getSubformItemsKeys: getSubformItemsKeys,
+        getReadOnlySubformItemsKeys: getReadOnlySubformItemsKeys,
         setDefaultItemName: setDefaultItemName,
         pagingSubformTest: pagingSubformTest
     };
