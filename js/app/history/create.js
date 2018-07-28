@@ -9,7 +9,6 @@ var context = require( '../context.js' );
 var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, recordToApply, subformNameToApply ) {
     
     var history = historyToApply;
-    //var editableOptions = editableOptionsToApply; 
     var thisDictionary = thisDictionaryToApply;
     var $tbody = $tbodyToApply;
     var record = recordToApply;
@@ -19,6 +18,15 @@ var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, rec
     var $tr = undefined;
     var rowIndex = 0;
     var subformRowIndex = undefined;
+    
+    var buildDictionary = function( dictionary ){
+        
+        var result = $.extend( true, {}, dictionary );
+        result[ 'omitKey' ] = true;
+        
+        return result;
+    };
+    thisDictionary = buildDictionary( thisDictionary );
     
     var getSubformName = function(){
         return undefined;
@@ -45,7 +53,6 @@ var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, rec
         
         var recordIndex = $tr.attr( 'data-record-index' );
         if ( isSubform ){
-            //rowIndex = recordIndex;
             subformRowIndex = recordIndex;
         } else {
             rowIndex = recordIndex;
@@ -80,25 +87,7 @@ var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, rec
         return rowIndex == rowIndexToCheck
         && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
     };
-    /*
-    var doAction = function( actionsObject, records ){
-        
-        var map = history.getMap( actionsObject, records, rowIndex );
-        var subformMapKey = subformName? history.getSubformMapKey( false ): undefined;
-        var subformElementIsNew = true;
-        if ( subformName ){
-            history.pushNewSubformRow( 
-                map, 
-                record, 
-                subformMapKey, 
-                subformElementIsNew, 
-                subformName, 
-                rowIndex, 
-                subformRowIndex );
-        } else {
-            map[ rowIndex ] = record;
-        }
-    };*/
+
     var doAction = function( actionsObject, records ){
 
         // Build or get row and then attach it to actionsObject
@@ -131,7 +120,6 @@ var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, rec
     return {
         undo: undo,
         redo: redo,
-        //register: register,
         isRelatedToField: isRelatedToField,
         isRelatedToRow: isRelatedToRow,
         doAction: doAction,
