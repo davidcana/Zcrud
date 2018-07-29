@@ -13,6 +13,7 @@ var HistoryCreate = require( '../history/create.js' );
 var HistoryDelete = require( '../history/delete.js' );
 var HistoryComposition = require( '../history/compositions/composition.js' );
 var crudManager = require( '../crudManager.js' );
+var pageUtils = require( '../pages/pageUtils.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
@@ -503,6 +504,10 @@ Subform.prototype.isFiltered = function(){
 
 Subform.prototype.getFieldsSource = function(){
     return this.fieldsMap;
+};
+
+Subform.prototype.generateId = function(){
+    return pageUtils.generateId();
 };
 
 module.exports = Subform;

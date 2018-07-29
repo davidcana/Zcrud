@@ -500,6 +500,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return options.fields;
     };
     
+    var generateId = function(){
+        return pageUtils.generateId();
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -534,7 +538,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         isReadOnly: isReadOnly,
         clientAndServerSuccessFunction: clientAndServerSuccessFunction,
         isFiltered: isFiltered,
-        getFieldsSource: getFieldsSource
+        getFieldsSource: getFieldsSource,
+        generateId: generateId
     };
     
     configure();

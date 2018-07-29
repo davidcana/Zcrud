@@ -109,11 +109,27 @@ module.exports = (function() {
         }
     };
     
+    var generateId = function ( len, charSet ) {
+        
+        // Init parameters
+        charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        len = len || 6;
+        
+        // Generate id using these parameters
+        var result = '';
+        for ( var i = 0; i < len; i++ ) {
+            var pos = Math.floor( Math.random() * charSet.length );
+            result += charSet.substring( pos, pos+1 );
+        }
+        return result;
+    }
+    
     return {
         configureTemplate: configureTemplate,
         normalizeNumber: normalizeNumber,
         findIndexInArray: findIndexInArray,
         ajaxError: ajaxError,
-        serverSideError: serverSideError
+        serverSideError: serverSideError,
+        generateId: generateId
     };
 })();
