@@ -487,6 +487,19 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         subformRows[ isNew? subformRowIndex: subformRowKey ] = row;
     };
     
+    var buildIterator = function(){
+        
+        var c = 0;
+
+        return {
+           next: function(){
+               return c < current?
+                    items[ c++ ]:
+                    false;
+           }
+        }
+    }
+    
     var self = {
         putChange: putChange,
         putCreate: putCreate,
@@ -515,7 +528,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         getMap: getMap,
         pushNewSubformRow: pushNewSubformRow,
         buildAndAttachRowForDoAction: buildAndAttachRowForDoAction,
-        getEditableOptions: getEditableOptions
+        getEditableOptions: getEditableOptions,
+        buildIterator: buildIterator
     };
     
     return self;
