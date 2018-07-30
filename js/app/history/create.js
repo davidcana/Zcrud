@@ -5,19 +5,21 @@
 
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
+var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
 var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, recordToApply, subformNameToApply ) {
     
-    var history = historyToApply;
-    var thisDictionary = thisDictionaryToApply;
-    var $tbody = $tbodyToApply;
-    var record = recordToApply;
-    var subformName = subformNameToApply;
-    var isSubform = subformName !== undefined;
+    AbstractHistoryAction.call( this, historyToApply );
     
-    var $tr = undefined;
-    var rowIndex = 0;
-    var subformRowIndex = undefined;
+    this.thisDictionary = thisDictionaryToApply;
+    this.$tbody = $tbodyToApply;
+    this.record = recordToApply;
+    this.subformName = subformNameToApply;
+    this.isSubform = this.subformName !== undefined;
+    
+    this.$tr = undefined;
+    this.rowIndex = 0;
+    this.subformRowIndex = undefined;
     
     var buildDictionary = function( dictionary ){
         
@@ -26,117 +28,85 @@ var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, rec
         
         return result;
     };
-    thisDictionary = buildDictionary( thisDictionary );
+    this.thisDictionary = buildDictionary( this.thisDictionary );
     
-    var getSubformName = function(){
-        return undefined;
-    };
-    
-    var undo = function(){
-        history.hideTr( $tr );
-    };
-    
-    var redo = function(){
-        history.showTr( $tr );
-        updateCSS( true );
-    };
-    
-    var addRow = function(){
-        
-        context.getZPTParser().run({
-            root: $tbody[ 0 ],
-            dictionary: thisDictionary,
-            notRemoveGeneratedTags: true
-        });
-        
-        $tr = $tbody.find( 'tr.zcrud-data-row:last' );
-        
-        var recordIndex = $tr.attr( 'data-record-index' );
-        if ( isSubform ){
-            subformRowIndex = recordIndex;
-        } else {
-            rowIndex = recordIndex;
-        }
-    };
-    
-    var register = function(){
-        updateCSS( true );
-    };
-    
-    var updateCSS = function( visible ){
-
-        if ( visible ){
-            $tr.addClass( history.getEditableOptions().modifiedRowsClass );
-        } else {
-            $tr.removeClass( history.getEditableOptions().modifiedRowsClass );
-        }
-    };
-    
-    var getNewValue = function( nameToGet ){
-        return record[ nameToGet ];
-    };
-    
-    var isRelatedToField = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
-        
-        return rowIndex == rowIndexToCheck 
-            && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
-    };
-    
-    var isRelatedToRow = function( rowIndexToCheck, subformNameToCheck, subformRowIndexToCheck ){
-        
-        return rowIndex == rowIndexToCheck
-        && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
-    };
-
-    var doAction = function( actionsObject, records ){
-
-        // Build or get row and then attach it to actionsObject
-        history.buildAndAttachRowForDoAction( 
-            actionsObject, 
-            records, 
-            rowIndex, 
-            subformName, 
-            subformRowIndex,
-            undefined,
-            record,
-            false );
-    };
-    
-    var get$Tr = function(){
-        return $tr;
-    };
-    
-    var saveEnabled = function(){
-        return false;
-    };
-    
-    var isDirty = function(){
-        return false;
-    };
-    
-    addRow();
-    register();
-    
-    return {
-        undo: undo,
-        redo: redo,
-        isRelatedToField: isRelatedToField,
-        isRelatedToRow: isRelatedToRow,
-        doAction: doAction,
-        getNewValue: getNewValue,
-        get$Tr: get$Tr,
-        saveEnabled: saveEnabled,
-        getSubformName: getSubformName,
-        isDirty: isDirty,
-        type: 'create'
-    };
+    this.addRow();
+    this.updateCSS( true );
 };
 
-Create.resetCSS = function( $list, editableOptions ){
+Create.prototype = new AbstractHistoryAction();
+Create.prototype.constructor = Create;
 
-    /*
-    $list.find( '.' + editableOptions.addedRowsClass ).removeClass( editableOptions.addedRowsClass );
-    */
+Create.prototype.undo = function(){
+    this.history.hideTr( this.$tr );
 };
+
+Create.prototype.redo = function(){
+    this.history.showTr( this.$tr );
+    this.updateCSS( true );
+};
+
+Create.prototype.addRow = function(){
+
+    context.getZPTParser().run({
+        root: this.$tbody[ 0 ],
+        dictionary: this.thisDictionary,
+        notRemoveGeneratedTags: true
+    });
+
+    this.$tr = this.$tbody.find( 'tr.zcrud-data-row:last' );
+
+    var recordIndex = this.$tr.attr( 'data-record-index' );
+    if ( this.isSubform ){
+        this.subformRowIndex = recordIndex;
+    } else {
+        this.rowIndex = recordIndex;
+    }
+};
+
+Create.prototype.updateCSS = function( visible ){
+
+    if ( visible ){
+        this.$tr.addClass( 
+            this.history.getEditableOptions().modifiedRowsClass );
+    } else {
+        this.$tr.removeClass( 
+            this.history.getEditableOptions().modifiedRowsClass );
+    }
+};
+
+Create.prototype.getNewValue = function( nameToGet ){
+    return this.record[ nameToGet ];
+};
+
+Create.prototype.doAction = function( actionsObject, records ){
+
+    // Build or get row and then attach it to actionsObject
+    this.history.buildAndAttachRowForDoAction( 
+        actionsObject, 
+        records, 
+        this.rowIndex, 
+        this.subformName, 
+        this.subformRowIndex,
+        undefined,
+        this.record,
+        false );
+};
+
+Create.prototype.get$Tr = function(){
+    return this.$tr;
+};
+
+Create.prototype.saveEnabled = function(){
+    return false;
+};
+
+Create.prototype.isDirty = function(){
+    return false;
+};
+
+Create.resetCSS = function(){};
+
+Create.prototype.type = 'create';
 
 module.exports = Create;

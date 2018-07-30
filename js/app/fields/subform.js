@@ -11,7 +11,7 @@ var ComponentsMap = require( '../components/componentsMap.js' );
 var fieldUtils = require( './fieldUtils.js' );
 var HistoryCreate = require( '../history/create.js' );
 var HistoryDelete = require( '../history/delete.js' );
-var HistoryComposition = require( '../history/compositions/composition.js' );
+var HistoryComposition = require( '../history/composition.js' );
 var crudManager = require( '../crudManager.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
 
@@ -333,7 +333,7 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
         return [];
     }
     
-    var composition = new HistoryComposition();
+    var composition = new HistoryComposition( context.getHistory() );
 
     for ( var c = 0; c < records.length; ++c ){
         var currentRecord = records[ c ];        

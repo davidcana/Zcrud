@@ -5,205 +5,131 @@
 
 var $ = require( 'jquery' );
 var context = require( '../../../js/app/context.js' );
+var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
 var Change = function( historyToApply, optionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
-    var history = historyToApply;
-    var options = optionsToApply;
-    //var editableOptions = editableOptionsToApply;
-    var rowIndex = rowIndexToApply;
-    var name = nameToApply;
-    var newValue = newValueToApply;
-    var previousValue = previousValueToApply;
-    var $this = $thisToApply;
-    var field = fieldToApply;
-    var subformName = subformNameToApply;
-    var subformRowIndex = subformRowIndexToApply;
-    var subformRowKey = subformRowKeyToApply;
+    AbstractHistoryAction.call( this, historyToApply );
     
-    var getSubformName = function(){
-        return subformName;
-    };
-    
-    var setValue = function( value ){
-        
-        field.setValueToForm(  
-            value, 
-            $this, 
-            ! history.isFormMode(), 
-            options );
-    };
-    
-    var undo = function(){
-        
-        setValue( previousValue );
-        
-        var previousItem = history.getPreviousItem( rowIndex, name, subformName, subformRowIndex );
-        updateCSS(
-            previousItem? previousItem.isDirty(): false, 
-            history.getPreviousRecordItem( rowIndex, subformName, subformRowIndex ) );
-    };
-    
-    var redo = function(){
-        
-        setValue( newValue );
-        updateCSS( true, true );
-    };
-    
-    var updateCSS = function( fieldChanged, registerChanged ){
+    this.options = optionsToApply;
+    this.rowIndex = rowIndexToApply;
+    this.name = nameToApply;
+    this.newValue = newValueToApply;
+    this.previousValue = previousValueToApply;
+    this.$this = $thisToApply;
+    this.field = fieldToApply;
+    this.subformName = subformNameToApply;
+    this.subformRowIndex = subformRowIndexToApply;
+    this.subformRowKey = subformRowKeyToApply;
 
-        if ( ! $this ){
-            return;
-        }
-        
-        if ( history.isFormMode() && ! subformName ){
-            if ( fieldChanged ){
-                $this.closest( '.zcrud-field' ).addClass( history.getEditableOptions().modifiedFieldsClass );
-            } else {
-                $this.closest( '.zcrud-field' ).removeClass( history.getEditableOptions().modifiedFieldsClass );   
-            }
-            return;    
-        }
-        
+    this.updateCSS( true, true );
+};
+
+Change.prototype = new AbstractHistoryAction();
+Change.prototype.constructor = Change;
+
+Change.prototype.setValue = function( value ){
+
+    this.field.setValueToForm(  
+        value, 
+        this.$this, 
+        ! this.history.isFormMode(), 
+        this.options );
+};
+
+Change.prototype.undo = function(){
+
+    this.setValue( this.previousValue );
+
+    var previousItem = this.history.getPreviousItem( 
+        this.rowIndex, 
+        this.name, 
+        this.subformName, 
+        this.subformRowIndex );
+    
+    this.updateCSS(
+        previousItem? previousItem.isDirty(): false, 
+        this.history.getPreviousRecordItem( 
+            this.rowIndex, 
+            this.subformName, 
+            this.subformRowIndex ) );
+};
+
+Change.prototype.redo = function(){
+
+    this.setValue( this.newValue );
+    this.updateCSS( true, true );
+};
+
+Change.prototype.updateCSS = function( fieldChanged, registerChanged ){
+
+    if ( ! this.$this ){
+        return;
+    }
+
+    if ( this.history.isFormMode() && ! this.subformName ){
         if ( fieldChanged ){
-            $this.closest( 'td' ).addClass( history.getEditableOptions().modifiedFieldsClass );
+            this.$this.closest( '.zcrud-field' ).addClass( 
+                this.history.getEditableOptions().modifiedFieldsClass );
         } else {
-            $this.closest( 'td' ).removeClass( history.getEditableOptions().modifiedFieldsClass );
+            this.$this.closest( '.zcrud-field' ).removeClass( 
+                this.history.getEditableOptions().modifiedFieldsClass );   
         }
+        return;    
+    }
 
-        if ( registerChanged ){
-            $this.closest( 'tr' ).addClass( history.getEditableOptions().modifiedRowsClass );
-        } else {
-            $this.closest( 'tr' ).removeClass( history.getEditableOptions().modifiedRowsClass );
-        }
-    };
-    
-    var register = function(){
-        updateCSS( true, true );
-    };
-    
-    var getNewValue = function(){
-        return newValue;
-    };
-    
-    var isRelatedToField = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
-        
-        return rowIndex == rowIndexToCheck && name == nameToCheck
-            && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
-    };
-    
-    var isRelatedToRow = function( rowIndexToCheck, subformNameToCheck, subformRowIndexToCheck ){
-        
-        return rowIndex == rowIndexToCheck
-            && subformName == subformNameToCheck && subformRowIndex == subformRowIndexToCheck;
-    };
-    
-    var doAction = function( actionsObject, records ){
-        
-        // Build or get row and then attach it to actionsObject
-        var row = history.buildAndAttachRowForDoAction( 
-            actionsObject, 
-            records, 
-            rowIndex, 
-            subformName, 
-            subformRowIndex, 
-            subformRowKey,
-            undefined,
-            true );
-        
-        // Set new value
-        row[ name ] = newValue;
-    };
-    /*
-    var doAction = function( actionsObject, records ){
-        
-        // Build or get row
-        var row = buildAndAttachRowForDoAction( actionsObject, records );
+    if ( fieldChanged ){
+        this.$this.closest( 'td' ).addClass( 
+            this.history.getEditableOptions().modifiedFieldsClass );
+    } else {
+        this.$this.closest( 'td' ).removeClass( 
+            this.history.getEditableOptions().modifiedFieldsClass );
+    }
 
-        // Set new value
-        row[ name ] = newValue;
-    };
-    var buildAndAttachRowForDoAction = function( actionsObject, records ){
+    if ( registerChanged ){
+        this.$this.closest( 'tr' ).addClass( 
+            this.history.getEditableOptions().modifiedRowsClass );
+    } else {
+        this.$this.closest( 'tr' ).removeClass( 
+            this.history.getEditableOptions().modifiedRowsClass );
+    }
+};
 
-        var subformElementIsNew = subformRowKey == '' || ! subformRowKey? true: false;
-        var map = history.getMap( actionsObject, records, rowIndex );
-        var subformMapKey = subformName? history.getSubformMapKey( ! subformElementIsNew ): undefined;
+Change.prototype.getNewValue = function(){
+    return this.newValue;
+};
 
-        // Search row
-        var row = map[ rowIndex ];
-        if ( subformName ){
-            row = getSubformRow( 
-                row, 
-                subformMapKey, 
-                subformElementIsNew, 
-                subformName, 
-                subformRowIndex, 
-                subformRowKey );
-        }
+Change.prototype.doAction = function( actionsObject, records ){
 
-        // Build empty row if not found
-        if ( ! row ){
-            row = {};
-            if ( subformName ){
-                history.pushNewSubformRow( 
-                    map, 
-                    row, 
-                    subformMapKey, 
-                    subformElementIsNew, 
-                    subformName, 
-                    rowIndex, 
-                    subformRowIndex, 
-                    subformRowKey );
-            } else {
-                map[ rowIndex ] = row;
-            }
-        }
+    // Build or get row and then attach it to actionsObject
+    var row = this.history.buildAndAttachRowForDoAction( 
+        actionsObject, 
+        records, 
+        this.rowIndex, 
+        this.subformName, 
+        this.subformRowIndex, 
+        this.subformRowKey,
+        undefined,
+        true );
 
-        return row;
-    };
-    var getSubformRow = function( row, subformMapKey, isNew ){
+    // Set new value
+    row[ this.name ] = this.newValue;
+};
 
-        var lastKey = isNew? subformRowIndex: subformRowKey;
+Change.prototype.saveEnabled = function(){
+    return true;
+};
 
-        if ( row && row[ subformName ] && row[ subformName ][ subformMapKey ] && row[ subformName ][ subformMapKey ][ lastKey ] ){
-            row = row[ subformName ][ subformMapKey ][ lastKey ];
-        } else {
-            row = undefined;
-        }
+Change.prototype.isDirty = function(){
+    return true;
+};
 
-        return row;
-    };
-    */
-    
-    var saveEnabled = function(){
-        return true;
-    };
-    
-    var isDirty = function(){
-        return true;
-    };
-    
-    register();
-    
-    return {
-        undo: undo,
-        redo: redo,
-        //register: register,
-        isRelatedToField: isRelatedToField,
-        isRelatedToRow: isRelatedToRow,
-        doAction: doAction,
-        rowIndex: rowIndex,
-        subformRowIndex: subformRowIndex,
-        field: field,
-        name: name,
-        getNewValue: getNewValue,
-        previousValue: previousValue,
-        $this: $this,
-        saveEnabled: saveEnabled,
-        getSubformName: getSubformName,
-        isDirty: isDirty,
-        type: 'change'
-    };
+Change.prototype.isRelatedToField = function( rowIndexToCheck, nameToCheck, subformNameToCheck, subformRowIndexToCheck ){
+
+    return this.rowIndex == rowIndexToCheck 
+        && this.name == nameToCheck
+        && this.subformName == subformNameToCheck
+        && this.subformRowIndex == subformRowIndexToCheck;
 };
 
 Change.resetCSS = function( $list, editableOptions ){
@@ -211,5 +137,7 @@ Change.resetCSS = function( $list, editableOptions ){
     $list.find( '.' + editableOptions.modifiedFieldsClass ).removeClass( editableOptions.modifiedFieldsClass );
     $list.find( '.' + editableOptions.modifiedRowsClass ).removeClass( editableOptions.modifiedRowsClass );
 };
+
+Change.prototype.type = 'change';
 
 module.exports = Change;

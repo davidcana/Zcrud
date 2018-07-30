@@ -5,114 +5,90 @@
 
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
+var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
 var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply ) {
     
-    var history = historyToApply;
-    var rowIndex = rowIndexToApply;
-    var key = keyToApply;
-    var $tr = $trToApply;
-    var subformName = subformNameToApply;
+    AbstractHistoryAction.call( this, historyToApply );
     
-    var getSubformName = function(){
-        return undefined;
-    };
+    this.rowIndex = rowIndexToApply;
+    this.key = keyToApply;
+    this.$tr = $trToApply;
+    this.subformName = subformNameToApply;
     
-    var undo = function(){
-        history.showTr( $tr );
-    };
-    
-    var redo = function(){
-        history.hideTr( $tr );
-    };
-    
-    var hideRow = function(){
-        
-        if ( $tr ){
-            history.hideTr( $tr );
-        }
-    };
-    
-    var register = function(){
-        // Nothing to do
-    };
-    
-    var getNewValue = function(){
-        return undefined;
-    };
-    
-    var isRelatedToField = function(){
-        return false;
-    };
-    
-    var isRelatedToRow = function( rowIndexToCheck ){
-        return rowIndex == rowIndexToCheck;
-    };
-
-    var getDeletedMap = function( actionsObject, records ){
-
-        var record = records[ rowIndex ];
-        var map = record? actionsObject.modified: actionsObject.new;
-        
-        if ( ! map[ rowIndex ] || ! map[ rowIndex ][ subformName ] ){
-            history.createNestedObject( 
-                map, 
-                [ rowIndex, subformName ], 
-                history.buildEmptyActionsObject() );
-        }
-        
-        return map[ rowIndex ][ subformName ].deleted;
-    };
-    
-    var doAction = function( actionsObject, records ){
-        
-        var deletedMap = 
-            subformName? 
-            getDeletedMap( actionsObject, records ):
-            actionsObject.deleted;
-        
-        if ( deletedMap.indexOf( key ) == -1 ){
-            deletedMap.push( key );
-        }
-    };
-    
-    var get$Tr = function(){
-        return $tr;
-    };
-    
-    var getKey = function(){
-        return key;
-    };
-    
-    var saveEnabled = function(){
-        //return true;
-        return key !== undefined;
-    };
-    
-    var isDirty = function(){
-        return false;
-    };
-    
-    hideRow();
-    register();
-    
-    return {
-        undo: undo,
-        redo: redo,
-        //register: register,
-        isRelatedToField: isRelatedToField,
-        isRelatedToRow: isRelatedToRow,
-        doAction: doAction,
-        getNewValue: getNewValue,
-        get$Tr: get$Tr,
-        getKey: getKey,
-        saveEnabled: saveEnabled,
-        getSubformName: getSubformName,
-        isDirty: isDirty,
-        type: 'delete'
-    };
+    if ( this.$tr ){
+        this.history.hideTr( this.$tr );
+    }
 };
 
-Delete.resetCSS = function( $list, editableOptions ){};
+Delete.prototype = new AbstractHistoryAction();
+Delete.prototype.constructor = Delete;
+
+Delete.prototype.undo = function(){
+    this.history.showTr( this.$tr );
+};
+
+Delete.prototype.redo = function(){
+    this.history.hideTr( this.$tr );
+};
+
+Delete.prototype.getNewValue = function(){
+    return undefined;
+};
+
+Delete.prototype.isRelatedToField = function(){
+    return false;
+};
+
+Delete.prototype.isRelatedToRow = function( rowIndexToCheck ){
+    return this.rowIndex == rowIndexToCheck;
+};
+
+Delete.prototype.getDeletedMap = function( actionsObject, records ){
+
+    var record = records[ this.rowIndex ];
+    var map = record? actionsObject.modified: actionsObject.new;
+
+    if ( ! map[ this.rowIndex ] || ! map[ this.rowIndex ][ this.subformName ] ){
+        this.history.createNestedObject( 
+            map, 
+            [ this.rowIndex, this.subformName ], 
+            this.history.buildEmptyActionsObject() );
+    }
+
+    return map[ this.rowIndex ][ this.subformName ].deleted;
+};
+
+Delete.prototype.doAction = function( actionsObject, records ){
+
+    var deletedMap = 
+        this.subformName? 
+        this.getDeletedMap( actionsObject, records ):
+        actionsObject.deleted;
+
+    if ( deletedMap.indexOf( this.key ) == -1 ){
+        deletedMap.push( this.key );
+    }
+};
+
+Delete.prototype.get$Tr = function(){
+    return this.$tr;
+};
+
+Delete.prototype.getKey = function(){
+    return this.key;
+};
+
+Delete.prototype.saveEnabled = function(){
+    return this.key !== undefined;
+};
+
+Delete.prototype.isDirty = function(){
+    return false;
+};
+
+Delete.resetCSS = function(){};
+
+Delete.prototype.type = 'delete';
 
 module.exports = Delete;
