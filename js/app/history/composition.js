@@ -93,6 +93,18 @@ Composition.prototype.isDirty = function(){
     return this.runMethodForAllUsingOr.apply( this, [ 'isDirty', arguments ] );
 };
 
+Composition.prototype.getAtomicItems = function(){
+    
+    var result = [];
+    
+    for ( var c = 0; c < this.items.length; ++c ){
+        var item = this.items[ c ];
+        result = result.concat( item.getAtomicItems() );
+    }
+    
+    return result;
+};
+
 Composition.prototype.type = 'composition';
 
 module.exports = Composition;

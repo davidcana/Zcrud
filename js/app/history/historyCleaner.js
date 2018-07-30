@@ -24,7 +24,7 @@ var HistoryCleaner = function( historyToApply ) {
         var iterator = history.buildIterator();
         
         for ( var historyItem = iterator.next(); historyItem; iterator.next() ){
-            var items = historyItem.getAtomicItems(); // TODO Add getAtomicItems method to all history classes
+            var items = historyItem.getAtomicItems();
             for ( var c = 0; c < items.length; c++ ){
                 add( items[ c ] );
             }

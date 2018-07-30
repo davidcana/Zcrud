@@ -54,6 +54,10 @@ AbstractHistoryAction.prototype.isDirty = function(){
     throw 'Method isDirty not implemented!';
 };
 
+AbstractHistoryAction.prototype.getAtomicItems = function(){
+    return [ this ];
+};
+
 AbstractHistoryAction.prototype.type = 'AbstractHistoryAction';
 
 module.exports = AbstractHistoryAction;
