@@ -71,7 +71,7 @@ var HistoryCleaner = function( historyToApply ) {
     };
     
     var historyItemIsOff = function( historyItem ){
-        return ! offItems[ historyItem.getId() ]; // TODO Add getId to all history classes
+        return ! offItems[ historyItem.getId() ];
     };
     
     return {

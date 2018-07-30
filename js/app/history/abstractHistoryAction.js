@@ -4,9 +4,16 @@
 "use strict";
 
 //var $ = require( 'jquery' );
+var pageUtils = require( '../pages/pageUtils.js' );
 
 var AbstractHistoryAction = function( historyToApply ){
+    
     this.history = historyToApply;
+    this.id = pageUtils.generateId();
+};
+
+AbstractHistoryAction.prototype.getId = function(){
+    return this.id;
 };
 
 AbstractHistoryAction.prototype.undo = function(){
