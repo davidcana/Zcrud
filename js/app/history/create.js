@@ -105,6 +105,10 @@ Create.prototype.isDirty = function(){
     return false;
 };
 
+Create.prototype.updateFromChange = function( changeHistoryItem ){
+    this.record[ changeHistoryItem.name ] = changeHistoryItem.newValue;
+};
+
 Create.resetCSS = function(){};
 
 Create.prototype.type = 'create';
