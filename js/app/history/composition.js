@@ -85,6 +85,10 @@ Composition.prototype.doAction = function(){
     this.runMethodForAll.apply( this, [ 'doAction', arguments ] );
 };
 
+Composition.prototype.doActionIfNotOff = function(){
+    this.runMethodForAll.apply( this, [ 'doActionIfNotOff', arguments ] );
+};
+
 Composition.prototype.saveEnabled = function(){
     return true;
 };

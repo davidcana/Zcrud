@@ -47,6 +47,13 @@ AbstractHistoryAction.prototype.doAction = function(){
     throw 'Method doAction not implemented!';
 };
 
+AbstractHistoryAction.prototype.doActionIfNotOff = function( actionsObject, records, historyCleaner ){
+    
+    if ( historyCleaner.historyItemIsOn( this ) ){
+        this.doAction( actionsObject, records );
+    }
+};
+
 AbstractHistoryAction.prototype.getNewValue = function(){
     throw 'Method getNewValue not implemented!';
 };

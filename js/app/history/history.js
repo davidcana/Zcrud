@@ -4,6 +4,7 @@
 var HistoryChange = require( './change.js' );
 var HistoryCreate = require( './create.js' );
 var HistoryDelete = require( './delete.js' );
+var HistoryCleaner = require( './historyCleaner.js' );
 var crudManager = require( '../crudManager.js' );
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
@@ -164,9 +165,6 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         if ( isRedoEnabled() ){
             items.splice( current, items.length - current );
         }
-        
-        // Add history item to modified object
-        //historyItem.register( modified );
         
         // Update CSS and HTML
         updateHTML( id );
@@ -396,11 +394,15 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
     var buildActionsObject = function( records ){
 
+        var historyCleaner = new HistoryCleaner( self );
+        //historyCleaner.run();
+        
         var actionsObject = buildEmptyActionsObject();
         
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
-            historyItem.doAction( actionsObject, records );
+            historyItem.doActionIfNotOff( actionsObject, records, historyCleaner );
+            //historyItem.doAction( actionsObject, records );
         }
 
         return actionsObject;

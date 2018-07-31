@@ -9,34 +9,39 @@ var context = require( '../context.js' );
 var HistoryCleaner = function( historyToApply ) {
     
     var history = historyToApply;
-    var data;
-    var offItems;
+    var data = {};
+    var offItems = {};
 
     var run = function(){
         
-        data = {};
         buildData();
         analyzeData();
     };    
         
     var buildData = function(){
         
-        var iterator = history.buildIterator();
+        data = {};
         
-        for ( var historyItem = iterator.next(); historyItem; iterator.next() ){
+        var iterator = history.buildIterator();
+        var historyItem = iterator.next();
+        
+        while ( historyItem ){
             var items = historyItem.getAtomicItems();
             for ( var c = 0; c < items.length; c++ ){
                 add( items[ c ] );
             }
+            historyItem = iterator.next();
         }
     };
   
     var add = function( item ){
         
-        var entry = data[ item.getRecordId() ]; // TODO Add getRecordId to all history classes
+        var index = item.getRecordId();
+        var entry = data[ index ];
         
         if ( ! entry ){
-            data[ item.getId() ] = [];
+            entry = [];
+            data[ index ] = entry;
         }
         
         entry.push( item );
@@ -88,13 +93,13 @@ var HistoryCleaner = function( historyToApply ) {
         }
     };
     
-    var historyItemIsOff = function( historyItem ){
+    var historyItemIsOn = function( historyItem ){
         return ! offItems[ historyItem.getId() ];
     };
     
     return {
         run: run,
-        historyItemIsOff: historyItemIsOff
+        historyItemIsOn: historyItemIsOn
     };
 };
 
