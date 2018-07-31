@@ -7,9 +7,9 @@ var $ = require( 'jquery' );
 var context = require( '../../../js/app/context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
-var Change = function( historyToApply, optionsToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
+var Change = function( historyToApply, optionsToApply, recordIdToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
-    AbstractHistoryAction.call( this, historyToApply );
+    AbstractHistoryAction.call( this, historyToApply, recordIdToApply );
     
     this.options = optionsToApply;
     this.rowIndex = rowIndexToApply;

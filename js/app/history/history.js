@@ -65,7 +65,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         };
     };
     
-    var putChange = function( $this, newValue, rowIndex, id, field, subformRowIndex, subformRowKey ) {
+    var putChange = function( $this, newValue, rowIndex, recordId, id, field, subformRowIndex, subformRowKey ) {
         
         // Build name object
         var nameObject = buildNameObject( field );
@@ -79,7 +79,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         var historyItem = new HistoryChange(
             self,
             options,
-            //editableOptions,
+            recordId,
             rowIndex,
             nameObject.name,
             newValue,
@@ -109,7 +109,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         var historyItem = new HistoryChange(
             self,
             options, 
-            //editableOptions,
+            '1',
             rowIndex,
             nameObject.name,
             newValue,
@@ -131,7 +131,6 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         var historyItem = new HistoryCreate( 
             self,
-            //editableOptions,
             thisDictionary,
             $selection,
             record,

@@ -343,6 +343,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                     $this, 
                     field.getValue( $this ), 
                     0,
+                    '1',
                     id,
                     field );
                 /*if ( autoSaveMode ){

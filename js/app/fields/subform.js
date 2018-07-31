@@ -158,6 +158,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                     $this, 
                     field.getValue( $this ), 
                     0,
+                    $tr.attr( 'data-record-id' ),
                     page.getId(),
                     field,
                     $tr.attr( 'data-record-index' ),

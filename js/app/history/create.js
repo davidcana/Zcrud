@@ -31,6 +31,7 @@ var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, rec
     this.thisDictionary = buildDictionary( this.thisDictionary );
     
     this.addRow();
+    this.recordId = this.$tr.attr( 'data-record-id' );
     this.updateCSS( true );
 };
 

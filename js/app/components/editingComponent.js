@@ -96,22 +96,26 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         $preselection
             .find( '.zcrud-column-data input.historyField, .zcrud-column-data textarea.historyField, .zcrud-column-data select.historyField' )
-            .change( function ( event, disableHistory ) {
-                if ( disableHistory ){
-                    return;
+            .change( 
+                function ( event, disableHistory ) {
+                    if ( disableHistory ){
+                        return;
+                    }
+                    var $this = $( this );
+                    var field = listPage.getFieldByName( $this.prop( 'name' ) );
+                    var $tr = $this.closest( 'tr' );
+                    context.getHistory().putChange( 
+                        $this, 
+                        field.getValue( $this ),
+                        $tr.attr( 'data-record-index' ),
+                        $tr.attr( 'data-record-id' ),
+                        listPage.getId(),
+                        field );
+                    if ( autoSaveMode ){
+                        save( event );
+                    }
                 }
-                var $this = $( this );
-                var field = listPage.getFieldByName( $this.prop( 'name' ) );
-                context.getHistory().putChange( 
-                    $this, 
-                    field.getValue( $this ),
-                    $this.closest( 'tr' ).attr( 'data-record-index' ),
-                    listPage.getId(),
-                    field );
-                if ( autoSaveMode ){
-                    save( event );
-                }
-        });
+            );
 
         $preselection
             .find( '.zcrud-delete-row-command-button' )

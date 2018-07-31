@@ -6,14 +6,19 @@
 //var $ = require( 'jquery' );
 var pageUtils = require( '../pages/pageUtils.js' );
 
-var AbstractHistoryAction = function( historyToApply ){
+var AbstractHistoryAction = function( historyToApply, recordIdToApply ){
     
     this.history = historyToApply;
+    this.recordId = recordIdToApply;
     this.id = pageUtils.generateId();
 };
 
 AbstractHistoryAction.prototype.getId = function(){
     return this.id;
+};
+
+AbstractHistoryAction.prototype.getRecordId = function(){
+    return this.recordId;
 };
 
 AbstractHistoryAction.prototype.undo = function(){
