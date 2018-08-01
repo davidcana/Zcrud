@@ -183,13 +183,12 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var deleteRow = function( event ){
 
         var $tr =  $( event.target ).closest( 'tr' );
-        var key = $tr.attr( 'data-record-key' );
-        var rowIndex = $tr.attr( 'data-record-index' );
 
         context.getHistory().putDelete( 
             listPage.getId(), 
-            rowIndex, 
-            key, 
+            $tr.attr( 'data-record-id' ),
+            $tr.attr( 'data-record-index' ), 
+            $tr.attr( 'data-record-key' ), 
             $tr );
 
         if ( autoSaveMode ){
@@ -252,64 +251,68 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             undefined,
             context.getHistory() );
         
+        // Return if there is no operation to do
+        if ( ! jsonObject ){
+            context.showError( options, false, 'No operation to do!' );
+            return false;
+        }
+        /*
         if ( jsonObject.existingRecords && Object.keys( jsonObject.existingRecords ).length == 0 
             && jsonObject.newRecords && jsonObject.newRecords.length == 0 
             && jsonObject.deleted && jsonObject.deleted.recordsToRemove == 0){
             context.showError( options, false, 'No operations done!' );
             return false;
-        }
+        }*/
 
-        if ( jsonObject ){
-            var newJSONObject = {
-                existingRecords: jsonObject.existingRecords,
-                newRecords: jsonObject.newRecords,
-                recordsToRemove: jsonObject.recordsToRemove,
-                success: function( dataFromServer ){
-                    
-                    // Check server side validation
-                    if ( ! dataFromServer || dataFromServer.result != 'OK' ){
-                        pageUtils.serverSideError( dataFromServer, options, context, undefined );
-                        return false;
-                    }
-                    listPage.showStatusMessage({
-                        status:{
-                            message: 'listUpdateSuccess',
-                            date: new Date().toLocaleString()   
-                        }
-                    });
-                    
-                    // Update records in list and update paging component
-                    var delta = updateRecords( jsonObject, dataFromServer );
-                    var pagingComponent = listPage.getSecureComponent( 'paging' );
-                    if ( pagingComponent ){
-                        pagingComponent.dataFromClient( delta );
-                    }
-                    listPage.updateBottomPanel();
-                    
-                    updateKeys( 
-                        context.getHistory().getAllTr$FromCreateItems(), 
-                        dataFromServer.newRecords );
-                    context.getHistory().reset( listPage.getId() );
-                    
-                },
-                error: function( request, status, error ){
-                    pageUtils.ajaxError( request, status, error, options, context, undefined );
-                },
-                url: thisOptions.url
-            };
+        var newJSONObject = {
+            existingRecords: jsonObject.existingRecords,
+            newRecords: jsonObject.newRecords,
+            recordsToRemove: jsonObject.recordsToRemove,
+            success: function( dataFromServer ){
 
-            crudManager.batchUpdate( 
-                newJSONObject, 
-                options, 
-                event,
-                {
-                    $form: listPage.get$form(),
-                    formType: 'list',
-                    dataToSend: newJSONObject,
-                    options: options
+                // Check server side validation
+                if ( ! dataFromServer || dataFromServer.result != 'OK' ){
+                    pageUtils.serverSideError( dataFromServer, options, context, undefined );
+                    return false;
                 }
-            );
-        }
+                listPage.showStatusMessage({
+                    status:{
+                        message: 'listUpdateSuccess',
+                        date: new Date().toLocaleString()   
+                    }
+                });
+
+                // Update records in list and update paging component
+                var delta = updateRecords( jsonObject, dataFromServer );
+                var pagingComponent = listPage.getSecureComponent( 'paging' );
+                if ( pagingComponent ){
+                    pagingComponent.dataFromClient( delta );
+                }
+                listPage.updateBottomPanel();
+
+                updateKeys( 
+                    context.getHistory().getAllTr$FromCreateItems(), 
+                    dataFromServer.newRecords );
+                context.getHistory().reset( listPage.getId() );
+
+            },
+            error: function( request, status, error ){
+                pageUtils.ajaxError( request, status, error, options, context, undefined );
+            },
+            url: thisOptions.url
+        };
+
+        crudManager.batchUpdate( 
+            newJSONObject, 
+            options, 
+            event,
+            {
+                $form: listPage.get$form(),
+                formType: 'list',
+                dataToSend: newJSONObject,
+                options: options
+            }
+        );
 
         return jsonObject;
     };

@@ -142,10 +142,11 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         return historyItem;
     };
     
-    var putDelete = function( id, rowIndex, key, $tr, field ) {
+    var putDelete = function( id, recordId, rowIndex, key, $tr, field ) {
 
         var historyItem = new HistoryDelete( 
             self, 
+            recordId,
             rowIndex, 
             key, 
             $tr,
@@ -394,15 +395,14 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
     var buildActionsObject = function( records ){
 
-        var historyCleaner = new HistoryCleaner( self );
-        //historyCleaner.run();
+        var historyCleaner = new HistoryCleaner();
+        historyCleaner.run( buildIterator() );
         
         var actionsObject = buildEmptyActionsObject();
         
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
             historyItem.doActionIfNotOff( actionsObject, records, historyCleaner );
-            //historyItem.doAction( actionsObject, records );
         }
 
         return actionsObject;

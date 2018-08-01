@@ -6,23 +6,23 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
-var HistoryCleaner = function( historyToApply ) {
+var HistoryCleaner = function() {
     
-    var history = historyToApply;
+    //var history = historyToApply;
     var data = {};
     var offItems = {};
 
-    var run = function(){
+    var run = function( iterator ){
         
-        buildData();
+        buildData( iterator );
         analyzeData();
     };    
         
-    var buildData = function(){
+    var buildData = function( iterator ){
         
         data = {};
         
-        var iterator = history.buildIterator();
+        //var iterator = history.buildIterator();
         var historyItem = iterator.next();
         
         while ( historyItem ){
@@ -59,9 +59,11 @@ var HistoryCleaner = function( historyToApply ) {
             
             if ( lastItemIsDelete ){
                 offBeforeDeleteItems( recordItems, firstItemIsCreate );
-            } else if ( firstItemIsCreate ){
+            } 
+            /*
+            else if ( firstItemIsCreate ){
                 offChangeItems( recordItems );
-            }
+            }*/
         }
     };
     
@@ -79,7 +81,7 @@ var HistoryCleaner = function( historyToApply ) {
             offItems[ item.getId() ] = true;
         }
     };
-    
+    /*
     var offChangeItems = function( recordItems ){
         
         var createItem = recordItems[ 0 ];
@@ -92,7 +94,7 @@ var HistoryCleaner = function( historyToApply ) {
             offItems[ item.getId() ] = true;
         }
     };
-    
+    */
     var historyItemIsOn = function( historyItem ){
         return ! offItems[ historyItem.getId() ];
     };

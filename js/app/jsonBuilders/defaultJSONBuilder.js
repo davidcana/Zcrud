@@ -133,7 +133,7 @@ module.exports = (function() {
         // Return false if there is no record to modify, to create or to delete
         if ( Object.keys( jsonObject.existingRecords ).length == 0 
             && jsonObject.newRecords.length == 0 
-            && jsonObject.recordsToRemove == 0 ){
+            && jsonObject.recordsToRemove.length == 0 ){
             return false;
         }
         return jsonObject;
@@ -224,6 +224,7 @@ module.exports = (function() {
                 // delete row
                 historyItem = new HistoryDelete( 
                     self, 
+                    rowIndex,
                     0, 
                     key, 
                     undefined,

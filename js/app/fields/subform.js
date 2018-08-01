@@ -235,11 +235,11 @@ Subform.prototype.deleteRow = function( event ){
 
     context.getHistory().putDelete( 
         this.page.getId(), 
+        $tr.attr( 'data-record-id' ),
         0, 
         $tr.attr( 'data-record-key' ), 
         $tr,
         this );
-        //$tr.attr( 'data-record-index' ) );
 };
 
 Subform.prototype.getTemplate = function(){
@@ -354,6 +354,7 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
             composition.add( 
                 new HistoryDelete( 
                     context.getHistory(), 
+                    $tr.attr( 'data-record-id' ),
                     0, 
                     $tr.attr( 'data-record-key' ), 
                     $tr,

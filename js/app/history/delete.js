@@ -7,9 +7,9 @@ var $ = require( 'jquery' );
 var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
-var Delete = function( historyToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply ) {
+var Delete = function( historyToApply, recordIdToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply ) {
     
-    AbstractHistoryAction.call( this, historyToApply );
+    AbstractHistoryAction.call( this, historyToApply, recordIdToApply );
     
     this.rowIndex = rowIndexToApply;
     this.key = keyToApply;
