@@ -57,6 +57,7 @@
     "updateSuccess": "¡Registro actualizado!",
     "deleteSuccess": "¡Registro eliminado!",
     "listUpdateSuccess": "¡Todas las operaciones completadas!",
+    "formListUpdateSuccess": "¡Operación completada!",
     "serverCommunicationError": "¡Ha ocurrido un error comunicándose con el servidor!",
     "undefinedValueToShow": "(no establecido)",
     "true": "Verdadero",

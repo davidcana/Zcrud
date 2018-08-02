@@ -23,12 +23,18 @@
                     (default)
                 </span>
             </div>
+            
             <form class="zcrud-form zcrud-data-entity" 
                   data-tattributes="id instance/getId()"
                   data-tdefine="viewItemsInFormExternalMacro 'standard-editable@templates/fieldLists.html';
                                 data-record-index 0;
                                 renderIds false;
                                 viewItems instance/getView()">
+                <div data-muse-macro="'status@templates/lists.html'"
+                     data-tcondition="instance/getThisOptions()/showStatus">
+                    The status message
+                </div>
+                
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">

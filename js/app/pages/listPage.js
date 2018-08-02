@@ -403,6 +403,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var showStatusMessage = function( dictionaryExtension ){
+        pageUtils.showStatusMessage( get$(), dictionary, dictionaryExtension, context );
+    };
+    /*
+    var showStatusMessage = function( dictionaryExtension ){
         
         var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
         
@@ -410,7 +414,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             root: get$().find( '.zcrud-status' )[0],
             dictionary: thisDictionary
         });
-    };
+    };*/
     
     var updateBottomPanel = function( dictionaryExtension ){
         

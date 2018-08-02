@@ -53,12 +53,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
     
     var dictionary = undefined;
     var submitFunction = undefined;
-    
-    /*
-    var history = undefined;
-    var getHistory = function(){
-        return history;
-    };*/
     //var autoSaveMode = false;
     
     var view = undefined;
@@ -118,46 +112,40 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         buildFields();
         
         switch ( type ) {
-        case 'create':
-            title = "Create form";
-            submitFunction = submitCreate;
-            eventFunction = options.events.recordAdded;
-            successMessage = 'createSuccess';
-            if ( ! record ) {
-                record = fieldUtils.buildDefaultValuesRecord( fields );
-            }
-            break;
-        case 'update':
-            title = "Edit form";
-            submitFunction = submitUpdate;
-            eventFunction = options.events.recordUpdated;
-            successMessage = 'updateSuccess';
-            break;
-        case 'delete':
-            title = "Delete form";
-            submitFunction = submitDelete;
-            eventFunction = options.events.recordDeleted;
-            successMessage = 'deleteSuccess';
-            break;
-        case 'list':
-            title = "List form";
-            submitFunction = submitList;
-            eventFunction = options.events.formBatchUpdated;
-            successMessage = undefined;
-            if ( ! record ) {
-                record = fieldUtils.buildDefaultValuesRecord( fields );
-            }
-            break; 
-        default:
-            throw "Unknown FormPage type: " + type;
+            case 'create':
+                title = "Create form";
+                submitFunction = submitCreate;
+                eventFunction = options.events.recordAdded;
+                successMessage = 'createSuccess';
+                if ( ! record ) {
+                    record = fieldUtils.buildDefaultValuesRecord( fields );
+                }
+                break;
+            case 'update':
+                title = "Edit form";
+                submitFunction = submitUpdate;
+                eventFunction = options.events.recordUpdated;
+                successMessage = 'updateSuccess';
+                break;
+            case 'delete':
+                title = "Delete form";
+                submitFunction = submitDelete;
+                eventFunction = options.events.recordDeleted;
+                successMessage = 'deleteSuccess';
+                break;
+            case 'list':
+                title = "List form";
+                submitFunction = submitList;
+                eventFunction = options.events.formBatchUpdated;
+                successMessage = 'formListUpdateSuccess';
+                if ( ! record ) {
+                    record = fieldUtils.buildDefaultValuesRecord( fields );
+                }
+                break; 
+            default:
+                throw "Unknown FormPage type: " + type;
         }
         
-        /*
-        history = new History( 
-            options, 
-            thisOptions,
-            self, 
-            true );*/
         context.setHistory(
             new History( 
                 options, 
@@ -221,17 +209,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         
         return newRecord;
     };
-    
-    /*
-    var updateDictionary = function(){
 
-        dictionary = $.extend( {
-            options: options,
-            record: buildRecordForDictionary()
-        }, options.dictionary );
-
-        dictionary.instance = self;
-    };*/
     var updateDictionary = function( dictionaryExtension ){
 
         var thisDictionary = $.extend( 
@@ -289,67 +267,69 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         $form
             .find( '.zcrud-form-submit-command-button' )
             .off()
-            .click(function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                submitFunction( event, $form );
-            });
+            .click(
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    submitFunction( event, $form );
+                }
+            );
         
         $form
             .find( '.zcrud-form-cancel-command-button' )
             .off()
-            .click(function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                cancelForm( event, $form );
-            });
+            .click(
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    cancelForm( event, $form );
+                }
+            );
         
         $form
             .find( '.zcrud-undo-command-button' )
             .off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-            
-                context.getHistory().undo( id );
-                /*if ( autoSaveMode ){
-                    save( event );
-                }*/
-        });
+            .click(
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    context.getHistory().undo( id );
+                }
+            );
         
         $form
             .find( '.zcrud-redo-command-button' )
             .off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-            
-                context.getHistory().redo( id );
-                /*if ( autoSaveMode ){
-                    save( event );
-                }*/
-        });
+            .click(
+                function ( event ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    context.getHistory().redo( id );
+                }
+            );
         
         $form
             .find( 'input.historyField, textarea.historyField, select.historyField' )
             .not( "[name*='" + context.subformSeparator + "']" )  // Must exclude fields in subforms
-            .change( function ( event, disableHistory ) {
-                if ( disableHistory ){
-                    return;
+            .change(
+                function ( event, disableHistory ) {
+                    if ( disableHistory ){
+                        return;
+                    }
+                    var $this = $( this );
+                    var field = getFieldByName( $this.prop( 'name' ) );
+                    context.getHistory().putChange( 
+                        $this, 
+                        field.getValue( $this ), 
+                        0,
+                        '1',
+                        id,
+                        field );
+                    /*if ( autoSaveMode ){
+                        save( event );
+                    }*/
                 }
-                var $this = $( this );
-                var field = getFieldByName( $this.prop( 'name' ) );
-                context.getHistory().putChange( 
-                    $this, 
-                    field.getValue( $this ), 
-                    0,
-                    '1',
-                    id,
-                    field );
-                /*if ( autoSaveMode ){
-                    save( event );
-                }*/
-        });
+            );
         
         $form
             .find( 'button.zcrud-copy-subform-rows-command-button' )
@@ -358,7 +338,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                 function ( event ) {
                     event.preventDefault();
                     event.stopPropagation();
-                    //alert( 'button.zcrud-copy-subform-rows-command-button' );
                     
                     // Get thisButtonOptions from data-tButtonId attr and toolbar
                     var $this = $( this );
@@ -436,20 +415,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                 event );
             triggerFormClosedEvent( event, $form );
             
-            // Show list
+            // Show list or update status
             updatePage( dataFromServer, jsonObject );
-            /*
-            var dictionaryExtension = {
-                status: {
-                    message: successMessage,
-                    date: new Date().toLocaleString()
-                }
-            };
-            if ( dataFromServer.clientOnly ){
-                parentPage.showFromClientOnly( dictionaryExtension, jsonObject );
-            } else {
-                parentPage.show( dictionaryExtension );
-            }*/
 
             context.getHistory().reset( elementId );
             
@@ -491,7 +458,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         };
         
         if ( ! parentPage ){
-            alert( 'No parent page!' );
+            showStatusMessage( dictionaryExtension );
             return;
         }
         
@@ -500,6 +467,10 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         } else {
             parentPage.show( dictionaryExtension );
         }
+    };
+    
+    var showStatusMessage = function( dictionaryExtension ){
+        pageUtils.showStatusMessage( get$(), dictionary, dictionaryExtension, context );
     };
     
     var processDataFromServer = function( data ){
@@ -730,7 +701,6 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         getFields: getFields,
         getField: getField,
         getView: getView,
-        //getHistory: getHistory,
         getFieldByName: getFieldByName,
         getParentFieldByName: getParentFieldByName,
         addRecord: addRecord,

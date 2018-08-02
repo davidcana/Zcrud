@@ -2,11 +2,11 @@
     context singleton class
 */
 
+var $ = require( 'jquery' );
+
 module.exports = (function() {
     "use strict";
-    
-    var $ = require( 'jquery' );
-    
+       
     /*
     var configureTemplate = function( options, templatePath ){
         options.target.attr(
@@ -124,12 +124,24 @@ module.exports = (function() {
         return result;
     }
     
+    var showStatusMessage = function( $this, dictionary, dictionaryExtension, context ){
+
+        var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
+
+        context.getZPTParser().run({
+            //root: get$().find( '.zcrud-status' )[0],
+            root: $this.find( '.zcrud-status' )[0],
+            dictionary: thisDictionary
+        });
+    };
+    
     return {
         configureTemplate: configureTemplate,
         normalizeNumber: normalizeNumber,
         findIndexInArray: findIndexInArray,
         ajaxError: ajaxError,
         serverSideError: serverSideError,
-        generateId: generateId
+        generateId: generateId,
+        showStatusMessage: showStatusMessage
     };
 })();

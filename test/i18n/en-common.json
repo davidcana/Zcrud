@@ -57,6 +57,7 @@
     "updateSuccess": "Record updated!",
     "deleteSuccess": "Record deleted!",
     "listUpdateSuccess": "All operations done!",
+    "formListUpdateSuccess": "Operation done!",
     "serverCommunicationError": "An error occurred while communicating to the server!",
     "undefinedValueToShow": "(not set)",
     "true": "True",
