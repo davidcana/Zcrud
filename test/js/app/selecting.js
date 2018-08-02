@@ -1977,40 +1977,40 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
                 [ '3' ]);
             testHelper.assertHistory( assert, 2, 0, true );
             
-//            // Submit and show the list again
-//            testHelper.clickFormSubmitButton();
-//
-//            // Check storage
-//            record.members = [
-//                {
-//                    "code": "2",
-//                    "name": "Lisa Simpson",
-//                    "description": "Description of Lisa Simpson"
-//                },
-//                {
-//                    "code": "4",
-//                    "name": "Homer Simpson",
-//                    "description": "Description of Homer Simpson"
-//                },
-//                {
-//                    "code": "5",
-//                    "name": "Ned Flanders",
-//                    "description": "Description of Ned Flanders"
-//                },
-//                {
-//                    "code": "1",
-//                    "name": "Bart Simpson",
-//                    "description": "Description of Bart Simpson"
-//                }
-//            ];
-//            record.externalMembers = [
-//                {
-//                    "code": "3",
-//                    "name": "Marge Simpson",
-//                    "description": "Description of Marge Simpson"
-//                }
-//            ];
-//            assert.deepEqual( testUtils.getService( key ), record );
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            record.members = [
+                {
+                    "code": "2",
+                    "name": "Lisa Simpson",
+                    "description": "Description of Lisa Simpson"
+                },
+                {
+                    "code": "4",
+                    "name": "Homer Simpson",
+                    "description": "Description of Homer Simpson"
+                },
+                {
+                    "code": "5",
+                    "name": "Ned Flanders",
+                    "description": "Description of Ned Flanders"
+                },
+                {
+                    "code": "1",
+                    "name": "Bart Simpson",
+                    "description": "Description of Bart Simpson"
+                }
+            ];
+            record.externalMembers = [
+                {
+                    "code": "3",
+                    "name": "Marge Simpson",
+                    "description": "Description of Marge Simpson"
+                }
+            ];
+            assert.deepEqual( testUtils.getService( key ), record );
             
             done();
         }
@@ -2207,7 +2207,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                 testHelper.getReadOnlySubformItemsKeys( 'externalMembers' ), 
                 [ '3' ]);
             testHelper.assertHistory( assert, 2, 0, true );
-            /*
+            
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
             
@@ -2242,7 +2242,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                 }
             ];
             assert.deepEqual( testUtils.getService( key ), record );
-            */
+            
             done();
         }
     );
