@@ -32,9 +32,7 @@ var options = {
                     },
                     filtering: {
                         isOn: true,
-                        fields: {
-                            name: 'name'
-                        }
+                        fields: [ 'id', 'name' ]
                     },
                     selecting: {
                         isOn: true,

@@ -512,4 +512,8 @@ Subform.prototype.generateId = function(){
     return pageUtils.generateId();
 };
 
+Subform.prototype.getName = function(){
+    return this.id;
+};
+
 module.exports = Subform;

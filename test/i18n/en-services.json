@@ -49,6 +49,7 @@
     "originalMembers_description": "The initial list of members",
     "verifiedMembers_title": "Verified members",
     "verifiedMembers_description": "The list of verified members",
+    "department_filter_description": "Please, filter the services to view!",
     
     "_options": "",
     "homePhone_option": "Home phone",

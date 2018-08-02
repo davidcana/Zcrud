@@ -49,6 +49,7 @@
     "originalMembers_description": "La lista inicial de miembros",
     "verifiedMembers_title": "Miembros verificados",
     "verifiedMembers_description": "La lista de miembros verificados",
+    "department_filter_description": "¡Por favor, filtre los departamentos a mostrar!",
     
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

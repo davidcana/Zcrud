@@ -387,6 +387,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return id;      
     };
     
+    var getName = function(){
+        return options.entityId;      
+    };
+    
     var getRecordByKey = function( key ){
         return records[ key ];
     };
@@ -513,6 +517,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         showFromClientOnly: showFromClientOnly,
         showUsingRecords: showUsingRecords,
         getId: getId,
+        getName: getName,
         showCreateForm: showCreateForm,
         showEditForm: showEditForm,
         showDeleteForm: showDeleteForm,
