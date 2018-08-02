@@ -157,6 +157,11 @@ module.exports = (function() {
     */
     var getRecord = function( data, options ){
 
+        if ( ! data.url ){
+            context.showError( options, false, 'Please, set URL to get record from server!' );
+            return;
+        }
+        
         var dataToSend = data.search;
 
         var successFunction = function( dataFromServer ){
