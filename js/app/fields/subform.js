@@ -310,21 +310,30 @@ Subform.prototype.getRecordByKey = function( key, $row ){
         fieldUtils.buildRecord( this.fieldsArray, $row );
 };
 
-Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom ){
+Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom, deselect ){
+    
+    // Get the selectingComponent if needed
+    var selectingComponent = useSelection? this.page.getField( fromSubformId ).getComponent( 'selecting' ): undefined;
     
     // Get records from selection or get all
     var records = useSelection?
-        this.page.getField( fromSubformId ).getComponent( 'selecting' ).getSelectedRecords():
+        selectingComponent.getSelectedRecords():
         this.page.getFieldValue( fromSubformId );
     
-    return this.addNewRows_common( 
+    var result = this.addNewRows_common( 
         records, 
         deleteFrom? 
             this.page.getField( fromSubformId ): 
             undefined,
         useSelection? 
-            this.page.getField( fromSubformId ).getComponent( 'selecting' ).getSelectedRows(): 
+            selectingComponent.getSelectedRows(): 
             undefined );
+    
+    if ( ! deleteFrom && useSelection && deselect ){
+        selectingComponent.deselectAll();
+    }
+    
+    return result;
 };
 
 

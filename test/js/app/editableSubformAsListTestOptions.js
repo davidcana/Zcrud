@@ -23,6 +23,8 @@ module.exports = {
                 ],
                 buttons: {
                     toolbar: {
+                        save: true,
+                        cancel: false,
                         undo: true,
                         redo: true,
                         copySubformRowsItems: {
@@ -31,6 +33,7 @@ module.exports = {
                                 target: 'verifiedMembers',
                                 onlySelected: true,
                                 removeFromSource: false,
+                                deselect: true,
                                 title: 'Copy original members'
                             }
                         }

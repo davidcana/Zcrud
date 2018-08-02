@@ -232,6 +232,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
         }
     };
     
+    var deselectAll = function(){
+        deselectRows( get$allTableRows() );
+    };
+    
     var selectRows = function( $rows ){
         _selectRows( $rows );
         onSelectionChanged(); //TODO: trigger only if selected rows changes?
@@ -317,6 +321,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
         getSelectedRows: get$selectedRows,
         getSelectedRecords: getSelectedRecords,
         resetPage: resetPage,
-        bindEventsIn1Row: bindEventsIn1Row
+        bindEventsIn1Row: bindEventsIn1Row,
+        deselectAll: deselectAll
     };
 };

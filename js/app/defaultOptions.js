@@ -149,7 +149,8 @@ module.exports = {
                 toolbar: {
                     undo: true,
                     redo: true,
-                    cancel: true
+                    cancel: true,
+                    save: true
                 },
                 toolbarExtension: undefined,
                 byRow: {

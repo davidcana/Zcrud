@@ -349,13 +349,15 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                     var sourceId = thisButtonOptions.source;
                     var onlySelected = thisButtonOptions.onlySelected;
                     var removeFromSource = thisButtonOptions.removeFromSource;
+                    var deselect = thisButtonOptions.deselect;
                     
                     // Get the selectedRecords
                     var targetField = getField( targetId );
                     var selectedRecords = targetField.addNewRowsFromSubform( 
                         sourceId, 
                         onlySelected, 
-                        removeFromSource );
+                        removeFromSource,
+                        deselect );
                     if ( selectedRecords.length == 0 ){
                         context.showError( options, false, 'Please, select at least one item!' );
                     }
