@@ -136,6 +136,7 @@ module.exports = {
 
     pageConf: {
         defaultPageConf: {
+            showStatus: false,
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
             hideTr: function( $tr ){
@@ -161,6 +162,7 @@ module.exports = {
         pages: {
             list: {
                 template: "listDefaultTemplate@templates/lists.html",
+                showStatus: true,
                 components: {
                     paging: {
                         isOn: true,
