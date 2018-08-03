@@ -1344,10 +1344,12 @@ module.exports = (function() {
     var getSelectedFromList = function(){
         return get$Container().zcrud( 'getSelectedRecords' );
     };
-    var getSelectedFromSubform = function( subformId ){
+    var getSelectedFromSubform = function( subformId, isFormList ){
 
-        var listPage = get$Container().zcrud( 'getListPage' );
-        var formPage = listPage.getCurrentFormPage();
+        var formPage = isFormList?
+            get$Container().zcrud( 'getFormPage' ):
+            get$Container().zcrud( 'getListPage' ).getCurrentFormPage();
+        
         return formPage.getField( subformId ).getComponent( 'selecting' ).getSelectedRecords();
     };
     

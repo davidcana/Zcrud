@@ -135,6 +135,18 @@ module.exports = (function() {
         return getPage( listPageId );
     };    
     
+    var getFormPage = function( formPageIdSource ){
+
+        try {
+            var formPageId = typeof formPageIdSource === 'object'? formPageIdSource.formId: formPageIdSource;
+        } catch ( e ) {
+            alert( 'Exception trying to get options.pageConf.pages.list.id!' );
+            return false;
+        }
+
+        return getPage( formPageId );
+    }; 
+    
     // Add to declaredRemotePageUrls all non repeated urls
     var declareRemotePageUrl = function( template, declaredRemotePageUrls ){
 
@@ -232,6 +244,7 @@ module.exports = (function() {
         getPage: getPage,
         getSelectorString: getSelectorString,
         getListPage: getListPage,
+        getFormPage: getFormPage,
         declareRemotePageUrl: declareRemotePageUrl,
         initZPT: initZPT,
         getZPTParser: getZPTParser,

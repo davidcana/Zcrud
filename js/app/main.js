@@ -289,3 +289,13 @@ exports.getListPage = function( listPageIdSource ){
     }
     return listPage;
 };
+
+exports.getFormPage = function( formPageIdSource ){
+
+    var formPage = context.getFormPage( formPageIdSource );
+    if ( ! formPage ){
+        alert( 'No form found using that source:' + formPageIdSource );
+        return;
+    }
+    return formPage;
+};

@@ -75,6 +75,8 @@ var context = require( './context.js' );
                 break;
             case 'getListPage':
                 return zcrud.getListPage( getOptions( this ) );
+            case 'getFormPage':
+                return zcrud.getFormPage( getOptions( this ) );
             default:
                 alert( 'Unknown action: ' + action );
                 return false;
