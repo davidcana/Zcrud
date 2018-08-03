@@ -55,6 +55,42 @@ QUnit.test( "form simple test", function( assert ) {
                 }, 
                 'verifiedMembers' );
             
+            // Submit and check storage
+            testHelper.clickFormSubmitButton();
+            
+            var expectedVerifiedMembers = {
+                "2": {
+                    "code": "2",
+                    "name": "Member 2",
+                    "description": "Description of Member 2"
+                },
+                "3": {
+                    "code": "3",
+                    "name": "Member 3",
+                    "description": "Description of Member 3 edited"
+                }
+            };
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
+            
+            // Delete row
+            testHelper.clickDeleteSubformRowButton( 'verifiedMembers', 0 );
+            
+            // Submit and check storage
+            testHelper.clickFormSubmitButton();
+
+            expectedVerifiedMembers = {
+                "3": {
+                    "code": "3",
+                    "name": "Member 3",
+                    "description": "Description of Member 3 edited"
+                }
+            };
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
+            
             done();
         }
     );

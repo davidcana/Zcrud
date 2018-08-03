@@ -76,7 +76,7 @@ Create.prototype.updateCSS = function( visible ){
     }
 };
 
-Create.prototype.getNewValue = function( nameToGet ){
+Create.prototype.getNewValue = function( rowIndexToGet, nameToGet, subformNameToGet, subformRowIndexToGet ){
     return this.record[ nameToGet ];
 };
 

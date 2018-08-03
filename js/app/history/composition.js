@@ -69,8 +69,20 @@ Composition.prototype.redo = function(){
     this.runMethodForAll.apply( this, [ 'redo' ] );
 };
 
-Composition.prototype.getNewValue = function(){
+/*
+Composition.prototype.getNewValue = function( name ){
     return this.runMethodForAllUsingNotUndefined.apply( this, [ 'getNewValue', arguments ] );
+};*/
+Composition.prototype.getNewValue = function( rowIndexToGet, nameToGet, subformNameToGet, subformRowIndexToGet ){
+    
+    for ( var c = 0; c < this.items.length; ++c ){
+        var item = this.items[ c ];
+        if ( item.isRelatedToField( rowIndexToGet, nameToGet, subformNameToGet, subformRowIndexToGet ) ){
+            return item.getNewValue( rowIndexToGet, nameToGet, subformNameToGet, subformRowIndexToGet );
+        }
+    }
+    
+    return undefined;
 };
 
 Composition.prototype.isRelatedToField = function(){

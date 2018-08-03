@@ -98,24 +98,9 @@ module.exports = (function() {
             );
         }
     };
-    /*
-    var resetOriginalAndVerifiedMembers = function( name,  numberOfItems ){
-        
-        members = {};
-        members.originalMembers = {};
-        members.verifiedMembers = {};
-        
-        for ( var c = 0; c < numberOfItems; ++c ){
-            var sufix = "" + ( c + 1 );
-            var thisName = name + " " + sufix;
-            members.originalMembers[ c ] = 
-                {
-                    "code": sufix,
-                    "name": thisName,
-                    "description": "Description of " + thisName
-                };
-        }
-    };*/
+    var getVerifiedMembers = function(){
+        return members.verifiedMembers;
+    };
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     var urls = [];
@@ -803,6 +788,7 @@ module.exports = (function() {
         resetServices: resetServices,
         reset2SubformMembersServices: reset2SubformMembersServices,
         resetOriginalAndVerifiedMembers: resetOriginalAndVerifiedMembers,
+        getVerifiedMembers: getVerifiedMembers,
         getUrl: getUrl,
         getLastListUrl: getLastListUrl,
         getLastBatchUpdateUrl: getLastBatchUpdateUrl,
