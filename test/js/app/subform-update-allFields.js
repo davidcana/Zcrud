@@ -144,10 +144,9 @@ var defaultTestOptions = {
         },
         members: {
             type: 'subform',
+            subformKey: 'code',
             fields: { 
-                code: { 
-                    subformKey: true
-                },
+                code: { },
                 name: { },
                 description: {
                     type: 'textarea',
@@ -213,9 +212,7 @@ var defaultTestOptions = {
 };
 
 defaultTestOptions.fields.members.fields = { 
-    code: { 
-        subformKey: true
-    },
+    code: { },
     name: { },
     description: {
         type: 'textarea',

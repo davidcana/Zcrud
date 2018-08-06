@@ -134,10 +134,9 @@ module.exports = {
         },
         members: {
             type: 'subform',
+            subformKey: 'code',
             fields: { 
-                code: { 
-                    subformKey: true
-                },
+                code: { },
                 name: { },
                 description: {
                     type: 'textarea',

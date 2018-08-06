@@ -156,10 +156,9 @@
                     <pre class="brush: javascript; highlight: [3]">
         members: {
             type: 'subform',
+            subformKey: true,
             fields: { 
-                code: { 
-                    subformKey: true
-                },
+                code: { },
                 name: { },
                 description: {
                     type: 'textarea',
@@ -329,12 +328,12 @@
                 <a id="subformKey"></a>
                 <div class="header">
                     <span class="name">subformKey</span>
-                    <span class="dataType">boolean</span>
-                    <span class="appliesTo">ANY</span>
-                    <span class="default">false</span>
+                    <span class="dataType">string</span>
+                    <span class="appliesTo">subform</span>
+                    <span class="default">undefined</span>
                 </div>
                 <div class="body">
-                    Indicates that whether this column will be used as a key for subforms.
+                    The id of the field working as a key.
                 </div>
             </li>
             <li>

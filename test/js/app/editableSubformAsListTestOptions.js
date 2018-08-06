@@ -49,10 +49,9 @@ module.exports = {
             type: 'subform',
             url: 'http://localhost/CRUDManager.do?cmd=LIST&table=memberCheck',
             readOnly: true,
+            subformKey: 'code',
             fields: { 
-                code: { 
-                    subformKey: true
-                },
+                code: { },
                 name: { },
                 description: {
                     type: 'textarea',
@@ -83,10 +82,9 @@ module.exports = {
         },
         verifiedMembers: {
             type: 'subform',
+            subformKey: 'code',
             fields: { 
-                code: { 
-                    subformKey: true
-                },
+                code: { },
                 name: { },
                 description: {
                     type: 'textarea',

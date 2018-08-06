@@ -257,9 +257,9 @@ Subform.prototype.buildFields = function(){
     this.fieldsMap = {};
     
     $.each( this.fields, function ( subfieldId, subfield ) {
-        if ( subfield.subformKey ){
-            subformInstance.subformKey = subfieldId;
-        }
+        //if ( subfield.subformKey ){
+        //    subformInstance.subformKey = subfieldId;
+        //}
         subformInstance.fieldsArray.push( subfield );
         subformInstance.fieldsMap[ subfieldId ] = subfield;
         subfield.setParentField( subformInstance );

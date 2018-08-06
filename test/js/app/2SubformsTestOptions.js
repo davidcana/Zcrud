@@ -86,10 +86,9 @@ module.exports = {
         members: {
             type: 'subform',
             url: 'http://localhost/CRUDManager.do?cmd=LIST&table=members',
+            subformKey: 'code',
             fields: { 
-                code: { 
-                    subformKey: true
-                },
+                code: { },
                 name: { },
                 description: {
                     type: 'textarea',
@@ -126,10 +125,9 @@ module.exports = {
         },
         externalMembers: {
             type: 'subform',
+            subformKey: 'code',
             fields: { 
-                code: { 
-                    subformKey: true
-                },
+                code: { },
                 name: { },
                 description: {
                     type: 'textarea',

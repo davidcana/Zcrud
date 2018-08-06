@@ -574,10 +574,9 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
             },
             externalMembers: {
                 type: 'subform',
+                subformKey: 'code',
                 fields: { 
-                    code: { 
-                        subformKey: true
-                    },
+                    code: { },
                     name: { },
                     description: {
                         type: 'textarea',
@@ -865,10 +864,9 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
             },
             externalMembers: {
                 type: 'subform',
+                subformKey: 'code',
                 fields: { 
-                    code: { 
-                        subformKey: true
-                    },
+                    code: { },
                     name: { },
                     description: {
                         type: 'textarea',
@@ -1159,10 +1157,9 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             },
             externalMembers: {
                 type: 'subform',
+                subformKey: 'code',
                 fields: { 
-                    code: { 
-                        subformKey: true
-                    },
+                    code: { },
                     name: { },
                     description: {
                         type: 'textarea',
@@ -1542,10 +1539,9 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             },
             externalMembers: {
                 type: 'subform',
+                subformKey: 'code',
                 fields: { 
-                    code: { 
-                        subformKey: true
-                    },
+                    code: { },
                     name: { },
                     description: {
                         type: 'textarea',
@@ -1850,10 +1846,9 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
             },
             externalMembers: {
                 type: 'subform',
+                subformKey: 'code',
                 fields: { 
-                    code: { 
-                        subformKey: true
-                    },
+                    code: { },
                     name: { },
                     description: {
                         type: 'textarea',
@@ -2078,9 +2073,9 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             },
             externalMembers: {
                 type: 'subform',
+                subformKey: 'code',
                 fields: { 
                     code: { 
-                        subformKey: true,
                         readOnly: true
                     },
                     name: { 
