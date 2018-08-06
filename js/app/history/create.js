@@ -110,6 +110,10 @@ Create.prototype.updateFromChange = function( changeHistoryItem ){
     this.record[ changeHistoryItem.name ] = changeHistoryItem.newValue;
 };
 
+Create.prototype.getCreationItems = function( subformId ){
+    return this.subformName == subformId? [ this ]: [];
+};
+
 Create.resetCSS = function(){};
 
 Create.prototype.type = 'create';

@@ -87,6 +87,10 @@ Delete.prototype.isDirty = function(){
     return false;
 };
 
+Delete.prototype.getCreationItems = function(){
+    return [];
+};
+
 Delete.resetCSS = function(){};
 
 Delete.prototype.type = 'delete';

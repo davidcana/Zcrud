@@ -121,6 +121,18 @@ Composition.prototype.getAtomicItems = function(){
     return result;
 };
 
+Composition.prototype.getCreationItems = function( subformId ){
+    
+    var result = [];
+
+    for ( var c = 0; c < this.items.length; ++c ){
+        var item = this.items[ c ];
+        result = result.concat( item.getCreationItems( subformId ) );
+    }
+
+    return result;
+};
+
 Composition.prototype.type = 'composition';
 
 module.exports = Composition;

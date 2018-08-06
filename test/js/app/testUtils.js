@@ -236,8 +236,8 @@ module.exports = (function() {
         }
 
         // Remove all services to remove
-        for ( c = 0; c < data.recordsToRemove.length; c++ ) {
-            id = data.recordsToRemove[ c ];
+        for ( c = 0; c < data.newRecords[ 0 ].verifiedMembers.recordsToRemove.length; c++ ) {
+            id = data.newRecords[ 0 ].verifiedMembers.recordsToRemove[ c ];
             currentItem = input[ id ];
 
             if ( ! currentItem ){

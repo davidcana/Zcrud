@@ -132,6 +132,10 @@ Change.prototype.isRelatedToField = function( rowIndexToCheck, nameToCheck, subf
         && this.subformRowIndex == subformRowIndexToCheck;
 };
 
+Change.prototype.getCreationItems = function(){
+    return [];
+};
+
 Change.resetCSS = function( $list, editableOptions ){
 
     $list.find( '.' + editableOptions.modifiedFieldsClass ).removeClass( editableOptions.modifiedFieldsClass );

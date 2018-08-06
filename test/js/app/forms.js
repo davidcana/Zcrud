@@ -91,6 +91,56 @@ QUnit.test( "form simple test", function( assert ) {
                 testUtils.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
+            // Select
+            testHelper.subformSelectByText( 'originalMembers', '5', '7' );
+            assert.deepEqual( 
+                testHelper.getSelectedFromSubform( 'originalMembers', true ), 
+                [ 
+                    {
+                        "code": "5",
+                        "name": "Member 5",
+                        "description": "Description of Member 5"
+                    },
+                    {
+                        "code": "7",
+                        "name": "Member 7",
+                        "description": "Description of Member 7"
+                    }
+                ]);
+
+            // Copy
+            $copyButton.click();
+            testHelper.fillSubformNewRow(
+                {
+                    "description": "Description of Member 7 edited"
+                }, 
+                'verifiedMembers' );
+
+            // Submit and check storage
+            testHelper.clickFormSubmitButton();
+
+            expectedVerifiedMembers = {
+                "3": {
+                    "code": "3",
+                    "name": "Member 3",
+                    "description": "Description of Member 3 edited"
+                },
+                "5": {
+                    "code": "5",
+                    "name": "Member 5",
+                    "description": "Description of Member 5"
+                },
+                "7": {
+                    "code": "7",
+                    "name": "Member 7",
+                    "description": "Description of Member 7 edited"
+                }
+                
+            };
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
+            
             done();
         }
     );

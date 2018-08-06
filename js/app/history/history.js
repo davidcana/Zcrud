@@ -379,19 +379,39 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         return base;
     };
     
-    var getAllTr$FromCreateItems = function(){
-        
+    var getAllTr$FromCreateItems = function( subformId ){
+
         var result = [];
-        
+
+        for ( var c = 0; c < current; ++c ){
+            var historyItem = items[ c ];
+            var creationHistoryItems = historyItem.getCreationItems( subformId );
+            for ( var d = 0; d < creationHistoryItems.length; ++d ){
+                result.push( 
+                    creationHistoryItems[ d ].get$Tr() );
+            }
+        }
+
+        return result;
+    };
+    /*
+    var getAllTr$FromCreateItems = function( subformId ){
+
+        var result = [];
+
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
             if ( historyItem.type === 'create' ){
+                if ( subformId && subformId !== historyItem.subformName ){
+                    continue;    
+                }
                 result.push( historyItem.get$Tr() );
             }
         }
-        
+
         return result;
     };
+    */
 
     var buildActionsObject = function( records ){
 

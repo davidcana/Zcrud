@@ -70,6 +70,10 @@ AbstractHistoryAction.prototype.getAtomicItems = function(){
     return [ this ];
 };
 
+AbstractHistoryAction.prototype.getCreationItems = function(){
+    throw 'Method getCreationItems not implemented!';
+};
+
 AbstractHistoryAction.prototype.type = 'AbstractHistoryAction';
 
 module.exports = AbstractHistoryAction;

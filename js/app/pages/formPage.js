@@ -461,6 +461,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         
         if ( ! parentPage ){
             showStatusMessage( dictionaryExtension );
+            updateKeys( dataFromServer );
             return;
         }
         
@@ -473,6 +474,58 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
     
     var showStatusMessage = function( dictionaryExtension ){
         pageUtils.showStatusMessage( get$(), dictionary, dictionaryExtension, context );
+    };
+    
+    var updateKeys = function( dataFromServer ){
+
+        //alert( dataFromServer );
+
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            var dataFromServerOfField = dataFromServer[ field.id ];
+            if ( dataFromServerOfField ){
+                updateKeysForField( field, dataFromServerOfField );
+            }
+        }
+    };
+    
+    var updateKeysForField = function( field, dataFromServerOfField ){
+        
+        // Get records an $trArray
+        var records = dataFromServerOfField.newRecords;
+        var $trArray = context.getHistory().getAllTr$FromCreateItems( field.id );
+        
+        // Check lengths are equals
+        if ( $trArray.length != records.length ){
+            context.showError( 
+                options, 
+                true, 
+                'Error trying to update keys of field "' + field.id + '": $trArray and records length does not match!' );
+            return;
+        }
+        
+        // Iterate and update field values and data-record-key attr
+        var key = field.subformKey;
+        for ( var c = 0; c < records.length; ++c ){
+            var record = records[ c ];
+            var $tr = $trArray[ c ];
+            var value = record[ key ];
+
+            // Check key value is not undefined
+            if ( value == undefined ){
+                context.showError( 
+                    options, 
+                    true, 
+                    'Error trying to update keys of field "' + field.id + '": undefined key value found!' );
+                return;
+            }
+
+            // Update key value of field
+            $tr.find( "[name='" + key + "']").val( value );
+
+            // Update key value in attribute of $tr
+            $tr.attr( 'data-record-key', value );
+        }
     };
     
     var processDataFromServer = function( data ){
