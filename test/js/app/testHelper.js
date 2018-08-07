@@ -1544,6 +1544,7 @@ module.exports = (function() {
         getSubformItemsKeys: getSubformItemsKeys,
         getReadOnlySubformItemsKeys: getReadOnlySubformItemsKeys,
         setDefaultItemName: setDefaultItemName,
-        pagingSubformTest: pagingSubformTest
+        pagingSubformTest: pagingSubformTest,
+        getSubformVal: getSubformVal
     };
 })();

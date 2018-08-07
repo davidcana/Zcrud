@@ -387,8 +387,10 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             var historyItem = items[ c ];
             var creationHistoryItems = historyItem.getCreationItems( subformId );
             for ( var d = 0; d < creationHistoryItems.length; ++d ){
-                result.push( 
-                    creationHistoryItems[ d ].get$Tr() );
+                var $tr = creationHistoryItems[ d ].get$Tr();
+                if ( ! $tr.hasClass( 'zcrud-hidden' ) ){
+                    result.push( $tr );
+                }
             }
         }
 
