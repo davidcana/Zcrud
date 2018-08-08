@@ -103,7 +103,8 @@ module.exports = (function() {
             
         return $selection.map( 
             function() {
-                return this.value;
+                //return this.value;
+                return this.value == undefined? this.textContent.trim(): this.value;
             }
         ).get().join( '/' );
     };

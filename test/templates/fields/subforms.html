@@ -35,6 +35,12 @@
         </div>
         
         <div data-mdefine-macro="view" data-tomit-tag="">
+            <div data-muse-macro="'filterPanel@templates/lists.html'"
+                 data-tdefine="instance field"
+                 data-tcondition="instance/getComponent( 'filtering' )">
+                The bottom panel
+            </div>
+            
             <div class="zcrud-subform-content"
                  data-tdefine="instance field;
                                pagingComponent instance/getComponent( 'paging' )">

@@ -23,7 +23,7 @@ var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, rec
     
     var buildDictionary = function( dictionary ){
         
-        var result = $.extend( true, {}, dictionary );
+        var result = $.extend( {}, dictionary );
         result[ 'omitKey' ] = true;
         
         return result;
@@ -48,13 +48,25 @@ Create.prototype.redo = function(){
 };
 
 Create.prototype.addRow = function(){
-
+    
+    // Backup omitKey value and set to true
+    //var omitKeyBackup = this.thisDictionary.omitKey;
+    //this.thisDictionary.omitKey = true;
+    
     context.getZPTParser().run({
         root: this.$tbody[ 0 ],
         dictionary: this.thisDictionary,
         notRemoveGeneratedTags: true
     });
 
+    // Restore omitKey value
+    /*
+    if ( omitKeyBackup == undefined ){
+        delete this.thisDictionary.omitKey;
+    } else {
+        this.thisDictionary.omitKey = omitKeyBackup;
+    }*/
+    
     this.$tr = this.$tbody.find( 'tr.zcrud-data-row:last' );
 
     var recordIndex = this.$tr.attr( 'data-record-index' );
