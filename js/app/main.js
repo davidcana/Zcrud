@@ -103,10 +103,17 @@ exports.renderForm = function( options, data, callback ){
 
     log.info( 'Rendering form...' );
 
-    var formPage =  new FormPage( options, 'list' );
+    //var formPage =  new FormPage( options, 'list' );
+    var formPage = new FormPage( 
+        options, 
+        {
+            type: 'list'
+        }
+    ); 
+    
     context.putPage( formPage.getId(), formPage );
-    formPage.updateUsingRecordFromServer( undefined, undefined, callback );
-    //formPage.show( undefined, undefined, callback );
+    //formPage.updateUsingRecordFromServer( undefined, undefined, callback );
+    formPage.show( undefined, undefined, callback );
 
     log.info( '...form rendering finished.' );
 };

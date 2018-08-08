@@ -12,7 +12,7 @@ var thisTestOptions = undefined;
 var options = undefined;
 
 // Run tests
-/*
+
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -494,7 +494,8 @@ QUnit.test( "form filtering test", function( assert ) {
         }
     );
 });
-*/
+
+/*
 QUnit.test( "form filtering starting void test", function( assert ) {
 
     thisTestOptions = {
@@ -530,7 +531,7 @@ QUnit.test( "form filtering starting void test", function( assert ) {
                 {
                     
                 } );
-            /*
+
             testHelper.pagingSubformTest({
                 subformName: subformName,
                 action: { 
@@ -661,9 +662,10 @@ QUnit.test( "form filtering starting void test", function( assert ) {
             };
             assert.deepEqual( 
                 testUtils.getVerifiedMembers(), 
-                expectedVerifiedMembers );*/
+                expectedVerifiedMembers );
 
             done();
         }
     );
 });
+*/

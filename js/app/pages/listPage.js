@@ -151,23 +151,30 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             callback( true );
         }
     };
-    
-    
+
     var show = function ( dictionaryExtension, root, callback ) {
 
         // Show list using user records
         if ( userRecords ){
             showUsingRecords( userRecords, dictionaryExtension, root, callback );
+            isFirstExecution = false;
             return;
         }
         
         // Show list using no records
         if ( isFirstExecution && ! loadAtFirstExecution ){
             showUsingRecords( [], dictionaryExtension, root, callback );
+            isFirstExecution = false;
             return;
         }
         
         // Show list using records from server
+        showUsingServer( dictionaryExtension, root, callback );
+        isFirstExecution = false;
+    };
+    
+    var showUsingServer = function( dictionaryExtension, root, callback ) {
+
         var listInstance = self;
         crudManager.listRecords( 
             {
@@ -188,8 +195,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 }
             }, 
             options );
-        
-        isFirstExecution = false;
     };
     
     var beforeProcessTemplate = function( data, dictionaryExtension ){
@@ -269,7 +274,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         showNewForm( 'create' );
     };
 
-    /*
     var showNewFormUsingRecordFromServer = function( type, event, forcedKey ){
 
         // Get the key of the record to get
@@ -277,82 +281,61 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         if ( key == undefined ){
             throw 'Error trying to load record in listPage: key is null!';
         }
-        
+
         // Build the form instance
-        currentFormPage =  new FormPage( options, type, undefined, self ); 
-        
-        // Build the data to send to the server
-        var search = {
-            key: key
-        };
-        currentFormPage.addToDataToSend( search );
-        
-        // Get the record from the server and show the form
-        crudManager.getRecord( 
+        //currentFormPage = new FormPage( options, type, undefined, self );
+        currentFormPage = new FormPage( 
+            options, 
             {
-                url: thisOptions.getRecordURL,
-                search: search,
-                success: function( dataFromServer ){
-                    currentFormPage.setRecord( dataFromServer.record );
-                    currentFormPage.processDataFromServer( dataFromServer );
-                    currentFormPage.show();
-                },
-                error: function(){
-                    context.showError( options, false, 'Server communication error!' );
-                }
-            }, 
-            options );
-    };*/
-    var showNewFormUsingRecordFromServer = function( type, event, forcedKey ){
-
-        // Get the key of the record to get
-        var key = forcedKey || getKeyFromButton( event );
-        if ( key == undefined ){
-            throw 'Error trying to load record in listPage: key is null!';
-        }
-
-        // Build the form instance
-        currentFormPage = new FormPage( options, type, undefined, self ); 
-
+                type: type, 
+                parentPage: self
+            }
+        ); 
+        
         // Update form retrieving record from server
-        currentFormPage.updateUsingRecordFromServer( key, thisOptions.getRecordURL );
+        //currentFormPage.updateUsingRecordFromServer( key, thisOptions.getRecordURL );
+        currentFormPage.show( undefined, undefined, undefined, key, thisOptions.getRecordURL );
     };
     
     var showEditForm = function( event, forcedKey ){
         showNewFormUsingRecordFromServer( 'update', event, forcedKey );
     };
-    /*
-    var showEditForm = function( event, forcedKey ){
-
-        var key = forcedKey || getKeyFromButton( event );
-        var record = records[ key ];
-        showNewForm( 'update', record );
-    };*/
     
     var showDeleteForm = function( event, forcedKey ){
         showNewFormUsingRecordFromServer( 'delete', event, forcedKey );
     };
-    /*
-    var showDeleteForm = function( event, forcedKey ){
-        
-        var key = forcedKey || getKeyFromButton( event );
-        var record = records[ key ];
-        showNewForm( 'delete', record );
-    };*/
     
     var showNewForm = function( type, record ){
-        currentFormPage =  new FormPage( options, type, record, self );        
+        //currentFormPage =  new FormPage( options, type, record, self );   
+        currentFormPage = new FormPage( 
+            options, 
+            {
+                type: type, 
+                parentPage: self,
+                record: record
+            }
+        ); 
+        
         currentFormPage.show();
     };
     
     var instanceNewForm = function( type, key ){
         
+        /*
         return new FormPage( 
             options, 
             type, 
             getRecordByKey( key ), 
             self
-        );        
+        );*/
+        return new FormPage( 
+            options, 
+            {
+                type: type, 
+                parentPage: self,
+                record: getRecordByKey( key )
+            }
+        );
     }
     
     var getKeyFromButton = function( event ){
@@ -409,16 +392,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var showStatusMessage = function( dictionaryExtension ){
         pageUtils.showStatusMessage( get$(), dictionary, dictionaryExtension, context );
     };
-    /*
-    var showStatusMessage = function( dictionaryExtension ){
-        
-        var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
-        
-        context.getZPTParser().run({
-            root: get$().find( '.zcrud-status' )[0],
-            dictionary: thisDictionary
-        });
-    };*/
     
     var updateBottomPanel = function( dictionaryExtension ){
         

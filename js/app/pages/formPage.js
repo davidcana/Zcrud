@@ -11,7 +11,8 @@ var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 
-var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPageToApply ) {
+//var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPageToApply ) {
+var FormPage = function ( optionsToApply, userDataToApply ) {
     "use strict";
 
     var options = optionsToApply;
@@ -19,20 +20,32 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         return options;
     };
     
-    var type = typeToApply;
+    var type,
+        parentPage,
+        record,
+        userRecord,
+        loadAtFirstExecution;
+    var isFirstExecution = true;
+    var initFromOptions = function( userData ){
+
+        type = userData.type; 
+        parentPage = userData.parentPage;
+        //record = userData.record;
+        userRecord = userData.record;
+        loadAtFirstExecution = userData.load == undefined? true: userData.load;
+    };
+    initFromOptions( userDataToApply || {} );
+    
     var getType = function(){
         return type;
     };
     
-    var record = recordToApply;
     var setRecord = function( recordToApply ){
         record = recordToApply;
     };
     var getRecord = function(){
         return record;
     };
-    
-    var parentPage = parentPageToApply;
     
     var id = options.formId;
     var getId = function(){
@@ -163,32 +176,78 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         view = fieldsCache.view;
     };
     
-    // Build the form
-    var show = function( dictionaryExtension, root ){
+    var showUsingRecord = function( recordToUse, dictionaryExtension, root, callback ) {
         
-        try {
-            if ( ! record ){
-                throw "No record set in form!";
-            }
-            
-            beforeProcessTemplate( dictionaryExtension );
-            
-            pageUtils.configureTemplate( 
-                options, 
-                "'" + thisOptions.template + "'" );
-
-            zpt.run({
-                //root: options.target[0],
-                root: root || options.body,
-                dictionary: dictionary,
-                declaredRemotePageUrls: options.templates.declaredRemotePageUrls
-            });
-            
-            afterProcessTemplate( get$form() );
-            
-        } catch( e ){
-            context.showError( options, true, 'Error trying to show form: ' + e );    
+        if ( ! recordToUse ){
+            throw "No record to show in form!";
         }
+        record = recordToUse;
+
+        beforeProcessTemplate( dictionaryExtension );
+
+        pageUtils.configureTemplate( 
+            options, 
+            "'" + thisOptions.template + "'" );
+
+        zpt.run({
+            //root: options.target[0],
+            root: root || options.body,
+            dictionary: dictionary,
+            declaredRemotePageUrls: options.templates.declaredRemotePageUrls
+        });
+
+        afterProcessTemplate( get$form() );
+        
+        if ( callback ){
+            callback( true );
+        }
+    }
+
+    var show = function( dictionaryExtension, root, callback, key, getRecordURL ){
+        
+        // Show form using user record
+        if ( userRecord ){
+            showUsingRecord( userRecord, dictionaryExtension, root, callback );
+            isFirstExecution = false;
+            return;
+        }
+
+        // Show form using no record
+        if ( isFirstExecution && ! loadAtFirstExecution ){
+            showUsingRecord( [], dictionaryExtension, root, callback );
+            isFirstExecution = false;
+            return;
+        }
+        
+        // Show form using record from server
+        showUsingServer( key, getRecordURL, dictionaryExtension, root, callback );
+        isFirstExecution = false;
+    };
+    
+    var showUsingServer = function( key, getRecordURL, dictionaryExtension, root, callback ) {
+
+        // Build the data to send to the server
+        var search = {};
+        if ( key != undefined ){
+            search.key = key;
+        }
+        addToDataToSend( search );
+
+        // Get the record from the server and show the form
+        crudManager.getRecord( 
+            {
+                url: getRecordURL || thisOptions.getRecordURL,
+                search: search,
+                success: function( dataFromServer ){
+                    processDataFromServer( dataFromServer );
+                    showUsingRecord( dataFromServer.record, dictionaryExtension, root, callback );
+                },
+                error: function(){
+                    context.showError( options, false, 'Server communication error!' );
+                }
+            }, 
+            options 
+        );
     };
     
     var buildRecordForDictionary = function(){
@@ -610,18 +669,23 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
     };
     
     var updateRecord = function( userData ){
-
+        
+        if ( ! userData ){
+            context.showError( options, true, 'Data configuration undefined in updateRecord method!' );
+            return;
+        }
+        
         var event = undefined;
         var $form = get$form();
-        
-        if ( ! record ){
+
+        if ( ! userRecord ){
             context.showError( options, true, 'Current record not found in updateRecord method!' );
             return;
         }
         
         var jsonObject = context.getJSONBuilder( options ).buildJSONForUpdateRecordMethod( 
             options.key,
-            record,
+            userRecord,
             userData.record,
             fieldsMap,
             fields,
@@ -717,7 +781,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
             }
         }
     };
-    
+    /*
     var updateUsingThisRecord = function( record, dataFromServer, callback ){
         
         setRecord( record );
@@ -731,8 +795,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         if ( callback ){
             callback( true );
         }
-    };
-    
+    };*/
+    /*
     var updateUsingRecordFromServer = function( key, getRecordURL, callback ){
         
         // Build the data to send to the server
@@ -749,17 +813,13 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                 search: search,
                 success: function( dataFromServer ){
                     updateUsingThisRecord( dataFromServer.record, dataFromServer, callback );
-                    /*
-                    setRecord( dataFromServer.record );
-                    processDataFromServer( dataFromServer );
-                    show();*/
                 },
                 error: function(){
                     context.showError( options, false, 'Server communication error!' );
                 }
             }, 
             options );
-    };
+    };*/
     
     var self = {
         show: show,
@@ -786,8 +846,8 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         addToDataToSend: addToDataToSend,
         processDataFromServer: processDataFromServer,
         buildProcessTemplateParams: buildProcessTemplateParams,
-        updateUsingRecordFromServer: updateUsingRecordFromServer,
-        updateUsingThisRecord: updateUsingThisRecord,
+        //updateUsingRecordFromServer: updateUsingRecordFromServer,
+        //updateUsingThisRecord: updateUsingThisRecord,
         getToolbarItemsArray: getToolbarItemsArray
     };
     
