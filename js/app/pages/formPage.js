@@ -718,7 +718,22 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         }
     };
     
-    var updateUsingRecordFromServer = function( key, getRecordURL ){
+    var updateUsingThisRecord = function( record, dataFromServer, callback ){
+        
+        setRecord( record );
+        
+        if ( dataFromServer ){
+            processDataFromServer( dataFromServer );
+        }
+        
+        show();
+        
+        if ( callback ){
+            callback( true );
+        }
+    };
+    
+    var updateUsingRecordFromServer = function( key, getRecordURL, callback ){
         
         // Build the data to send to the server
         var search = {};
@@ -733,9 +748,11 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
                 url: getRecordURL || thisOptions.getRecordURL,
                 search: search,
                 success: function( dataFromServer ){
+                    updateUsingThisRecord( dataFromServer.record, dataFromServer, callback );
+                    /*
                     setRecord( dataFromServer.record );
                     processDataFromServer( dataFromServer );
-                    show();
+                    show();*/
                 },
                 error: function(){
                     context.showError( options, false, 'Server communication error!' );
@@ -770,6 +787,7 @@ var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPage
         processDataFromServer: processDataFromServer,
         buildProcessTemplateParams: buildProcessTemplateParams,
         updateUsingRecordFromServer: updateUsingRecordFromServer,
+        updateUsingThisRecord: updateUsingThisRecord,
         getToolbarItemsArray: getToolbarItemsArray
     };
     
