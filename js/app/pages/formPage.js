@@ -176,28 +176,46 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         view = fieldsCache.view;
     };
     
-    var showUsingRecord = function( recordToUse, dictionaryExtension, root, callback ) {
+    var buildDataUsingRecord = function( recordToUse ) {
+
+        var data = {};
+
+        data.result = 'OK';
+        data.message = '';
+        data.record = recordToUse;
+        data.fieldsData = {}; // TODO Build this object with data from recordToUse
+
+        return data;
+    };
+    
+    var showUsingRecord = function( recordToUse, dictionaryExtension, root, callback, dataFromServer ) {
         
+        // Update record
         if ( ! recordToUse ){
             throw "No record to show in form!";
         }
         record = recordToUse;
 
+        // Process dataFromServer
+        if ( ! dataFromServer ){
+            dataFromServer = buildDataUsingRecord( record );
+        }
+        processDataFromServer( dataFromServer );
+        
+        // Render template
         beforeProcessTemplate( dictionaryExtension );
-
         pageUtils.configureTemplate( 
             options, 
             "'" + thisOptions.template + "'" );
-
         zpt.run({
             //root: options.target[0],
             root: root || options.body,
             dictionary: dictionary,
             declaredRemotePageUrls: options.templates.declaredRemotePageUrls
         });
-
         afterProcessTemplate( get$form() );
         
+        // Process callback
         if ( callback ){
             callback( true );
         }
@@ -233,23 +251,35 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         isFirstExecution = false;
     };
     
+    var buildSearch = function( key ){
+        
+        var search = {};
+        
+        if ( key != undefined ){
+            search.key = key;
+        }
+        addToDataToSend( search );
+        
+        return search;
+    };
+    
     var showUsingServer = function( key, getRecordURL, dictionaryExtension, root, callback ) {
-
+        /*
         // Build the data to send to the server
         var search = {};
         if ( key != undefined ){
             search.key = key;
         }
-        addToDataToSend( search );
+        addToDataToSend( search );*/
 
         // Get the record from the server and show the form
         crudManager.getRecord( 
             {
                 url: getRecordURL || thisOptions.getRecordURL,
-                search: search,
+                search: buildSearch( key ),
                 success: function( dataFromServer ){
-                    processDataFromServer( dataFromServer );
-                    showUsingRecord( dataFromServer.record, dictionaryExtension, root, callback );
+                    //processDataFromServer( dataFromServer );
+                    showUsingRecord( dataFromServer.record, dictionaryExtension, root, callback, dataFromServer );
                 },
                 error: function(){
                     context.showError( options, false, 'Server communication error!' );

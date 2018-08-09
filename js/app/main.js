@@ -108,12 +108,9 @@ exports.renderForm = function( options, data, callback ){
     log.info( 'Rendering form...' );
 
     //var formPage =  new FormPage( options, 'list' );
-    var formPage = new FormPage( 
-        options, 
-        {
-            type: 'list'
-        }
-    ); 
+    data = data || {};
+    data.type = 'list';
+    var formPage = new FormPage( options, data ); 
     
     context.putPage( formPage.getId(), formPage );
     //formPage.updateUsingRecordFromServer( undefined, undefined, callback );

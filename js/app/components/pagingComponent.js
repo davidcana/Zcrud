@@ -333,12 +333,14 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     };
     
     var dataFromServer = function( data ){
+        
         totalNumberOfRecords = data.totalNumberOfRecords;
-        records = data.records;
-        thisPageSize = data.records.length;
+        records = data.records || [];
+        thisPageSize = records.length;
     };
     
     var dataFromClient = function( delta ){
+        
         totalNumberOfRecords += delta;
         thisPageSize += delta;
     };

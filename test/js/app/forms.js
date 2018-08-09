@@ -495,7 +495,6 @@ QUnit.test( "form filtering test", function( assert ) {
     );
 });
 
-/*
 QUnit.test( "form filtering starting void test", function( assert ) {
 
     thisTestOptions = {
@@ -529,9 +528,22 @@ QUnit.test( "form filtering starting void test", function( assert ) {
             $( '#departmentsContainer' ).zcrud( 
                 'renderForm', 
                 {
-                    
-                } );
-
+                    load: false
+                }
+            );
+            
+            testHelper.pagingSubformTest({
+                subformName: subformName,
+                options: options,
+                assert: assert,
+                visibleRows: 0,
+                pagingInfo: 'No records found!',
+                ids:  '',
+                names: '',
+                pageListNotActive: [ '<<', '<', '>', '>>' ],
+                pageListActive: []
+            });
+            
             testHelper.pagingSubformTest({
                 subformName: subformName,
                 action: { 
@@ -550,7 +562,7 @@ QUnit.test( "form filtering starting void test", function( assert ) {
             });
 
             assert.equal( testHelper.getSelectedFromSubform( 'originalMembers', true ).length, 0 );
-
+            
             // Select
             testHelper.subformSelectByText( 'originalMembers', '1', '11' );
 
@@ -663,9 +675,8 @@ QUnit.test( "form filtering starting void test", function( assert ) {
             assert.deepEqual( 
                 testUtils.getVerifiedMembers(), 
                 expectedVerifiedMembers );
-
+            
             done();
         }
     );
 });
-*/
