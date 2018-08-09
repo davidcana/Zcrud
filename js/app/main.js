@@ -94,7 +94,11 @@ exports.renderList = function( options, data, callback ){
     
     var listPage =  new ListPage( options, data );
     context.putPage( listPage.getId(), listPage );
-    listPage.show( undefined, undefined, callback );
+    listPage.show( 
+        {
+            callback: callback
+        } 
+    );
     
     log.info( '...list rendering finished.' );
 };
@@ -113,8 +117,12 @@ exports.renderForm = function( options, data, callback ){
     
     context.putPage( formPage.getId(), formPage );
     //formPage.updateUsingRecordFromServer( undefined, undefined, callback );
-    formPage.show( undefined, undefined, callback );
-
+    formPage.show( 
+        {
+            callback: callback
+        } 
+    );
+    
     log.info( '...form rendering finished.' );
 };
 

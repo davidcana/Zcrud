@@ -83,8 +83,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         }
         
         parent.show( 
-            undefined, 
-            [ $( '#' + parent.getThisOptions().tbodyId )[0], get$()[0] ] );
+            {
+                root: [ $( '#' + parent.getThisOptions().tbodyId )[0], get$()[0] ] 
+            }
+        );
     };
     
     // Change current page to given value

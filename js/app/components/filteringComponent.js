@@ -101,7 +101,11 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
             ];
         
         // Show list page
-        parent.show( undefined, root );
+        parent.show( 
+            {
+                root: root
+            }
+        );
     };
     
     var get$ = function(){

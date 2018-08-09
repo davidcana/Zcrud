@@ -202,8 +202,17 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             callback( true );
         }
     }
-
-    var show = function( dictionaryExtension, root, callback, key, getRecordURL ){
+    
+    var show = function( params ){
+    //var show = function( dictionaryExtension, root, callback, key, getRecordURL ){
+        
+        // Init params
+        params = params || {};
+        var dictionaryExtension = params.dictionaryExtension;
+        var root = params.root;
+        var callback = params.callback;
+        var key = params.key;
+        var getRecordURL = params.getRecordURL;
         
         // Show form using user record
         if ( userRecord ){
@@ -527,7 +536,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         if ( dataFromServer.clientOnly ){
             parentPage.showFromClientOnly( dictionaryExtension, jsonObject );
         } else {
-            parentPage.show( dictionaryExtension );
+            parentPage.show( 
+                {
+                    dictionaryExtension: dictionaryExtension
+                }
+            );
         }
     };
     

@@ -151,9 +151,16 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             callback( true );
         }
     };
-
-    var show = function ( dictionaryExtension, root, callback ) {
-
+    
+    var show = function( params ){
+    //var show = function ( dictionaryExtension, root, callback ) {
+        
+        // Init params
+        params = params || {};
+        var dictionaryExtension = params.dictionaryExtension;
+        var root = params.root;
+        var callback = params.callback;
+        
         // Show list using user records
         if ( userRecords ){
             showUsingRecords( userRecords, dictionaryExtension, root, callback );
@@ -294,7 +301,12 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         // Update form retrieving record from server
         //currentFormPage.updateUsingRecordFromServer( key, thisOptions.getRecordURL );
-        currentFormPage.show( undefined, undefined, undefined, key, thisOptions.getRecordURL );
+        currentFormPage.show( 
+            {
+                key: key, 
+                getRecordURL: thisOptions.getRecordURL 
+            }
+        );
     };
     
     var showEditForm = function( event, forcedKey ){

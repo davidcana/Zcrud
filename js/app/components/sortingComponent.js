@@ -105,8 +105,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         }
         
         parent.show( 
-            undefined, 
-            [ $( '#' + parent.getThisOptions().tableId )[0] ] );
+            {
+                root: [ $( '#' + parent.getThisOptions().tableId )[0] ] 
+            }
+        );
     };
     
     var addToDataToSend = function( dataToSend ){
