@@ -241,6 +241,16 @@ module.exports = (function() {
             return result;
         }
         
+        // Is subform?
+        if ( source.startsWith( 'subform/' ) ){
+            var subformId = source.substring( 'subform/'.length );
+            result = [];
+            $.each( options.fields[ subformId ].fields, function ( fieldId, field ) {
+                result.push( field );
+            });
+            return result;
+        }
+        
         // Must be a page id
         return getForPage( source, options, pageIdArray ).view;
     };

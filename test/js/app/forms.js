@@ -8,11 +8,12 @@ var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 
 var formTestOptions = require( './editableSubformAsListTestOptions.js' );
+var extendedFormTestOptions = require( './editableSubformAsListExtendedTestOptions.js' );
 var thisTestOptions = undefined;
 var options = undefined;
 
 // Run tests
-
+/*
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -676,6 +677,28 @@ QUnit.test( "form filtering starting void test", function( assert ) {
                 testUtils.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
+            done();
+        }
+    );
+});
+*/
+QUnit.test( "form after form test", function( assert ) {
+
+    options = $.extend( true, {}, extendedFormTestOptions );
+    var numberOfOriginalMembers = 12;
+    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'renderForm' );
+
+
             done();
         }
     );

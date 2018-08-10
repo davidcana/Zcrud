@@ -147,6 +147,9 @@ module.exports = (function() {
             case "memberCheck":
                 ajaxMembersCheck( options, cmd, file, data, url );
                 break;
+            case "originalMembers":
+                ajaxOriginalMembers( options, cmd, file, data, url );
+                break;
             default:
                 throw "Unknown table in ajax: " + table;
         }
@@ -171,6 +174,46 @@ module.exports = (function() {
         }
 
         options.success( dataToSend );
+    };
+    
+    var ajaxOriginalMembers = function( options, cmd, file, data, url ){
+
+        // Run command
+        var dataToSend = undefined;
+        switch ( cmd ) {
+            case "BATCH_UPDATE":
+                dataToSend = ajaxOriginalBatchUpdate( file, data, url );
+                break;
+            case "GET":
+                dataToSend = ajaxOriginalMembersGet( file, data, url );
+                break;
+            default:
+                throw "Unknown command in ajax: " + cmd;
+        }
+
+        options.success( dataToSend );
+    };
+    
+    var ajaxOriginalMembersGet = function( file, data ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+
+        // Build record
+        var c = 0;
+        var thisOriginalMember = undefined;
+        while ( thisOriginalMember == undefined ){
+            var currentItem = members.originalMembers[ c++ ];
+            if ( currentItem.code == data.key ){
+                thisOriginalMember = currentItem;
+            }
+        }
+        dataToSend.record = $.extend( true, {}, thisOriginalMember );
+        dataToSend.fieldsData = {};
+
+        return dataToSend;
     };
     
     var ajaxMembersCheckBatchUpdate = function( file, data, url ){

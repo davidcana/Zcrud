@@ -153,7 +153,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var show = function( params ){
-    //var show = function ( dictionaryExtension, root, callback ) {
         
         // Init params
         params = params || {};
@@ -284,13 +283,12 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var showNewFormUsingRecordFromServer = function( type, event, forcedKey ){
 
         // Get the key of the record to get
-        var key = forcedKey || getKeyFromButton( event );
+        var key = forcedKey || pageUtils.getKeyFromButton( event );
         if ( key == undefined ){
             throw 'Error trying to load record in listPage: key is null!';
         }
 
         // Build the form instance
-        //currentFormPage = new FormPage( options, type, undefined, self );
         currentFormPage = new FormPage( 
             options, 
             {
@@ -300,7 +298,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         ); 
         
         // Update form retrieving record from server
-        //currentFormPage.updateUsingRecordFromServer( key, thisOptions.getRecordURL );
         currentFormPage.show( 
             {
                 key: key, 
@@ -318,7 +315,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var showNewForm = function( type, record ){
-        //currentFormPage =  new FormPage( options, type, record, self );   
+
         currentFormPage = new FormPage( 
             options, 
             {
@@ -333,13 +330,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var instanceNewForm = function( type, key ){
         
-        /*
-        return new FormPage( 
-            options, 
-            type, 
-            getRecordByKey( key ), 
-            self
-        );*/
         return new FormPage( 
             options, 
             {
@@ -349,15 +339,16 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             }
         );
     }
-    
+    /*
     var getKeyFromButton = function( event ){
         
         if ( ! event ){
             return;
         }
         
-        return $( event.target ).parent().parent().attr( 'data-record-key' );
-    };
+        //return $( event.target ).parent().parent().attr( 'data-record-key' );
+        return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
+    };*/
     
     // Iterate dictionary.records (an array) and put them into records (a map) using the id of each record as the key
     var buildRecords = function(){

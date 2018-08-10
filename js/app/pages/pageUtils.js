@@ -135,6 +135,16 @@ module.exports = (function() {
         });
     };
     
+    var getKeyFromButton = function( event ){
+
+        if ( ! event ){
+            return;
+        }
+
+        //return $( event.target ).parent().parent().attr( 'data-record-key' );
+        return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
+    };
+    
     return {
         configureTemplate: configureTemplate,
         normalizeNumber: normalizeNumber,
@@ -142,6 +152,7 @@ module.exports = (function() {
         ajaxError: ajaxError,
         serverSideError: serverSideError,
         generateId: generateId,
-        showStatusMessage: showStatusMessage
+        showStatusMessage: showStatusMessage,
+        getKeyFromButton: getKeyFromButton
     };
 })();

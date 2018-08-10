@@ -150,6 +150,7 @@ Datetime.prototype.afterProcessTemplateForField = function( params, $selection )
             this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
             break;
         case 'delete':
+        case 'list':
             // Nothing to do
             break; 
         default:
@@ -231,6 +232,7 @@ Datetime.prototype.getValueFromRecord = function( record, params ){
                 case 'update':
                     return dateInstance;
                 case 'delete':
+                case 'list':
                     return this.formatToClient( dateInstance );
                 default:
                     throw "Unknown source in Datetime: " + params.source;

@@ -77,6 +77,7 @@ OptionsField.prototype.afterProcessTemplateForField = function( params, $selecti
             this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
             break;
         case 'delete':
+        case 'list':
             // Nothing to do
             break; 
         default:
@@ -170,6 +171,7 @@ OptionsField.prototype.getValueFromRecord = function( record, params ){
         case 'update':
             return record[ this.id ];
         case 'delete':
+        case 'list':
             var optionsList = this.getOptionsFromRecord( record, this.page.getOptions() );
             var tempValue = record[ this.id ];
             try {

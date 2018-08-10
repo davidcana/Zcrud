@@ -14,6 +14,7 @@ var HistoryDelete = require( '../history/delete.js' );
 var HistoryComposition = require( '../history/composition.js' );
 var crudManager = require( '../crudManager.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
+var FormPage = require( '../pages/formPage.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
@@ -21,6 +22,7 @@ var Subform = function( properties ) {
     this.fieldsArray = [];
     this.fieldsMap = {};
     this.filter = undefined;
+    this.currentFormPage = undefined;
 };
 
 Subform.prototype = new Field();
@@ -176,7 +178,29 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 subformInstance.deleteRow( event );
             }
         );
-
+    
+    $selection
+        .find( '.zcrud-delete-command-button' )
+        .off()
+        .click( 
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                subformInstance.showNewFormUsingRecordFromServer( 'delete', event );
+            }
+        );
+    
+    $selection
+        .find( '.zcrud-edit-command-button' )
+        .off()
+        .click( 
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                subformInstance.showNewFormUsingRecordFromServer( 'update', event );
+            }
+        );
+    
     if ( $tr ){
         this. bindEventsForFieldsIn1Row( 
             $tr, 
@@ -523,6 +547,32 @@ Subform.prototype.generateId = function(){
 
 Subform.prototype.getName = function(){
     return this.id;
+};
+
+Subform.prototype.showNewFormUsingRecordFromServer = function( type, event ){
+
+    // Get the key of the record to get
+    var key = pageUtils.getKeyFromButton( event );
+    if ( key == undefined ){
+        throw 'Error trying to load record in formPage: key is null!';
+    }
+
+    // Build the form instance
+    this.currentFormPage = new FormPage( 
+        this.page.getOptions(), 
+        {
+            type: type, 
+            parentPage: this.page
+        }
+    ); 
+
+    // Update form retrieving record from server
+    this.currentFormPage.show( 
+        {
+            key: key, 
+            getRecordURL: this.getRecordURL 
+        }
+    );
 };
 
 module.exports = Subform;

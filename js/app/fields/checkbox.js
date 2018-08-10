@@ -35,6 +35,7 @@ Checkbox.prototype.getValueFromRecord = function( record, params ){
         case 'update':
             return value;
         case 'delete':
+        case 'list':
             return value? context.translate( 'true' ): context.translate( 'false' )
         default:
             throw "Unknown source in checkbox field: " + params.source;
