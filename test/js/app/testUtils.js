@@ -80,8 +80,10 @@ module.exports = (function() {
     };
     
     var members;
+    var originalMembersIndex = 0;
     var resetOriginalAndVerifiedMembers = function( name,  numberOfItems ){
-
+        
+        originalMembersIndex = numberOfItems - 1;
         members = {};
         members.originalMembers = [];
         members.verifiedMembers = {};
@@ -93,7 +95,9 @@ module.exports = (function() {
                 {
                     "code": sufix,
                     "name": thisName,
-                    "description": "Description of " + thisName
+                    "description": "Description of " + thisName,
+                    "important": false,
+                    "hobbies": []
                 }
             );
         }
@@ -182,7 +186,7 @@ module.exports = (function() {
         var dataToSend = undefined;
         switch ( cmd ) {
             case "BATCH_UPDATE":
-                dataToSend = ajaxOriginalBatchUpdate( file, data, url );
+                dataToSend = ajaxOriginalMembersBatchUpdate( file, data, url );
                 break;
             case "GET":
                 dataToSend = ajaxOriginalMembersGet( file, data, url );
@@ -194,6 +198,138 @@ module.exports = (function() {
         options.success( dataToSend );
     };
     
+    var getOriginalMember = function( code ){
+        
+        for ( var c = 0; c < members.originalMembers.length; ++c ){
+            var member = members.originalMembers[ c ];
+            if ( member.code == code ){
+                return member;
+            }
+        }
+        
+        return undefined;
+    };
+    
+    var replaceOriginalMember = function( code, newMember ){
+
+        for ( var c = 0; c < members.originalMembers.length; ++c ){
+            var member = members.originalMembers[ c ];
+            if ( member.code == code ){
+                members.originalMembers[ c ] = newMember;
+                return true;
+            }
+        }
+        
+        return false;
+    };
+    
+    var removeOriginalMember = function( code ){
+
+        for ( var c = 0; c < members.originalMembers.length; ++c ){
+            var member = members.originalMembers[ c ];
+            if ( member.code == code ){
+                members.originalMembers.splice( c, 1 );
+                return true;
+            }
+        }
+
+        return false;
+    };
+    
+    var ajaxOriginalMembersBatchUpdate = function( file, data, url ){
+
+        lastBatchUpdateUrl = url;
+        jsonUpdatesArray.push( 
+            $.extend( true, {}, data ) );
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.message = '';
+        dataToSend.newRecords = [];
+        var error = false;
+
+        // Add all existing originalMembers
+        for ( var id in data.existingRecords ) {
+            var modifiedItem = data.existingRecords[ id ];
+            var currentItem = getOriginalMember( id );
+
+            if ( ! currentItem ){
+                error = true;
+                dataToSend.message += 'Original member with key "' + id + '" not found trying to update it!';
+                continue;       
+            }
+
+            var newId = modifiedItem.code;
+            var newIdService = newId == undefined? undefined: getOriginalMember( newId );
+            if ( id != newId && newIdService ){
+                error = true;
+                dataToSend.message += 'Original member with key "' + newId + '" found: duplicated key trying to update it!';
+                continue;    
+            }
+
+            var extendedService = $.extend( true, {}, currentItem, modifiedItem );
+
+            if ( ! replaceOriginalMember( id, extendedService ) ){
+                dataToSend.message += 'Original member with key "' + id + '" not found trying to replace it!';
+                continue;   
+            }
+        }
+
+        // Add all new services
+        for ( var c = 0; c < data.newRecords.length; c++ ) {
+            var newItem = data.newRecords[ c ];
+            if ( newItem.code == undefined ){
+                newItem.code = buildOriginalMemberId();
+            }
+            id = newItem.code;
+            currentItem = getOriginalMember( id );
+            
+            if ( currentItem ){
+                error = true;
+                dataToSend.message += 'Original member with key "' + id + '" found trying to create it!';
+                continue;
+            }
+
+            members.originalMembers.push( newItem );
+            dataToSend.newRecords.push( newItem );               
+        }
+
+        // Remove all services to remove
+        for ( c = 0; c < data.recordsToRemove.length; c++ ) {
+            id = data.recordsToRemove[ c ];
+            currentItem = getOriginalMember( id );
+            
+            if ( ! currentItem ){
+                error = true;
+                dataToSend.message += 'Service with key "' + id + '" not found trying to delete it!';
+                continue;
+            }
+
+            if ( ! removeOriginalMember( id ) ){
+                dataToSend.message += 'Original member with key "' + id + '" not found trying to delete it!';
+                continue;
+            }
+             
+        }
+
+        dataToSend.result = dataToSend.result || error? 'Error': 'OK';
+        if ( dataToSend.message != '' ){
+            dataToSend.translateMessage = false;
+        }
+
+        return dataToSend;
+    };
+    
+    var buildOriginalMemberId = function(){
+
+        var item = members.originalMembers[ ++originalMembersIndex ]; 
+        while ( item ) {
+            item = members.originalMembers[ ++originalMembersIndex ];
+        }
+
+        return '' + originalMembersIndex;
+    };
+    
     var ajaxOriginalMembersGet = function( file, data ){
 
         // Init data
@@ -202,6 +338,8 @@ module.exports = (function() {
         dataToSend.message = '';
 
         // Build record
+        var thisOriginalMember = getOriginalMember( data.key );
+        /*
         var c = 0;
         var thisOriginalMember = undefined;
         while ( thisOriginalMember == undefined ){
@@ -209,7 +347,7 @@ module.exports = (function() {
             if ( currentItem.code == data.key ){
                 thisOriginalMember = currentItem;
             }
-        }
+        }*/
         dataToSend.record = $.extend( true, {}, thisOriginalMember );
         dataToSend.fieldsData = {};
 
@@ -348,6 +486,10 @@ module.exports = (function() {
         return dataToSend;
     };
     
+    var cloneArray = function( arrayToClone ){
+        return $.extend( true, [], arrayToClone );
+    };
+    
     var processMembersSubformsInGet = function( data, record, dataToSend ){
 
         var subformsFields = [ 'originalMembers', 'verifiedMembers' ];
@@ -355,8 +497,12 @@ module.exports = (function() {
         for ( var c = 0; c < subformsFields.length; ++c ){
             var subformFieldId = subformsFields[ c ];
 
-            var allSubformValues = members[ subformFieldId ] || {};
-            var thisFieldData = data[ subformFieldId ] || {};
+            var allSubformValues = members[ subformFieldId ]? 
+                cloneArray( members[ subformFieldId ] ): 
+                {};
+            var thisFieldData = data[ subformFieldId ]? 
+                cloneArray( data[ subformFieldId ] ): 
+                {};
             
             // Filter them
 

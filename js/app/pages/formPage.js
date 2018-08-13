@@ -644,8 +644,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll( 
-                //options.key, 
-                undefined,
+                thisOptions.key, //undefined
                 [ ],
                 fields,
                 undefined,
@@ -659,7 +658,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll( 
-                options.key, 
+                thisOptions.key || options.key, 
                 [ ],
                 fields,
                 undefined,
@@ -703,7 +702,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll(
-                options.key, 
+                thisOptions.key || options.key, 
                 [ record ], 
                 fields,
                 undefined,

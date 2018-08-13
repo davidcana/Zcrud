@@ -245,7 +245,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var save = function( event ){
         
         var jsonObject = context.getJSONBuilder( options ).buildJSONForAll(
-            options.key, 
+            thisOptions.key || options.key, 
             listPage.getDictionary().records,
             listPage.getFields(),
             undefined,
