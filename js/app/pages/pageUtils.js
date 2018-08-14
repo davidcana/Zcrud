@@ -144,7 +144,7 @@ module.exports = (function() {
         //return $( event.target ).parent().parent().attr( 'data-record-key' );
         return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
     };
-    
+    /*
     var getPostTemplates = function( fields ){
 
         var result = [];
@@ -165,7 +165,7 @@ module.exports = (function() {
         );
 
         return result.length == 0? undefined: result;
-    };
+    };*/
     
     return {
         configureTemplate: configureTemplate,
@@ -175,7 +175,7 @@ module.exports = (function() {
         serverSideError: serverSideError,
         generateId: generateId,
         showStatusMessage: showStatusMessage,
-        getKeyFromButton: getKeyFromButton,
-        getPostTemplates: getPostTemplates
+        getKeyFromButton: getKeyFromButton
+        //getPostTemplates: getPostTemplates
     };
 })();
