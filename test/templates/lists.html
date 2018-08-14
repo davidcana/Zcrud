@@ -38,12 +38,9 @@
                 <div data-muse-macro="'table'">
                     The ZCrud table
                 </div>
-                
-                <div class="zcrud-post-templates">
-                    <div data-trepeat="field instance/getFields()"
-                         data-tdefine="postTemplate field/getPostTemplate()">
-                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"><!--empty--></div>
-                    </div>
+
+                <div data-muse-macro="'postTemplates'">
+                    The post templates
                 </div>
                 
                 <div data-muse-macro="'pagingPanel'"
@@ -51,6 +48,33 @@
                     The bottom panel
                 </div>
             </form>
+        </div>
+        
+        <div data-mdefine-macro="postTemplates" 
+             class="zcrud-post-templates">
+            
+            <div data-muse-macro="'postTemplates-fields'"
+                 data-tdefine="fields instance/getFields()">
+                The post templates
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="postTemplates-fields">
+            <div data-trepeat="field fields"
+                 data-tdefine="fieldsInside field/getFields()">
+                <div data-tcondition="fieldsInside">
+                    <div data-muse-macro="'postTemplates-fields'"
+                         data-tdefine="fields fieldsInside">
+                        The post templates
+                    </div>
+                </div>
+                <div data-tcondition="not: fieldsInside">
+                    <div data-tdefine="postTemplate field/getPostTemplate()"
+                         data-tcondition="postTemplate">
+                        <div data-muse-macro="postTemplate"><!--empty--></div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <table data-mdefine-macro="table" 

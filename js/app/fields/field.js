@@ -104,4 +104,8 @@ Field.prototype.getId = function(){
     return this.id;
 };
 
+Field.prototype.getFields = function(){
+    return undefined;
+};
+
 module.exports = Field;

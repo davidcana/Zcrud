@@ -38,16 +38,16 @@
                 <input type="hidden"
                        name="zcRecordKey" 
                        data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
+                
                 <div data-muse-macro="viewItemsInFormExternalMacro"
                      data-tdefine="spanFieldClass 'zcrud-field'">
                     The fields
                 </div>
-                <div class="zcrud-post-templates">
-                    <div data-trepeat="field instance/getFields()"
-                         data-tdefine="postTemplate field/getPostTemplate()">
-                        <div data-tcondition="postTemplate" data-muse-macro="postTemplate"><!--empty--></div>
-                    </div>
+                
+                <div data-muse-macro="'postTemplates@templates/lists.html'">
+                    The post templates
                 </div>
+                
                 <div class="zcrud-button-panel" data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">
                     <button type="button" 
                             class="zcrud-form-cancel-command-button"

@@ -574,5 +574,20 @@ Subform.prototype.showNewFormUsingRecordFromServer = function( type, event ){
         }
     );
 };
+/*
+Subform.prototype.getPostTemplates = function(){
+
+    var result = [];
+    
+    for ( var c in this.fields ){
+        var subformField = this.fields[ c ];
+        var postTemplates = subformField.getPostTemplates();
+        if ( postTemplates ){
+            result = result.concat( postTemplates );
+        }
+    }
+    
+    return result.length == 0? undefined: result;
+};*/
 
 module.exports = Subform;

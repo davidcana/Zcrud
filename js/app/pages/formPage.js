@@ -823,6 +823,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             }
         }
     };
+    
+    var getPostTemplates = function(){
+        return pageUtils.getPostTemplates( fields );
+    };
+    
     /*
     var updateUsingThisRecord = function( record, dataFromServer, callback ){
         
@@ -890,7 +895,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         buildProcessTemplateParams: buildProcessTemplateParams,
         //updateUsingRecordFromServer: updateUsingRecordFromServer,
         //updateUsingThisRecord: updateUsingThisRecord,
-        getToolbarItemsArray: getToolbarItemsArray
+        getToolbarItemsArray: getToolbarItemsArray,
+        getPostTemplates: getPostTemplates
     };
     
     configure();

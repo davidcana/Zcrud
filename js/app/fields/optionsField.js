@@ -74,10 +74,10 @@ OptionsField.prototype.afterProcessTemplateForField = function( params, $selecti
     switch( params.source ) {
         case 'create':
         case 'update':
+        case 'list':
             this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
             break;
         case 'delete':
-        case 'list':
             // Nothing to do
             break; 
         default:

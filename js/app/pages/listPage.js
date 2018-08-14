@@ -487,6 +487,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var generateId = function(){
         return pageUtils.generateId();
     };
+    /*
+    var getPostTemplates = function(){
+        return pageUtils.getPostTemplates( fields );
+    };*/
     
     var self = {
         show: show,
@@ -525,6 +529,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         isFiltered: isFiltered,
         getFieldsSource: getFieldsSource,
         generateId: generateId
+        //getPostTemplates: getPostTemplates
     };
     
     configure();

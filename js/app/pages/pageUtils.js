@@ -145,6 +145,28 @@ module.exports = (function() {
         return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
     };
     
+    var getPostTemplates = function( fields ){
+
+        var result = [];
+
+        for ( var c = 0; c < fields.length; ++c ){
+            var field = fields[ c ];
+            var postTemplates = field.getPostTemplates();
+            if ( postTemplates ){
+                result = result.concat( postTemplates );
+            }
+        }
+
+        // Filter repeated items
+        result = result.filter(
+            function ( item, pos ) {
+                return result.indexOf( item ) == pos;
+            }
+        );
+
+        return result.length == 0? undefined: result;
+    };
+    
     return {
         configureTemplate: configureTemplate,
         normalizeNumber: normalizeNumber,
@@ -153,6 +175,7 @@ module.exports = (function() {
         serverSideError: serverSideError,
         generateId: generateId,
         showStatusMessage: showStatusMessage,
-        getKeyFromButton: getKeyFromButton
+        getKeyFromButton: getKeyFromButton,
+        getPostTemplates: getPostTemplates
     };
 })();
