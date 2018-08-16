@@ -26,6 +26,12 @@ Checkbox.prototype.setValueToForm = function( value, $this ){
     this.throwEventsForSetValueToForm( $this );
 };
 
+Checkbox.prototype.getValueFromRecord = function( record ){
+    
+    var value = record[ this.id ];
+    return value == undefined? false: value;
+};
+/*
 Checkbox.prototype.getValueFromRecord = function( record, params ){
     var value = record[ this.id ];
     value = value == undefined? false: value;
@@ -40,6 +46,20 @@ Checkbox.prototype.getValueFromRecord = function( record, params ){
         default:
             throw "Unknown source in checkbox field: " + params.source;
     }
+};
+*/
+Checkbox.prototype.getViewValueFromRecord = function( record ){
+    
+    var value = record[ this.id ];
+    value = value == undefined? false: value;
+
+    return value? context.translate( 'true' ): context.translate( 'false' )
+};
+
+Checkbox.prototype.getValueFromSelection = function( $selection ){
+    
+    var stringValue = Field.prototype.getValueFromSelection.call( this, $selection ).toLowerCase();
+    return stringValue == 'true';
 };
 
 module.exports = Checkbox;

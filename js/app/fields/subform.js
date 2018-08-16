@@ -69,6 +69,22 @@ Subform.prototype.getValueFromRecord = function( record, params ){
     return subformRecords;
 };
 
+Subform.prototype.getViewValueFromRecord = function( record ){
+
+    var subformRecords = record[ this.id ] || [];
+    var subformFields = this.fields;
+
+    for ( var i = 0; i < subformRecords.length; i++ ) {
+        var subformRecord = subformRecords[ i ];
+        for ( var c in subformFields ){
+            var subformField = subformFields[ c ];
+            subformRecord[ subformField.id ] = subformField.getViewValueFromRecord( subformRecord );
+        }
+    }
+
+    return subformRecords;
+};
+
 Subform.prototype.afterProcessTemplateForField = function( params ){
     
     var subformInstance = this;
@@ -244,7 +260,7 @@ Subform.prototype.buildProcessTemplateParams = function( field, record, dictiona
     
     return {
         field: field, 
-        value: record[ field.id ],
+        value: record? record[ field.id ]: undefined,
         options: params.options,
         record: record,
         source: params.source,

@@ -71,6 +71,12 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
 
 OptionsField.prototype.afterProcessTemplateForField = function( params, $selection ){
     
+    if ( this.page.isReadOnly() ){
+        return;
+    }
+    
+    this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
+    /*
     switch( params.source ) {
         case 'create':
         case 'update':
@@ -82,7 +88,7 @@ OptionsField.prototype.afterProcessTemplateForField = function( params, $selecti
             break; 
         default:
             throw "Unknown source in OptionsField: " + params.source;
-    }
+    }*/
 };
 
 OptionsField.prototype.getValueFromSelectionAndField = function( $selection ){
@@ -105,7 +111,6 @@ OptionsField.prototype.getValueFromForm = function( $selection ){
             return $selectedRadio.length > 0? $selectedRadio.val(): undefined;
         case 'select':
             return $selection.find( "select[name='" + this.name + "']").val();
-        //case 'optgroup':
         case 'datalist':
             return $selection.find( "input[name='" + this.name + "']").val();
     }
@@ -138,7 +143,6 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
             this.throwEventsForSetValueToForm( $this );
             return;
         case 'select':
-        //case 'optgroup':
         case 'datalist':
             $this.val( value );
             $this.trigger( "change", [ true ] );
@@ -156,7 +160,6 @@ OptionsField.prototype.getValue = function( $this ){
             return this.getValueFromSelectionAndField( $this );
         case 'radio':
         case 'select':
-        //case 'optgroup':
         case 'datalist':
             return $this.val();
     }
@@ -164,8 +167,9 @@ OptionsField.prototype.getValue = function( $this ){
     throw "Unknown field type in optionsField: " + this.type;
 };
 
+/*
 OptionsField.prototype.getValueFromRecord = function( record, params ){
-    
+
     switch( params.source ) {
         case 'create':
         case 'update':
@@ -187,6 +191,22 @@ OptionsField.prototype.getValueFromRecord = function( record, params ){
         default:
             throw "Unknown source in OptionsField: " + params.source;
     }
+};
+*/
+OptionsField.prototype.getViewValueFromRecord = function( record ){
+
+        var optionsList = this.getOptionsFromRecord( record, this.page.getOptions() );
+        var tempValue = record[ this.id ];
+        try {
+            var map = this.getDisplayTextMapFromArrayOptions( optionsList );
+            if ( this.type == 'checkboxes' ){
+                return this.getMultipleValueFromRecord( map, tempValue );
+            }
+            var inMapValue = map[ tempValue ];
+            return inMapValue? inMapValue: tempValue;
+        } catch ( e ){
+            return tempValue;
+        }
 };
 
 OptionsField.prototype.getMultipleValueFromRecord = function( optionsMap, value ){
@@ -227,7 +247,6 @@ OptionsField.prototype.getPostTemplate = function(){
         case 'checkboxes':
         case 'radio':
         case 'select':
-        //case 'optgroup':
             return;
         case 'datalist':
             return 'datalist-definition@templates/fields/basic.html';
@@ -243,7 +262,6 @@ OptionsField.prototype.mustHideLabel = function(){
         case 'radio':
             return true;
         case 'select':
-            //case 'optgroup':
         case 'datalist':
             return false;
     }

@@ -34,7 +34,11 @@ Field.prototype.getValueFromForm = function( $selection ){
     return $selection.find( "[name='" + this.name + "']").val();
 };
 
-Field.prototype.getValueFromRecord = function( record, params ){
+Field.prototype.getValueFromRecord = function( record ){
+    return record[ this.id ];
+};
+
+Field.prototype.getViewValueFromRecord = function( record ){
     return record[ this.id ];
 };
 
@@ -73,17 +77,7 @@ Field.prototype.getThisOptions = function(){
 Field.prototype.get$ = function(){
     return this.page.get$().find( '.zcrud-field-' + this.id );
 };
-/*
-Field.prototype.isReadOnly = function(){
-    
-    var temp = ( this.parentField && this.parentField.isReadOnly() ) || this.readOnly;
-    
-    if ( temp ){
-        return true;
-    }
-    
-    return this.page? this.page.isReadOnly(): false;
-};*/
+
 Field.prototype.isReadOnly = function(){
     return this.page.isReadOnly() || ( this.parentField && this.parentField.isReadOnly() ) || this.readOnly;
 };

@@ -216,6 +216,24 @@ Datetime.prototype.getValueFromFormForInline = function( $selection ){
                 this.get$datetime( $selection ) );
 };
 
+Datetime.prototype.getValueFromRecord = function( record ){
+
+    var value = record[ this.id ];
+    if ( ! value || value.length == 0 ){
+        return value;
+    }
+
+    switch( this.type ) {
+        case 'date':
+        case 'datetime':
+            return new Date( value );
+        case 'time':
+            return value;
+    }
+
+    throw 'Unknown type in Datetime: ' + this.type;
+};
+/*
 Datetime.prototype.getValueFromRecord = function( record, params ){
     
     var value = record[ this.id ];
@@ -237,6 +255,25 @@ Datetime.prototype.getValueFromRecord = function( record, params ){
                 default:
                     throw "Unknown source in Datetime: " + params.source;
             }
+        case 'time':
+            return value;
+    }
+
+    throw 'Unknown type in Datetime: ' + this.type;
+};*/
+
+Datetime.prototype.getViewValueFromRecord = function( record ){
+
+    var value = record[ this.id ];
+    if ( ! value || value.length == 0 ){
+        return value;
+    }
+
+    switch( this.type ) {
+        case 'date':
+        case 'datetime':
+            var dateInstance = new Date( value );
+            return this.formatToClient( dateInstance );
         case 'time':
             return value;
     }

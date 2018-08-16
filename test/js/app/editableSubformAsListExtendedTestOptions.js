@@ -84,7 +84,7 @@ module.exports = {
             fields: { 
                 code: { },
                 name: { },
-                datetime: {
+                /*datetime: {
                     type: 'datetime'
                 },
                 browser: {
@@ -93,7 +93,7 @@ module.exports = {
                 },
                 important: {
                     type: 'checkbox'
-                },
+                },*/
                 hobbies: {
                     type: 'checkboxes',
                     translateOptions: true,
@@ -125,7 +125,7 @@ module.exports = {
             fields: { 
                 code: { },
                 name: { },
-                datetime: {
+                /*datetime: {
                     type: 'datetime'
                 },
                 browser: {
@@ -134,7 +134,7 @@ module.exports = {
                 },
                 important: {
                     type: 'checkbox'
-                },
+                },*/
                 hobbies: {
                     type: 'checkboxes',
                     translateOptions: true,

@@ -222,7 +222,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     }
     
     var show = function( params ){
-    //var show = function( dictionaryExtension, root, callback, key, getRecordURL ){
         
         // Init params
         params = params || {};
@@ -264,13 +263,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var showUsingServer = function( key, getRecordURL, dictionaryExtension, root, callback ) {
-        /*
-        // Build the data to send to the server
-        var search = {};
-        if ( key != undefined ){
-            search.key = key;
-        }
-        addToDataToSend( search );*/
 
         // Get the record from the server and show the form
         crudManager.getRecord( 
@@ -278,8 +270,12 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 url: getRecordURL || thisOptions.getRecordURL,
                 search: buildSearch( key ),
                 success: function( dataFromServer ){
-                    //processDataFromServer( dataFromServer );
-                    showUsingRecord( dataFromServer.record, dictionaryExtension, root, callback, dataFromServer );
+                    showUsingRecord( 
+                        dataFromServer.record, 
+                        dictionaryExtension, 
+                        root, 
+                        callback, 
+                        dataFromServer );
                 },
                 error: function(){
                     context.showError( options, false, 'Server communication error!' );
@@ -289,15 +285,17 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         );
     };
     
-    var buildRecordForDictionary = function(){
+    var buildRecordForDictionary = function( useViewValue ){
         
         var newRecord = {};
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            newRecord[ field.id ] = field.getValueFromRecord( 
-                record, 
-                buildProcessTemplateParams( field ) );
+            newRecord[ field.id ] = useViewValue?
+                field.getViewValueFromRecord( record ):
+                field.getValueFromRecord( 
+                    record, 
+                    buildProcessTemplateParams( field ) );
         }
         
         // Add key if there is no field key
@@ -307,13 +305,32 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         
         return newRecord;
     };
+    /*
+    var buildRecordForDictionary = function(){
 
+        var newRecord = {};
+
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            newRecord[ field.id ] = field.getValueFromRecord( 
+                record, 
+                buildProcessTemplateParams( field ) );
+        }
+
+        // Add key if there is no field key
+        if ( newRecord[ options.key ] == undefined ){
+            newRecord[ options.key ] = record[ options.key ];
+        }
+
+        return newRecord;
+    };*/
+    
     var updateDictionary = function( dictionaryExtension ){
 
         var thisDictionary = $.extend( 
             {
                 options: options,
-                record: buildRecordForDictionary()
+                record: buildRecordForDictionary( isReadOnly() )
             }, 
             options.dictionary );
         
@@ -809,7 +826,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var isReadOnly = function(){
-        return !! thisOptions.readOnly;
+        return !! thisOptions.readOnly || type == 'delete';
     };
     
     var addToDataToSend = function( dataToSend ){
