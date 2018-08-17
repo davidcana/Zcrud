@@ -8,7 +8,7 @@ var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
 
 var formTestOptions = require( './editableSubformAsListTestOptions.js' );
-var extendedFormTestOptions = require( './editableSubformAsListExtendedTestOptions.js' );
+//var extendedFormTestOptions = require( './editableSubformAsListExtendedTestOptions.js' );
 var thisTestOptions = undefined;
 var options = undefined;
 
@@ -40,12 +40,16 @@ QUnit.test( "form simple test", function( assert ) {
                     {
                         "code": "2",
                         "name": "Member 2",
-                        "description": "Description of Member 2"
+                        "description": "Description of Member 2",
+                        "important": false,
+                        "hobbies": []
                     },
                     {
                         "code": "3",
                         "name": "Member 3",
-                        "description": "Description of Member 3"
+                        "description": "Description of Member 3",
+                        "important": false,
+                        "hobbies": []
                     }
                 ]);
             
@@ -65,12 +69,16 @@ QUnit.test( "form simple test", function( assert ) {
                 "2": {
                     "code": "2",
                     "name": "Member 2",
-                    "description": "Description of Member 2"
+                    "description": "Description of Member 2",
+                    "important": false,
+                    "hobbies": []
                 },
                 "3": {
                     "code": "3",
                     "name": "Member 3",
-                    "description": "Description of Member 3 edited"
+                    "description": "Description of Member 3 edited",
+                    "important": false,
+                    "hobbies": []
                 }
             };
             assert.deepEqual( 
@@ -87,7 +95,9 @@ QUnit.test( "form simple test", function( assert ) {
                 "3": {
                     "code": "3",
                     "name": "Member 3",
-                    "description": "Description of Member 3 edited"
+                    "description": "Description of Member 3 edited",
+                    "important": false,
+                    "hobbies": []
                 }
             };
             assert.deepEqual( 
@@ -102,15 +112,19 @@ QUnit.test( "form simple test", function( assert ) {
                     {
                         "code": "5",
                         "name": "Member 5",
-                        "description": "Description of Member 5"
+                        "description": "Description of Member 5",
+                        "important": false,
+                        "hobbies": []
                     },
                     {
                         "code": "7",
                         "name": "Member 7",
-                        "description": "Description of Member 7"
+                        "description": "Description of Member 7",
+                        "important": false,
+                        "hobbies": []
                     }
                 ]);
-
+            
             // Copy
             $copyButton.click();
             testHelper.fillSubformNewRow(
@@ -126,17 +140,23 @@ QUnit.test( "form simple test", function( assert ) {
                 "3": {
                     "code": "3",
                     "name": "Member 3",
-                    "description": "Description of Member 3 edited"
+                    "description": "Description of Member 3 edited",
+                    "important": false,
+                    "hobbies": []
                 },
                 "5": {
                     "code": "5",
                     "name": "Member 5",
-                    "description": "Description of Member 5"
+                    "description": "Description of Member 5",
+                    "important": false,
+                    "hobbies": []
                 },
                 "7": {
                     "code": "7",
                     "name": "Member 7",
-                    "description": "Description of Member 7 edited"
+                    "description": "Description of Member 7 edited",
+                    "important": false,
+                    "hobbies": []
                 }
                 
             };
@@ -175,12 +195,16 @@ QUnit.test( "form undo/redo test", function( assert ) {
                     {
                         "code": "2",
                         "name": "Member 2",
-                        "description": "Description of Member 2"
+                        "description": "Description of Member 2",
+                        "important": false,
+                        "hobbies": []
                     },
                     {
                         "code": "3",
                         "name": "Member 3",
-                        "description": "Description of Member 3"
+                        "description": "Description of Member 3",
+                        "important": false,
+                        "hobbies": []
                     }
                 ]);
 
@@ -251,12 +275,16 @@ QUnit.test( "form undo/redo test", function( assert ) {
                     {
                         "code": "5",
                         "name": "Member 5",
-                        "description": "Description of Member 5"
+                        "description": "Description of Member 5",
+                        "important": false,
+                        "hobbies": []
                     },
                     {
                         "code": "7",
                         "name": "Member 7",
-                        "description": "Description of Member 7"
+                        "description": "Description of Member 7",
+                        "important": false,
+                        "hobbies": []
                     }
                 ]);
 
@@ -304,17 +332,23 @@ QUnit.test( "form undo/redo test", function( assert ) {
                 "3": {
                     "code": "3",
                     "name": "Member 3",
-                    "description": "Description of Member 3 edited"
+                    "description": "Description of Member 3 edited",
+                    "important": false,
+                    "hobbies": []
                 },
                 "5": {
                     "code": "5",
                     "name": "Member 5",
-                    "description": "Description of Member 5"
+                    "description": "Description of Member 5",
+                    "important": false,
+                    "hobbies": []
                 },
                 "7": {
                     "code": "7",
                     "name": "Member 7",
-                    "description": "Description of Member 7 edited"
+                    "description": "Description of Member 7 edited",
+                    "important": false,
+                    "hobbies": []
                 }
 
             };
@@ -326,6 +360,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
         }
     );
 });
+*/
 
 QUnit.test( "form filtering test", function( assert ) {
 
@@ -387,7 +422,9 @@ QUnit.test( "form filtering test", function( assert ) {
                     {
                         "code": "1",
                         "name": "Member 1",
-                        "description": "Description of Member 1"
+                        "description": "Description of Member 1",
+                        "important": false,
+                        "hobbies": []
                     },
                     {
                         "code": "11",
@@ -495,7 +532,7 @@ QUnit.test( "form filtering test", function( assert ) {
         }
     );
 });
-
+/*
 QUnit.test( "form filtering starting void test", function( assert ) {
 
     thisTestOptions = {
@@ -681,7 +718,7 @@ QUnit.test( "form filtering starting void test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "form after form test", function( assert ) {
 
     options = $.extend( true, {}, extendedFormTestOptions );
@@ -702,4 +739,4 @@ QUnit.test( "form after form test", function( assert ) {
             done();
         }
     );
-});
+});*/

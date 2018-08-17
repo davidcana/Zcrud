@@ -523,6 +523,32 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         }
     }
     
+    var updateRecord = function( record, items ){
+        
+        for ( var id in items ){
+            
+            var item = items[ id ];
+            
+            if ( ! $.isPlainObject( item ) ){
+                record[ id ] = item;
+                continue;
+            }
+
+            // Add new records
+            record[ id ] = record[ id ].concat( item.newRecords );
+            
+            // Update modified records
+            for ( var modifiedId in item.existingRecords ){
+                record[ id ][ modifiedId ] = item.existingRecords[ modifiedId ];
+            }
+            
+            // Delete removed records
+            for ( var c = 0; c < item.recordsToRemove.length; ++c ){
+                delete record[ id ][ c ];
+            }
+        } 
+    };
+    
     var self = {
         putChange: putChange,
         putCreate: putCreate,
@@ -552,7 +578,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         pushNewSubformRow: pushNewSubformRow,
         buildAndAttachRowForDoAction: buildAndAttachRowForDoAction,
         getEditableOptions: getEditableOptions,
-        buildIterator: buildIterator
+        buildIterator: buildIterator,
+        updateRecord: updateRecord
     };
     
     return self;

@@ -285,13 +285,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
         var result = [];
 
         var $selectedRows = get$selectedRows();
-        $selectedRows.each( function( index ) {
-            var $row = $( this );
-            //var key = $row.data( 'record-key' );
-            //var record = parent.getRecordByKey( key, $row );
-            var record = fieldUtils.buildRecordFromSelection( parent.getFields(), $row );
-            result.push( record );
-        });
+        $selectedRows.each( 
+            function( index ) {
+                var $row = $( this );
+                var key = $row.data( 'record-key' );
+                var record = parent.getRecordByKey( key, $row );
+                fieldUtils.updateRecordFromSelection( record, parent.getFields(), $row );
+                //var record = fieldUtils.buildRecordFromSelection( parent.getFields(), $row );
+                result.push( record );
+            }
+        );
         
         return result;
     };

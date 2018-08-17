@@ -291,11 +291,15 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            newRecord[ field.id ] = useViewValue?
+            newRecord[ field.id ] = field.getValueFromRecord( 
+                record, 
+                buildProcessTemplateParams( field ) );
+            /*
+            newRecord[ field.id ] = useViewValue || field.isReadOnly()?
                 field.getViewValueFromRecord( record ):
                 field.getValueFromRecord( 
                     record, 
-                    buildProcessTemplateParams( field ) );
+                    buildProcessTemplateParams( field ) );*/
         }
         
         // Add key if there is no field key
@@ -497,6 +501,26 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         return result;
     };
     
+    var updateRecordFromJSON = function( jsonObject ) {
+        
+        switch ( type ) {
+            case 'create':
+            case 'update':
+            case 'list':
+                record = context.getJSONBuilder( options ).getRecordFromJSON( 
+                    jsonObject, 
+                    type, 
+                    record, 
+                    context.getHistory() );
+                break;
+            case 'delete':
+                // Nothing to do
+                break;
+            default:
+                throw "Unknown FormPage type in updateRecordFromJSON method: " + type;
+        }
+    }
+
     var saveCommon = function( elementId, event, jsonObject, $form ){
 
         // Return if there is no operation to do
@@ -518,9 +542,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             }
             
             // Update record if needed
-            if ( type != 'delete' ){
-                record = context.getJSONBuilder( options ).getRecordFromJSON( jsonObject, type );
-            }
+            updateRecordFromJSON( jsonObject );
              
             // Trigger events
             eventFunction(

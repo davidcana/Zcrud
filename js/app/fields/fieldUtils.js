@@ -24,6 +24,20 @@ var FieldUtils = function() {
         return record;
     };
     
+    var updateRecordFromSelection = function( record, fieldsArray, $selection ){
+
+        for ( var c = 0; c < fieldsArray.length; c++ ) {
+            var field = fieldsArray[ c ];
+            var value = field.isReadOnly()?
+                undefined:
+                field.getValueFromForm( $selection );
+
+            if ( value != undefined && value != '' ){
+                record[ field.id ] = value;
+            }
+        }
+    };
+    /*
     var buildRecordFromSelection = function( fieldsArray, $selection ){
 
         var record = {};
@@ -32,7 +46,7 @@ var FieldUtils = function() {
             var field = fieldsArray[ c ];
             var value = field.isReadOnly()?
                 field.getValueFromSelection( $selection ):
-                field.getValueFromForm( $selection );
+            field.getValueFromForm( $selection );
 
             if ( value != undefined && value != '' ){
                 record[ field.id ] = value;
@@ -41,7 +55,7 @@ var FieldUtils = function() {
 
         return record;
     };
-    
+    */
     var buildDefaultValuesRecord = function( fieldsArray ){
 
         var defaultRecord = {};
@@ -58,8 +72,9 @@ var FieldUtils = function() {
     
     var buildRecordsMap = function( recordsArray, keyField ){
 
+        recordsArray = recordsArray || [];
         var recordsMap = {};
-
+        
         for ( var c = 0; c < recordsArray.length; c++ ) {
             var record = recordsArray[ c ];
             var key = record[ keyField ];
@@ -71,7 +86,7 @@ var FieldUtils = function() {
     
     return {
         buildRecord: buildRecord,
-        buildRecordFromSelection: buildRecordFromSelection,
+        updateRecordFromSelection: updateRecordFromSelection,
         buildDefaultValuesRecord: buildDefaultValuesRecord,
         buildRecordsMap: buildRecordsMap
     };

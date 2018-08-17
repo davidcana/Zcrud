@@ -144,6 +144,13 @@ Datetime.prototype.getValue = function( $this ){
 
 Datetime.prototype.afterProcessTemplateForField = function( params, $selection ){
     
+    if ( this.isReadOnly() ){
+    //if ( this.page.isReadOnly() ){
+        return;
+    }
+    
+    this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
+    /*
     switch( params.source ) {
         case 'create':
         case 'update':
@@ -155,7 +162,7 @@ Datetime.prototype.afterProcessTemplateForField = function( params, $selection )
             break; 
         default:
             throw "Unknown source in Datetime: " + params.source;
-    }
+    }*/
 };
 
 Datetime.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( params, $selection ){
@@ -575,10 +582,11 @@ Datetime.prototype.goToday = function( event, $datetime, params ){
 
 Datetime.prototype.buildDictionaryFromParams = function( params ){
     
-    this.dictionary = $.extend( true, {}, params.dictionary );
+    this.dictionary = $.extend( params.dictionary );
+    //this.dictionary = $.extend( true, {}, params.dictionary );
     //this.dictionary = $.extend( true, {}, this.page.getDictionary() );
     this.dictionary.field = this;
-    this.dictionary.value = params.value;
+    //this.dictionary.value = params.value;
 
     return this.dictionary;
 };
