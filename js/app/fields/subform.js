@@ -453,12 +453,6 @@ Subform.prototype.dataFromServer = function( data ){
 };
 
 Subform.prototype.update = function ( root, dictionaryExtension, callback ) {
-//Subform.prototype.update = function ( dictionaryExtension, root, callback ) {
-    /*
-    if ( userRecords ){
-        showUsingRecords( dictionaryExtension, root, callback );
-        return;
-    }*/
 
     var subformInstance = this;
     
@@ -506,16 +500,22 @@ Subform.prototype.buildDataToSend = function(){
     return data;
 };
 
+Subform.prototype.beforeProcessTemplate = function( data ){
+    
+    this.componentsMap.dataFromServer( data );
+    this.updateRecords( data.records );    
+};
+
 Subform.prototype.clientAndServerSuccessFunction = function( data, root, dictionaryExtension, callback ){
 
-    this.componentsMap.dataFromServer( data );
-
+    this.beforeProcessTemplate( data );
+    
     context.getZPTParser().run({
         root: root || [ 
                 this.get$().find( 'tbody' )[0], 
                 this.getPagingComponent().get$()[0]
         ],
-        dictionary: this.buildDictionaryForUpdate(),
+        dictionary: this.buildDictionaryForUpdate( dictionaryExtension ),
         notRemoveGeneratedTags: false
     });
     
@@ -590,20 +590,9 @@ Subform.prototype.showNewFormUsingRecordFromServer = function( type, event ){
         }
     );
 };
-/*
-Subform.prototype.getPostTemplates = function(){
 
-    var result = [];
-    
-    for ( var c in this.fields ){
-        var subformField = this.fields[ c ];
-        var postTemplates = subformField.getPostTemplates();
-        if ( postTemplates ){
-            result = result.concat( postTemplates );
-        }
-    }
-    
-    return result.length == 0? undefined: result;
-};*/
+Subform.prototype.updateRecords = function( newRecordsArray ){
+    this.page.updateRecordProperty( this.id, newRecordsArray );
+};
 
 module.exports = Subform;

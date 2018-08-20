@@ -534,6 +534,10 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                 continue;
             }
 
+            if ( record[ id ] == undefined ){
+                record[ id ] = [];
+            }
+            
             // Add new records
             record[ id ] = record[ id ].concat( item.newRecords );
             

@@ -46,6 +46,14 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     var getRecord = function(){
         return record;
     };
+    var updateRecordProperty = function( id, value ){
+        
+        if ( ! record ){
+            record = {};
+        }
+        
+        record[ id ] = value;
+    };
     
     var id = options.formId;
     var getId = function(){
@@ -910,6 +918,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         show: show,
         setRecord: setRecord,
         getRecord: getRecord,
+        updateRecordProperty: updateRecordProperty,
         getDictionary: getDictionary,
         getThisOptions: getThisOptions,
         getType: getType,

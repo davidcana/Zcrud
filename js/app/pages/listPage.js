@@ -144,7 +144,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
         
-        componentsMap.dataFromServer( data );
         beforeProcessTemplate( data, dictionaryExtension );
         buildHTMLAndJavascript( root );
         if ( callback ){
@@ -204,17 +203,18 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var beforeProcessTemplate = function( data, dictionaryExtension ){
-
-        updateDictionary( data, dictionaryExtension );
-        buildRecords();
+        
+        componentsMap.dataFromServer( data );
+        updateRecords( data.records );
+        updateDictionary( data.records, dictionaryExtension );
     };
     
-    var updateDictionary = function( data, dictionaryExtension ){
+    var updateDictionary = function( newRecordsArray, dictionaryExtension ){
 
         var thisDictionary = $.extend(
             {
                 options: options,
-                records: data.records
+                records: newRecordsArray
             }, 
             options.dictionary );
         
@@ -339,23 +339,22 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             }
         );
     }
-    /*
-    var getKeyFromButton = function( event ){
-        
-        if ( ! event ){
-            return;
-        }
-        
-        //return $( event.target ).parent().parent().attr( 'data-record-key' );
-        return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
-    };*/
     
     // Iterate dictionary.records (an array) and put them into records (a map) using the id of each record as the key
-    var buildRecords = function(){
+    /*
+    var updateRecords = function(){
         
         records = {};
         for ( var c = 0; c < dictionary.records.length; c++ ) {
             var record = dictionary.records[ c ];
+            records[ record[ options.key ] ] = record;
+        }
+    };*/
+    var updateRecords = function( newRecordsArray ){
+
+        records = {};
+        for ( var c = 0; c < newRecordsArray.length; c++ ) {
+            var record = newRecordsArray[ c ];
             records[ record[ options.key ] ] = record;
         }
     };
@@ -487,10 +486,6 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var generateId = function(){
         return pageUtils.generateId();
     };
-    /*
-    var getPostTemplates = function(){
-        return pageUtils.getPostTemplates( fields );
-    };*/
     
     var self = {
         show: show,
@@ -528,8 +523,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         clientAndServerSuccessFunction: clientAndServerSuccessFunction,
         isFiltered: isFiltered,
         getFieldsSource: getFieldsSource,
-        generateId: generateId
-        //getPostTemplates: getPostTemplates
+        generateId: generateId,
+        updateRecords: updateRecords
     };
     
     configure();
