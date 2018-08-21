@@ -24,7 +24,7 @@ var FieldUtils = function() {
         return record;
     };
     
-    var updateRecordFromSelection = function( record, fieldsArray, $selection ){
+    var updateRecordFromFormSelection = function( record, fieldsArray, $selection ){
 
         for ( var c = 0; c < fieldsArray.length; c++ ) {
             var field = fieldsArray[ c ];
@@ -86,7 +86,7 @@ var FieldUtils = function() {
     
     return {
         buildRecord: buildRecord,
-        updateRecordFromSelection: updateRecordFromSelection,
+        updateRecordFromFormSelection: updateRecordFromFormSelection,
         buildDefaultValuesRecord: buildDefaultValuesRecord,
         buildRecordsMap: buildRecordsMap
     };

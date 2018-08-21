@@ -376,9 +376,21 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return options.entityId;      
     };
     
+    var getRecordByKey = function( key, mustUpdateRecordFromSelection ){
+        
+        var record = records[ key ];
+        
+        if ( mustUpdateRecordFromSelection && ! this.readOnly ){
+            // TODO Implement fieldUtils.updateRecordFromListSelection
+            //fieldUtils.updateRecordFromListSelection( record, this.fieldsArray, $row );
+        }
+
+        return record;
+    };
+    /*
     var getRecordByKey = function( key ){
         return records[ key ];
-    };
+    };*/
     
     var getRowByKey = function( key ){
         return get$().find( "[data-record-key='" + key + "']" );

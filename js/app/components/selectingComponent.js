@@ -288,17 +288,28 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply, pa
         $selectedRows.each( 
             function( index ) {
                 var $row = $( this );
+                
+                // Get record
+                var record;
                 var key = $row.data( 'record-key' );
-                var record = parent.getRecordByKey( key, $row );
-                fieldUtils.updateRecordFromSelection( record, parent.getFields(), $row );
-                //var record = fieldUtils.buildRecordFromSelection( parent.getFields(), $row );
+                if ( key != undefined ){
+                    record = parent.getRecordByKey( key, $row, true );
+                } else {
+                    var recordId = $row.data( 'record-id' );
+                    if ( recordId != undefined ){
+                        record = parent.getFromAddedRecords( recordId );
+                    } else {
+                        throw 'No selected row!';
+                    }
+                }
+                
                 result.push( record );
             }
         );
         
         return result;
     };
-    
+
     var onSelectionChanged = function () {
         
         options.events.selectionChanged({

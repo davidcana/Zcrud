@@ -23,10 +23,15 @@ var Subform = function( properties ) {
     this.fieldsMap = {};
     this.filter = undefined;
     this.currentFormPage = undefined;
+    this.addedRecords = {};
 };
 
 Subform.prototype = new Field();
 Subform.prototype.constructor = Subform;
+
+Subform.prototype.getFromAddedRecords = function( recordId ){
+    return this.addedRecords[ recordId ];
+};
 
 Subform.prototype.filterValue = function( record ){
     
@@ -123,6 +128,11 @@ Subform.prototype.addNewRow = function( params ){
     context.getHistory().put( 
         this.page.getId(), 
         createHistoryItem );
+    this.addToAddedRecords( createHistoryItem );
+};
+
+Subform.prototype.addToAddedRecords = function( createHistoryItem ){
+    this.addedRecords[ createHistoryItem.recordId ] = createHistoryItem.record;
 };
 
 Subform.prototype.buildHistoryItemForNewRow = function( params ){
@@ -343,12 +353,23 @@ Subform.prototype.buildMapValue = function(){
         this.getKey() );
 };
 
-Subform.prototype.getRecordByKey = function( key, $row ){
+Subform.prototype.getRecordByKey = function( key, $row, mustUpdateRecordFromSelection ){
     
+    var record = this.buildMapValue()[ key ];
+    
+    if ( mustUpdateRecordFromSelection && ! this.readOnly ){
+        fieldUtils.updateRecordFromFormSelection( record, this.fieldsArray, $row );
+    }
+    
+    return record;
+};
+/*
+Subform.prototype.getRecordByKey = function( key, $row ){
+
     return this.readOnly?
         this.buildMapValue()[ key ]:
-        fieldUtils.buildRecord( this.fieldsArray, $row );
-};
+    fieldUtils.buildRecord( this.fieldsArray, $row );
+};*/
 
 Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom, deselect ){
     
@@ -376,7 +397,6 @@ Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection,
     return result;
 };
 
-
 Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $selectedRows ){
 
     if ( ! records || records.length == 0 ){
@@ -396,7 +416,9 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
             }
         );
         composition.add( createHistoryItem );
-
+        
+        this.addToAddedRecords( createHistoryItem );
+        
         // Add deletion if needed
         if ( subformToDeleteFrom ){
             var $tr = $( $selectedRows.get( c ) );
@@ -431,16 +453,30 @@ Subform.prototype.buildDataToSend = function(){
 };
 
 Subform.prototype.getPagingComponent = function(){
-    return this.componentsMap.getSecureComponent( 'paging' );
+    return this.componentsMap.getComponent( 'paging' );
 };
 
 Subform.prototype.getTotalNumberOfRecords = function(){
-    return this.getPagingComponent().getTotalNumberOfRecords();
+    
+    var paging = this.getPagingComponent();
+    
+    return paging?
+        paging.getTotalNumberOfRecords():
+        this.getRecords().length;
 };
 
 Subform.prototype.getRecords = function(){
-    return this.getPagingComponent().getRecords();
+    //return this.getPagingComponent().getRecords();
+    return this.page.getFieldValue( this.id );
 };
+/*
+Subform.prototype.addRecords = function( recordsToAdd ){
+    
+    var records = this.page.getFieldValue( this.id );
+    records = records.concat( recordsToAdd );
+    
+    this.page.updateRecordProperty( this.id, records );
+};*/
 
 Subform.prototype.dataFromServer = function( data ){
     
@@ -513,7 +549,7 @@ Subform.prototype.clientAndServerSuccessFunction = function( data, root, diction
     context.getZPTParser().run({
         root: root || [ 
                 this.get$().find( 'tbody' )[0], 
-                this.getPagingComponent().get$()[0]
+                this.getPagingComponent()? this.getPagingComponent().get$()[0]: undefined
         ],
         dictionary: this.buildDictionaryForUpdate( dictionaryExtension ),
         notRemoveGeneratedTags: false

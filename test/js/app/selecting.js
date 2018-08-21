@@ -2169,7 +2169,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                 testHelper.getReadOnlySubformItemsKeys( 'members' ), 
                 [ '2', '4' ]);
             testHelper.assertHistory( assert, 1, 0, true );
-
+            
             // Select
             testHelper.subformSelectByText( 'externalMembers', '5', '1' );
             
