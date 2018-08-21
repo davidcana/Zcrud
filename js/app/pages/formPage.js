@@ -239,6 +239,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         var key = params.key;
         var getRecordURL = params.getRecordURL;
         
+        //dictionaryExtension.key = key;
+        
         // Show form using user record
         if ( userRecord ){
             showUsingRecord( userRecord, dictionaryExtension, root, callback );

@@ -35,10 +35,6 @@
                     The status message
                 </div>
                 
-                <input type="hidden"
-                       name="zcRecordKey" 
-                       data-tattributes="id 'zcrud-recordKey'; value record[ options/key ]">
-                
                 <div data-muse-macro="viewItemsInFormExternalMacro"
                      data-tdefine="spanFieldClass 'zcrud-field'">
                     The fields
@@ -114,7 +110,10 @@
                                 viewItems instance/getView()">
                 <input type="hidden"
                        name="zcRecordKey" 
-                       data-tattributes="id 'zcRecordKey'; value record[ options/key ]">
+                       data-tattributes="id 'zcRecordKey';
+                                         value record[ options/key ]"
+                       data-tdefine="key instance/getThisOptions()/key | options/key">
+                
                 <div data-muse-macro="viewItemsInFormExternalMacro"
                      data-tdefine="spanFieldClass 'zcrud-field'">
                     The fields

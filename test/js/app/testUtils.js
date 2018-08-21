@@ -102,6 +102,9 @@ module.exports = (function() {
             );
         }
     };
+    var getOriginalMembers = function(){
+        return members.originalMembers;
+    };
     var getVerifiedMembers = function(){
         return members.verifiedMembers;
     };
@@ -977,6 +980,7 @@ module.exports = (function() {
         resetServices: resetServices,
         reset2SubformMembersServices: reset2SubformMembersServices,
         resetOriginalAndVerifiedMembers: resetOriginalAndVerifiedMembers,
+        getOriginalMembers: getOriginalMembers,
         getVerifiedMembers: getVerifiedMembers,
         getUrl: getUrl,
         getLastListUrl: getLastListUrl,

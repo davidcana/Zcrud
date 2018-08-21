@@ -702,6 +702,11 @@ module.exports = (function() {
     var clickCreateSubformRowButton = function( subformName ){
         get$FormFieldByNameClass( subformName ).find( '.zcrud-new-row-command-button' ).trigger( 'click' );
     };
+    var clickUpdateSubformRowButton = function( subformName, subformIndex ){
+        get$FormFieldByNameClass( subformName )
+            .find( "[data-record-index='" + subformIndex + "'] .zcrud-edit-command-button"  )
+            .trigger( 'click' );
+    };
     var clickDeleteSubformRowButton = function( subformName, subformIndex ){
         get$FormFieldByNameClass( subformName )
             .find( "[data-record-index='" + subformIndex + "'] .zcrud-delete-row-command-button"  )
@@ -1517,6 +1522,7 @@ module.exports = (function() {
         fillSubform: fillSubform,
         fillSubformNewRow: fillSubformNewRow,
         clickCreateSubformRowButton: clickCreateSubformRowButton,
+        clickUpdateSubformRowButton: clickUpdateSubformRowButton,
         clickDeleteSubformRowButton: clickDeleteSubformRowButton,
         getNumberOfValidationErrors: getNumberOfValidationErrors,
         get$FormFieldByNameClass: get$FormFieldByNameClass,

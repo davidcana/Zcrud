@@ -6,6 +6,7 @@ require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testUtils = require( './testUtils.js' );
+var context = require( '../../../js/app/context.js' );
 
 var formTestOptions = require( './editableSubformAsListTestOptions.js' );
 var extendedFormTestOptions = require( './editableSubformAsListExtendedTestOptions.js' );
@@ -13,7 +14,7 @@ var thisTestOptions = undefined;
 var options = undefined;
 
 // Run tests
-
+/*
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -755,7 +756,8 @@ QUnit.test( "form filtering starting void test", function( assert ) {
         }
     );
 });
-/*
+*/
+
 QUnit.test( "form after form test", function( assert ) {
 
     options = $.extend( true, {}, extendedFormTestOptions );
@@ -772,8 +774,97 @@ QUnit.test( "form after form test", function( assert ) {
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
 
+            // Check record 1 value
+            var key = "1";
+            var record = buildMemberRecord( key );
+            assert.deepEqual( 
+                testUtils.getOriginalMembers()[ 0 ], 
+                record );
 
+            // Click update button and update record
+            testHelper.clickUpdateSubformRowButton( 'originalMembers', 0 );
+            var editedRecord =  {
+                "name": "Member " + key + " edited",
+                "datetime": "07/03/2018 21:45",
+                "browser": "Firefox",
+                "important": true,
+                "hobbies": [ 'reading_option', 'sports_option' ]
+            };
+            testHelper.fillForm( editedRecord );
+            var newRecord = $.extend( true, {}, editedRecord );
+            newRecord.code = key;
+
+            testHelper.checkForm( assert, newRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+            
+            var newRecord2 = $.extend( true, {}, newRecord );
+            var expectedRecord = context.getFieldBuilder().filterValues( 
+                    newRecord2, 
+                    options.fields.originalMembers.fields
+            );
+            expectedRecord.description = record.description;
+            assert.deepEqual( 
+                testUtils.getOriginalMembers()[ 0 ],
+                expectedRecord
+            );
+            
+            // Check record 2 value
+            key = "2";
+            record = buildMemberRecord( key );
+            assert.deepEqual( 
+                testUtils.getOriginalMembers()[ 1 ], 
+                record );
+            
+            // Click update button and update record
+            testHelper.clickUpdateSubformRowButton( 'originalMembers', 1 );
+            editedRecord =  {
+                "name": "Member " + key + " edited",
+                "datetime": "07/02/2018 20:45",
+                "browser": "Chrome",
+                "important": false,
+                "hobbies": [ 'reading_option', 'cards_option' ]
+            };
+            testHelper.fillForm( editedRecord );
+            newRecord = $.extend( true, {}, editedRecord );
+            newRecord.code = key;
+            
+            testHelper.checkForm( assert, newRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            newRecord2 = $.extend( true, {}, newRecord );
+            expectedRecord = context.getFieldBuilder().filterValues( 
+                newRecord2, 
+                options.fields.originalMembers.fields
+            );
+            expectedRecord.description = record.description;
+            assert.deepEqual( 
+                testUtils.getOriginalMembers()[ 1 ],
+                expectedRecord
+            );
+            /*
+            // Select
+            testHelper.readOnlySubformSelect( 'originalMembers', '1', '2', '5' );
+  
+            // Copy
+            var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
+            $copyButton.click();*/
+            
             done();
         }
     );
-});*/
+});
+
+var buildMemberRecord = function( key ){
+    
+    return {
+        "code": key,
+        "name": "Member " + key,
+        "description": "Description of Member " + key,
+        "hobbies": [],
+        "important": false
+    };
+};
