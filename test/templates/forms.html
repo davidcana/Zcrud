@@ -108,11 +108,6 @@
                   data-tattributes="id instance/getId()"
                   data-tdefine="viewItemsInFormExternalMacro 'standard-readOnly@templates/fieldLists.html';
                                 viewItems instance/getView()">
-                <input type="hidden"
-                       name="zcRecordKey" 
-                       data-tattributes="id 'zcRecordKey';
-                                         value record[ options/key ]"
-                       data-tdefine="key instance/getThisOptions()/key | options/key">
                 
                 <div data-muse-macro="viewItemsInFormExternalMacro"
                      data-tdefine="spanFieldClass 'zcrud-field'">
@@ -126,8 +121,8 @@
                     </button>
                     <button type="button" 
                             class="zcrud-form-submit-command-button"
-                            data-tcontent="tr:'Save'">
-                        Save
+                            data-tcontent="tr:'Delete'">
+                        Delete
                     </button>
                 </div>
             </form>

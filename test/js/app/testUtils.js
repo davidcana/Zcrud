@@ -109,6 +109,18 @@ module.exports = (function() {
         return members.verifiedMembers;
     };
     
+    var getOriginalMembersByCode = function( code ){
+        
+        for ( var c = 0; c < members.originalMembers.length; ++c ){
+            var member = members.originalMembers[ c ];
+            if ( member.code == code ){
+                return member;
+            }
+        }
+        
+        return undefined;
+    };
+    
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
     var urls = [];
     var lastListUrl = undefined;
@@ -981,6 +993,7 @@ module.exports = (function() {
         reset2SubformMembersServices: reset2SubformMembersServices,
         resetOriginalAndVerifiedMembers: resetOriginalAndVerifiedMembers,
         getOriginalMembers: getOriginalMembers,
+        getOriginalMembersByCode: getOriginalMembersByCode,
         getVerifiedMembers: getVerifiedMembers,
         getUrl: getUrl,
         getLastListUrl: getLastListUrl,

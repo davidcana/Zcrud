@@ -778,7 +778,7 @@ QUnit.test( "form after form test", function( assert ) {
             var key = "1";
             var record = buildMemberRecord( key );
             assert.deepEqual( 
-                testUtils.getOriginalMembers()[ 0 ], 
+                testUtils.getOriginalMembersByCode( key ), 
                 record );
 
             // Click update button and update record
@@ -814,7 +814,7 @@ QUnit.test( "form after form test", function( assert ) {
             key = "2";
             record = buildMemberRecord( key );
             assert.deepEqual( 
-                testUtils.getOriginalMembers()[ 1 ], 
+                testUtils.getOriginalMembersByCode( key ), 
                 record );
             
             // Click update button and update record
@@ -845,6 +845,22 @@ QUnit.test( "form after form test", function( assert ) {
                 testUtils.getOriginalMembers()[ 1 ],
                 expectedRecord
             );
+            
+            // Check record 3 value
+            key = "3";
+            record = buildMemberRecord( key );
+            assert.deepEqual( 
+                testUtils.getOriginalMembers()[ 2 ], 
+                record );
+            
+            // Click delete button and delete record
+            testHelper.clickDeleteFormSubformRowButton( 'originalMembers', 2 );
+            testHelper.clickFormSubmitButton();
+            assert.deepEqual( 
+                testUtils.getOriginalMembersByCode( key ),
+                undefined
+            );
+            
             /*
             // Select
             testHelper.readOnlySubformSelect( 'originalMembers', '1', '2', '5' );

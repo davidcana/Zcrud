@@ -295,7 +295,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         );
     };
     
-    var buildRecordForDictionary = function( useViewValue ){
+    var buildRecordForDictionary = function(){
         
         var newRecord = {};
 
@@ -304,47 +304,23 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             newRecord[ field.id ] = field.getValueFromRecord( 
                 record, 
                 buildProcessTemplateParams( field ) );
-            /*
-            newRecord[ field.id ] = useViewValue || field.isReadOnly()?
-                field.getViewValueFromRecord( record ):
-                field.getValueFromRecord( 
-                    record, 
-                    buildProcessTemplateParams( field ) );*/
         }
         
         // Add key if there is no field key
-        if ( newRecord[ options.key ] == undefined ){
-            newRecord[ options.key ] = record[ options.key ];
+        var key = getKeyFieldId();
+        if ( newRecord[ key ] == undefined ){
+            newRecord[ key ] = record[ key ];
         }
         
         return newRecord;
     };
-    /*
-    var buildRecordForDictionary = function(){
-
-        var newRecord = {};
-
-        for ( var c = 0; c < fields.length; c++ ) {
-            var field = fields[ c ];
-            newRecord[ field.id ] = field.getValueFromRecord( 
-                record, 
-                buildProcessTemplateParams( field ) );
-        }
-
-        // Add key if there is no field key
-        if ( newRecord[ options.key ] == undefined ){
-            newRecord[ options.key ] = record[ options.key ];
-        }
-
-        return newRecord;
-    };*/
     
     var updateDictionary = function( dictionaryExtension ){
 
         var thisDictionary = $.extend( 
             {
                 options: options,
-                record: buildRecordForDictionary( isReadOnly() )
+                record: buildRecordForDictionary()
             }, 
             options.dictionary );
         
@@ -400,6 +376,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 function ( event ) {
                     event.preventDefault();
                     event.stopPropagation();
+                    
+                    ////
                     submitFunction( event, $form );
                 }
             );
@@ -629,8 +607,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     
     var updateKeys = function( dataFromServer ){
 
-        //alert( dataFromServer );
-
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
             var dataFromServerOfField = dataFromServer[ field.id ];
@@ -707,7 +683,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll( 
-                thisOptions.key || options.key, 
+                getKeyFieldId(), 
                 [ ],
                 fields,
                 undefined,
@@ -751,7 +727,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll(
-                thisOptions.key || options.key, 
+                getKeyFieldId(), 
                 [ record ], 
                 fields,
                 undefined,
@@ -775,7 +751,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
         
         var jsonObject = context.getJSONBuilder( options ).buildJSONForUpdateRecordMethod( 
-            options.key,
+            getKeyFieldId(),
             userRecord,
             userData.record,
             fieldsMap,
@@ -797,7 +773,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForRemoving(
-                [ $( '#zcRecordKey' ).val() ] ),
+                [ getKey() ] ),
             $form );
     };
     
@@ -853,8 +829,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         return record[ fieldId ];
     };
     
+    var getKeyFieldId = function(){
+        return thisOptions.key || options.key;
+    };
     var getKey = function(){
-        return getFieldValue( options.key );
+        return record[ getKeyFieldId() ];
     };
     
     var isReadOnly = function(){
@@ -872,49 +851,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             }
         }
     };
-    /*
-    var getPostTemplates = function(){
-        return pageUtils.getPostTemplates( fields );
-    };*/
-    /*
-    var updateUsingThisRecord = function( record, dataFromServer, callback ){
-        
-        setRecord( record );
-        
-        if ( dataFromServer ){
-            processDataFromServer( dataFromServer );
-        }
-        
-        show();
-        
-        if ( callback ){
-            callback( true );
-        }
-    };*/
-    /*
-    var updateUsingRecordFromServer = function( key, getRecordURL, callback ){
-        
-        // Build the data to send to the server
-        var search = {};
-        if ( key != undefined ){
-            search.key = key;
-        }
-        addToDataToSend( search );
-
-        // Get the record from the server and show the form
-        crudManager.getRecord( 
-            {
-                url: getRecordURL || thisOptions.getRecordURL,
-                search: search,
-                success: function( dataFromServer ){
-                    updateUsingThisRecord( dataFromServer.record, dataFromServer, callback );
-                },
-                error: function(){
-                    context.showError( options, false, 'Server communication error!' );
-                }
-            }, 
-            options );
-    };*/
     
     var self = {
         show: show,
@@ -931,21 +867,18 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         getView: getView,
         getFieldByName: getFieldByName,
         getParentFieldByName: getParentFieldByName,
+        getKey: getKey,
         addRecord: addRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
         get$: get$,
         getOptions: getOptions,
         getFieldValue: getFieldValue,
-        getKey: getKey,
         isReadOnly: isReadOnly,
         addToDataToSend: addToDataToSend,
         processDataFromServer: processDataFromServer,
         buildProcessTemplateParams: buildProcessTemplateParams,
-        //updateUsingRecordFromServer: updateUsingRecordFromServer,
-        //updateUsingThisRecord: updateUsingThisRecord,
         getToolbarItemsArray: getToolbarItemsArray
-        //getPostTemplates: getPostTemplates
     };
     
     configure();
