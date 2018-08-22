@@ -105,9 +105,37 @@ Subform.prototype.afterProcessTemplateForField = function( params ){
                 subformInstance.addNewRow( params );
             }
         );
+    $subform
+        .find( '.zcrud-new-command-button' )
+        .off()
+        .click( 
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                subformInstance.showCreateForm( event );
+            }
+        );
     
     // Bind events of components
     this.componentsMap.bindEvents();
+};
+
+Subform.prototype.showCreateForm = function(){
+    this.showNewForm( 'create' );
+};
+
+Subform.prototype.showNewForm = function( type, record ){
+
+    this.currentFormPage = new FormPage( 
+        this.page.getOptions(), 
+        {
+            type: type, 
+            parentPage: this.page,
+            record: record
+        }
+    ); 
+
+    this.currentFormPage.show();
 };
 
 Subform.prototype.buildDictionary = function( newRecord ){

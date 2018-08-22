@@ -305,7 +305,7 @@ module.exports = (function() {
                 continue;
             }
 
-            members.originalMembers.push( newItem );
+            members.originalMembers.unshift( newItem ); // Add to the beginning!
             dataToSend.newRecords.push( newItem );               
         }
 

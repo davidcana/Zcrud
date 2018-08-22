@@ -842,7 +842,7 @@ QUnit.test( "form after form test", function( assert ) {
             );
             expectedRecord.description = record.description;
             assert.deepEqual( 
-                testUtils.getOriginalMembers()[ 1 ],
+                testUtils.getOriginalMembersByCode( key ),
                 expectedRecord
             );
             
@@ -859,6 +859,29 @@ QUnit.test( "form after form test", function( assert ) {
             assert.deepEqual( 
                 testUtils.getOriginalMembersByCode( key ),
                 undefined
+            );
+            
+            // Create record
+            testHelper.clickCreateFormSubformRowButton( 'originalMembers' );
+            key = 0;
+            editedRecord =  {
+                "code": "" + key,
+                "name": "Member " + key,
+                "datetime": "07/01/2018 12:45",
+                "browser": "Chrome",
+                "hobbies": [ 'sports_option', 'cards_option' ]
+            };
+            testHelper.fillForm( editedRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+            expectedRecord = context.getFieldBuilder().filterValues( 
+                editedRecord, 
+                options.fields.originalMembers.fields
+            );
+            assert.deepEqual( 
+                testUtils.getOriginalMembersByCode( key ),
+                expectedRecord
             );
             
             /*
