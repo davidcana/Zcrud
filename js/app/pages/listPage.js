@@ -416,6 +416,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             dictionary: thisDictionary,
             notRemoveGeneratedTags: false
         });
+        
+        bindEvents();
     };
     
     var getRecords = function(){
@@ -498,7 +500,13 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var generateId = function(){
         return pageUtils.generateId();
     };
-    
+
+    var isDirty = function(){
+        
+        var history = context.getHistory();
+        return history? history.isDirty(): false;
+    };
+
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -536,7 +544,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         isFiltered: isFiltered,
         getFieldsSource: getFieldsSource,
         generateId: generateId,
-        updateRecords: updateRecords
+        updateRecords: updateRecords,
+        isDirty: isDirty
     };
     
     configure();

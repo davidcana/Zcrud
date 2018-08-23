@@ -553,6 +553,22 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         } 
     };
     
+    var isDirty = function(){
+        return current > 0;
+    };
+    
+    var isSubformDirty = function( subformName ){
+
+        for ( var c = 0; c < current; ++c ){
+            var historyItem = items[ c ];
+            if ( historyItem.subformName == subformName ){
+                return true;
+            }
+        }
+        
+        return false;
+    };
+    
     var self = {
         putChange: putChange,
         putCreate: putCreate,
@@ -583,7 +599,9 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         buildAndAttachRowForDoAction: buildAndAttachRowForDoAction,
         getEditableOptions: getEditableOptions,
         buildIterator: buildIterator,
-        updateRecord: updateRecord
+        updateRecord: updateRecord,
+        isDirty: isDirty,
+        isSubformDirty: isSubformDirty
     };
     
     return self;

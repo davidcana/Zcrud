@@ -89,8 +89,24 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         );
     };
     
+    var isDirty = function( showErrorMessage ){
+        
+        var result = parent.isDirty();
+        
+        if ( result && showErrorMessage ){
+            context.showError( options, false, 'dirtyPagingError', true );
+        }
+        
+        return result;
+    };
+    
     // Change current page to given value
     var changePage = function ( newPageNumber ) {
+        
+        // If the field is dirty return
+        if ( isDirty( true ) ){
+            return;
+        }
         
         newPageNumber = pageUtils.normalizeNumber( parseInt( newPageNumber ), 1, calculatePageCount(), 1 );
         if ( newPageNumber == pageNumber ) {
@@ -109,10 +125,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
             return;
         }
         
+        // If the new size is the current size return
         if ( newPageSize == pageSize ) {
             return;
         }
 
+        // If the field is dirty return
+        if ( isDirty( true ) ){
+            return;
+        }
+        
         pageSize = parseInt( newPageSize );
         pageNumber = 1;
         

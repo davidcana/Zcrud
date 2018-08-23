@@ -41,6 +41,7 @@
     "pagingMessage": "Mostrando {first}-{last} de {total}",
     "pagingNoRecordsMessage": "No se ha encontrado ningún registro",
     "pagingMessageFilteredSuffix": " (filtrado)",
+    "dirtyPagingError": "Imposible cambiar o redimensionar la página, se han realizado cambios en esta página. Deshágalos o guarde los cambios y luego reintente.",
     
     "_form": "",
     "Create form": "Formulario de alta",

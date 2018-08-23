@@ -41,6 +41,7 @@
     "pagingMessage": "Showing {first}-{last} of {total}",
     "pagingNoRecordsMessage": "No records found!",
     "pagingMessageFilteredSuffix": " (filtered)",
+    "dirtyPagingError": "Unable to change or resize page, changes made to this page. Undo or save and then retry again!",
     
     "_form": "",
     "Create form": "Create form",

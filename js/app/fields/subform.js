@@ -659,4 +659,10 @@ Subform.prototype.updateRecords = function( newRecordsArray ){
     this.page.updateRecordProperty( this.id, newRecordsArray );
 };
 
+Subform.prototype.isDirty = function(){
+    
+    var history = context.getHistory();
+    return history? history.isSubformDirty( this.id ): false;
+};
+
 module.exports = Subform;

@@ -9,10 +9,15 @@ var testUtils = require( './testUtils.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var subformsTestOptions = require( './2SubformsTestOptions.js' );
+var editableListTestOptions = require( './editableListTestOptions.js' );
 var options = undefined;
 
-// Run tests
+var fatalErrorFunctionCounter = 0;
+var fatalErrorFunction = function( message ){
+    ++fatalErrorFunctionCounter;
+};
 
+// Run tests
 QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     
     options = $.extend( true, {}, defaultTestOptions );
@@ -181,6 +186,112 @@ QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert 
                 ]
             });
 
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform aborted paging test (combobox gotoPageFieldType)", function( assert ) {
+
+    options = $.extend( true, {}, subformsTestOptions );
+    options.fields.members.components.paging.gotoPageFieldType = 'combobox';
+    options.fatalErrorFunction = fatalErrorFunction;
+    
+    // Setup services
+    var serviceKey = 2;
+    var serviceKeys = [ serviceKey ];
+    var numberOfMembers = 129;
+    var numberOfExternalMembers = 14;
+    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    var itemName = 'Member';
+    var subformName = 'members';
+
+    fatalErrorFunctionCounter = 0;
+    
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( serviceKey );
+            
+            // Edit description of last row
+            testHelper.fillSubformNewRow( 
+                {
+                    description: "Description of Member 10 edited"
+                }, 
+                subformName );
+            
+            // Try to go to next page (1 error)
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.goToNextSubformPage( subformName );
+            assert.equal( fatalErrorFunctionCounter, 1 );
+            
+            // Check page number is 1
+            assert.equal( 
+                testHelper.getSubformPageNumber( subformName ),
+                1
+            );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "editable list aborted paging test (textbox gotoPageFieldType)", function( assert ) {
+
+    options = $.extend( true, {}, editableListTestOptions );
+    options.fatalErrorFunction = fatalErrorFunction;
+
+    // Setup services
+    var serviceKey = 2;
+
+    fatalErrorFunctionCounter = 0;
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            
+            // Edit description of last row
+            testHelper.fillNewRowEditableList( 
+                {
+                    name: "Member 10b"
+                }
+            );
+            
+            // Try to go to next page (1 error)
+            assert.equal( fatalErrorFunctionCounter, 0 );
+            testHelper.goToNextPage( options );
+            assert.equal( fatalErrorFunctionCounter, 1 );
+            
+            // Check page number is 1
+            assert.equal( 
+                testHelper.getListPageNumber(),
+                1
+            );
+            
+            // Save changes
+            testHelper.clickEditableListSubmitButton();
+            assert.equal( fatalErrorFunctionCounter, 1 );
+            
+            // Go to next page
+            testHelper.goToNextPage( options );
+            assert.equal( fatalErrorFunctionCounter, 1 );
+            
+            // Check page number is 2
+            assert.equal( 
+                testHelper.getListPageNumber(),
+                2
+            );
+            
             done();
         }
     );

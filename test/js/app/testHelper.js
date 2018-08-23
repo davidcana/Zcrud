@@ -1485,6 +1485,15 @@ module.exports = (function() {
         
         return result;
     };
+    
+    var getListPageNumber = function(){
+        return get$BottomPanel().find( '.zcrud-go-to-page-field' ).val();
+    };
+    
+    var getSubformPageNumber = function( subformName ){
+        return get$SubformBottomPanel( subformName ).find( '.zcrud-go-to-page-field' ).val();
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         countVisibleSubformRows: countVisibleSubformRows,
@@ -1563,6 +1572,10 @@ module.exports = (function() {
         getReadOnlySubformItemsKeys: getReadOnlySubformItemsKeys,
         setDefaultItemName: setDefaultItemName,
         pagingSubformTest: pagingSubformTest,
-        getSubformVal: getSubformVal
+        getSubformVal: getSubformVal,
+        goToNextPage: goToNextPage,
+        goToNextSubformPage: goToNextSubformPage,
+        getListPageNumber: getListPageNumber,
+        getSubformPageNumber: getSubformPageNumber
     };
 })();
