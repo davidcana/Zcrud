@@ -14,7 +14,6 @@ var thisTestOptions = undefined;
 var options = undefined;
 
 // Run tests
-/*
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -756,7 +755,6 @@ QUnit.test( "form filtering starting void test", function( assert ) {
         }
     );
 });
-*/
 
 QUnit.test( "form after form test", function( assert ) {
 
@@ -884,13 +882,69 @@ QUnit.test( "form after form test", function( assert ) {
                 expectedRecord
             );
             
-            /*
             // Select
-            testHelper.readOnlySubformSelect( 'originalMembers', '1', '2', '5' );
+            testHelper.readOnlySubformSelect( 'originalMembers', '0', '1', '2', '3', '6' );
   
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();*/
+            $copyButton.click();
+            testHelper.fillSubformNewRow(
+                {
+                    "name": "Member 6 edited"
+                }, 
+                'verifiedMembers' );
+
+            // Submit and check storage
+            testHelper.clickFormSubmitButton();
+            
+            var expectedVerifiedMembers = {
+                "0": {
+                    "code": "0",
+                    "name": "Member 0",
+                    "datetime": "07/01/2018 12:45",
+                    "browser": "Chrome",
+                    "important": false,
+                    "hobbies": [ 'sports_option', 'cards_option' ]
+                },
+                "1": {
+                    "code": "1",
+                    "name": "Member 1 edited",
+                    "description": "Description of Member 1",
+                    "datetime": "07/03/2018 21:45",
+                    "browser": "Firefox",
+                    "important": true,
+                    "hobbies": [ 'reading_option', 'sports_option' ]
+                },
+                "2": {
+                    "code": "2",
+                    "name": "Member 2 edited",
+                    "description": "Description of Member 2",
+                    "datetime": "07/02/2018 20:45",
+                    "browser": "Chrome",
+                    "important": false,
+                    "hobbies": [ 'reading_option', 'cards_option' ]
+                },
+                "6": {
+                    "code": "6",
+                    "name": "Member 6 edited",
+                    "description": "Description of Member 6",
+                    "important": false,
+                    "hobbies": [],
+                    "datetime": undefined,
+                    "browser": undefined
+                }
+            };
+            
+            // Filter datetime
+            var datetimeField = options.fields.originalMembers.fields.datetime;
+            expectedVerifiedMembers[ 0 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 0 ] );
+            expectedVerifiedMembers[ 1 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 1 ] );
+            expectedVerifiedMembers[ 2 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 2 ] );
+            expectedVerifiedMembers[ 6 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 6 ] );
+
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
             
             done();
         }
