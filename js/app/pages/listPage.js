@@ -247,30 +247,50 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         bindEvents();
     };
     
+    var bindButtonEvent = function( button ){
+
+        $( button.selector )
+            .off()
+            .click(
+                function( event ){
+                    button.run( event, self, this );   
+                }
+            );
+    };
+    
     var bindEvents = function() {
 
         // Bind events of create, edit and delete buttons
+        var showCreateFormButton = new options.buttons.listPage.main.showCreateFormButton();
+        bindButtonEvent( showCreateFormButton );
+        /*
         $( '.zcrud-new-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showCreateForm( event );
-            });
+            });*/
+        var showEditFormButton = new options.buttons.listPage.inRows.showEditFormButton();
+        bindButtonEvent( showEditFormButton );
+        /*
         $( '.zcrud-edit-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showEditForm( event );
-            });
+            });*/
+        var showDeleteFormButton = new options.buttons.listPage.inRows.showDeleteFormButton();
+        bindButtonEvent( showDeleteFormButton );
+        /*
         $( '.zcrud-delete-command-button' )
             .off()
             .click( function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
                 showDeleteForm( event );
-            });
+            });*/
         
         // Bind events of components
         componentsMap.bindEvents();

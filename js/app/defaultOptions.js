@@ -142,7 +142,15 @@ module.exports = {
             redoButton: require( './pages/formPage/buttons/redoButton.js' ),
             copySubformRowsButton: require( './pages/formPage/buttons/copySubformRowsButton.js' )
         },
-        listPage: {}
+        listPage: {
+            main: {
+                showCreateFormButton: require( './pages/listPage/buttons/showCreateFormButton.js' ),
+            },
+            inRows: {
+                showEditFormButton: require( './pages/listPage/buttons/showEditFormButton.js' ),
+                showDeleteFormButton: require( './pages/listPage/buttons/showDeleteFormButton.js' )
+            }
+        }
     },
     
     pageConf: {
