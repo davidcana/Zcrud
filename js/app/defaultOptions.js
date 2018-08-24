@@ -134,6 +134,17 @@ module.exports = {
         selectionChanged: function ( data ) {}
     },
 
+    buttons: {
+        formPage: {
+            cancelButton: require( './pages/formPage/buttons/cancelButton.js' ),
+            submitButton: require( './pages/formPage/buttons/submitButton.js' ),
+            undoButton: require( './pages/formPage/buttons/undoButton.js' ),
+            redoButton: require( './pages/formPage/buttons/redoButton.js' ),
+            copySubformRowsButton: require( './pages/formPage/buttons/copySubformRowsButton.js' )
+        },
+        listPage: {}
+    },
+    
     pageConf: {
         defaultPageConf: {
             showStatus: false,

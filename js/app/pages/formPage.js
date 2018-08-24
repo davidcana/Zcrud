@@ -11,7 +11,6 @@ var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 
-//var FormPage = function ( optionsToApply, typeToApply, recordToApply, parentPageToApply ) {
 var FormPage = function ( optionsToApply, userDataToApply ) {
     "use strict";
 
@@ -35,6 +34,10 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         loadAtFirstExecution = userData.load == undefined? true: userData.load;
     };
     initFromOptions( userDataToApply || {} );
+    
+    var getParentPage = function(){
+        return parentPage;
+    };
     
     var getType = function(){
         return type;
@@ -73,7 +76,12 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var dictionary = undefined;
+    
     var submitFunction = undefined;
+    var getSubmitFunction = function(){
+        return submitFunction;
+    };
+    
     //var autoSaveMode = false;
     
     var view = undefined;
@@ -366,9 +374,24 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         triggerFormCreatedEvent( $form );
     };
     
+    var bindButtonEvent = function( $form, button ){
+        
+        $form
+            .find( button.selector )
+            .off()
+            .click(
+                function( event ){
+                    button.run( event, self, $form, this );   
+                }
+            );
+    };
+    
     var bindEvents = function( $form ) {
         
         // Bind events of submit, cancel, undo and redo buttons; also change event
+        var submitButton = new options.buttons.formPage.submitButton();
+        bindButtonEvent( $form, submitButton );
+        /*
         $form
             .find( '.zcrud-form-submit-command-button' )
             .off()
@@ -381,7 +404,10 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                     submitFunction( event, $form );
                 }
             );
-        
+        */
+        var cancelButton = new options.buttons.formPage.cancelButton();
+        bindButtonEvent( $form, cancelButton );
+        /*
         $form
             .find( '.zcrud-form-cancel-command-button' )
             .off()
@@ -391,8 +417,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                     event.stopPropagation();
                     cancelForm( event, $form );
                 }
-            );
+            );*/
         
+        var undoButton = new options.buttons.formPage.undoButton();
+        bindButtonEvent( $form, undoButton );
+        /*
         $form
             .find( '.zcrud-undo-command-button' )
             .off()
@@ -402,8 +431,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                     event.stopPropagation();
                     context.getHistory().undo( id );
                 }
-            );
+            );*/
         
+        var redoButton = new options.buttons.formPage.redoButton();
+        bindButtonEvent( $form, redoButton );
+        /*
         $form
             .find( '.zcrud-redo-command-button' )
             .off()
@@ -413,7 +445,43 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                     event.stopPropagation();
                     context.getHistory().redo( id );
                 }
-            );
+            );*/
+        
+        var copySubformRowsButton = new options.buttons.formPage.copySubformRowsButton();
+        bindButtonEvent( $form, copySubformRowsButton );
+        /*
+        $form
+            .find( 'button.zcrud-copy-subform-rows-command-button' )
+            .off()
+            .click( 
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                // Get thisButtonOptions from data-tButtonId attr and toolbar
+                var $this = $( this );
+                var thisButtonId = $this.attr( 'data-tButtonId' );
+                var thisButtonOptions = thisOptions.buttons.toolbar.copySubformRowsItems[ thisButtonId ];
+
+                // Get conf options from thisButtonOptions
+                var targetId = thisButtonOptions.target;
+                var sourceId = thisButtonOptions.source;
+                var onlySelected = thisButtonOptions.onlySelected;
+                var removeFromSource = thisButtonOptions.removeFromSource;
+                var deselect = thisButtonOptions.deselect;
+
+                // Get the selectedRecords
+                var targetField = getField( targetId );
+                var selectedRecords = targetField.addNewRowsFromSubform( 
+                    sourceId, 
+                    onlySelected, 
+                    removeFromSource,
+                    deselect );
+                if ( selectedRecords.length == 0 ){
+                    context.showError( options, false, 'Please, select at least one item!' );
+                }
+            }
+        );*/
         
         $form
             .find( 'input.historyField, textarea.historyField, select.historyField' )
@@ -434,42 +502,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                         field );
                     /*if ( autoSaveMode ){
                         save( event );
-                    }*/
-                }
-            );
-        
-        $form
-            .find( 'button.zcrud-copy-subform-rows-command-button' )
-            .off()
-            .click( 
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    
-                    // Get thisButtonOptions from data-tButtonId attr and toolbar
-                    var $this = $( this );
-                    var thisButtonId = $this.attr( 'data-tButtonId' );
-                    var thisButtonOptions = thisOptions.buttons.toolbar.copySubformRowsItems[ thisButtonId ];
-                    
-                    // Get conf options from thisButtonOptions
-                    var targetId = thisButtonOptions.target;
-                    var sourceId = thisButtonOptions.source;
-                    var onlySelected = thisButtonOptions.onlySelected;
-                    var removeFromSource = thisButtonOptions.removeFromSource;
-                    var deselect = thisButtonOptions.deselect;
-                    
-                    // Get the selectedRecords
-                    var targetField = getField( targetId );
-                    var selectedRecords = targetField.addNewRowsFromSubform( 
-                        sourceId, 
-                        onlySelected, 
-                        removeFromSource,
-                        deselect );
-                    if ( selectedRecords.length == 0 ){
-                        context.showError( options, false, 'Please, select at least one item!' );
-                    }
-                    /*if ( autoSaveMode ){
-                            save( event );
                     }*/
                 }
             );
@@ -854,6 +886,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     
     var self = {
         show: show,
+        getParentPage: getParentPage,
         setRecord: setRecord,
         getRecord: getRecord,
         updateRecordProperty: updateRecordProperty,
@@ -878,7 +911,9 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         addToDataToSend: addToDataToSend,
         processDataFromServer: processDataFromServer,
         buildProcessTemplateParams: buildProcessTemplateParams,
-        getToolbarItemsArray: getToolbarItemsArray
+        getToolbarItemsArray: getToolbarItemsArray,
+        cancelForm: cancelForm,
+        getSubmitFunction: getSubmitFunction
     };
     
     configure();
