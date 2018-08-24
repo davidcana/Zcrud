@@ -135,20 +135,25 @@ module.exports = {
     },
 
     buttons: {
+        common: {
+            undoButton: require( './pages/formPage/buttons/undoButton.js' ),
+            redoButton: require( './pages/formPage/buttons/redoButton.js' )
+        },
         formPage: {
             cancelButton: require( './pages/formPage/buttons/cancelButton.js' ),
             submitButton: require( './pages/formPage/buttons/submitButton.js' ),
-            undoButton: require( './pages/formPage/buttons/undoButton.js' ),
-            redoButton: require( './pages/formPage/buttons/redoButton.js' ),
             copySubformRowsButton: require( './pages/formPage/buttons/copySubformRowsButton.js' )
         },
         listPage: {
             main: {
                 showCreateFormButton: require( './pages/listPage/buttons/showCreateFormButton.js' ),
+                saveButton: require( './pages/listPage/buttons/saveButton.js' ),
+                addNewRowButton: require( './pages/listPage/buttons/addNewRowButton.js' )
             },
             inRows: {
                 showEditFormButton: require( './pages/listPage/buttons/showEditFormButton.js' ),
-                showDeleteFormButton: require( './pages/listPage/buttons/showDeleteFormButton.js' )
+                showDeleteFormButton: require( './pages/listPage/buttons/showDeleteFormButton.js' ),
+                deleteRowButton: require( './pages/listPage/buttons/deleteRowButton.js' )
             }
         }
     },

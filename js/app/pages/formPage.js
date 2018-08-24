@@ -419,7 +419,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 }
             );*/
         
-        var undoButton = new options.buttons.formPage.undoButton();
+        var undoButton = new options.buttons.common.undoButton();
         bindButtonEvent( $form, undoButton );
         /*
         $form
@@ -433,7 +433,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 }
             );*/
         
-        var redoButton = new options.buttons.formPage.redoButton();
+        var redoButton = new options.buttons.common.redoButton();
         bindButtonEvent( $form, redoButton );
         /*
         $form
