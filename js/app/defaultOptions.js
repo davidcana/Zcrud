@@ -136,8 +136,8 @@ module.exports = {
 
     buttons: {
         common: {
-            undoButton: require( './pages/formPage/buttons/undoButton.js' ),
-            redoButton: require( './pages/formPage/buttons/redoButton.js' )
+            undoButton: require( './pages/common/buttons/undoButton.js' ),
+            redoButton: require( './pages/common/buttons/redoButton.js' )
         },
         formPage: {
             cancelButton: require( './pages/formPage/buttons/cancelButton.js' ),
