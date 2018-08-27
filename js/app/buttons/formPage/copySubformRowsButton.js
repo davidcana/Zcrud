@@ -5,7 +5,7 @@
 
 var $ = require( 'jquery' );
 var context = require( '../../context.js' );
-var Button = require( '../../button.js' );
+var Button = require( '../button.js' );
 
 //var CopySubformRowsButton = function() {};
 var CopySubformRowsButton = function( properties, parent ) {

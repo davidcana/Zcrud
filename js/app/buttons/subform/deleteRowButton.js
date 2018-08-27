@@ -3,7 +3,7 @@
 */
 "use strict";
 
-var Button = require( '../../button.js' );
+var Button = require( '../button.js' );
 
 //var DeleteRowButton = function() {};
 var DeleteRowButton = function( properties, parent ) {
