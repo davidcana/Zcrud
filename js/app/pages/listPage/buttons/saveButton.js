@@ -3,12 +3,32 @@
 */
 "use strict";
 
-var SaveButton = function() {};
+var Button = require( '../../../button.js' );
+
+//var SaveButton = function() {};
+var SaveButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
+};
+Button.doSuperClassOf( SaveButton );
 
 SaveButton.prototype.selector = '.zcrud-save-command-button';
 
 SaveButton.prototype.bindableIn = {
-    listMain: true
+    listToolbar: true
+};
+
+SaveButton.prototype.getTextsBundle = function(){
+
+    return {
+        title: {
+            translate: false,
+            text: ''
+        },
+        content: {
+            translate: true,
+            text: 'Save'
+        }
+    };
 };
 
 SaveButton.prototype.run = function( event, listPage ){

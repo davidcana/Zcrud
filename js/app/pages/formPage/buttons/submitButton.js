@@ -3,12 +3,32 @@
 */
 "use strict";
 
-var SubmitButton = function() {};
+var Button = require( '../../../button.js' );
+
+//var SubmitButton = function() {};
+var SubmitButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
+};
+Button.doSuperClassOf( SubmitButton );
 
 SubmitButton.prototype.selector = '.zcrud-form-submit-command-button';
 
 SubmitButton.prototype.bindableIn = {
-    formMain: true
+    formToolbar: true
+};
+
+SubmitButton.prototype.getTextsBundle = function(){
+
+    return {
+        title: {
+            translate: false,
+            text: ''
+        },
+        content: {
+            translate: true,
+            text: this.parent.getType() == 'delete'? 'Delete': 'Save' 
+        }
+    }
 };
 
 SubmitButton.prototype.run = function( event, formPage, $form ){

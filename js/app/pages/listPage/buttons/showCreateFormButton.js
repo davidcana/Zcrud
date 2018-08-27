@@ -3,12 +3,32 @@
 */
 "use strict";
 
-var ShowCreateFormButton = function() {};
+var Button = require( '../../../button.js' );
+
+//var ShowCreateFormButton = function() {};
+var ShowCreateFormButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
+};
+Button.doSuperClassOf( ShowCreateFormButton );
 
 ShowCreateFormButton.prototype.selector = '.zcrud-new-command-button';
 
 ShowCreateFormButton.prototype.bindableIn = {
-    listMain: true
+    listToolbar: true
+};
+
+ShowCreateFormButton.prototype.getTextsBundle = function(){
+
+    return {
+        title: {
+            translate: true,
+            text: 'Add new record'
+        },
+        content: {
+            translate: false,
+            text: ''
+        }
+    };
 };
 
 ShowCreateFormButton.prototype.run = function( event, listPage ){

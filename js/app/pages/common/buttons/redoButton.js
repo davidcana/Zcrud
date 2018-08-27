@@ -4,14 +4,33 @@
 "use strict";
 
 var context = require( '../../../context.js' );
+var Button = require( '../../../button.js' );
 
-var RedoButton = function() {};
+//var RedoButton = function() {};
+var RedoButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
+};
+Button.doSuperClassOf( RedoButton );
 
 RedoButton.prototype.selector = '.zcrud-redo-command-button';
 
 RedoButton.prototype.bindableIn = {
-    formMain: true,
-    listMain: true
+    formToolbar: true,
+    listToolbar: true
+};
+
+RedoButton.prototype.getTextsBundle = function(){
+
+    return {
+        title: {
+            translate: false,
+            text: ''
+        },
+        content: {
+            translate: true,
+            text: 'Redo'
+        }
+    };
 };
 
 RedoButton.prototype.run = function( event, page ){

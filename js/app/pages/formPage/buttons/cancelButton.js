@@ -3,21 +3,34 @@
 */
 "use strict";
 
-//var Button = require( '../../../button.js' );
-var context = require( '../../../context.js' );
+var Button = require( '../../../button.js' );
 
-var CancelButton = function() {};
-/*
-var CancelButton = function( properties ) {
-    Button.call( this, properties );
+//var CancelButton = function() {};
+var CancelButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
 };
-CancelButton.prototype = new Button();
-CancelButton.prototype.constructor = CancelButton;
-*/
+/*CancelButton.prototype = new Button();
+CancelButton.prototype.constructor = CancelButton;*/
+Button.doSuperClassOf( CancelButton );
+
 CancelButton.prototype.selector = '.zcrud-form-cancel-command-button';
 
 CancelButton.prototype.bindableIn = {
-    formMain: true
+    formToolbar: true
+};
+
+CancelButton.prototype.getTextsBundle = function(){
+
+    return {
+        title: {
+            translate: false,
+            text: ''
+        },
+        content: {
+            translate: true,
+            text: 'Cancel'
+        }
+    };
 };
 
 CancelButton.prototype.run = function( event, formPage, $form ){

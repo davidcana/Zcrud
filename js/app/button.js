@@ -8,20 +8,32 @@
 
 var $ = require( 'jquery' );
 
-var Button = function( properties ) {
-    $.extend( true, this, properties );
+var Button = function( properties, parentToSet ) {
+    
+    if ( properties ){
+        $.extend( true, this, properties );
+    }
+    this.parent = parentToSet;
 };
 
-Button.prototype.cssClass = 'cssClass not set!';
+Button.prototype.cssClass = '"cssClass" not set!';
+
+Button.prototype.selector = '"selector" not set!';
+
+Button.prototype.bindableIn = {};
+
+Button.prototype.getTextsBundle = function(){
+    throw '"getTextsBundle" method not implemented!';
+};
 
 Button.prototype.run = function(){
-    throw 'Run method not implemented!';
+    throw '"Run" method not implemented!';
 };
 
-Button.prototype.runPrelude = function( event ){
+Button.doSuperClassOf = function( ChildButtonClass ){
     
-    event.preventDefault();
-    event.stopPropagation();
+    ChildButtonClass.prototype = new Button();
+    ChildButtonClass.prototype.constructor = ChildButtonClass;
 };
 
 module.exports = Button;

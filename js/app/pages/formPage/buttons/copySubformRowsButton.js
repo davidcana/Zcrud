@@ -5,13 +5,32 @@
 
 var $ = require( 'jquery' );
 var context = require( '../../../context.js' );
+var Button = require( '../../../button.js' );
 
-var CopySubformRowsButton = function() {};
+//var CopySubformRowsButton = function() {};
+var CopySubformRowsButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
+};
+Button.doSuperClassOf( CopySubformRowsButton );
 
 CopySubformRowsButton.prototype.selector = 'button.zcrud-copy-subform-rows-command-button';
 
 CopySubformRowsButton.prototype.bindableIn = {
-    formMain: true
+    formToolbar: true
+};
+
+CopySubformRowsButton.prototype.getTextsBundle = function(){
+
+    return {
+        title: {
+            translate: false,
+            text: ''
+        },
+        content: {
+            translate: true,
+            text: this.title || 'zcrud-copy-' + this.source + '-button'
+        }
+    };
 };
 
 CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThis ){

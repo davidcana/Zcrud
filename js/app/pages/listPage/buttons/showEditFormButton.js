@@ -3,12 +3,32 @@
 */
 "use strict";
 
-var ShowEditFormButton = function() {};
+var Button = require( '../../../button.js' );
+
+//var ShowEditFormButton = function() {};
+var ShowEditFormButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
+};
+Button.doSuperClassOf( ShowEditFormButton );
 
 ShowEditFormButton.prototype.selector = '.zcrud-edit-command-button';
 
 ShowEditFormButton.prototype.bindableIn = {
     listRow: true
+};
+
+ShowEditFormButton.prototype.getTextsBundle = function(){
+    
+    return {
+        title: {
+            translate: false,
+            text: 'Edit record'
+        },
+        content: {
+            translate: false,
+            text: ''
+        }
+    };
 };
 
 ShowEditFormButton.prototype.run = function( event, listPage ){

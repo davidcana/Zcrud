@@ -3,12 +3,32 @@
 */
 "use strict";
 
-var AddNewRowButton = function() {};
+var Button = require( '../../../button.js' );
+
+//var AddNewRowButton = function() {};
+var AddNewRowButton = function( properties, parent ) {
+    Button.call( this, properties, parent );
+};
+Button.doSuperClassOf( AddNewRowButton );
 
 AddNewRowButton.prototype.selector = '.zcrud-new-row-command-button';
 
 AddNewRowButton.prototype.bindableIn = {
-    subformMain: true
+    subformToolbar: true
+};
+
+AddNewRowButton.prototype.getTextsBundle = function(){
+
+    return {
+        title: {
+            translate: true,
+            text: 'Add new record'
+        },
+        content: {
+            translate: false,
+            text: ''
+        }
+    };
 };
 
 AddNewRowButton.prototype.run = function( event, subformInstance, params ){
