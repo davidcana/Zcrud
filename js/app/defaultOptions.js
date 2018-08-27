@@ -155,6 +155,13 @@ module.exports = {
                 showDeleteFormButton: require( './pages/listPage/buttons/showDeleteFormButton.js' ),
                 deleteRowButton: require( './pages/listPage/buttons/deleteRowButton.js' )
             }
+        },
+        subform: {
+            addNewRowButton: require( './fields/subform/buttons/addNewRowButton.js' ),
+            showCreateFormButton: require( './fields/subform/buttons/showCreateFormButton.js' ),
+            deleteCommandButton: require( './fields/subform/buttons/deleteCommandButton.js' ),
+            deleteRowButton: require( './fields/subform/buttons/deleteRowButton.js' ),
+            editCommandButton: require( './fields/subform/buttons/editCommandButton.js' )
         }
     },
     

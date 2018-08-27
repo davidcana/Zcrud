@@ -95,6 +95,11 @@ Subform.prototype.afterProcessTemplateForField = function( params ){
     var subformInstance = this;
     var $subform = this.get$();
     this.bindEventsInRows( params, $subform, undefined );
+    
+    var options = this.page.getOptions();
+    var addNewRowButton = new options.buttons.subform.addNewRowButton();
+    this.bindButtonEvent( $subform, addNewRowButton, subformInstance, params );
+    /*
     $subform
         .find( '.zcrud-new-row-command-button' )
         .off()
@@ -104,7 +109,10 @@ Subform.prototype.afterProcessTemplateForField = function( params ){
                 event.stopPropagation();
                 subformInstance.addNewRow( params );
             }
-        );
+        );*/
+    var showCreateFormButton = new options.buttons.subform.showCreateFormButton();
+    this.bindButtonEvent( $subform, showCreateFormButton, subformInstance );
+    /*
     $subform
         .find( '.zcrud-new-command-button' )
         .off()
@@ -114,7 +122,7 @@ Subform.prototype.afterProcessTemplateForField = function( params ){
                 event.stopPropagation();
                 subformInstance.showCreateForm( event );
             }
-        );
+        );*/
     
     // Bind events of components
     this.componentsMap.bindEvents();
@@ -192,12 +200,25 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
     return createHistoryItem;
 };
 
+Subform.prototype.bindButtonEvent = function( $selection, button, subformInstance, params ){
+
+    $selection
+        .find( button.selector )
+        .off()
+        .click(
+            function( event ){
+                button.run( event, subformInstance, params );   
+            }
+        );
+};
+
 Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
     
     var subformInstance = this;
     var $selection = $subform || $tr;
     var page = this.page;
-
+    var options = this.page.getOptions();
+    
     $selection
         .find( 'input.historyField, textarea.historyField, select.historyField' )
         //.off()
@@ -221,7 +242,10 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                     $tr.attr( 'data-record-key' ) );
             }
         );
-
+    
+    var deleteRowButton = new options.buttons.subform.deleteRowButton();
+    this.bindButtonEvent( $selection, deleteRowButton, subformInstance );
+    /*
     $selection
         .find( '.zcrud-delete-row-command-button' )
         .off()
@@ -231,8 +255,11 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 event.stopPropagation();
                 subformInstance.deleteRow( event );
             }
-        );
+        );*/
     
+    var deleteCommandButton = new options.buttons.subform.deleteCommandButton();
+    this.bindButtonEvent( $selection, deleteCommandButton, subformInstance );
+    /*
     $selection
         .find( '.zcrud-delete-command-button' )
         .off()
@@ -242,8 +269,11 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 event.stopPropagation();
                 subformInstance.showNewFormUsingRecordFromServer( 'delete', event );
             }
-        );
-    
+        );*/
+
+    var editCommandButton = new options.buttons.subform.editCommandButton();
+    this.bindButtonEvent( $selection, editCommandButton, subformInstance );
+    /*
     $selection
         .find( '.zcrud-edit-command-button' )
         .off()
@@ -253,7 +283,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 event.stopPropagation();
                 subformInstance.showNewFormUsingRecordFromServer( 'update', event );
             }
-        );
+        );*/
     
     if ( $tr ){
         this. bindEventsForFieldsIn1Row( 
