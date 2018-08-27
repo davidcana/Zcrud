@@ -3,7 +3,7 @@
 */
 "use strict";
 
-var Button = require( '../../../button.js' );
+var Button = require( '../../button.js' );
 
 //var ShowEditFormButton = function() {};
 var ShowEditFormButton = function( properties, parent ) {

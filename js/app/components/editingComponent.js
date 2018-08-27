@@ -60,7 +60,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         bindEventsInRows( $this );
 
         // Bottom buttons
-        var undoButton = new options.buttons.common.undoButton();
+        var undoButton = new options.buttons.undoButton();
         bindButtonEvent( $this, undoButton );
         /*
         $this
@@ -72,7 +72,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     event.stopPropagation();
                     undo( event );
                 });*/
-        var redoButton = new options.buttons.common.redoButton();
+        var redoButton = new options.buttons.redoButton();
         bindButtonEvent( $this, redoButton );
         /*
         $this

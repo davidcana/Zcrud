@@ -3,7 +3,7 @@
 */
 "use strict";
 
-var Button = require( '../../../button.js' );
+var Button = require( '../../button.js' );
 
 //var DeleteRowButton = function() {};
 var DeleteRowButton = function( properties, parent ) {
@@ -14,7 +14,7 @@ Button.doSuperClassOf( DeleteRowButton );
 DeleteRowButton.prototype.selector = '.zcrud-delete-row-command-button';
 
 DeleteRowButton.prototype.bindableIn = {
-    listRow: true
+    subformRow: true
 };
 
 DeleteRowButton.prototype.getTextsBundle = function(){
@@ -31,12 +31,12 @@ DeleteRowButton.prototype.getTextsBundle = function(){
     };
 };
 
-DeleteRowButton.prototype.run = function( event, listPage ){
+DeleteRowButton.prototype.run = function( event, subformInstance ){
     
     event.preventDefault();
     event.stopPropagation();
     
-    listPage.getComponent( 'editing' ).deleteRow( event );
+    subformInstance.deleteRow( event );
 };
 
 module.exports = DeleteRowButton;

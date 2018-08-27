@@ -135,33 +135,32 @@ module.exports = {
     },
 
     buttons: {
-        common: {
-            undoButton: require( './pages/common/buttons/undoButton.js' ),
-            redoButton: require( './pages/common/buttons/redoButton.js' )
-        },
+        undoButton: require( './buttons/undoButton.js' ),
+        redoButton: require( './buttons/redoButton.js' ),
+
         formPage: {
-            cancelButton: require( './pages/formPage/buttons/cancelButton.js' ),
-            submitButton: require( './pages/formPage/buttons/submitButton.js' ),
-            copySubformRowsButton: require( './pages/formPage/buttons/copySubformRowsButton.js' )
+            cancelButton: require( './buttons/formPage/cancelButton.js' ),
+            submitButton: require( './buttons/formPage/submitButton.js' ),
+            copySubformRowsButton: require( './buttons/formPage/copySubformRowsButton.js' )
         },
         listPage: {
             main: {
-                showCreateFormButton: require( './pages/listPage/buttons/showCreateFormButton.js' ),
-                saveButton: require( './pages/listPage/buttons/saveButton.js' ),
-                addNewRowButton: require( './pages/listPage/buttons/addNewRowButton.js' )
+                showCreateFormButton: require( './buttons/listPage/showCreateFormButton.js' ),
+                saveButton: require( './buttons/listPage/saveButton.js' ),
+                addNewRowButton: require( './buttons/listPage/addNewRowButton.js' )
             },
             inRows: {
-                showEditFormButton: require( './pages/listPage/buttons/showEditFormButton.js' ),
-                showDeleteFormButton: require( './pages/listPage/buttons/showDeleteFormButton.js' ),
-                deleteRowButton: require( './pages/listPage/buttons/deleteRowButton.js' )
+                showEditFormButton: require( './buttons/listPage/showEditFormButton.js' ),
+                showDeleteFormButton: require( './buttons/listPage/showDeleteFormButton.js' ),
+                deleteRowButton: require( './buttons/listPage/deleteRowButton.js' )
             }
         },
         subform: {
-            addNewRowButton: require( './fields/subform/buttons/addNewRowButton.js' ),
-            showCreateFormButton: require( './fields/subform/buttons/showCreateFormButton.js' ),
-            deleteCommandButton: require( './fields/subform/buttons/deleteCommandButton.js' ),
-            deleteRowButton: require( './fields/subform/buttons/deleteRowButton.js' ),
-            editCommandButton: require( './fields/subform/buttons/editCommandButton.js' )
+            addNewRowButton: require( './buttons/subform/addNewRowButton.js' ),
+            showCreateFormButton: require( './buttons/subform/showCreateFormButton.js' ),
+            deleteCommandButton: require( './buttons/subform/deleteCommandButton.js' ),
+            deleteRowButton: require( './buttons/subform/deleteRowButton.js' ),
+            editCommandButton: require( './buttons/subform/editCommandButton.js' )
         }
     },
     

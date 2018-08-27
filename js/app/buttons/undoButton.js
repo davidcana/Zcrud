@@ -3,8 +3,8 @@
 */
 "use strict";
 
-var context = require( '../../../context.js' );
-var Button = require( '../../../button.js' );
+var context = require( '../context.js' );
+var Button = require( '../button.js' );
 
 //var UndoButton = function() {};
 var UndoButton = function( properties, parent ) {

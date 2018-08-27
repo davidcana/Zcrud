@@ -3,7 +3,7 @@
 */
 "use strict";
 
-var Button = require( '../../../button.js' );
+var Button = require( '../../button.js' );
 
 //var AddNewRowButton = function() {};
 var AddNewRowButton = function( properties, parent ) {
@@ -14,7 +14,7 @@ Button.doSuperClassOf( AddNewRowButton );
 AddNewRowButton.prototype.selector = '.zcrud-new-row-command-button';
 
 AddNewRowButton.prototype.bindableIn = {
-    subformToolbar: true
+    listToolbar: true
 };
 
 AddNewRowButton.prototype.getTextsBundle = function(){
@@ -31,12 +31,12 @@ AddNewRowButton.prototype.getTextsBundle = function(){
     };
 };
 
-AddNewRowButton.prototype.run = function( event, subformInstance, params ){
+AddNewRowButton.prototype.run = function( event, listPage ){
     
     event.preventDefault();
     event.stopPropagation();
     
-    subformInstance.addNewRow( params );
+    listPage.getComponent( 'editing' ).addNewRow( event );
 };
 
 module.exports = AddNewRowButton;
