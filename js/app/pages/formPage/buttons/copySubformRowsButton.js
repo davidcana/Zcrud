@@ -10,6 +10,10 @@ var CopySubformRowsButton = function() {};
 
 CopySubformRowsButton.prototype.selector = 'button.zcrud-copy-subform-rows-command-button';
 
+CopySubformRowsButton.prototype.bindableIn = {
+    formMain: true
+};
+
 CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThis ){
     
     event.preventDefault();

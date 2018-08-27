@@ -7,6 +7,10 @@ var EditCommandButton = function() {};
 
 EditCommandButton.prototype.selector = '.zcrud-edit-command-button';
 
+EditCommandButton.prototype.bindableIn = {
+    subformRow: true
+};
+
 EditCommandButton.prototype.run = function( event, subformInstance ){
     
     event.preventDefault();

@@ -7,6 +7,10 @@ var ShowCreateFormButton = function() {};
 
 ShowCreateFormButton.prototype.selector = '.zcrud-new-command-button';
 
+ShowCreateFormButton.prototype.bindableIn = {
+    subformMain: true
+};
+
 ShowCreateFormButton.prototype.run = function( event, subformInstance ){
     
     event.preventDefault();

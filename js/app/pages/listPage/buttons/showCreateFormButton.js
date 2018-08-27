@@ -7,6 +7,10 @@ var ShowCreateFormButton = function() {};
 
 ShowCreateFormButton.prototype.selector = '.zcrud-new-command-button';
 
+ShowCreateFormButton.prototype.bindableIn = {
+    listMain: true
+};
+
 ShowCreateFormButton.prototype.run = function( event, listPage ){
     
     event.preventDefault();

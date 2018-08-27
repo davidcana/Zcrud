@@ -9,6 +9,11 @@ var RedoButton = function() {};
 
 RedoButton.prototype.selector = '.zcrud-redo-command-button';
 
+RedoButton.prototype.bindableIn = {
+    formMain: true,
+    listMain: true
+};
+
 RedoButton.prototype.run = function( event, page ){
     
     event.preventDefault();

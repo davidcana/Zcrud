@@ -7,6 +7,10 @@ var AddNewRowButton = function() {};
 
 AddNewRowButton.prototype.selector = '.zcrud-new-row-command-button';
 
+AddNewRowButton.prototype.bindableIn = {
+    subformMain: true
+};
+
 AddNewRowButton.prototype.run = function( event, subformInstance, params ){
     
     event.preventDefault();

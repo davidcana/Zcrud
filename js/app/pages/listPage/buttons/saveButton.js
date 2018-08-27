@@ -7,6 +7,10 @@ var SaveButton = function() {};
 
 SaveButton.prototype.selector = '.zcrud-save-command-button';
 
+SaveButton.prototype.bindableIn = {
+    listMain: true
+};
+
 SaveButton.prototype.run = function( event, listPage ){
     
     event.preventDefault();

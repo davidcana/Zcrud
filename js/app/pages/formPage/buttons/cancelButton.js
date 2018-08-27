@@ -16,6 +16,10 @@ CancelButton.prototype.constructor = CancelButton;
 */
 CancelButton.prototype.selector = '.zcrud-form-cancel-command-button';
 
+CancelButton.prototype.bindableIn = {
+    formMain: true
+};
+
 CancelButton.prototype.run = function( event, formPage, $form ){
     
     event.preventDefault();

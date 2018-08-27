@@ -9,6 +9,11 @@ var UndoButton = function() {};
 
 UndoButton.prototype.selector = '.zcrud-undo-command-button';
 
+UndoButton.prototype.bindableIn = {
+    formMain: true,
+    listMain: true
+};
+
 UndoButton.prototype.run = function( event, page ){
     
     event.preventDefault();

@@ -7,6 +7,10 @@ var AddNewRowButton = function() {};
 
 AddNewRowButton.prototype.selector = '.zcrud-new-row-command-button';
 
+AddNewRowButton.prototype.bindableIn = {
+    listMain: true
+};
+
 AddNewRowButton.prototype.run = function( event, listPage ){
     
     event.preventDefault();

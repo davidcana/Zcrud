@@ -7,6 +7,10 @@ var DeleteRowButton = function() {};
 
 DeleteRowButton.prototype.selector = '.zcrud-delete-row-command-button';
 
+DeleteRowButton.prototype.bindableIn = {
+    subformRow: true
+};
+
 DeleteRowButton.prototype.run = function( event, subformInstance ){
     
     event.preventDefault();
