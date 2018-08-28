@@ -8,6 +8,7 @@ var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
+var buttonUtils = require( '../buttons/buttonUtils.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
@@ -527,6 +528,32 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return history? history.isDirty(): false;
     };
 
+    var byRowButtons = undefined;
+    var getByRowButtons = function(){
+        
+        if ( byRowButtons == undefined ){
+            byRowButtons = buttonUtils.getButtonList( 
+                thisOptions.buttons.byRo2, 
+                'listRow', 
+                options );
+        }
+        
+        return byRowButtons;
+    };
+    
+    var toolbarButtons = undefined;
+    var getToolbarButtons = function(){
+
+        if ( toolbarButtons == undefined ){
+            byRowButtons = buttonUtils.getButtonList( 
+                thisOptions.buttons.toolba2, 
+                'listToolbar', 
+                options );
+        }
+
+        return toolbarButtons;
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -565,7 +592,9 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getFieldsSource: getFieldsSource,
         generateId: generateId,
         updateRecords: updateRecords,
-        isDirty: isDirty
+        isDirty: isDirty,
+        getByRowButtons: getByRowButtons,
+        getToolbarButtons: getToolbarButtons
     };
     
     configure();
