@@ -97,7 +97,7 @@ Subform.prototype.afterProcessTemplateForField = function( params ){
     this.bindEventsInRows( params, $subform, undefined );
     
     var options = this.page.getOptions();
-    var addNewRowButton = new options.buttons.subform_addNewRowButton();
+    var addNewRowButton = new options.buttons.subform_addNewRow();
     this.bindButtonEvent( $subform, addNewRowButton, subformInstance, params );
     /*
     $subform
@@ -110,7 +110,7 @@ Subform.prototype.afterProcessTemplateForField = function( params ){
                 subformInstance.addNewRow( params );
             }
         );*/
-    var showCreateFormButton = new options.buttons.subform_showCreateFormButton();
+    var showCreateFormButton = new options.buttons.subform_showCreateForm();
     this.bindButtonEvent( $subform, showCreateFormButton, subformInstance );
     /*
     $subform
@@ -243,7 +243,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
             }
         );
     
-    var deleteRowButton = new options.buttons.subform_deleteRowButton();
+    var deleteRowButton = new options.buttons.subform_deleteRow();
     this.bindButtonEvent( $selection, deleteRowButton, subformInstance );
     /*
     $selection
@@ -257,7 +257,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
             }
         );*/
     
-    var deleteCommandButton = new options.buttons.subform_deleteCommandButton();
+    var deleteCommandButton = new options.buttons.subform_deleteCommand();
     this.bindButtonEvent( $selection, deleteCommandButton, subformInstance );
     /*
     $selection
@@ -271,7 +271,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
             }
         );*/
 
-    var editCommandButton = new options.buttons.subform_editCommandButton();
+    var editCommandButton = new options.buttons.subform_editCommand();
     this.bindButtonEvent( $selection, editCommandButton, subformInstance );
     /*
     $selection

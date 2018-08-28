@@ -10,7 +10,7 @@ var ShowEditFormButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( ShowEditFormButton );
 
-ShowEditFormButton.prototype.id = 'list_showEditFormButton';
+ShowEditFormButton.prototype.id = 'list_showEditForm';
 
 ShowEditFormButton.prototype.selector = '.zcrud-edit-command-button';
 

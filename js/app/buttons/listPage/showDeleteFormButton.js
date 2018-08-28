@@ -10,7 +10,7 @@ var ShowDeleteFormButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( ShowDeleteFormButton );
 
-ShowDeleteFormButton.prototype.id = 'list_showDeleteFormButton';
+ShowDeleteFormButton.prototype.id = 'list_showDeleteForm';
 
 ShowDeleteFormButton.prototype.selector = '.zcrud-delete-command-button';
 

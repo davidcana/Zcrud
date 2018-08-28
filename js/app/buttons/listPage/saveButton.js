@@ -10,7 +10,7 @@ var SaveButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( SaveButton );
 
-SaveButton.prototype.id = 'list_saveButton';
+SaveButton.prototype.id = 'list_save';
 
 SaveButton.prototype.selector = '.zcrud-save-command-button';
 

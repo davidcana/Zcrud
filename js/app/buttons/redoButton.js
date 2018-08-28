@@ -11,7 +11,7 @@ var RedoButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( RedoButton );
 
-RedoButton.prototype.id = 'redoButton';
+RedoButton.prototype.id = 'redo';
 
 RedoButton.prototype.selector = '.zcrud-redo-command-button';
 

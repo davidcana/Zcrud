@@ -10,7 +10,7 @@ var DeleteRowButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( DeleteRowButton );
 
-DeleteRowButton.prototype.id = 'list_deleteRowButton';
+DeleteRowButton.prototype.id = 'list_deleteRow';
 
 DeleteRowButton.prototype.selector = '.zcrud-delete-row-command-button';
 

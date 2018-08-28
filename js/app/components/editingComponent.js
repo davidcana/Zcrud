@@ -60,7 +60,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         bindEventsInRows( $this );
 
         // Bottom buttons
-        var undoButton = new options.buttons.undoButton();
+        var undoButton = new options.buttons.undo();
         bindButtonEvent( $this, undoButton );
         /*
         $this
@@ -72,7 +72,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     event.stopPropagation();
                     undo( event );
                 });*/
-        var redoButton = new options.buttons.redoButton();
+        var redoButton = new options.buttons.redo();
         bindButtonEvent( $this, redoButton );
         /*
         $this
@@ -84,7 +84,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     event.stopPropagation();
                     redo( event );
                 });*/
-        var saveButton = new options.buttons.list_saveButton();
+        var saveButton = new options.buttons.list_save();
         bindButtonEvent( $this, saveButton );
         /*
         $this
@@ -96,7 +96,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     event.stopPropagation();
                     save( event );
                 });*/
-        var addNewRowButton = new options.buttons.list_addNewRowButton();
+        var addNewRowButton = new options.buttons.list_addNewRow();
         bindButtonEvent( $this, addNewRowButton );
         /*
         $this
@@ -141,7 +141,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 }
             );
 
-        var deleteRowButton = new options.buttons.list_deleteRowButton();
+        var deleteRowButton = new options.buttons.list_deleteRow();
         bindButtonEvent( $preselection, deleteRowButton );
         /*
         $preselection

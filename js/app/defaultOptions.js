@@ -69,6 +69,7 @@ module.exports = {
                 }
             },
             subform: {
+                toolba2: [],
                 components: {
                     paging: {
                         isOn: false,
@@ -135,25 +136,25 @@ module.exports = {
     },
 
     buttons: {
-        undoButton: require( './buttons/undoButton.js' ),
-        redoButton: require( './buttons/redoButton.js' ),
+        undo: require( './buttons/undoButton.js' ),
+        redo: require( './buttons/redoButton.js' ),
 
-        form_cancelButton: require( './buttons/formPage/cancelButton.js' ),
-        form_submitButton: require( './buttons/formPage/submitButton.js' ),
-        form_copySubformRowsButton: require( './buttons/formPage/copySubformRowsButton.js' ),
+        form_cancel: require( './buttons/formPage/cancelButton.js' ),
+        form_submit: require( './buttons/formPage/submitButton.js' ),
+        form_copySubformRows: require( './buttons/formPage/copySubformRowsButton.js' ),
         
-        list_showCreateFormButton: require( './buttons/listPage/showCreateFormButton.js' ),
-        list_saveButton: require( './buttons/listPage/saveButton.js' ),
-        list_addNewRowButton: require( './buttons/listPage/addNewRowButton.js' ),
-        list_showEditFormButton: require( './buttons/listPage/showEditFormButton.js' ),
-        list_showDeleteFormButton: require( './buttons/listPage/showDeleteFormButton.js' ),
-        list_deleteRowButton: require( './buttons/listPage/deleteRowButton.js' ),
+        list_showCreateForm: require( './buttons/listPage/showCreateFormButton.js' ),
+        list_save: require( './buttons/listPage/saveButton.js' ),
+        list_addNewRow: require( './buttons/listPage/addNewRowButton.js' ),
+        list_showEditForm: require( './buttons/listPage/showEditFormButton.js' ),
+        list_showDeleteForm: require( './buttons/listPage/showDeleteFormButton.js' ),
+        list_deleteRow: require( './buttons/listPage/deleteRowButton.js' ),
 
-        subform_addNewRowButton: require( './buttons/subform/addNewRowButton.js' ),
-        subform_showCreateFormButton: require( './buttons/subform/showCreateFormButton.js' ),
-        subform_deleteCommandButton: require( './buttons/subform/deleteCommandButton.js' ),
-        subform_deleteRowButton: require( './buttons/subform/deleteRowButton.js' ),
-        subform_editCommandButton: require( './buttons/subform/editCommandButton.js' )
+        subform_addNewRow: require( './buttons/subform/addNewRowButton.js' ),
+        subform_showCreateForm: require( './buttons/subform/showCreateFormButton.js' ),
+        subform_deleteCommand: require( './buttons/subform/deleteCommandButton.js' ),
+        subform_deleteRow: require( './buttons/subform/deleteRowButton.js' ),
+        subform_editCommand: require( './buttons/subform/editCommandButton.js' )
     },
     
     pageConf: {
@@ -168,6 +169,9 @@ module.exports = {
                 $tr.fadeIn();
             },
             buttons: {
+                toolba2: [
+                    'undo', 'redo', 'form_cancel', 'form_submit'
+                ],
                 toolbar: {
                     undo: true,
                     redo: true,
@@ -235,6 +239,7 @@ module.exports = {
                     }
                 },
                 buttons: {
+                    toolba2: [],
                     toolbar: {
                         newRegisterRow: undefined,
                         openNewRegisterForm: undefined,
@@ -243,6 +248,9 @@ module.exports = {
                         redo: undefined,
                         save: undefined
                     },
+                    byRo2: [
+                        'list_showEditForm', 'list_showDeleteForm'
+                    ],
                     byRow: {
                         openEditRegisterForm: undefined,
                         openDeleteRegisterForm: undefined,

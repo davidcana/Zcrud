@@ -10,7 +10,7 @@ var SubmitButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( SubmitButton );
 
-SubmitButton.prototype.id = 'form_submitButton';
+SubmitButton.prototype.id = 'form_submit';
 
 SubmitButton.prototype.selector = '.zcrud-form-submit-command-button';
 

@@ -10,7 +10,7 @@ var ShowCreateFormButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( ShowCreateFormButton );
 
-ShowCreateFormButton.prototype.id = 'subform_showCreateFormButton';
+ShowCreateFormButton.prototype.id = 'subform_showCreateForm';
 
 ShowCreateFormButton.prototype.selector = '.zcrud-new-command-button';
 
