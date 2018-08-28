@@ -389,7 +389,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     var bindEvents = function( $form ) {
         
         // Bind events of submit, cancel, undo and redo buttons; also change event
-        var submitButton = new options.buttons.formPage.submitButton();
+        var submitButton = new options.buttons.form_submitButton();
         bindButtonEvent( $form, submitButton );
         /*
         $form
@@ -405,7 +405,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 }
             );
         */
-        var cancelButton = new options.buttons.formPage.cancelButton();
+        var cancelButton = new options.buttons.form_cancelButton();
         bindButtonEvent( $form, cancelButton );
         /*
         $form
@@ -447,7 +447,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 }
             );*/
         
-        var copySubformRowsButton = new options.buttons.formPage.copySubformRowsButton();
+        var copySubformRowsButton = new options.buttons.form_copySubformRowsButton();
         bindButtonEvent( $form, copySubformRowsButton );
         /*
         $form

@@ -261,7 +261,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var bindEvents = function() {
 
         // Bind events of create, edit and delete buttons
-        var showCreateFormButton = new options.buttons.listPage.main.showCreateFormButton();
+        var showCreateFormButton = new options.buttons.list_showCreateFormButton();
         bindButtonEvent( showCreateFormButton );
         /*
         $( '.zcrud-new-command-button' )
@@ -271,7 +271,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 event.stopPropagation();
                 showCreateForm( event );
             });*/
-        var showEditFormButton = new options.buttons.listPage.inRows.showEditFormButton();
+        var showEditFormButton = new options.buttons.list_showEditFormButton();
         bindButtonEvent( showEditFormButton );
         /*
         $( '.zcrud-edit-command-button' )
@@ -281,7 +281,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
                 event.stopPropagation();
                 showEditForm( event );
             });*/
-        var showDeleteFormButton = new options.buttons.listPage.inRows.showDeleteFormButton();
+        var showDeleteFormButton = new options.buttons.list_showDeleteFormButton();
         bindButtonEvent( showDeleteFormButton );
         /*
         $( '.zcrud-delete-command-button' )

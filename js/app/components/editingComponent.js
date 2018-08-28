@@ -84,7 +84,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     event.stopPropagation();
                     redo( event );
                 });*/
-        var saveButton = new options.buttons.listPage.main.saveButton();
+        var saveButton = new options.buttons.list_saveButton();
         bindButtonEvent( $this, saveButton );
         /*
         $this
@@ -96,7 +96,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                     event.stopPropagation();
                     save( event );
                 });*/
-        var addNewRowButton = new options.buttons.listPage.main.addNewRowButton();
+        var addNewRowButton = new options.buttons.list_addNewRowButton();
         bindButtonEvent( $this, addNewRowButton );
         /*
         $this
@@ -141,7 +141,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 }
             );
 
-        var deleteRowButton = new options.buttons.listPage.inRows.deleteRowButton();
+        var deleteRowButton = new options.buttons.list_deleteRowButton();
         bindButtonEvent( $preselection, deleteRowButton );
         /*
         $preselection
