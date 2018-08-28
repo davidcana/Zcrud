@@ -5,13 +5,13 @@
 
 var Button = require( '../button.js' );
 
-//var CancelButton = function() {};
 var CancelButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
-/*CancelButton.prototype = new Button();
-CancelButton.prototype.constructor = CancelButton;*/
+
 Button.doSuperClassOf( CancelButton );
+
+CancelButton.prototype.id = 'form_cancelButton';
 
 CancelButton.prototype.selector = '.zcrud-form-cancel-command-button';
 

@@ -5,11 +5,12 @@
 
 var Button = require( '../button.js' );
 
-//var ShowDeleteFormButton = function() {};
 var ShowDeleteFormButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( ShowDeleteFormButton );
+
+ShowDeleteFormButton.prototype.id = 'list_showDeleteFormButton';
 
 ShowDeleteFormButton.prototype.selector = '.zcrud-delete-command-button';
 

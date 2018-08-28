@@ -5,11 +5,12 @@
 
 var Button = require( '../button.js' );
 
-//var AddNewRowButton = function() {};
 var AddNewRowButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( AddNewRowButton );
+
+AddNewRowButton.prototype.id = 'subform_addNewRowButton';
 
 AddNewRowButton.prototype.selector = '.zcrud-new-row-command-button';
 

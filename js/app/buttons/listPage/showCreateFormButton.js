@@ -5,11 +5,12 @@
 
 var Button = require( '../button.js' );
 
-//var ShowCreateFormButton = function() {};
 var ShowCreateFormButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( ShowCreateFormButton );
+
+ShowCreateFormButton.prototype.id = 'list_showCreateFormButton';
 
 ShowCreateFormButton.prototype.selector = '.zcrud-new-command-button';
 

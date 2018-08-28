@@ -5,11 +5,12 @@
 
 var Button = require( '../button.js' );
 
-//var SaveButton = function() {};
 var SaveButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( SaveButton );
+
+SaveButton.prototype.id = 'list_saveButton';
 
 SaveButton.prototype.selector = '.zcrud-save-command-button';
 

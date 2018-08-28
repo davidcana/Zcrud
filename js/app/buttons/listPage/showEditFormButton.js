@@ -5,11 +5,12 @@
 
 var Button = require( '../button.js' );
 
-//var ShowEditFormButton = function() {};
 var ShowEditFormButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( ShowEditFormButton );
+
+ShowEditFormButton.prototype.id = 'list_showEditFormButton';
 
 ShowEditFormButton.prototype.selector = '.zcrud-edit-command-button';
 

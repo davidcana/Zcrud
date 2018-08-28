@@ -7,11 +7,12 @@ var $ = require( 'jquery' );
 var context = require( '../../context.js' );
 var Button = require( '../button.js' );
 
-//var CopySubformRowsButton = function() {};
 var CopySubformRowsButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( CopySubformRowsButton );
+
+CopySubformRowsButton.prototype.id = 'form_copySubformRowsButton';
 
 CopySubformRowsButton.prototype.selector = 'button.zcrud-copy-subform-rows-command-button';
 

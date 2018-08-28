@@ -6,11 +6,12 @@
 var context = require( '../context.js' );
 var Button = require( './button.js' );
 
-//var UndoButton = function() {};
 var UndoButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( UndoButton );
+
+UndoButton.prototype.id = 'undoButton';
 
 UndoButton.prototype.selector = '.zcrud-undo-command-button';
 

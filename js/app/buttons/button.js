@@ -1,7 +1,6 @@
 /* 
     Button class
     
-    cssClass: a string with the css class to find the button
     run: a function with the code to run
 */
 "use strict";
@@ -16,7 +15,7 @@ var Button = function( properties, parentToSet ) {
     this.parent = parentToSet;
 };
 
-Button.prototype.cssClass = '"cssClass" not set!';
+Button.prototype.id = '"id" not set!';
 
 Button.prototype.selector = '"selector" not set!';
 
@@ -34,6 +33,14 @@ Button.doSuperClassOf = function( ChildButtonClass ){
     
     ChildButtonClass.prototype = new Button();
     ChildButtonClass.prototype.constructor = ChildButtonClass;
+};
+
+Button.prototype.isBindable = function( type ){
+    return !! this.bindableIn[ type ];
+};
+
+Button.prototype.toString = function(){
+    return this.id + " button";
 };
 
 module.exports = Button;

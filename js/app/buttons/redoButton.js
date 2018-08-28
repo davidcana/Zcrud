@@ -6,11 +6,12 @@
 var context = require( '../context.js' );
 var Button = require( './button.js' );
 
-//var RedoButton = function() {};
 var RedoButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( RedoButton );
+
+RedoButton.prototype.id = 'redoButton';
 
 RedoButton.prototype.selector = '.zcrud-redo-command-button';
 

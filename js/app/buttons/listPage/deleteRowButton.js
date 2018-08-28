@@ -5,11 +5,12 @@
 
 var Button = require( '../button.js' );
 
-//var DeleteRowButton = function() {};
 var DeleteRowButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( DeleteRowButton );
+
+DeleteRowButton.prototype.id = 'list_deleteRowButton';
 
 DeleteRowButton.prototype.selector = '.zcrud-delete-row-command-button';
 

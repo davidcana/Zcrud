@@ -5,11 +5,12 @@
 
 var Button = require( '../button.js' );
 
-//var SubmitButton = function() {};
 var SubmitButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( SubmitButton );
+
+SubmitButton.prototype.id = 'form_submitButton';
 
 SubmitButton.prototype.selector = '.zcrud-form-submit-command-button';
 
