@@ -13,20 +13,21 @@ Button.doSuperClassOf( RedoButton );
 
 RedoButton.prototype.id = 'redo';
 
-RedoButton.prototype.selector = '.zcrud-redo-command-button';
+RedoButton.prototype.cssClass = 'zcrud-redo-command-button';
+
+RedoButton.prototype.selector = '.' + RedoButton.prototype.cssClass;
 
 RedoButton.prototype.bindableIn = {
     formToolbar: true,
     listToolbar: true
 };
 
+RedoButton.prototype.disabled = true;
+
 RedoButton.prototype.getTextsBundle = function(){
 
     return {
-        title: {
-            translate: false,
-            text: ''
-        },
+        title: undefined,
         content: {
             translate: true,
             text: 'Redo'

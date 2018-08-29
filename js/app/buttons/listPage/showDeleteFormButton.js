@@ -12,7 +12,9 @@ Button.doSuperClassOf( ShowDeleteFormButton );
 
 ShowDeleteFormButton.prototype.id = 'list_showDeleteForm';
 
-ShowDeleteFormButton.prototype.selector = '.zcrud-delete-command-button';
+ShowDeleteFormButton.prototype.cssClass = 'zcrud-delete-command-button';
+
+ShowDeleteFormButton.prototype.selector = '.' + ShowDeleteFormButton.prototype.cssClass;
 
 ShowDeleteFormButton.prototype.bindableIn = {
     listRow: true
@@ -25,10 +27,7 @@ ShowDeleteFormButton.prototype.getTextsBundle = function(){
             translate: false,
             text: 'Delete record'
         },
-        content: {
-            translate: false,
-            text: ''
-        }
+        content: undefined
     };
 };
 

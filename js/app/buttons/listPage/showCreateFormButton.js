@@ -12,7 +12,9 @@ Button.doSuperClassOf( ShowCreateFormButton );
 
 ShowCreateFormButton.prototype.id = 'list_showCreateForm';
 
-ShowCreateFormButton.prototype.selector = '.zcrud-new-command-button';
+ShowCreateFormButton.prototype.cssClass = 'zcrud-new-command-button';
+
+ShowCreateFormButton.prototype.selector = '.' + ShowCreateFormButton.prototype.cssClass;
 
 ShowCreateFormButton.prototype.bindableIn = {
     listToolbar: true
@@ -25,10 +27,7 @@ ShowCreateFormButton.prototype.getTextsBundle = function(){
             translate: true,
             text: 'Add new record'
         },
-        content: {
-            translate: false,
-            text: ''
-        }
+        content: undefined
     };
 };
 

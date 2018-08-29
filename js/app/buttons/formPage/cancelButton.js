@@ -13,7 +13,9 @@ Button.doSuperClassOf( CancelButton );
 
 CancelButton.prototype.id = 'form_cancel';
 
-CancelButton.prototype.selector = '.zcrud-form-cancel-command-button';
+CancelButton.prototype.cssClass = 'zcrud-form-cancel-command-button';
+
+CancelButton.prototype.selector = '.' + CancelButton.prototype.cssClass;
 
 CancelButton.prototype.bindableIn = {
     formToolbar: true
@@ -22,10 +24,7 @@ CancelButton.prototype.bindableIn = {
 CancelButton.prototype.getTextsBundle = function(){
 
     return {
-        title: {
-            translate: false,
-            text: ''
-        },
+        title: undefined,
         content: {
             translate: true,
             text: 'Cancel'

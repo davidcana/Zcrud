@@ -17,9 +17,13 @@ var Button = function( properties, parentToSet ) {
 
 Button.prototype.id = '"id" not set!';
 
+Button.prototype.cssClass = '"cssClass" not set!';
+
 Button.prototype.selector = '"selector" not set!';
 
 Button.prototype.bindableIn = {};
+
+Button.prototype.disabled = false;
 
 Button.prototype.getTextsBundle = function(){
     throw '"getTextsBundle" method not implemented!';

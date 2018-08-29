@@ -13,20 +13,21 @@ Button.doSuperClassOf( UndoButton );
 
 UndoButton.prototype.id = 'undo';
 
-UndoButton.prototype.selector = '.zcrud-undo-command-button';
+UndoButton.prototype.cssClass = 'zcrud-undo-command-button';
+
+UndoButton.prototype.selector = '.' + UndoButton.prototype.cssClass;
 
 UndoButton.prototype.bindableIn = {
     formToolbar: true,
     listToolbar: true
 };
 
+UndoButton.prototype.disabled = true;
+
 UndoButton.prototype.getTextsBundle = function(){
 
     return {
-        title: {
-            translate: false,
-            text: ''
-        },
+        title: undefined,
         content: {
             translate: true,
             text: 'Undo'

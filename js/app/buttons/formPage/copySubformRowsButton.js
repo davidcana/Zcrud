@@ -14,7 +14,9 @@ Button.doSuperClassOf( CopySubformRowsButton );
 
 CopySubformRowsButton.prototype.id = 'form_copySubformRows';
 
-CopySubformRowsButton.prototype.selector = 'button.zcrud-copy-subform-rows-command-button';
+CopySubformRowsButton.prototype.cssClass = 'zcrud-copy-subform-rows-command-button';
+
+CopySubformRowsButton.prototype.selector = 'button.' + CopySubformRowsButton.prototype.cssClass;
 
 CopySubformRowsButton.prototype.bindableIn = {
     formToolbar: true
@@ -23,10 +25,7 @@ CopySubformRowsButton.prototype.bindableIn = {
 CopySubformRowsButton.prototype.getTextsBundle = function(){
 
     return {
-        title: {
-            translate: false,
-            text: ''
-        },
+        title: undefined,
         content: {
             translate: true,
             text: this.title || 'zcrud-copy-' + this.source + '-button'

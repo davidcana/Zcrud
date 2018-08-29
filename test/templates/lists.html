@@ -50,6 +50,20 @@
             </form>
         </div>
         
+        <span data-mdefine-macro="toolbar">
+            <span data-trepeat="button buttons">
+                <button data-tdefine="textsBundle button/getTextsBundle();
+                                      title textsBundle/title;
+                                      content textsBundle/content"
+                        data-tattributes="class button/cssClass;
+                                          title cond: title (cond: title/translate (tr: title/text) title/text) null;
+                                          disabled button/disabled" 
+                        data-tcontent="content cond: content (cond: content/translate (tr: content/text) content/text) ''">
+                    Undo
+                </button>
+            </span>
+        </span>
+        
         <div data-mdefine-macro="postTemplates" 
              class="zcrud-post-templates">
             

@@ -12,7 +12,9 @@ Button.doSuperClassOf( EditCommandButton );
 
 EditCommandButton.prototype.id = 'subform_editCommand';
 
-EditCommandButton.prototype.selector = '.zcrud-edit-command-button';
+EditCommandButton.prototype.cssClass = 'zcrud-edit-command-button';
+
+EditCommandButton.prototype.selector = '.' + EditCommandButton.prototype.cssClass;
 
 EditCommandButton.prototype.bindableIn = {
     subformRow: true
@@ -25,10 +27,7 @@ EditCommandButton.prototype.getTextsBundle = function(){
             translate: false,
             text: 'Edit record'
         },
-        content: {
-            translate: false,
-            text: ''
-        }
+        content: undefined
     };
 };
 

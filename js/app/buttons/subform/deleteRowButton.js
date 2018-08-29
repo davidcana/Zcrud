@@ -12,7 +12,9 @@ Button.doSuperClassOf( DeleteRowButton );
 
 DeleteRowButton.prototype.id = 'subform_deleteRow';
 
-DeleteRowButton.prototype.selector = '.zcrud-delete-row-command-button';
+DeleteRowButton.prototype.cssClass = 'zcrud-delete-row-command-button';
+
+DeleteRowButton.prototype.selector = '.' + DeleteRowButton.prototype.cssClass;
 
 DeleteRowButton.prototype.bindableIn = {
     subformRow: true
@@ -25,10 +27,7 @@ DeleteRowButton.prototype.getTextsBundle = function(){
             translate: false,
             text: 'Delete record'
         },
-        content: {
-            translate: false,
-            text: ''
-        }
+        content: undefined
     };
 };
 

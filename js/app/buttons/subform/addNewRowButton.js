@@ -12,7 +12,9 @@ Button.doSuperClassOf( AddNewRowButton );
 
 AddNewRowButton.prototype.id = 'subform_addNewRow';
 
-AddNewRowButton.prototype.selector = '.zcrud-new-row-command-button';
+AddNewRowButton.prototype.cssClass = 'zcrud-new-row-command-button';
+
+AddNewRowButton.prototype.selector = '.' + AddNewRowButton.prototype.cssClass;
 
 AddNewRowButton.prototype.bindableIn = {
     subformToolbar: true
@@ -25,10 +27,7 @@ AddNewRowButton.prototype.getTextsBundle = function(){
             translate: true,
             text: 'Add new record'
         },
-        content: {
-            translate: false,
-            text: ''
-        }
+        content: undefined
     };
 };
 

@@ -12,7 +12,9 @@ Button.doSuperClassOf( SubmitButton );
 
 SubmitButton.prototype.id = 'form_submit';
 
-SubmitButton.prototype.selector = '.zcrud-form-submit-command-button';
+SubmitButton.prototype.cssClass = 'zcrud-form-submit-command-button';
+
+SubmitButton.prototype.selector = '.' + SubmitButton.prototype.cssClass;
 
 SubmitButton.prototype.bindableIn = {
     formToolbar: true
@@ -21,10 +23,7 @@ SubmitButton.prototype.bindableIn = {
 SubmitButton.prototype.getTextsBundle = function(){
 
     return {
-        title: {
-            translate: false,
-            text: ''
-        },
+        title: undefined,
         content: {
             translate: true,
             text: this.parent.getType() == 'delete'? 'Delete': 'Save' 

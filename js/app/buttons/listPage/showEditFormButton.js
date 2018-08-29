@@ -12,7 +12,9 @@ Button.doSuperClassOf( ShowEditFormButton );
 
 ShowEditFormButton.prototype.id = 'list_showEditForm';
 
-ShowEditFormButton.prototype.selector = '.zcrud-edit-command-button';
+ShowEditFormButton.prototype.cssClass = 'zcrud-edit-command-button';
+
+ShowEditFormButton.prototype.selector = '.' + ShowEditFormButton.prototype.cssClass;
 
 ShowEditFormButton.prototype.bindableIn = {
     listRow: true
@@ -25,10 +27,7 @@ ShowEditFormButton.prototype.getTextsBundle = function(){
             translate: false,
             text: 'Edit record'
         },
-        content: {
-            translate: false,
-            text: ''
-        }
+        content: undefined
     };
 };
 

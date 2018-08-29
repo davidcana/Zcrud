@@ -12,7 +12,9 @@ Button.doSuperClassOf( SaveButton );
 
 SaveButton.prototype.id = 'list_save';
 
-SaveButton.prototype.selector = '.zcrud-save-command-button';
+SaveButton.prototype.cssClass = 'zcrud-save-command-button';
+
+SaveButton.prototype.selector = '.' + SaveButton.prototype.cssClass;
 
 SaveButton.prototype.bindableIn = {
     listToolbar: true
@@ -21,10 +23,7 @@ SaveButton.prototype.bindableIn = {
 SaveButton.prototype.getTextsBundle = function(){
 
     return {
-        title: {
-            translate: false,
-            text: ''
-        },
+        title: undefined,
         content: {
             translate: true,
             text: 'Save'
