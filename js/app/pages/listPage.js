@@ -545,7 +545,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     var getToolbarButtons = function(){
 
         if ( toolbarButtons == undefined ){
-            byRowButtons = buttonUtils.getButtonList( 
+            toolbarButtons = buttonUtils.getButtonList( 
                 thisOptions.buttons.toolba2, 
                 'listToolbar', 
                 options );

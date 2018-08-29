@@ -100,6 +100,8 @@ module.exports = {
                 }
             },
             buttons: {
+                toolba2: [ 'subform_addNewRow' ],
+                byRo2: [],
                 toolbar: {
                     newRegisterRow: true
                 },

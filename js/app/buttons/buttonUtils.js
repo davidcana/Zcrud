@@ -30,7 +30,7 @@ var ButtonUtils = function() {
     };
     
     var getButtonById = function( id, options ){
-        return options.buttons[ id ];
+        return new options.buttons[ id ]();
     };
     
     return {

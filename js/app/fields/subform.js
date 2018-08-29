@@ -15,6 +15,7 @@ var HistoryComposition = require( '../history/composition.js' );
 var crudManager = require( '../crudManager.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
 var FormPage = require( '../pages/formPage.js' );
+var buttonUtils = require( '../buttons/buttonUtils.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
@@ -24,6 +25,7 @@ var Subform = function( properties ) {
     this.filter = undefined;
     this.currentFormPage = undefined;
     this.addedRecords = {};
+    this.toolbarButtons = undefined;
 };
 
 Subform.prototype = new Field();
@@ -693,6 +695,18 @@ Subform.prototype.isDirty = function(){
     
     var history = context.getHistory();
     return history? history.isSubformDirty( this.id ): false;
+};
+
+Subform.prototype.getToolbarButtons = function(){
+
+    if ( this.toolbarButtons == undefined ){
+        this.toolbarButtons = buttonUtils.getButtonList( 
+            this.buttons.toolba2, 
+            'subformToolbar', 
+            this.page.getOptions() );
+    }
+
+    return this.toolbarButtons;
 };
 
 module.exports = Subform;

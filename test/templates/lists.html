@@ -58,7 +58,7 @@
                         data-tattributes="class button/cssClass;
                                           title cond: title (cond: title/translate (tr: title/text) title/text) null;
                                           disabled button/disabled" 
-                        data-tcontent="content cond: content (cond: content/translate (tr: content/text) content/text) ''">
+                        data-tcontent="cond: content (cond: content/translate (tr: content/text) content/text) ''">
                     Undo
                 </button>
             </span>
@@ -271,26 +271,11 @@
                                 data-tcontent="pageSize">&nbsp;</option>
                     </select>
                 </span>
-                <span class="zcrud-toolbar" 
-                      data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">
-                    <button data-tattributes="class 'zcrud-new-row-command-button';
-                                              title tr:'Add new record'" 
-                            data-tcondition="toolbar/newRegisterRow"><!--empty--></button>
-                    <button data-tattributes="class 'zcrud-new-command-button';
-                                              title tr:'Add new record'" 
-                            data-tcondition="toolbar/openNewRegisterForm"><!--empty--></button>
-                    <button data-tattributes="class 'zcrud-undo-command-button'" 
-                            data-tcontent="tr:'Undo'"  
-                            data-tcondition="toolbar/undo"
-                            disabled>Undo</button>
-                    <button data-tattributes="class 'zcrud-redo-command-button'"
-                            data-tcontent="tr:'Redo'" 
-                            data-tcondition="toolbar/redo"
-                            disabled >Redo</button>
-                    <button data-tattributes="class 'zcrud-save-command-button'" 
-                            data-tcontent="tr:'Save'" 
-                            data-tcondition="toolbar/save"
-                            disabled>Save</button>
+                <span class="zcrud-toolbar">
+                    <span data-muse-macro="'toolbar'"
+                          data-tdefine="buttons instance/getToolbarButtons()">
+                        The buttons of the toolbar
+                    </span>
                 </span>
             </div>
             <div class="zcrud-right-area">

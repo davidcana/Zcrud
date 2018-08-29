@@ -91,7 +91,6 @@ QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
     );
 });
 
-
 QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert ) {
 
     options = $.extend( true, {}, subformsTestOptions );
