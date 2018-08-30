@@ -115,9 +115,7 @@
                                           data-sort-type sortType">
                         <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
                     </th>
-                    <th class="zcrud-command-column-header" data-tcondition="and: (not: hideRowButtons) byRow/openEditRegisterForm"><!--empty--></th>
-                    <th class="zcrud-command-column-header" data-tcondition="and: (not: hideRowButtons) byRow/openDeleteRegisterForm"><!--empty--></th>
-                    <th class="zcrud-command-column-header" data-tcondition="and: (not: hideRowButtons) byRow/deleteRegisterRow"><!--empty--></th>
+                    <th class="zcrud-command-column-header"><!--empty--></th>
                 </tr>
             </thead>
             <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
@@ -146,14 +144,13 @@
                         </span>
                         <span data-tcondition="fieldIsEditable" data-muse-macro="field/template"><!--empty--></span>
                     </td>
-                    <td data-tcondition="and: (not: hideRowButtons) byRow/openEditRegisterForm">
-                        <button title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
-                    </td>
-                    <td data-tcondition="and: (not: hideRowButtons) byRow/openDeleteRegisterForm">
-                        <button title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
-                    </td>
-                    <td data-tcondition="and: (not: hideRowButtons) byRow/deleteRegisterRow">
-                        <button title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
+                    <td>
+                        <button data-tcondition="and: (not: hideRowButtons) byRow/openEditRegisterForm"
+                                title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
+                        <button data-tcondition="and: (not: hideRowButtons) byRow/openDeleteRegisterForm"
+                                title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
+                        <button data-tcondition="and: (not: hideRowButtons) byRow/deleteRegisterRow"
+                                title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
                     </td>
                 </tr>
             </tbody>
