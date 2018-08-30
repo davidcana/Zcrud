@@ -94,16 +94,10 @@
                     The fields
                 </div>
                 <div class="zcrud-button-panel">
-                    <button type="button" 
-                            class="zcrud-form-cancel-command-button"
-                            data-tcontent="tr:'Cancel'">
-                        Cancel
-                    </button>
-                    <button type="button" 
-                            class="zcrud-form-submit-command-button"
-                            data-tcontent="tr:'Delete'">
-                        Delete
-                    </button>
+                    <span data-muse-macro="'toolbar'"
+                          data-tdefine="buttons instance/getToolbarButtons()">
+                        The buttons of the toolbar
+                    </span>
                 </div>
             </form>
         </div>
