@@ -10,6 +10,7 @@ var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
+var buttonUtils = require( '../buttons/buttonUtils.js' );
 
 var FormPage = function ( optionsToApply, userDataToApply ) {
     "use strict";
@@ -884,6 +885,19 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
     };
     
+    var toolbarButtons = undefined;
+    var getToolbarButtons = function(){
+
+        if ( toolbarButtons == undefined ){
+            toolbarButtons = buttonUtils.getButtonList( 
+                thisOptions.buttons.toolba2, 
+                'formToolbar', 
+                options );
+        }
+
+        return toolbarButtons;
+    };
+    
     var self = {
         show: show,
         getParentPage: getParentPage,
@@ -913,7 +927,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         buildProcessTemplateParams: buildProcessTemplateParams,
         getToolbarItemsArray: getToolbarItemsArray,
         cancelForm: cancelForm,
-        getSubmitFunction: getSubmitFunction
+        getSubmitFunction: getSubmitFunction,
+        getToolbarButtons: getToolbarButtons
     };
     
     configure();

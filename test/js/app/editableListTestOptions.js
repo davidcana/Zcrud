@@ -15,8 +15,7 @@ module.exports = {
                 url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name', 'number' ],
                 buttons: {
-                    toolba2: [ 'list_addNewRow', 'undo', 'redo', 'list_save' ],
-                    byRo2: []
+                    toolba2: [ 'list_addNewRow', 'undo', 'redo', 'list_save' ]
                 },
                 components: {
                     sorting: {

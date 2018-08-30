@@ -10,6 +10,10 @@ var ButtonUtils = function() {
     
     var getButtonList = function( source, type, options ){
         
+        if ( ! source ){
+            throw 'Undefined source in getButtonList method with type "' + type + '"!'
+        }
+        
         var result = [];
         
         for ( var c = 0; c < source.length; ++c ){

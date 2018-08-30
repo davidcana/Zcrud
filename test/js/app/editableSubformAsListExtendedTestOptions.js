@@ -23,7 +23,6 @@ module.exports = {
                 ],
                 buttons: {
                     toolba2: [ 'list_addNewRow', 'undo', 'redo', 'list_save' ],
-                    byRo2: [],
                     toolbar: {
                         save: true,
                         cancel: false,
@@ -113,7 +112,7 @@ module.exports = {
             },
             buttons: {
                 toolba2: [ 'subform_showCreateForm' ],
-                byRo2: [],
+                byRo2: [ 'subform_editCommand', 'subform_deleteCommand' ],
                 toolbar: {
                     openNewRegisterForm: true
                 },
