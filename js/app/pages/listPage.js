@@ -535,6 +535,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             byRowButtons = buttonUtils.getButtonList( 
                 thisOptions.buttons.byRo2, 
                 'listRow', 
+                self,
                 options );
         }
         
@@ -548,6 +549,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             toolbarButtons = buttonUtils.getButtonList( 
                 thisOptions.buttons.toolba2, 
                 'listToolbar', 
+                self,
                 options );
         }
 

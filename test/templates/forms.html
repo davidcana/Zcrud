@@ -45,18 +45,10 @@
                 </div>
                 
                 <div class="zcrud-button-panel" data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">
-                    <button type="button" 
-                            class="zcrud-form-cancel-command-button"
-                            data-tcontent="tr:'Cancel'"
-                            data-tcondition="toolbar/cancel">
-                        Cancel
-                    </button>
-                    <button type="button" 
-                            class="zcrud-form-submit-command-button"
-                            data-tcontent="tr:'Save'"
-                            data-tcondition="toolbar/save">
-                        Save
-                    </button>
+                    <span data-muse-macro="'toolbar'"
+                          data-tdefine="buttons instance/getToolbarButtons()">
+                        The buttons of the toolbar
+                    </span>
                     <span data-tcondition="toolbar/copySubformRowsItems">
                         <button data-trepeat="item instance/getToolbarItemsArray( 'copySubformRowsItems' )"
                                 data-tattributes="class 'zcrud-copy-subform-rows-command-button';
@@ -65,18 +57,6 @@
                             Copy rows
                         </button>
                     </span>
-                    <button class="zcrud-undo-command-button" 
-                            data-tcontent="tr:'Undo'"  
-                            data-tcondition="toolbar/undo"
-                            disabled>
-                        Undo
-                    </button>
-                    <button class="zcrud-redo-command-button" 
-                            data-tcontent="tr:'Redo'" 
-                            data-tcondition="toolbar/redo"
-                            disabled>
-                        Redo
-                    </button>
                     <span data-tdefine="toolbarExtension instance/getThisOptions()/buttons/toolbarExtension"
                           data-tcondition="toolbarExtension"
                           data-muse-macro="toolbarExtension">

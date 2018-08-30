@@ -22,7 +22,7 @@ module.exports = {
                     }
                 ],
                 buttons: {
-                    toolba2: [ 'list_addNewRow', 'undo', 'redo', 'list_save' ],
+                    toolba2: [ 'undo', 'redo', 'form_submit' ],
                     toolbar: {
                         save: true,
                         cancel: false,

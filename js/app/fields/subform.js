@@ -703,6 +703,7 @@ Subform.prototype.getToolbarButtons = function(){
         this.toolbarButtons = buttonUtils.getButtonList( 
             this.buttons.toolba2, 
             'subformToolbar', 
+            this,
             this.page.getOptions() );
     }
 
