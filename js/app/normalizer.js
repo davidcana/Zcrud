@@ -8,7 +8,7 @@ module.exports = (function() {
     "use strict";
 
     // Normalizes some options (sets default values)
-    var normalize = function( options ) {
+    var run = function( options, userOptions ) {
         
         normalizeGeneralOptions( options );
         
@@ -17,8 +17,23 @@ module.exports = (function() {
         normalizePagesOptions( options );
         
         normalizeGeneralOptionsPostFields( options );
+        
+        fixArrays( options, userOptions );
     };
 
+    // Rewrite arrays in userOptions to options
+    var fixArrays = function( options, userOptions ) {
+        
+        for ( var id in userOptions ){
+            var value = userOptions[ id ];
+            if ( $.isArray( value ) ){
+                options[ id ] = value;
+            } else if ( $.isPlainObject( value ) ) {
+                fixArrays( options[ id ], userOptions[ id ] );
+            }
+        }
+    };
+    
     // Normalizes some general options (non related to fields)
     var normalizeGeneralOptions = function( options ) {
 
@@ -187,7 +202,7 @@ module.exports = (function() {
     };
     
     return {
-        run: normalize,
+        run: run,
         buildFullFieldInstance: buildFullFieldInstance
     };
 })();

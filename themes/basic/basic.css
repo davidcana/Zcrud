@@ -264,6 +264,10 @@ div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-sorted-asc {
 div.zcrud-main-container table.zcrud>thead th.zcrud-column-header-sorted-desc {
     background: url('./column-desc.png') no-repeat left;
 }
+div.zcrud-main-container table.zcrud>tbody td.zcrud-command {
+    text-align: center;
+    white-space: nowrap;
+}
 div.zcrud-main-container table.zcrud tbody tr.zcrud-no-data-row {
     text-align: center;
 }

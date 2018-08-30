@@ -26,6 +26,7 @@ var Subform = function( properties ) {
     this.currentFormPage = undefined;
     this.addedRecords = {};
     this.toolbarButtons = undefined;
+    this.byRowButtons = undefined;
 };
 
 Subform.prototype = new Field();
@@ -708,6 +709,19 @@ Subform.prototype.getToolbarButtons = function(){
     }
 
     return this.toolbarButtons;
+};
+
+Subform.prototype.getByRowButtons = function(){
+
+    if ( this.byRowButtons == undefined ){
+        this.byRowButtons = buttonUtils.getButtonList( 
+            this.buttons.byRo2, 
+            'subformRow', 
+            this,
+            this.page.getOptions() );
+    }
+
+    return this.byRowButtons;
 };
 
 module.exports = Subform;

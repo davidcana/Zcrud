@@ -99,7 +99,6 @@ module.exports = {
             },
             buttons: {
                 toolba2: [ 'subform_showCreateForm' ],
-                byRo2: [ 'subform_deleteRow' ],
                 toolbar: {
                     newRegisterRow: true
                 },

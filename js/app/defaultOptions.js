@@ -71,7 +71,7 @@ module.exports = {
             subform: {
                 buttons: {
                     toolba2: [ 'subform_addNewRow' ],
-                    byRo2: [ 'subform_editCommand', 'subform_deleteCommand' ]  
+                    byRo2: [ 'subform_deleteRow' ]  
                 },
                 components: {
                     paging: {

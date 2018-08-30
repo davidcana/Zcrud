@@ -67,12 +67,11 @@ exports.init = function( userOptions, callback ){
     var options = $.extend( true, {}, defaultOptions, userOptions );
     
     // Register all field managers
-    //fieldBuilder.registerAll( options.fieldsConfig.managers );
     fieldBuilder.registerAllConstructors( options.fieldsConfig.constructors );
     context.setFieldBuilder( fieldBuilder );
     
     // Normalize options
-    normalizer.run( options );
+    normalizer.run( options, userOptions );
     
     // Configure ZPT
     zpt.context.getConf().loggingOn = options.logging.isOn;
@@ -107,13 +106,11 @@ exports.renderForm = function( options, data, callback ){
 
     log.info( 'Rendering form...' );
 
-    //var formPage =  new FormPage( options, 'list' );
     data = data || {};
     data.type = 'list';
     var formPage = new FormPage( options, data ); 
     
     context.putPage( formPage.getId(), formPage );
-    //formPage.updateUsingRecordFromServer( undefined, undefined, callback );
     formPage.show( 
         {
             callback: callback

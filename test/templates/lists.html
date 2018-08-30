@@ -144,13 +144,11 @@
                         </span>
                         <span data-tcondition="fieldIsEditable" data-muse-macro="field/template"><!--empty--></span>
                     </td>
-                    <td>
-                        <button data-tcondition="and: (not: hideRowButtons) byRow/openEditRegisterForm"
-                                title="Edit record" class="zcrud-edit-command-button"><!--empty--></button>
-                        <button data-tcondition="and: (not: hideRowButtons) byRow/openDeleteRegisterForm"
-                                title="Delete record" class="zcrud-delete-command-button"><!--empty--></button>
-                        <button data-tcondition="and: (not: hideRowButtons) byRow/deleteRegisterRow"
-                                title="Delete record" class="zcrud-delete-row-command-button"><!--empty--></button>
+                    <td class="zcrud-command">
+                        <span data-muse-macro="'toolbar'"
+                              data-tdefine="buttons instance/getByRowButtons()">
+                            The buttons of the toolbar
+                        </span>
                     </td>
                 </tr>
             </tbody>
