@@ -179,7 +179,6 @@ module.exports = {
                     cancel: true,
                     save: true
                 },
-                toolbarExtension: undefined,
                 byRow: {
                     openEditRegisterForm: true,
                     openDeleteRegisterForm: true,

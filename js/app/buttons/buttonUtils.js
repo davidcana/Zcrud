@@ -4,7 +4,7 @@
 "use strict";
 
 //var context = require( '../context.js' );
-//var $ = require( 'jquery' );
+var $ = require( 'jquery' );
 
 var ButtonUtils = function() {
     
@@ -18,22 +18,33 @@ var ButtonUtils = function() {
         
         for ( var c = 0; c < source.length; ++c ){
             var sourceItem = source[ c ];
-            var button = getButton( sourceItem, parent, options );
-            if ( button.isBindable( type ) ){
-                result.push( button );
-            } else {
-                throw 'Button "' + button + '" not bindable to type "' + type + '"!';
-            }
+            var button = getButton( sourceItem, type, parent, options );
+            result.push( button );
         }
         
         return result;
     };
     
-    var getButton = function( sourceItem, parent, options ){
-        return getButtonById( sourceItem, {}, parent, options );
+    var getButton = function( sourceItem, type, parent, options ){
+        
+        var button = undefined;
+        var checkBindable = true;
+        
+        if ( $.isPlainObject( sourceItem ) ){
+            button = sourceItem;
+            checkBindable = false;
+        } else {
+            button = buildButton( sourceItem, {}, parent, options );
+        }
+        
+        if ( checkBindable && ! button.isBindable( type ) ){
+            throw 'Button "' + button + '" not bindable to type "' + type + '"!';
+        }
+        
+        return button;
     };
     
-    var getButtonById = function( id, properties, parent, options ){
+    var buildButton = function( id, properties, parent, options ){
         return new options.buttons[ id ]( properties, parent );
     };
     

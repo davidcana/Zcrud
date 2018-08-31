@@ -483,15 +483,36 @@ QUnit.test( "add records to subform test", function( assert ) {
 
     var thisTestOptions = {
         pageConf: {
-            defaultPageConf: {
-                buttons: {
-                    toolbarExtension: 'customButton'
+            pages: {
+                update: {
+                    buttons: {
+                        toolba2: [ 
+                            'undo', 
+                            'redo', 
+                            'form_cancel', 
+                            'form_submit', 
+                            {
+                                id: 'addMembers',
+                                cssClass: 'addMembers',
+                                selector: 'button.addMembers',
+                                getTextsBundle: function(){
+                                    return {
+                                        title: undefined,
+                                        content: {
+                                            translate: false,
+                                            text: 'Add members'
+                                        }  
+                                    };
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         },
         events: {
             formCreated: function ( data ) {
-                $( '#addMembers' ).click( 
+                $( 'button.addMembers' ).click( 
                     function ( event ) {
                         event.preventDefault();
                         addMembers( 'members', newMembers );
@@ -500,6 +521,7 @@ QUnit.test( "add records to subform test", function( assert ) {
             }
         }
     };
+
     options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
     var done = assert.async();
 
@@ -540,7 +562,7 @@ QUnit.test( "add records to subform test", function( assert ) {
                 [ '1', '2', '3', '4' ]);
             
             // Add items to members
-            $( '#addMembers' ).click();
+            $( 'button.addMembers' ).click();
             testHelper.assertHistory( assert, 1, 0, true );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'members' ), 
