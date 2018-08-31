@@ -15,7 +15,7 @@ RedoButton.prototype.id = 'redo';
 
 RedoButton.prototype.cssClass = 'zcrud-redo-command-button';
 
-RedoButton.prototype.selector = '.' + RedoButton.prototype.cssClass;
+//RedoButton.prototype.selector = '.' + RedoButton.prototype.cssClass;
 
 RedoButton.prototype.bindableIn = {
     formToolbar: true,

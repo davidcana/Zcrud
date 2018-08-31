@@ -18,30 +18,22 @@ var toolbar = [
     'form_submit', 
     {
         id: 'copyMembers',
-        cssClass: 'copyMembers',
-        selector: 'button.copyMembers',
-        getTextsBundle: function(){
-            return {
-                title: undefined,
-                content: {
-                    translate: false,
-                    text: 'Copy members'
-                }  
-            };
+        textsBundle: {
+            title: undefined,
+            content: {
+                translate: false,
+                text: 'Copy members'
+            }
         }
     },
     {
         id: 'copyExternalMembers',
-        cssClass: 'copyExternalMembers',
-        selector: 'button.copyExternalMembers',
-        getTextsBundle: function(){
-            return {
-                title: undefined,
-                content: {
-                    translate: false,
-                    text: 'Copy external members'
-                }  
-            };
+        textsBundle: {
+            title: undefined,
+            content: {
+                translate: false,
+                text: 'Copy external members'
+            }
         }
     }
 ];
@@ -371,16 +363,12 @@ QUnit.test( "subform selecting test", function( assert ) {
                             'form_submit', 
                             {
                                 id: 'doAction',
-                                cssClass: 'doAction',
-                                selector: 'button.doAction',
-                                getTextsBundle: function(){
-                                    return {
-                                        title: undefined,
-                                        content: {
-                                            translate: false,
-                                            text: 'Do action'
-                                        }  
-                                    };
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Do action'
+                                    }
                                 }
                             }
                         ]

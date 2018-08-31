@@ -14,7 +14,7 @@ DeleteCommandButton.prototype.id = 'subform_deleteCommand';
 
 DeleteCommandButton.prototype.cssClass = 'zcrud-delete-command-button';
 
-DeleteCommandButton.prototype.selector = '.' + DeleteCommandButton.prototype.cssClass;
+//DeleteCommandButton.prototype.selector = '.' + DeleteCommandButton.prototype.cssClass;
 
 DeleteCommandButton.prototype.bindableIn = {
     subformRow: true

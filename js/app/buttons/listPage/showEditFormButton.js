@@ -14,7 +14,7 @@ ShowEditFormButton.prototype.id = 'list_showEditForm';
 
 ShowEditFormButton.prototype.cssClass = 'zcrud-edit-command-button';
 
-ShowEditFormButton.prototype.selector = '.' + ShowEditFormButton.prototype.cssClass;
+//ShowEditFormButton.prototype.selector = '.' + ShowEditFormButton.prototype.cssClass;
 
 ShowEditFormButton.prototype.bindableIn = {
     listRow: true

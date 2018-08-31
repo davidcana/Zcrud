@@ -14,7 +14,7 @@ ShowCreateFormButton.prototype.id = 'list_showCreateForm';
 
 ShowCreateFormButton.prototype.cssClass = 'zcrud-new-command-button';
 
-ShowCreateFormButton.prototype.selector = '.' + ShowCreateFormButton.prototype.cssClass;
+//ShowCreateFormButton.prototype.selector = '.' + ShowCreateFormButton.prototype.cssClass;
 
 ShowCreateFormButton.prototype.bindableIn = {
     listToolbar: true

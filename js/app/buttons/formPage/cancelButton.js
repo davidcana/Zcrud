@@ -15,7 +15,7 @@ CancelButton.prototype.id = 'form_cancel';
 
 CancelButton.prototype.cssClass = 'zcrud-form-cancel-command-button';
 
-CancelButton.prototype.selector = '.' + CancelButton.prototype.cssClass;
+//CancelButton.prototype.selector = '.' + CancelButton.prototype.cssClass;
 
 CancelButton.prototype.bindableIn = {
     formToolbar: true

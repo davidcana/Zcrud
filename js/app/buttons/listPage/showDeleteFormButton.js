@@ -14,7 +14,7 @@ ShowDeleteFormButton.prototype.id = 'list_showDeleteForm';
 
 ShowDeleteFormButton.prototype.cssClass = 'zcrud-delete-command-button';
 
-ShowDeleteFormButton.prototype.selector = '.' + ShowDeleteFormButton.prototype.cssClass;
+//ShowDeleteFormButton.prototype.selector = '.' + ShowDeleteFormButton.prototype.cssClass;
 
 ShowDeleteFormButton.prototype.bindableIn = {
     listRow: true

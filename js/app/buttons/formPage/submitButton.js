@@ -14,7 +14,7 @@ SubmitButton.prototype.id = 'form_submit';
 
 SubmitButton.prototype.cssClass = 'zcrud-form-submit-command-button';
 
-SubmitButton.prototype.selector = '.' + SubmitButton.prototype.cssClass;
+//SubmitButton.prototype.selector = '.' + SubmitButton.prototype.cssClass;
 
 SubmitButton.prototype.bindableIn = {
     formToolbar: true

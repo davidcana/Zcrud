@@ -15,7 +15,7 @@ UndoButton.prototype.id = 'undo';
 
 UndoButton.prototype.cssClass = 'zcrud-undo-command-button';
 
-UndoButton.prototype.selector = '.' + UndoButton.prototype.cssClass;
+//UndoButton.prototype.selector = '.' + UndoButton.prototype.cssClass;
 
 UndoButton.prototype.bindableIn = {
     formToolbar: true,

@@ -493,16 +493,12 @@ QUnit.test( "add records to subform test", function( assert ) {
                             'form_submit', 
                             {
                                 id: 'addMembers',
-                                cssClass: 'addMembers',
-                                selector: 'button.addMembers',
-                                getTextsBundle: function(){
-                                    return {
-                                        title: undefined,
-                                        content: {
-                                            translate: false,
-                                            text: 'Add members'
-                                        }  
-                                    };
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Add members'
+                                    }  
                                 }
                             }
                         ]

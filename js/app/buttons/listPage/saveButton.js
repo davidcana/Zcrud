@@ -14,7 +14,7 @@ SaveButton.prototype.id = 'list_save';
 
 SaveButton.prototype.cssClass = 'zcrud-save-command-button';
 
-SaveButton.prototype.selector = '.' + SaveButton.prototype.cssClass;
+//SaveButton.prototype.selector = '.' + SaveButton.prototype.cssClass;
 
 SaveButton.prototype.bindableIn = {
     listToolbar: true

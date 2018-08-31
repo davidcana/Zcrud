@@ -250,7 +250,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var bindButtonEvent = function( button ){
 
-        $( button.selector )
+        $( button.getSelector() )
             .off()
             .click(
                 function( event ){

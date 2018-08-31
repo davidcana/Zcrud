@@ -14,7 +14,7 @@ AddNewRowButton.prototype.id = 'subform_addNewRow';
 
 AddNewRowButton.prototype.cssClass = 'zcrud-new-row-command-button';
 
-AddNewRowButton.prototype.selector = '.' + AddNewRowButton.prototype.cssClass;
+//AddNewRowButton.prototype.selector = '.' + AddNewRowButton.prototype.cssClass;
 
 AddNewRowButton.prototype.bindableIn = {
     subformToolbar: true

@@ -31,7 +31,8 @@ var ButtonUtils = function() {
         var checkBindable = true;
         
         if ( $.isPlainObject( sourceItem ) ){
-            button = sourceItem;
+            //button = sourceItem;
+            button = buildButton( 'generic', sourceItem, parent, options );
             checkBindable = false;
         } else {
             button = buildButton( sourceItem, {}, parent, options );

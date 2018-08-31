@@ -139,6 +139,7 @@ module.exports = {
     },
 
     buttons: {
+        generic: require( './buttons/genericButton.js' ),
         undo: require( './buttons/undoButton.js' ),
         redo: require( './buttons/redoButton.js' ),
 

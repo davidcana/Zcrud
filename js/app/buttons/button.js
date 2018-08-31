@@ -17,16 +17,28 @@ var Button = function( properties, parentToSet ) {
 
 Button.prototype.id = '"id" not set!';
 
-Button.prototype.cssClass = '"cssClass" not set!';
+Button.prototype.cssClass = undefined;
+Button.prototype.getCssClass = function(){
+    return this.cssClass? this.cssClass: this.id;
+};
 
-Button.prototype.selector = '"selector" not set!';
+Button.prototype.selector = undefined;
+Button.prototype.getSelector = function(){
+    return this.selector? this.selector: 'button.' + this.getCssClass();
+};
 
 Button.prototype.bindableIn = {};
 
 Button.prototype.disabled = false;
 
+Button.prototype.textsBundle = undefined;
 Button.prototype.getTextsBundle = function(){
-    throw '"getTextsBundle" method not implemented!';
+    
+    if ( this.textsBundle ){
+        return this.textsBundle;
+    }
+    
+    throw '"textsBundle" property not set!';
 };
 
 Button.prototype.run = function(){

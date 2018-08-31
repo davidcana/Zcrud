@@ -206,7 +206,7 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
 Subform.prototype.bindButtonEvent = function( $selection, button, subformInstance, params ){
 
     $selection
-        .find( button.selector )
+        .find( button.getSelector() )
         .off()
         .click(
             function( event ){

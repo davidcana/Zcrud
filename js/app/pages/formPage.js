@@ -378,7 +378,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     var bindButtonEvent = function( $form, button ){
         
         $form
-            .find( button.selector )
+            .find( button.getSelector() )
             .off()
             .click(
                 function( event ){
