@@ -6,6 +6,7 @@
 "use strict";
 
 var $ = require( 'jquery' );
+var pageUtils = require( '../pages/pageUtils.js' );
 
 var Button = function( properties, parentToSet ) {
     
@@ -13,6 +14,7 @@ var Button = function( properties, parentToSet ) {
         $.extend( true, this, properties );
     }
     this.parent = parentToSet;
+    this.elementId = 'button_' + pageUtils.generateId();
 };
 
 Button.prototype.id = '"id" not set!';

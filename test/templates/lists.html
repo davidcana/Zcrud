@@ -55,7 +55,8 @@
                 <button data-tdefine="textsBundle button/getTextsBundle();
                                       title textsBundle/title;
                                       content textsBundle/content"
-                        data-tattributes="class button/getCssClass();
+                        data-tattributes="id button/elementId;
+                                          class button/getCssClass();
                                           title cond: title (cond: title/translate (tr: title/text) title/text) null;
                                           disabled button/disabled" 
                         data-tcontent="cond: content (cond: content/translate (tr: content/text) content/text) ''">
