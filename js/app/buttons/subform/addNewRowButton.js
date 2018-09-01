@@ -10,7 +10,7 @@ var AddNewRowButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( AddNewRowButton );
 
-AddNewRowButton.prototype.id = 'subform_addNewRow';
+AddNewRowButton.prototype.type = 'subform_addNewRow';
 
 AddNewRowButton.prototype.cssClass = 'zcrud-new-row-command-button';
 

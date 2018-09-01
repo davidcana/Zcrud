@@ -12,7 +12,7 @@ var CopySubformRowsButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( CopySubformRowsButton );
 
-CopySubformRowsButton.prototype.id = 'form_copySubformRows';
+CopySubformRowsButton.prototype.type = 'form_copySubformRows';
 
 CopySubformRowsButton.prototype.cssClass = 'zcrud-copy-subform-rows-command-button';
 

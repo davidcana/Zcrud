@@ -11,7 +11,7 @@ var CancelButton = function( properties, parent ) {
 
 Button.doSuperClassOf( CancelButton );
 
-CancelButton.prototype.id = 'form_cancel';
+CancelButton.prototype.type = 'form_cancel';
 
 CancelButton.prototype.cssClass = 'zcrud-form-cancel-command-button';
 

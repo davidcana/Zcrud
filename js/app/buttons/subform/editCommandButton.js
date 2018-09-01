@@ -10,7 +10,7 @@ var EditCommandButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( EditCommandButton );
 
-EditCommandButton.prototype.id = 'subform_editCommand';
+EditCommandButton.prototype.type = 'subform_editCommand';
 
 EditCommandButton.prototype.cssClass = 'zcrud-edit-command-button';
 

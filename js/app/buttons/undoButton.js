@@ -11,7 +11,7 @@ var UndoButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( UndoButton );
 
-UndoButton.prototype.id = 'undo';
+UndoButton.prototype.type = 'undo';
 
 UndoButton.prototype.cssClass = 'zcrud-undo-command-button';
 

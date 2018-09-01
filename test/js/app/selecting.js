@@ -17,7 +17,7 @@ var toolbar = [
     'form_cancel', 
     'form_submit', 
     {
-        id: 'copyMembers',
+        type: 'copyMembers',
         textsBundle: {
             title: undefined,
             content: {
@@ -27,7 +27,7 @@ var toolbar = [
         }
     },
     {
-        id: 'copyExternalMembers',
+        type: 'copyExternalMembers',
         textsBundle: {
             title: undefined,
             content: {
@@ -362,7 +362,7 @@ QUnit.test( "subform selecting test", function( assert ) {
                             'form_cancel', 
                             'form_submit', 
                             {
-                                id: 'doAction',
+                                type: 'doAction',
                                 textsBundle: {
                                     title: undefined,
                                     content: {

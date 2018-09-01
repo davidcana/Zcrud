@@ -10,7 +10,7 @@ var DeleteCommandButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( DeleteCommandButton );
 
-DeleteCommandButton.prototype.id = 'subform_deleteCommand';
+DeleteCommandButton.prototype.type = 'subform_deleteCommand';
 
 DeleteCommandButton.prototype.cssClass = 'zcrud-delete-command-button';
 

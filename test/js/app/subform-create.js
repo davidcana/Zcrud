@@ -492,7 +492,7 @@ QUnit.test( "add records to subform test", function( assert ) {
                             'form_cancel', 
                             'form_submit', 
                             {
-                                id: 'addMembers',
+                                type: 'addMembers',
                                 textsBundle: {
                                     title: undefined,
                                     content: {

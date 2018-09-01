@@ -17,11 +17,11 @@ var Button = function( properties, parentToSet ) {
     this.elementId = 'button_' + pageUtils.generateId();
 };
 
-Button.prototype.id = '"id" not set!';
+Button.prototype.type = '"type" not set in button!';
 
 Button.prototype.cssClass = undefined;
 Button.prototype.getCssClass = function(){
-    return this.cssClass? this.cssClass: this.id;
+    return this.cssClass? this.cssClass: this.type;
 };
 
 Button.prototype.selector = undefined;
@@ -40,11 +40,11 @@ Button.prototype.getTextsBundle = function(){
         return this.textsBundle;
     }
     
-    throw '"textsBundle" property not set!';
+    throw '"textsBundle" property not set in ' + this + '!';
 };
 
 Button.prototype.run = function(){
-    throw '"Run" method not implemented!';
+    throw '"run" method not implemented in ' + this + '!';
 };
 
 Button.doSuperClassOf = function( ChildButtonClass ){
@@ -58,7 +58,7 @@ Button.prototype.isBindable = function( type ){
 };
 
 Button.prototype.toString = function(){
-    return this.id + " button";
+    return this.type + ' button (' + this.elementId + ')';
 };
 
 module.exports = Button;

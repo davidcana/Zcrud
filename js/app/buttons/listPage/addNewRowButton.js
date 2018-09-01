@@ -10,7 +10,7 @@ var AddNewRowButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( AddNewRowButton );
 
-AddNewRowButton.prototype.id = 'list_addNewRow';
+AddNewRowButton.prototype.type = 'list_addNewRow';
 
 AddNewRowButton.prototype.cssClass = 'zcrud-new-row-command-button';
 
