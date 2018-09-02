@@ -22,22 +22,32 @@ module.exports = {
                     }
                 ],
                 buttons: {
-                    toolba2: [ 'undo', 'redo', 'form_submit' ],
+                    toolba2: [ 
+                        'undo', 
+                        'redo', 
+                        'form_submit',
+                        {
+                            type: 'form_copySubformRows',
+                            source: 'originalMembers',
+                            target: 'verifiedMembers',
+                            onlySelected: true,
+                            removeFromSource: false,
+                            deselect: true,
+                            title: 'Copy original members',
+                            textsBundle: {
+                                title: undefined,
+                                content: {
+                                    translate: false,
+                                    text: 'Copy original members'
+                                }  
+                            }
+                        }
+                    ],
                     toolbar: {
                         save: true,
                         cancel: false,
                         undo: true,
-                        redo: true,
-                        copySubformRowsItems: {
-                            'verifyMembers': {
-                                source: 'originalMembers',
-                                target: 'verifiedMembers',
-                                onlySelected: true,
-                                removeFromSource: false,
-                                deselect: true,
-                                title: 'Copy original members'
-                            }
-                        }
+                        redo: true
                     }
                 }
             },

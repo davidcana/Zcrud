@@ -375,7 +375,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         triggerFormCreatedEvent( $form );
     };
     
-    var bindButtonEvent = function( $form, button ){
+    var bindButtonEventOld = function( $form, button ){
         
         $form
             .find( button.getSelector() )
@@ -386,104 +386,53 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 }
             );
     };
-    
-    var bindEvents = function( $form ) {
+    var bindButtonEvent = function( $form, button, clickEventFunction ){
         
-        // Bind events of submit, cancel, undo and redo buttons; also change event
-        var submitButton = new options.buttons.form_submit();
-        bindButtonEvent( $form, submitButton );
-        /*
+        var thisButton = button;
+        
+        // Return if the button does not implement run method
+        if ( ! $.isFunction( button.run ) ){
+            return;    
+        }
+        
         $form
-            .find( '.zcrud-form-submit-command-button' )
+            .find( button.getNewSelector() )
             .off()
             .click(
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    
-                    ////
-                    submitFunction( event, $form );
+                function( event ){
+                    //button.run( event, self, $form, this );   
+                    thisButton.run.call( thisButton, event, self, $form, this );   
                 }
             );
-        */
+    };
+    var bindEvents = function( $form ) {
+        
+        // Bind events of buttons
+        var buttons = getToolbarButtons();
+        for ( var c = 0; c < buttons.length; ++c ){
+            var button = buttons[ c ];
+            bindButtonEvent( $form, button );
+        }
+        /*
+        // Bind events of submit, cancel, undo and redo buttons
+        var submitButton = new options.buttons.form_submit();
+        bindButtonEvent( $form, submitButton );
+        
         var cancelButton = new options.buttons.form_cancel();
         bindButtonEvent( $form, cancelButton );
-        /*
-        $form
-            .find( '.zcrud-form-cancel-command-button' )
-            .off()
-            .click(
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    cancelForm( event, $form );
-                }
-            );*/
         
         var undoButton = new options.buttons.undo();
         bindButtonEvent( $form, undoButton );
-        /*
-        $form
-            .find( '.zcrud-undo-command-button' )
-            .off()
-            .click(
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    context.getHistory().undo( id );
-                }
-            );*/
         
         var redoButton = new options.buttons.redo();
         bindButtonEvent( $form, redoButton );
-        /*
-        $form
-            .find( '.zcrud-redo-command-button' )
-            .off()
-            .click(
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    context.getHistory().redo( id );
-                }
-            );*/
+        */
         
+        /*
         var copySubformRowsButton = new options.buttons.form_copySubformRows();
-        bindButtonEvent( $form, copySubformRowsButton );
-        /*
-        $form
-            .find( 'button.zcrud-copy-subform-rows-command-button' )
-            .off()
-            .click( 
-            function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                // Get thisButtonOptions from data-tButtonId attr and toolbar
-                var $this = $( this );
-                var thisButtonId = $this.attr( 'data-tButtonId' );
-                var thisButtonOptions = thisOptions.buttons.toolbar.copySubformRowsItems[ thisButtonId ];
-
-                // Get conf options from thisButtonOptions
-                var targetId = thisButtonOptions.target;
-                var sourceId = thisButtonOptions.source;
-                var onlySelected = thisButtonOptions.onlySelected;
-                var removeFromSource = thisButtonOptions.removeFromSource;
-                var deselect = thisButtonOptions.deselect;
-
-                // Get the selectedRecords
-                var targetField = getField( targetId );
-                var selectedRecords = targetField.addNewRowsFromSubform( 
-                    sourceId, 
-                    onlySelected, 
-                    removeFromSource,
-                    deselect );
-                if ( selectedRecords.length == 0 ){
-                    context.showError( options, false, 'Please, select at least one item!' );
-                }
-            }
-        );*/
-        
+        bindButtonEventOld( $form, copySubformRowsButton );
+        */
+        // Bind change event
         $form
             .find( 'input.historyField, textarea.historyField, select.historyField' )
             .not( "[name*='" + context.subformSeparator + "']" )  // Must exclude fields in subforms

@@ -28,6 +28,9 @@ Button.prototype.selector = undefined;
 Button.prototype.getSelector = function(){
     return this.selector? this.selector: 'button.' + this.getCssClass();
 };
+Button.prototype.getNewSelector = function(){
+    return 'button.' + this.id;
+};
 
 Button.prototype.bindableIn = {};
 
@@ -42,11 +45,11 @@ Button.prototype.getTextsBundle = function(){
     
     throw '"textsBundle" property not set in ' + this + '!';
 };
-
+/*
 Button.prototype.run = function(){
     throw '"run" method not implemented in ' + this + '!';
 };
-
+*/
 Button.doSuperClassOf = function( ChildButtonClass ){
     
     ChildButtonClass.prototype = new Button();

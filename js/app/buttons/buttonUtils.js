@@ -28,16 +28,18 @@ var ButtonUtils = function() {
     var getButton = function( sourceItem, type, parent, options ){
         
         var button = undefined;
-        var checkBindable = true;
         
         if ( $.isPlainObject( sourceItem ) ){
-            button = buildButton( 'generic', sourceItem, parent, options );
-            checkBindable = false;
+            button = buildButton( 
+                sourceItem.type, 
+                sourceItem, 
+                parent, 
+                options );
         } else {
             button = buildButton( sourceItem, {}, parent, options );
         }
         
-        if ( checkBindable && ! button.isBindable( type ) ){
+        if ( ! button.isBindable( type ) ){
             throw 'Button "' + button + '" not bindable to type "' + type + '"!';
         }
         
@@ -45,8 +47,17 @@ var ButtonUtils = function() {
     };
     
     var buildButton = function( buttonType, properties, parent, options ){
-        return new options.buttons[ buttonType ]( properties, parent );
+        
+        var constructor = options.buttons[ buttonType ];
+        if ( ! constructor ){
+            constructor = options.buttons[ 'generic' ];
+        }
+        return new constructor( properties, parent );
     };
+    /*
+    var buildButton = function( buttonType, properties, parent, options ){
+        return new options.buttons[ buttonType ]( properties, parent );
+    };*/
     
     return {
         getButtonList: getButtonList

@@ -14,6 +14,7 @@ var thisTestOptions = undefined;
 var options = undefined;
 
 // Run tests
+/*
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -52,7 +53,7 @@ QUnit.test( "form simple test", function( assert ) {
                         "hobbies": []
                     }
                 ]);
-            
+
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
             $copyButton.click();
@@ -755,7 +756,7 @@ QUnit.test( "form filtering starting void test", function( assert ) {
         }
     );
 });
-
+*/
 QUnit.test( "form after form test", function( assert ) {
 
     options = $.extend( true, {}, extendedFormTestOptions );
@@ -771,7 +772,7 @@ QUnit.test( "form after form test", function( assert ) {
 
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
-
+            
             // Check record 1 value
             var key = "1";
             var record = buildMemberRecord( key );

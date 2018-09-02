@@ -10,4 +10,8 @@ var GenericButton = function( properties, parent ) {
 };
 Button.doSuperClassOf( GenericButton );
 
+Button.prototype.isBindable = function(){
+    return true;
+};
+
 module.exports = GenericButton;

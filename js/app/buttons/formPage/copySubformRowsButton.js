@@ -28,11 +28,36 @@ CopySubformRowsButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: this.title || 'zcrud-copy-' + this.source + '-button'
+            text: this.title || 'Copy rows'
         }
     };
 };
 
+CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThis ){
+    
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Get the selectedRecords
+    var targetField = formPage.getField( this.target );
+    var selectedRecords = targetField.addNewRowsFromSubform( 
+        this.source, 
+        this.onlySelected, 
+        this.removeFromSource,
+        this.deselect );
+    if ( selectedRecords.length == 0 ){
+        context.showError( 
+            formPage.getOptions(), 
+            false, 
+            'Please, select at least one item!' );
+    }
+    /*
+    if ( autoSaveMode ){
+        save( event );
+    }
+    */
+};
+/*
 CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThis ){
     
     event.preventDefault();
@@ -63,11 +88,6 @@ CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThi
             false, 
             'Please, select at least one item!' );
     }
-    /*
-    if ( autoSaveMode ){
-        save( event );
-    }
-    */
 };
-
+*/
 module.exports = CopySubformRowsButton;
