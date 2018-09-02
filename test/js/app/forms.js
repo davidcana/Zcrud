@@ -14,7 +14,6 @@ var thisTestOptions = undefined;
 var options = undefined;
 
 // Run tests
-/*
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -756,7 +755,7 @@ QUnit.test( "form filtering starting void test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "form after form test", function( assert ) {
 
     options = $.extend( true, {}, extendedFormTestOptions );

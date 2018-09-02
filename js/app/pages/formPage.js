@@ -456,7 +456,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 }
             );
     };
-    
+    /*
     var getToolbarItemsArray = function( buttonId ){
         
         var result = [];
@@ -469,7 +469,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
         
         return result;
-    };
+    };*/
     
     var updateRecordFromJSON = function( jsonObject ) {
         
@@ -875,7 +875,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         addToDataToSend: addToDataToSend,
         processDataFromServer: processDataFromServer,
         buildProcessTemplateParams: buildProcessTemplateParams,
-        getToolbarItemsArray: getToolbarItemsArray,
+        //getToolbarItemsArray: getToolbarItemsArray,
         cancelForm: cancelForm,
         getSubmitFunction: getSubmitFunction,
         getToolbarButtons: getToolbarButtons

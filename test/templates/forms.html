@@ -44,18 +44,10 @@
                     The post templates
                 </div>
                 
-                <div class="zcrud-button-panel" data-tdefine="toolbar instance/getThisOptions()/buttons/toolbar">
+                <div class="zcrud-button-panel">
                     <span data-muse-macro="'toolbar'"
                           data-tdefine="buttons instance/getToolbarButtons()">
                         The buttons of the toolbar
-                    </span>
-                    <span data-tcondition="toolbar/copySubformRowsItems">
-                        <button data-trepeat="item instance/getToolbarItemsArray( 'copySubformRowsItems' )"
-                                data-tattributes="class 'zcrud-copy-subform-rows-command-button';
-                                                  data-tButtonId item/id"
-                                data-tcontent="tr:(item/title || (string:zcrud-copy-${item/source}-button))">
-                            Copy rows
-                        </button>
                     </span>
                 </div>
             </form>
