@@ -250,6 +250,11 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
     
     var bindButtonEvent = function( button ){
 
+        // Return if the button does not implement run method
+        if ( ! $.isFunction( button.run ) ){
+            return;    
+        }
+        
         $( button.getSelector() )
             .off()
             .click(
@@ -259,39 +264,29 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             );
     };
     
+    var bindButtonsEvent = function( buttons ){
+        
+        for ( var c = 0; c < buttons.length; ++c ){
+            var button = buttons[ c ];
+            bindButtonEvent( button );
+        }
+    };
+    
     var bindEvents = function() {
 
-        // Bind events of create, edit and delete buttons
+        // Bind events of buttons
+        bindButtonsEvent( getToolbarButtons() );
+        bindButtonsEvent( getByRowButtons() );
+        /*
         var showCreateFormButton = new options.buttons.list_showCreateForm();
         bindButtonEvent( showCreateFormButton );
-        /*
-        $( '.zcrud-new-command-button' )
-            .off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                showCreateForm( event );
-            });*/
+        
         var showEditFormButton = new options.buttons.list_showEditForm();
         bindButtonEvent( showEditFormButton );
-        /*
-        $( '.zcrud-edit-command-button' )
-            .off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                showEditForm( event );
-            });*/
+        
         var showDeleteFormButton = new options.buttons.list_showDeleteForm();
         bindButtonEvent( showDeleteFormButton );
-        /*
-        $( '.zcrud-delete-command-button' )
-            .off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                showDeleteForm( event );
-            });*/
+        */
         
         // Bind events of components
         componentsMap.bindEvents();
