@@ -375,20 +375,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         triggerFormCreatedEvent( $form );
     };
     
-    var bindButtonEventOld = function( $form, button ){
-        
-        $form
-            .find( button.getSelector() )
-            .off()
-            .click(
-                function( event ){
-                    button.run( event, self, $form, this );   
-                }
-            );
-    };
-    var bindButtonEvent = function( $form, button, clickEventFunction ){
-        
-        var thisButton = button;
+    var bindButtonEvent = function( $form, button ){
         
         // Return if the button does not implement run method
         if ( ! $.isFunction( button.run ) ){
@@ -400,11 +387,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             .off()
             .click(
                 function( event ){
-                    //button.run( event, self, $form, this );   
-                    thisButton.run.call( thisButton, event, self, $form, this );   
+                    button.run( event, self, $form, this );     
                 }
             );
     };
+
     var bindEvents = function( $form ) {
         
         // Bind events of buttons
@@ -413,25 +400,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             var button = buttons[ c ];
             bindButtonEvent( $form, button );
         }
-        /*
-        // Bind events of submit, cancel, undo and redo buttons
-        var submitButton = new options.buttons.form_submit();
-        bindButtonEvent( $form, submitButton );
-        
-        var cancelButton = new options.buttons.form_cancel();
-        bindButtonEvent( $form, cancelButton );
-        
-        var undoButton = new options.buttons.undo();
-        bindButtonEvent( $form, undoButton );
-        
-        var redoButton = new options.buttons.redo();
-        bindButtonEvent( $form, redoButton );
-        */
-        
-        /*
-        var copySubformRowsButton = new options.buttons.form_copySubformRows();
-        bindButtonEventOld( $form, copySubformRowsButton );
-        */
+
         // Bind change event
         $form
             .find( 'input.historyField, textarea.historyField, select.historyField' )
@@ -456,20 +425,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                 }
             );
     };
-    /*
-    var getToolbarItemsArray = function( buttonId ){
-        
-        var result = [];
-        var thisButtonOptions = thisOptions.buttons.toolbar[ buttonId ];
-
-        for ( var id in thisButtonOptions ) {
-            var item = thisButtonOptions[ id ];
-            item.id = id;
-            result.push( item );
-        }
-        
-        return result;
-    };*/
     
     var updateRecordFromJSON = function( jsonObject ) {
         
@@ -875,7 +830,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         addToDataToSend: addToDataToSend,
         processDataFromServer: processDataFromServer,
         buildProcessTemplateParams: buildProcessTemplateParams,
-        //getToolbarItemsArray: getToolbarItemsArray,
         cancelForm: cancelForm,
         getSubmitFunction: getSubmitFunction,
         getToolbarButtons: getToolbarButtons
