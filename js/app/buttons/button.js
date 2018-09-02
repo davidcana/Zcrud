@@ -14,7 +14,7 @@ var Button = function( properties, parentToSet ) {
         $.extend( true, this, properties );
     }
     this.parent = parentToSet;
-    this.elementId = 'button_' + pageUtils.generateId();
+    this.id = 'button-' + pageUtils.generateId();
 };
 
 Button.prototype.type = '"type" not set in button!';
@@ -58,7 +58,7 @@ Button.prototype.isBindable = function( type ){
 };
 
 Button.prototype.toString = function(){
-    return this.type + ' button (' + this.elementId + ')';
+    return this.type + ' button (' + this.id + ')';
 };
 
 module.exports = Button;
