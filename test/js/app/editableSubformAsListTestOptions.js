@@ -22,7 +22,7 @@ module.exports = {
                     }
                 ],
                 buttons: {
-                    toolba2: [ 
+                    toolbar: [ 
                         'undo', 
                         'redo', 
                         'form_submit',
@@ -42,13 +42,7 @@ module.exports = {
                                 }  
                             }
                         }
-                    ],
-                    toolbar: {
-                        save: true,
-                        cancel: false,
-                        undo: true,
-                        redo: true
-                    }
+                    ]
                 }
             }
         }
@@ -81,16 +75,8 @@ module.exports = {
                 }
             },
             buttons: {
-                toolba2: [ 'subform_showCreateForm' ],
-                byRo2: [],
-                toolbar: {
-                    newRegisterRow: false
-                },
-                byRow: {
-                    openEditRegisterForm: false,
-                    openDeleteRegisterForm: false,
-                    deleteRegisterRow: false
-                }
+                toolbar: [ 'subform_showCreateForm' ],
+                byRow: []
             }
         },
         verifiedMembers: {
@@ -108,15 +94,7 @@ module.exports = {
                 }
             },
             buttons: {
-                toolba2: [ 'subform_showCreateForm' ],
-                toolbar: {
-                    newRegisterRow: true
-                },
-                byRow: {
-                    openEditRegisterForm: false,
-                    openDeleteRegisterForm: false,
-                    deleteRegisterRow: true
-                }
+                toolbar: [ 'subform_showCreateForm' ]
             }
         }
     },

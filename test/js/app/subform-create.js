@@ -486,7 +486,7 @@ QUnit.test( "add records to subform test", function( assert ) {
             pages: {
                 update: {
                     buttons: {
-                        toolba2: [ 
+                        toolbar: [ 
                             'undo', 
                             'redo', 
                             'form_cancel', 

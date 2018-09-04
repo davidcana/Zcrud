@@ -145,16 +145,6 @@ module.exports = {
                         cols: 80
                     }
                 }
-            },
-            buttons: {
-                toolbar: {
-                    newRegisterRow: true
-                },
-                byRow: {
-                    openEditRegisterForm: false,
-                    openDeleteRegisterForm: false,
-                    deleteRegisterRow: true
-                }
             }
         }
     },

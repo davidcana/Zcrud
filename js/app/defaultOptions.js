@@ -70,8 +70,8 @@ module.exports = {
             },
             subform: {
                 buttons: {
-                    toolba2: [ 'subform_addNewRow' ],
-                    byRo2: [ 'subform_deleteRow' ]  
+                    toolbar: [ 'subform_addNewRow' ],
+                    byRow: [ 'subform_deleteRow' ]  
                 },
                 components: {
                     paging: {
@@ -173,18 +173,7 @@ module.exports = {
                 $tr.fadeIn();
             },
             buttons: {
-                byRo2: [],
-                toolbar: {
-                    undo: true,
-                    redo: true,
-                    cancel: true,
-                    save: true
-                },
-                byRow: {
-                    openEditRegisterForm: true,
-                    openDeleteRegisterForm: true,
-                    deleteRegisterRow: true,
-                }
+                byRow: []
             }
         },
         pages: {
@@ -240,41 +229,26 @@ module.exports = {
                     }
                 },
                 buttons: {
-                    toolba2: [ 'list_showCreateForm' ],
-                    byRo2: [
-                        'list_showEditForm', 'list_showDeleteForm'
-                    ],
-                    toolbar: {
-                        newRegisterRow: undefined,
-                        openNewRegisterForm: undefined,
-                        copySubformRows: undefined,
-                        undo: undefined,
-                        redo: undefined,
-                        save: undefined
-                    },
-                    byRow: {
-                        openEditRegisterForm: undefined,
-                        openDeleteRegisterForm: undefined,
-                        deleteRegisterRow: undefined,
-                    }
+                    toolbar: [ 'list_showCreateForm' ],
+                    byRow: [ 'list_showEditForm', 'list_showDeleteForm' ]
                 }
             }, 
             create: {
                 template: "formDefaultTemplate@templates/forms.html",
                 buttons: {
-                    toolba2: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
+                    toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
                 }
             }, 
             update: {
                 template: "formDefaultTemplate@templates/forms.html",
                 buttons: {
-                    toolba2: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
+                    toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
                 }
             }, 
             delete: {
                 template: "deleteDefaultTemplate@templates/forms.html",
                 buttons: {
-                    toolba2: [ 'form_cancel', 'form_submit' ]
+                    toolbar: [ 'form_cancel', 'form_submit' ]
                 }
             }
         }

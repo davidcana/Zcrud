@@ -230,3 +230,25 @@ ul.methodList>li .header .return:before {
     margin-left: 2em;
     content: "return: ";
 }
+
+/* Button type list */
+ul.buttonTypeList {
+    list-style-type: none;
+}
+ul.buttonTypeList>li {
+    margin-bottom: 1em;
+}
+ul.buttonTypeList>li .header {
+    background: black;
+    color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: .5em;
+}
+ul.buttonTypeList>li .header .name {
+    font-weight: bold;
+    font-size: 130%;
+}
+ul.buttonTypeList>li .header .bindableTo:before {
+    margin-left: 2em;
+    content: "bindable to: ";
+}

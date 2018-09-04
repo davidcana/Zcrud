@@ -55,35 +55,6 @@ module.exports = (function() {
         if ( listOptions.tbodyId == undefined ){
             listOptions.tbodyId = 'zcrud-list-tbody-' + options.entityId;
         }
-
-        // Normalize editable list
-        var editableListIsOn = listOptions.components.editing.isOn;
-        var toolbar = listOptions.buttons.toolbar;
-        if ( toolbar.newRegisterRow == undefined ){
-            toolbar.newRegisterRow = editableListIsOn;
-        }
-        if ( toolbar.openNewRegisterForm == undefined ){
-            toolbar.openNewRegisterForm = ! editableListIsOn;
-        }
-        if ( toolbar.undo == undefined ){
-            toolbar.undo = editableListIsOn;
-        }
-        if ( toolbar.redo == undefined ){
-            toolbar.redo = editableListIsOn;
-        }
-        if ( toolbar.save == undefined ){
-            toolbar.save = editableListIsOn;
-        }
-        var byRow = listOptions.buttons.byRow;
-        if ( byRow.openEditRegisterForm == undefined ){
-            byRow.openEditRegisterForm = ! editableListIsOn;
-        }
-        if ( byRow.openDeleteRegisterForm == undefined ){
-            byRow.openDeleteRegisterForm = ! editableListIsOn;
-        }
-        if ( byRow.deleteRegisterRow == undefined ){
-            byRow.deleteRegisterRow = editableListIsOn;
-        }
     };
     
     var normalizeFieldGroupOptions = function ( fields, options, parent ) {

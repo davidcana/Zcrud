@@ -356,7 +356,7 @@ QUnit.test( "subform selecting test", function( assert ) {
             pages: {
                 update: {
                     buttons: {
-                        toolba2: [ 
+                        toolbar: [ 
                             'undo', 
                             'redo', 
                             'form_cancel', 
@@ -602,7 +602,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
             pages: {
                 update: {
                     buttons: {
-                        toolba2: toolbar
+                        toolbar: toolbar
                     }
                 }
             }
@@ -629,16 +629,6 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                             rows: 3,
                             cols: 80
                         }
-                    }
-                },
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: true
-                    },
-                    byRow: {
-                        openEditRegisterForm: false,
-                        openDeleteRegisterForm: false,
-                        deleteRegisterRow: true
                     }
                 },
                 components: {
@@ -894,7 +884,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
             pages: {
                 update: {
                     buttons: {
-                        toolba2: toolbar
+                        toolbar: toolbar
                     }
                 }
             }
@@ -921,16 +911,6 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                             rows: 3,
                             cols: 80
                         }
-                    }
-                },
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: true
-                    },
-                    byRow: {
-                        openEditRegisterForm: false,
-                        openDeleteRegisterForm: false,
-                        deleteRegisterRow: true
                     }
                 },
                 components: {
@@ -1188,7 +1168,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             pages: {
                 update: {
                     buttons: {
-                        toolba2: toolbar
+                        toolbar: toolbar
                     }
                 }
             }
@@ -1216,16 +1196,6 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                             rows: 3,
                             cols: 80
                         }
-                    }
-                },
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: true
-                    },
-                    byRow: {
-                        openEditRegisterForm: false,
-                        openDeleteRegisterForm: false,
-                        deleteRegisterRow: true
                     }
                 },
                 components: {
@@ -1572,7 +1542,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             pages: {
                 update: {
                     buttons: {
-                        toolba2: toolbar
+                        toolbar: toolbar
                     }
                 }
             }
@@ -1600,16 +1570,6 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                             rows: 3,
                             cols: 80
                         }
-                    }
-                },
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: true
-                    },
-                    byRow: {
-                        openEditRegisterForm: false,
-                        openDeleteRegisterForm: false,
-                        deleteRegisterRow: true
                     }
                 },
                 components: {
@@ -1881,7 +1841,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
             pages: {
                 update: {
                     buttons: {
-                        toolba2: toolbar
+                        toolbar: toolbar
                     }
                 }
             }
@@ -1909,16 +1869,6 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
                             rows: 3,
                             cols: 80
                         }
-                    }
-                },
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: true
-                    },
-                    byRow: {
-                        openEditRegisterForm: false,
-                        openDeleteRegisterForm: false,
-                        deleteRegisterRow: true
                     }
                 },
                 components: {
@@ -2110,7 +2060,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             pages: {
                 update: {
                     buttons: {
-                        toolba2: toolbar
+                        toolbar: toolbar
                     }
                 }
             }
@@ -2142,16 +2092,6 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                             rows: 3,
                             cols: 80
                         }
-                    }
-                },
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: true
-                    },
-                    byRow: {
-                        openEditRegisterForm: false,
-                        openDeleteRegisterForm: false,
-                        deleteRegisterRow: true
                     }
                 },
                 components: {

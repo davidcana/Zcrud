@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ZCrud API reference - Fields</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud API reference - Buttons - Button types</h1>
+        
+        <h2>Binds</h2>
+        <p>
+            A type of button can be bindable to a specific target, to several targets ot to any target. The available targets are:
+        </p>
+        <ul>
+            <li><strong>formToolbar</strong>: the toolbar of a form, usually at the bottom of the form.</li>
+            <li><strong>listToolbar</strong>: the toolbar of a list, usually at the bottom of the list.</li>
+            <li><strong>listRow</strong>: a group of buttons repeated for every row of a list.</li>
+            <li><strong>subformToolbar</strong>: the toolbar of a subform, usually at the bottom of the subform.</li>
+            <li><strong>subformRow</strong>: a group of buttons repeated for every row of a subform.</li>
+        </ul>
+        
+        <h2>Button types</h2>
+        <p>
+            The list of button types is:
+        </p>
+        <ul class="buttonTypeList">
+            <li>
+                <a id="undo"></a>
+                <div class="header">
+                    <span class="name">undo</span>
+                    <span class="bindableTo">formToolbar and listToolbar</span>
+                </div>
+                <div class="body">
+                    Undo last user's action.
+                </div>
+            </li>
+            <li>
+                <a id="redo"></a>
+                <div class="header">
+                    <span class="name">redo</span>
+                    <span class="bindableTo">formToolbar and listToolbar</span>
+                </div>
+                <div class="body">
+                    Redo an user's action.
+                </div>
+            </li>
+            
+            <li>
+                <a id="generic"></a>
+                <div class="header">
+                    <span class="name">generic</span>
+                    <span class="bindableTo">any</span>
+                </div>
+                <div class="body">
+                    Generic button. Must be customized.
+                </div>
+            </li>
+            
+            <li>
+                <a id="form_cancel"></a>
+                <div class="header">
+                    <span class="name">form_cancel</span>
+                    <span class="bindableTo">formToolbar</span>
+                </div>
+                <div class="body">
+                    Cancel all non saved changes and return to previous list or form.
+                </div>
+            </li>
+            <li>
+                <a id="form_submit"></a>
+                <div class="header">
+                    <span class="name">form_submit</span>
+                    <span class="bindableTo">formToolbar</span>
+                </div>
+                <div class="body">
+                    Submit data to server and return to previous list or form (if any). 
+                </div>
+            </li>
+            <li>
+                <a id="form_copySubformRows"></a>
+                <div class="header">
+                    <span class="name">form_copySubformRows</span>
+                    <span class="bindableTo">formToolbar</span>
+                </div>
+                <div class="body">
+                    Copy rows from a subform to another.
+                </div>
+            </li>
+            
+            <li>
+                <a id="list_showCreateForm"></a>
+                <div class="header">
+                    <span class="name">list_showCreateForm</span>
+                    <span class="bindableTo">listToolbar</span>
+                </div>
+                <div class="body">
+                    Show a form to create a new record.
+                </div>
+            </li>
+            <li>
+                <a id="list_save"></a>
+                <div class="header">
+                    <span class="name">list_save</span>
+                    <span class="bindableTo">listToolbar</span>
+                </div>
+                <div class="body">
+                    Submit data to server.
+                </div>
+            </li>
+            <li>
+                <a id="list_addNewRow"></a>
+                <div class="header">
+                    <span class="name">list_addNewRow</span>
+                    <span class="bindableTo">listToolbar</span>
+                </div>
+                <div class="body">
+                    Add a new empty row to the list page.
+                </div>
+            </li>
+            <li>
+                <a id="list_showEditForm"></a>
+                <div class="header">
+                    <span class="name">list_showEditForm</span>
+                    <span class="bindableTo">listRow</span>
+                </div>
+                <div class="body">
+                    Show a form to edit an existing record.
+                </div>
+            </li>
+            <li>
+                <a id="list_showDeleteForm"></a>
+                <div class="header">
+                    <span class="name">list_showDeleteForm</span>
+                    <span class="bindableTo">listRow</span>
+                </div>
+                <div class="body">
+                    Show a form to delete an existing record.
+                </div>
+            </li>
+            <li>
+                <a id="list_deleteRow"></a>
+                <div class="header">
+                    <span class="name">list_deleteRow</span>
+                    <span class="bindableTo">listRow</span>
+                </div>
+                <div class="body">
+                    Delete the current row of the list page.
+                </div>
+            </li>
+            
+            <li>
+                <a id="subform_addNewRow"></a>
+                <div class="header">
+                    <span class="name">subform_addNewRow</span>
+                    <span class="bindableTo">subformToolbar</span>
+                </div>
+                <div class="body">
+                    Add a new empty row to the subform.
+                </div>
+            </li>
+            <li>
+                <a id="subform_showCreateForm"></a>
+                <div class="header">
+                    <span class="name">subform_showCreateForm</span>
+                    <span class="bindableTo">subformToolbar</span>
+                </div>
+                <div class="body">
+                    Show a form to create a new record.
+                </div>
+            </li>
+            <li>
+                <a id="subform_deleteCommand"></a>
+                <div class="header">
+                    <span class="name">subform_deleteCommand</span>
+                    <span class="bindableTo">subformRow</span>
+                </div>
+                <div class="body">
+                    Show a form to delete an existing record.
+                </div>
+            </li>
+            <li>
+                <a id="subform_deleteRow"></a>
+                <div class="header">
+                    <span class="name">subform_deleteRow</span>
+                    <span class="bindableTo">subformRow</span>
+                </div>
+                <div class="body">
+                    Delete the current row of the subform.
+                </div>
+            </li>
+            <li>
+                <a id="subform_editCommand"></a>
+                <div class="header">
+                    <span class="name">subform_editCommand</span>
+                    <span class="bindableTo">subformRow</span>
+                </div>
+                <div class="body">
+                    Show a form to edit an existing record.
+                </div>
+            </li>
+        </ul>
+    </body>
+</html>

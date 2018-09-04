@@ -655,7 +655,7 @@ Subform.prototype.getToolbarButtons = function(){
 
     if ( this.toolbarButtons == undefined ){
         this.toolbarButtons = buttonUtils.getButtonList( 
-            this.buttons.toolba2, 
+            this.buttons.toolbar, 
             'subformToolbar', 
             this,
             this.page.getOptions() );
@@ -668,7 +668,7 @@ Subform.prototype.getByRowButtons = function(){
 
     if ( this.byRowButtons == undefined ){
         this.byRowButtons = buttonUtils.getButtonList( 
-            this.buttons.byRo2, 
+            this.buttons.byRow, 
             'subformRow', 
             this,
             this.page.getOptions() );

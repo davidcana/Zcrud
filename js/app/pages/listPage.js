@@ -528,7 +528,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         if ( byRowButtons == undefined ){
             byRowButtons = buttonUtils.getButtonList( 
-                thisOptions.buttons.byRo2, 
+                thisOptions.buttons.byRow, 
                 'listRow', 
                 self,
                 options );
@@ -542,7 +542,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
 
         if ( toolbarButtons == undefined ){
             toolbarButtons = buttonUtils.getButtonList( 
-                thisOptions.buttons.toolba2, 
+                thisOptions.buttons.toolbar, 
                 'listToolbar', 
                 self,
                 options );

@@ -99,16 +99,6 @@ module.exports = {
                     }
                 }
             },
-            buttons: {
-                toolbar: {
-                    newRegisterRow: true
-                },
-                byRow: {
-                    openEditRegisterForm: false,
-                    openDeleteRegisterForm: false,
-                    deleteRegisterRow: true
-                }
-            },
             components: {
                 paging: {
                     isOn: true,
@@ -135,16 +125,6 @@ module.exports = {
                         rows: 3,
                         cols: 80
                     }
-                }
-            },
-            buttons: {
-                toolbar: {
-                    newRegisterRow: true
-                },
-                byRow: {
-                    openEditRegisterForm: false,
-                    openDeleteRegisterForm: false,
-                    deleteRegisterRow: true
                 }
             }
         }

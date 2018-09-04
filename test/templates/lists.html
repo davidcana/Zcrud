@@ -97,8 +97,7 @@
                data-tattributes="id instance/getThisOptions()/tableId">
             <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
                                  selectingComponent instance/getComponent( 'selecting' );
-                                 selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
-                                 byRow instance/getThisOptions()/buttons/byRow"
+                                 selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'))"
                    data-idomain="i18nArray">
                 <tr>
                     <th data-tcondition="selectingCheckbox">
@@ -121,7 +120,6 @@
             <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
                    data-tdefine="selectingComponent instance/getComponent( 'selecting' );
                                  selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
-                                 byRow instance/getThisOptions()/buttons/byRow;
                                  renderIds false;
                                  key instance/getKey()"
                    data-idomain="i18nArray">

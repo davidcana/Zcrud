@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ZCrud API reference - Fields</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud API reference - Buttons - Lists of buttons</h1>
+        
+        <p>
+            We have 3 ways to define a list of fields:
+        </p>
+        <ol>
+            <li>
+                <em>Refer to a button using its type</em>. An example:
+                <pre class="brush: javascript">
+buttons: {
+    toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ],
+    byRow: [ 'list_deleteRow' ]
+}
+                </pre>
+            </li>
+            <li>
+                <em>Refer to a button using its type but customizing it</em>. An example:
+                <pre class="brush: javascript">
+buttons: {
+    toolbar: [ 
+        'undo', 
+        'redo', 
+        'form_cancel',
+        {
+            type: 'form_submit',
+            textsBundle: {
+                title: undefined,
+                content: {
+                    translate: false,
+                    text: 'Send now!'
+                }  
+            }
+        }
+    ],
+}
+                </pre>
+            </li>
+            <li>
+                <em>Define a full button instance</em>. An example:
+                <pre class="brush: javascript">
+buttons: {
+    toolbar: [ 
+        'undo', 
+        'redo', 
+        'form_cancel', 
+        'form_submit', 
+        {
+            type: 'addMembers',
+            textsBundle: {
+                title: undefined,
+                content: {
+                    translate: false,
+                    text: 'Add members'
+                }  
+            }
+        }
+    ]
+}
+                </pre>
+            </li>
+        </ol>
+    </body>
+</html>

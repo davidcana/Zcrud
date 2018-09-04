@@ -794,7 +794,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
 
         if ( toolbarButtons == undefined ){
             toolbarButtons = buttonUtils.getButtonList( 
-                thisOptions.buttons.toolba2, 
+                thisOptions.buttons.toolbar, 
                 'formToolbar',
                 self,
                 options );
