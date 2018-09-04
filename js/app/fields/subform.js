@@ -192,8 +192,7 @@ Subform.prototype.bindButtonEvent = function( $selection, button, subformInstanc
     }
     
     $selection
-        //.find( button.getSelector() )
-        .find( button.getNewSelector() )
+        .find( button.getSelector() )
         .off()
         .click(
             function( event ){

@@ -25,10 +25,11 @@ Button.prototype.getCssClass = function(){
 };
 
 Button.prototype.selector = undefined;
+/*
 Button.prototype.getSelector = function(){
     return this.selector? this.selector: 'button.' + this.getCssClass();
-};
-Button.prototype.getNewSelector = function(){
+};*/
+Button.prototype.getSelector = function(){
     return 'button.' + this.id;
 };
 

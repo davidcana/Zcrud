@@ -255,8 +255,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             return;    
         }
         
-        //$( button.getSelector() )
-        $( button.getNewSelector() )
+        $( button.getSelector() )
             .off()
             .click(
                 function( event ){

@@ -29,8 +29,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     var bindButtonEvent = function( $this, button ){
 
         $this
-            .find( button.getNewSelector() )
-            //.find( button.getSelector() )
+            .find( button.getSelector() )
             .off()
             .click(
                 function( event ){

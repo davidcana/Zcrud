@@ -383,7 +383,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
         
         $form
-            .find( button.getNewSelector() )
+            .find( button.getSelector() )
             .off()
             .click(
                 function( event ){
