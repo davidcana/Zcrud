@@ -49,10 +49,10 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             pagingTest( assert );
-
+            
             testHelper.clickCreateRowListButton();
             testHelper.assertHistory( assert, 1, 0, false );
-
+            
             testHelper.clickLastDeleteRowListButton();
             testHelper.assertHistory( assert, 2, 0, false );
 
@@ -367,4 +367,3 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
         }
     );
 });
-

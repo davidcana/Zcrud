@@ -25,17 +25,19 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         new History( options, thisOptions, listPage ) );
     var autoSaveMode = false;
     
+    /*
     var bindButtonEvent = function( $this, button ){
 
         $this
-            .find( button.getSelector() )
+            .find( button.getNewSelector() )
+            //.find( button.getSelector() )
             .off()
             .click(
                 function( event ){
                     button.run( event, listPage );   
                 }
             );
-    };
+    };*/
     
     var bindEvents = function(){
 
@@ -60,53 +62,18 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         bindEventsInRows( $this );
 
         // Bottom buttons
+        /*
         var undoButton = new options.buttons.undo();
         bindButtonEvent( $this, undoButton );
-        /*
-        $this
-            .find( '.zcrud-undo-command-button' )
-            .off()
-            .click( 
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    undo( event );
-                });*/
+
         var redoButton = new options.buttons.redo();
         bindButtonEvent( $this, redoButton );
-        /*
-        $this
-            .find( '.zcrud-redo-command-button' )
-            .off()
-            .click( 
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    redo( event );
-                });*/
+
         var saveButton = new options.buttons.list_save();
         bindButtonEvent( $this, saveButton );
-        /*
-        $this
-            .find( '.zcrud-save-command-button' )
-            .off()
-            .click( 
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    save( event );
-                });*/
+
         var addNewRowButton = new options.buttons.list_addNewRow();
-        bindButtonEvent( $this, addNewRowButton );
-        /*
-        $this
-            .find( '.zcrud-new-row-command-button' )
-            .click( 
-                function ( event ) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    addNewRow( event );
-                });*/
+        bindButtonEvent( $this, addNewRowButton );*/
         
         // Setup validation
         var formId = listPage.getThisOptions().formId;
@@ -141,17 +108,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                 }
             );
 
-        var deleteRowButton = new options.buttons.list_deleteRow();
-        bindButtonEvent( $preselection, deleteRowButton );
+        listPage.bindButtonsEvent( listPage.getByRowButtons() );
         /*
-        $preselection
-            .find( '.zcrud-delete-row-command-button' )
-            .off()
-            .click( function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                deleteRow( event );
-        });*/
+        var deleteRowButton = new options.buttons.list_deleteRow();
+        bindButtonEvent( $preselection, deleteRowButton );*/
         
         // Bind events for fields
         var dictionary = listPage.getDictionary();

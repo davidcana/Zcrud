@@ -255,7 +255,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             return;    
         }
         
-        $( button.getSelector() )
+        //$( button.getSelector() )
+        $( button.getNewSelector() )
             .off()
             .click(
                 function( event ){
@@ -591,7 +592,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         updateRecords: updateRecords,
         isDirty: isDirty,
         getByRowButtons: getByRowButtons,
-        getToolbarButtons: getToolbarButtons
+        getToolbarButtons: getToolbarButtons,
+        bindButtonsEvent: bindButtonsEvent
     };
     
     configure();
