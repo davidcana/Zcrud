@@ -95,38 +95,19 @@ Subform.prototype.getViewValueFromRecord = function( record ){
 
 Subform.prototype.afterProcessTemplateForField = function( params ){
     
-    var subformInstance = this;
+    //var subformInstance = this;
     var $subform = this.get$();
     this.bindEventsInRows( params, $subform, undefined );
     
+    this.bindButtonsEvent( this.getToolbarButtons(), $subform, params );
+    /*
     var options = this.page.getOptions();
     var addNewRowButton = new options.buttons.subform_addNewRow();
     this.bindButtonEvent( $subform, addNewRowButton, subformInstance, params );
-    /*
-    $subform
-        .find( '.zcrud-new-row-command-button' )
-        .off()
-        .click( 
-            function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                subformInstance.addNewRow( params );
-            }
-        );*/
+
     var showCreateFormButton = new options.buttons.subform_showCreateForm();
     this.bindButtonEvent( $subform, showCreateFormButton, subformInstance );
-    /*
-    $subform
-        .find( '.zcrud-new-command-button' )
-        .off()
-        .click( 
-            function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                subformInstance.showCreateForm( event );
-            }
-        );*/
-    
+    */
     // Bind events of components
     this.componentsMap.bindEvents();
 };
@@ -204,9 +185,15 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
 };
 
 Subform.prototype.bindButtonEvent = function( $selection, button, subformInstance, params ){
-
+    
+    // Return if the button does not implement run method
+    if ( ! $.isFunction( button.run ) ){
+        return;    
+    }
+    
     $selection
-        .find( button.getSelector() )
+        //.find( button.getSelector() )
+        .find( button.getNewSelector() )
         .off()
         .click(
             function( event ){
@@ -217,10 +204,8 @@ Subform.prototype.bindButtonEvent = function( $selection, button, subformInstanc
 
 Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
     
-    var subformInstance = this;
     var $selection = $subform || $tr;
     var page = this.page;
-    var options = this.page.getOptions();
     
     $selection
         .find( 'input.historyField, textarea.historyField, select.historyField' )
@@ -246,48 +231,17 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
             }
         );
     
+    this.bindButtonsEvent( this.getByRowButtons(), $selection, params );
+    /*
+    var subformInstance = this;
+    var options = this.page.getOptions();
     var deleteRowButton = new options.buttons.subform_deleteRow();
     this.bindButtonEvent( $selection, deleteRowButton, subformInstance );
-    /*
-    $selection
-        .find( '.zcrud-delete-row-command-button' )
-        .off()
-        .click( 
-            function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                subformInstance.deleteRow( event );
-            }
-        );*/
-    
     var deleteCommandButton = new options.buttons.subform_deleteCommand();
     this.bindButtonEvent( $selection, deleteCommandButton, subformInstance );
-    /*
-    $selection
-        .find( '.zcrud-delete-command-button' )
-        .off()
-        .click( 
-            function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                subformInstance.showNewFormUsingRecordFromServer( 'delete', event );
-            }
-        );*/
-
     var editCommandButton = new options.buttons.subform_editCommand();
     this.bindButtonEvent( $selection, editCommandButton, subformInstance );
-    /*
-    $selection
-        .find( '.zcrud-edit-command-button' )
-        .off()
-        .click( 
-            function ( event ) {
-                event.preventDefault();
-                event.stopPropagation();
-                subformInstance.showNewFormUsingRecordFromServer( 'update', event );
-            }
-        );*/
-    
+    */
     if ( $tr ){
         this. bindEventsForFieldsIn1Row( 
             $tr, 
@@ -722,6 +676,14 @@ Subform.prototype.getByRowButtons = function(){
     }
 
     return this.byRowButtons;
+};
+
+Subform.prototype.bindButtonsEvent = function( buttons, $subform, params ){
+    
+    for ( var c = 0; c < buttons.length; ++c ){
+        var button = buttons[ c ];
+        this.bindButtonEvent( $subform, button, this, params );
+    }
 };
 
 module.exports = Subform;

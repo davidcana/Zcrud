@@ -27,9 +27,10 @@
                 </div>
                 <div class="zcrud-subform-toolbar"
                      data-tcondition="not: pagingComponent">
-                    <button class="zcrud-new-row-command-button" 
-                            data-tattributes="title tr:'Add new record'" 
-                            data-tcondition="field/buttons/toolbar/newRegisterRow"><!--empty--></button>
+                    <span data-muse-macro="'toolbar'"
+                          data-tdefine="buttons instance/getToolbarButtons()">
+                        The buttons of the toolbar
+                    </span>
                 </div>
             </div>
         </div>
