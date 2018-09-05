@@ -156,7 +156,7 @@ module.exports = {
 
         subform_addNewRow: require( './buttons/subform/addNewRowButton.js' ),
         subform_showCreateForm: require( './buttons/subform/showCreateFormButton.js' ),
-        subform_deleteCommand: require( './buttons/subform/deleteCommandButton.js' ),
+        subform_showDeleteForm: require( './buttons/subform/showDeleteFormButton.js' ),
         subform_deleteRow: require( './buttons/subform/deleteRowButton.js' ),
         subform_editCommand: require( './buttons/subform/editCommandButton.js' )
     },

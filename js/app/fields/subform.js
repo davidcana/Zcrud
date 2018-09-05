@@ -236,7 +236,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
     var options = this.page.getOptions();
     var deleteRowButton = new options.buttons.subform_deleteRow();
     this.bindButtonEvent( $selection, deleteRowButton, subformInstance );
-    var deleteCommandButton = new options.buttons.subform_deleteCommand();
+    var deleteCommandButton = new options.buttons.subform_showDeleteForm();
     this.bindButtonEvent( $selection, deleteCommandButton, subformInstance );
     var editCommandButton = new options.buttons.subform_editCommand();
     this.bindButtonEvent( $selection, editCommandButton, subformInstance );
