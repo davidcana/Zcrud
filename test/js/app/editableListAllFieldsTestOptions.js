@@ -15,7 +15,7 @@ module.exports = {
                 url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name' ],
                 buttons: {
-                    toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_save' ]
+                    toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_submit' ]
                 },
                 components: {
                     paging: {

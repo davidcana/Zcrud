@@ -148,7 +148,7 @@ module.exports = {
         form_copySubformRows: require( './buttons/formPage/copySubformRowsButton.js' ),
         
         list_showCreateForm: require( './buttons/listPage/showCreateFormButton.js' ),
-        list_save: require( './buttons/listPage/saveButton.js' ),
+        list_submit: require( './buttons/listPage/submitButton.js' ),
         list_addNewRow: require( './buttons/listPage/addNewRowButton.js' ),
         list_showEditForm: require( './buttons/listPage/showEditFormButton.js' ),
         list_showDeleteForm: require( './buttons/listPage/showDeleteFormButton.js' ),

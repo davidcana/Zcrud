@@ -23,7 +23,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     //var history = new History( options, thisOptions, listPage );
     context.setHistory( 
         new History( options, thisOptions, listPage ) );
-    var autoSaveMode = false;
+    var autoSubmitMode = false;
     
     /*
     var bindButtonEvent = function( $this, button ){
@@ -42,15 +42,15 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         var $this = $( '#' + listPage.getId() );
 
-        // Init autoSaveMode
+        // Init autoSubmitMode
         /*
         var editableEvent = thisOptions.event;
         switch ( editableEvent ){
             case 'fieldChange':
-                autoSaveMode = true;
+                autoSubmitMode = true;
                 break;
             case 'batch':
-                autoSaveMode = false;
+                autoSubmitMode = false;
                 break;
             default:
                 context.showError( options, true, 'Unknown event in editable list: ' + editableEvent );
@@ -68,8 +68,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         var redoButton = new options.buttons.redo();
         bindButtonEvent( $this, redoButton );
 
-        var saveButton = new options.buttons.list_save();
-        bindButtonEvent( $this, saveButton );
+        var submitButton = new options.buttons.list_submit();
+        bindButtonEvent( $this, submitButton );
 
         var addNewRowButton = new options.buttons.list_addNewRow();
         bindButtonEvent( $this, addNewRowButton );*/
@@ -101,8 +101,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
                         $tr.attr( 'data-record-id' ),
                         listPage.getId(),
                         field );
-                    if ( autoSaveMode ){
-                        save( event );
+                    if ( autoSubmitMode ){
+                        submit( event );
                     }
                 }
             );
@@ -177,8 +177,8 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
             $tr.attr( 'data-record-key' ), 
             $tr );
 
-        if ( autoSaveMode ){
-            save( event );
+        if ( autoSubmitMode ){
+            submit( event );
         }
     };
 
@@ -215,20 +215,20 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
 
         context.getHistory().undo( listPage.getId() );
         /*
-        if ( autoSaveMode ){
-            save( event );
+        if ( autoSubmitMode ){
+            submit( event );
         }*/
     };
     var redo = function( event ){
 
         context.getHistory().redo( listPage.getId() );
         /*
-        if ( autoSaveMode ){
-            save( event );
+        if ( autoSubmitMode ){
+            submit( event );
         }*/
     };
 
-    var save = function( event ){
+    var submit = function( event ){
         
         var jsonObject = context.getJSONBuilder( options ).buildJSONForAll(
             thisOptions.key || options.key, 
@@ -381,7 +381,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
-        save: save,
+        submit: submit,
         addNewRow: addNewRow,
         deleteRow: deleteRow
     };

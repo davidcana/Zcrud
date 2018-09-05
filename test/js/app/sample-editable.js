@@ -17,7 +17,7 @@ var options = {
                 url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name' ],
                 buttons: {
-                    toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_save' ],
+                    toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_submit' ],
                     byRow: [ 'list_deleteRow' ]
                 },
                 components: {

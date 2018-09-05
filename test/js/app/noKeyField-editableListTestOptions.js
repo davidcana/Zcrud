@@ -18,7 +18,7 @@ module.exports = {
                 getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department',
                 fields: [ 'name', 'description' ],
                 buttons: {
-                    toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_save' ],
+                    toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_submit' ],
                     byRow: [ 'list_deleteRow' ]
                 },
                 components: {
