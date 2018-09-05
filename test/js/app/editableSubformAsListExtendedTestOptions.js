@@ -116,7 +116,7 @@ module.exports = {
             },
             buttons: {
                 toolbar: [ 'subform_showCreateForm' ],
-                byRow: [ 'subform_editCommand', 'subform_showDeleteForm' ]
+                byRow: [ 'subform_showEditForm', 'subform_showDeleteForm' ]
             }
         },
         verifiedMembers: {
