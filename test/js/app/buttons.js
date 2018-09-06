@@ -28,7 +28,7 @@ var alertFunction = function( event ){
 };
 
 // Run tests
-QUnit.test( "listToolbar test", function( assert ) {
+QUnit.test( "listToolbar (binding using listCreated method) test", function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -73,7 +73,11 @@ QUnit.test( "listToolbar test", function( assert ) {
         }
     };
     options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
-            
+    
+    // Reset counters
+    runCounter1 = 0;
+    runCounter2 = 0;
+    
     var done = assert.async();
     
     $( '#departmentsContainer' ).zcrud( 
@@ -93,6 +97,76 @@ QUnit.test( "listToolbar test", function( assert ) {
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "listToolbar (binding automatically) test", function( assert ) {
+
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                list: {
+                    buttons: {
+                        toolbar: [ 
+                            'list_showCreateForm',
+                            {
+                                type: 'generic',
+                                cssClass: 'customButton1',
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Custom toolbar button 1'
+                                    }
+                                },
+                                run: clickEventFunction1
+                            },
+                            {
+                                type: 'generic',
+                                cssClass: 'customButton2',
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Custom toolbar button 2'
+                                    }
+                                },
+                                run: clickEventFunction2
+                            }
+                        ],
+                        byRow: [ 'list_showEditForm', 'list_showDeleteForm' ]
+                    }
+                }
+            },
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+
+    // Reset counters
+    runCounter1 = 0;
+    runCounter2 = 0;
+    
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            assert.equal( runCounter1, 0 );
+            assert.equal( runCounter2, 0 );
+
+            $( 'button.customButton1' ).click();
+            assert.equal( runCounter1, 1 );
+            assert.equal( runCounter2, 0 );
+
+            $( 'button.customButton2' ).click();
+            assert.equal( runCounter1, 1 );
+            assert.equal( runCounter2, 1 );
+
             done();
         }
     );
