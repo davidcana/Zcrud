@@ -147,6 +147,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         beforeProcessTemplate( data, dictionaryExtension );
         buildHTMLAndJavascript( root );
+        afterProcessTemplate( get$form() );
+        
         if ( callback ){
             callback( true );
         }
@@ -244,8 +246,21 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
             dictionary: dictionary,
             notRemoveGeneratedTags: false
         });
+    };
+    
+    var afterProcessTemplate = function( $form ){
         
         bindEvents();
+        triggerListCreatedEvent( $form );
+    };
+    
+    var triggerListCreatedEvent = function( $form ){
+
+        options.events.listCreated(
+            {
+                $form: $form,
+                options: options
+            });
     };
     
     var bindButtonEvent = function( button ){
