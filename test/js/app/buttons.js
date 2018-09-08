@@ -316,3 +316,159 @@ QUnit.test( "listByRow (binding automatically) test", function( assert ) {
         }
     );
 });
+
+QUnit.test( "formToolbar (binding using listCreated method) test", function( assert ) {
+
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                update: {
+                    buttons: {
+                        toolbar: [ 
+                            'undo', 
+                            'redo', 
+                            'form_cancel', 
+                            'form_submit',
+                            {
+                                type: 'generic',
+                                cssClass: 'customButton1',
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Custom toolbar button 1'
+                                    }  
+                                }
+                            },
+                            {
+                                type: 'generic',
+                                cssClass: 'customButton2',
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Custom toolbar button 2'
+                                    }  
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+        },
+        events: {
+            formCreated: function ( data ) {
+                $( 'button.customButton1' ).click( clickEventFunction1 );
+                $( 'button.customButton2' ).click( clickEventFunction2 );
+            }
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+
+    // Reset counters
+    runCounter1 = 0;
+    runCounter2 = 0;
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            
+            // Go to edit form
+            var key = 2;
+            testHelper.clickUpdateListButton( key );
+            
+            assert.equal( runCounter1, 0 );
+            assert.equal( runCounter2, 0 );
+
+            $( 'button.customButton1' ).click();
+            assert.equal( runCounter1, 1 );
+            assert.equal( runCounter2, 0 );
+
+            $( 'button.customButton2' ).click();
+            assert.equal( runCounter1, 1 );
+            assert.equal( runCounter2, 1 );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "formToolbar (binding automatically) test", function( assert ) {
+
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                update: {
+                    buttons: {
+                        toolbar: [ 
+                            'undo', 
+                            'redo', 
+                            'form_cancel', 
+                            'form_submit',
+                            {
+                                type: 'generic',
+                                cssClass: 'customButton1',
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Custom toolbar button 1'
+                                    }  
+                                },
+                                run: clickEventFunction1
+                            },
+                            {
+                                type: 'generic',
+                                cssClass: 'customButton2',
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Custom toolbar button 2'
+                                    }  
+                                },
+                                run: clickEventFunction2
+                            }
+                        ]
+                    }
+                }
+            },
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+
+    // Reset counters
+    runCounter1 = 0;
+    runCounter2 = 0;
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to edit form
+            var key = 2;
+            testHelper.clickUpdateListButton( key );
+
+            assert.equal( runCounter1, 0 );
+            assert.equal( runCounter2, 0 );
+
+            $( 'button.customButton1' ).click();
+            assert.equal( runCounter1, 1 );
+            assert.equal( runCounter2, 0 );
+
+            $( 'button.customButton2' ).click();
+            assert.equal( runCounter1, 1 );
+            assert.equal( runCounter2, 1 );
+
+            done();
+        }
+    );
+});
