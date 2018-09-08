@@ -31,7 +31,7 @@ var ButtonUtils = function() {
         
         if ( $.isPlainObject( sourceItem ) ){
             button = buildButton( 
-                sourceItem.type, 
+                sourceItem.type || 'generic', 
                 sourceItem, 
                 parent, 
                 options );
@@ -50,7 +50,8 @@ var ButtonUtils = function() {
         
         var constructor = options.buttons[ buttonType ];
         if ( ! constructor ){
-            constructor = options.buttons[ 'generic' ];
+            //constructor = options.buttons[ 'generic' ];
+            throw 'Unknown button type to build: ' + buttonType;
         }
         return new constructor( properties, parent );
     };

@@ -36,6 +36,7 @@ var alertFunction = function( event ){
 };
 
 // Run tests
+
 QUnit.test( "listToolbar (binding using listCreated method) test", function( assert ) {
 
     thisTestOptions = {
@@ -843,6 +844,60 @@ QUnit.test( "subformByRow (binding automatically) test", function( assert ) {
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
 
+            done();
+        }
+    );
+});
+
+QUnit.test( "unknown button in listToolbar test", function( assert ) {
+
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                list: {
+                    buttons: {
+                        toolbar: [ 
+                            'list_showCreateForm',
+                            {
+                                type: 'unknown',
+                                cssClass: 'customButton1',
+                                textsBundle: {
+                                    title: undefined,
+                                    content: {
+                                        translate: false,
+                                        text: 'Unknown toolbar button 1'
+                                    }  
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+        },
+        events: {
+            listCreated: function ( data ) {
+                $( 'button.customButton1' ).click( clickEventFunction1 );
+            }
+        }
+    };
+    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options.logging.isOn = false;
+    
+    // Reset counters
+    runCounter1 = 0;
+    runCounter2 = 0;
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            assert.throws(
+                function(){
+                    $( '#departmentsContainer' ).zcrud( 'renderList' );
+                }
+            );
             done();
         }
     );
