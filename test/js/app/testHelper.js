@@ -1576,6 +1576,7 @@ module.exports = (function() {
         goToNextPage: goToNextPage,
         goToNextSubformPage: goToNextSubformPage,
         getListPageNumber: getListPageNumber,
-        getSubformPageNumber: getSubformPageNumber
+        getSubformPageNumber: getSubformPageNumber,
+        getSubformLastRow: getSubformLastRow
     };
 })();
