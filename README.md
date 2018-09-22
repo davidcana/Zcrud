@@ -10,7 +10,7 @@ ZCrud is a javascript API (also works as jQuery plugin) used to create AJAX base
 Some features of ZCrud are:
 
 * Automatically creates a main HTML table and loads records from server using AJAX. Supports server side sorting, paging and filtering using AJAX. The table can be editable too. 
-* Automatically creates some typical forms:
+* Automatically creates some typical forms and sends and receives data from/to server using AJAX:
     * *create record* form.  
     * *edit record* form. 
     * *delete record* form. 
