@@ -294,5 +294,28 @@ module.exports = {
     
     fatalErrorFunction: function( message ){
         alert( message );
+    },
+    
+    defaultConfirmOptions: {
+        icon: "warning",
+        dangerMode: true,
+        closeOnClickOutside: false,
+        className: "confirm"
+    },
+    confirmFunction: function( confirmOptions, onFulfilled ){
+        var swal = require( 'sweetalert' );
+        var thisOptions = $.extend( true, {}, this.defaultConfirmOptions, confirmOptions );
+        swal( thisOptions ).then( onFulfilled );
+    },
+    
+    defaultShowMessageOptions: {
+        icon: "info",
+        closeOnClickOutside: false,
+        className: "showMessage"
+    },
+    showMessageFunction: function( messageOptions ){
+        var swal = require( 'sweetalert' );
+        var thisOptions = $.extend( true, {}, this.defaultShowMessageOptions, messageOptions );
+        swal( thisOptions );
     }
 };

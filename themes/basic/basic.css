@@ -663,3 +663,15 @@ div.zcrud-modified-field {
     font-weight: 300;
     height: 2em;
 }
+
+/* Messages */
+.confirm {
+    
+}
+.wideConfirm {
+    width: 700px;
+}
+
+.showMessage {
+    
+}

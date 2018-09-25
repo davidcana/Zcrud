@@ -41,6 +41,12 @@ module.exports = (function() {
             throw translated;
         }
     };
+    var confirm = function ( options, confirmOptions, onFulfilled ) {
+        options.confirmFunction( confirmOptions, onFulfilled );
+    };
+    var showMessage = function ( options, messageOptions ) {
+        options.showMessageFunction( messageOptions );
+    };
     
     // Form validation language
     var getFormValidationLanguage = function( lang ){
@@ -237,6 +243,8 @@ module.exports = (function() {
         setI18nArray: setI18nArray,
         translate: translate,
         showError: showError,
+        confirm: confirm,
+        showMessage: showMessage,
         getFormValidationLanguage: getFormValidationLanguage,
         putOptions: putOptions,
         getOptions: getOptions,

@@ -95,6 +95,55 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         
         if ( result && showErrorMessage ){
             context.showError( options, false, 'dirtyPagingError', true );
+            /*
+            context.confirm(
+                options,
+                {
+                    title: context.translate( 'dirtyPagingTitle' ),
+                    text: context.translate( 'dirtyPagingText' ),
+                    className: "wideConfirm",
+                    buttons: {
+                        cancel: context.translate( 'dirtyPagingCancel' ),
+                        save: {
+                            text: context.translate( 'dirtyPagingSave' ),
+                            value: "save",
+                        },
+                        discard: {
+                            text: context.translate( 'dirtyPagingDiscard' ),
+                            value: "discard",
+                        }
+                    }
+                },
+                function(value){
+                    switch (value) {
+                        case "save":
+                            context.showMessage(
+                                options, 
+                                {
+                                    text: "Save changes and continue!"
+                                }
+                            );
+                            break;
+
+                        case "discard":
+                            context.showMessage(
+                                options, 
+                                {
+                                    text: "Discard changes and continue!"
+                                }
+                            );
+                            break;
+
+                        default:
+                            context.showMessage(
+                                options, 
+                                {
+                                    text: "Cancelled!"
+                                }
+                            );
+                    }
+                }
+            );*/
         }
         
         return result;

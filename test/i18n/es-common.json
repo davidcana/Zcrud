@@ -42,6 +42,11 @@
     "pagingNoRecordsMessage": "No se ha encontrado ningún registro",
     "pagingMessageFilteredSuffix": " (filtrado)",
     "dirtyPagingError": "Imposible cambiar o redimensionar la página, se han realizado cambios en esta página. Deshágalos o guarde los cambios y luego reintente.",
+    "dirtyPagingTitle": "Acción no soportada",
+    "dirtyPagingText": "Ha realizado cambios en esta lista pero esta acción le fuerza a cancelarla, a guardar los cambios y continuar o a descartarlos y continuar. ¡Elija!",
+    "dirtyPagingCancel": "Cancelar",
+    "dirtyPagingSave": "Guardar los cambios",
+    "dirtyPagingDiscard": "Descartar los cambios",
     
     "_form": "",
     "Create form": "Formulario de alta",
