@@ -43,7 +43,7 @@
     "pagingMessageFilteredSuffix": " (filtered)",
     "dirtyPagingError": "Unable to change or resize page, changes made to this page. Undo or save and then retry again!",
     "dirtyPagingTitle": "Not supported action",
-    "dirtyPagingText": "You have made changes in this list but this action force you to cancel it, save changes and continue or discard changes about this list and continue. Choose one!",
+    "dirtyPagingText": "You have made changes in this list but this action force you to cancel it or discard changes about this list (undo not allowed) and continue. Choose one!",
     "dirtyPagingCancel": "Cancel",
     "dirtyPagingSave": "Save changes",
     "dirtyPagingDiscard": "Discard changes",

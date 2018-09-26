@@ -685,4 +685,11 @@ Subform.prototype.bindButtonsEvent = function( buttons, $subform, params ){
     }
 };
 
+Subform.prototype.removeChanges = function(){
+    
+    context.getHistory().removeSubformChanges( 
+        this.page.getId(), 
+        this.id );
+};
+
 module.exports = Subform;

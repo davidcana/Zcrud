@@ -95,67 +95,83 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         
         if ( result && showErrorMessage ){
             context.showError( options, false, 'dirtyPagingError', true );
-            /*
-            context.confirm(
-                options,
-                {
-                    title: context.translate( 'dirtyPagingTitle' ),
-                    text: context.translate( 'dirtyPagingText' ),
-                    className: "wideConfirm",
-                    buttons: {
-                        cancel: context.translate( 'dirtyPagingCancel' ),
-                        save: {
-                            text: context.translate( 'dirtyPagingSave' ),
-                            value: "save",
-                        },
-                        discard: {
-                            text: context.translate( 'dirtyPagingDiscard' ),
-                            value: "discard",
-                        }
-                    }
-                },
-                function(value){
-                    switch (value) {
-                        case "save":
-                            context.showMessage(
-                                options, 
-                                {
-                                    text: "Save changes and continue!"
-                                }
-                            );
-                            break;
-
-                        case "discard":
-                            context.showMessage(
-                                options, 
-                                {
-                                    text: "Discard changes and continue!"
-                                }
-                            );
-                            break;
-
-                        default:
-                            context.showMessage(
-                                options, 
-                                {
-                                    text: "Cancelled!"
-                                }
-                            );
-                    }
-                }
-            );*/
         }
         
         return result;
     };
     
+    var processDirty = function( callback ){
+        
+        if ( ! parent.isDirty() ){
+            callback();
+            return;
+        }
+        
+        // Component is dirty!
+        context.confirm(
+            options,
+            {
+                title: context.translate( 'dirtyPagingTitle' ),
+                text: context.translate( 'dirtyPagingText' ),
+                className: "wideConfirm",
+                buttons: {
+                    cancel: context.translate( 'dirtyPagingCancel' ),
+                    /*save: {
+                        text: context.translate( 'dirtyPagingSave' ),
+                        value: "save",
+                    },*/
+                    discard: {
+                        text: context.translate( 'dirtyPagingDiscard' ),
+                        value: "discard",
+                    }
+                }
+            },
+            function( value ){
+                switch ( value ) {
+                        /*
+                    case "save":
+                        context.showMessage(
+                            options, 
+                            {
+                                text: "Save changes and continue!"
+                            }
+                        );
+                        //callback();
+                        break;*/
+
+                    case "discard":
+                        /*
+                        context.showMessage(
+                            options, 
+                            {
+                                text: "Discard changes and continue!"
+                            }
+                        );*/
+                        parent.removeChanges();
+                        callback();
+                        break;
+                }
+            }
+        );
+    };
+    
     // Change current page to given value
     var changePage = function ( newPageNumber ) {
-        
+        /*
         // If the field is dirty return
         if ( isDirty( true ) ){
             return;
         }
+        
+        return doChangePage( newPageNumber );
+        */
+        processDirty(
+            function(){
+                doChangePage( newPageNumber );
+            }
+        );
+    };
+    var doChangePage = function( newPageNumber ) {
         
         newPageNumber = pageUtils.normalizeNumber( parseInt( newPageNumber ), 1, calculatePageCount(), 1 );
         if ( newPageNumber == pageNumber ) {
@@ -163,10 +179,10 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         }
 
         pageNumber = newPageNumber;
-        
+
         updateParent();
-    };
-    
+    }
+
     var changePageSize = function( newPageSize ) {
         
         // If newPageSize is not in pageSizes return
@@ -178,19 +194,29 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         if ( newPageSize == pageSize ) {
             return;
         }
-
+        /*
         // If the field is dirty return
         if ( isDirty( true ) ){
             return;
         }
         
+        doChangePageSize( newPageSize );
+        */
+        processDirty(
+            function(){
+                doChangePageSize( newPageSize );
+            }
+        );
+    };
+    var doChangePageSize = function( newPageSize ) {
+
         pageSize = parseInt( newPageSize );
         pageNumber = 1;
-        
+
         saveSettings();
-        
+
         updateParent();
-    };
+    }
     
     var bindEventsToGoToPage = function() {
         

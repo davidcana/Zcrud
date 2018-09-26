@@ -566,6 +566,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         return toolbarButtons;
     };
     
+    var removeChanges = function(){
+        getSecureComponent( 'editing' ).removeChanges();
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -607,7 +611,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         isDirty: isDirty,
         getByRowButtons: getByRowButtons,
         getToolbarButtons: getToolbarButtons,
-        bindButtonsEvent: bindButtonsEvent
+        bindButtonsEvent: bindButtonsEvent,
+        removeChanges: removeChanges
     };
     
     configure();

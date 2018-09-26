@@ -171,6 +171,29 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         updateHTML( id );
     };
     
+    var removeSubformChanges = function( id, subformName ) {
+        
+        // Fill the list of historyItem to remove
+        var toRemove = [];
+        for ( var c = 0; c < current; ++c ){
+            var historyItem = items[ c ];
+            if ( historyItem.type == 'change' && historyItem.subformName == subformName ){
+                toRemove.push( c );
+            }
+        }
+
+        // Remove history items
+        for ( var i = 0; i < toRemove.length; ++i ){
+            items.splice( i );
+        }
+        
+        // Update current
+        current -= toRemove.length;
+            
+        // Update CSS and HTML
+        updateHTML( id );
+    };
+    
     var reset = function( id ){
         items = [];
         current = 0;
@@ -574,6 +597,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         putCreate: putCreate,
         putDelete: putDelete,
         put: put,
+        removeSubformChanges: removeSubformChanges,
         undo: undo,
         redo: redo,
         isUndoEnabled: isUndoEnabled,

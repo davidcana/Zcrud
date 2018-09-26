@@ -378,11 +378,16 @@ module.exports = function( optionsToApply, thisOptionsToApply, listPageToApply )
         }
     };
     
+    var removeChanges = function(){
+        context.getHistory().reset( listPage.getId() );
+    };
+    
     return {
         bindEvents: bindEvents,
         getThisOptions: getThisOptions,
         submit: submit,
         addNewRow: addNewRow,
-        deleteRow: deleteRow
+        deleteRow: deleteRow,
+        removeChanges: removeChanges
     };
 };
