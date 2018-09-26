@@ -41,32 +41,48 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
                 }
             );
     };
-    
+    /*
     var filter = function(){
-        
+
         filterRecord = fieldUtils.buildRecord( 
             getFields(), 
             parent.get$() );
+
+        var pagingComponent = parent.getComponent( 'paging' );
+        if ( pagingComponent ){
+            pagingComponent.goToFirstPage();
+        }
+
+        updateParent();
+    };*/
+    
+    var filter = function(){
         
         var pagingComponent = parent.getComponent( 'paging' );
+        if ( pagingComponent ){
+            pagingComponent.processDirty(
+                function(){
+                    doFilter( pagingComponent );
+                }
+            );
+        } else {
+            doFilter();
+        }
+    };
+    
+    var doFilter = function( pagingComponent ){
+        
+        filterRecord = fieldUtils.buildRecord( 
+            getFields(), 
+            parent.get$() 
+        );
+        
         if ( pagingComponent ){
             pagingComponent.goToFirstPage();
         }
         
         updateParent();
     };
-    /*
-    var addToDataToSend = function( dataToSend ){
-        
-        var filterRecord = fieldUtils.buildRecord( 
-            getFields(), 
-            parent.get$() );
-        
-        fullFilter = $.extend( true, {}, filterRecord, dataToSend.filter );
-        if ( ! $.isEmptyObject( fullFilter ) ){
-            dataToSend.filter = fullFilter;
-        }
-    };*/
     
     var addToDataToSend = function( dataToSend ){
 

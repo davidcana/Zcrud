@@ -12,6 +12,17 @@ var subformsTestOptions = require( './2SubformsTestOptions.js' );
 var options = undefined;
 var thisTestOptions = undefined;
 
+var abortedConfirmFunctionCounter = 0;
+var abortedConfirmFunction = function(){
+    ++abortedConfirmFunctionCounter;
+};
+
+var discardConfirmFunctionCounter = 0;
+var discardConfirmFunction = function( confirmOptions, onFulfilled ){
+    ++discardConfirmFunctionCounter;
+    onFulfilled( 'discard' );
+};
+
 // Run tests
 
 QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
@@ -440,6 +451,190 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '>', '>>' ]
             });
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "filtering subform breaking paging: abort (standard list of fields) test", function( assert ) {
+
+    thisTestOptions = {
+        fields: {
+            members: {
+                components: {
+                    filtering: {
+                        isOn: true,
+                        fields: [ 'code', 'name' ],
+                        fieldsTemplate: 'standard-editable@templates/fieldLists.html',
+                        cssClass: 'zcrud-standard-fields'
+                    }
+                }
+            }
+        }
+    };
+    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options.confirmFunction = abortedConfirmFunction;
+    
+    // Setup services
+    var serviceKey = 2;
+    var serviceKeys = [ serviceKey ];
+    var numberOfMembers = 129;
+    var numberOfExternalMembers = 14;
+    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    var itemName = 'Member';
+    var subformName = 'members';
+    testHelper.setDefaultItemName( itemName );
+
+    abortedConfirmFunctionCounter = 0;
+    
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( serviceKey );
+
+            var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18, itemName ) );
+            testHelper.pagingSubformTest({
+                subformName: subformName,
+                action: { 
+                    filter: {
+                        "members-name": 'Member 1' 
+                    }
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 41 (filtered)',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
+            });
+
+            // Edit description of last row
+            testHelper.fillSubformNewRow( 
+                {
+                    description: "Description of Member 18 edited"
+                }, 
+                subformName );
+            
+            // Try to filter (1 error)
+            assert.equal( abortedConfirmFunctionCounter, 0 );
+            testHelper.pagingSubformTest({
+                subformName: subformName,
+                action: { 
+                    filter: {
+                        "members-name": 'Member 2222222' 
+                    }
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 41 (filtered)',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
+            });
+            assert.equal( abortedConfirmFunctionCounter, 1 );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "filtering subform breaking paging: discard (standard list of fields) test", function( assert ) {
+
+    thisTestOptions = {
+        fields: {
+            members: {
+                components: {
+                    filtering: {
+                        isOn: true,
+                        fields: [ 'code', 'name' ],
+                        fieldsTemplate: 'standard-editable@templates/fieldLists.html',
+                        cssClass: 'zcrud-standard-fields'
+                    }
+                }
+            }
+        }
+    };
+    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options.confirmFunction = discardConfirmFunction;
+
+    // Setup services
+    var serviceKey = 2;
+    var serviceKeys = [ serviceKey ];
+    var numberOfMembers = 129;
+    var numberOfExternalMembers = 14;
+    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    var itemName = 'Member';
+    var subformName = 'members';
+    testHelper.setDefaultItemName( itemName );
+
+    discardConfirmFunctionCounter = 0;
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( serviceKey );
+
+            var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18, itemName ) );
+            testHelper.pagingSubformTest({
+                subformName: subformName,
+                action: { 
+                    filter: {
+                        "members-name": 'Member 1' 
+                    }
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 41 (filtered)',
+                ids:  values[ 0 ],
+                names: values[ 1 ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '>', '>>' ]
+            });
+
+            // Edit description of last row
+            testHelper.fillSubformNewRow( 
+                {
+                    description: "Description of Member 18 edited"
+                }, 
+                subformName );
+
+            // Try to filter (1 error)
+            assert.equal( discardConfirmFunctionCounter, 0 );
+            testHelper.pagingSubformTest({
+                subformName: subformName,
+                action: { 
+                    filter: {
+                        "members-name": 'Member 2222222' 
+                    }
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 0,
+                pagingInfo: 'No records found! (filtered)',
+                ids: [],
+                names: [],
+                pageListNotActive: [ '<<', '<', '>', '>>' ],
+                pageListActive: [ ]
+            });
+            assert.equal( discardConfirmFunctionCounter, 1 );
 
             done();
         }

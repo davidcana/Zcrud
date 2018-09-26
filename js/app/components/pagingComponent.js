@@ -88,7 +88,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
             }
         );
     };
-    
+    /*
     var isDirty = function( showErrorMessage ){
         
         var result = parent.isDirty();
@@ -98,7 +98,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         }
         
         return result;
-    };
+    };*/
     
     var processDirty = function( callback ){
         
@@ -128,25 +128,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
             },
             function( value ){
                 switch ( value ) {
-                        /*
-                    case "save":
-                        context.showMessage(
-                            options, 
-                            {
-                                text: "Save changes and continue!"
-                            }
-                        );
-                        //callback();
-                        break;*/
-
                     case "discard":
-                        /*
-                        context.showMessage(
-                            options, 
-                            {
-                                text: "Discard changes and continue!"
-                            }
-                        );*/
                         parent.removeChanges();
                         callback();
                         break;
@@ -511,6 +493,7 @@ module.exports = function( optionsToApply, thisOptionsToApply, parentToApply ) {
         goToFirstPage: goToFirstPage,
         getTotalNumberOfRecords: getTotalNumberOfRecords,
         get$: get$,
-        getRecords: getRecords
+        getRecords: getRecords,
+        processDirty: processDirty
     };
 };
