@@ -101,44 +101,6 @@ PagingComponent.prototype.updateParent = function(){
     );
 };
 
-PagingComponent.prototype.processDirty = function( callback ){
-
-    if ( ! this.parent.isDirty() ){
-        callback();
-        return;
-    }
-
-    // Component is dirty!
-    var instance = this;
-    context.confirm(
-        this.options,
-        {
-            title: context.translate( 'dirtyPagingTitle' ),
-            text: context.translate( 'dirtyPagingText' ),
-            className: "wideConfirm",
-            buttons: {
-                cancel: context.translate( 'dirtyPagingCancel' ),
-                /*save: {
-                        text: context.translate( 'dirtyPagingSave' ),
-                        value: "save",
-                    },*/
-                discard: {
-                    text: context.translate( 'dirtyPagingDiscard' ),
-                    value: "discard",
-                }
-            }
-        },
-        function( value ){
-            switch ( value ) {
-                case "discard":
-                    instance.parent.removeChanges();
-                    callback();
-                    break;
-            }
-        }
-    );
-};
-
 // Change current page to given value
 PagingComponent.prototype.changePage = function ( newPageNumber ) {
 

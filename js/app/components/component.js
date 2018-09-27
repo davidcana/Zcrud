@@ -22,6 +22,7 @@ Component.prototype.processDirty = function( callback ){
     }
 
     // Component is dirty!
+    var instance = this;
     context.confirm(
         this.options,
         {
@@ -42,7 +43,7 @@ Component.prototype.processDirty = function( callback ){
         },
         function( value ){
             if ( value == 'discard' ) {
-                this.parent.removeChanges();
+                instance.parent.removeChanges();
                 callback();
             }
         }

@@ -42,9 +42,9 @@ FilteringComponent.prototype.bindEvents = function(){
         }
     );
 };
-
+/*
 FilteringComponent.prototype.filter = function(){
-    
+
     var instance = this;
     var pagingComponent = this.parent.getComponent( 'paging' );
     if ( pagingComponent ){
@@ -56,6 +56,16 @@ FilteringComponent.prototype.filter = function(){
     } else {
         instance.doFilter();
     }
+};*/
+FilteringComponent.prototype.filter = function(){
+    
+    var instance = this;
+    var pagingComponent = this.parent.getComponent( 'paging' );
+    this.processDirty(
+        function(){
+            instance.doFilter( pagingComponent );
+        }
+    );
 };
 
 FilteringComponent.prototype.doFilter = function( pagingComponent ){
