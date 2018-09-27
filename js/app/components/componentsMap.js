@@ -1,11 +1,12 @@
 /* 
     Class ComponentsMap 
 */
+"use strict";
+
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
 
 var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
-    "use strict";
     
     var options = optionsToApply;
     var thisOptions = thisOptionsToApply;
@@ -56,9 +57,11 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
 
         for ( var id in components ){
             var component = components[ id ];
+            component.resetPage();
+            /*
             if ( component && $.isFunction( component.resetPage ) ){
                 component.resetPage();
-            }
+            }*/
         }
     };
     
@@ -66,9 +69,11 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
 
         for ( var id in components ){
             var component = components[ id ];
+            component.addToDataToSend( data );
+            /*
             if ( component && $.isFunction( component.addToDataToSend ) ){
                 component.addToDataToSend( data );
-            }
+            }*/
         }
 
         return data;
@@ -78,29 +83,23 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
 
         for ( var id in components ){
             var component = components[ id ];
+            component.dataFromServer( data );
+            /*
             if ( component && $.isFunction( component.dataFromServer ) ){
                 component.dataFromServer( data );
-            }
+            }*/
         }
     };
-    /*
-    var beforeProcessTemplate = function(){
-
-        for ( var id in components ){
-            var component = components[ id ];
-            if ( component && $.isFunction( component.beforeProcessTemplate ) ){
-                component.beforeProcessTemplate();
-            }
-        }
-    };*/ 
     
     var bindEvents = function() {
 
         for ( var id in components ){
             var component = components[ id ];
+            component.bindEvents();
+            /*
             if ( component && $.isFunction( component.bindEvents ) ){
                 component.bindEvents();
-            }
+            }*/
         }
     };
     
@@ -108,9 +107,11 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
 
         for ( var id in components ){
             var component = components[ id ];
+            component.bindEventsIn1Row( $row );
+            /*
             if ( component && $.isFunction( component.bindEventsIn1Row ) ){
                 component.bindEventsIn1Row( $row );
-            }
+            }*/
         }
     };
     
@@ -120,7 +121,6 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
         resetPage: resetPage,
         addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
-        //beforeProcessTemplate: beforeProcessTemplate,
         bindEvents: bindEvents,
         bindEventsIn1Row: bindEventsIn1Row
     };
