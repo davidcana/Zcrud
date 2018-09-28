@@ -292,8 +292,17 @@ module.exports = {
 
     jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
     
+    defaultFatalErrorOptions: {
+        icon: "error",
+        closeOnClickOutside: false,
+        title: 'Oops...'
+    },
     fatalErrorFunction: function( message ){
-        alert( message );
+        //alert( message );
+        var swal = require( 'sweetalert' );
+        var thisOptions = $.extend( true, {}, this.defaultFatalErrorOptions );
+        thisOptions.text = message;
+        swal( thisOptions );
     },
     
     defaultConfirmOptions: {

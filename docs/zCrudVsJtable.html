@@ -19,7 +19,7 @@
                 The heaviest change is to build all HTML code of forms using a template engine (<a href="https://github.com/davidcana/ZPT-JS/wiki">ZPT-JS</a>).
             </li>
             <li>
-                It does not depend on any javascript API (like <a href="https://jqueryui.com/">Jquery UI</a>), only on <a href="https://jquery.com/">Jquery</a>.
+                It does not depend on any big javascript API (like <a href="https://jqueryui.com/">Jquery UI</a>), only on <a href="https://jquery.com/">Jquery</a>.
             </li>
             <li>
                 It does not create any dialog form, only simple HTML forms.
@@ -35,13 +35,16 @@
                 Automatically creates HTML table and loads records from server using AJAX.
             </li>
             <li>
-                Creates <em>create new record</em> forms. When user creates a record, it sends data to server using AJAX and adds the same record to the table in the page.
-            </li>
-            <li>
-                Creates <em>edit record</em> forms. When user edits a record, it updates server using AJAX and updates all cells on the table in the page.
-            </li>
-            <li>
-                Allow user to <em>delete record</em>. When user deletes a record, it deletes the record from server using AJAX and delete the record from the table in the page.
+                Creates some typical forms:
+                <ul>
+                    <li><em>Create record</em> forms. When user creates a record, it sends data to server using AJAX and adds the same record to the table in the page.</li>
+                    <li>
+                        <em>Edit record</em> forms. When user edits a record, it updates server using AJAX and updates all cells on the table in the page.
+                    </li>
+                    <li>
+                        <em>Delete record</em> forms. When user deletes a record, it deletes the record from server using AJAX and delete the record from the table in the page.
+                    </li>
+                </ul>
             </li>
             <li>
                 All styling of table and forms are defined in a CSS file, so you can easily change style of everything. CSS file is well defined and commented.
@@ -175,7 +178,7 @@
                         External dependencies
                     </td>
                     <td>
-                        <a href="https://jquery.com/">Jquery</a>
+                        <a href="https://jquery.com/">Jquery</a> and <a href="https://sweetalert.js.org">Sweetalert</a>
                     </td>
                     <td>
                         <a href="https://jquery.com/">Jquery</a> and <a href="https://jqueryui.com/">Jquery UI</a>
