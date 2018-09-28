@@ -21,7 +21,6 @@
             <li><a href="reference/index.html">API Reference</a>. Complete ZCrud reference documentation. Includes all methods, events, options and more.</li>
             <li><a href="download.html">Download</a>. Download and install instructions.</li>
             <li><a href="changes.html">Change log</a>. A list of changes on all ZCrud versions.</li>
-            <li><a href="roadMap.html">Road map</a>. List of features to implement in next versions of ZCrud.</li>
         </ul>
         
         <h2>News</h2>
@@ -31,59 +30,49 @@
 
         <h2>What is ZCrud</h2>
         <p>
-            <strong>ZCrud </strong>is a <em>jQuery plugin</em> that is used to create <em>AJAX</em> based <em>CRUD</em> tables and forms without coding HTML or Javascript. It has several features including:
+            <strong>ZCrud</strong> is a <em>javascript API</em> (also works as <em>jQuery plugin</em>) used to create <em>AJAX</em> based <em>CRUD</em> tables without coding HTML or Javascript.
         </p>
+        <p>
+            Core features of <strong>ZCrud</strong> are:
+        </p>
+        
         <ul>
             <li>
-                Automatically creates HTML table and loads records from server using AJAX.
+                Automatically creates a main HTML table and loads records from server using AJAX. Supports server side sorting, paging and filtering using AJAX. The table can be editable directly too.
             </li>
             <li>
-                Creates <em>create new record</em> forms. When user creates a record, it sends data to server using AJAX and adds the same record to the table in the page.
+                Automatically creates some typical forms and sends and receives data from/to server using AJAX:
+                <ul>
+                    <li><em>create record</em> form.</li>
+                    <li><em>edit record</em> form.</li>
+                    <li><em>delete record</em> form.</li>
+                </ul>
             </li>
             <li>
-                Creates <em>edit record</em> forms. When user edits a record, it updates server using AJAX and updates all cells on the table in the page.
-            </li>
-            <li>
-                Allow user to <em>delete record</em>. When user deletes a record, it deletes the record from server using AJAX and delete the record from the table in the page.
+                About forms:
+                <ul>
+                    <li>Supports master/child forms.</li>
+                    <li>Allows user to select rows.</li>
+                    <li>Makes it easy to customize already implemented form field types; also to add new form field types.</li>
+                    <li>Makes it easy to use defined buttons (submit, cancel, …) and to add custom.</li>
+                    <li>Built-in support of validation of forms using <a href="http://www.formvalidator.net/">jQuery Form Validator</a>. Exposes some events to enable custom validation without using it.</li>
+                    <li>Undo/redo support.</li>
+                </ul>
             </li>
             <li>
                 All tables and forms are created using templates.  It is also possible to use customized templates. The template engine is <a href="https://github.com/davidcana/ZPT-JS">ZPT-JS</a>.
             </li>
             <li>
-                Makes it easy to customize already implemented form field types; also to add new form field types.
+                Pretty messages and confirm questions using <a href="https://sweetalert.js.org">Sweetalert</a> (by default). It is easy to replace it by any other API or function.
             </li>
             <li>
-                All styling of table and forms are defined in a CSS file, so you can easily change style of everything. CSS file is well defined and commented.
-            </li>
-            <li>
-                It comes with pre-defined color themes.
-            </li>
-            <li>
-                Supports server side paging, sorting and filtering using AJAX.
-            </li>
-            <li>
-                Supports master/child tables in forms.
-            </li>
-            <li>
-                Allows user to select rows.
-            </li>
-            <li>
-                It is not depended on any server side technology.
-            </li>
-            <li>
-                It uses <a href="http://www.formvalidator.net/">jquery form validator</a> that makes it easy to validate user input. Exposes some events to enable custom validation.
+                Only client-side: any server side technology can work with ZCrud.
             </li>
             <li>
                 Built-in support for english and spanish (full I18n and L10n support). Other languages can be added easily.
             </li>
             <li>
                 All HTML code is valid (w3c compliant). It works on all common browsers.
-            </li>
-            <li>
-                Editable lists support.
-            </li>
-            <li>
-                <em>Undo/redo</em> support.
             </li>
         </ul>
     </body>

@@ -1,38 +1,5 @@
 ZCrud 0.1.0
 -----------
 
-* Update templates with remote templates. (done!)
-* Support of inputClass and listClass option. (implemented custom template for form fields)
-* Support of defaultValue option in create forms. (done!)
-* Add useful properties to fields (size, maxlength, rows, cols, ...). (all formFieldAttributes in each field is added to the html field)
-* Expose some events: formClosed, formCreated, formSubmitting, recordAdded, recordDeleted and recordUpdated. To enable custom validation with forms use formSubmitting event. (done!)
-* Integrate with jQuery Form Validator. (done!)
-* Verify that HTML is correct. (done!)
-* Support of server side paging using AJAX. (done!)
-* Full I18n and L10n support. (done!)
-* Support of server side sorting using AJAX. (done!)
-* Support of external methods: (done!)
-    - addRecord
-    - deleteRecord
-    - destroy
-    - getRecordByKey
-    - init
-    - load
-    - reload
-    - showCreateForm
-    - updateRecord
-* Support of working as jquery plugin. (done!)
-* Generate all HTML code inside container (this makes destroy method to work!). (done!)
-* Allows user to select rows. Implement selectRows, getSelectedRows and getSelectedRecords methods. (done!)
-* Support of server side filtering using AJAX. (done!)
-* Add some logging to make it easy debugging. (done!)
-
-
 * Write docs. (in progress!)
-* Add visual effects after creating, updating or deleting records.
-* New field types: password and checkbox group.
-* Support of several instances running at the same web page.
-
-* Pending tests:
-    - 2 subforms test: one read only and another editable. Copy rows from each other.
-    - One instance with data from server using filter; another editable instance load records from the first one (using a button) and send data to server.
+* New field types: password.
