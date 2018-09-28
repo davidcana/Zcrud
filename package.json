@@ -1,62 +1,60 @@
 {
-  "name": "zcrud",
-  "version": "0.1.0-SNAPSHOT",
-  "main": "./js/app/main.js",
-  "description": "A JQuery plugin to create AJAX based CRUD tables using ZPT-JS as template engine.",
-  "keywords": [
-    "jquery-plugin",
-    "ecosystem:jquery",
-    "ajax",
-    "table",
-    "grid",
-    "crud",
-    "zpt",
-    "template",
-    "templates",
-    "forms"
-  ],
-  "homepage": "https://github.com/davidcana/Zcrud",
-  "bugs": {
-    "url": "https://github.com/davidcana/Zcrud/issues"
-  },
-  "license": "LGPL-3.0",
-  "author": "David Cana Lopez",
-  "contributors": [
-    "Halil ibrahim Kalkan"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/davidcana/Zcrud.git"
-  },
-  "dependencies": {
-    "jquery": "^3.0.0",
-    "jquery-form-validator": "2.3.77",
-    "sweetalert": "2.1.0",
-    "zpt": "0.22.3"
-  },
-  "devDependencies": {
-    "beefy": "~2.1.8",
-    "browserify": "~13.1.1",
-    "browserify-derequire": "~0.9.4",
-    "http-server": "^0.10.0",
-    "grunt": "~0.4.5",
-    "grunt-browserify": "~5.0.0",
-    "grunt-contrib-compress": "^1.4.3",
-    "grunt-contrib-concat": "~0.5.1",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-qunit": "~0.7.0",
-    "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-watch": "~1.0.0",
-    "log4javascript": "^1.4.15",
-    "npm-run-all": "^4.1.1",
-    "qunit": "~2.5.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "http-server": "http-server -p 9000",
-    "web": "cd ./docs; http-server -p 9001",
-    "beefy": "cd ./test/js/app; beefy *.js ../../../js/app/standalone.js:standalone.js",
-    "start": "npm-run-all -p -r beefy http-server"
-  }
+    "name": "zcrud",
+    "version": "0.1.0-SNAPSHOT",
+    "main": "./js/app/main.js",
+    "description": "A Javascript API and JQuery plugin to create AJAX based CRUD tables using ZPT-JS as template engine. ",
+    "keywords": [
+        "jquery-plugin",
+        "ecosystem:jquery",
+        "ajax",
+        "table",
+        "grid",
+        "crud",
+        "zpt",
+        "template",
+        "templates",
+        "forms"
+    ],
+    "homepage": "https://github.com/davidcana/Zcrud",
+    "bugs": {
+        "url": "https://github.com/davidcana/Zcrud/issues"
+    },
+    "license": "LGPL-3.0",
+    "author": "David Cana Lopez",
+    "contributors": [],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/davidcana/Zcrud.git"
+    },
+    "dependencies": {
+        "jquery": "^3.0.0",
+        "jquery-form-validator": "2.3.77",
+        "sweetalert": "2.1.0",
+        "zpt": "0.22.3"
+    },
+    "devDependencies": {
+        "beefy": "~2.1.8",
+        "browserify": "~13.1.1",
+        "browserify-derequire": "~0.9.4",
+        "http-server": "^0.10.0",
+        "grunt": "~0.4.5",
+        "grunt-browserify": "~5.0.0",
+        "grunt-contrib-compress": "^1.4.3",
+        "grunt-contrib-concat": "~0.5.1",
+        "grunt-contrib-jshint": "~0.10.0",
+        "grunt-contrib-nodeunit": "~0.4.1",
+        "grunt-contrib-qunit": "~0.7.0",
+        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-contrib-watch": "~1.0.0",
+        "log4javascript": "^1.4.15",
+        "npm-run-all": "^4.1.1",
+        "qunit": "~2.5.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "http-server": "http-server -p 9000",
+        "web": "cd ./docs; http-server -p 9001",
+        "beefy": "cd ./test/js/app; beefy *.js ../../../js/app/standalone.js:standalone.js",
+        "start": "npm-run-all -p -r beefy http-server"
+    }
 }
