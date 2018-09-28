@@ -55,16 +55,26 @@ SortingComponent.prototype.bindEvents = function(){
         .find( '.zcrud-column-header-sortable' )
         .off() // Remove previous event handlers
         .click( 
-        function ( e ) {
-            e.preventDefault();
-            instance.changeSort( 
-                $( this ).data( 'sort-field-id'), 
-                $( this ).data( 'sort-type' ) );
-        }
+            function ( e ) {
+                e.preventDefault();
+                instance.changeSort( 
+                    $( this ).data( 'sort-field-id'), 
+                    $( this ).data( 'sort-type' ) );
+            }
     );
 };
 
 SortingComponent.prototype.changeSort = function ( formFieldId, formType ) {
+
+    var instance = this;
+    this.processDirty(
+        function(){
+            instance.doChangeSort( formFieldId, formType );
+        }
+    );
+};
+
+SortingComponent.prototype.doChangeSort = function ( formFieldId, formType ) {
 
     // Update sortFieldId
     this.sortFieldId = formFieldId;
@@ -79,7 +89,6 @@ SortingComponent.prototype.changeSort = function ( formFieldId, formType ) {
     this.saveSettings();
     this.updateParent();
 };
-
 
 SortingComponent.prototype.updateParent = function(){
 
