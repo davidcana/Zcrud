@@ -3,59 +3,298 @@
     <head>
         <meta charset="utf-8">
         <title>Getting started</title>
-
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
         <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
         <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
     </head>
     <body>
         
         <h1>Getting started</h1>
         <ul>
             <li><a href="#intro">Introduction</a>.</li>
-            <li><a href="#dependencies">Dependencies</a>.</li>
-            <li><a href="#downloading">Downloading ZCrud</a>.</li>
+            <li><a href="#downloading">Downloading ZCrud and its dependencies</a>.</li>
             <li><a href="#header">Creating header</a>.</li>
             <li><a href="#container">Creating a container</a>.</li>
-            <li><a href="#instance">Creating a ZCrud instance</a>.</li>
-            <li><a href="#listAction">Creating the list action</a>.</li>
+            <li><a href="#instance">Creating a ZCrud instance and building the list</a>.</li>
             <li><a href="#newRecord">Creating a new record</a>.</li>
             <li><a href="#updating">Updating a record</a>.</li>
             <li><a href="#deleting">Deleting a record</a>.</li>
-            <li><a href="#result">The result</a>.</li>
         </ul>
         
         <a id="intro"></a>
         <h2>Introduction</h2>
+        <p>
         
-        <a id="dependencies"></a>
-        <h2>Dependencies</h2>
+        </p>
         
         <a id="downloading"></a>
-        <h2>Downloading ZCrud</h2>
+        <h2>Downloading ZCrud and its dependencies</h2>
+        <p>
+            Go to <a href="../download.html">Download</a> section and follow the intructions to download ZCrud and its dependencies.
+        </p>
         
         <a id="header"></a>
         <h2>Creating header</h2>
+        <p>
+            You must add to your web page the javascript code of ZCrud (and its dependencies) and the CSS file. For example:
+        </p>
+        <pre class="brush: javascript">
+<link rel="stylesheet" type="text/css" href="/zcrud/themes/basic/basic.css" media="all">
+<script src="/zcrud/zcrud.min.js" type="text/javascript"></script>
+        </pre>
         
         <a id="container"></a>
         <h2>Creating a container</h2>
+        <p>
+            Zcrud needs a container to include all the generated HTML code. It can be a simple <em>div</em> tag:
+        </p>
+        <pre class="brush: javascript">
+    <div id="container">
+        <div id="zcrud-busy-message">
+            Starting ZCrud...
+        </div>
+    </div>
+        </pre>
+        <p>
+            Internal div (with id 'zcrud-busy-message') is optional but recommended. It shows a tipical busy message while starting ZCrud:
+        </p>
+        <p>
+            <img src="gettingStarted/startingZCrud.png" alt="Starting ZCrud message" />
+        </p>
         
         <a id="instance"></a>
-        <h2>Creating a ZCrud instance</h2>
+        <h2>Creating a ZCrud instance and building the list</h2>
+        <p>
+            Let's take a look to this:
+        </p>
+        <pre class="brush: javascript">
+var options = { ... }; // You build this object to configure ZCrud instance
+$( '#container' ).zcrud( 
+    'init',
+    options,
+    function( options ){
+        $( '#container' ).zcrud( 'renderList' );
+    }
+);
+        </pre>
+        <p>
+            There are 2 calls to methods of ZCrud:
+        </p>
+        <ol>
+            <li>
+                The first call is 'init' method. This method initializes ZCrud (using the options object) and loads external resources (templates) using HTTP. When it has finished it calls to the callback function.
+            </li>
+            <li>
+                The second call is 'renderList'. It sends a request to the server to retrieve records and then build the HTML of the list.
+            </li>
+        </ol>
+        <p>
+            ZCrud uses the URL in <strong>pageConf/pages/list/url</strong> at options as the URL to send thte request and to retrieve the records. ZCrud send a request in JSON format like this:
+        </p>
+        <pre class="brush: javascript">
+{
+    "filter":{},
+    "pageNumber":1,
+    "pageSize":10,
+    "sortFieldId":"name",
+    "sortType":"asc"
+}
+        </pre>
+        <p>
+            Let's see them:
+        </p>
+        <ul>
+            <li><em>filter</em>: An object describing a filter.</li>
+            <li><em>pageNumber</em>: The page number, first page is 1.</li>
+            <li><em>pageSize</em>: The maximum number of items per page.</li>
+            <li><em>sortFieldId</em>: The field id to order by.</li>
+            <li><em>sortType</em>: It can be <em>asc</em> or <em>desc</em>.</li>
+        </ul>
         
-        <a id="listAction"></a>
-        <h2>Creating the list action</h2>
+        <p>
+            ZCrud expects a response in JSON format like this:
+        </p>
+        <pre class="brush: javascript">
+{
+	"result":"OK",
+	"message":"",
+	"records":[
+		{"name":"Service 1","id":"1"},
+		{"name":"Service 2","id":"2"},
+		{"name":"Service 3","id":"3"},
+		{"name":"Service 4","id":"4"},
+		{"name":"Service 5","id":"5"},
+		{"name":"Service 6","id":"6"},
+		{"name":"Service 7","id":"7"},
+		{"name":"Service 8","id":"8"},
+		{"name":"Service 9","id":"9"},
+		{"name":"Service 10","id":"10"}
+	],
+	"totalNumberOfRecords":129
+}
+        </pre>
+        <p>
+            4 properties are expected:
+        </p>
+        <ul>
+            <li><em>result</em>: Valid values are <strong>OK</strong> or <strong>Error</strong>.</li>
+            <li><em>message</em>: A message to show.</li>
+            <li><em>records</em>: An array with the records to show.</li>
+            <li><em>totalNumberOfRecords</em>: The total number of records.</li>
+        </ul>
         
         <a id="newRecord"></a>
         <h2>Creating a new record</h2>
+        <p>
+            When an user click the <em>Add new record</em> button, a new form is rendered. Then the user fills the form and click the <em>Save changes</em> button. Zcrud sends to the url in <strong>pageConf/pages/create/url</strong> a message in JSON like this:
+        </p>
+        
+        <pre class="brush: javascript">
+{
+    "existingRecords":{},
+    "newRecords":[
+        {
+            "name":"New service name"
+        }
+    ],
+    "recordsToRemove":[],
+    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=services",
+    "command":"batchUpdate"
+}
+        </pre>
+        <ul>
+            <li><em>existingRecords</em>: An object with the modified existing records.</li>
+            <li><em>newRecords</em>: An array with the new records.</li>
+            <li><em>recordsToRemove</em>: an array with the keys of the records to remove.</li>
+            <li><em>url</em>: The URL.</li>
+            <li><em>command</em>: The command to run.</li>
+        </ul>
+        
+        <p>
+            ZCrud expects the server to return a JSON response like this:
+        </p>
+        <pre class="brush: javascript; highlight: [6]">
+{
+    "message":"",
+    "newRecords":[
+        {
+            "name":"New service name",
+            "id":"130"
+        }
+    ],
+    "result":"OK"
+}
+        </pre>
+        <p>
+            It is important to know that server must update the new records with the key (if not set by user)!
+        </p>
         
         <a id="updating"></a>
         <h2>Updating a record</h2>
         
+        <p>
+            When an user click the <em>Edit record</em> button of a record, ZCrud sends to the url in <strong>pageConf/pages/update/getRecordURL</strong> a message in JSON like this:
+        </p>
+        <pre class="brush: javascript">
+{
+    "key":"1"
+}
+        </pre>
+        <p>
+            So ZCrud requests to server the record with key <em>1</em>. The response of the server must be like:
+        </p>
+        <pre class="brush: javascript; highlight: [5,6]">
+{
+    "result":"OK",
+    "message":"",
+    "record":{
+        "name":"Service 1",
+        "id":"1"
+    },
+    "fieldsData":{}
+}
+        </pre>
+        
+        <p>
+           When ZCrud receives the server response a new form is rendered. Then the user edits the form and click the <em>Save changes</em> button. Zcrud sends to the url in <strong>pageConf/pages/update/url</strong> a message in JSON like this:
+        </p>
+        <pre class="brush: javascript; highlight: [4]">
+{
+    "existingRecords":{
+        "1":{
+            "name":"Service 1a"
+        }
+    },
+    "newRecords":[],
+    "recordsToRemove":[],
+    "url":"http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department",
+    "command":"batchUpdate"
+}
+        </pre>
+        
+        <p>
+            By default ZCrud only sends data from modified fields. The server response must be like:
+        </p>
+        <pre class="brush: javascript">
+{
+    "message":"",
+    "newRecords":[],
+    "result":"OK"
+}
+        </pre>
+        
         <a id="deleting"></a>
         <h2>Deleting a record</h2>
-        
-        <a id="result"></a>
-        <h2>The result</h2>
 
+        <p>
+            When an user click the <em>Delete record</em> button of a record, ZCrud sends to the url in <strong>pageConf/pages/delete/getRecordURL</strong> a message in JSON like this:
+        </p>
+        <pre class="brush: javascript">
+{
+    "key":"10"
+}
+        </pre>
+        
+        <p>
+            So ZCrud requests to server the record with key <em>10</em>. The response of the server must be like:
+        </p>
+        <pre class="brush: javascript; highlight: [5,6]">
+{
+    "result":"OK",
+    "message":"",
+    "record":{
+        "name":"Service 10",
+        "id":"10"
+    },
+    "fieldsData":{}
+}
+        </pre>
+        
+        <p>
+            When ZCrud receives the server response a new form is rendered. Then the user view the form and click the <em>Delete</em> button. Zcrud sends to the url in <strong>pageConf/pages/delete/url</strong> a message in JSON like this:
+        </p>
+        <pre class="brush: javascript; highlight: [4]">
+{
+    "existingRecords":{},
+    "newRecords":[],
+    "recordsToRemove":["10"],
+    "url":"http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department",
+    "command":"batchUpdate"
+}
+        </pre>
+        
+        <p>
+            The server response must be like:
+        </p>
+        <pre class="brush: javascript">
+{
+    "message":"",
+    "newRecords":[],
+    "result":"OK"
+}
+        </pre>
     </body>
 </html>
