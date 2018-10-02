@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Paging and sorting</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>Paging and sorting</h1>
+        <ul>
+            <li><a href="#intro">Introduction</a>.</li>
+            <li><a href="#paging">Paging</a>.</li>
+            <li><a href="#sorting">Sorting</a>.</li>
+            <li><a href="#demo">Demo</a>.</li>
+        </ul>
+        
+        <a id="intro"></a>
+        <h2>Introduction</h2>
+        <p>
+            All configuration option about paging and sorting is set in paging component and in sorting component. For lists these options are <strong>pageConf/pages/list/components/paging</strong> and <strong>pageConf/pages/list/components/sorting</strong>.
+        </p>
+        
+        <a id="paging"></a>
+        <h2>Paging</h2>
+        <p>
+            Paging is on by default. Default configuration for lists is:
+        </p>
+        <pre class="brush: js">
+                components: {
+                    paging: {
+                        isOn: true,
+                        constructorClass: require( './components/pagingComponent.js' ),
+                        defaultPageSize: 10,
+                        pageSizes: [10, 25, 50, 100, 250, 500],
+                        pageSizeChangeArea: true,
+                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                        gotoPageFieldAttributes: {},
+                        maxNumberOfAllShownPages: 5,
+                        block1NumberOfPages: 1,
+                        block2NumberOfPages: 5,
+                        block3NumberOfPages: 1
+                    },
+                    ...
+                }
+        </pre>
+        
+        <p>
+            Customizing paging behaviour is easy. For example, if we want to customize defaultPageSize and pageSizes we must add to our options these:
+        </p>
+        <pre class="brush: js">
+                components: {
+                    paging: {
+                        defaultPageSize: 15,
+                        pageSizes: [15, 50, 100]
+                    }
+                }
+        </pre>
+        
+        <a id="sorting"></a>
+        <h2>Sorting</h2>
+        <p>
+            Sorting is off by default. Default configuration for lists is:
+        </p>
+        <pre class="brush: js">
+                components: {
+                    ...
+                    sorting: {
+                        isOn: false,
+                        constructorClass: require( './components/sortingComponent.js' ),
+                        loadFromLocalStorage: true,
+                        default: {
+                            fieldId: undefined,
+                            type: undefined
+                        },
+                        allowUser: false
+                    },
+                    ...
+                }
+        </pre>
+        
+        <p>
+            Customizing sorting behaviour is easy too. For example, if we want to customize the default order and to allow users to change it we must add to our options these:
+        </p>
+        <pre class="brush: js">
+                components: {
+                    sorting: {
+                        isOn: true,
+                        default: {
+                            fieldId: "name",
+                            type: "asc"
+                        },
+                        allowUser: true
+                    }
+                }
+        </pre>
+        
+        <p>
+            ZCrud sends to server this object as JSON to retrieve the records:
+        </p>
+        <pre class="brush: js">
+{
+    "command": "listRecords",
+    "filter":{},
+    "pageNumber":1,
+    "pageSize":15,
+    "sortFieldId":"name",
+    "sortType":"asc"
+}
+        </pre>
+        
+        <a id="demo"></a>
+        <h2>Demo</h2>
+        <p>
+            Let's take a look to ZCrud in action using paging an sorting:
+        </p>
+    </body>
+</html>

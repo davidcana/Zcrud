@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Filtering</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>Filtering</h1>
+        <ul>
+            <li><a href="#intro">Introduction</a>.</li>
+            <li><a href="#userFiltering">User filtering</a>.</li>
+            <li><a href="#forcedFiltering">Forced filtering</a>.</li>
+            <li><a href="#demo">Demo</a>.</li>
+        </ul>
+        
+        <a id="intro"></a>
+        <h2>Introduction</h2>
+        <p>
+            All configuration option about filtering is set in filtering component. For lists these options are <strong>pageConf/pages/list/components/filtering</strong>.
+        </p>
+        
+        <a id="userFiltering"></a>
+        <h2>User filtering</h2>
+        <p>
+            User filtering is off by default. Default configuration for lists is:
+        </p>
+        <pre class="brush: js">
+                components: {
+                    ...
+                    filtering: {
+                        isOn: false,
+                        constructorClass: require( './components/filteringComponent.js' ),
+                        fieldsTemplate: 'compact-editable@templates/fieldLists.html'
+                    },
+                    ...
+                }
+        </pre>
+
+        <p>
+            Let's activate filtering. For example, if we want to set a filter using 'id' and 'name' fields:
+        </p>
+        <pre class="brush: js">
+                components: {
+                    filtering: {
+                        isOn: true,
+                        fields: [ 'id', 'name' ]
+                    }
+                }
+        </pre>
+
+        <p>
+            If the user fills '1' and 'Service 1' as the filter ZCrud would send to server this object as JSON to retrieve the records:
+        </p>
+        <pre class="brush: js">
+{
+    "command": "listRecords",
+    "filter":{
+        id: "1",
+        name: "Service 1"
+    },
+    "pageNumber":1,
+    "pageSize":10
+}
+        </pre>
+        
+        <a id="forcedFiltering"></a>
+        <h2>Forced filtering</h2>
+        
+        <p>
+            If we want to force a filter using code, we must pass the filter to ZCrud using <em>renderList</em> method:
+        </p>
+        <pre class="brush: js">
+        $( '#departmentsContainer' ).zcrud( 
+            'init',
+            options,
+            function( options ){
+
+                $( '#departmentsContainer' ).zcrud( 
+                    'renderList',
+                    { 
+                        filter: { 
+                            name: 'Service 1'
+                        } 
+                    }
+                );
+            }
+        );
+        </pre>
+
+        <p>
+            ZCrud sends to server this object as JSON to retrieve the records:
+        </p>
+        <pre class="brush: js">
+{
+    "command": "listRecords",
+    "filter":{
+        name: "Service 1"
+    },
+    "pageNumber":1,
+    "pageSize":10
+}
+        </pre>
+        
+        <a id="demo"></a>
+        <h2>Demo</h2>
+        <p>
+            Let's take a look to ZCrud in action using user filtering:
+        </p>
+    </body>
+</html>
