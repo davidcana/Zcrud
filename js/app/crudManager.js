@@ -57,6 +57,7 @@ module.exports = (function() {
     var listRecords = function( data, options ){
         
         var dataToSend = data.search;
+        dataToSend.command = 'listRecords';
         
         var successFunction = function( dataFromServer ){
             generalSuccessFunction( data, options, dataFromServer );
@@ -163,7 +164,8 @@ module.exports = (function() {
         }
         
         var dataToSend = data.search;
-
+        dataToSend.command = 'getRecord';
+        
         var successFunction = function( dataFromServer ){
             generalSuccessFunction( data, options, dataFromServer );
         };
@@ -182,7 +184,7 @@ module.exports = (function() {
         options.ajax.ajaxFunction(
             $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
     };
-    
+
     return {
         listRecords: listRecords,
         batchUpdate: batchUpdate,
