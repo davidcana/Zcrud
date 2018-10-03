@@ -12,7 +12,7 @@
     </head>
     <body>
         
-        <h1>Paging and sorting</h1>
+        <h1>ZCrud tutorial - Paging and sorting</h1>
         <ul>
             <li><a href="#intro">Introduction</a>.</li>
             <li><a href="#paging">Paging</a>.</li>
@@ -32,34 +32,47 @@
             Paging is on by default. Default configuration for lists is:
         </p>
         <pre class="brush: js">
-                components: {
-                    paging: {
-                        isOn: true,
-                        constructorClass: require( './components/pagingComponent.js' ),
-                        defaultPageSize: 10,
-                        pageSizes: [10, 25, 50, 100, 250, 500],
-                        pageSizeChangeArea: true,
-                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                        gotoPageFieldAttributes: {},
-                        maxNumberOfAllShownPages: 5,
-                        block1NumberOfPages: 1,
-                        block2NumberOfPages: 5,
-                        block3NumberOfPages: 1
-                    },
-                    ...
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        paging: {
+                            isOn: true,
+                            constructorClass: require( './components/pagingComponent.js' ),
+                            defaultPageSize: 10,
+                            pageSizes: [10, 25, 50, 100, 250, 500],
+                            pageSizeChangeArea: true,
+                            gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                            gotoPageFieldAttributes: {},
+                            maxNumberOfAllShownPages: 5,
+                            block1NumberOfPages: 1,
+                            block2NumberOfPages: 5,
+                            block3NumberOfPages: 1
+                        },
+                        ...
+                    }
                 }
+            }
+        }
         </pre>
         
         <p>
             Customizing paging behaviour is easy. For example, if we want to customize defaultPageSize and pageSizes we must add to our options these:
         </p>
         <pre class="brush: js">
-                components: {
-                    paging: {
-                        defaultPageSize: 15,
-                        pageSizes: [15, 50, 100]
+        pageConf: {
+            pages: {
+                list: {
+                    url: 'http://your-domain/CRUDManager.do?cmd=LIST&table=department',
+                    components: {
+                        paging: {
+                            defaultPageSize: 15,
+                            pageSizes: [15, 50, 100]
+                        }
                     }
                 }
+            }
+        }
         </pre>
         
         <a id="sorting"></a>
@@ -68,36 +81,49 @@
             Sorting is off by default. Default configuration for lists is:
         </p>
         <pre class="brush: js">
-                components: {
-                    ...
-                    sorting: {
-                        isOn: false,
-                        constructorClass: require( './components/sortingComponent.js' ),
-                        loadFromLocalStorage: true,
-                        default: {
-                            fieldId: undefined,
-                            type: undefined
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        ...
+                        sorting: {
+                            isOn: false,
+                            constructorClass: require( './components/sortingComponent.js' ),
+                            loadFromLocalStorage: true,
+                            default: {
+                                fieldId: undefined,
+                                type: undefined
+                            },
+                            allowUser: false
                         },
-                        allowUser: false
-                    },
-                    ...
+                        ...
+                    }
                 }
+            }
+        }
         </pre>
         
         <p>
             Customizing sorting behaviour is easy too. For example, if we want to customize the default order and to allow users to change it we must add to our options these:
         </p>
         <pre class="brush: js">
-                components: {
-                    sorting: {
-                        isOn: true,
-                        default: {
-                            fieldId: "name",
-                            type: "asc"
-                        },
-                        allowUser: true
+        pageConf: {
+            pages: {
+                list: {
+                    url: 'http://your-domain/CRUDManager.do?cmd=LIST&table=department',
+                    components: {
+                        sorting: {
+                            isOn: true,
+                            default: {
+                                fieldId: "name",
+                                type: "asc"
+                            },
+                            allowUser: true
+                        }
                     }
                 }
+            }
+        }
         </pre>
         
         <p>

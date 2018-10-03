@@ -12,7 +12,7 @@
     </head>
     <body>
         
-        <h1>Filtering</h1>
+        <h1>ZCrud tutorial - Filtering</h1>
         <ul>
             <li><a href="#intro">Introduction</a>.</li>
             <li><a href="#userFiltering">User filtering</a>.</li>
@@ -32,27 +32,39 @@
             User filtering is off by default. Default configuration for lists is:
         </p>
         <pre class="brush: js">
-                components: {
-                    ...
-                    filtering: {
-                        isOn: false,
-                        constructorClass: require( './components/filteringComponent.js' ),
-                        fieldsTemplate: 'compact-editable@templates/fieldLists.html'
-                    },
-                    ...
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        ...
+                        filtering: {
+                            isOn: false,
+                            constructorClass: require( './components/filteringComponent.js' ),
+                            fieldsTemplate: 'compact-editable@templates/fieldLists.html'
+                        },
+                        ...
+                    }
                 }
+            }
+        }
         </pre>
 
         <p>
             Let's activate filtering. For example, if we want to set a filter using 'id' and 'name' fields:
         </p>
         <pre class="brush: js">
-                components: {
-                    filtering: {
-                        isOn: true,
-                        fields: [ 'id', 'name' ]
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        filtering: {
+                            isOn: true,
+                            fields: [ 'id', 'name' ]
+                        }
                     }
                 }
+            }
+        }
         </pre>
 
         <p>

@@ -12,7 +12,7 @@
     </head>
     <body>
         
-        <h1>Getting started</h1>
+        <h1>ZCrud tutorial - Getting started</h1>
         <ul>
             <li><a href="#intro">Introduction</a>.</li>
             <li><a href="#downloading">Downloading ZCrud and its dependencies</a>.</li>
@@ -291,13 +291,24 @@ $( '#container' ).zcrud(
         </pre>
         
         <p>
-            The server response must be like:
+            If everything is OK the server response must be like:
         </p>
         <pre class="brush: js">
 {
     "message":"",
     "newRecords":[],
     "result":"OK"
+}
+        </pre>
+        
+        <p>
+            If an error occurs the server response must be like:
+        </p>
+        <pre class="brush: js">
+{
+    "message":"You error message here!",
+    "newRecords":[],
+    "result":"Error"
 }
         </pre>
         

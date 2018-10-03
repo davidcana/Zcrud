@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Editable lists</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud tutorial - Editable lists</h1>
+        <ul>
+            <li><a href="#intro">Introduction</a>.</li>
+            <li><a href="#editableLists">Editable lists</a>.</li>
+            <li><a href="#demo">Demo</a>.</li>
+        </ul>
+        
+        <a id="intro"></a>
+        <h2>Introduction</h2>
+        <p>
+            ZCrud also supports editing directly a list (without opening create/update/delete pages). All configuration option about editable lists is set in editing component. For lists these options are <strong>pageConf/pages/list/components/editing</strong>.
+        </p>
+        
+        <a id="editableLists"></a>
+        <h2>Editable lists</h2>
+        <p>
+            Editable lists support is off by default. Default configuration for lists is:
+        </p>
+        <pre class="brush: js">
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        ...
+                        editing: {
+                            isOn: false,
+                            constructorClass: require( './components/editingComponent.js' ),
+                            modifiedFieldsClass: 'zcrud-modified-field',
+                            modifiedRowsClass: 'zcrud-modified-row',
+                            hideTr: function( $tr ){
+                                $tr.fadeOut();
+                            },
+                            showTr: function( $tr ){
+                                $tr.fadeIn();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        </pre>
+
+        <p>
+            Let's activate editable lists support:
+        </p>
+        <pre class="brush: js">
+        pageConf: {
+            pages: {
+                list: {
+                    components: {
+                        editing: {
+                            isOn: true,
+                            url: 'http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+                        }
+                    }
+                }
+            }
+        }
+        </pre>
+        
+        <p>
+            ZCrud sends to server this object as JSON to submit changes:
+        </p>
+        <pre class="brush: js">
+{
+    "existingRecords":{
+        "1":{
+            "name":"Service 1a"
+        }
+    },
+    "newRecords":[
+        {
+            "id":"130",
+            "name":"Service 130"
+        }
+    ],
+    "recordsToRemove":["2"],
+    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=department",
+    "command":"batchUpdate"
+}
+        </pre>
+        
+        <p>
+            The server response must be like:
+        </p>
+        <pre class="brush: js">
+{
+    "message":"",
+    "newRecords":[
+        {
+            "id":"130",
+            "name":"Service 130"
+        }
+    ],
+    "result":"OK"
+}
+        </pre>
+
+        <a id="demo"></a>
+        <h2>Demo</h2>
+        <p>
+            Let's take a look to ZCrud in action using editable lists:
+        </p>
+    </body>
+</html>

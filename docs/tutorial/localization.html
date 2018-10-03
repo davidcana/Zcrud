@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Localization</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud tutorial - Localization</h1>
+        <ul>
+            <li><a href="#intro">Introduction</a>.</li>
+            <li><a href="#i18nFiles">The i18n files</a>.</li>
+            <li><a href="#commonFiles">Contents of common files</a>.</li>
+            <li><a href="#crudFiles">Contents of CRUD files</a>.</li>
+            <li><a href="#configuringOptions">Configuring options about i18n</a>.</li>
+        </ul>
+        
+        <a id="intro"></a>
+        <h2>Introduction</h2>
+        <p>
+            ZCrud includes full support for i18n and l10n. All texts, date and number formats are stored into i18n files. Zcrud includes support for english and spanish, but it is easy to support other languages.
+        </p>
+        
+        <a id="i18nFiles"></a>
+        <h2>The i18n files</h2>
+        <p>
+            For supporting a language is needed:
+        </p>
+        <ol>
+            <li>A JSON file with the texts and configuration options used by ZCrud. It includes date formats, number formats, days of week, months, texts in buttons...</li>
+            <li>A JSON file per entity for implementing CRUD. It includes fields names, field descriptions, texts in customized buttons...</li>
+        </ol>
+        
+        <p>
+            The <em>i18n</em> directory contains these files:
+        </p>
+        <ul>
+            <li><em>en-common.json</em>. English texts and configuration options used by ZCrud.</li>
+            <li><em>en-services.json</em>. English texts and configuration options used by ZCrud in tests.</li>
+            <li><em>es-common.json</em>. Spanish texts and configuration options used by ZCrud.</li>
+            <li><em>es-services.json</em>. Spanish texts and configuration options used by ZCrud in tests.</li>
+        </ul>
+        
+        <p>
+            Let's take a look to <em>es-common.json</em> file:
+        </p>
+        <pre class="brush: js">
+{
+    "/CONF/": {
+        "language": "es",
+        "locale": "es-ES"
+    },
+
+    "_general": "",
+    "dayOfWeekStart": "1",
+    "datetimeFormat": "d/m/Y H:i",
+    "dateFormat": "d/m/Y",
+    "timeFormat": "H:i",
+    "decimalSeparator" : ",",
+
+    "_weekDays": "",
+    "Sun": "Dom", 
+    "Mon": "Lun", 
+    "Tue": "Mar", 
+    "Wed": "Mie", 
+    "Thu": "Jue", 
+    "Fri": "Vie", 
+    "Sat": "Sab", 
+
+    "_months": "",
+    "January": "Enero", 
+    "February": "Febrero", 
+    "March": "Marzo", 
+    "April": "Abril", 
+    "May": "Mayo", 
+    "June": "Junio", 
+    "July": "Julio", 
+    "August": "Agosto", 
+    "September": "Septiembre", 
+    "October": "Octubre", 
+    "November": "Noviembre", 
+    "December": "Diciembre",
+
+    "_list": "",
+    "Status:": "Estado:",
+    "Go to page:": "Ir a página:",
+    "Row count:": "Registros por página:",
+    "pagingMessage": "Mostrando {first}-{last} de {total}",
+    "pagingNoRecordsMessage": "No se ha encontrado ningún registro",
+    "pagingMessageFilteredSuffix": " (filtrado)",
+    "dirtyPagingError": "Imposible cambiar o redimensionar la página, se han realizado cambios en esta página. Deshágalos o guarde los cambios y luego reintente.",
+    "dirtyPagingTitle": "Acción no soportada",
+    "dirtyPagingText": "Ha realizado cambios en esta lista pero esta acción le fuerza a cancelarla o a descartarlos (sin posibilidad de deshacer) y continuar. ¡Elija!",
+    "dirtyPagingCancel": "Cancelar",
+    "dirtyPagingSave": "Guardar los cambios",
+    "dirtyPagingDiscard": "Descartar los cambios",
+
+    "_form": "",
+    "Create form": "Formulario de alta",
+    "Edit form": "Formulario de modificación",
+    "Delete form": "Formulario de eliminación",
+    "List form": "Listado en formulario",
+    "(default)": "(predeterminado)",
+    "(customized)": "(personalizado)",
+    "Cancel": "Cancelar",
+    "Save": "Guardar",
+    "Delete": "Eliminar",
+    "Filter": "Filtrar",
+    "createSuccess": "¡Registro añadido!",
+    "updateSuccess": "¡Registro actualizado!",
+    "deleteSuccess": "¡Registro eliminado!",
+    "listUpdateSuccess": "¡Todas las operaciones completadas!",
+    "formListUpdateSuccess": "¡Operación completada!",
+    "serverCommunicationError": "¡Ha ocurrido un error comunicándose con el servidor!",
+    "undefinedValueToShow": "(no establecido)",
+    "true": "Verdadero",
+    "false": "Falso",
+
+    "_buttons": "",
+    "Add new record": "Nuevo registro",
+    "Undo": "Deshacer",
+    "Redo": "Rehacer",
+    "Save": "Guardar cambios",
+
+    "_validation": "",
+    "errorTitle": "Error en el envío del formulario",
+    "requiredFields": "No ha rellenado todos los campos requeridos",
+    "badTime": "Hora incorrecta",
+    "badEmail": "E-mail incorrecto",
+    "badTelephone": "Número de teléfono incorrecto",
+    "badSecurityAnswer": "Tu respuesta a la pregunta de seguridad es incorrecta",
+    "badDate": "Fecha incorrecta",
+    "lengthBadStart": "La longitud del valor introducido debe estar entre ",
+    "lengthBadEnd": " caracteres",
+    "lengthTooLongStart": "El valor introducido es mayor de ",
+    "lengthTooShortStart": "El valor introducido es menor de ",
+    "notConfirmed": "Los valores introducidos no han podido ser confirmados",
+    "badDomain": "Dominio incorrecto",
+    "badUrl": "URL incorrecta",
+    "badCustomVal": "Valor incorrecto",
+    "andSpaces": " y espacios ",
+    "badInt": "El valor introducido no es un número correcto",
+    "badSecurityNumber": "El número de la seguridad social es incorrecto",
+    "badUKVatAnswer": "El número VAT es incorrecto",
+    "badStrength": "La contraseña es demasiado débil",
+    "badNumberOfSelectedOptionsStart": "Tiene que elegir al menos ",
+    "badNumberOfSelectedOptionsEnd": " opciones",
+    "badAlphaNumeric": "El valor introducido sólo puede contener caracteres alfanuméricos ",
+    "badAlphaNumericExtra": " y ",
+    "wrongFileSize": "El fichero es demasiado grande (máximo %s)",
+    "wrongFileType": "Sólo se permiten ficheros de tipo %s",
+    "groupCheckedRangeStart": "Por favor, elija entre ",
+    "groupCheckedTooFewStart": "Por favor, elija el menos ",
+    "groupCheckedTooManyStart": "Por favor, elija un máximo de ",
+    "groupCheckedEnd": " item(s)",
+    "badCreditCard": "El número de la tarjeta de crédito es incorrecto",
+    "badCVV": "El número CVV es incorrecto",
+    "wrongFileDim" : "Las dimensiones de la imagen son incorrectas,",
+    "imageTooTall" : "la imagen no puede ser más alta de",
+    "imageTooWide" : "la imagen no puede ser más ancha de",
+    "imageTooSmall" : "la imagen es demasiado pequeña",
+    "min" : "mínimo",
+    "max" : "máximo",
+    "imageRatioNotAccepted" : "El ratio de la imagen es incorrecto",
+
+    "invalidFormData": "Hay errores en el formulario. El formulario no ha sido enviado."
+
+}
+        </pre>
+        
+        <p>
+            Let's take a look to <em>es-services.json</em> file:
+        </p>
+        <pre class="brush: js">
+{
+    "/CONF/": {
+        "language": "es",
+        "locale": "es-ES"
+    },
+
+    "_general": "",
+    "general_entityName": "Departamentos",
+
+    "_fields": "",
+    "id_title": "Id",
+    "id_description": "El identificador del departamento",
+    "name_title": "Nombre",
+    "name_description": "El nombre del departamento",
+    "description_title": "Descripción",
+    "description_description": "La descripción del departamento",
+    "date_title": "Fecha",
+    "date_description": "La fecha del departamento",
+    "time_title": "Hora",
+    "time_description": "La hora del departamento",
+    "datetime_title": "Fecha/hora",
+    "datetime_description": "La fecha/hora del departamento",
+    "phoneType_title": "Tipo de teléfono",
+    "phoneType_description": "El tipo de teléfono del departamento",
+    "province_title": "Provincia",
+    "province_description": "La provincia del departamento",
+    "city_title": "Ciudad",
+    "city_description": "La ciudad del departamento",
+    "browser_title": "Navegador",
+    "browser_description": "El navegador preferido del departamento",
+    "important_title": "Importante",
+    "important_description": "¿Es importante?",
+    "number_title": "Número",
+    "number_description": "El número del departamento",
+    "members_title": "Miembros",
+    "members_description": "Los miembros del departamento",
+    "members_filter_description": "¡Por favor, filtre los miembros a mostrar!",
+    "code_title": "Codigo",
+    "code_description": "El código del miembro",
+    "location_title": "Localización",
+    "location_description": "Información relacionada con el lugar",
+    "basicData_title": "Datos básicos",
+    "basicData_description": "Los datos básicos del departamento",
+    "hobbies_title": "Aficiones",
+    "hobbies_description": "Sus aficiones favoritas, puede seleccionar varias",
+    "externalMembers_title": "Miembros externos",
+    "externalMembers_description": "Los miembros externos del departamento",
+    "originalMembers_title": "Miembros originales",
+    "originalMembers_description": "La lista inicial de miembros",
+    "verifiedMembers_title": "Miembros verificados",
+    "verifiedMembers_description": "La lista de miembros verificados",
+    "department_filter_description": "¡Por favor, filtre los departamentos a mostrar!",
+    "originalMembers_filter_description": "¡Por favor, filtre los miembros a mostrar!",
+
+    "_options": "",
+    "homePhone_option": "Teléfono doméstico",
+    "officePhone_option": "Teléfono del trabajo",
+    "cellPhone_option": "Teléfono móvil",
+    "reading_option": "Lectura",
+    "videogames_option": "Videojuegos",
+    "sports_option": "Deportes",
+    "cards_option": "Cartas",
+
+    "_buttons": "",
+    "Copy original members": "Copiar miembros originales"
+
+}
+        </pre>
+       
+        <a id="commonFiles"></a>
+        <h2>Contents of common files</h2>
+        <p>
+            Let's see the contents of a common file:
+        </p>
+        <ul>
+            <li><em>/CONF/</em>. Language and locale setting.</li>
+            <li><em>_general</em>. General settings (date, time and number formats).</li>
+            <li><em>_weekDays</em>. Names of week days.</li>
+            <li><em>_months</em>. Names of months.</li>
+            <li><em>_list</em>. Texts used in lists.</li>
+            <li><em>_form</em>. Texts used in forms.</li>
+            <li><em>_buttons</em>. Texts used in buttons.</li>
+            <li><em>_validation</em>. Texts used in validation.</li>
+        </ul>
+        
+        <a id="crudFiles"></a>
+        <h2>Contents of CRUD files</h2>
+        <p>
+            Let's see the contents of a CRUD file:
+        </p>
+        <ul>
+            <li><em>/CONF/</em>. Language and locale setting.</li>
+            <li><em>_general</em>. General settings (entity id).</li>
+            <li><em>_fields</em>. Names and descriptions of fields. You must add 2 entries of this type per field, one for title (with <em>_title</em> suffix) and one for description (with <em>_description</em> suffix). So if you add a field with <em>years</em> as id, you must add 2 entries:
+                <ul>
+                    <li><em>years_title</em>. It will be use as a title for this field in lists and forms.</li>
+                    <li><em>years_description</em>. It will be use as a description (only in forms).</li>
+                </ul>
+            </li>
+            <li><em>_options</em>. Texts of options in several ftypes of HTML fields (checkboxes, dataList, select and radio). You must add 1 entry of this type per option (with <em>_option</em> suffix).</li>
+            <li><em>_buttons</em>. Texts used in buttons.</li>
+        </ul>
+        
+        <a id="configuringOptions"></a>
+        <h2>Configuring options about i18n</h2>
+        <p>
+            Default configuration is:
+        </p>
+        <pre class="brush: js">
+    i18n: {
+        language: 'en',
+        filesPath: 'i18n',
+        i18nArrayVarName: 'i18nArray',
+        files: { 
+            en: [ 'en-common.json' ],
+            es: [ 'es-common.json' ] 
+        }
+    },
+        </pre>
+        
+        <p>
+            To support services our configuration is:
+        </p>
+        <pre class="brush: js">
+    i18n: {
+        language: 'en',
+        files: { 
+            en: [ 'en-common.json', 'en-services.json' ],
+            es: [ 'es-common.json', 'es-services.json' ] 
+        }
+    },
+        </pre>
+        
+        <p>
+            If we add support to another language (for example french) we must to write <em>fr-common.json</em> and <em>fr-services.json</em> files. Our configuration is:
+        </p>
+        <pre class="brush: js">
+    i18n: {
+        language: 'fr',
+        files: { 
+            en: [ 'en-common.json', 'en-services.json' ],
+            es: [ 'es-common.json', 'es-services.json' ],
+            fr: [ 'fr-common.json', 'fr-services.json' ]
+        }
+    },
+        </pre>
+    </body>
+</html>

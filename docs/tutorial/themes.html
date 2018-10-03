@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Themes</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud tutorial - Themes</h1>
+
+        <p>
+            A <em>theme</em> in ZCrud is simply a folder in <strong>themes</strong> directory containing a CSS file and some images (optional).
+        </p>
+        
+        <p>
+            Nowadays only is 1 theme available: <em>basic</em> theme.
+        </p>
+        
+        <p>
+            If you don't like it you can:
+        </p>
+        <ul>
+            <li><em>Customize basic theme</em>. Customize the CSS file and/or the images.</li>
+            <li><em>Create a new theme</em>. Use the <em>basic</em> theme as a base and customize it. To do this simply copy the <em>basic</em> directory in the <em>themes</em> directory and give it another name.</li>
+        </ul>
+        
+        <p>
+            <em>Important:</em> Be careful with the changes! Don't break the general structure of the CSS file! If you do this you can break ZCrud!
+        </p>
+        
+        <p>
+            If you create a new theme don't forget to declare it in your web pages! You must replace this:
+        </p>
+        <pre class="brush: html">
+&lt;link rel="stylesheet" type="text/css" href="/zcrud/themes/basic/basic.css" media="all"&gt;
+        </pre>
+        
+        <p>
+            ...by this:
+        </p>
+        <pre class="brush: html">
+&lt;link rel="stylesheet" type="text/css" href="/zcrud/themes/your-theme-name/your-theme-name.css" media="all"&gt;
+        </pre>
+    </body>
+</html>
