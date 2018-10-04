@@ -38,13 +38,17 @@
         </p>
         
         <a id="header"></a>
-        <h2>Creating header</h2>
+        <h2>Configuring HTML header</h2>
         <p>
             You must add to your web page the javascript code of ZCrud (and its dependencies) and the CSS file. For example:
         </p>
         <pre class="brush: html">
-&lt;link rel="stylesheet" type="text/css" href="/zcrud/themes/basic/basic.css" media="all"&gt;
-&lt;script src="/zcrud/zcrud.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;head&gt;
+    ...
+    &lt;link rel="stylesheet" type="text/css" href="/zcrud/themes/basic/basic.css" media="all"&gt;
+    &lt;script src="/zcrud/zcrud.min.js" type="text/javascript"&gt;&lt;/script&gt;
+    ...
+&lt;/head&gt;
         </pre>
         
         <a id="container"></a>
@@ -53,11 +57,15 @@
             Zcrud needs a container to include all the generated HTML code. It can be a simple <em>div</em> tag:
         </p>
         <pre class="brush: html">
-&lt;div id="container"&gt;
-    &lt;div id="zcrud-busy-message"&gt;
-        Starting ZCrud...
+&lt;body&gt;
+    ...
+    &lt;div id="container"&gt;
+        &lt;div id="zcrud-busy-message"&gt;
+            Starting ZCrud...
+        &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;
+    ...
+&lt;/body&gt;
         </pre>
         <p>
             Internal div (with id 'zcrud-busy-message') is optional but recommended. It shows a tipical busy message while starting ZCrud:
@@ -69,10 +77,158 @@
         <a id="instance"></a>
         <h2>Creating a ZCrud instance and building the list</h2>
         <p>
-            Let's take a look to this:
+            Let's take a look at this:
         </p>
         <pre class="brush: js">
-var options = { ... }; // Build this object to configure ZCrud instance
+// Build this object to configure ZCrud instance
+var options = { 
+
+    entityId: 'department',
+
+    pageConf: {
+        defaultPageConf: {
+            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+            getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department',
+            dataToSend: 'modified'
+        },
+        pages: {
+            list: {
+                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                fields: [ 'id', 'name' ]
+            }, 
+            create: {
+                fields: [
+                    {
+                        "type": "fieldsGroup"
+                    }
+                ]
+            }, 
+            update: {
+                fields: [
+                    {
+                        "type": "fieldsGroup"
+                    }
+                ]
+            }, 
+            delete: {
+                fields: [
+                    {
+                        "type": "fieldsGroup"
+                    }
+                ]
+            }
+        }
+    },
+
+    key : 'id',
+    fields: {
+        id: {
+        },
+        name: {
+            width: '90%'
+        },
+        description: {
+            type: 'textarea',
+            formFieldAttributes: {
+                rows: 6,
+                cols: 80
+            }
+        },
+        time: {
+            type: 'time',
+            customOptions: {
+                inline: true
+            }
+        },
+        datetime: {
+            type: 'datetime',
+            customOptions: {
+                inline: true
+            }
+        },
+        date: {
+            type: 'date',
+            customOptions: {
+                inline: true
+            }
+        },
+        phoneType: {
+            type: 'radio',
+            translateOptions: true,
+            options: function(){
+                return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
+            }
+        },
+        province: {
+            type: 'select',
+            options: [ 'Cádiz', 'Málaga' ],
+            defaultValue: 'Cádiz'
+        },
+        city: {
+            type: 'select',
+            dependsOn: 'province',
+            options: function( data ){
+                if ( ! data.dependedValues.province ){
+                    return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
+                }
+                switch ( data.dependedValues.province ) {
+                    case 'Cádiz':
+                        return [ 'Algeciras', 'Tarifa' ];
+                    case 'Málaga':
+                        return [ 'Estepona', 'Marbella' ];
+                    default:
+                        throw 'Unknown province: ' + data.dependedValues.province;
+                }
+            }
+        },
+        browser: {
+            type: 'datalist',
+            options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+        },
+        important: {
+            type: 'checkbox'
+        },
+        members: {
+            type: 'subform',
+            subformKey: 'code',
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 3,
+                        cols: 80
+                    }
+                }
+            }
+        }
+    },
+
+    validation: {
+        modules: 'security, date',
+        rules: {
+            "name": {
+                validation: 'length',
+                length: '3-20'
+            },
+            "members/name": {
+                validation: 'length',
+                length: '3-20'
+            }
+        }
+    },
+
+    i18n: {
+        language: 'es',
+        files: { 
+            en: [ 'en-common.json', 'en-services.json' ],
+            es: [ 'es-common.json', 'es-services.json' ] 
+        }
+    }
+
+};
+
 $( '#container' ).zcrud( 
     'init',
     options,
@@ -315,7 +471,7 @@ $( '#container' ).zcrud(
         <a id="demo"></a>
         <h2>Demo</h2>
         <p>
-            Let's take a look to ZCrud in action:
+            Let's take a look at ZCrud in action:
         </p>
     </body>
 </html>

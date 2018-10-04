@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Master/child tables</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud tutorial - Master/child tables</h1>
+        <ul>
+            <li><a href="#intro">Introduction</a>.</li>
+            <li><a href="#subforms">Subforms</a>.</li>
+            <li><a href="#demo">Demo</a>.</li>
+        </ul>
+        
+        <a id="intro"></a>
+        <h2>Introduction</h2>
+        <p>
+            ZCrud includes support of master/child tables in forms. Child tables are know as <strong>subforms</strong>.
+        </p>
+        
+        <a id="subforms"></a>
+        <h2>Subforms</h2>
+        <p>
+            Let's take a look at the delaration of a subform element in options:
+        </p>
+        <pre class="brush: js">
+    fields: {
+        ...
+        members: {
+            type: 'subform',
+            subformKey: 'code',
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 3,
+                        cols: 80
+                    }
+                }
+            }
+        },
+        ...
+    },
+        </pre>
+        <p>
+            Some remarks about this declaration:
+        </p>
+        <ul>
+            <li>The <strong>type</strong> property must be <strong>subform</strong>.</li>
+            <li>The key field must be declared as the <strong>subformKey</strong>. In this case it is <strong>code</strong>.</li>
+            <li>The <strong>fields</strong> must contain an object with all the fields in the subform.</li>
+        </ul>
+        
+        <p>
+            <em>Subforms</em> work internally like <em>lists</em>. They support paging, sorting, filtering and selecting using the same sintaxis. For example, to enable paging with [20, 50, 100] as page size, default page size as 20 and enable user sorting:
+        </p>
+        <pre class="brush: js">
+    fields: {
+        ...
+        members: {
+            type: 'subform',
+            subformKey: 'code',
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 3,
+                        cols: 80
+                    }
+                }
+            },
+            components: {
+                paging: {
+                    isOn: true,
+                    defaultPageSize: 20,
+                    pageSizes: [20, 50, 100]
+                },
+                sorting: {
+                    isOn: true,
+                    default: {
+                        fieldId: "name",
+                        type: "asc"
+                    },
+                    allowUser: true
+                }
+            }
+        },
+        ...
+    },
+        </pre>
+        
+        <a id="demo"></a>
+        <h2>Demo</h2>
+        <p>
+            Let's take a look at ZCrud in action using <em>subforms</em>:
+        </p>
+        
+    </body>
+</html>
