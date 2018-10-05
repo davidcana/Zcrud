@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Using only forms</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        
+        <h1>ZCrud tutorial - Using only forms</h1>
+        <ul>
+            <li><a href="#intro">Introduction</a>.</li>
+            <li><a href="#configuration">Configuration</a>.</li>
+            <li><a href="#serverSide">Server side</a>.</li>
+            <li><a href="#demo">Demo</a>.</li>
+        </ul>
+        
+        <a id="intro"></a>
+        <h2>Introduction</h2>
+        <p>
+            Usually, CRUD implementation starts with a list. Until now, all examples matched this. But sometimes this is not enough. 
+        </p>
+        <p>
+            Imagine we need a list of records (read from server) and let the user copy some of these record to another list. The copied records can be editable by the user. We can not implement this using a standard ZCrud list. But we can use a form with 2 subforms (one with the records read from server and another for the copied records).
+        </p>
+        
+        <a id="configuration"></a>
+        <h2>Configuration</h2>
+        <p>
+            The configuration for this case is:
+        </p>
+        <pre class="brush: js; highlight: [9, 44]">
+    ...
+    pageConf: {
+        defaultPageConf: {
+            url: 'http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=memberCheck',
+            getRecordURL: 'http://your-domain/CRUDManager.do?cmd=GET&table=memberCheck'
+        },
+        pages: {
+            list: {
+                template: "formDefaultTemplate@templates/forms.html",
+                fields: [ 
+                    {
+                        "type": "fieldsGroup"
+                    }
+                ],
+                buttons: {
+                    toolbar: [ 
+                        'undo', 
+                        'redo', 
+                        'form_submit',
+                        {
+                            type: 'form_copySubformRows',
+                            source: 'originalMembers',
+                            target: 'verifiedMembers',
+                            onlySelected: true,
+                            removeFromSource: false,
+                            deselect: true,
+                            textsBundle: {
+                                title: undefined,
+                                content: {
+                                    translate: false,
+                                    text: 'Copy original members'
+                                }  
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    key : 'id',
+    fields: {
+        originalMembers: {
+            type: 'subform',
+            url: 'http://your-domain/CRUDManager.do?cmd=LIST&table=memberCheck',
+            readOnly: true,
+            subformKey: 'code',
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 2,
+                        cols: 40
+                    }
+                }
+            },
+            components: {
+                paging: {
+                    isOn: true
+                },
+                selecting: {
+                    isOn: true
+                }
+            },
+            buttons: {
+                toolbar: [ 'subform_showCreateForm' ],
+                byRow: []
+            }
+        },
+        verifiedMembers: {
+            type: 'subform',
+            subformKey: 'code',
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 2,
+                        cols: 40
+                    }
+                }
+            },
+            buttons: {
+                toolbar: [ 'subform_showCreateForm' ]
+            }
+        }
+    },
+    validation: {
+        modules: 'security, date',
+        rules: {
+            'verifiedMembers-name': {
+                validation: 'length',
+                length: '3-20'
+            }
+        }
+    },
+    ...
+        </pre>
+        
+        <p>
+            Furthermore, we must replace the call of <em>renderList</em> method by <em>renderForm</em> method:
+        </p>
+        <pre class="brush: js">
+    $( '#container' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#container' ).zcrud( 'renderForm' );
+        }
+    );
+        </pre>
+        
+        <a id="serverSide"></a>
+        <h2>Server side</h2>
+        <p>
+            At first, ZCrud sends to server a <em>getRecord</em> request:
+        </p>
+        <pre class="brush: js">
+{
+    "originalMembers":{
+        "pageNumber":1,
+        "pageSize":10
+    },
+    "verifiedMembers":{},
+    "command":"getRecord"
+}
+        </pre>
+        
+        <p>
+            And it expects a response like this:
+        </p>
+        <pre class="brush: js">
+{
+    "result":"OK",
+    "message":"",
+    "record":{
+        "originalMembers":[
+            {"code":"1","name":"Member 1","description":"Description of Member 1","important":false,"hobbies":[]},
+            {"code":"2","name":"Member 2","description":"Description of Member 2","important":false,"hobbies":[]},
+            {"code":"3","name":"Member 3","description":"Description of Member 3","important":false,"hobbies":[]},
+            {"code":"4","name":"Member 4","description":"Description of Member 4","important":false,"hobbies":[]},
+            {"code":"5","name":"Member 5","description":"Description of Member 5","important":false,"hobbies":[]},
+            {"code":"6","name":"Member 6","description":"Description of Member 6","important":false,"hobbies":[]},
+            {"code":"7","name":"Member 7","description":"Description of Member 7","important":false,"hobbies":[]},
+            {"code":"8","name":"Member 8","description":"Description of Member 8","important":false,"hobbies":[]},
+            {"code":"9","name":"Member 9","description":"Description of Member 9","important":false,"hobbies":[]},
+            {"code":"10","name":"Member 10","description":"Description of Member 10","important":false,"hobbies":[]}
+        ],
+        "verifiedMembers":[]
+    },
+    "fieldsData":{
+        "originalMembers":{
+            "totalNumberOfRecords":12
+        },
+        "verifiedMembers":{
+            "totalNumberOfRecords":0
+        }
+    }
+}
+        </pre>
+        
+        <p>
+            After the user copies some records, ZCrud sends to server a <em>batchUpdate</em> request:
+        </p>
+        <pre class="brush: js">
+{
+    "existingRecords":{},
+    "newRecords":[
+        {
+            "verifiedMembers":{
+                "existingRecords":{},
+                "newRecords":[
+                    {"code":"2","name":"Member 2","description":"Description of Member 2","important":false,"hobbies":[]},
+                    {"code":"3","name":"Member 3","description":"Description of Member 3 edited","important":false,"hobbies":[]}],
+                "recordsToRemove":[]
+            }
+        }
+    ],
+    "recordsToRemove":[],
+    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=memberCheck",
+    "command":"batchUpdate"
+}
+        </pre>
+       
+        <p>
+            And it expects a response like this:
+        </p>
+        <pre class="brush: js">
+{
+    "message":"",
+    "verifiedMembers":{
+        "newRecords":[
+            {"code":"2","name":"Member 2","description":"Description of Member 2","important":false,"hobbies":[]},
+            {"code":"3","name":"Member 3","description":"Description of Member 3 edited","important":false,"hobbies":[]}
+        ]
+    },
+    "result":"OK"
+}
+        </pre>
+        
+        <a id="demo"></a>
+        <h2>Demo</h2>
+        <p>
+            Let's take a look at ZCrud in action using only forms:
+        </p>
+        
+    </body>
+</html>
