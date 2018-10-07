@@ -1,8 +1,32 @@
 /* HTML tags*/
 body {
-    background-color: #f4f4f4;
+    background-color: white;
     color: black;
     font-family: arial, helvetica, verdana;
+}
+
+h1 {
+    padding: .5em 2em 0 2em;
+    border-bottom: 0;
+    text-align: center;
+    font-size: 300%;
+}
+p.subheader,
+p.linkButton {
+    text-align: center;
+    font-size: 120%;
+    margin-bottom: 1em;
+}
+
+p.linkButton a {
+    padding: 1em;
+    background-color: darkcyan;
+    color: white;
+}
+
+a.linkButton:hover,
+p.linkButton a:hover {
+    background-color: #9dc00e;
 }
 
 h1,
@@ -10,6 +34,29 @@ h2,
 h3,
 h4 {
     font-weight: bold;
+    border-bottom: 0;
+    color: darkcyan;
+}
+
+aside {
+    width: 30%;
+    float: right;
+    border: 1px solid darkcyan;
+    border-style: solid;
+    padding: 0em 1em 0em 1em;
+    white-space: nowrap;
+    border-radius: 8px;
+}
+
+aside section header {
+    border-style: none none solid none;
+    border-width: 1px;
+    border-color: darkcyan;
+}
+
+aside section header,
+aside section ul {
+    margin: .5em;
 }
 
 table,
@@ -67,7 +114,7 @@ table td {
 
 /* pre classes */
 pre.console {
-    background-color: black;
+    background-color: darkcyan;
     color: white;
 }
 pre.js {
@@ -83,7 +130,7 @@ ul.fieldOptionList>li {
     margin-bottom: 1em;
 }
 ul.fieldOptionList>li .header {
-    background: black;
+    background: darkcyan;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
     margin-bottom: .5em;
@@ -113,7 +160,7 @@ ul.fieldTypeList>li {
     margin-bottom: 1em;
 }
 ul.fieldTypeList>li .header {
-    background: black;
+    background: darkcyan;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
     margin-bottom: .5em;
@@ -139,7 +186,7 @@ ul.customOptionsList>li {
     margin-bottom: 1em;
 }
 ul.customOptionsList>li .header {
-    background: black;
+    background: darkcyan;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
     margin-bottom: .5em;
@@ -169,7 +216,7 @@ ul.generalOptionList>li {
     margin-bottom: 1em;
 }
 ul.generalOptionList>li .header {
-    background: black;
+    background: darkcyan;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
     margin-bottom: .5em;
@@ -195,7 +242,7 @@ ul.eventList>li {
     margin-bottom: 1em;
 }
 ul.eventList>li .header {
-    background: black;
+    background: darkcyan;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
     margin-bottom: .5em;
@@ -217,7 +264,7 @@ ul.methodList>li {
     margin-bottom: 1em;
 }
 ul.methodList>li .header {
-    background: black;
+    background: darkcyan;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
     margin-bottom: .5em;
@@ -239,7 +286,7 @@ ul.buttonTypeList>li {
     margin-bottom: 1em;
 }
 ul.buttonTypeList>li .header {
-    background: black;
+    background: darkcyan;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
     margin-bottom: .5em;
@@ -251,4 +298,65 @@ ul.buttonTypeList>li .header .name {
 ul.buttonTypeList>li .header .bindableTo:before {
     margin-left: 2em;
     content: "bindable to: ";
+}
+
+/* Menu */
+ul.menu {
+    list-style-type: none;
+    margin: 0 1em 0 1em;
+    padding: 0;
+    overflow: hidden;
+    background-color: darkcyan;
+}
+
+ul.menu li {
+    float: left;
+}
+
+ul.menu li a, 
+ul.menu .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 1em 1em;
+    text-decoration: none;
+}
+
+ul.menu li a:hover, 
+ul.menu .dropdown:hover .dropbtn {
+    background-color: #9dc00e;
+}
+
+ul.menu li:first-child {
+    margin: 0 4em 0 4em;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+ul.menu li.dropdown {
+    display: inline-block;
+    background: url('../themes/basic/down.png') no-repeat left;
+}
+
+ul.menu .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 .5em 1em 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+ul.menu .dropdown-content a {
+    color: black;
+    padding: 1em 1em;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+ul.menu .dropdown-content a:hover {background-color: #f1f1f1}
+
+ul.menu .dropdown:hover .dropdown-content {
+    display: block;
 }

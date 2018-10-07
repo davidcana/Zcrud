@@ -8,68 +8,104 @@
         <link rel="stylesheet" type="text/css" href="/docs.css">
     </head>
     <body>
+        <header>
+            <nav>
+                <ul class="menu">
+                    <li>
+                        <a href="/" title="Home page">ZCrud</a>
+                    </li>
+                    <li>
+                        <a href="tutorial/index.html" class="dropbtn" title="Articles with demos">Tutorial</a>
+                    </li>
+                    <li>
+                        <a href="reference/index.html" class="dropbtn" title="Complete ZCrud reference documentation. Includes all methods, events, options and more.">Reference</a>
+                    </li>
+                    <li>
+                        <a href="zCrudVsJtable.html" title="In-depth comparison">ZCrud vs jTable</a>
+                    </li>
+                    <li>
+                        <a href="download.html" title="Download and install instructions">Download</a>
+                    </li>
+                    <li>
+                        <a href="changes.html" title="A list of changes on all ZCrud versions">Change log</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        
         <h1>ZCrud</h1>
+        <p class="subheader">
+            A javascript API to make <strong>CRUD</strong> easy.
+        </p>
+        <p class="linkButton">
+            <a href="tutorial/gettingStarted.html" title="A quick start guide for ZCrud">Getting started</a>
+        </p>
         
-        <h2>Sections</h2>
-        <ul>
-            <li><a href="tutorial/index.html">Tutorial</a>. Articles with demos.</li>
-            <li><a href="reference/index.html">Reference</a>. Complete ZCrud reference documentation. Includes all methods, events, options and more.</li>
-            <li><a href="zCrudVsJtable.html">ZCrud vs jTable</a>. In-depth comparison.</li>
-            <li><a href="download.html">Download</a>. Download and install instructions.</li>
-            <li><a href="changes.html">Change log</a>. A list of changes on all ZCrud versions.</li>
-        </ul>
-        
-        <h2>News</h2>
-        <ul>
-            <li><span class="news-date">01.05.2018</span>: ZCrud <strong>v0.1.0</strong>: First version!</li>
-        </ul>
+        <h2>Demo</h2>
 
-        <h2>What is ZCrud</h2>
-        <p>
-            <strong>ZCrud</strong> is a <em>javascript API</em> (also works as <em>jQuery plugin</em>) used to create <em>AJAX</em> based <em>CRUD</em> tables without coding HTML or Javascript.
-        </p>
-        <p>
-            Core features of <strong>ZCrud</strong> are:
-        </p>
+        <aside>
+            <section>
+                <header>News</header>
+                <ul>
+                    <li>
+                        <span class="news-date">07/10/2018</span>: ZCrud <strong>v0.1.0</strong>: First version!
+                    </li>
+                </ul>
+            </section>
+        </aside>
         
-        <ul>
-            <li>
-                Automatically creates a main HTML table and loads records from server using AJAX. Supports server side sorting, paging and filtering using AJAX. The table can be editable directly too.
-            </li>
-            <li>
-                Automatically creates some typical forms and sends and receives data from/to server using AJAX:
-                <ul>
-                    <li><em>create record</em> form.</li>
-                    <li><em>edit record</em> form.</li>
-                    <li><em>delete record</em> form.</li>
-                </ul>
-            </li>
-            <li>
-                About forms:
-                <ul>
-                    <li>Supports master/child forms.</li>
-                    <li>Allows user to select rows.</li>
-                    <li>Makes it easy to customize already implemented form field types; also to add new form field types.</li>
-                    <li>Makes it easy to use defined buttons (submit, cancel, …) and to add custom.</li>
-                    <li>Built-in support of validation of forms using <a href="http://www.formvalidator.net/">jQuery Form Validator</a>. Exposes some events to enable custom validation without using it.</li>
-                    <li>Undo/redo support.</li>
-                </ul>
-            </li>
-            <li>
-                All tables and forms are created using templates.  It is also possible to use customized templates. The template engine is <a href="https://github.com/davidcana/ZPT-JS">ZPT-JS</a>.
-            </li>
-            <li>
-                Pretty messages and confirm questions using <a href="https://sweetalert.js.org">Sweetalert</a> (by default). It is easy to replace it by any other API or function.
-            </li>
-            <li>
-                Only client-side: any server side technology can work with ZCrud.
-            </li>
-            <li>
-                Built-in support for english and spanish (full I18n and L10n support). Other languages can be added easily.
-            </li>
-            <li>
-                All HTML code is valid (w3c compliant). It works on all common browsers.
-            </li>
-        </ul>
+        <article>
+            <h2>What is ZCrud</h2>
+            <p>
+                <strong>ZCrud</strong> is a <em>javascript API</em> (also works as <em>jQuery plugin</em>) used to create <em>AJAX</em> based <em>CRUD</em> tables without coding HTML or Javascript.
+            </p>
+            <p>
+                Core features of <strong>ZCrud</strong> are:
+            </p>
+
+            <ul>
+                <li>
+                    Automatically creates a main HTML table and loads records from server using AJAX. Supports server side sorting, paging and filtering using AJAX. The table can be editable directly too.
+                </li>
+                <li>
+                    Automatically creates some typical forms and sends and receives data from/to server using AJAX:
+                    <ul>
+                        <li><em>create record</em> form.</li>
+                        <li><em>edit record</em> form.</li>
+                        <li><em>delete record</em> form.</li>
+                    </ul>
+                </li>
+                <li>
+                    About forms:
+                    <ul>
+                        <li>Supports master/child forms.</li>
+                        <li>Allows user to select rows.</li>
+                        <li>Makes it easy to customize already implemented form field types; also to add new form field types.</li>
+                        <li>Makes it easy to use defined buttons (submit, cancel, …) and to add custom.</li>
+                        <li>Built-in support of validation of forms using <a href="http://www.formvalidator.net/">jQuery Form Validator</a>. Exposes some events to enable custom validation without using it.</li>
+                        <li>Undo/redo support.</li>
+                    </ul>
+                </li>
+                <li>
+                    All tables and forms are created using templates.  It is also possible to use customized templates. The template engine is <a href="https://github.com/davidcana/ZPT-JS">ZPT-JS</a>.
+                </li>
+                <li>
+                    Pretty messages and confirm questions using <a href="https://sweetalert.js.org">Sweetalert</a> (by default). It is easy to replace it by any other API or function.
+                </li>
+                <li>
+                    Only client-side: any server side technology can work with ZCrud.
+                </li>
+                <li>
+                    Built-in support for english and spanish (full I18n and L10n support). Other languages can be added easily.
+                </li>
+                <li>
+                    All HTML code is valid (w3c compliant). It works on all common browsers.
+                </li>
+            </ul>
+        </article>
+        
+        <footer>
+            <p>2018</p>
+        </footer>
     </body>
 </html>
