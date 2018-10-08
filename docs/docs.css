@@ -5,6 +5,12 @@ body {
     font-family: arial, helvetica, verdana;
 }
 
+.header1Div {
+    background: url('./images/home-background.jpg');
+    padding-bottom: 2em;
+    margin: 0 1em 0 1em;
+}
+
 h1 {
     padding: .5em 2em 0 2em;
     border-bottom: 0;
@@ -24,9 +30,9 @@ p.linkButton a {
     color: white;
 }
 
-a.linkButton:hover,
-p.linkButton a:hover {
+a:hover {
     background-color: #9dc00e;
+    color: white;
 }
 
 h1,
