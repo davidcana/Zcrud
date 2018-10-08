@@ -18,11 +18,23 @@ module.exports = function(grunt) {
                         [ "browserify-derequire" ]
                     ],
                     browserifyOptions: {
-                        standalone: 'zcrud'
+                        standalone: ''
                     }
                 },
-                src: 'js/app/main.js',
+                src: 'js/app/standalone.js',
                 dest: 'build/standalone.js'
+            },
+            standaloneServerSide: {
+                options: {
+                    plugin: [
+                        [ "browserify-derequire" ]
+                    ],
+                    browserifyOptions: {
+                        standalone: ''
+                    }
+                },
+                src: 'test/js/app/standalone.js',
+                dest: 'build/standaloneServerSide.js'
             },
             sample: {
                 options: {
@@ -419,12 +431,25 @@ module.exports = function(grunt) {
                         }
                 ]
             }
+        },
+        uglify: {
+            standalone: {
+                files: {
+                    'build/standalone.min.js': [ 'build/standalone.js' ]
+                }
+            },
+            standaloneServerSide: {
+                files: {
+                    'build/standaloneServerSide.min.js': [ 'build/standaloneServerSide.js' ]
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-browserify');
     
     grunt.registerTask('test', ['qunit']);

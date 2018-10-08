@@ -5,6 +5,10 @@
         <title>Getting started</title>
         
         <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        <script src="https://code.jquery.com/jquery-3.0.0.min.js" defer></script>
+        <script type="text/javascript" src="/lib/standalone.min.js" defer></script>
+        <script type="text/javascript" src="/lib/standaloneServerSide.min.js" defer></script>
+        <script type="text/javascript" src="/js/gettingStarted.js" defer></script>
         
         <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
         <link rel="stylesheet" type="text/css" href="/docs.css">
@@ -473,6 +477,11 @@ $( '#container' ).zcrud(
         <p>
             Let's take a look at ZCrud in action:
         </p>
+        <div id="departmentsContainer">
+            <div id="zcrud-busy-message">
+                Starting ZCrud...
+            </div>
+        </div>
         
         <p class="linkButton">
             <a href="index.html" title="Continue tutorial">Continue tutorial</a>
