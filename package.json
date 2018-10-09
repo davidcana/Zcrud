@@ -30,7 +30,7 @@
     "jquery": "^3.0.0",
     "jquery-form-validator": "2.3.77",
     "sweetalert": "2.1.0",
-    "zpt": "0.22.3"
+    "zpt": "0.22.5"
   },
   "devDependencies": {
     "beefy": "~2.1.8",
