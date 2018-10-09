@@ -30,7 +30,8 @@ p.linkButton a {
     color: white;
 }
 
-a:hover {
+a:hover,
+p.linkButton a:hover {
     background-color: #9dc00e;
     color: white;
 }
@@ -317,6 +318,7 @@ ul.menu {
 
 ul.menu li {
     float: left;
+    margin-bottom: 0;
 }
 
 ul.menu li a, 
@@ -328,6 +330,10 @@ ul.menu .dropbtn {
     text-decoration: none;
 }
 
+ul.menu li a.selected {
+    border-bottom: 5px solid #9dc00e;
+}
+
 ul.menu li a:hover, 
 ul.menu .dropdown:hover .dropbtn {
     background-color: #9dc00e;
@@ -335,7 +341,6 @@ ul.menu .dropdown:hover .dropbtn {
 
 ul.menu li:first-child {
     margin: 0 4em 0 4em;
-    font-size: 110%;
     font-weight: bold;
 }
 
@@ -365,4 +370,9 @@ ul.menu .dropdown-content a:hover {background-color: #f1f1f1}
 
 ul.menu .dropdown:hover .dropdown-content {
     display: block;
+}
+
+footer {
+    text-align: center;
+    font-size: 80%;
 }

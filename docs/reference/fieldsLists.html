@@ -5,12 +5,18 @@
         <title>ZCrud API reference - Fields</title>
         
         <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
-        
+        <script type="text/javascript" src="/lib/zpt.min.js" defer></script>
+        <script type="text/javascript" src="/js/zpt.js" defer></script>
+
         <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
         <link rel="stylesheet" type="text/css" href="/docs.css">
         <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
     </head>
     <body>
+        <div id="commonHeader" data-muse-macro="'header@templates.html'">
+            The header
+        </div>
+        
         <div class="header1Div">
             <h1>ZCrud API reference - Fields - Lists of fields</h1>
         </div>
@@ -180,5 +186,9 @@
         <p>
             This fields element will contain the next list of fields: [ 'id', 'name', 'description', 'time', 'date', 'city' ].
         </p>
+
+        <div id="commonFooter" data-muse-macro="'footer@templates.html'">
+            The footer
+        </div>
     </body>
 </html>

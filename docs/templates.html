@@ -7,24 +7,36 @@
     <body>
         <header data-mdefine-macro="header">
             <nav>
-                <ul class="menu">
+                <ul class="menu" data-tdefine="pathname location/pathname">
                     <li>
-                        <a href="/" title="Home page">ZCrud</a>
+                        <a href="/" 
+                           title="Home page"
+                           data-tattributes="class cond: (eq: '/' pathname) 'selected' ''">ZCrud</a>
                     </li>
                     <li>
-                        <a href="tutorial/index.html" class="dropbtn" title="Articles with demos">Tutorial</a>
+                        <a href="/tutorial/index.html"
+                           title="Articles with demos"
+                           data-tattributes="class cond: (pathname/startsWith('/tutorial/')) 'selected' ''">Tutorial</a>
                     </li>
                     <li>
-                        <a href="reference/index.html" class="dropbtn" title="Complete ZCrud reference documentation. Includes all methods, events, options and more.">Reference</a>
+                        <a href="/reference/index.html"
+                           title="Complete ZCrud reference documentation. Includes all methods, events, options and more."
+                           data-tattributes="class cond: (pathname/startsWith('/reference/')) 'selected' ''">Reference</a>
                     </li>
                     <li>
-                        <a href="zCrudVsJtable.html" title="In-depth comparison">ZCrud vs jTable</a>
+                        <a href="/zCrudVsJtable.html" 
+                           title="In-depth comparison"
+                           data-tattributes="class cond: (eq: '/zCrudVsJtable.html' pathname) 'selected' ''">ZCrud vs jTable</a>
                     </li>
                     <li>
-                        <a href="download.html" title="Download and install instructions">Download</a>
+                        <a href="/download.html" 
+                           title="Download and install instructions"
+                           data-tattributes="class cond: (eq: '/download.html' pathname) 'selected' ''">Download</a>
                     </li>
                     <li>
-                        <a href="changes.html" title="A list of changes on all ZCrud versions">Change log</a>
+                        <a href="/changes.html" 
+                           title="A list of changes on all ZCrud versions"
+                           data-tattributes="class cond: (eq: '/changes.html' pathname) 'selected' ''">Change log</a>
                     </li>
                 </ul>
             </nav>
@@ -32,9 +44,7 @@
         
         <footer data-mdefine-macro="footer">
             <p>
-                Code license: LGPL-3.0
-            </p>
-            <p>
+                Code license: <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html">LGPL 3</a><br>
                 Header texture: Free for commercial use with attribution
                 <a href='https://www.freepik.com/free-vector/texture-of-wave-pattern-vector-illustration_2904377.htm'>Designed by Rawpixel.com</a>
             </p>
