@@ -8,7 +8,7 @@ body {
 .header1Div {
     background: url('./images/home-background.jpg');
     padding-bottom: 2em;
-    margin: 0 1em 0 1em;
+    /*margin: 0 1em 0 1em;*/
 }
 
 h1 {
@@ -304,70 +304,69 @@ ul.buttonTypeList>li .header .bindableTo:before {
 }
 
 /* Menu */
-ul.menu {
-    list-style-type: none;
-    margin: 0 1em 0 1em;
-    padding: 0;
-    overflow: hidden;
+nav.menu {
     background-color: darkcyan;
+    text-align: center;
+    /*margin: 0 1em 0 1em;*/
 }
 
-ul.menu li {
-    float: left;
+nav.menu ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav.menu ul li {
+    display: inline-block;
     margin-bottom: 0;
 }
 
-ul.menu li a, 
-ul.menu .dropbtn {
+nav.menu ul li a {
     display: inline-block;
     color: white;
     text-align: center;
     padding: 1em 1em;
     text-decoration: none;
+    border-bottom: 5px solid darkcyan;
 }
 
-ul.menu li a.selected {
+nav.menu ul li a.selected {
     border-bottom: 5px solid #9dc00e;
     color: #cfec58;
 }
 
-ul.menu li a:hover, 
-ul.menu .dropdown:hover .dropbtn {
+nav.menu ul li a:hover {
     background-color: #9dc00e;
     color: white;
 }
 
-ul.menu li:first-child {
+nav.menu ul.leftPart li {
     margin: 0 4em 0 4em;
     font-weight: bold;
 }
 
-ul.menu li.dropdown {
+nav.menu div.centerPart {
+    text-align: center;
+    display: contents;
+}
+
+nav.menu div.centerPart ul {
     display: inline-block;
-    background: url('../themes/basic/down.png') no-repeat left;
 }
 
-ul.menu .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0 .5em 1em 0 rgba(0,0,0,0.2);
-    z-index: 1;
+nav.menu ul.leftPart {
+    float: left;
 }
 
-ul.menu .dropdown-content a {
-    color: black;
-    padding: 1em 1em;
-    text-decoration: none;
-    display: block;
-    text-align: left;
+nav.menu ul.rightPart {
+    float: right;
+    font-weight: bold;
 }
 
-ul.menu .dropdown-content a:hover {background-color: #f1f1f1}
-
-ul.menu .dropdown:hover .dropdown-content {
-    display: block;
+nav.menu span.rightPart {
+    color: white;
+    float: right;
 }
 
 footer {

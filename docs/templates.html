@@ -6,37 +6,45 @@
     </head>
     <body>
         <header data-mdefine-macro="header">
-            <nav>
-                <ul class="menu" data-tdefine="pathname location/pathname">
+            <nav class="menu" data-tdefine="pathname location/pathname">
+                <ul class="leftPart">
                     <li>
                         <a href="/" 
                            title="Home page"
                            data-tattributes="class cond: (eq: '/' pathname) 'selected' ''">ZCrud</a>
                     </li>
-                    <li>
-                        <a href="/tutorial/index.html"
-                           title="Articles with demos"
-                           data-tattributes="class cond: (pathname/startsWith('/tutorial/')) 'selected' ''">Tutorial</a>
-                    </li>
-                    <li>
-                        <a href="/reference/index.html"
-                           title="Complete ZCrud reference documentation. Includes all methods, events, options and more."
-                           data-tattributes="class cond: (pathname/startsWith('/reference/')) 'selected' ''">Reference</a>
-                    </li>
-                    <li>
-                        <a href="/zCrudVsJtable.html" 
-                           title="In-depth comparison"
-                           data-tattributes="class cond: (eq: '/zCrudVsJtable.html' pathname) 'selected' ''">ZCrud vs jTable</a>
-                    </li>
-                    <li>
-                        <a href="/download.html" 
-                           title="Download and install instructions"
-                           data-tattributes="class cond: (eq: '/download.html' pathname) 'selected' ''">Download</a>
-                    </li>
+                </ul>
+                
+                <div class="centerPart">
+                    <ul>
+                        <li>
+                            <a href="/tutorial/index.html"
+                               title="Articles with demos"
+                               data-tattributes="class cond: (pathname/startsWith('/tutorial/')) 'selected' ''">Tutorial</a>
+                        </li>
+                        <li>
+                            <a href="/reference/index.html"
+                               title="Complete ZCrud reference documentation. Includes all methods, events, options and more."
+                               data-tattributes="class cond: (pathname/startsWith('/reference/')) 'selected' ''">Reference</a>
+                        </li>
+                        <li>
+                            <a href="/zCrudVsJtable.html" 
+                               title="In-depth comparison"
+                               data-tattributes="class cond: (eq: '/zCrudVsJtable.html' pathname) 'selected' ''">ZCrud vs jTable</a>
+                        </li>
+                        <li>
+                            <a href="/download.html" 
+                               title="Download and install instructions"
+                               data-tattributes="class cond: (eq: '/download.html' pathname) 'selected' ''">Download</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <ul class="rightPart">
                     <li>
                         <a href="/changes.html" 
                            title="A list of changes on all ZCrud versions"
-                           data-tattributes="class cond: (eq: '/changes.html' pathname) 'selected' ''">Change log</a>
+                           data-tattributes="class cond: (eq: '/changes.html' pathname) 'selected' ''">0.1.0 (10 October 2018)</a>
                     </li>
                 </ul>
             </nav>
