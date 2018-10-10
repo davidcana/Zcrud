@@ -7,7 +7,7 @@ var Field = require( './field.js' );
 var context = require( '../context.js' );
 var optionProvider = require( './optionProvider.js' );
 var $ = require( 'jquery' );
-var zpt = require( 'zpt' );
+//var zpt = require( 'zpt' );
 
 var OptionsField = function( properties ) {
     Field.call( this, properties );

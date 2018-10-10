@@ -5,7 +5,7 @@ var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
 var validationManager = require( '../validationManager.js' );
 var $ = require( 'jquery' );
-var zpt = require( 'zpt' );
+//var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
@@ -224,9 +224,17 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         pageUtils.configureTemplate( 
             options, 
             "'" + thisOptions.template + "'" );
+        /*
         zpt.run({
             //root: options.target[0],
             root: root || options.body,
+            dictionary: dictionary,
+            declaredRemotePageUrls: options.templates.declaredRemotePageUrls
+        });*/
+        context.getZPTParser().run({
+            //root: options.target[0],
+            //root: root || options.body,
+            root: root || ( options.target? options.target[0]: null ) || options.body,
             dictionary: dictionary,
             declaredRemotePageUrls: options.templates.declaredRemotePageUrls
         });

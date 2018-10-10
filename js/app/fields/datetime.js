@@ -6,7 +6,7 @@
 var Field = require( './field.js' );
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
-var zpt = require( 'zpt' );
+//var zpt = require( 'zpt' );
 var DateFormatter = require( '../../../lib/php-date-formatter.js' );
 
 var Datetime = function( properties ) {
