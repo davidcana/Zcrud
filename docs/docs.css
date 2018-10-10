@@ -66,16 +66,6 @@ aside section ul {
     margin: .5em;
 }
 
-table,
-th,
-td {
-    border: 1px solid black;
-}
-
-.sub {
-    font-size: .75em;
-}
-
 code {
     color: red;
 }
@@ -95,17 +85,23 @@ li {
     margin-bottom: .25em;
 }
 
-table {
+/* Tables */
+table.comparison,
+table.comparison th,
+table.comparison td {
+    border: 1px solid black;
+}
+table.comparison {
     background-color: white;
 }
-table tbody tr:nth-child(odd)  {
+table.comparison tbody tr:nth-child(odd)  {
     background-color: #f4f4f4;
 }
-table tbody tr:hover {
+table.comparison tbody tr:hover {
     background-color: #f2cece;
 }
-table th,
-table td {
+table.comparison th,
+table.comparison td {
     padding: .25em;
 }
 
