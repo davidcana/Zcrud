@@ -156,10 +156,26 @@ var options = {
     }
 };
 
-$( '#departmentsContainer' ).zcrud( 
-    'init',
-    options,
-    function( options ){
-        $( '#departmentsContainer' ).zcrud( 'renderList' );
+var zptParser = zpt.buildParser({
+    root: document.body,
+    //root: [ $( '#commonHeader' )[0], $( '#commonFooter' )[0] ],
+    dictionary: {
+        location: window.location
+    },
+    declaredRemotePageUrls: [ 'templates.html' ]
+});
+
+zptParser.init(
+    function(){
+        zptParser.run();
+        
+        $( '#departmentsContainer' ).zcrud( 
+            'init',
+            options,
+            function( options ){
+                $( '#departmentsContainer' ).zcrud( 'renderList' );
+            }
+        );
     }
 );
+

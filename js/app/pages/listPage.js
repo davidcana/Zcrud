@@ -242,7 +242,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         context.getZPTParser().run({
             //root: options.target[0],
-            root: root || options.body,
+            //root: root || options.body,
+            root: root || ( options.target? options.target[0]: null ) || options.body,
             dictionary: dictionary,
             notRemoveGeneratedTags: false
         });

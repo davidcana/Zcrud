@@ -58,7 +58,8 @@ exports.init = function( userOptions, callback ){
                 declaredRemotePageUrls: options.allDeclaredRemotePageUrls,
                 callback: function(){
                     callback( options );
-                }
+                },
+                notRemoveGeneratedTags: true
             });
         });
     };

@@ -373,6 +373,7 @@ ul.menu .dropdown:hover .dropdown-content {
 }
 
 footer {
+    margin-top: 2em;
     text-align: center;
     font-size: 80%;
 }
