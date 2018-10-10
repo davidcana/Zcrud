@@ -443,6 +443,24 @@ module.exports = function(grunt) {
                     'build/standaloneServerSide.min.js': [ 'build/standaloneServerSide.js' ]
                 }
             }
+        },
+        copy: {
+            standalone: {
+                src: 'build/standalone.js',
+                dest: 'docs/lib/zcrud.js'
+            },
+            standaloneMin: {
+                src: 'build/standalone.min.js',
+                dest: 'docs/lib/zcrud.min.js'
+            },
+            standaloneServerSide: {
+                src: 'build/standaloneServerSide.js',
+                dest: 'docs/lib/zcrudServerSide.js'
+            },
+            standaloneServerSideMin: {
+                src: 'build/standaloneServerSide.min.js',
+                dest: 'docs/lib/zcrudServerSide.min.js'
+            }
         }
     });
 
@@ -450,8 +468,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-browserify');
     
     grunt.registerTask('test', ['qunit']);
     grunt.registerTask('default', ['browserify']);
+    grunt.registerTask('standaloneToDocs', ['browserify:standalone', 'browserify:standaloneServerSide', 'uglify', 'copy']);
 };
