@@ -328,11 +328,13 @@ ul.menu .dropbtn {
 
 ul.menu li a.selected {
     border-bottom: 5px solid #9dc00e;
+    color: #cfec58;
 }
 
 ul.menu li a:hover, 
 ul.menu .dropdown:hover .dropbtn {
     background-color: #9dc00e;
+    color: white;
 }
 
 ul.menu li:first-child {
