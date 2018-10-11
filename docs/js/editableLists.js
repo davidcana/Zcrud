@@ -14,23 +14,14 @@ var options = {
             list: {
                 url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name' ],
+                buttons: {
+                    toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_submit' ],
+                    byRow: [ 'list_deleteRow' ]
+                },
                 components: {
-                    sorting: {
+                    editing: {
                         isOn: true,
-                        default: {
-                            fieldId: 'name',
-                            type: 'asc'
-                        },
-                        allowUser: false
-                    },
-                    filtering: {
-                        isOn: true,
-                        fields: [ 'id', 'name' ]
-                    },
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
                     }
                 }
             }, 
@@ -64,7 +55,6 @@ var options = {
             sorting: false
         },
         name: {
-            width: '90%'
         },
         description: {
             type: 'textarea',

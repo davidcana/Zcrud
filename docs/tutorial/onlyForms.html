@@ -5,8 +5,9 @@
         <title>Using only forms</title>
         
         <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
-        <script type="text/javascript" src="/lib/zpt.min.js" defer></script>
-        <script type="text/javascript" src="/js/zpt.js" defer></script>
+        <script type="text/javascript" src="/lib/zcrud.js" defer></script>
+        <script type="text/javascript" src="/lib/zcrudServerSide.min.js" defer></script>
+        <script type="text/javascript" src="/js/onlyForms.js" defer></script>
         
         <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
         <link rel="stylesheet" type="text/css" href="/docs.css">
@@ -249,8 +250,13 @@
         <p>
             Let's take a look at ZCrud in action using only forms:
         </p>
-
-        <div id="commonFooter" data-muse-macro="'footer@templates.html'">
+        <div id="departmentsContainer">
+            <div id="zcrud-busy-message">
+                Starting ZCrud...
+            </div>
+        </div>
+        
+        <div id="commonFooter" data-muse-macro="'tutorialFooter@templates.html'">
             The footer
         </div>
     </body>

@@ -13,26 +13,7 @@ var options = {
         pages: {
             list: {
                 url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-                fields: [ 'id', 'name' ],
-                components: {
-                    sorting: {
-                        isOn: true,
-                        default: {
-                            fieldId: 'name',
-                            type: 'asc'
-                        },
-                        allowUser: false
-                    },
-                    filtering: {
-                        isOn: true,
-                        fields: [ 'id', 'name' ]
-                    },
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
-                    }
-                }
+                fields: [ 'id', 'name' ]
             }, 
             create: {
                 fields: [
@@ -121,6 +102,21 @@ var options = {
         },
         important: {
             type: 'checkbox'
+        },
+        members: {
+            type: 'subform',
+            subformKey: 'code',
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    formFieldAttributes: {
+                        rows: 3,
+                        cols: 80
+                    }
+                }
+            }
         }
     },
 

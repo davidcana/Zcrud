@@ -372,5 +372,8 @@ nav.menu span.rightPart {
 footer {
     margin-top: 2em;
     text-align: center;
+}
+
+footer .smallerFooter {
     font-size: 80%;
 }

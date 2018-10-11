@@ -15,22 +15,17 @@ var options = {
                 url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name' ],
                 components: {
+                    paging: {
+                        defaultPageSize: 15,
+                        pageSizes: [15, 50, 100]
+                    },
                     sorting: {
                         isOn: true,
                         default: {
                             fieldId: 'name',
                             type: 'asc'
                         },
-                        allowUser: false
-                    },
-                    filtering: {
-                        isOn: true,
-                        fields: [ 'id', 'name' ]
-                    },
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        allowUser: true
                     }
                 }
             }, 
@@ -144,6 +139,10 @@ var options = {
             en: [ 'en-common.json', 'en-services.json' ],
             es: [ 'es-common.json', 'es-services.json' ] 
         }
+    },
+
+    logging: {
+        isOn: true
     }
 };
 
