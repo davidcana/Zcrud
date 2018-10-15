@@ -6,7 +6,8 @@
         
         <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
         <script type="text/javascript" src="/lib/zcrud.js" defer></script>
-        <script type="text/javascript" src="/lib/zcrudServerSide.min.js" defer></script>
+        <script type="text/javascript" src="/js/zcrudNewServerSide.js" defer></script>
+        <script type="text/javascript" src="/js/data.js" defer></script>
         <script type="text/javascript" src="/js/gettingStarted.js" defer></script>
         
         <link rel="stylesheet" type="text/css" href="/themes/basic/basic.css" media="all">
@@ -24,7 +25,7 @@
                 <li><a href="#intro">Introduction</a>.</li>
                 <li><a href="#downloading">Downloading ZCrud and its dependencies</a>.</li>
                 <li><a href="#header">Creating header</a>.</li>
-                <li><a href="#container">Creating a container</a>.</li>
+                <li><a href="#creatingAContainer">Creating a container</a>.</li>
                 <li><a href="#instance">Creating a ZCrud instance and building the list</a>.</li>
                 <li><a href="#newRecord">Creating a new record</a>.</li>
                 <li><a href="#updating">Updating a record</a>.</li>
@@ -59,7 +60,7 @@
 &lt;/head&gt;
         </pre>
         
-        <a id="container"></a>
+        <a id="creatingAContainer"></a>
         <h2>Creating a container</h2>
         <p>
             Zcrud needs a container to include all the generated HTML code. It can be a simple <em>div</em> tag:
@@ -481,7 +482,7 @@ $( '#container' ).zcrud(
         <p>
             Let's take a look at ZCrud in action:
         </p>
-        <div id="departmentsContainer">
+        <div id="container">
             <div id="zcrud-busy-message">
                 Starting ZCrud...
             </div>
