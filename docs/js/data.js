@@ -10,7 +10,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "false"
+		"important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 2,
@@ -23,7 +24,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 3,
@@ -36,7 +38,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 4,
@@ -49,7 +52,8 @@ var people = [
 		"country": 1,
 		"city": 2,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 5,
@@ -62,7 +66,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 6,
@@ -75,7 +80,8 @@ var people = [
 		"country": 1,
 		"city": 2,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 7,
@@ -88,7 +94,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 8,
@@ -101,7 +108,8 @@ var people = [
 		"country": 5,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 9,
@@ -114,7 +122,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 10,
@@ -127,7 +136,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 11,
@@ -140,7 +150,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 12,
@@ -153,7 +164,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 13,
@@ -166,7 +178,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 14,
@@ -179,7 +192,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 15,
@@ -192,7 +206,8 @@ var people = [
 		"country": 4,
 		"city": 2,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 16,
@@ -205,7 +220,8 @@ var people = [
 		"country": 4,
 		"city": 2,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 17,
@@ -218,7 +234,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 18,
@@ -231,7 +248,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 19,
@@ -244,7 +262,8 @@ var people = [
 		"country": 3,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 20,
@@ -257,7 +276,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 21,
@@ -270,7 +290,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 22,
@@ -283,7 +304,8 @@ var people = [
 		"country": 5,
 		"city": 1,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 23,
@@ -296,7 +318,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 24,
@@ -322,7 +345,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 26,
@@ -335,7 +359,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Chrome",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 27,
@@ -348,7 +373,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 28,
@@ -361,7 +387,8 @@ var people = [
 		"country": 1,
 		"city": 3,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 29,
@@ -374,7 +401,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 30,
@@ -387,7 +415,8 @@ var people = [
 		"country": 1,
 		"city": 2,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 31,
@@ -400,7 +429,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 32,
@@ -413,7 +443,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 33,
@@ -426,7 +457,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 34,
@@ -439,7 +471,8 @@ var people = [
 		"country": 3,
 		"city": 1,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 35,
@@ -452,7 +485,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 36,
@@ -465,7 +499,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 37,
@@ -478,7 +513,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 38,
@@ -491,7 +527,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 39,
@@ -504,7 +541,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 40,
@@ -517,7 +555,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 41,
@@ -530,7 +569,8 @@ var people = [
 		"country": 1,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 42,
@@ -543,7 +583,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 43,
@@ -556,7 +597,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 44,
@@ -569,7 +611,8 @@ var people = [
 		"country": 1,
 		"city": 2,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 45,
@@ -582,7 +625,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 46,
@@ -595,7 +639,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 47,
@@ -608,7 +653,8 @@ var people = [
 		"country": 5,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 48,
@@ -621,7 +667,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 49,
@@ -634,7 +681,8 @@ var people = [
 		"country": 5,
 		"city": 3,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 50,
@@ -647,7 +695,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 51,
@@ -660,7 +709,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 52,
@@ -673,7 +723,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 53,
@@ -686,7 +737,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 54,
@@ -699,7 +751,8 @@ var people = [
 		"country": 1,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 55,
@@ -712,7 +765,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 56,
@@ -725,7 +779,8 @@ var people = [
 		"country": 4,
 		"city": 2,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 57,
@@ -738,7 +793,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 58,
@@ -751,7 +807,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 59,
@@ -764,7 +821,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 60,
@@ -777,7 +835,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 61,
@@ -790,7 +849,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 62,
@@ -803,7 +863,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 63,
@@ -816,7 +877,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 64,
@@ -829,7 +891,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 65,
@@ -842,7 +905,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 66,
@@ -855,7 +919,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 67,
@@ -868,7 +933,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Chrome",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 68,
@@ -881,7 +947,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 69,
@@ -894,7 +961,8 @@ var people = [
 		"country": 5,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 70,
@@ -907,7 +975,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 71,
@@ -920,7 +989,8 @@ var people = [
 		"country": 2,
 		"city": 2,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 72,
@@ -933,7 +1003,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 73,
@@ -946,7 +1017,8 @@ var people = [
 		"country": 5,
 		"city": 1,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 74,
@@ -959,7 +1031,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 75,
@@ -972,7 +1045,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 76,
@@ -985,7 +1059,8 @@ var people = [
 		"country": 3,
 		"city": 1,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 77,
@@ -998,7 +1073,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 78,
@@ -1011,7 +1087,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 79,
@@ -1024,7 +1101,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 80,
@@ -1037,7 +1115,8 @@ var people = [
 		"country": 3,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 81,
@@ -1050,7 +1129,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 82,
@@ -1063,7 +1143,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 83,
@@ -1076,7 +1157,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 84,
@@ -1089,7 +1171,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 85,
@@ -1102,7 +1185,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 86,
@@ -1115,7 +1199,8 @@ var people = [
 		"country": 1,
 		"city": 2,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 87,
@@ -1128,7 +1213,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Chrome",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 88,
@@ -1141,7 +1227,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 89,
@@ -1154,7 +1241,8 @@ var people = [
 		"country": 4,
 		"city": 2,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 90,
@@ -1167,7 +1255,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 91,
@@ -1180,7 +1269,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 92,
@@ -1193,7 +1283,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 93,
@@ -1206,7 +1297,8 @@ var people = [
 		"country": 3,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 94,
@@ -1219,7 +1311,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 95,
@@ -1232,7 +1325,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 96,
@@ -1245,7 +1339,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 97,
@@ -1258,7 +1353,8 @@ var people = [
 		"country": 1,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 98,
@@ -1271,7 +1367,8 @@ var people = [
 		"country": 1,
 		"city": 3,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 99,
@@ -1284,7 +1381,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Chrome",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 100,
@@ -1297,7 +1395,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 101,
@@ -1310,7 +1409,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 102,
@@ -1323,7 +1423,8 @@ var people = [
 		"country": 1,
 		"city": 2,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 103,
@@ -1336,7 +1437,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 104,
@@ -1349,7 +1451,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 105,
@@ -1362,7 +1465,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 106,
@@ -1375,7 +1479,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 107,
@@ -1388,7 +1493,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 108,
@@ -1401,7 +1507,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 109,
@@ -1414,7 +1521,8 @@ var people = [
 		"country": 1,
 		"city": 2,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 110,
@@ -1427,7 +1535,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 111,
@@ -1440,7 +1549,8 @@ var people = [
 		"country": 1,
 		"city": 1,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 112,
@@ -1453,7 +1563,8 @@ var people = [
 		"country": 1,
 		"city": 3,
 		"browser": "Opera",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 113,
@@ -1466,7 +1577,8 @@ var people = [
 		"country": 5,
 		"city": 2,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 114,
@@ -1479,7 +1591,8 @@ var people = [
 		"country": 4,
 		"city": 1,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 115,
@@ -1492,7 +1605,8 @@ var people = [
 		"country": 2,
 		"city": 2,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 116,
@@ -1505,7 +1619,8 @@ var people = [
 		"country": 3,
 		"city": 1,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 117,
@@ -1518,7 +1633,8 @@ var people = [
 		"country": 4,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 118,
@@ -1531,7 +1647,8 @@ var people = [
 		"country": 2,
 		"city": 1,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 119,
@@ -1544,7 +1661,8 @@ var people = [
 		"country": 5,
 		"city": 1,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 120,
@@ -1557,7 +1675,8 @@ var people = [
 		"country": 1,
 		"city": 3,
 		"browser": "Chrome",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 121,
@@ -1570,7 +1689,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 122,
@@ -1583,7 +1703,8 @@ var people = [
 		"country": 5,
 		"city": 3,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 123,
@@ -1596,7 +1717,8 @@ var people = [
 		"country": 4,
 		"city": 2,
 		"browser": "Firefox",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 124,
@@ -1609,7 +1731,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
 	},
 	{
 		"id": 125,
@@ -1622,7 +1745,8 @@ var people = [
 		"country": 3,
 		"city": 2,
 		"browser": "Safari",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 126,
@@ -1635,7 +1759,8 @@ var people = [
 		"country": 3,
 		"city": 3,
 		"browser": "Opera",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 127,
@@ -1648,7 +1773,8 @@ var people = [
 		"country": 5,
 		"city": 3,
 		"browser": "Internet Explorer",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
 	},
 	{
 		"id": 128,
@@ -1661,7 +1787,8 @@ var people = [
 		"country": 2,
 		"city": 3,
 		"browser": "Chrome",
-		"important": "false"
+        "important": "false",
+        "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
 	},
 	{
 		"id": 129,
@@ -1674,7 +1801,8 @@ var people = [
 		"country": 2,
 		"city": 2,
 		"browser": "Safari",
-		"important": "true"
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
 	}
 ];
 
