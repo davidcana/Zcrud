@@ -1,7 +1,7 @@
 /* ZcrudServerSide singleton class */
 var zcrudServerSide = (function() {
 
-    var allowedSubformsFields = [ 'members', 'externalMembers' ];
+    var allowedSubformsFields = [ 'skills' ];
     
     var people = {};
     var addPeople = function( peopleArray ){
@@ -9,6 +9,26 @@ var zcrudServerSide = (function() {
         for ( var i = 0; i < peopleArray.length; ++i ){
             var person = peopleArray[ i ];
             people[ person.id ] = person;
+        }
+    };
+    
+    var peopleSubformsData = {};
+    var addSubformsData = function( subformId, itemsArray ){
+
+        var peopleThisSubformData = peopleSubformsData[ subformId ];
+        if ( ! peopleThisSubformData ){
+            peopleThisSubformData = {};
+            peopleSubformsData[ subformId ] = peopleThisSubformData;
+        }
+        
+        for ( var i = 0; i < itemsArray.length; ++i ){
+            var item = itemsArray[ i ];
+            var personItems = peopleThisSubformData[ item.personId ];
+            if ( ! personItems ){
+                personItems = [];
+                peopleThisSubformData[ item.personId ] = personItems;
+            }
+            personItems.push( item );
         }
     };
     
@@ -367,22 +387,22 @@ var zcrudServerSide = (function() {
         // Build record
         dataToSend.record = $.extend( true, {}, input[ data.key ] );
         dataToSend.fieldsData = {};
-        processSubformsInGet( data, subformsFields, dataToSend.record, dataToSend );
+        processSubformsInGet( data, subformsFields, dataToSend.record, dataToSend, peopleSubformsData, data.key );
 
         return dataToSend;
     };
     
-    var processSubformsInGet = function( data, subformsFields, record, dataToSend ){
+    var processSubformsInGet = function( data, subformsFields, record, dataToSend, subformsData, key ){
 
         for ( var c = 0; c < subformsFields.length; ++c ){
             var subformFieldId = subformsFields[ c ];
 
             // Continue if record does not contain this subform
-            if ( record[ subformFieldId ] === undefined ){
+            if ( subformsData[ subformFieldId ] === undefined ){
                 continue;
             }
 
-            var allSubformValues = record[ subformFieldId ] || {};
+            var allSubformValues = subformsData[ subformFieldId ][ key ] || {};
             var thisFieldData = data[ subformFieldId ] || {};
 
             // Filter them
@@ -401,6 +421,7 @@ var zcrudServerSide = (function() {
     
     return {
         addPeople: addPeople,
+        addSubformsData: addSubformsData,
         ajax: ajax
     };
 })();
