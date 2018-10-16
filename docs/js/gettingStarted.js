@@ -2,7 +2,7 @@
 
 var options = {
 
-    entityId: 'department',
+    entityId: 'people',
     saveUserPreferences: false,
     
     pageConf: {
@@ -192,8 +192,8 @@ var options = {
     i18n: {
         language: 'en',
         files: { 
-            en: [ 'en-common.json', 'en-services.json' ],
-            es: [ 'es-common.json', 'es-services.json' ] 
+            en: [ 'en-common.json', 'en-people.json' ],
+            es: [ 'es-common.json', 'es-people.json' ] 
         }
     }
 };
