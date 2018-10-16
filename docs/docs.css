@@ -105,6 +105,11 @@ table.comparison td {
     padding: .25em;
 }
 
+/* Container */
+#container {
+    margin: 0 1em 0 1em;
+}
+
 /* Differences with jTable */
 #zcrud-jtable-differences {
     border-collapse: collapse;

@@ -2,18 +2,18 @@
 
 var options = {
 
-    entityId: 'department',
+    entityId: 'people',
     saveUserPreferences: false,
     
     pageConf: {
         defaultPageConf: {
-            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-            getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department'
+            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=people',
+            getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=people'
         },
         pages: {
             list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-                fields: [ 'id', 'name' ],
+                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=people',
+                fields: [ 'id', 'name', 'datetime', 'country', 'city', 'browser' ],
                 components: {
                     filtering: {
                         isOn: true,
@@ -48,10 +48,9 @@ var options = {
     key : 'id',
     fields: {
         id: {
-            sorting: false
         },
         name: {
-            width: '90%'
+            width: '30%'
         },
         description: {
             type: 'textarea',
@@ -75,30 +74,77 @@ var options = {
         phoneType: {
             type: 'radio',
             translateOptions: true,
-            options: function(){
-                return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
-            }
+            options: [
+                { value: '1', displayText: 'homePhone_option' }, 
+                { value: '2', displayText: 'officePhone_option' }, 
+                { value: '3', displayText: 'cellPhone_option' } 
+            ]
         },
-        province: {
+        country: {
             type: 'select',
-            options: [ 'Cádiz', 'Málaga' ],
-            defaultValue: 'Cádiz'
+            translateOptions: false,
+            options: [
+                { value: 1, displayText: 'France' }, 
+                { value: 2, displayText: 'Italy' },
+                { value: 3, displayText: 'Portugal' }, 
+                { value: 4, displayText: 'Spain' }, 
+                { value: 5, displayText: 'UK' }
+            ],
+            defaultValue: '4'
         },
         city: {
             type: 'select',
-            dependsOn: 'province',
+            sorting: false,
+            dependsOn: 'country',
             options: function( data ){
-                if ( ! data.dependedValues.province ){
-                    return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
+
+                if ( ! data.dependedValues.country ){
+                    return [];
                 }
 
-                switch ( data.dependedValues.province ) {
-                    case 'Cádiz':
-                        return [ 'Algeciras', 'Tarifa' ];
-                    case 'Málaga':
-                        return [ 'Estepona', 'Marbella' ];
+                switch ( parseInt( data.dependedValues.country ) ) {
+                    case 1:
+                        return [ 
+                            { value: 1, displayText: 'Paris' }, 
+                            { value: 2, displayText: 'Marseille' }, 
+                            { value: 3, displayText: 'Lyon' }, 
+                            { value: 4, displayText: 'Toulouse' },
+                            { value: 5, displayText: 'Nice' }
+                        ];
+                    case 2:
+                        return [ 
+                            { value: 1, displayText: 'Roma' }, 
+                            { value: 2, displayText: 'Milano' }, 
+                            { value: 3, displayText: 'Napoli' }, 
+                            { value: 4, displayText: 'Torino' },
+                            { value: 5, displayText: 'Paliemmu' }
+                        ];
+                    case 3:
+                        return [ 
+                            { value: 1, displayText: 'Lisboa' }, 
+                            { value: 2, displayText: 'Oporto' }, 
+                            { value: 3, displayText: 'Vila Nova de Gaia' }, 
+                            { value: 4, displayText: 'Amadora' },
+                            { value: 5, displayText: 'Braga' }
+                        ];
+                    case 4:
+                        return [ 
+                            { value: 1, displayText: 'Madrid' }, 
+                            { value: 2, displayText: 'Barcelona' }, 
+                            { value: 3, displayText: 'Valencia' }, 
+                            { value: 4, displayText: 'Sevilla' },
+                            { value: 5, displayText: 'Zaragoza' }
+                        ];
+                    case 5:
+                        return [ 
+                            { value: 1, displayText: 'London' }, 
+                            { value: 2, displayText: 'Birmingham' }, 
+                            { value: 3, displayText: 'Glasgow' }, 
+                            { value: 4, displayText: 'Liverpool' },
+                            { value: 5, displayText: 'Leeds' }
+                        ];
                     default:
-                        throw 'Unknown province: ' + data.dependedValues.province;
+                        throw 'Unknown country: ' + data.dependedValues.country;
                 }
             }
         },
@@ -108,6 +154,11 @@ var options = {
         },
         important: {
             type: 'checkbox'
+        },
+        hobbies: {
+            type: 'checkboxes',
+            translateOptions: true,
+            options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
         }
     },
 
@@ -128,8 +179,8 @@ var options = {
     i18n: {
         language: 'en',
         files: { 
-            en: [ 'en-common.json', 'en-services.json' ],
-            es: [ 'es-common.json', 'es-services.json' ] 
+            en: [ 'en-common.json', 'en-people.json' ],
+            es: [ 'es-common.json', 'es-people.json' ] 
         }
     }
 };
@@ -147,11 +198,11 @@ zptParser.init(
     function(){
         zptParser.run();
         
-        $( '#departmentsContainer' ).zcrud( 
+        $( '#container' ).zcrud( 
             'init',
             options,
             function( options ){
-                $( '#departmentsContainer' ).zcrud( 'renderList' );
+                $( '#container' ).zcrud( 'renderList' );
             }
         );
     }
