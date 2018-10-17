@@ -160,15 +160,15 @@ var options = {
             fields: { 
                 code: { },
                 name: { },
+                datetime: {
+                    type: 'datetime'
+                },
                 description: {
                     type: 'textarea',
                     formFieldAttributes: {
                         rows: 3,
                         cols: 80
                     }
-                },
-                datetime: {
-                    type: 'datetime'
                 }
             }
         }

@@ -81,11 +81,11 @@ var zcrudServerSide = (function() {
     };
     
     var ajaxPeopleBatchUpdate = function( file, data, url ){
-        return ajaxBatchUpdate( file, data, url, people );
+        return ajaxBatchUpdate( file, data, url, people, peopleSubformsData );
     };
     
     var ajaxPeopleGet = function( file, data ){
-        return ajaxGet( file, data, people, allowedSubformsFields );
+        return ajaxGet( file, data, people, peopleSubformsData, allowedSubformsFields );
     };
     
     /* Generic methods */
@@ -201,7 +201,7 @@ var zcrudServerSide = (function() {
         return '' + itemIndex;
     };
     
-    var ajaxBatchUpdate = function( file, data, url, input ){
+    var ajaxBatchUpdate = function( file, data, url, input, subformsData ){
 
         // Init data
         var dataToSend = {};
@@ -228,7 +228,7 @@ var zcrudServerSide = (function() {
                 continue;    
             }
 
-            subformsListBatchUpdate( currentItem, modifiedItem, dataToSend );
+            subformsListBatchUpdate( currentItem, modifiedItem, dataToSend, subformsData, id );
 
             var extendedItem = $.extend( true, {}, currentItem, modifiedItem );
 
@@ -258,7 +258,7 @@ var zcrudServerSide = (function() {
             if ( newItem.members ){
                 newItem.members = [];
             }
-            subformsListBatchUpdate( newItem, newItemClone, dataToSend );
+            subformsListBatchUpdate( newItem, newItemClone, dataToSend, subformsData, id );
             input[ id ] = newItem;
 
             dataToSend.newRecords.push( newItem );               
@@ -286,7 +286,7 @@ var zcrudServerSide = (function() {
         return dataToSend;
     };
 
-    var subformsListBatchUpdate = function( current, modified, dataToSend ){
+    var subformsListBatchUpdate = function( current, modified, dataToSend, subformsData, key ){
 
         var subformsFields = allowedSubformsFields;
 
@@ -294,7 +294,7 @@ var zcrudServerSide = (function() {
             if ( subformsFields.indexOf( id ) !== -1 ){
                 subformFieldBatchUpdate( 
                     modified[ id ], 
-                    current[ id ], 
+                    subformsData[ id ][ key ], 
                     dataToSend );
                 delete modified[ id ]; // Delete subform data in modified, current has been already updated
             }
@@ -377,7 +377,7 @@ var zcrudServerSide = (function() {
         return false;
     };
     
-    var ajaxGet = function( file, data, input, subformsFields ){
+    var ajaxGet = function( file, data, input, subformsData, subformsFields ){
 
         // Init data
         var dataToSend = {};
@@ -387,7 +387,7 @@ var zcrudServerSide = (function() {
         // Build record
         dataToSend.record = $.extend( true, {}, input[ data.key ] );
         dataToSend.fieldsData = {};
-        processSubformsInGet( data, subformsFields, dataToSend.record, dataToSend, peopleSubformsData, data.key );
+        processSubformsInGet( data, subformsFields, dataToSend.record, dataToSend, subformsData, data.key );
 
         return dataToSend;
     };
