@@ -110,8 +110,10 @@ module.exports = (function() {
             generalErrorFunction( data, options, dataFromServer );
         };
 
+        var validationData = authIsOK( data, options, eventData );
+        
         if ( data.clientOnly ){
-            if ( authIsOK( data, options, eventData ) ){
+            if ( validationData === true ){
                 dataToSend.result = 'OK';
                 successFunction(
                     data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ) );
@@ -129,11 +131,20 @@ module.exports = (function() {
             error  : errorFunction
         };
 
-        if ( authIsOK( data, options, eventData ) ){
+        if ( validationData === true ){
             options.ajax.ajaxFunction(
                 $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
         } else {
-            context.showError( options, false, 'invalidFormData', true );
+            // Show custom or default error message
+            var message, translate;
+            if ( validationData.message ){
+                message = validationData.message;
+                translate = validationData.translate;
+            } else {
+                message = 'invalidFormData';
+                translate = true;
+            }
+            context.showError( options, false, message, translate );
         }
     };
     

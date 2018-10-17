@@ -100,13 +100,31 @@ module.exports = (function() {
     var formIsValid = function( options, eventData ){
         
         var eventResult = options.events.formSubmitting( eventData, options );
+        var eventResultIsValid = eventResult === undefined || eventResult == true;
         
+        if ( ! validationOn( options ) ){
+            return eventResultIsValid;
+        }
+        
+        var isValid = $( '.' + errorClass ).length === 0 && eventResultIsValid;
+        
+        // Return result
+        if ( isValid ){
+            return true;
+        }
+        return $.isPlainObject( eventResult )? eventResult: false;
+    };
+    /*
+    var formIsValid = function( options, eventData ){
+
+        var eventResult = options.events.formSubmitting( eventData, options );
+
         if ( ! validationOn( options ) ){
             return false != eventResult;
         }
-        
+
         return $( '.' + errorClass ).length === 0 && false != eventResult;
-    };
+    };*/
     
     var buildFieldOptions = function( options ){
         return {};
