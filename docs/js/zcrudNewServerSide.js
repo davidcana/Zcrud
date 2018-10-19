@@ -32,6 +32,8 @@ var zcrudServerSide = (function() {
         }
     };
     
+    var verifiedMembers = {};
+    
     var ajax = function( options ){
 
         // Get file, cmd and table
@@ -47,14 +49,104 @@ var zcrudServerSide = (function() {
             case "people":
                 ajaxPeople( options, cmd, file, data, url );
                 break;
-            /*case "memberCheck":
+            case "memberCheck":
                 ajaxMembersCheck( options, cmd, file, data, url );
-                break;*/
+                break;
             default:
                 throw "Unknown table in ajax: " + table;
         }
     };
+    
+    var ajaxMembersCheck = function( options, cmd, file, data, url ){
 
+        // Run command
+        var dataToSend = undefined;
+        switch ( cmd ) {
+            case "BATCH_UPDATE":
+                dataToSend = ajaxMembersCheckBatchUpdate( file, data, url );
+                break;
+            case "GET":
+                dataToSend = ajaxMembersCheckGet( file, data, url );
+                break;
+            default:
+                throw "Unknown command in ajax: " + cmd;
+        }
+
+        options.success( dataToSend );
+    };
+    
+    var ajaxMembersCheckGet = function( file, data ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+
+        // Build record
+        dataToSend.record = {};
+        dataToSend.fieldsData = {};
+        processMembersSubformsInGet( data, dataToSend.record, dataToSend );
+
+        return dataToSend;
+    };
+    
+    var buildAndFilterArrayFromMap = function( input, data ){
+        
+        var allRecords = [];
+        for ( var id in input ) {
+            var person = input[ id ];
+            if ( ! matches( person, data.filter ) ){
+                continue;
+            }
+            person.id = id;
+            allRecords.push( clone( person ) );
+        }
+        return allRecords;
+    };
+    
+    var pageSubformRecords = function( record, subformFieldId, thisFieldData, allSubformValues, dataToSend ){
+        
+        var thisFieldDataToSend = {};
+        pageRecords( thisFieldData, thisFieldDataToSend, allSubformValues );
+        record[ subformFieldId ] = thisFieldDataToSend.records;
+        dataToSend.fieldsData[ subformFieldId ] = {
+            totalNumberOfRecords: thisFieldDataToSend.totalNumberOfRecords
+        };
+    };
+    
+    var processMembersSubformsInGet = function( data, record, dataToSend ){
+        
+        var subformFieldId;
+        
+        // Process originalMembers
+        subformFieldId = 'originalMembers';
+        record[ subformFieldId ] = buildAndFilterArrayFromMap( people, data );
+        pageSubformRecords( 
+            record, 
+            subformFieldId, 
+            data[ subformFieldId ]? 
+                cloneArray( data[ subformFieldId ] ): 
+                {}, 
+            record[ subformFieldId ], 
+            dataToSend );
+        
+        // Process verifiedMembers
+        subformFieldId = 'verifiedMembers';
+        record[ subformFieldId ] = buildAndFilterArrayFromMap( verifiedMembers, data );
+        pageSubformRecords( 
+            record, 
+            subformFieldId, 
+            data[ subformFieldId ]? 
+                cloneArray( data[ subformFieldId ] ): 
+                {}, 
+            record[ subformFieldId ], 
+            dataToSend );
+    };
+    
+    var cloneArray = function( arrayToClone ){
+        return $.extend( true, [], arrayToClone );
+    };
+    
     var ajaxPeople = function( options, cmd, file, data, url ){
 
         // Run command

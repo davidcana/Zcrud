@@ -4,6 +4,7 @@
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
 var normalizer = require( '../normalizer.js' );
+var Container = require( './container.js' );
 
 module.exports = (function() {
     "use strict";
@@ -11,7 +12,6 @@ module.exports = (function() {
     var getForList = function( listOptions, options, fields ){
 
         if ( listOptions.fieldsCache ){
-            //setPageToFields( pageOptions.fieldsCache, page );
             return listOptions.fieldsCache;
         }
 
@@ -25,7 +25,6 @@ module.exports = (function() {
             fields );
 
         listOptions.fieldsCache = fieldsCache;
-        //setPageToFields( pageOptions.fieldsCache, page );
 
         return fieldsCache;
     };
@@ -95,30 +94,32 @@ module.exports = (function() {
         return result;
     };
     
-    var build1Pass = function( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
+    var build1Pass = function( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId, container ) {
 
         // Is string?
         if ( $.type( item ) === 'string' ){
-            addField( fields[ item ], result, options, functionToApplyToField, containerType, containerId );
-            //addField( options.fields[ item ], result, options, functionToApplyToField, containerType, containerId );
+            addField( fields[ item ], result, options, functionToApplyToField, containerType, containerId, container );
             
         // Is fieldsGroup?
         } else if ( item.type == 'fieldsGroup' ){
-            buildFieldsFromFieldsGroup( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId );
+            buildFieldsFromFieldsGroup( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId, container );
 
         // Must be a field instance
         } else {
             var newField = normalizer.buildFullFieldInstance( item.id, item, options );
-            addField( newField, result, options, functionToApplyToField, containerType, containerId );
+            addField( newField, result, options, functionToApplyToField, containerType, containerId, container );
         }
     };
     
     var buildFieldsFromFieldsGroup = function( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
         
+        var container;
+        
         // Get configuration if it is a container
         if ( item.container && item.container.containerType != 'none' ){
             containerType = item.container.containerType;
             containerId = item.container.id;
+            container = item.container;
         }
         
         // Get configuration from item
@@ -147,7 +148,7 @@ module.exports = (function() {
 
                 // Is a fieldContainer?
                 if ( viewItem.type == "fieldContainer" ){
-                    var container = viewItem;
+                    container = viewItem;
                     for ( var i = 0; i < container.fields.length; ++i ){
                         addField( 
                             container.fields[ i ], 
@@ -155,7 +156,9 @@ module.exports = (function() {
                             options, 
                             functionToApplyToField, 
                             container.containerType, 
-                            container.id );
+                            container.id,
+                            container, 
+                            true );
                     }   
 
                 // Must be a field
@@ -168,7 +171,8 @@ module.exports = (function() {
                         pageIdArray, 
                         functionToApplyToField,  
                         containerType, 
-                        containerId );
+                        containerId,
+                        container );
                 }
             }
 
@@ -179,27 +183,43 @@ module.exports = (function() {
         
     };
     
-    var addField = function( field, result, options, functionToApplyToField, containerType, containerId ){
+    var buildContainerInstance = function( container, options ){
+        
+        $.extend( 
+            true, 
+            container,
+            {
+                type: "fieldContainer",
+                template: options.containers.types[ container.containerType ].template,
+                fields: [],
+                options: options
+            }
+        );
+        
+        return new Container( container );
+    };
+    
+    var addField = function( field, result, options, functionToApplyToField, containerType, containerId, newContainer, dontAddToContainer ){
         
         result.fieldsArray.push( field );
         result.fieldsMap[ field.id ] = field;
         
-        if ( containerId ){
+        if ( containerId ){ 
             var container = result.view[ result.view.length - 1 ];
+            
+            //if ( newContainer ){
             if ( ! container || container.id != containerId ){
-                container = {
-                    type: "fieldContainer",
-                    id: containerId,
-                    containerType: containerType,
-                    template: options.containers.types[ containerType ].template,
-                    fields: []
-                };
+                
+                container = buildContainerInstance( newContainer, options );
+                
                 if ( ! container.template ){
-                    throw 'Container with containerType "' + containerType + '" has got no template!';
+                    throw 'Container with containerId "' + containerId + '" has got no template!';
                 }
                 result.view.push( container );
             }
-            container.fields.push( field );
+            if ( ! dontAddToContainer ){
+                container.fields.push( field );
+            }
         } else {
             result.view.push( field );
         }
@@ -252,7 +272,8 @@ module.exports = (function() {
         }
         
         // Must be a page id
-        return getForPage( source, options, pageIdArray ).view;
+        result = getForPage( source, options, pageIdArray ).view;
+        return result;
     };
     
     var self = {

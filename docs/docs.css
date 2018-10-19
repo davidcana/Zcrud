@@ -66,6 +66,10 @@ aside section ul {
     margin: .5em;
 }
 
+fieldset {
+    margin: 0 1em 0 1em !important;
+}
+
 code {
     color: red;
 }

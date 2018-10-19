@@ -147,6 +147,7 @@ module.exports = {
         form_cancel: require( './buttons/formPage/cancelButton.js' ),
         form_copySubformRows: require( './buttons/formPage/copySubformRowsButton.js' ),
         form_submit: require( './buttons/formPage/submitButton.js' ),
+        form_filter: require( './buttons/formPage/filterButton.js' ),
         
         list_addNewRow: require( './buttons/listPage/addNewRowButton.js' ),
         list_deleteRow: require( './buttons/listPage/deleteRowButton.js' ),

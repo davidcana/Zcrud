@@ -50,15 +50,10 @@ var ButtonUtils = function() {
         
         var constructor = options.buttons[ buttonType ];
         if ( ! constructor ){
-            //constructor = options.buttons[ 'generic' ];
             throw 'Unknown button type to build: ' + buttonType;
         }
         return new constructor( properties, parent );
     };
-    /*
-    var buildButton = function( buttonType, properties, parent, options ){
-        return new options.buttons[ buttonType ]( properties, parent );
-    };*/
     
     return {
         getButtonList: getButtonList

@@ -62,6 +62,9 @@
     "cards_option": "Cartas",
     
     "_buttons": "",
-    "Copy original members": "Copiar miembros originales"
+    "Copy original members": "Copiar miembros originales",
     
+    "_filters": "",
+    "month_title": "Mes",
+    "year_title": "Año"
 }
