@@ -24,7 +24,7 @@ FilterButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: 'Cancel'
+            text: 'Filter'
         }
     };
 };

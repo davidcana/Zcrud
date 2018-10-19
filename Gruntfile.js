@@ -24,18 +24,6 @@ module.exports = function(grunt) {
                 src: 'js/app/standalone.js',
                 dest: 'build/standalone.js'
             },
-            standaloneServerSide: {
-                options: {
-                    plugin: [
-                        [ "browserify-derequire" ]
-                    ],
-                    browserifyOptions: {
-                        standalone: ''
-                    }
-                },
-                src: 'test/js/app/standalone.js',
-                dest: 'build/standaloneServerSide.js'
-            },
             sample: {
                 options: {
                     browserifyOptions: {
@@ -437,11 +425,6 @@ module.exports = function(grunt) {
                 files: {
                     'build/standalone.min.js': [ 'build/standalone.js' ]
                 }
-            },
-            standaloneServerSide: {
-                files: {
-                    'build/standaloneServerSide.min.js': [ 'build/standaloneServerSide.js' ]
-                }
             }
         },
         copy: {
@@ -452,14 +435,6 @@ module.exports = function(grunt) {
             standaloneMin: {
                 src: 'build/standalone.min.js',
                 dest: 'docs/lib/zcrud.min.js'
-            },
-            standaloneServerSide: {
-                src: 'build/standaloneServerSide.js',
-                dest: 'docs/lib/zcrudServerSide.js'
-            },
-            standaloneServerSideMin: {
-                src: 'build/standaloneServerSide.min.js',
-                dest: 'docs/lib/zcrudServerSide.min.js'
             }
         }
     });
@@ -473,5 +448,5 @@ module.exports = function(grunt) {
     
     grunt.registerTask('test', ['qunit']);
     grunt.registerTask('default', ['browserify']);
-    grunt.registerTask('standaloneToDocs', ['browserify:standalone', 'browserify:standaloneServerSide', 'uglify', 'copy']);
+    grunt.registerTask('standaloneToDocs', ['browserify:standalone', 'uglify', 'copy']);
 };
