@@ -12,16 +12,23 @@
              data-idomain="i18nArray">
             
             <div data-tattributes="id 'zcrud-message'"><!--empty--></div>
-            <div class="zcrud-header"> 
-                <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
-                    The title option
-                </span>
-                <span data-tcontent="tr: instance/getTitle()">
-                    Current form title
-                </span>
-                <span data-tcontent="tr:'(default)'">
-                    (default)
-                </span>
+            <div class="zcrud-header">
+                <div>
+                    <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
+                        The title option
+                    </span>
+                    <span data-tcontent="tr: instance/getTitle()">
+                        Current form title
+                    </span>
+                    <span data-tcontent="tr:'(default)'">
+                        (default)
+                    </span>
+                </div>
+                
+                <div data-muse-macro="'filterPanel@templates/lists.html'"
+                     data-tcondition="instance/getComponent( 'filtering' )">
+                    The filter panel
+                </div>
             </div>
             
             <form class="zcrud-form zcrud-data-entity" 

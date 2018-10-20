@@ -10,6 +10,7 @@ var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
+var ComponentsMap = require( '../components/componentsMap.js' );
 
 var FormPage = function ( optionsToApply, userDataToApply ) {
     "use strict";
@@ -43,6 +44,18 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         return type;
     };
     
+    var componentsMap = undefined;
+    var getComponent = function( id ){
+        return componentsMap.getComponent( id );
+    };
+    var getSecureComponent = function( id ){
+        return componentsMap.getSecureComponent( id );
+    };
+    
+    var getFieldsSource = function(){
+        return options.fields;
+    };
+    
     var setRecord = function( recordToApply ){
         record = recordToApply;
     };
@@ -74,7 +87,9 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     var getTitle = function(){
         return title;
     };
-    
+    var getName = function(){
+        return options.entityId;     
+    };
     var dictionary = undefined;
     
     var submitFunction = undefined;
@@ -174,6 +189,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             default:
                 throw "Unknown FormPage type: " + type;
         }
+        
+        componentsMap = new ComponentsMap( options, thisOptions.components, self, self );
         
         context.setHistory(
             new History( 
@@ -844,7 +861,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         buildProcessTemplateParams: buildProcessTemplateParams,
         cancelForm: cancelForm,
         getSubmitFunction: getSubmitFunction,
-        getToolbarButtons: getToolbarButtons
+        getToolbarButtons: getToolbarButtons,
+        getComponent: getComponent,
+        getSecureComponent: getSecureComponent,
+        getName: getName,
+        getFieldsSource: getFieldsSource
     };
     
     configure();
