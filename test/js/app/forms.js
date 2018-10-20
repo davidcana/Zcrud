@@ -964,16 +964,7 @@ QUnit.test( "form filtering test", function( assert ) {
                         },
                         filtering: {
                             isOn: true,
-                            fields: [ 
-                                {
-                                    "id": "code",
-                                    "type": "text"
-                                },
-                                {
-                                    "id": "name",
-                                    "type": "text"
-                                }
-                            ]
+                            fields: [ 'originalMembers/code', 'originalMembers/name' ]
                         }   
                     }
                 }

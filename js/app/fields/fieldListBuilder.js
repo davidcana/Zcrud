@@ -98,7 +98,15 @@ module.exports = (function() {
 
         // Is string?
         if ( $.type( item ) === 'string' ){
-            addField( fields[ item ], result, options, functionToApplyToField, containerType, containerId, container );
+            addField( 
+                getFieldUsingId( fields, item ), 
+                result, 
+                options, 
+                functionToApplyToField, 
+                containerType, 
+                containerId, 
+                container );
+            //addField( fields[ item ], result, options, functionToApplyToField, containerType, containerId, container );
             
         // Is fieldsGroup?
         } else if ( item.type == 'fieldsGroup' ){
@@ -274,6 +282,30 @@ module.exports = (function() {
         // Must be a page id
         result = getForPage( source, options, pageIdArray ).view;
         return result;
+    };
+    
+    /*
+    var getSubformIdFromName = function( source ){
+        return source.startsWith( 'subform/' )? source.substring( 'subform/'.length ): undefined;
+    };*/
+    
+    var getFieldUsingId = function( fields, id ){
+        
+        var index = id.indexOf( '/' );
+        
+        if ( index === -1 ){
+            return fields[ id ];
+        }
+        
+        var subformId = id.substring( 0, index );
+        var subformFieldId = id.substring( 1 + index );
+        var subform = fields[ subformId ];
+        
+        if ( ! subform ){
+            throw 'Subform with id "' + subformId + '" not found!';
+        }
+        
+        return subform.fields[ subformFieldId ];
     };
     
     var self = {
