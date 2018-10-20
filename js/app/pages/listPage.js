@@ -571,6 +571,25 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getSecureComponent( 'editing' ).removeChanges();
     };
     
+    var update = function(){
+        
+        // Get root
+        var root = [ $( '#' + thisOptions.tbodyId )[0] ];
+        
+        // Add pagingComponent to root
+        var pagingComponent = getComponent( 'paging' );
+        if ( pagingComponent ){
+            root.push( pagingComponent.get$()[0] );
+        }
+
+        // Show list page
+        show(
+            {
+                root: root
+            }
+        );
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -613,7 +632,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getByRowButtons: getByRowButtons,
         getToolbarButtons: getToolbarButtons,
         bindButtonsEvent: bindButtonsEvent,
-        removeChanges: removeChanges
+        removeChanges: removeChanges,
+        update: update
     };
     
     configure();

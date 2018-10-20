@@ -271,7 +271,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         var callback = params.callback;
         var key = params.key;
         var getRecordURL = params.getRecordURL;
-        var filter = params.filter;
+        //var filter = params.filter;
         
         //dictionaryExtension.key = key;
         
@@ -290,20 +290,19 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
         
         // Show form using record from server
-        showUsingServer( key, getRecordURL, dictionaryExtension, root, callback, filter );
+        showUsingServer( key, getRecordURL, dictionaryExtension, root, callback );
         isFirstExecution = false;
     };
     
-    var buildSearch = function( key, filter ){
+    var buildSearch = function( key ){
         
         var search = {};
         
         if ( key != undefined ){
             search.key = key;
         }
-        if ( filter != undefined ){
-            search.filter = filter;
-        }
+
+        componentsMap.addToDataToSend( search );
         
         addToDataToSend( search );
         
@@ -453,6 +452,9 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                     }*/
                 }
             );
+        
+        // Bind events of components
+        componentsMap.bindEvents();
     };
     
     var updateRecordFromJSON = function( jsonObject ) {
@@ -832,6 +834,21 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         return toolbarButtons;
     };
     
+    var isDirty = function(){
+
+        var history = context.getHistory();
+        return history? history.isDirty(): false;
+    };
+    
+    var update = function(){
+
+        show(
+            {
+                //root: get$().find( '.zcrud-form-updatable' )[0]
+            }
+        );
+    };
+    
     var self = {
         show: show,
         getParentPage: getParentPage,
@@ -865,7 +882,9 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         getComponent: getComponent,
         getSecureComponent: getSecureComponent,
         getName: getName,
-        getFieldsSource: getFieldsSource
+        getFieldsSource: getFieldsSource,
+        isDirty: isDirty,
+        update: update
     };
     
     configure();

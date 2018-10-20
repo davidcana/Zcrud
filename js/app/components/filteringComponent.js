@@ -102,7 +102,10 @@ FilteringComponent.prototype.updateParent = function(){
         );
         return;
     }
-
+    
+    this.parent.update();
+    
+    /*
     // Get root
     var pagingComponent = this.parent.getComponent( 'paging' );
     var root = pagingComponent?
@@ -119,7 +122,7 @@ FilteringComponent.prototype.updateParent = function(){
         {
             root: root
         }
-    );
+    );*/
 };
 
 FilteringComponent.prototype.get$ = function(){

@@ -24,11 +24,6 @@
                         (default)
                     </span>
                 </div>
-                
-                <div data-muse-macro="'filterPanel@templates/lists.html'"
-                     data-tcondition="instance/getComponent( 'filtering' )">
-                    The filter panel
-                </div>
             </div>
             
             <form class="zcrud-form zcrud-data-entity" 
@@ -37,14 +32,21 @@
                                 data-record-index 0;
                                 renderIds false;
                                 viewItems instance/getView()">
-                <div data-muse-macro="'status@templates/lists.html'"
-                     data-tcondition="instance/getThisOptions()/showStatus">
-                    The status message
+                <div data-muse-macro="'filterPanel@templates/lists.html'"
+                     data-tcondition="instance/getComponent( 'filtering' )">
+                    The filter panel
                 </div>
                 
-                <div data-muse-macro="viewItemsInFormExternalMacro"
-                     data-tdefine="spanFieldClass 'zcrud-field'">
-                    The fields
+                <div class="zcrud-form-updatable">
+                    <div data-muse-macro="'status@templates/lists.html'"
+                         data-tcondition="instance/getThisOptions()/showStatus">
+                        The status message
+                    </div>
+
+                    <div data-muse-macro="viewItemsInFormExternalMacro"
+                         data-tdefine="spanFieldClass 'zcrud-field'">
+                        The fields
+                    </div>
                 </div>
                 
                 <div data-muse-macro="'postTemplates@templates/lists.html'">
