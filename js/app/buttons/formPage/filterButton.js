@@ -33,8 +33,22 @@ FilterButton.prototype.run = function( event, formPage, $form ){
     
     event.preventDefault();
     event.stopPropagation();
-    
-    formPage.getSubmitFunction()( event, $form );
+
+    var filterRecord = fieldUtils.buildRecord( 
+        this.container.fields,
+        $form 
+    );
+
+    // Show list page
+    formPage.show( 
+        {
+            filter: filterRecord
+        }
+    );
+};
+
+FilterButton.prototype.setContainer = function( _container ){
+    this.container = _container;
 };
 
 module.exports = FilterButton;

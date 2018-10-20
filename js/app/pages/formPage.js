@@ -5,7 +5,6 @@ var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
 var validationManager = require( '../validationManager.js' );
 var $ = require( 'jquery' );
-//var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
@@ -255,6 +254,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         var callback = params.callback;
         var key = params.key;
         var getRecordURL = params.getRecordURL;
+        var filter = params.filter;
         
         //dictionaryExtension.key = key;
         
@@ -273,29 +273,33 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
         
         // Show form using record from server
-        showUsingServer( key, getRecordURL, dictionaryExtension, root, callback );
+        showUsingServer( key, getRecordURL, dictionaryExtension, root, callback, filter );
         isFirstExecution = false;
     };
     
-    var buildSearch = function( key ){
+    var buildSearch = function( key, filter ){
         
         var search = {};
         
         if ( key != undefined ){
             search.key = key;
         }
+        if ( filter != undefined ){
+            search.filter = filter;
+        }
+        
         addToDataToSend( search );
         
         return search;
     };
     
-    var showUsingServer = function( key, getRecordURL, dictionaryExtension, root, callback ) {
+    var showUsingServer = function( key, getRecordURL, dictionaryExtension, root, callback, filter ) {
 
         // Get the record from the server and show the form
         crudManager.getRecord( 
             {
                 url: getRecordURL || thisOptions.getRecordURL,
-                search: buildSearch( key ),
+                search: buildSearch( key, filter ),
                 success: function( dataFromServer ){
                     showUsingRecord( 
                         dataFromServer.record, 
