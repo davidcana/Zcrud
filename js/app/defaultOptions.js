@@ -18,7 +18,56 @@ module.exports = {
     saveUserPreferences: true,
     body: document.body,
     entityId: 'entity',
-
+    
+    defaultComponentsConfig: {
+        paging: {
+            isOn: false,
+            constructorClass: require( './components/pagingComponent.js' ),
+            defaultPageSize: 10,
+            pageSizes: [10, 25, 50, 100, 250, 500],
+            pageSizeChangeArea: true,
+            gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+            gotoPageFieldAttributes: {},
+            maxNumberOfAllShownPages: 5,
+            block1NumberOfPages: 1,
+            block2NumberOfPages: 5,
+            block3NumberOfPages: 1
+        },
+        sorting: {
+            isOn: false,
+            constructorClass: require( './components/sortingComponent.js' ),
+            loadFromLocalStorage: true,
+            default: {
+                fieldId: undefined,
+                type: undefined
+            },
+            allowUser: false
+        },
+        filtering: {
+            isOn: false,
+            constructorClass: require( './components/filteringComponent.js' ),
+            fieldsTemplate: 'compact-editable@templates/fieldLists.html'
+        },
+        selecting: {
+            isOn: false,
+            constructorClass: require( './components/selectingComponent.js' ),
+            multiple: true,
+            mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
+        },
+        editing: {
+            isOn: false,
+            constructorClass: require( './components/editingComponent.js' ),
+            modifiedFieldsClass: 'zcrud-modified-field',
+            modifiedRowsClass: 'zcrud-modified-row',
+            hideTr: function( $tr ){
+                $tr.fadeOut();
+            },
+            showTr: function( $tr ){
+                $tr.fadeIn();
+            }
+        }
+    },
+    
     fields: {},
     fieldsConfig: {
         constructors: {
@@ -73,42 +122,7 @@ module.exports = {
                     toolbar: [ 'subform_addNewRow' ],
                     byRow: [ 'subform_deleteRow' ]  
                 },
-                components: {
-                    paging: {
-                        isOn: false,
-                        constructorClass: require( './components/pagingComponent.js' ),
-                        defaultPageSize: 10,
-                        pageSizes: [10, 25, 50, 100, 250, 500],
-                        pageSizeChangeArea: true,
-                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                        gotoPageFieldAttributes: {},
-                        maxNumberOfAllShownPages: 5,
-                        block1NumberOfPages: 1,
-                        block2NumberOfPages: 5,
-                        block3NumberOfPages: 1
-                    },
-                    sorting: {
-                        isOn: false,
-                        constructorClass: require( './components/sortingComponent.js' ),
-                        loadFromLocalStorage: true,
-                        default: {
-                            fieldId: undefined,
-                            type: undefined
-                        },
-                        allowUser: false
-                    },
-                    filtering: {
-                        isOn: false,
-                        constructorClass: require( './components/filteringComponent.js' ),
-                        fieldsTemplate: 'compact-editable@templates/fieldLists.html'
-                    },
-                    selecting: {
-                        isOn: false,
-                        constructorClass: require( './components/selectingComponent.js' ),
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
-                    }
-                }
+                components: {}
             }
         },
         getDefaultFieldTemplate: function( field ){
@@ -184,50 +198,7 @@ module.exports = {
                 showStatus: true,
                 components: {
                     paging: {
-                        isOn: true,
-                        constructorClass: require( './components/pagingComponent.js' ),
-                        defaultPageSize: 10,
-                        pageSizes: [10, 25, 50, 100, 250, 500],
-                        pageSizeChangeArea: true,
-                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                        gotoPageFieldAttributes: {},
-                        maxNumberOfAllShownPages: 5,
-                        block1NumberOfPages: 1,
-                        block2NumberOfPages: 5,
-                        block3NumberOfPages: 1
-                    },
-                    sorting: {
-                        isOn: false,
-                        constructorClass: require( './components/sortingComponent.js' ),
-                        loadFromLocalStorage: true,
-                        default: {
-                            fieldId: undefined,
-                            type: undefined
-                        },
-                        allowUser: false
-                    },
-                    filtering: {
-                        isOn: false,
-                        constructorClass: require( './components/filteringComponent.js' ),
-                        fieldsTemplate: 'compact-editable@templates/fieldLists.html'
-                    },
-                    selecting: {
-                        isOn: false,
-                        constructorClass: require( './components/selectingComponent.js' ),
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
-                    },
-                    editing: {
-                        isOn: false,
-                        constructorClass: require( './components/editingComponent.js' ),
-                        modifiedFieldsClass: 'zcrud-modified-field',
-                        modifiedRowsClass: 'zcrud-modified-row',
-                        hideTr: function( $tr ){
-                            $tr.fadeOut();
-                        },
-                        showTr: function( $tr ){
-                            $tr.fadeIn();
-                        }
+                        isOn: true
                     }
                 },
                 buttons: {
@@ -237,18 +208,21 @@ module.exports = {
             }, 
             create: {
                 template: "formDefaultTemplate@templates/forms.html",
+                components: {},
                 buttons: {
                     toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
                 }
             }, 
             update: {
                 template: "formDefaultTemplate@templates/forms.html",
+                components: {},
                 buttons: {
                     toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
                 }
             }, 
             delete: {
                 template: "deleteDefaultTemplate@templates/forms.html",
+                components: {},
                 buttons: {
                     toolbar: [ 'form_cancel', 'form_submit' ]
                 }

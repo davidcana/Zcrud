@@ -88,7 +88,7 @@ module.exports = (function() {
         if ( field.type == undefined ) {
             field.type = 'text';
         }
-
+        
         return context.getFieldBuilder().createFieldInstance( field );
     };
 
@@ -130,6 +130,11 @@ module.exports = (function() {
             field.customOptions = {};
         }
         
+        // Normalize components if any
+        if ( field.components ){
+            field.components = $.extend( true, {}, options.defaultComponentsConfig, field.components );
+        }
+        
         // Normalize subfields in this field
         if ( field.fields ){
             field.fields = normalizeFieldGroupOptions( field.fields, options, field );
@@ -166,9 +171,12 @@ module.exports = (function() {
     var normalizePagesOptions = function( options ){
         
         var defaultPageConf = options.pageConf.defaultPageConf;
+        var defaultComponentsConfig = options.defaultComponentsConfig;
         $.each( options.pageConf.pages, function ( pageId, page ) {
             var pageConf = $.extend( true, {}, defaultPageConf, page );
             options.pageConf.pages[ pageId ] = pageConf;
+            var componentsConf = $.extend( true, {}, defaultComponentsConfig, pageConf.components );
+            pageConf.components = componentsConf;
         });
     };
     
