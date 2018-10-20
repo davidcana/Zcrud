@@ -14,21 +14,44 @@ var options = {
             list: {
                 template: "formDefaultTemplate@templates/forms.html",
                 fields: [ 
-                    {
-                        type: "fieldsGroup",
-                        source: [ 
-                            'month', 
-                            'year'
-                        ],
-                        container: {
-                            id: 'filterMembers',
-                            containerType: 'fieldSet',
-                            buttons: [ 'form_filter' ]
-                        }
-                    },
                     'originalMembers', 
                     'verifiedMembers'
                 ],
+                components: {
+                    paging: {
+                        isOn: false
+                    },
+                    filtering: {
+                        isOn: true,
+                        fields: [ 
+                            {
+                                id: 'month',
+                                type: 'select',
+                                translateOptions: true,
+                                options: [
+                                    { value: 1, displayText: 'January' }, 
+                                    { value: 2, displayText: 'February' },
+                                    { value: 3, displayText: 'March' }, 
+                                    { value: 4, displayText: 'April' }, 
+                                    { value: 5, displayText: 'May' },
+                                    { value: 6, displayText: 'June' }, 
+                                    { value: 7, displayText: 'July' },
+                                    { value: 8, displayText: 'August' }, 
+                                    { value: 9, displayText: 'September' }, 
+                                    { value: 10, displayText: 'October' },
+                                    { value: 11, displayText: 'November' },
+                                    { value: 12, displayText: 'December' }
+                                ]
+                            },
+                            {
+                                id: 'year',
+                                type: 'select',
+                                translateOptions: false,
+                                options: [ 2016, 2017, 2018 ]
+                            }
+                        ]
+                    }   
+                },
                 buttons: {
                     toolbar: [ 
                         'undo', 
@@ -58,29 +81,6 @@ var options = {
 
     key : 'id',
     fields: {
-        month: {
-            type: 'select',
-            translateOptions: true,
-            options: [
-                { value: 1, displayText: 'January' }, 
-                { value: 2, displayText: 'February' },
-                { value: 3, displayText: 'March' }, 
-                { value: 4, displayText: 'April' }, 
-                { value: 5, displayText: 'May' },
-                { value: 6, displayText: 'June' }, 
-                { value: 7, displayText: 'July' },
-                { value: 8, displayText: 'August' }, 
-                { value: 9, displayText: 'September' }, 
-                { value: 10, displayText: 'October' },
-                { value: 11, displayText: 'November' },
-                { value: 12, displayText: 'December' }
-            ]
-        },
-        year: {
-            type: 'select',
-            translateOptions: false,
-            options: [ 2016, 2017, 2018 ]
-        },
         originalMembers: {
             type: 'subform',
             url: 'http://localhost/CRUDManager.do?cmd=LIST&table=people',
