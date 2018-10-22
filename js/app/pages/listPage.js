@@ -235,18 +235,17 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         
         if ( ! root ){
             pageUtils.configureTemplate( options, "'" + thisOptions.template + "'" );
-            
         } else {
             componentsMap.resetPage();
         }
         
-        context.getZPTParser().run({
-            //root: options.target[0],
-            //root: root || options.body,
-            root: root || ( options.target? options.target[0]: null ) || options.body,
-            dictionary: dictionary,
-            notRemoveGeneratedTags: false
-        });
+        context.getZPTParser().run(
+            {
+                root: root || ( options.target? options.target[0]: null ) || options.body,
+                dictionary: dictionary,
+                notRemoveGeneratedTags: false
+            }
+        );
     };
     
     var afterProcessTemplate = function( $form ){

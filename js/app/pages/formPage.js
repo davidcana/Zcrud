@@ -237,22 +237,17 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         
         // Render template
         beforeProcessTemplate( dictionaryExtension );
-        pageUtils.configureTemplate( 
-            options, 
-            "'" + thisOptions.template + "'" );
-        /*
-        zpt.run({
-            //root: options.target[0],
-            root: root || options.body,
-            dictionary: dictionary,
-            declaredRemotePageUrls: options.templates.declaredRemotePageUrls
-        });*/
+        if ( ! root ){
+            pageUtils.configureTemplate( 
+                options, 
+                "'" + thisOptions.template + "'" );
+        }
+
         context.getZPTParser().run({
-            //root: options.target[0],
-            //root: root || options.body,
             root: root || ( options.target? options.target[0]: null ) || options.body,
             dictionary: dictionary,
-            declaredRemotePageUrls: options.templates.declaredRemotePageUrls
+            declaredRemotePageUrls: options.templates.declaredRemotePageUrls,
+            notRemoveGeneratedTags: false
         });
         afterProcessTemplate( get$form() );
         
@@ -484,6 +479,9 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             context.showError( options, false, 'No operation to do!' );
             return false;
         }
+        
+        // Add filter if needed
+        componentsMap.addToDataToSend( jsonObject );
         
         // Add success and error functions to data if not present yet. Add URL to data if not present yet
         var userSuccess = jsonObject.success;
@@ -844,9 +842,13 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
 
         show(
             {
-                //root: get$().find( '.zcrud-form-updatable' )[0]
+                root: get$().find( '.zcrud-form-updatable' )[0]
             }
         );
+    };
+    
+    var removeChanges = function(){
+        context.getHistory().reset( id );
     };
     
     var self = {
@@ -884,7 +886,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         getName: getName,
         getFieldsSource: getFieldsSource,
         isDirty: isDirty,
-        update: update
+        update: update,
+        removeChanges: removeChanges
     };
     
     configure();

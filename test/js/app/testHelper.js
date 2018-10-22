@@ -1494,6 +1494,17 @@ module.exports = (function() {
         return get$SubformBottomPanel( subformName ).find( '.zcrud-go-to-page-field' ).val();
     };
     
+    var fromObjectToArray = function( object ){
+    
+        var result = [];
+        
+        for ( var id in object ){
+            result.push( object[ id ] );
+        }
+        
+        return result;
+    };
+    
     return {
         countVisibleRows: countVisibleRows,
         countVisibleSubformRows: countVisibleSubformRows,
@@ -1577,6 +1588,7 @@ module.exports = (function() {
         goToNextSubformPage: goToNextSubformPage,
         getListPageNumber: getListPageNumber,
         getSubformPageNumber: getSubformPageNumber,
-        getSubformLastRow: getSubformLastRow
+        getSubformLastRow: getSubformLastRow,
+        fromObjectToArray: fromObjectToArray
     };
 })();

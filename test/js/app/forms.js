@@ -13,6 +13,17 @@ var extendedFormTestOptions = require( './editableSubformAsListExtendedTestOptio
 var thisTestOptions = undefined;
 var options = undefined;
 
+var abortedConfirmFunctionCounter = 0;
+var abortedConfirmFunction = function(){
+    ++abortedConfirmFunctionCounter;
+};
+
+var discardConfirmFunctionCounter = 0;
+var discardConfirmFunction = function( confirmOptions, onFulfilled ){
+    ++discardConfirmFunctionCounter;
+    onFulfilled( 'discard' );
+};
+
 // Run tests
 /*
 QUnit.test( "form simple test", function( assert ) {
@@ -958,13 +969,15 @@ QUnit.test( "form filtering test", function( assert ) {
         pageConf: {
             pages: {
                 list: {
+                    url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
+                    /*getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',*/
                     components: {
                         paging: {
                             isOn: false
                         },
                         filtering: {
                             isOn: true,
-                            fields: [ 'originalMembers/code', 'originalMembers/name' ]
+                            fields: [ 'originalMembers/name' ]
                         }   
                     }
                 }
@@ -976,9 +989,8 @@ QUnit.test( "form filtering test", function( assert ) {
     var numberOfOriginalMembers = 12;
     testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
-    var subformName = 'originalMembers';
     testHelper.setDefaultItemName( itemName );
-
+    
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -988,62 +1000,39 @@ QUnit.test( "form filtering test", function( assert ) {
 
             testUtils.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
-            /*
-            testHelper.pagingSubformTest({
-                subformName: subformName,
-                action: { 
-                    filter: {
-                        "originalMembers-name": 'Member 1' 
-                    }
-                },
-                options: options,
-                assert: assert,
-                visibleRows: 4,
-                pagingInfo: 'Showing 1-4 of 4 (filtered)',
-                ids:  '1/10/11/12',
-                names: 'Member 1/Member 10/Member 11/Member 12',
-                pageListNotActive: [ '<<', '<', '1', '>', '>>' ],
-                pageListActive: []
-            });
-
-            assert.equal( testHelper.getSelectedFromSubform( 'originalMembers', true ).length, 0 );
-
+            
+            // Assert  verified members is void
+            var form = $( '#departmentsContainer' ).zcrud( 'getFormPage' );
+            var verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                []
+            );
+            
+            // Filter by name
+            $( '[name="originalMembers-name"]' ).val( '1' );
+            $( '.zcrud-filter-submit-button' ).click();
+            
             // Select
             testHelper.subformSelectByText( 'originalMembers', '1', '11' );
-
-            assert.deepEqual( 
-                testHelper.getSelectedFromSubform( 'originalMembers', true ), 
-                [ 
-                    {
-                        "code": "1",
-                        "name": "Member 1",
-                        "description": "Description of Member 1",
-                        "important": false,
-                        "hobbies": []
-                    },
-                    {
-                        "code": "11",
-                        "name": "Member 11",
-                        "description": "Description of Member 11",
-                        "important": false,
-                        "hobbies": []
-                    }
-                ]);
-
+            
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
             $copyButton.click();
+            
+            // Edit last row
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 11 edited"
                 }, 
                 'verifiedMembers' );
-
+            
             // Submit and check storage
             testHelper.clickFormSubmitButton();
 
             var expectedVerifiedMembers = {
                 "1": {
+                    "filter": "1",
                     "code": "1",
                     "name": "Member 1",
                     "description": "Description of Member 1",
@@ -1051,6 +1040,7 @@ QUnit.test( "form filtering test", function( assert ) {
                     "important": false
                 },
                 "11": {
+                    "filter": "1",
                     "code": "11",
                     "name": "Member 11",
                     "description": "Description of Member 11 edited",
@@ -1058,89 +1048,40 @@ QUnit.test( "form filtering test", function( assert ) {
                     "important": false
                 }
             };
+            
             assert.deepEqual( 
                 testUtils.getVerifiedMembers(), 
                 expectedVerifiedMembers );
-
-            // Delete row
-            testHelper.clickDeleteSubformRowButton( 'verifiedMembers', 0 );
-
-            // Submit and check storage
-            testHelper.clickFormSubmitButton();
-
-            expectedVerifiedMembers = {
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "hobbies": [],
-                    "important": false
-                }
-            };
+            
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
-                expectedVerifiedMembers );
-
-            // Select
-            testHelper.subformSelectByText( 'originalMembers', '1', '12' );
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Filter by name again
+            $( '[name="originalMembers-name"]' ).val( '2' );
+            $( '.zcrud-filter-submit-button' ).click();
             assert.deepEqual( 
-                testHelper.getSelectedFromSubform( 'originalMembers', true ), 
-                [ 
-                    {
-                        "code": "1",
-                        "name": "Member 1",
-                        "description": "Description of Member 1",
-                        "hobbies": [],
-                        "important": false,
-                    },
-                    {
-                        "code": "12",
-                        "name": "Member 12",
-                        "description": "Description of Member 12",
-                        "hobbies": [],
-                        "important": false
-                    }
-                ]);
-
-            // Copy
-            $copyButton.click();
+                verifiedMembersSubform.getRecords(), 
+                []
+            );
+            
+            // Filter by name again
+            $( '[name="originalMembers-name"]' ).val( '1' );
+            $( '.zcrud-filter-submit-button' ).click();
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Edit last row
+            /*
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 12 edited"
+                    "description": "Description of Member 11 edited(2)"
                 }, 
                 'verifiedMembers' );
-
-            // Submit and check storage
-            testHelper.clickFormSubmitButton();
-
-            expectedVerifiedMembers = {
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "hobbies": [],
-                    "important": false
-                },
-                "1": {
-                    "code": "1",
-                    "name": "Member 1",
-                    "description": "Description of Member 1",
-                    "hobbies": [],
-                    "important": false
-                },
-                "12": {
-                    "code": "12",
-                    "name": "Member 12",
-                    "description": "Description of Member 12 edited",
-                    "hobbies": [],
-                    "important": false
-                }
-
-            };
-            assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
-                expectedVerifiedMembers );
-                */
+            */
             done();
         }
     );

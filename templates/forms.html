@@ -27,17 +27,18 @@
             </div>
             
             <form class="zcrud-form zcrud-data-entity" 
-                  data-tattributes="id instance/getId()"
-                  data-tdefine="viewItemsInFormExternalMacro 'standard-editable@templates/fieldLists.html';
-                                data-record-index 0;
-                                renderIds false;
-                                viewItems instance/getView()">
+                  data-tattributes="id instance/getId()">
                 <div data-muse-macro="'filterPanel@templates/lists.html'"
                      data-tcondition="instance/getComponent( 'filtering' )">
                     The filter panel
                 </div>
                 
-                <div class="zcrud-form-updatable">
+                <div class="zcrud-form-updatable"
+                     data-tdefine="viewItemsInFormExternalMacro 'standard-editable@templates/fieldLists.html';
+                                   data-record-index 0;
+                                   renderIds false;
+                                   viewItems instance/getView()"
+                     data-idomain="i18nArray">
                     <div data-muse-macro="'status@templates/lists.html'"
                          data-tcondition="instance/getThisOptions()/showStatus">
                         The status message

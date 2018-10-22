@@ -8,21 +8,6 @@ module.exports = (function() {
     
     var services = {};
     var servicesSubformsFields = [ 'members', 'externalMembers' ];
-    /*
-    var services = {
-        '1': { name: 'Service 1' },
-        '2': { name: 'Service 2' },
-        '3': { name: 'Service 3' },
-        '4': { name: 'Service 4' },
-        '5': { name: 'Service 5' },
-        '6': { name: 'Service 6' },
-        '7': { name: 'Service 7' },
-        '8': { name: 'Service 8' },
-        '9': { name: 'Service 9' },
-        '10': { name: 'Service 10' },
-        '11': { name: 'Service 11' },
-        '12': { name: 'Service 12' }
-    };*/
     var numberOfServices = 130;
     var serviceIndex = numberOfServices - 1;
     var resetServices = function( newServices, addDescriptions ){
@@ -87,7 +72,8 @@ module.exports = (function() {
         members = {};
         members.originalMembers = [];
         members.verifiedMembers = {};
-
+        //members.verifiedMembersFiltering = {};
+        
         for ( var c = 0; c < numberOfItems; ++c ){
             var sufix = "" + ( c + 1 );
             var thisName = name + " " + sufix;
@@ -182,9 +168,15 @@ module.exports = (function() {
             case "BATCH_UPDATE":
                 dataToSend = ajaxMembersCheckBatchUpdate( file, data, url );
                 break;
+            case "BATCH_UPDATE_FILTERING":
+                dataToSend = ajaxMembersCheckBatchUpdateFiltering( file, data, url );
+                break;
             case "GET":
                 dataToSend = ajaxMembersCheckGet( file, data, url );
                 break;
+            /*case "GET_FILTERING":
+                dataToSend = ajaxMembersCheckGetFiltering( file, data, url );
+                break;*/
             case "LIST":
                 dataToSend = ajaxMembersCheckList( file, data, url );
                 break;
@@ -453,6 +445,106 @@ module.exports = (function() {
         return dataToSend;
     };
     
+    var ajaxMembersCheckBatchUpdateFiltering = function( file, data, url ){
+
+        var dataToSend = {};
+        dataToSend.message = '';
+        if ( ! data || ! data.filter || data.filter.name == undefined || data.filter.name == '' ){
+            dataToSend.result = 'Error';
+            dataToSend.message = 'Filter not set!';
+            return dataToSend;
+        }
+        
+        lastBatchUpdateUrl = url;
+        jsonUpdatesArray.push( 
+            $.extend( true, {}, data ) );
+
+        // Init data
+        dataToSend.verifiedMembers = {};
+        dataToSend.verifiedMembers.newRecords = [];
+        var error = false;
+        
+        var input = members.verifiedMembers;
+        /*
+        var index = data.filter.name;
+        var input = members.verifiedMembersFiltering[ index ];
+        if ( ! input ){
+            input = {};
+            members.verifiedMembersFiltering[ index ] = input;
+        }*/
+
+        // Add all existing services
+        for ( var id in data.existingRecords ) {
+            var modifiedItem = data.existingRecords.verifiedMembers[ id ].verifiedMembers;
+            var currentItem = input[ id ];
+
+            if ( ! currentItem ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + id + '" not found trying to update it!';
+                continue;       
+            }
+
+            var newId = modifiedItem.code;
+            var newIdService = input[ newId ];
+            if ( id != newId && newIdService ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + newId + '" found: duplicated key trying to update it!';
+                continue;    
+            }
+
+            var extendedItem = $.extend( true, {}, currentItem, modifiedItem );
+
+            if ( newId && id !== newId ){
+                delete input[ id ];
+                id = newId;
+            }
+            input[ id ] = extendedItem; 
+            extendedItem.filter = data.filter.name;
+        }
+
+        // Add all new services
+        for ( var c = 0; c < data.newRecords[ 0 ].verifiedMembers.newRecords.length; c++ ) {
+            var newItem = data.newRecords[ 0 ].verifiedMembers.newRecords[ c ];
+
+            if ( newItem.code == undefined ){
+                newItem.code = buildVerifiedMemberId( input );
+            }
+            id = newItem.code;
+            currentItem = input[ id ];
+
+            if ( currentItem ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + id + '" found trying to create it!';
+                continue;
+            }
+            input[ id ] = newItem;
+
+            dataToSend.verifiedMembers.newRecords.push( newItem );  
+            newItem.filter = data.filter.name;
+        }
+
+        // Remove all services to remove
+        for ( c = 0; c < data.newRecords[ 0 ].verifiedMembers.recordsToRemove.length; c++ ) {
+            id = data.newRecords[ 0 ].verifiedMembers.recordsToRemove[ c ];
+            currentItem = input[ id ];
+
+            if ( ! currentItem ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + id + '" not found trying to delete it!';
+                continue;
+            }
+
+            delete input[ id ];                
+        }
+
+        dataToSend.result = dataToSend.result || error? 'Error': 'OK';
+        if ( dataToSend.message != '' ){
+            dataToSend.translateMessage = false;
+        }
+
+        return dataToSend;
+    };
+    
     var ajaxMembersCheckList = function( file, data, url ){
 
         lastListUrl = url;
@@ -500,6 +592,21 @@ module.exports = (function() {
         
         return dataToSend;
     };
+    /*
+    var ajaxMembersCheckGetFiltering = function( file, data ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+
+        // Build record
+        dataToSend.record = {};
+        dataToSend.fieldsData = {};
+        processMembersSubformsInGet( data, dataToSend.record, dataToSend );
+
+        return dataToSend;
+    };*/
     
     var cloneArray = function( arrayToClone ){
         return $.extend( true, [], arrayToClone );
@@ -508,6 +615,14 @@ module.exports = (function() {
     var processMembersSubformsInGet = function( data, record, dataToSend ){
 
         var subformsFields = [ 'originalMembers', 'verifiedMembers' ];
+        var filters = {
+            originalMembers: function( input ){
+                return filter( input, data.filter );
+            },
+            verifiedMembers: function( input ){
+                return filterVerified( input, data.filter );
+            }
+        };
         
         for ( var c = 0; c < subformsFields.length; ++c ){
             var subformFieldId = subformsFields[ c ];
@@ -520,7 +635,8 @@ module.exports = (function() {
                 {};
             
             // Filter them
-
+            allSubformValues = filters[ subformFieldId ]( allSubformValues, data.filter );
+            
             // Sort them
 
             // Page them
@@ -531,6 +647,42 @@ module.exports = (function() {
                 totalNumberOfRecords: thisFieldDataToSend.totalNumberOfRecords
             };
         }
+    };
+    
+    var filterVerified = function( input, filter ){
+
+        if ( ! filter ){
+            return [];
+        }
+
+        var result = [];
+
+        for ( var id in input ) {
+            var item = input[ id ];
+            if ( item.filter == filter.name ){
+                result.push( item );
+            }
+        }
+
+        return result;
+    };
+    
+    var filter = function( input, filter ){
+        
+        if ( ! filter ){
+            return input;
+        }
+        
+        var result = [];
+        
+        for ( var id in input ) {
+            var item = input[ id ];
+            if ( matches( item, filter ) ){
+                result.push( item );
+            }
+        }
+        
+        return result;
     };
     
     var ajaxMembersFields = function( subformId, options, data ){
