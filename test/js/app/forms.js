@@ -985,7 +985,19 @@ QUnit.test( "form filtering test", function( assert ) {
         }
     };
     options = $.extend( true, {}, formTestOptions, thisTestOptions );
-
+    options.fields.originalMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: []
+        }
+    };
+    options.fields.verifiedMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: [ 'subform_addNewRow' ]
+        }
+    };
+    
     var numberOfOriginalMembers = 12;
     testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
