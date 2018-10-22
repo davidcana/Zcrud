@@ -174,9 +174,9 @@ module.exports = (function() {
             case "GET":
                 dataToSend = ajaxMembersCheckGet( file, data, url );
                 break;
-            /*case "GET_FILTERING":
+            case "GET_FILTERING":
                 dataToSend = ajaxMembersCheckGetFiltering( file, data, url );
-                break;*/
+                break;
             case "LIST":
                 dataToSend = ajaxMembersCheckList( file, data, url );
                 break;
@@ -592,21 +592,18 @@ module.exports = (function() {
         
         return dataToSend;
     };
-    /*
+    
     var ajaxMembersCheckGetFiltering = function( file, data ){
 
-        // Init data
-        var dataToSend = {};
-        dataToSend.result = 'OK';
-        dataToSend.message = '';
-
-        // Build record
-        dataToSend.record = {};
-        dataToSend.fieldsData = {};
-        processMembersSubformsInGet( data, dataToSend.record, dataToSend );
-
+        var dataToSend = ajaxMembersCheckGet( file, data );
+        
+        // Add key to record
+        if ( data.filter && data.filter.name ){
+            dataToSend.record.id = data.filter.name;
+        }
+        
         return dataToSend;
-    };*/
+    };
     
     var cloneArray = function( arrayToClone ){
         return $.extend( true, [], arrayToClone );

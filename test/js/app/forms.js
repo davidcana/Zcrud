@@ -970,7 +970,7 @@ QUnit.test( "form filtering test", function( assert ) {
             pages: {
                 list: {
                     url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
-                    /*getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',*/
+                    getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
                     components: {
                         paging: {
                             isOn: false
