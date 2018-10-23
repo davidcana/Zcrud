@@ -459,7 +459,9 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
                     jsonObject, 
                     type, 
                     record, 
-                    context.getHistory() );
+                    context.getHistory(),
+                    options
+                );
                 break;
             case 'delete':
                 // Nothing to do
@@ -633,7 +635,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             event,
             context.getJSONBuilder( options ).buildJSONForAll( 
                 getKeyFieldId(),
-                [ record ],
+                getComponent( 'filtering' )? [ record ]: [],
                 fields,
                 undefined,
                 context.getHistory() ),

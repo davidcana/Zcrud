@@ -25,7 +25,7 @@ var discardConfirmFunction = function( confirmOptions, onFulfilled ){
 };
 
 // Run tests
-/*
+
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -962,7 +962,7 @@ QUnit.test( "form after form test", function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( "form filtering test", function( assert ) {
 
     thisTestOptions = {
@@ -1086,13 +1086,46 @@ QUnit.test( "form filtering test", function( assert ) {
             );
             
             // Edit last row
-            /*
+            var editedDescription = "Description of Member 11 edited(2)";
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 11 edited(2)"
+                    "description": editedDescription
                 }, 
-                'verifiedMembers' );
-            */
+                'verifiedMembers' 
+            );
+            expectedVerifiedMembers[ "11" ].description = editedDescription;
+
+            // Submit and check storage
+            testHelper.clickFormSubmitButton();
+            
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Filter by name again
+            $( '[name="originalMembers-name"]' ).val( '2' );
+            $( '.zcrud-filter-submit-button' ).click();
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                []
+            );
+            
+            // Filter by name again
+            $( '[name="originalMembers-name"]' ).val( '1' );
+            $( '.zcrud-filter-submit-button' ).click();
+            
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
             done();
         }
     );

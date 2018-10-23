@@ -33,6 +33,10 @@ module.exports = (function() {
             var record = records[ rowIndex ];
             var key = record[ keyField ];
 
+            if ( key == undefined ){
+                throw 'Undefined key found trying to build JSON!';
+            }
+            
             if ( actionsObject.deleted.indexOf( key ) != -1 ){
                 continue;
             }
@@ -275,7 +279,7 @@ module.exports = (function() {
         }
     };
     
-    var getRecordFromJSON = function( jsonObject, formType, record, history ){
+    var getRecordFromJSON = function( jsonObject, formType, record, history, options ){
 
         switch ( formType ) {
             case 'create':
@@ -287,7 +291,8 @@ module.exports = (function() {
             case 'list':
                 history.updateRecord( 
                     record, 
-                    jsonObject.newRecords[ 0 ] || jsonObject.existingRecords[ Object.keys( jsonObject.existingRecords )[ 0 ] ] 
+                    jsonObject.newRecords[ 0 ] || jsonObject.existingRecords[ Object.keys( jsonObject.existingRecords )[ 0 ] ],
+                    options
                 );
                 return record;
             default:

@@ -546,7 +546,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         }
     }
     
-    var updateRecord = function( record, items ){
+    var updateRecord = function( record, items, options ){
         
         for ( var id in items ){
             
@@ -565,8 +565,20 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             record[ id ] = record[ id ].concat( item.newRecords );
             
             // Update modified records
+            var keyField = options.fields[ id ].subformKey;
             for ( var modifiedId in item.existingRecords ){
-                record[ id ][ modifiedId ] = item.existingRecords[ modifiedId ];
+                var existingRecord = item.existingRecords[ modifiedId ];
+                var done = false;
+                var i = 0;
+                while ( ! done ){
+                    var row = record[ id ][ i++ ];
+                    if ( ! row ){
+                        throw 'Error trying to update record: row not found!';
+                    } else if ( row[ keyField ] == modifiedId ){
+                        $.extend( true, row, existingRecord );
+                        done = true;
+                    }
+                }
             }
             
             // Delete removed records

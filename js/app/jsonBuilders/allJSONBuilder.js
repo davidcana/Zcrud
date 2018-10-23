@@ -24,8 +24,8 @@ module.exports = (function() {
         return defaultJSONBuilder.buildJSONForUpdateRecordMethod( sendOnlyModified, keyField, currentRecord, editedRecord, fieldsMap, fields, history );
     };
     
-    var getRecordFromJSON = function( jsonObject, formType, record, history ){
-        return defaultJSONBuilder.getRecordFromJSON( jsonObject, formType, record, history );
+    var getRecordFromJSON = function( jsonObject, formType, record, history, options ){
+        return defaultJSONBuilder.getRecordFromJSON( jsonObject, formType, record, history, options );
     };
     
     var self = {

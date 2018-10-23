@@ -360,7 +360,7 @@ module.exports = (function() {
 
         return dataToSend;
     };
-    
+    /*
     var ajaxMembersCheckBatchUpdate = function( file, data, url ){
 
         lastBatchUpdateUrl = url;
@@ -443,6 +443,89 @@ module.exports = (function() {
         }
 
         return dataToSend;
+    };*/
+    var ajaxMembersCheckBatchUpdate = function( file, data, url ){
+
+        lastBatchUpdateUrl = url;
+        jsonUpdatesArray.push( 
+            $.extend( true, {}, data ) );
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.message = '';
+        dataToSend.verifiedMembers = {};
+        dataToSend.verifiedMembers.newRecords = [];
+        var error = false;
+        var input = members.verifiedMembers;
+
+        // Add all existing services
+        for ( var id in data.existingRecords ) {
+            var modifiedItem = data.existingRecords.verifiedMembers[ id ].verifiedMembers;
+            var currentItem = input[ id ];
+
+            if ( ! currentItem ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + id + '" not found trying to update it!';
+                continue;       
+            }
+
+            var newId = modifiedItem.code;
+            var newIdService = input[ newId ];
+            if ( id != newId && newIdService ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + newId + '" found: duplicated key trying to update it!';
+                continue;    
+            }
+
+            var extendedItem = $.extend( true, {}, currentItem, modifiedItem );
+
+            if ( newId && id !== newId ){
+                delete services[ id ];
+                id = newId;
+            }
+            services[ id ] = extendedItem;  
+        }
+
+        // Add all new services
+        for ( var c = 0; c < data.newRecords[ 0 ].verifiedMembers.newRecords.length; c++ ) {
+            var newItem = data.newRecords[ 0 ].verifiedMembers.newRecords[ c ];
+
+            if ( newItem.code == undefined ){
+                newItem.code = buildVerifiedMemberId( input );
+            }
+            id = newItem.code;
+            currentItem = input[ id ];
+
+            if ( currentItem ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + id + '" found trying to create it!';
+                continue;
+            }
+            input[ id ] = newItem;
+
+            dataToSend.verifiedMembers.newRecords.push( newItem );               
+        }
+
+        // Remove all services to remove
+        for ( c = 0; c < data.newRecords[ 0 ].verifiedMembers.recordsToRemove.length; c++ ) {
+            id = data.newRecords[ 0 ].verifiedMembers.recordsToRemove[ c ];
+            currentItem = input[ id ];
+
+            if ( ! currentItem ){
+                error = true;
+                dataToSend.message += 'Verified member with key "' + id + '" not found trying to delete it!';
+                continue;
+            }
+
+            delete input[ id ];                
+        }
+
+        dataToSend.result = dataToSend.result || error? 'Error': 'OK';
+        if ( dataToSend.message != '' ){
+            dataToSend.translateMessage = false;
+        }
+
+        return dataToSend;
     };
     
     var ajaxMembersCheckBatchUpdateFiltering = function( file, data, url ){
@@ -478,7 +561,7 @@ module.exports = (function() {
                 
             // Add all existing services
             for ( var id in record.existingRecords ) {
-                var modifiedItem = data.existingRecords.verifiedMembers[ id ];
+                var modifiedItem = record.existingRecords[ id ];
                 var currentItem = input[ id ];
 
                 if ( ! currentItem ){
