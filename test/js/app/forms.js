@@ -1064,7 +1064,6 @@ QUnit.test( "form filtering test", function( assert ) {
             assert.deepEqual( 
                 testUtils.getVerifiedMembers(), 
                 expectedVerifiedMembers );
-            
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
                 testHelper.fromObjectToArray( expectedVerifiedMembers  )

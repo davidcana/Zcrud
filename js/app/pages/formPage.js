@@ -266,9 +266,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         var callback = params.callback;
         var key = params.key;
         var getRecordURL = params.getRecordURL;
-        //var filter = params.filter;
-        
-        //dictionaryExtension.key = key;
         
         // Show form using user record
         if ( userRecord ){
@@ -635,8 +632,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll( 
-                thisOptions.key, //undefined
-                [ ],
+                getKeyFieldId(),
+                [ record ],
                 fields,
                 undefined,
                 context.getHistory() ),

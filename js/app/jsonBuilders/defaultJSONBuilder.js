@@ -285,7 +285,10 @@ module.exports = (function() {
             case 'delete':
                 return jsonObject.recordsToRemove[ 0 ];
             case 'list':
-                history.updateRecord( record, jsonObject.newRecords[ 0 ] );
+                history.updateRecord( 
+                    record, 
+                    jsonObject.newRecords[ 0 ] || jsonObject.existingRecords[ Object.keys( jsonObject.existingRecords )[ 0 ] ] 
+                );
                 return record;
             default:
                 throw "Unknown FormPage type: " + formType;
