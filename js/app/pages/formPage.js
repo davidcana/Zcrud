@@ -630,12 +630,14 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     
     var submitList = function( event, $form ){
 
+        var keyFieldId = getKeyFieldId();
         return saveCommon( 
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll( 
-                getKeyFieldId(),
-                getComponent( 'filtering' )? [ record ]: [],
+                keyFieldId,
+                //getComponent( 'filtering' )? [ record ]: [],
+                record[ keyFieldId ]? [ record ]: [],
                 fields,
                 undefined,
                 context.getHistory() ),
