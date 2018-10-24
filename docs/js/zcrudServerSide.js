@@ -75,6 +75,127 @@ var zcrudServerSide = (function() {
         options.success( dataToSend );
     };
     
+    var ajaxMembersCheckBatchUpdate = function( file, data, url ){
+        return customAjaxBatchUpdate( file, data, url );
+    };
+    
+    var customAjaxBatchUpdate = function( file, data, url ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.message = '';
+        dataToSend.newRecords = [];
+        /*
+        for ( var id in data.existingRecords ) {
+            var modifiedItem = data.existingRecords[ id ];
+            var currentItem = input[ id ];
+
+            if ( ! currentItem ){
+                dataToSend.message += 'Item with key "' + id + '" not found trying to update it!';
+                continue;       
+            }
+
+            var newId = modifiedItem.id;
+            var newIdItem = input[ newId ];
+            if ( id != newId && newIdItem ){
+                dataToSend.message += 'Item with key "' + newId + '" found: duplicated key trying to update it!';
+                continue;    
+            }
+
+            if ( newId && id !== newId ){
+                delete input[ id ];
+                id = newId;
+            }
+            input[ id ] = currentItem;  
+        }*/
+
+        if ( data.newRecords ){
+            for ( var i in data.newRecords[ 0 ] ) {
+                var newItem = data.newRecords[ 0 ][ i ];
+                customItemsAjaxBatchUpdate( newItem, dataToSend, data.filter );
+            }
+        }
+
+        dataToSend.result = dataToSend.message != ''? 'Error': 'OK';
+        if ( dataToSend.message != '' ){
+            dataToSend.translateMessage = false;
+        }
+
+        return dataToSend;
+    };
+    
+    var customItemsAjaxBatchUpdate = function( data, dataToSend, filter ){
+
+        // Add all existing services
+        for ( var id in data.existingRecords ) {
+            var modifiedItem = data.existingRecords[ id ];
+            var currentItem = verifiedMembers[ id ];
+
+            if ( ! currentItem ){
+                dataToSend.message += 'Item with key "' + id + '" not found trying to update it!';
+                continue;       
+            }
+            
+            currentItem = people[ id ];
+            var newId = modifiedItem.id;
+            var newIdItem = people[ newId ];
+            if ( id != newId && newIdItem ){
+                dataToSend.message += 'Item with key "' + newId + '" found: duplicated key trying to update it!';
+                continue;    
+            }
+
+            if ( newId && id !== newId ){
+                delete verifiedMembers[ id ];
+                id = newId;
+            }
+            verifiedMembers[ id ] = currentItem;  
+        }
+
+        // Add all new services
+        for ( var c = 0; c < data.newRecords.length; c++ ) {
+            var newItem = data.newRecords[ c ];
+            id = newItem.id;
+            currentItem = verifiedMembers[ id ];
+
+            if ( currentItem ){
+                dataToSend.message += 'Item with key "' + id + '" found trying to create it!';
+                continue;
+            }
+            
+            var newItemClone = $.extend( true, {}, people[ id ], newItem );
+            verifiedMembers[ id ] = newItemClone;
+            //dataToSend.newRecords.push( newItemClone );
+            
+            if ( newItemClone.groupId == undefined ){
+                newItemClone.groupId = buildIdUsingFilter( filter );
+            }
+        }
+
+        // Remove all services to remove
+        for ( c = 0; c < data.recordsToRemove.length; c++ ) {
+            id = data.recordsToRemove[ c ];
+            currentItem = verifiedMembers[ id ];
+
+            if ( ! currentItem ){
+                dataToSend.message += 'Item with key "' + id + '" not found trying to delete it!';
+                continue;
+            }
+
+            delete verifiedMembers[ id ];               
+        }
+
+        return dataToSend;
+    };
+    
+    var buildIdUsingFilter = function( filter ){
+        
+        if ( ! filter ){
+            throw 'Error: undefined filter!'     
+        }
+        
+        return '' + filter.month + '-' + filter.year;
+    };
+    
     var ajaxMembersCheckGet = function( file, data ){
 
         // Init data
@@ -90,12 +211,12 @@ var zcrudServerSide = (function() {
         return dataToSend;
     };
     
-    var buildAndFilterArrayFromMap = function( input, data ){
+    var buildAndFilterArrayFromMap = function( input, filterFunction ){
         
         var allRecords = [];
         for ( var id in input ) {
             var person = input[ id ];
-            if ( ! matches( person, data.filter ) ){
+            if ( ! filterFunction( person ) ){
                 continue;
             }
             person.id = id;
@@ -118,9 +239,26 @@ var zcrudServerSide = (function() {
         
         var subformFieldId;
         
+        var originalMembersFilterFunction = function( person ){
+            if ( ! data.filter || ! data.filter.month || ! data.filter.year ){
+                return true;
+            }
+            var datetime = person.datetime;
+            var month = 1 + datetime.getMonth();
+            var year = datetime.getFullYear();
+            return month == data.filter.month && year == data.filter.year;
+        };
+        var verifiedMembersFilterFunction = function( person ){
+            if ( ! data.filter || ! data.filter.month || ! data.filter.year ){
+                return true;
+            }
+            var filterGroupId = buildIdUsingFilter( data.filter );
+            return person.groupId == filterGroupId;
+        };
+        
         // Process originalMembers
         subformFieldId = 'originalMembers';
-        record[ subformFieldId ] = buildAndFilterArrayFromMap( people, data );
+        record[ subformFieldId ] = buildAndFilterArrayFromMap( people, originalMembersFilterFunction );
         pageSubformRecords( 
             record, 
             subformFieldId, 
@@ -132,7 +270,7 @@ var zcrudServerSide = (function() {
         
         // Process verifiedMembers
         subformFieldId = 'verifiedMembers';
-        record[ subformFieldId ] = buildAndFilterArrayFromMap( verifiedMembers, data );
+        record[ subformFieldId ] = buildAndFilterArrayFromMap( verifiedMembers, verifiedMembersFilterFunction );
         pageSubformRecords( 
             record, 
             subformFieldId, 
@@ -380,6 +518,10 @@ var zcrudServerSide = (function() {
 
     var subformsListBatchUpdate = function( current, modified, dataToSend, subformsData, key ){
 
+        if ( ! subformsData ){
+            return;
+        }
+        
         var subformsFields = allowedSubformsFields;
 
         for ( var id in modified ){

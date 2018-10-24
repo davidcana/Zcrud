@@ -2,7 +2,7 @@
 
 var options = {
 
-    entityId: 'department',
+    entityId: 'people',
     saveUserPreferences: false,
     
     pageConf: {
