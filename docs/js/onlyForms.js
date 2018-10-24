@@ -159,10 +159,10 @@ var options = {
     ajax: {
         ajaxFunction: zcrudServerSide.ajax
     },
-    
+    /*
     templates: {
         declaredRemotePageUrls: [ 'templates/fieldLists.html', 'templates/lists.html' ]
-    },
+    },*/
     
     i18n: {
         language: 'en',

@@ -112,10 +112,10 @@ module.exports = {
     ajax:{
         ajaxFunction: testUtils.ajax    
     },
-    
+    /*
     templates: {
         declaredRemotePageUrls: [ 'templates/fieldLists.html', 'templates/lists.html' ]
-    },
+    },*/
     
     events: {},
     

@@ -230,7 +230,7 @@ module.exports = {
     },
 
     templates: {
-        declaredRemotePageUrls: [ 'templates/fieldLists.html' ]
+        declaredRemotePageUrls: [ 'templates/lists.html', 'templates/fieldLists.html' ]
         //busyTemplate: "busyDefaultTemplate@templates/misc.html"
     },
 
