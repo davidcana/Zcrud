@@ -193,7 +193,7 @@ var zcrudServerSide = (function() {
             throw 'Error: undefined filter!'     
         }
         
-        return '' + filter.month + '-' + filter.year;
+        return '' + filter.year;
     };
     
     var ajaxMembersCheckGet = function( file, data ){
@@ -240,16 +240,15 @@ var zcrudServerSide = (function() {
         var subformFieldId;
         
         var originalMembersFilterFunction = function( person ){
-            if ( ! data.filter || ! data.filter.month || ! data.filter.year ){
+            if ( ! data.filter || ! data.filter.year ){
                 return true;
             }
             var datetime = person.datetime;
-            var month = 1 + datetime.getMonth();
             var year = datetime.getFullYear();
-            return month == data.filter.month && year == data.filter.year;
+            return year == data.filter.year;
         };
         var verifiedMembersFilterFunction = function( person ){
-            if ( ! data.filter || ! data.filter.month || ! data.filter.year ){
+            if ( ! data.filter || ! data.filter.year ){
                 return true;
             }
             var filterGroupId = buildIdUsingFilter( data.filter );

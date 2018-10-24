@@ -25,29 +25,16 @@ var options = {
                         isOn: true,
                         fields: [ 
                             {
-                                id: 'month',
-                                type: 'select',
-                                translateOptions: true,
-                                options: [
-                                    { value: 1, displayText: 'January' }, 
-                                    { value: 2, displayText: 'February' },
-                                    { value: 3, displayText: 'March' }, 
-                                    { value: 4, displayText: 'April' }, 
-                                    { value: 5, displayText: 'May' },
-                                    { value: 6, displayText: 'June' }, 
-                                    { value: 7, displayText: 'July' },
-                                    { value: 8, displayText: 'August' }, 
-                                    { value: 9, displayText: 'September' }, 
-                                    { value: 10, displayText: 'October' },
-                                    { value: 11, displayText: 'November' },
-                                    { value: 12, displayText: 'December' }
-                                ]
-                            },
-                            {
                                 id: 'year',
                                 type: 'select',
                                 translateOptions: false,
-                                options: [ 2016, 2017, 2018 ]
+                                options: function(){
+                                    var result = [];
+                                    for ( var i = 1971; i < 2019; ++i ){
+                                        result.push( i );
+                                    }
+                                    return result;
+                                }
                             }
                         ]
                     }   
