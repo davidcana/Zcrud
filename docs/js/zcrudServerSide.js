@@ -79,35 +79,12 @@ var zcrudServerSide = (function() {
         return customAjaxBatchUpdate( file, data, url );
     };
     
-    var customAjaxBatchUpdate = function( file, data, url ){
+    var customAjaxBatchUpdate = function( file, data ){
 
         // Init data
         var dataToSend = {};
         dataToSend.message = '';
         dataToSend.newRecords = [];
-        /*
-        for ( var id in data.existingRecords ) {
-            var modifiedItem = data.existingRecords[ id ];
-            var currentItem = input[ id ];
-
-            if ( ! currentItem ){
-                dataToSend.message += 'Item with key "' + id + '" not found trying to update it!';
-                continue;       
-            }
-
-            var newId = modifiedItem.id;
-            var newIdItem = input[ newId ];
-            if ( id != newId && newIdItem ){
-                dataToSend.message += 'Item with key "' + newId + '" found: duplicated key trying to update it!';
-                continue;    
-            }
-
-            if ( newId && id !== newId ){
-                delete input[ id ];
-                id = newId;
-            }
-            input[ id ] = currentItem;  
-        }*/
 
         if ( data.newRecords ){
             for ( var i in data.newRecords[ 0 ] ) {
@@ -352,15 +329,23 @@ var zcrudServerSide = (function() {
 
         for ( var filterName in filter ) {
             var filterValue = filter[ filterName ];
-            var recordValue = record[ filterName ];
-            if ( recordValue.indexOf( filterValue ) == -1 ){
-                return false;
+            
+            if ( filterName == 'year' ){
+                var datetime = record.datetime;
+                var year = datetime.getFullYear();
+                return year == filterValue;
+                
+            } else {
+                var recordValue = record[ filterName ];
+                if ( recordValue.indexOf( filterValue ) == -1 ){
+                    return false;
+                }                
             }
         }
 
         return true;
     };
-    
+
     var dynamicSort = function( property, type ) {
 
         var sortOrder = type && type.toLowerCase() === 'desc'? -1: 1;
