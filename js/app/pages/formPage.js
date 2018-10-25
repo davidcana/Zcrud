@@ -45,6 +45,9 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     };
     
     var componentsMap = undefined;
+    var getComponentMap = function(){
+        return componentsMap;
+    };
     var getComponent = function( id ){
         return componentsMap.getComponent( id );
     };
@@ -888,7 +891,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         getFieldsSource: getFieldsSource,
         isDirty: isDirty,
         update: update,
-        removeChanges: removeChanges
+        removeChanges: removeChanges,
+        getComponentMap: getComponentMap
     };
     
     configure();

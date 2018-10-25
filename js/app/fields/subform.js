@@ -456,7 +456,7 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
 Subform.prototype.addNewRows = function( records ){
     return this.addNewRows_common( records );
 };
-
+/*
 Subform.prototype.buildDataToSend = function(){
     
     var dataToSend = {};
@@ -465,7 +465,7 @@ Subform.prototype.buildDataToSend = function(){
     
     return Object.keys( dataToSend ).length? dataToSend: undefined;
 };
-
+*/
 Subform.prototype.getPagingComponent = function(){
     return this.componentsMap.getComponent( 'paging' );
 };
@@ -528,13 +528,10 @@ Subform.prototype.update = function ( root, dictionaryExtension, callback ) {
 };
 
 Subform.prototype.buildDataToSendForUpdate = function(){
-
-    var data = {
-        key: this.page.getKey(),
-        filter: this.filter
-    };
-
-    this.componentsMap.addToDataToSend( data );
+    
+    var data = this.buildDataToSend();
+    
+    data.key = this.page.getKey();
 
     return data;
 };
@@ -546,10 +543,34 @@ Subform.prototype.buildDataToSend = function(){
     };
 
     this.componentsMap.addToDataToSend( data );
+    this.page.getComponentMap().addToDataToSend( data );
 
     return data;
 };
+/*
+Subform.prototype.buildDataToSendForUpdate = function(){
 
+    var data = {
+        key: this.page.getKey(),
+        filter: this.filter
+    };
+
+    this.componentsMap.addToDataToSend( data );
+    
+    return data;
+};
+
+Subform.prototype.buildDataToSend = function(){
+
+    var data = {
+        filter: this.filter
+    };
+
+    this.componentsMap.addToDataToSend( data );
+    
+    return data;
+};
+*/
 Subform.prototype.beforeProcessTemplate = function( data ){
     
     this.componentsMap.dataFromServer( data );

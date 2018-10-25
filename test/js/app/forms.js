@@ -1126,6 +1126,23 @@ QUnit.test( "form filtering test", function( assert ) {
                 testHelper.fromObjectToArray( expectedVerifiedMembers  )
             );
             
+            // Change originalMembers size to 25
+            //testHelper.changeSubformPageSize( 'originalMembers', 25 );
+            testHelper.pagingSubformTest({
+                subformName: 'originalMembers',
+                action: { 
+                    changeSize: 25
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 4,
+                pagingInfo: 'Showing 1-4 of 4',
+                ids:  '1/10/11/12',
+                names: 'Member 1/Member 10/Member 11/Member 12',
+                pageListNotActive: [ '<<', '<', '1', '>', '>>' ],
+                pageListActive: []
+            });
+            
             done();
         }
     );

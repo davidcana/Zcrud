@@ -76,7 +76,7 @@ module.exports = (function() {
     
     var getAllValues = function( selector ){
         return $( selector ).map( function( index, element ) {
-            return this.innerText;
+            return this.innerText? this.innerText.trim(): this.innerText;
         } ).get().join( '/' );
     }
     
