@@ -855,6 +855,14 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         context.getHistory().reset( id );
     };
     
+    var goToFirstPage = function(){
+
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            field.goToFirstPage();
+        }
+    };
+    
     var self = {
         show: show,
         getParentPage: getParentPage,
@@ -892,7 +900,8 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         isDirty: isDirty,
         update: update,
         removeChanges: removeChanges,
-        getComponentMap: getComponentMap
+        getComponentMap: getComponentMap,
+        goToFirstPage: goToFirstPage
     };
     
     configure();

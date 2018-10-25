@@ -102,4 +102,8 @@ Field.prototype.getFields = function(){
     return undefined;
 };
 
+Field.prototype.goToFirstPage = function(){
+    // Nothing to do
+};
+
 module.exports = Field;

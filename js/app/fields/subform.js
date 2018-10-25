@@ -713,4 +713,12 @@ Subform.prototype.removeChanges = function(){
         this.id );
 };
 
+Subform.prototype.goToFirstPage = function(){
+
+    var pagingComponent = this.getPagingComponent();
+    if ( pagingComponent ){
+        pagingComponent.goToFirstPage();
+    }
+};
+
 module.exports = Subform;

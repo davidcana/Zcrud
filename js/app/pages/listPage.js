@@ -589,6 +589,14 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         );
     };
     
+    var goToFirstPage = function(){
+        
+        var pagingComponent = getComponent( 'paging' );
+        if ( pagingComponent ){
+            pagingComponent.goToFirstPage();
+        }
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -632,7 +640,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         getToolbarButtons: getToolbarButtons,
         bindButtonsEvent: bindButtonsEvent,
         removeChanges: removeChanges,
-        update: update
+        update: update,
+        goToFirstPage: goToFirstPage
     };
     
     configure();

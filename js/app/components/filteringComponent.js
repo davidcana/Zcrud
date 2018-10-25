@@ -42,42 +42,25 @@ FilteringComponent.prototype.bindEvents = function(){
         }
     );
 };
-/*
-FilteringComponent.prototype.filter = function(){
 
-    var instance = this;
-    var pagingComponent = this.parent.getComponent( 'paging' );
-    if ( pagingComponent ){
-        pagingComponent.processDirty(
-            function(){
-                instance.doFilter( pagingComponent );
-            }
-        );
-    } else {
-        instance.doFilter();
-    }
-};*/
 FilteringComponent.prototype.filter = function(){
     
     var instance = this;
-    var pagingComponent = this.parent.getComponent( 'paging' );
     this.processDirty(
         function(){
-            instance.doFilter( pagingComponent );
+            instance.doFilter();
         }
     );
 };
 
-FilteringComponent.prototype.doFilter = function( pagingComponent ){
+FilteringComponent.prototype.doFilter = function(){
 
     this.filterRecord = fieldUtils.buildRecord( 
         this.getFields(), 
         this.parent.get$() 
     );
 
-    if ( pagingComponent ){
-        pagingComponent.goToFirstPage();
-    }
+    this.parent.goToFirstPage();
 
     this.updateParent();
 };
