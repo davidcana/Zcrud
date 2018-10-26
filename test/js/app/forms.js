@@ -1148,13 +1148,229 @@ QUnit.test( "form filtering test", function( assert ) {
     );
 });
 
-var buildMemberRecord = function( key ){
+QUnit.test( "form filtering with 2 subforms with paging test", function( assert ) {
+
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                list: {
+                    url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
+                    getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
+                    components: {
+                        paging: {
+                            isOn: false
+                        },
+                        filtering: {
+                            isOn: true,
+                            fields: [ 'originalMembers/name' ]
+                        }   
+                    }
+                }
+            }    
+        },
+        fields: {
+            verifiedMembers: {
+                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=verifiedMembers',
+                components: {
+                    paging: {
+                        isOn: true,
+                        defaultPageSize: 5,
+                        pageSizes: [ 5, 10, 25, 50, 100, 250 ]
+                    }
+                }
+            }
+        }
+    };
+    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options.fields.originalMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: []
+        }
+    };
+    options.fields.verifiedMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: [ 'subform_addNewRow' ]
+        }
+    };
+
+    var numberOfOriginalMembers = 121;
+    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    var itemName = 'Member';
+    testHelper.setDefaultItemName( itemName );
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'renderForm' );
+
+            // Assert  verified members is void
+            var form = $( '#departmentsContainer' ).zcrud( 'getFormPage' );
+            var verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                []
+            );
+            
+            // Filter by name
+            $( '[name="originalMembers-name"]' ).val( '1' );
+            $( '.zcrud-filter-submit-button' ).click();
+            
+            // Select
+            testHelper.subformToggleSelect( 'originalMembers' );
+            
+            // Copy
+            var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
+            $copyButton.click();
+
+            // Submit and check storage
+            testHelper.clickFormSubmitButton();
+            
+            // Build expectedVerifiedMembers
+            var expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 18, "1" );
+
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Filter by name again
+            $( '[name="originalMembers-name"]' ).val( '2' );
+            $( '.zcrud-filter-submit-button' ).click();
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                []
+            );
+            
+            // Filter by name again
+            $( '[name="originalMembers-name"]' ).val( '1' );
+            $( '.zcrud-filter-submit-button' ).click();
+            expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 13, "1" );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Go to page 2
+            testHelper.pagingSubformTest({
+                subformName: 'verifiedMembers',
+                action: { 
+                    nextPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 6-10 of 10',
+                ids:  '14/15/16/17/18',
+                names: 'Member 14/Member 15/Member 16/Member 17/Member 18',
+                pageListNotActive: [ '2', '>', '>>' ],
+                pageListActive: [ '<<', '<', '1' ]
+            });
+            
+            // Go to page 1
+            testHelper.pagingSubformTest({
+                subformName: 'verifiedMembers',
+                action: { 
+                    previousPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 10',
+                ids:  '1/10/11/12/13',
+                names: 'Member 1/Member 10/Member 11/Member 12/Member 13',
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '>', '>>' ]
+            });
+            
+            // Go to page 2 again
+            testHelper.pagingSubformTest({
+                subformName: 'verifiedMembers',
+                action: { 
+                    nextPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 6-10 of 10',
+                ids:  '14/15/16/17/18',
+                names: 'Member 14/Member 15/Member 16/Member 17/Member 18',
+                pageListNotActive: [ '2', '>', '>>' ],
+                pageListActive: [ '<<', '<', '1' ]
+            });
+            
+            // Change originalMembers size to 25
+            testHelper.pagingSubformTest({
+                subformName: 'verifiedMembers',
+                action: { 
+                    changeSize: 25
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 10',
+                ids:  '1/10/11/12/13/14/15/16/17/18',
+                names: 'Member 1/Member 10/Member 11/Member 12/Member 13/Member 14/Member 15/Member 16/Member 17/Member 18',
+                pageListNotActive: [ '<<', '<', '1', '>', '>>' ],
+                pageListActive: []
+            });
+            
+            // Change originalMembers size to 5
+            testHelper.pagingSubformTest({
+                subformName: 'verifiedMembers',
+                action: { 
+                    changeSize: 5
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 10',
+                ids:  '1/10/11/12/13',
+                names: 'Member 1/Member 10/Member 11/Member 12/Member 13',
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '>', '>>' ]
+            });
+            
+            done();
+        }
+    );
+});
+
+var buildMemberRecord = function( key, filter ){
     
-    return {
+    var member = {
         "code": key,
         "name": "Member " + key,
         "description": "Description of Member " + key,
         "hobbies": [],
         "important": false
     };
+    
+    if ( filter ){
+        member.filter = filter;
+    }
+    
+    return member;
+};
+
+var buildMapOfMemberRecords = function( firstKey, begin, end, filter ){
+    
+    var expectedVerifiedMembers = {};
+    var currentMember = buildMemberRecord( "" + firstKey, filter );
+    expectedVerifiedMembers[ currentMember.code ] = currentMember;
+    for ( var i = begin; i <= end; ++i ){
+        currentMember = buildMemberRecord( "" + i, filter );
+        expectedVerifiedMembers[ currentMember.code ] = currentMember;
+    }
+    
+    return expectedVerifiedMembers;
 };

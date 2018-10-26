@@ -155,6 +155,9 @@ module.exports = (function() {
             case "originalMembers":
                 ajaxOriginalMembers( options, cmd, file, data, url );
                 break;
+            case "verifiedMembers":
+                ajaxVerifiedMembers( options, cmd, file, data, url );
+                break;
             default:
                 throw "Unknown table in ajax: " + table;
         }
@@ -197,6 +200,21 @@ module.exports = (function() {
                 break;
             case "GET":
                 dataToSend = ajaxOriginalMembersGet( file, data, url );
+                break;
+            default:
+                throw "Unknown command in ajax: " + cmd;
+        }
+
+        options.success( dataToSend );
+    };
+    
+    var ajaxVerifiedMembers = function( options, cmd, file, data, url ){
+
+        // Run command
+        var dataToSend = undefined;
+        switch ( cmd ) {
+            case "LIST":
+                dataToSend = ajaxVerifiedMembersCheckList( file, data, url );
                 break;
             default:
                 throw "Unknown command in ajax: " + cmd;
@@ -633,6 +651,55 @@ module.exports = (function() {
         return dataToSend;
     };
     
+    var fromObjectToArray = function( object ){
+        
+        var result = [];
+        for ( var i in object ){
+            result.push( object[ i ] );
+        }
+        return result;
+    };
+    
+    var ajaxVerifiedMembersCheckList = function( file, data, url ){
+        return ajaxGeneralMembersList( file, data, url, fromObjectToArray( members.verifiedMembers ) );
+    };
+    var ajaxMembersCheckList = function( file, data, url ){
+        return ajaxGeneralMembersList( file, data, url, members.originalMembers );
+    };
+    
+    var ajaxGeneralMembersList = function( file, data, url, input ){
+
+        lastListUrl = url;
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+
+        // Add all records to data
+        //var input = members.originalMembers;
+        var allRecords = [];
+        for ( var c = 0; c < input.length; ++c ) {
+            var member = input[ c ];
+            if ( ! matches( member, data.filter ) ){
+                continue;
+            }
+            allRecords.push( 
+                clone( member ) );
+        }
+
+        // Sort them
+        if ( data.sortFieldId && data.sortType ){
+            allRecords.sort( 
+                dynamicSort( data.sortFieldId, data.sortType ) );
+        }
+
+        // Page them
+        pageRecords( data, dataToSend, allRecords );
+
+        return dataToSend;
+    };
+    /*
     var ajaxMembersCheckList = function( file, data, url ){
 
         lastListUrl = url;
@@ -664,7 +731,7 @@ module.exports = (function() {
         pageRecords( data, dataToSend, allRecords );
 
         return dataToSend;
-    };
+    };*/
     
     var ajaxMembersCheckGet = function( file, data ){
 
