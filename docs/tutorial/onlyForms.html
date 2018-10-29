@@ -93,12 +93,20 @@
             fields: { 
                 code: { },
                 name: { },
-                description: {
-                    type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 2,
-                        cols: 40
-                    }
+                datetime: {
+                    type: 'datetime'
+                },
+                country: {
+                    type: 'select',
+                    translateOptions: false,
+                    options: [
+                        { value: 1, displayText: 'France' }, 
+                        { value: 2, displayText: 'Italy' },
+                        { value: 3, displayText: 'Portugal' }, 
+                        { value: 4, displayText: 'Spain' }, 
+                        { value: 5, displayText: 'UK' }
+                    ],
+                    defaultValue: '4'
                 }
             },
             components: {
@@ -110,7 +118,7 @@
                 }
             },
             buttons: {
-                toolbar: [ 'subform_showCreateForm' ],
+                toolbar: [],
                 byRow: []
             }
         },
@@ -120,12 +128,20 @@
             fields: { 
                 code: { },
                 name: { },
-                description: {
-                    type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 2,
-                        cols: 40
-                    }
+                datetime: {
+                    type: 'datetime'
+                },
+                country: {
+                    type: 'select',
+                    translateOptions: false,
+                    options: [
+                        { value: 1, displayText: 'France' }, 
+                        { value: 2, displayText: 'Italy' },
+                        { value: 3, displayText: 'Portugal' }, 
+                        { value: 4, displayText: 'Spain' }, 
+                        { value: 5, displayText: 'UK' }
+                    ],
+                    defaultValue: '4'
                 }
             },
             buttons: {
@@ -165,12 +181,22 @@
         </p>
         <pre class="brush: js">
 {
+    "command":"getRecord",
+    "filter":{
+        "year":"2011"
+    },
     "originalMembers":{
         "pageNumber":1,
-        "pageSize":10
+        "pageSize":10,
+        "filter":{
+            "year":"2011"
+        }
     },
-    "verifiedMembers":{},
-    "command":"getRecord"
+    "verifiedMembers":{
+        "filter":{
+            "year":"2011"
+        }
+    }
 }
         </pre>
         
@@ -179,29 +205,115 @@
         </p>
         <pre class="brush: js">
 {
-    "result":"OK",
-    "message":"",
-    "record":{
-        "originalMembers":[
-            {"code":"1","name":"Member 1","description":"Description of Member 1","important":false,"hobbies":[]},
-            {"code":"2","name":"Member 2","description":"Description of Member 2","important":false,"hobbies":[]},
-            {"code":"3","name":"Member 3","description":"Description of Member 3","important":false,"hobbies":[]},
-            {"code":"4","name":"Member 4","description":"Description of Member 4","important":false,"hobbies":[]},
-            {"code":"5","name":"Member 5","description":"Description of Member 5","important":false,"hobbies":[]},
-            {"code":"6","name":"Member 6","description":"Description of Member 6","important":false,"hobbies":[]},
-            {"code":"7","name":"Member 7","description":"Description of Member 7","important":false,"hobbies":[]},
-            {"code":"8","name":"Member 8","description":"Description of Member 8","important":false,"hobbies":[]},
-            {"code":"9","name":"Member 9","description":"Description of Member 9","important":false,"hobbies":[]},
-            {"code":"10","name":"Member 10","description":"Description of Member 10","important":false,"hobbies":[]}
-        ],
-        "verifiedMembers":[]
+    "result": "OK",
+    "message": "",
+    "record": {
+        "originalMembers": [{
+            "id": "47",
+            "name": "Fredericka Key",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+            "date": "2016-07-15T00:00:00.000Z",
+            "datetime": "2011-06-16T17:06:59.000Z",
+            "time": "07:38",
+            "phoneType": 3,
+            "country": 5,
+            "city": 1,
+            "browser": "Firefox",
+            "important": "false",
+            "hobbies": ["reading_option", "videogames_option", "cards_option"]
+        }, 
+        {
+            "id": "63",
+            "name": "Geoffrey Fry",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+            "date": "2018-10-22T00:00:00.000Z",
+            "datetime": "2011-05-29T23:05:00.000Z",
+            "time": "04:04",
+            "phoneType": 1,
+            "country": 4,
+            "city": 1,
+            "browser": "Safari",
+            "important": "true",
+            "hobbies": ["reading_option", "videogames_option", "sports_option"]
+        }, 
+        {
+            "id": "86",
+            "name": "Clinton Kim",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
+            "date": "2014-12-05T00:00:00.000Z",
+            "datetime": "2011-01-12T14:15:42.000Z",
+            "time": "06:59",
+            "phoneType": 1,
+            "country": 1,
+            "city": 2,
+            "browser": "Opera",
+            "important": "false",
+            "hobbies": ["videogames_option", "sports_option", "cards_option"]
+        }, 
+        {
+            "id": "91",
+            "name": "Nyssa Villarreal",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
+            "date": "2019-03-17T00:00:00.000Z",
+            "datetime": "2011-04-08T22:00:20.000Z",
+            "time": "19:04",
+            "phoneType": 2,
+            "country": 4,
+            "city": 1,
+            "browser": "Firefox",
+            "important": "false",
+            "hobbies": ["videogames_option", "sports_option", "cards_option"]
+        }, 
+        {
+            "id": "95",
+            "name": "Melissa Henderson",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.",
+            "date": "2010-05-14T00:00:00.000Z",
+            "datetime": "2011-05-28T20:16:39.000Z",
+            "time": "13:18",
+            "phoneType": 3,
+            "country": 3,
+            "city": 3,
+            "browser": "Opera",
+            "important": "true",
+            "hobbies": ["reading_option", "videogames_option", "cards_option"]
+        }, 
+        {
+            "id": "108",
+            "name": "Hollee Church",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing",
+            "date": "2010-07-31T00:00:00.000Z",
+            "datetime": "2011-11-29T00:23:32.000Z",
+            "time": "16:01",
+            "phoneType": 2,
+            "country": 2,
+            "city": 1,
+            "browser": "Firefox",
+            "important": "true",
+            "hobbies": ["reading_option", "sports_option", "cards_option"]
+        }, 
+        {
+            "id": "112",
+            "name": "Meghan Cantrell",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+            "date": "2012-11-25T00:00:00.000Z",
+            "datetime": "2011-11-10T22:36:23.000Z",
+            "time": "00:31",
+            "phoneType": 1,
+            "country": 1,
+            "city": 3,
+            "browser": "Opera",
+            "important": "false",
+            "hobbies": ["reading_option", "videogames_option", "cards_option"]
+        }],
+        "verifiedMembers": []
     },
-    "fieldsData":{
-        "originalMembers":{
-            "totalNumberOfRecords":12
+    "fieldsData": {
+        "originalMembers": {
+            "totalNumberOfRecords": 7
         },
-        "verifiedMembers":{
-            "totalNumberOfRecords":0
+        "verifiedMembers": {
+            "totalNumberOfRecords": 0
         }
     }
 }
@@ -212,21 +324,46 @@
         </p>
         <pre class="brush: js">
 {
-    "existingRecords":{},
-    "newRecords":[
-        {
-            "verifiedMembers":{
-                "existingRecords":{},
-                "newRecords":[
-                    {"code":"2","name":"Member 2","description":"Description of Member 2","important":false,"hobbies":[]},
-                    {"code":"3","name":"Member 3","description":"Description of Member 3 edited","important":false,"hobbies":[]}],
-                "recordsToRemove":[]
-            }
+    "command": "batchUpdate",
+    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=memberCheck",
+    "filter": {
+        "year": "2011"
+    },
+    "existingRecords": {},
+    "newRecords": [{
+        "verifiedMembers": {
+            "existingRecords": {},
+            "newRecords": [{
+                "id": "47",
+                "name": "Fredericka Key",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+                "date": "2016-07-15T00:00:00.000Z",
+                "datetime": "2011-06-16T17:06:59.000Z",
+                "time": "07:38",
+                "phoneType": 3,
+                "country": 5,
+                "city": 1,
+                "browser": "Firefox",
+                "important": "false",
+                "hobbies": ["reading_option", "videogames_option", "cards_option"]
+            }, {
+                "id": "63",
+                "name": "Geoffrey Fry",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+                "date": "2018-10-22T00:00:00.000Z",
+                "datetime": "2011-05-29T23:05:00.000Z",
+                "time": "04:04",
+                "phoneType": 1,
+                "country": 4,
+                "city": 1,
+                "browser": "Safari",
+                "important": "true",
+                "hobbies": ["reading_option", "videogames_option", "sports_option"]
+            }],
+            "recordsToRemove": []
         }
-    ],
-    "recordsToRemove":[],
-    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=memberCheck",
-    "command":"batchUpdate"
+    }],
+    "recordsToRemove": []
 }
         </pre>
        
@@ -236,12 +373,7 @@
         <pre class="brush: js">
 {
     "message":"",
-    "verifiedMembers":{
-        "newRecords":[
-            {"code":"2","name":"Member 2","description":"Description of Member 2","important":false,"hobbies":[]},
-            {"code":"3","name":"Member 3","description":"Description of Member 3 edited","important":false,"hobbies":[]}
-        ]
-    },
+    "newRecords":[],
     "result":"OK"
 }
         </pre>

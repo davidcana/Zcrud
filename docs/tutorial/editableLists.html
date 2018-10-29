@@ -37,48 +37,42 @@
         <a id="editableLists"></a>
         <h2>Editable lists</h2>
         <p>
-            Editable lists support is off by default. Default configuration for lists is:
+            Editable lists support is off by default. Default configuration is:
         </p>
         <pre class="brush: js">
-        pageConf: {
-            pages: {
-                list: {
-                    components: {
-                        ...
-                        editing: {
-                            isOn: false,
-                            constructorClass: require( './components/editingComponent.js' ),
-                            modifiedFieldsClass: 'zcrud-modified-field',
-                            modifiedRowsClass: 'zcrud-modified-row',
-                            hideTr: function( $tr ){
-                                $tr.fadeOut();
-                            },
-                            showTr: function( $tr ){
-                                $tr.fadeIn();
-                            }
-                        }
-                    }
-                }
+    defaultComponentsConfig: {
+        ...
+        editing: {
+            isOn: false,
+            constructorClass: require( './components/editingComponent.js' ),
+            modifiedFieldsClass: 'zcrud-modified-field',
+            modifiedRowsClass: 'zcrud-modified-row',
+            hideTr: function( $tr ){
+                $tr.fadeOut();
+            },
+            showTr: function( $tr ){
+                $tr.fadeIn();
             }
         }
+        ...
         </pre>
 
         <p>
             Let's activate editable lists support:
         </p>
         <pre class="brush: js">
-        pageConf: {
-            pages: {
-                list: {
-                    components: {
-                        editing: {
-                            isOn: true,
-                            url: 'http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
-                        }
+    pageConf: {
+        pages: {
+            list: {
+                components: {
+                    editing: {
+                        isOn: true,
+                        url: 'http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=people'
                     }
                 }
             }
         }
+    }
         </pre>
         
         <p>
@@ -87,18 +81,28 @@
         <pre class="brush: js">
 {
     "existingRecords":{
-        "1":{
-            "name":"Service 1a"
+        "129":{
+            "name": "Dalton Suares",
         }
     },
     "newRecords":[
         {
-            "id":"130",
-            "name":"Service 130"
+            "id": "130",
+            "name": "Ulysses Moses",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+            "date":"2018-10-15T00:00:00.000Z",
+            "datetime":"2010-08-08T22:59:55.000Z",
+            "time": "05:12",
+            "phoneType": 2,
+            "country": 2,
+            "city": 2,
+            "browser": "Safari",
+            "important": "true",
+            "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
         }
     ],
-    "recordsToRemove":["2"],
-    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=department",
+    "recordsToRemove":["102"],
+    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=people",
     "command":"batchUpdate"
 }
         </pre>
@@ -111,8 +115,18 @@
     "message":"",
     "newRecords":[
         {
-            "id":"130",
-            "name":"Service 130"
+            "id": "130",
+            "name": "Ulysses Moses",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+            "date":"2018-10-15T00:00:00.000Z",
+            "datetime":"2010-08-08T22:59:55.000Z",
+            "time": "05:12",
+            "phoneType": 2,
+            "country": 2,
+            "city": 2,
+            "browser": "Safari",
+            "important": "true",
+            "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
         }
     ],
     "result":"OK"

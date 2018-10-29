@@ -90,39 +90,58 @@
         </p>
         <pre class="brush: js">
 // Build this object to configure ZCrud instance
-var options = { 
+var options = {
 
-    entityId: 'department',
+    entityId: 'people',
+    saveUserPreferences: false,
 
     pageConf: {
         defaultPageConf: {
-            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-            getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department',
-            dataToSend: 'modified'
+            url: 'http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=people',
+            getRecordURL: 'http://your-domain/CRUDManager.do?cmd=GET&table=people'
         },
         pages: {
             list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-                fields: [ 'id', 'name' ]
+                url: 'http://your-domain/CRUDManager.do?cmd=LIST&table=people',
+                fields: [ 'id', 'name', 'datetime', 'country', 'city', 'browser' ],
+                components: {
+                    sorting: {
+                        isOn: true,
+                        default: {
+                            fieldId: 'name',
+                            type: 'asc'
+                        },
+                        allowUser: false
+                    },
+                    filtering: {
+                        isOn: true,
+                        fields: [ 'id', 'name' ]
+                    },
+                    selecting: {
+                        isOn: true,
+                        multiple: true,
+                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                    }
+                }
             }, 
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        type: 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        type: 'fieldsGroup'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        type: 'fieldsGroup'
                     }
                 ]
             }
@@ -134,7 +153,7 @@ var options = {
         id: {
         },
         name: {
-            width: '90%'
+            width: '30%'
         },
         description: {
             type: 'textarea',
@@ -143,50 +162,92 @@ var options = {
                 cols: 80
             }
         },
-        time: {
-            type: 'time',
-            customOptions: {
-                inline: true
-            }
-        },
-        datetime: {
-            type: 'datetime',
-            customOptions: {
-                inline: true
-            }
-        },
         date: {
             type: 'date',
             customOptions: {
-                inline: true
+                inline: false
             }
+        },
+        time: {
+            type: 'time'
+        },
+        datetime: {
+            type: 'datetime'
         },
         phoneType: {
             type: 'radio',
             translateOptions: true,
-            options: function(){
-                return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
-            }
+            options: [
+                { value: '1', displayText: 'homePhone_option' }, 
+                { value: '2', displayText: 'officePhone_option' }, 
+                { value: '3', displayText: 'cellPhone_option' } 
+            ]
         },
-        province: {
+        country: {
             type: 'select',
-            options: [ 'Cádiz', 'Málaga' ],
-            defaultValue: 'Cádiz'
+            translateOptions: false,
+            options: [
+                { value: 1, displayText: 'France' }, 
+                { value: 2, displayText: 'Italy' },
+                { value: 3, displayText: 'Portugal' }, 
+                { value: 4, displayText: 'Spain' }, 
+                { value: 5, displayText: 'UK' }
+            ],
+            defaultValue: '4'
         },
         city: {
             type: 'select',
-            dependsOn: 'province',
+            sorting: false,
+            dependsOn: 'country',
             options: function( data ){
-                if ( ! data.dependedValues.province ){
-                    return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
+
+                if ( ! data.dependedValues.country ){
+                    return [];
                 }
-                switch ( data.dependedValues.province ) {
-                    case 'Cádiz':
-                        return [ 'Algeciras', 'Tarifa' ];
-                    case 'Málaga':
-                        return [ 'Estepona', 'Marbella' ];
+
+                switch ( parseInt( data.dependedValues.country ) ) {
+                    case 1:
+                        return [ 
+                            { value: 1, displayText: 'Paris' }, 
+                            { value: 2, displayText: 'Marseille' }, 
+                            { value: 3, displayText: 'Lyon' }, 
+                            { value: 4, displayText: 'Toulouse' },
+                            { value: 5, displayText: 'Nice' }
+                        ];
+                    case 2:
+                        return [ 
+                            { value: 1, displayText: 'Roma' }, 
+                            { value: 2, displayText: 'Milano' }, 
+                            { value: 3, displayText: 'Napoli' }, 
+                            { value: 4, displayText: 'Torino' },
+                            { value: 5, displayText: 'Paliemmu' }
+                        ];
+                    case 3:
+                        return [ 
+                            { value: 1, displayText: 'Lisboa' }, 
+                            { value: 2, displayText: 'Oporto' }, 
+                            { value: 3, displayText: 'Vila Nova de Gaia' }, 
+                            { value: 4, displayText: 'Amadora' },
+                            { value: 5, displayText: 'Braga' }
+                        ];
+                    case 4:
+                        return [ 
+                            { value: 1, displayText: 'Madrid' }, 
+                            { value: 2, displayText: 'Barcelona' }, 
+                            { value: 3, displayText: 'Valencia' }, 
+                            { value: 4, displayText: 'Sevilla' },
+                            { value: 5, displayText: 'Zaragoza' }
+                        ];
+                    case 5:
+                        return [ 
+                            { value: 1, displayText: 'London' }, 
+                            { value: 2, displayText: 'Birmingham' }, 
+                            { value: 3, displayText: 'Glasgow' }, 
+                            { value: 4, displayText: 'Liverpool' },
+                            { value: 5, displayText: 'Leeds' }
+                        ];
                     default:
-                        throw 'Unknown province: ' + data.dependedValues.province;
+                        throw 'Unknown country: ' + data.dependedValues.country;
                 }
             }
         },
@@ -197,45 +258,30 @@ var options = {
         important: {
             type: 'checkbox'
         },
-        members: {
-            type: 'subform',
-            subformKey: 'code',
-            fields: { 
-                code: { },
-                name: { },
-                description: {
-                    type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
-                    }
-                }
-            }
+        hobbies: {
+            type: 'checkboxes',
+            translateOptions: true,
+            options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
         }
     },
 
     validation: {
         modules: 'security, date',
         rules: {
-            "name": {
+            '#zcrud-name': {
                 validation: 'length',
-                length: '3-20'
-            },
-            "members/name": {
-                validation: 'length',
-                length: '3-20'
+                length: '3-12'
             }
         }
     },
 
     i18n: {
-        language: 'es',
+        language: 'en',
         files: { 
-            en: [ 'en-common.json', 'en-services.json' ],
-            es: [ 'es-common.json', 'es-services.json' ] 
+            en: [ 'en-common.json', 'en-people.json' ],
+            es: [ 'es-common.json', 'es-people.json' ] 
         }
     }
-
 };
 
 $( '#container' ).zcrud( 
@@ -258,7 +304,7 @@ $( '#container' ).zcrud(
             </li>
         </ol>
         <p>
-            ZCrud uses the URL in <strong>pageConf/pages/list/url</strong> at options as the URL to send thte request and to retrieve the records. ZCrud send a request in JSON format like this:
+            ZCrud uses the URL in <strong>pageConf/pages/list/url</strong> at options as the URL to send the request and to retrieve the records. ZCrud send a request in JSON format like this:
         </p>
         <pre class="brush: js">
 {
@@ -289,16 +335,146 @@ $( '#container' ).zcrud(
 	"result":"OK",
 	"message":"",
 	"records":[
-		{"name":"Service 1","id":"1"},
-		{"name":"Service 2","id":"2"},
-		{"name":"Service 3","id":"3"},
-		{"name":"Service 4","id":"4"},
-		{"name":"Service 5","id":"5"},
-		{"name":"Service 6","id":"6"},
-		{"name":"Service 7","id":"7"},
-		{"name":"Service 8","id":"8"},
-		{"name":"Service 9","id":"9"},
-		{"name":"Service 10","id":"10"}
+        {
+            "id":"110",
+            "name":"Aaron Good",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+            "date":"2011-10-03T00:00:00.000Z",
+            "datetime":"2017-02-15T23:22:12.000Z",
+            "time":"09:07",
+            "phoneType":3,
+            "country":4,
+            "city":1,
+            "browser":"Safari",
+            "important":"true",
+            "hobbies":["reading_option","videogames_option","sports_option"]
+        },
+        {
+            "id":"77",
+            "name":"Addison Guerra",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+            "date":"2017-06-05T00:00:00.000Z",
+            "datetime":"2010-07-02T00:01:13.000Z",
+            "time":"13:26",
+            "phoneType":3,
+            "country":4,
+            "city":1,
+            "browser":"Opera",
+            "important":"true",
+            "hobbies":["videogames_option","sports_option","cards_option"]
+        },
+        {
+            "id":"109",
+            "name":"Adrienne Douglas",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu",
+            "date":"2013-02-10T00:00:00.000Z",
+            "datetime":"2019-07-24T19:06:34.000Z",
+            "time":"18:53",
+            "phoneType":3,
+            "country":1,
+            "city":2,
+            "browser":"Opera",
+            "important":"true",
+            "hobbies":["reading_option","videogames_option","cards_option"]
+        },
+        {
+            "id":"59",
+            "name":"Alan Chandler",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+            "date":"2013-06-14T00:00:00.000Z",
+            "datetime":"2010-01-20T14:59:40.000Z",
+            "time":"05:22",
+            "phoneType":3,
+            "country":3,
+            "city":2,
+            "browser":"Opera",
+            "important":"false",
+            "hobbies":["videogames_option","sports_option","cards_option"]
+        },
+        {
+            "id":"42",
+            "name":"Amaya Burton",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
+            "date":"2013-05-08T00:00:00.000Z",
+            "datetime":"2017-07-07T05:48:53.000Z",
+            "time":"17:38",
+            "phoneType":2,
+            "country":3,
+            "city":2,
+            "browser":"Safari",
+            "important":"false",
+            "hobbies":["reading_option","videogames_option","cards_option"]
+        },
+        {
+            "id":"12",
+            "name":"Amos Norton",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+            "date":"2013-12-05T00:00:00.000Z",
+            "datetime":"2017-05-06T10:45:39.000Z",
+            "time":"09:28",
+            "phoneType":2,
+            "country":4,
+            "city":3,
+            "browser":"Opera",
+            "important":"true",
+            "hobbies":["reading_option","videogames_option","cards_option"]
+        },
+        {
+            "id":"60",
+            "name":"Aurora Russo",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et",
+            "date":"2014-02-26T00:00:00.000Z",
+            "datetime":"2017-01-12T23:58:14.000Z",
+            "time":"03:12",
+            "phoneType":2,
+            "country":2,
+            "city":1,
+            "browser":"Opera",
+            "important":"false",
+            "hobbies":["reading_option","videogames_option","cards_option"]
+        },
+        {
+            "id":"17",
+            "name":"Ava Mendez",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu",
+            "date":"2017-01-10T00:00:00.000Z",
+            "datetime":"2012-05-29T20:00:40.000Z",
+            "time":"04:53",
+            "phoneType":3,
+            "country":3,
+            "city":2,
+            "browser":"Opera",
+            "important":"false",
+            "hobbies":["reading_option","videogames_option","cards_option"]
+        },
+        {
+            "id":"100",
+            "name":"Basia Alvarez",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+            "date":"2013-05-04T00:00:00.000Z",
+            "datetime":"2016-10-08T01:23:06.000Z",
+            "time":"11:10",
+            "phoneType":1,
+            "country":1,
+            "city":1,
+            "browser":"Internet Explorer",
+            "important":"true",
+            "hobbies":["videogames_option","sports_option","cards_option"]
+        },
+        {
+            "id":"50",
+            "name":"Beau Roach",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor.",
+            "date":"2018-10-15T00:00:00.000Z",
+            "datetime":"2010-08-08T22:59:55.000Z",
+            "time":"20:25",
+            "phoneType":1,
+            "country":4,
+            "city":1,
+            "browser":"Chrome",
+            "important":"false",
+            "hobbies":["reading_option","sports_option","cards_option"]
+        }
 	],
 	"totalNumberOfRecords":129
 }
@@ -325,11 +501,22 @@ $( '#container' ).zcrud(
     "existingRecords":{},
     "newRecords":[
         {
-            "name":"New service name"
+            "id": 129,
+            "name": "Dalton Suarez",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+            "date":"2018-10-15T00:00:00.000Z",
+            "datetime":"2010-08-08T22:59:55.000Z",
+            "time": "05:12",
+            "phoneType": 2,
+            "country": 2,
+            "city": 2,
+            "browser": "Safari",
+            "important": "true",
+            "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
         }
     ],
     "recordsToRemove":[],
-    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=services"
+    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=people"
 }
         </pre>
         <ul>
@@ -343,13 +530,23 @@ $( '#container' ).zcrud(
         <p>
             ZCrud expects the server to return a JSON response like this:
         </p>
-        <pre class="brush: js; highlight: [6]">
+        <pre class="brush: js">
 {
     "message":"",
     "newRecords":[
         {
-            "name":"New service name",
-            "id":"130"
+            "id": 129,
+            "name": "Dalton Suarez",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+            "date":"2018-10-15T00:00:00.000Z",
+            "datetime":"2010-08-08T22:59:55.000Z",
+            "time": "05:12",
+            "phoneType": 2,
+            "country": 2,
+            "city": 2,
+            "browser": "Safari",
+            "important": "true",
+            "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
         }
     ],
     "result":"OK"
@@ -368,19 +565,29 @@ $( '#container' ).zcrud(
         <pre class="brush: js">
 {
     "command": "getRecord",
-    "key":"1"
+    "key":"129"
 }
         </pre>
         <p>
             So ZCrud requests to server the record with key <em>1</em>. The response of the server must be like:
         </p>
-        <pre class="brush: js; highlight: [5,6]">
+        <pre class="brush: js">
 {
     "result":"OK",
     "message":"",
     "record":{
-        "name":"Service 1",
-        "id":"1"
+        "id": 129,
+        "name": "Dalton Suarez",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+        "date":"2018-10-15T00:00:00.000Z",
+        "datetime":"2010-08-08T22:59:55.000Z",
+        "time": "05:12",
+        "phoneType": 2,
+        "country": 2,
+        "city": 2,
+        "browser": "Safari",
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
     "fieldsData":{}
 }
@@ -389,17 +596,17 @@ $( '#container' ).zcrud(
         <p>
            When ZCrud receives the server response a new form is rendered. Then the user edits the form and click the <em>Save changes</em> button. Zcrud sends to the url in <strong>pageConf/pages/update/url</strong> a message in JSON like this:
         </p>
-        <pre class="brush: js; highlight: [4:6]">
+        <pre class="brush: js">
 {
     "command":"batchUpdate",
     "existingRecords":{
-        "1":{
-            "name":"Service 1a"
+        "129":{
+            "name": "Dalton Suares",
         }
     },
     "newRecords":[],
     "recordsToRemove":[],
-    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=people"
 }
         </pre>
         
@@ -423,20 +630,30 @@ $( '#container' ).zcrud(
         <pre class="brush: js">
 {
     "command": "getRecord",
-    "key":"10"
+    "key":"129"
 }
         </pre>
         
         <p>
-            So ZCrud requests to server the record with key <em>10</em>. The response of the server must be like:
+            So ZCrud requests to server the record with key <em>129</em>. The response of the server must be like:
         </p>
-        <pre class="brush: js; highlight: [5,6]">
+        <pre class="brush: js">
 {
     "result":"OK",
     "message":"",
     "record":{
-        "name":"Service 10",
-        "id":"10"
+        "id": 129,
+        "name": "Dalton Suarez",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
+        "date":"2018-10-15T00:00:00.000Z",
+        "datetime":"2010-08-08T22:59:55.000Z",
+        "time": "05:12",
+        "phoneType": 2,
+        "country": 2,
+        "city": 2,
+        "browser": "Safari",
+        "important": "true",
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
     "fieldsData":{}
 }
@@ -445,13 +662,13 @@ $( '#container' ).zcrud(
         <p>
             When ZCrud receives the server response a new form is rendered. Then the user view the form and click the <em>Delete</em> button. Zcrud sends to the url in <strong>pageConf/pages/delete/url</strong> a message in JSON like this:
         </p>
-        <pre class="brush: js; highlight: [4]">
+        <pre class="brush: js">
 {
     "command":"batchUpdate",
     "existingRecords":{},
     "newRecords":[],
-    "recordsToRemove":["10"],
-    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+    "recordsToRemove":["129"],
+    "url":"http://your-domain/CRUDManager.do?cmd=BATCH_UPDATE&table=people"
 }
         </pre>
         
@@ -471,7 +688,7 @@ $( '#container' ).zcrud(
         </p>
         <pre class="brush: js">
 {
-    "message":"You error message here!",
+    "message":"Your error message here!",
     "newRecords":[],
     "result":"Error"
 }

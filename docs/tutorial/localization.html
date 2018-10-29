@@ -49,9 +49,9 @@
         </p>
         <ul>
             <li><em>en-common.json</em>. English texts and configuration options used by ZCrud.</li>
-            <li><em>en-services.json</em>. English texts and configuration options used by ZCrud in tests.</li>
+            <li><em>en-people.json</em>. English texts and configuration options used by ZCrud in examples.</li>
             <li><em>es-common.json</em>. Spanish texts and configuration options used by ZCrud.</li>
-            <li><em>es-services.json</em>. Spanish texts and configuration options used by ZCrud in tests.</li>
+            <li><em>es-people.json</em>. Spanish texts and configuration options used by ZCrud in examples.</li>
         </ul>
         
         <p>
@@ -182,7 +182,7 @@
         </pre>
         
         <p>
-            Let's take a look at <em>es-services.json</em> file:
+            Let's take a look at <em>es-people.json</em> file:
         </p>
         <pre class="brush: js">
 {
@@ -192,51 +192,51 @@
     },
 
     "_general": "",
-    "general_entityName": "Departamentos",
+    "general_entityName": "Personas",
 
     "_fields": "",
     "id_title": "Id",
-    "id_description": "El identificador del departamento",
+    "id_description": "Un identificador único",
     "name_title": "Nombre",
-    "name_description": "El nombre del departamento",
+    "name_description": "El nombre",
     "description_title": "Descripción",
-    "description_description": "La descripción del departamento",
+    "description_description": "Una descripción",
     "date_title": "Fecha",
-    "date_description": "La fecha del departamento",
+    "date_description": "Una fecha",
     "time_title": "Hora",
-    "time_description": "La hora del departamento",
+    "time_description": "Una hora",
     "datetime_title": "Fecha/hora",
-    "datetime_description": "La fecha/hora del departamento",
+    "datetime_description": "Una fecha y hora",
     "phoneType_title": "Tipo de teléfono",
-    "phoneType_description": "El tipo de teléfono del departamento",
-    "province_title": "Provincia",
-    "province_description": "La provincia del departamento",
+    "phoneType_description": "El tipo de teléfono",
+    "country_title": "País",
+    "country_description": "Un país",
     "city_title": "Ciudad",
-    "city_description": "La ciudad del departamento",
+    "city_description": "Una ciudad",
     "browser_title": "Navegador",
-    "browser_description": "El navegador preferido del departamento",
+    "browser_description": "El navegador preferido",
     "important_title": "Importante",
     "important_description": "¿Es importante?",
     "number_title": "Número",
-    "number_description": "El número del departamento",
-    "members_title": "Miembros",
-    "members_description": "Los miembros del departamento",
-    "members_filter_description": "¡Por favor, filtre los miembros a mostrar!",
+    "number_description": "El número",
+    "skills_title": "Habilidades",
+    "skills_description": "Las habilidades",
+    "skills_filter_description": "¡Por favor, filtre las habilidades a mostrar!",
     "code_title": "Codigo",
     "code_description": "El código del miembro",
     "location_title": "Localización",
     "location_description": "Información relacionada con el lugar",
     "basicData_title": "Datos básicos",
-    "basicData_description": "Los datos básicos del departamento",
+    "basicData_description": "Los datos básicos",
     "hobbies_title": "Aficiones",
     "hobbies_description": "Sus aficiones favoritas, puede seleccionar varias",
     "externalMembers_title": "Miembros externos",
-    "externalMembers_description": "Los miembros externos del departamento",
+    "externalMembers_description": "Los miembros externos",
     "originalMembers_title": "Miembros originales",
     "originalMembers_description": "La lista inicial de miembros",
     "verifiedMembers_title": "Miembros verificados",
     "verifiedMembers_description": "La lista de miembros verificados",
-    "department_filter_description": "¡Por favor, filtre los departamentos a mostrar!",
+    "people_filter_description": "¡Por favor, filtre las personas a mostrar!",
     "originalMembers_filter_description": "¡Por favor, filtre los miembros a mostrar!",
 
     "_options": "",
@@ -249,8 +249,11 @@
     "cards_option": "Cartas",
 
     "_buttons": "",
-    "Copy original members": "Copiar miembros originales"
+    "Copy original members": "Copiar miembros originales",
 
+    "_filters": "",
+    "month_title": "Mes",
+    "year_title": "Año"
 }
         </pre>
        
@@ -284,7 +287,7 @@
                     <li><em>years_description</em>. It will be use as a description (only in forms).</li>
                 </ul>
             </li>
-            <li><em>_options</em>. Texts of options in several ftypes of HTML fields (checkboxes, dataList, select and radio). You must add 1 entry of this type per option (with <em>_option</em> suffix).</li>
+            <li><em>_options</em>. Texts of options in several types of HTML fields (checkboxes, dataList, select and radio). You must add 1 entry of this type per option (with <em>_option</em> suffix).</li>
             <li><em>_buttons</em>. Texts used in buttons.</li>
         </ul>
         
@@ -306,28 +309,28 @@
         </pre>
         
         <p>
-            To support services our configuration is:
+            To support <em>people</em> our configuration is:
         </p>
         <pre class="brush: js">
     i18n: {
         language: 'en',
         files: { 
-            en: [ 'en-common.json', 'en-services.json' ],
-            es: [ 'es-common.json', 'es-services.json' ] 
+            en: [ 'en-common.json', 'en-people.json' ],
+            es: [ 'es-common.json', 'es-people.json' ] 
         }
     },
         </pre>
         
         <p>
-            If we add support to another language (for example french) we must to write <em>fr-common.json</em> and <em>fr-services.json</em> files. Our configuration is:
+            If we add support to another language (for example french) we must to write <em>fr-common.json</em> and <em>fr-people.json</em> files. Our configuration would be:
         </p>
         <pre class="brush: js">
     i18n: {
         language: 'fr',
         files: { 
-            en: [ 'en-common.json', 'en-services.json' ],
-            es: [ 'es-common.json', 'es-services.json' ],
-            fr: [ 'fr-common.json', 'fr-services.json' ]
+            en: [ 'en-common.json', 'en-people.json' ],
+            es: [ 'es-common.json', 'es-people.json' ],
+            fr: [ 'fr-common.json', 'fr-people.json' ]
         }
     },
         </pre>

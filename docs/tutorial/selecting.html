@@ -37,42 +37,35 @@
         <a id="selecting"></a>
         <h2>Selecting rows</h2>
         <p>
-            Selecting rows is off by default. Default configuration for lists is:
+            Selecting rows is off by default. Default configuration is:
         </p>
         <pre class="brush: js">
-        pageConf: {
-            pages: {
-                list: {
-                    components: {
-                        ...
-                        selecting: {
-                            isOn: false,
-                            constructorClass: require( './components/selectingComponent.js' ),
-                            multiple: true,
-                            mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
-                        },
-                        ...
-                    }
-                }
-            }
-        }
+    defaultComponentsConfig: {
+        ...
+        selecting: {
+            isOn: false,
+            constructorClass: require( './components/selectingComponent.js' ),
+            multiple: true,
+            mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
+        },
+        ...
         </pre>
 
         <p>
             Let's activate selecting support:
         </p>
         <pre class="brush: js">
-        pageConf: {
-            pages: {
-                list: {
-                    components: {
-                        selecting: {
-                            isOn: true
-                        }
+    pageConf: {
+        pages: {
+            list: {
+                components: {
+                    selecting: {
+                        isOn: true
                     }
                 }
             }
         }
+    }
         </pre>
 
         <p>

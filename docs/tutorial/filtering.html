@@ -38,28 +38,21 @@
         <a id="userFiltering"></a>
         <h2>User filtering</h2>
         <p>
-            User filtering is off by default. Default configuration for lists is:
+            User filtering is off by default. Default configuration is:
         </p>
         <pre class="brush: js">
-        pageConf: {
-            pages: {
-                list: {
-                    components: {
-                        ...
-                        filtering: {
-                            isOn: false,
-                            constructorClass: require( './components/filteringComponent.js' ),
-                            fieldsTemplate: 'compact-editable@templates/fieldLists.html'
-                        },
-                        ...
-                    }
-                }
-            }
-        }
+    defaultComponentsConfig: {
+        ...
+        filtering: {
+            isOn: false,
+            constructorClass: require( './components/filteringComponent.js' ),
+            fieldsTemplate: 'compact-editable@templates/fieldLists.html'
+        },
+        ...
         </pre>
 
         <p>
-            Let's activate filtering. For example, if we want to set a filter using 'id' and 'name' fields:
+            Let's activate filtering for the list page. For example, if we want to set a filter using 'id' and 'name' fields:
         </p>
         <pre class="brush: js">
         pageConf: {
@@ -77,14 +70,14 @@
         </pre>
 
         <p>
-            If the user fills '1' and 'Service 1' as the filter ZCrud would send to server this object as JSON to retrieve the records:
+            If the user fills '1' and 'G' as the filter ZCrud would send to server this object as JSON to retrieve the records:
         </p>
         <pre class="brush: js">
 {
     "command": "listRecords",
     "filter":{
         id: "1",
-        name: "Service 1"
+        name: "G"
     },
     "pageNumber":1,
     "pageSize":10
@@ -107,7 +100,7 @@
                     'renderList',
                     { 
                         filter: { 
-                            name: 'Service 1'
+                            name: 'G'
                         } 
                     }
                 );
@@ -122,7 +115,7 @@
 {
     "command": "listRecords",
     "filter":{
-        name: "Service 1"
+        name: "G"
     },
     "pageNumber":1,
     "pageSize":10

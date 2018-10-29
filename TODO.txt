@@ -2,4 +2,10 @@ ZCrud 0.1.0
 -----------
 
 * Write docs. (in progress!)
-* New field types: password.
+* Use SASS to improve themes.
+* Add validation on 'Save changes' and 'Cancel' buttons.
+* Replace formFieldAttributes by attributes.
+* New field types: password and passwordChanger.
+
+Bugs:
+* Remove 'Delete record' buttons in delete forms in 'Master/chil tables'.
