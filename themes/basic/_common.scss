@@ -4,7 +4,7 @@
  * A lot of changes by David Cana
  */
 
-/* Main container */
+// Main container
 div.zcrud-main-container {
     font-family: $font-stack;
     font-weight: 300;
@@ -20,13 +20,13 @@ div.zcrud-main-container {
         }
     }
     
-    /* Header */
+    // Header
     .zcrud-header {
         .zcrud-header-title {
             background-color: $title-background-color;
             color: $title-color;
             padding-left: .5em;
-            /* Title */
+            // Title
             .zcrud-title {
                 text-align: left;
                 font-size: 3em;
@@ -34,7 +34,7 @@ div.zcrud-main-container {
         }  
     }
     
-    /* Commands buttons */
+    // Commands buttons
     .zcrud-new-command-button, .zcrud-new-row-command-button {
         background: url('#{$images-url}/add.png') no-repeat center;
         background-size: 16px 16px;
@@ -57,7 +57,7 @@ div.zcrud-main-container {
         width: 30px;
     }
     
-    /* Table */
+    // Table
     table.zcrud {
         width: 100%;
         border: 1px solid $table-border-color;
@@ -129,13 +129,13 @@ div.zcrud-main-container {
         }
     }
     
-    /* Subforms */
+    // Subforms
     .zcrud-subform-content table.zcrud > thead th {
         font-weight: 800;
         font-size: 1em;
     }
     
-    /* Selecting */
+    // Selecting
     th.zcrud-column-header-selecting {
         text-align: center;
         width: 1%;
@@ -144,12 +144,12 @@ div.zcrud-main-container {
         }
     }
     
-    /* Selected rows */
+    // Selected rows
     tr.zcrud-row-selected {
         background-color: $data-row-selected-background-color !important;
     }
     
-    /* Bottom panel */
+    // Bottom panel
     .zcrud-bottom-panel {
         background-color: $bottom-panel-background-color;
         color: $bottom-panel-color;
@@ -221,7 +221,7 @@ div.zcrud-main-container {
         }
     }
     
-    /* Forms */
+    // Forms
     form {
         &.zcrud-form {
             font-weight: 400;
@@ -265,7 +265,7 @@ div.zcrud-main-container {
         }
     }
     
-    /* Filter panel */
+    // Filter panel
     .zcrud-filter-panel {
         padding: .5em;
         border: 1px solid $filter-panel-border-color;
@@ -274,7 +274,7 @@ div.zcrud-main-container {
         }
     }
     
-    /* Modified fields */
+    // Modified fields
     td.zcrud-modified-field {
         background-image: url('#{$images-url}/square-dirty.gif');
         background-repeat: no-repeat;
@@ -285,7 +285,7 @@ div.zcrud-main-container {
         background-color: $modified-row-background-color;
     }
     
-    /* Form validation */
+    // Form validation
     .valid {}
     .error {
         color: $validation-error-color;
@@ -320,7 +320,7 @@ div.zcrud-main-container {
         font-weight: 600;
     }
 
-    /* Datetime picker */
+    // Datetime picker
     .datetime {
         box-shadow: 0 5px 15px -5px;
         background: $datetime-background-color;
@@ -475,7 +475,7 @@ div.zcrud-main-container {
         }
     }
 
-    /* Messages */
+    // Messages
     .confirm {}
     .wideConfirm {
         width: 700px;
@@ -484,7 +484,7 @@ div.zcrud-main-container {
     
 }
 
-/* Busy message */
+// Busy message
 #zcrud-busy-message {
     cursor: wait;
     margin: .5em;

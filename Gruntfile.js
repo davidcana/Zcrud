@@ -440,7 +440,8 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 files: {
-                    'themes/basic/theme.css': 'themes/basic/theme.scss'
+                    'themes/basic/theme.css': 'themes/basic/theme.scss',
+                    'themes/soft/theme.css': 'themes/soft/theme.scss'
                 }
             }
         }
