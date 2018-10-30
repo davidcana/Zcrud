@@ -436,6 +436,13 @@ module.exports = function(grunt) {
                 src: 'build/standalone.min.js',
                 dest: 'docs/lib/zcrud.min.js'
             }
+        },
+        sass: {
+            dist: {
+                files: {
+                    'themes/basic/theme.css': 'themes/basic/theme.scss'
+                }
+            }
         }
     });
 
@@ -445,6 +452,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     
     grunt.registerTask('test', ['qunit']);
     grunt.registerTask('default', ['browserify']);

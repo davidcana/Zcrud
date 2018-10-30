@@ -1,0 +1,43 @@
+/* HTML elements*/
+body {
+    font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+    background-color: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #436976;
+    background-color: transparent;
+    &:visited {
+        color: purple;
+    }
+}
+
+img {
+    border: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+
+p {
+    margin: 0.5em 0em 1em 0em;
+    line-height: 1.5em;
+}
+
+hr {
+    height: 1px;
+    color: #8cacbb;
+    background-color: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    background-color: transparent;
+    font-weight: normal;
+    margin: 0 0 .5em .5em;
+    padding-top: 0.25em;
+    border-bottom: 1px solid #8cacbb;
+    text-align: left;
+}

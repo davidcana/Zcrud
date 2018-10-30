@@ -24,21 +24,37 @@ var options = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        type: 'fieldsGroup',
+                        source: [ 
+                            'id',
+                            'name',
+                            'description' 
+                        ],
+                        container: {
+                            id: 'basicData',
+                            containerType: 'fieldSet'
+                        }
+                    },
+                    {
+                        type: 'fieldsGroup',
+                        source: 'default',
+                        start: 'date'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        "type": "fieldsGroup",
+                        source: "create"
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        "type": "fieldsGroup",
+                        source: "create"
                     }
                 ]
             }

@@ -8,4 +8,5 @@ ZCrud 0.1.0
 * New field types: password and passwordChanger.
 
 Bugs:
-* Remove 'Delete record' buttons in delete forms in 'Master/chil tables'.
+* Remove 'Delete record' buttons in delete forms in 'Master/child tables' and 'index.html'.
+* Add new records in forms?
