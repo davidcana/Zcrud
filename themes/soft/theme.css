@@ -204,6 +204,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next:hover {
   background-color: #4fabff;
+  color: White;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled {
   opacity: 0.75;
@@ -212,6 +213,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled:hover {
   background-color: #2d89ef;
+  color: #ccc;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
   padding: 2px 5px;

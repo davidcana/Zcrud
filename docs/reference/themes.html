@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ZCrud API reference - Themes</title>
+        
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
+        <script type="text/javascript" src="/lib/zpt.min.js" defer></script>
+        <script type="text/javascript" src="/js/zpt.js" defer></script>
+
+        <link rel="stylesheet" type="text/css" href="/themes/basic/theme.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
+    </head>
+    <body>
+        <div id="commonHeader" data-muse-macro="'header@templates.html'">
+            The header
+        </div>
+        
+        <div class="header1Div">
+            <h1>ZCrud API reference - Themes</h1>
+        </div>
+        
+        <h2>Built-in themes</h2>
+        <p>
+            A <em>theme</em> in ZCrud is simply a folder in <strong>themes</strong> directory containing a CSS file and some images (optional). Built-in themes uses <a href="https://sass-lang.com">Sass</a>, an extension of CSS to make it easy to use variables, nested rules, mixins, inline imports, and more, all with a fully CSS-compatible syntax.
+        </p>
+
+        <p>
+          <em>Basic</em> theme is a theme built from scratch. It contains the next files:
+        </p>
+        <ul>
+            <li><em>images</em>. A directory with images.</li>
+            <li><em>_base.scss</em>. It contains definitions of configuration vars.</li>
+            <li><em>_color.scss</em>. Definitions of vars about colors.</li>
+            <li><em>_common.scss</em>. The core of the styles.</li>
+            <li><em>_fonts.scss</em>. Definitions of vars about fonts and web fonts.</li>
+            <li><em>theme.css</em>. The resulting CSS file.</li>
+            <li><em>theme.css.map</em>. The source map of the CSS file. Developer tools such as those in Firefox and Chrome will use them to allow debugging.</li>
+            <li><em>theme.scss</em>. The main Sass file for this theme.</li>
+        </ul>
+        
+        <p>
+            <em>Soft</em> theme is a theme built over <em>Basic</em> theme. It contains the next files:
+        </p>
+        <ul>
+            <li><em>_base.scss</em> (not required).</li>
+            <li><em>_color.scss</em> (not required).</li>
+            <li><em>theme.css</em> (required). A theme can not work without this file!</li>
+            <li><em>theme.css.map</em> (not required but recommended).</li>
+            <li><em>theme.scss</em> (required if the theme is based on Sass).</li>
+        </ul>
+        
+        <h2>Extending themes</h2>
+        <p>
+            If you don't like built-in themes you can:
+        </p>
+        <ul>
+            <li><em>Customize an existing theme</em>.</li>
+            <li><em>Create a new theme</em>.</li>
+        </ul>
+        
+        <h3>Customize an existing theme</h3>
+        <p>
+            Customize the SCSS files and/or the images. If you customize the SCSS files you must rebuild the CSS file running this:
+        </p>
+        <pre class="console">
+grunt sass
+        </pre>
+        
+        <h3>Create a new theme</h3>
+        <p>
+            Use the <em>basic</em> or <em>soft</em> theme as a base. Simply copy the directory of the base theme in the <em>themes</em> directory and give it another name. Then customize it. You must also add to the files in sass target of <em>Gruntfile.js</em> file. The default files are:
+        </p>
+        <pre class="brush: js">
+grunt.initConfig({
+    ...
+    sass: {
+        dist: {
+            files: {
+                'themes/basic/theme.css': 'themes/basic/theme.scss',
+                'themes/soft/theme.css': 'themes/soft/theme.scss'
+            }
+        }
+    }
+    ...
+});
+        </pre>
+        
+        <p>
+            To add an new theme called <em>hard</em> the files must be:
+        </p>
+        <pre class="brush: js; highlight: [8]">
+grunt.initConfig({
+    ...
+    sass: {
+        dist: {
+            files: {
+                'themes/basic/theme.css': 'themes/basic/theme.scss',
+                'themes/soft/theme.css': 'themes/soft/theme.scss',
+                'themes/hard/theme.css': 'themes/hard/theme.scss'
+            }
+        }
+    }
+    ...
+});
+        </pre>
+        
+        <p>
+            <strong>Important:</strong> Be careful with the changes! Don't break the general structure of the CSS file! If you do this you can break ZCrud!
+        </p>
+
+        <div id="commonFooter" data-muse-macro="'referenceFooter@templates.html'">
+            The footer
+        </div>
+    </body>
+</html>

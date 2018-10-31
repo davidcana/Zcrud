@@ -5,21 +5,21 @@ $color: Black;
 $background-color: White;
 
 $em-color: White;
-$em-background-color: #1c78de;
+$em-background-color: Darkcyan;
 $em-border-color: $em-color;
 
 $over-em-color: White;
-$over-em-background-color: #2d89ef;
+$over-em-background-color: Darkcyan;
 
-$over2-em-color: White;
-$over2-em-background-color: #4fabff;
+$over2-em-color: Darkcyan;
+$over2-em-background-color: #cfec58;
 
 $item-even-background-color: #e8eaef;
 $item-odd-background-color: White;
 
 $item-hover-background-color: #ddd;
 
-$selected-item-background-color: #94c5f2;
+$selected-item-background-color: #b2edcb;
 $selected-item-color: White;
 
 $disabled-items-color: #ccc;
@@ -88,5 +88,4 @@ $datetime-th-border-color: $soft-border-color;
 $datetime-td-border-color: $datetime-th-border-color;
 $datetime-today-color: $over2-em-background-color;
 $datetime-current-background-color: $over2-em-background-color;
-$datetime-current-color: $background-color;
-
+$datetime-current-color: $over2-em-color;

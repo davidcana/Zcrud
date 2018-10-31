@@ -99,12 +99,12 @@ div.zcrud-main-container .zcrud-delete-command-button, div.zcrud-main-container 
 }
 div.zcrud-main-container table.zcrud {
   width: 100%;
-  border: 1px solid #1c78de;
+  border: 1px solid Darkcyan;
   border-collapse: collapse;
   border-spacing: 0;
 }
 div.zcrud-main-container table.zcrud > thead {
-  background-color: #1c78de;
+  background-color: Darkcyan;
 }
 div.zcrud-main-container table.zcrud > thead th {
   font-weight: 300;
@@ -173,10 +173,10 @@ div.zcrud-main-container th.zcrud-column-header-selecting input {
   cursor: pointer;
 }
 div.zcrud-main-container tr.zcrud-row-selected {
-  background-color: #94c5f2 !important;
+  background-color: #b2edcb !important;
 }
 div.zcrud-main-container .zcrud-bottom-panel {
-  background-color: #1c78de;
+  background-color: Darkcyan;
   color: White;
   min-height: 24px;
   border: 1px solid White;
@@ -195,7 +195,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list {
   margin: 0 0 0 1em;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
-  background-color: #2d89ef;
+  background-color: Darkcyan;
   color: White;
   margin: 1px;
   padding: 2px 5px;
@@ -203,7 +203,8 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number
   border-radius: 8px;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next:hover {
-  background-color: #4fabff;
+  background-color: #cfec58;
+  color: Darkcyan;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled {
   opacity: 0.75;
@@ -211,7 +212,8 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number
   color: #ccc;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled:hover {
-  background-color: #2d89ef;
+  background-color: Darkcyan;
+  color: #ccc;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
   padding: 2px 5px;
@@ -459,12 +461,12 @@ div.zcrud-main-container .datetime .calendar td > div {
   padding-right: 0.5em;
 }
 div.zcrud-main-container .datetime .calendar td .today {
-  color: #4fabff;
+  color: #cfec58;
 }
 div.zcrud-main-container .datetime .calendar td .current {
-  background-color: #4fabff;
-  box-shadow: #4fabff 0 1px 3px 0 inset;
-  color: White;
+  background-color: #cfec58;
+  box-shadow: #cfec58 0 1px 3px 0 inset;
+  color: Darkcyan;
   font-weight: 700;
 }
 div.zcrud-main-container .datetime .calendar td .other-month {
@@ -472,7 +474,7 @@ div.zcrud-main-container .datetime .calendar td .other-month {
 }
 div.zcrud-main-container .datetime .calendar td:hover {
   color: White !important;
-  background: #94c5f2 !important;
+  background: #b2edcb !important;
   box-shadow: none !important;
 }
 div.zcrud-main-container .datetime .save-button {
@@ -494,7 +496,7 @@ div.zcrud-main-container .wideConfirm {
   padding: 5px 5px 5px 58px;
   color: White;
   background: url("./images/loading.gif") no-repeat;
-  background-color: #1c78de;
+  background-color: Darkcyan;
   background-position: 8px;
 }
 

@@ -177,6 +177,7 @@ div.zcrud-main-container {
             }
             .zcrud-page-number:hover, .zcrud-page-number-first:hover, .zcrud-page-number-last:hover, .zcrud-page-number-previous:hover, .zcrud-page-number-next:hover {
                 background-color: $over2-em-background-color;
+                color: $over2-em-color;
             }
             .zcrud-page-number-disabled {
                 opacity: 0.75;
@@ -184,6 +185,7 @@ div.zcrud-main-container {
                 color: $disabled-paging-buttons-color;
                 &:hover {
                     background-color: $over-em-background-color;
+                    color: $disabled-paging-buttons-color;
                 }
             }
             .zcrud-page-number, .zcrud-page-number-space, .zcrud-page-number-first, .zcrud-page-number-last, .zcrud-page-number-previous, .zcrud-page-number-next, .zcrud-page-number-active {
