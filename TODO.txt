@@ -1,8 +1,7 @@
 ZCrud 0.1.0
 -----------
 
-* Write docs. (in progress!)
-* Use SASS to improve themes.
+* Improve reference docs.
 * Add validation on 'Save changes' and 'Cancel' buttons.
 * Replace formFieldAttributes by attributes.
 * New field types: password and passwordChanger.
