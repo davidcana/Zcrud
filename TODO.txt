@@ -4,7 +4,6 @@ ZCrud 0.1.0
 * Improve reference docs.
 * Add validation on 'Save changes' and 'Cancel' buttons.
 * Replace formFieldAttributes by attributes.
-* Replace the loading ZCrud icon.
 
 Bugs:
 * Add new records in forms?
