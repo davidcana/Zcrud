@@ -4,7 +4,7 @@ ZCrud 0.1.0
 * Improve reference docs.
 * Add validation on 'Save changes' and 'Cancel' buttons.
 * Replace formFieldAttributes by attributes.
+* Replace the loading ZCrud icon.
 
 Bugs:
-* Remove 'Delete record' buttons in delete forms in 'Master/child tables' and 'index.html'.
 * Add new records in forms?

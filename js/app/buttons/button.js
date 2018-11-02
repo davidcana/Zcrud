@@ -34,6 +34,7 @@ Button.prototype.getSelector = function(){
 };
 
 Button.prototype.bindableIn = {};
+Button.prototype.notUseInPages = [];
 
 Button.prototype.disabled = false;
 

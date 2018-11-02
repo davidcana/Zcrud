@@ -19,6 +19,7 @@ ShowDeleteFormButton.prototype.cssClass = 'zcrud-delete-command-button';
 ShowDeleteFormButton.prototype.bindableIn = {
     subformRow: true
 };
+ShowDeleteFormButton.prototype.notUseInPages = [ 'delete' ];
 
 ShowDeleteFormButton.prototype.getTextsBundle = function(){
 

@@ -597,6 +597,10 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         }
     };
     
+    var getType = function(){
+        return 'list';
+    };
+    
     var self = {
         show: show,
         showFromClientOnly: showFromClientOnly,
@@ -641,7 +645,8 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         bindButtonsEvent: bindButtonsEvent,
         removeChanges: removeChanges,
         update: update,
-        goToFirstPage: goToFirstPage
+        goToFirstPage: goToFirstPage,
+        getType: getType
     };
     
     configure();

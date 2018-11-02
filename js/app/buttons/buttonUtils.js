@@ -3,7 +3,6 @@
 */
 "use strict";
 
-//var context = require( '../context.js' );
 var $ = require( 'jquery' );
 
 var ButtonUtils = function() {
@@ -19,7 +18,11 @@ var ButtonUtils = function() {
         for ( var c = 0; c < source.length; ++c ){
             var sourceItem = source[ c ];
             var button = getButton( sourceItem, type, parent, options );
-            result.push( button );
+            
+            // Exclude the button if the type of the parent is included in the notUseInPages list of the buttton
+            if ( -1 == button.notUseInPages.indexOf( parent.getType() ) ){
+                result.push( button );
+            }
         }
         
         return result;

@@ -19,6 +19,7 @@ DeleteRowButton.prototype.cssClass = 'zcrud-delete-row-command-button';
 DeleteRowButton.prototype.bindableIn = {
     subformRow: true
 };
+DeleteRowButton.prototype.notUseInPages = [ 'delete' ];
 
 DeleteRowButton.prototype.getTextsBundle = function(){
 

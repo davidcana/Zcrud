@@ -721,4 +721,8 @@ Subform.prototype.goToFirstPage = function(){
     }
 };
 
+Subform.prototype.getType = function(){
+    return this.page.getType();
+};
+
 module.exports = Subform;

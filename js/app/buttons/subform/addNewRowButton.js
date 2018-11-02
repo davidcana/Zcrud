@@ -19,6 +19,7 @@ AddNewRowButton.prototype.cssClass = 'zcrud-new-row-command-button';
 AddNewRowButton.prototype.bindableIn = {
     subformToolbar: true
 };
+AddNewRowButton.prototype.notUseInPages = [ 'delete' ];
 
 AddNewRowButton.prototype.getTextsBundle = function(){
 

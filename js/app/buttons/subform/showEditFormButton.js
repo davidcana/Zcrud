@@ -19,6 +19,7 @@ ShowEditFormButton.prototype.cssClass = 'zcrud-edit-command-button';
 ShowEditFormButton.prototype.bindableIn = {
     subformRow: true
 };
+ShowEditFormButton.prototype.notUseInPages = [ 'delete' ];
 
 ShowEditFormButton.prototype.getTextsBundle = function(){
 

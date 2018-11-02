@@ -19,6 +19,7 @@ ShowCreateFormButton.prototype.cssClass = 'zcrud-new-command-button';
 ShowCreateFormButton.prototype.bindableIn = {
     subformToolbar: true
 };
+ShowCreateFormButton.prototype.notUseInPages = [ 'delete' ];
 
 ShowCreateFormButton.prototype.getTextsBundle = function(){
 
