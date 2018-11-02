@@ -6,4 +6,3 @@ ZCrud 0.1.0
 * Replace formFieldAttributes by attributes.
 
 Bugs:
-* Add new records in forms?

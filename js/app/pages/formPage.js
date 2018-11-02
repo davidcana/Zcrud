@@ -575,9 +575,15 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     
     var updateKeys = function( dataFromServer ){
 
+        var subformsDataFromServer = dataFromServer.subforms;
+        if ( ! subformsDataFromServer ){
+            return;
+        }
+        
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            var dataFromServerOfField = dataFromServer[ field.id ];
+            var dataFromServerOfField = subformsDataFromServer[ field.id ];
+            //var dataFromServerOfField = dataFromServer[ field.id ];
             if ( dataFromServerOfField ){
                 updateKeysForField( field, dataFromServerOfField );
             }

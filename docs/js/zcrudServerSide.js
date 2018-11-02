@@ -84,7 +84,6 @@ var zcrudServerSide = (function() {
         // Init data
         var dataToSend = {};
         dataToSend.message = '';
-        dataToSend.newRecords = [];
 
         if ( data.newRecords ){
             for ( var i in data.newRecords[ 0 ] ) {
@@ -102,7 +101,11 @@ var zcrudServerSide = (function() {
     };
     
     var customItemsAjaxBatchUpdate = function( data, dataToSend, filter ){
-
+        
+        // Init vars
+        dataToSend.subforms = {};
+        dataToSend.subforms.verifiedMembers = {};
+        
         // Add all existing services
         for ( var id in data.existingRecords ) {
             var modifiedItem = data.existingRecords[ id ];
@@ -141,7 +144,13 @@ var zcrudServerSide = (function() {
             
             var newItemClone = $.extend( true, {}, people[ id ], newItem );
             verifiedMembers[ id ] = newItemClone;
-            //dataToSend.newRecords.push( newItemClone );
+            
+            var newRecordsToSend = dataToSend.subforms.verifiedMembers.newRecords;
+            if ( ! newRecordsToSend ){
+                newRecordsToSend = [];
+                dataToSend.subforms.verifiedMembers.newRecords = newRecordsToSend;
+            }
+            newRecordsToSend.push( newItemClone );
             
             if ( newItemClone.groupId == undefined ){
                 newItemClone.groupId = buildIdUsingFilter( filter );
