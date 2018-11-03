@@ -1,5 +1,18 @@
 New in 0.2.0
-- New field types: passwordGetter and passwordSetter.
+- New field types: password and passwordSetter.
+- Support of some HTML5 input fields: 
+    * color
+    * date
+    * datetime-local
+    * email
+    * month
+    * number
+    * range
+    * search
+    * tel
+    * time
+    * url
+    * week
 
 New in 0.1.0
 - Initial version.
