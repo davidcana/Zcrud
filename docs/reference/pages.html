@@ -27,6 +27,7 @@
         <pre class="brush: javascript">
     pageConf: {
         defaultPageConf: {
+            showStatus: false,
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
             hideTr: function( $tr ){
@@ -36,91 +37,43 @@
                 $tr.fadeIn();
             },
             buttons: {
-                toolbar: {
-                    undo: true,
-                    redo: true,
-                    cancel: true
-                },
-                byRow: {
-                    openEditRegisterForm: true,
-                    openDeleteRegisterForm: true,
-                    deleteRegisterRow: true,
-                }
+                byRow: []
             }
         },
         pages: {
             list: {
                 template: "listDefaultTemplate@templates/lists.html",
+                showStatus: true,
                 components: {
                     paging: {
-                        isOn: true,
-                        constructorClass: require( './components/pagingComponent.js' ),
-                        defaultPageSize: 10,
-                        pageSizes: [10, 25, 50, 100, 250, 500],
-                        pageSizeChangeArea: true,
-                        gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
-                        gotoPageFieldAttributes: {},
-                        maxNumberOfAllShownPages: 5,
-                        block1NumberOfPages: 1,
-                        block2NumberOfPages: 5,
-                        block3NumberOfPages: 1
-                    },
-                    sorting: {
-                        isOn: false,
-                        constructorClass: require( './components/sortingComponent.js' ),
-                        loadFromLocalStorage: true,
-                        default: {
-                            fieldId: undefined,
-                            type: undefined
-                        },
-                        allowUser: false
-                    },
-                    filtering: {
-                        isOn: false,
-                        constructorClass: require( './components/filteringComponent.js' ),
-                    },
-                    selecting: {
-                        isOn: false,
-                        constructorClass: require( './components/selectingComponent.js' ),
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
-                    },
-                    editing: {
-                        isOn: false,
-                        constructorClass: require( './components/editingComponent.js' ),
-                        modifiedFieldsClass: 'zcrud-modified-field',
-                        modifiedRowsClass: 'zcrud-modified-row',
-                        hideTr: function( $tr ){
-                            $tr.fadeOut();
-                        },
-                        showTr: function( $tr ){
-                            $tr.fadeIn();
-                        }
+                        isOn: true
                     }
                 },
                 buttons: {
-                    toolbar: {
-                        newRegisterRow: undefined,
-                        openNewRegisterForm: undefined,
-                        undo: undefined,
-                        redo: undefined,
-                        save: undefined
-                    },
-                    byRow: {
-                        openEditRegisterForm: undefined,
-                        openDeleteRegisterForm: undefined,
-                        deleteRegisterRow: undefined,
-                    }
+                    toolbar: [ 'list_showCreateForm' ],
+                    byRow: [ 'list_showEditForm', 'list_showDeleteForm' ]
                 }
             }, 
             create: {
-                template: "formDefaultTemplate@templates/forms.html"
+                template: "formDefaultTemplate@templates/forms.html",
+                components: {},
+                buttons: {
+                    toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
+                }
             }, 
             update: {
-                template: "formDefaultTemplate@templates/forms.html"
+                template: "formDefaultTemplate@templates/forms.html",
+                components: {},
+                buttons: {
+                    toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
+                }
             }, 
             delete: {
-                template: "deleteDefaultTemplate@templates/forms.html"
+                template: "deleteDefaultTemplate@templates/forms.html",
+                components: {},
+                buttons: {
+                    toolbar: [ 'form_cancel', 'form_submit' ]
+                }
             }
         }
     }
@@ -204,6 +157,7 @@
                                 <li><em>isOn</em>. On/off filtering.</li>
                                 <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
                                 <li><em>fields</em>. The list of fields to define the filter.</li>
+                                <li><em>fieldsTemplate</em>. The template to build the list of fields.</li>
                             </ul>
                         </li>
                         <li>
@@ -212,7 +166,7 @@
                                 <li><em>isOn</em>. On/off selecting.</li>
                                 <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
                                 <li><em>multiple</em>. Defines whether multiple selection is allowed.</li>
-                                <li><em>mode</em>. Array of string that defines the selecting mode. Possible values are <em>checkbox</em> (must click a checkbox) and <em>onRowClick</em> (must click on the row, no checkbox present). Default value is <em>[ 'checkbox', 'onRowClick']</em>.</li>
+                                <li><em>mode</em>. Array of string that defines the selecting mode. Possible values are <em>checkbox</em> (must click a checkbox) and <em>onRowClick</em> (must click on any place of the row). Default value is <em>[ 'checkbox', 'onRowClick']</em>.</li>
                             </ul>
                         </li>
                         <li>
@@ -236,7 +190,18 @@
                     <span class="default">{}</span>
                 </div>
                 <div class="body">
-                    Defines the list of fields of this page.
+                    Defines the list of fields of this page. Go to <a href="fieldsLists.html">Field lists</a> to see more details.
+                </div>
+            </li>
+            <li>
+                <a id="getRecordURL"></a>
+                <div class="header">
+                    <span class="name">getRecordURL</span>
+                    <span class="dataType">string</span>
+                    <span class="default">undefined</span>
+                </div>
+                <div class="body">
+                    The server URL to retrieve a record by id.
                 </div>
             </li>
             <li>
@@ -302,7 +267,7 @@
                     <span class="default">undefined</span>
                 </div>
                 <div class="body">
-                    The server URL to connect.
+                    The server URL to retireve a list of records.
                 </div>
             </li>
         </ul>
