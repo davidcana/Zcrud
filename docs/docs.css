@@ -200,6 +200,9 @@ ul.fieldTypeList>li .header .customOptions:before {
     margin-left: 2em;
     content: "customOptions: ";
 }
+ul.fieldTypeList a {
+    color: White;
+}
 
 /* Custom options list */
 ul.customOptionsList {
