@@ -21,6 +21,7 @@
             <h1>ZCrud API reference - Fields - Configuration options for fields</h1>
         </div>
 
+        <h2>Field options</h2>
         <p>
             The list of configuration options of fields is:
         </p>
@@ -36,26 +37,21 @@
                 <div class="body">
                     Defines the available buttons in a subform. The default value is:
                     <pre class="brush: javascript">
-                buttons: {
-                    toolbar: {
-                        newRegisterRow: undefined,
-                        openNewRegisterForm: undefined,
-                        undo: undefined,
-                        redo: undefined,
-                        save: undefined
-                    },
-                    byRow: {
-                        openEditRegisterForm: undefined,
-                        openDeleteRegisterForm: undefined,
-                        deleteRegisterRow: undefined,
-                    }
-                }
+    buttons: {
+        toolbar: [ 'subform_addNewRow' ],
+        byRow: [ 'subform_deleteRow' ]  
+    }
                     </pre>
+                    <ul>
+                        <li>
+                            <em>toolbar</em> defines the buttons related to all the form or editable list.
+                        </li>
+                        <li>
+                            <em>byRow</em> defines the buttons in each row of a list or subform.
+                        </li>
+                    </ul>
                     <p>
-                        <em>toolbar</em> defines the buttons related to all the form or editable list: <em>newRegisterRow</em> (creates a new row in an editable list), <em>openNewRegisterForm</em> (open a form with a new register), <em>undo</em>, <em>redo</em> and <em>save</em>.
-                    </p>
-                    <p>
-                        <em>byRow</em> defines the buttons in each row: <em>openEditRegisterForm</em> (open a form with an existing register), <em>openDeleteRegisterForm</em> (open a form to delete an existing register), and <em>deleteRegisterRow</em> (deletes a row in an editable list).
+                        More details in <a href="buttons.html">Buttons</a>.
                     </p>
                 </div>
             </li>
@@ -68,7 +64,7 @@
                     <span class="default">{}</span>
                 </div>
                 <div class="body">
-                    An object containing configuration options. Useful to add specific configuration options for some field types (for example <em>inline</em> property in date fields):
+                    An object containing configuration options. Useful to add specific configuration options for some field types only (for example <em>inline</em> property in date fields):
                     <pre class="brush: javascript; highlight: [3]">
         date: {
             type: 'date',
@@ -90,11 +86,18 @@
                 <div class="body">
                     The default value of the field. This value will be used in the create form. An example:
                     
-                    <pre class="brush: javascript; highlight: [4]">
-        province: {
+                    <pre class="brush: javascript; highlight: [11]">
+        country: {
             type: 'select',
-            options: [ 'Cádiz', 'Málaga' ],
-            defaultValue: 'Cádiz'
+            translateOptions: false,
+            options: [
+                { value: 1, displayText: 'France' }, 
+                { value: 2, displayText: 'Italy' },
+                { value: 3, displayText: 'Portugal' }, 
+                { value: 4, displayText: 'Spain' }, 
+                { value: 5, displayText: 'UK' }
+            ],
+            defaultValue: '4'
         }
                     </pre>
                 </div>
@@ -109,45 +112,53 @@
                 </div>
                 <div class="body">
                     Used to create cascade options. If a field depends on another field, ZCrud can automatically create cascaded options.
-                    <pre class="brush: javascript; highlight: [8]">
-        province: {
+                    <pre class="brush: javascript; highlight: [16]">
+        country: {
             type: 'select',
-            options: [ 'Cádiz', 'Málaga' ],
-            defaultValue: 'Cádiz'
+            translateOptions: false,
+            options: [
+                { value: 1, displayText: 'France' }, 
+                { value: 2, displayText: 'Italy' },
+                { value: 3, displayText: 'Portugal' }, 
+                { value: 4, displayText: 'Spain' }, 
+                { value: 5, displayText: 'UK' }
+            ],
+            defaultValue: '4'
         },
         city: {
             type: 'select',
-            dependsOn: 'province', // cities depends on provinces!
-            options: function( data ){{
-                if ( ! data.dependedValues.province ){
+            sorting: false,
+            dependsOn: 'country',
+            options: function( data ){
+
+                if ( ! data.dependedValues.country ){
                     return [];
-                };
-                switch ( data.dependedValues.province ) {
-                case 'Cádiz':
-                    return [ 'Algeciras', 'Tarifa' ];
-                    break;
-                case 'Málaga':
-                    return [ 'Estepona', 'Marbella' ];
-                    break;
-                default:
-                    throw 'Unknown province: ' + data.dependedValues.province;
                 }
-            });
+
+                switch ( parseInt( data.dependedValues.country ) ) {
+                    case 1:
+                        return [ 
+                            { value: 1, displayText: 'Paris' }, 
+                            { value: 2, displayText: 'Marseille' }, 
+                            { value: 3, displayText: 'Lyon' }, 
+                            { value: 4, displayText: 'Toulouse' },
+                            { value: 5, displayText: 'Nice' }
+                        ];
+                    case 2:
+                        return [ 
+                            { value: 1, displayText: 'Roma' }, 
+                            { value: 2, displayText: 'Milano' }, 
+                            { value: 3, displayText: 'Napoli' }, 
+                            { value: 4, displayText: 'Torino' },
+                            { value: 5, displayText: 'Paliemmu' }
+                        ];
+                    default:
+                        throw 'Unknown country: ' + data.dependedValues.country;
+                }
+            }
         }
                     </pre>
-                    Every time <em>province</em> changes, ZCrud will reload the available options in <em>city</em>. Take a look on <a href="#options">options</a>.
-                </div>
-            </li>
-            <li>
-                <a id="elementId"></a>
-                <div class="header">
-                    <span class="name">elementId</span>
-                    <span class="dataType"></span>
-                    <span class="appliesTo"></span>
-                    <span class="default">undefined</span>
-                </div>
-                <div class="body">
-                    .
+                    Every time <em>country</em> changes, ZCrud will reload the available options in <em>city</em>. Take a look on <a href="#options">options</a>.
                 </div>
             </li>
             <li>
@@ -160,7 +171,7 @@
                 </div>
                 <div class="body">
                     Defines an object with the fields in the subform. An example:
-                    <pre class="brush: javascript; highlight: [3]">
+                    <pre class="brush: javascript; highlight: [4]">
         members: {
             type: 'subform',
             subformKey: true,
@@ -173,16 +184,6 @@
                         rows: 3,
                         cols: 80
                     }
-                }
-            },
-            buttons: {
-                toolbar: {
-                    newRegisterRow: true
-                },
-                byRow: {
-                    openEditRegisterForm: false,
-                    openDeleteRegisterForm: false,
-                    deleteRegisterRow: true
                 }
             }
         }
@@ -208,30 +209,6 @@
                     }
                 }
                     </pre>
-                </div>
-            </li>
-            <li>
-                <a id="id"></a>
-                <div class="header">
-                    <span class="name">id</span>
-                    <span class="dataType"></span>
-                    <span class="appliesTo"></span>
-                    <span class="default">undefined</span>
-                </div>
-                <div class="body">
-                    .
-                </div>
-            </li>
-            <li>
-                <a id="name"></a>
-                <div class="header">
-                    <span class="name">name</span>
-                    <span class="dataType"></span>
-                    <span class="appliesTo"></span>
-                    <span class="default">undefined</span>
-                </div>
-                <div class="body">
-                    .
                 </div>
             </li>
             <li>
@@ -304,7 +281,7 @@
                             </pre>
                         </li>
                     </ul>
-                    As seen in the examples, the <em>translateOptions</em> property indicates ZCrud to search the displayText in the i18n files. See <a href="/tutorial/localization.html">localization</a> for more details about i18n.
+                    As seen in the examples, the <em>translateOptions</em> property indicates ZCrud to search the displayText in the i18n files. See <a href="/tutorial/localization.html">Working with texts, numbers and dates</a> for more details about i18n.
                 </div>
             </li>
             <li>
@@ -399,6 +376,85 @@
                 </div>
                 <div class="body">
                     If present ZCrud will add 'style width:{value}' to the column header in lists and subforms. It can be a percentage value (ex: '40%').
+                </div>
+            </li>
+        </ul>
+        
+        <h2>Custom options</h2>
+        <p>
+            Custom oprions are specific configuration options for some field types only. They must be inside a <em>customOption</em> object. The list of custom options is:
+        </p>
+        <ul class="customOptionsList">
+            <li>
+                <a id="inline"></a>
+                <div class="header">
+                    <span class="name">inline</span>
+                    <span class="dataType">boolean</span>
+                    <span class="appliesTo">date, datetime and time</span>
+                    <span class="default">false</span>
+                </div>
+                <div class="body">
+                    Defines whether the element is inline (true) or if it will be visible only after clicking a button (false).
+                </div>
+            </li>
+            <li>
+                <a id="maxHour"></a>
+                <div class="header">
+                    <span class="name">maxHour</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">23 (datetime) or 99 (time)</span>
+                </div>
+                <div class="body">
+                    The maximum value allowed for the hour.
+                </div>
+            </li>
+            <li>
+                <a id="maxYear"></a>
+                <div class="header">
+                    <span class="name">maxYear</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">2050</span>
+                </div>
+                <div class="body">
+                    The maximum value allowed for the year.
+                </div>
+            </li>
+            <li>
+                <a id="minutesStep"></a>
+                <div class="header">
+                    <span class="name">minutesStep</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">5</span>
+                </div>
+                <div class="body">
+                    This property defines the number of minutes to add or substract every time the user click on the buttons to modify its value.
+                </div>
+            </li>
+            <li>
+                <a id="minYear"></a>
+                <div class="header">
+                    <span class="name">minYear</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">1950</span>
+                </div>
+                <div class="body">
+                    The minimum value allowed for the year.
+                </div>
+            </li>
+            <li>
+                <a id="timerDelay"></a>
+                <div class="header">
+                    <span class="name">timerDelay</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">date</span>
+                    <span class="default">100</span>
+                </div>
+                <div class="body">
+                    Delay to apply when keeping buttons pressed.
                 </div>
             </li>
         </ul>
