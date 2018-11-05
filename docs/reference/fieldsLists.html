@@ -29,15 +29,9 @@
         id: {
             sorting: false
         },
-        name: {
-            width: '90%'
-        },
+        name: {},
         description: {
-            type: 'textarea',
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            type: 'textarea'
         },
         date: {
             type: 'date',
@@ -56,28 +50,6 @@
             translateOptions: true,
             options: function(){
                 return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
-            }
-        },
-        province: {
-            type: 'select',
-            options: [ 'Cádiz', 'Málaga' ],
-            defaultValue: 'Cádiz'
-        },
-        city: {
-            type: 'select',
-            dependsOn: 'province',
-            options: function( data ){
-                if ( ! data.dependedValues.province ){
-                    return [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ]
-                }
-                switch ( data.dependedValues.province ) {
-                case 'Cádiz':
-                    return [ 'Algeciras', 'Tarifa' ];
-                case 'Málaga':
-                    return [ 'Estepona', 'Marbella' ];
-                default:
-                    throw 'Unknown province: ' + data.dependedValues.province;
-                }
             }
         },
         browser: {
@@ -104,16 +76,11 @@
         fields: [
             {
                 "id": "name",
-                "type": "text",
-                "width": "90%"
+                "type": "text"
             },
             {
                 "id": "description",
-                "type": "textarea",
-                "formFieldAttributes": {
-                    "cols": 80,
-                    "rows": 6
-                }
+                "type": "textarea"
             }
         ]
                 </pre>
@@ -136,7 +103,7 @@
                 "source": "default",
                 "start": "name",
                 "end": "browser",
-                "except": [ "date", "time", "phoneType", "city" ],
+                "except": [ "date", "time", "phoneType" ],
                 "container": {
                     "id": "myGroup",
                     "containerType": "fieldSet"
@@ -145,7 +112,7 @@
         ]
                 </pre>
                 <p>
-                    The previous fieldsGroup builds the next list of fields: [ 'name', 'description', 'datetime', 'province', 'browser' ].
+                    The previous fieldsGroup builds the next list of fields: [ 'name', 'description', 'datetime', 'browser' ].
                 </p>
                 
                 <p>
@@ -153,7 +120,7 @@
                 </p>
                 <ul>
                     <li><em>type</em>. Must be <strong>fieldsGroup</strong> to work.</li>
-                    <li><em>source</em> (possible values: 'default', 'create', 'update' or 'delete', default value is 'default'). The source of the fields. If it is <em>default</em> the fields are the fields in general options. If not use the fields of the specified page.</li>
+                    <li><em>source</em> (possible values: 'default', 'create', 'update' or 'delete', default value is 'default'). The source of the fields. If it is <em>default</em> the fields are the fields in general options; if not use the fields of the specified page.</li>
                     <li><em>start</em>. The first field to include. If not set ZCrud will use the first field.</li>
                     <li><em>end</em>. The last field to include. If not set ZCrud will use the last field.</li>
                     <li><em>except</em>. An array with the ids of the fields to exclude.</li>
@@ -179,12 +146,11 @@
                 "id": "time",
                 "type": "time"
             },
-            'date',
-            'city'
+            'date'
         ]
         </pre>
         <p>
-            This fields element will contain the next list of fields: [ 'id', 'name', 'description', 'time', 'date', 'city' ].
+            This fields element will contain the next list of fields: [ 'id', 'name', 'description', 'time', 'date' ].
         </p>
 
         <div id="commonFooter" data-muse-macro="'referenceFooter@templates.html'">
