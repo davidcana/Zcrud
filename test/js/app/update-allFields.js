@@ -12,10 +12,10 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -32,7 +32,7 @@ QUnit.test( "update text area test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -61,9 +61,9 @@ QUnit.test( "update text area test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
             
@@ -85,7 +85,7 @@ QUnit.test( "update datetime test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -119,9 +119,9 @@ QUnit.test( "update datetime test", function( assert ) {
             testHelper.checkForm( assert, newClientRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             testHelper.checkRecord( assert, key, newRecord );
             
@@ -143,7 +143,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -182,9 +182,9 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             testHelper.checkForm( assert, newClientRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -207,7 +207,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             options.fields[ varName ].customOptions.inline = true;
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -246,9 +246,9 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             testHelper.checkForm( assert, newClientRecord );
             testHelper.assertHistory( assert, 5, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -270,7 +270,7 @@ QUnit.test( "update date test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -304,9 +304,9 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.checkForm( assert, newClientRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -328,7 +328,7 @@ QUnit.test( "update date using picker test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -367,9 +367,9 @@ QUnit.test( "update date using picker test", function( assert ) {
             testHelper.checkForm( assert, newClientRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -392,7 +392,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             options.fields[ varName ].customOptions.inline = true;
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -431,9 +431,9 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             testHelper.checkForm( assert, newClientRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -455,7 +455,7 @@ QUnit.test( "update time test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -484,9 +484,9 @@ QUnit.test( "update time test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -508,7 +508,7 @@ QUnit.test( "update time using picker test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -540,9 +540,9 @@ QUnit.test( "update time using picker test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -565,7 +565,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             options.fields[ varName ].customOptions.inline = true;
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -597,9 +597,9 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 
@@ -620,7 +620,7 @@ QUnit.test( "update checkbox test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', 'important' ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -650,9 +650,9 @@ QUnit.test( "update checkbox test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
             
@@ -673,7 +673,7 @@ QUnit.test( "update radio test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -703,9 +703,9 @@ QUnit.test( "update radio test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
             
@@ -726,7 +726,7 @@ QUnit.test( "update select test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', 'province' ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -760,9 +760,9 @@ QUnit.test( "update select test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
             
@@ -783,7 +783,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -852,9 +852,9 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Estepona', 'Marbella' ] );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord2 );
             
@@ -875,7 +875,7 @@ QUnit.test( "update datalist test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', 'browser' ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -905,9 +905,9 @@ QUnit.test( "update datalist test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
             
@@ -928,7 +928,7 @@ QUnit.test( "update checkboxes test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', 'hobbies' ] );
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -958,9 +958,9 @@ QUnit.test( "update checkboxes test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 2, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord );
 

@@ -10,9 +10,9 @@ var testUtils = require( './testUtils' );
 var defaultTestOptions = require( './subformTestOptions.js' );
 var options = undefined;
 
-var fatalErrorFunctionCounter = 0;
-defaultTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+defaultTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -127,10 +127,10 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
             // Try to edit record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
 
             // Fix the form
             var editedRecord2 = {
@@ -146,7 +146,7 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
             
             // Update record (no errors)
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             var newRecord = {
                 "id": "" + key,
@@ -233,10 +233,10 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
             // Try to edit record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
             
             // Fix the form
             var editedRecord2 = {
@@ -251,7 +251,7 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
             
             // Update record (no errors)
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             var newRecord = {
                 "id": "" + key,
@@ -338,10 +338,10 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
 
             // Try to edit record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
             
             // Undo
             var tempRecord = $.extend( true, {} , record );

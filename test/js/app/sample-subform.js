@@ -232,10 +232,10 @@ defaultTestOptions.fields.members.fields = {
 
 var options = undefined;
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-defaultTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+defaultTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 
@@ -277,7 +277,7 @@ defaultTestOptions.fatalErrorFunction = function( message ){
             //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
             
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form

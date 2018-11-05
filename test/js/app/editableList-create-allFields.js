@@ -12,10 +12,10 @@ var defaultTestOptions = require( './editableListAllFieldsTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -31,7 +31,7 @@ QUnit.test( "create text area test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -74,9 +74,9 @@ QUnit.test( "create text area test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 4, 0, true );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
             
@@ -97,7 +97,7 @@ QUnit.test( "create datetime test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -143,9 +143,9 @@ QUnit.test( "create datetime test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -166,7 +166,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -216,9 +216,9 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 4, 0, true );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -241,7 +241,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             options.fields[ varName ].customOptions.inline = true;
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -291,9 +291,9 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 9, 0, true );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -314,7 +314,7 @@ QUnit.test( "create date test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -360,9 +360,9 @@ QUnit.test( "create date test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -383,7 +383,7 @@ QUnit.test( "create date using picker test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -433,9 +433,9 @@ QUnit.test( "create date using picker test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 4, 0, true );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -458,7 +458,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             options.fields[ varName ].customOptions.inline = true;
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -510,9 +510,9 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -533,7 +533,7 @@ QUnit.test( "create time test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -577,9 +577,9 @@ QUnit.test( "create time test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -600,7 +600,7 @@ QUnit.test( "create time using picker test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -650,9 +650,9 @@ QUnit.test( "create time using picker test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -675,7 +675,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             options.fields[ varName ].customOptions.inline = true;
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -725,9 +725,9 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, clientRecord );
             testHelper.assertHistory( assert, 7, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -748,7 +748,7 @@ QUnit.test( "create checkbox test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -791,9 +791,9 @@ QUnit.test( "create checkbox test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -814,7 +814,7 @@ QUnit.test( "create radio test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -857,9 +857,9 @@ QUnit.test( "create radio test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -880,7 +880,7 @@ QUnit.test( "create select test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -926,9 +926,9 @@ QUnit.test( "create select test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -950,7 +950,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -1031,9 +1031,9 @@ QUnit.test( "create 2 linked select test", function( assert ) {
                 testHelper.getSelectOptions( 'city', testHelper.getLastRow() ),
                 [ 'Estepona', 'Marbella' ] );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record3 );
 
@@ -1054,7 +1054,7 @@ QUnit.test( "create datalist test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -1097,9 +1097,9 @@ QUnit.test( "create datalist test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 4, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 
@@ -1120,7 +1120,7 @@ QUnit.test( "create checkboxes test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -1163,9 +1163,9 @@ QUnit.test( "create checkboxes test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, record2 );
             testHelper.assertHistory( assert, 5, 0, true );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), record2 );
 

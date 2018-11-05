@@ -60,6 +60,66 @@
                 </div>
             </li>
             <li>
+                <a id="buttons"></a>
+                <div class="header">
+                    <span class="name">buttons</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Default definition of each type of button. The default value is:
+                    <pre class="brush: javascript">
+    buttons: {
+        generic: require( './buttons/genericButton.js' ),
+        undo: require( './buttons/undoButton.js' ),
+        redo: require( './buttons/redoButton.js' ),
+
+        form_cancel: require( './buttons/formPage/cancelButton.js' ),
+        form_copySubformRows: require( './buttons/formPage/copySubformRowsButton.js' ),
+        form_submit: require( './buttons/formPage/submitButton.js' ),
+
+        list_addNewRow: require( './buttons/listPage/addNewRowButton.js' ),
+        list_deleteRow: require( './buttons/listPage/deleteRowButton.js' ),
+        list_showCreateForm: require( './buttons/listPage/showCreateFormButton.js' ),
+        list_showDeleteForm: require( './buttons/listPage/showDeleteFormButton.js' ),
+        list_showEditForm: require( './buttons/listPage/showEditFormButton.js' ),
+        list_submit: require( './buttons/listPage/submitButton.js' ),
+
+        subform_addNewRow: require( './buttons/subform/addNewRowButton.js' ),
+        subform_deleteRow: require( './buttons/subform/deleteRowButton.js' ),
+        subform_showCreateForm: require( './buttons/subform/showCreateFormButton.js' ),
+        subform_showDeleteForm: require( './buttons/subform/showDeleteFormButton.js' ),
+        subform_showEditForm: require( './buttons/subform/showEditFormButton.js' )
+    }
+                    </pre>
+                    To add a custom button you must add it to your options:
+                    <pre class="brush: javascript">
+    buttons: {
+        customButton: require( './buttons/customButton.js' ),
+    }
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <a id="confirmFunction"></a>
+                <div class="header">
+                    <span class="name">confirmFunction</span>
+                    <span class="dataType">function</span>
+                    <span class="default">a function</span>
+                </div>
+                <div class="body">
+                    This function is executed when ZCrud needs to make a confirm question to the user. The default value is:
+                    <pre class="brush: javascript">
+    confirmFunction: function( confirmOptions, onFulfilled ){
+        var swal = require( 'sweetalert' );
+        var thisOptions = $.extend( true, {}, this.defaultConfirmOptions, confirmOptions );
+        swal( thisOptions ).then( onFulfilled );
+    }
+                    </pre>
+                    This function uses <a href="https://sweetalert.js.org/guides/">Sweetalert</a>.
+                </div>
+            </li>
+            <li>
                 <a id="containers"></a>
                 <div class="header">
                     <span class="name">containers</span>
@@ -88,6 +148,122 @@
                 </div>
             </li>
             <li>
+                <a id="defaultComponentsConfig"></a>
+                <div class="header">
+                    <span class="name">defaultComponentsConfig</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Default configuration for each type of component. The default value is:
+                    <pre class="brush: javascript">
+    defaultComponentsConfig: {
+        paging: {
+            isOn: false,
+            constructorClass: require( './components/pagingComponent.js' ),
+            defaultPageSize: 10,
+            pageSizes: [10, 25, 50, 100, 250, 500],
+            pageSizeChangeArea: true,
+            gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+            gotoPageFieldAttributes: {},
+            maxNumberOfAllShownPages: 5,
+            block1NumberOfPages: 1,
+            block2NumberOfPages: 5,
+            block3NumberOfPages: 1
+        },
+        sorting: {
+            isOn: false,
+            constructorClass: require( './components/sortingComponent.js' ),
+            loadFromLocalStorage: true,
+            default: {
+                fieldId: undefined,
+                type: undefined
+            },
+            allowUser: false
+        },
+        filtering: {
+            isOn: false,
+            constructorClass: require( './components/filteringComponent.js' ),
+            fieldsTemplate: 'compact-editable@templates/fieldLists.html'
+        },
+        selecting: {
+            isOn: false,
+            constructorClass: require( './components/selectingComponent.js' ),
+            multiple: true,
+            mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
+        },
+        editing: {
+            isOn: false,
+            constructorClass: require( './components/editingComponent.js' ),
+            modifiedFieldsClass: 'zcrud-modified-field',
+            modifiedRowsClass: 'zcrud-modified-row',
+            hideTr: function( $tr ){
+                $tr.fadeOut();
+            },
+            showTr: function( $tr ){
+                $tr.fadeIn();
+            }
+        }
+    }
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <a id="defaultConfirmOptions"></a>
+                <div class="header">
+                    <span class="name">defaultConfirmOptions</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Default configuration object for confirm messages. The default value is:
+                    <pre class="brush: javascript">
+    defaultConfirmOptions: {
+        icon: "warning",
+        dangerMode: true,
+        closeOnClickOutside: false,
+        className: "confirm"
+    }
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <a id="defaultErrorOptions"></a>
+                <div class="header">
+                    <span class="name">defaultErrorOptions</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Default configuration object for messages of errors. The default value is:
+                    <pre class="brush: javascript">
+    defaultErrorOptions: {
+        icon: "error",
+        closeOnClickOutside: false,
+        title: 'Oops...'
+    }
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <a id="defaultConfirmOptions"></a>
+                <div class="header">
+                    <span class="name">defaultShowMessageOptions</span>
+                    <span class="dataType">object</span>
+                    <span class="default">an object</span>
+                </div>
+                <div class="body">
+                    Default configuration object for general messages. The default value is:
+                    <pre class="brush: javascript">
+    defaultShowMessageOptions: {
+        icon: "info",
+        closeOnClickOutside: false,
+        className: "showMessage"
+    }
+                    </pre>
+                </div>
+            </li>
+            <li>
                 <a id="entityId"></a>
                 <div class="header">
                     <span class="name">entityId</span>
@@ -95,7 +271,11 @@
                     <span class="default">'entity'</span>
                 </div>
                 <div class="body">
-                    An unique identifier to allow several instances of ZCrud running in a page.
+                    An unique identifier about the objects managed by ZCrud. It is useful:
+                    <ul>
+                        <li>Some unique id in HTML are built using it. For example, the id of the form in <em>forms.html</em>.</li>
+                        <li>For title of form and list pages.</li>
+                    </ul>
                 </div>
             </li>
             <li>
@@ -115,27 +295,31 @@
             recordAdded: function ( data, event ) {},
             recordDeleted: function ( data, event ) {},
             recordUpdated: function ( data, event ) {},
-            selectionChanged: function ( data ) {}
+            selectionChanged: function ( data ) {},
+            listCreated: function ( data ) {}
         }
                     </pre>
                     See <a href="events.html">events</a> for more details.
                 </div>
             </li>
             <li>
-                <a id="fatalErrorFunction"></a>
+                <a id="errorFunction"></a>
                 <div class="header">
-                    <span class="name">fatalErrorFunction</span>
+                    <span class="name">errorFunction</span>
                     <span class="dataType">function</span>
                     <span class="default">a function</span>
                 </div>
                 <div class="body">
-                
-                    This function is executed if ZCrud finds a fatal error (this must not happened!). Useful, at least, for testing purposes. The default value is:
+                    This function is executed if ZCrud finds an error. The default value is:
                     <pre class="brush: javascript">
-        fatalErrorFunction: function( message ){
-            alert( message );
-        }
+    errorFunction: function( message ){
+        var swal = require( 'sweetalert' );
+        var thisOptions = $.extend( true, {}, this.defaultErrorOptions );
+        thisOptions.text = message;
+        swal( thisOptions );
+    }
                     </pre>
+                    This function uses <a href="https://sweetalert.js.org/guides/">Sweetalert</a>.
                 </div>
             </li>
             <li>
@@ -146,21 +330,13 @@
                     <span class="default">{}</span>
                 </div>
                 <div class="body">
-                    The list of fields to manage. An example:
+                    The list of fields to manage. There is no default value, you must set it a value. An example:
                     <pre class="brush: javascript">
     fields: {
-        id: {
-            sorting: false
-        },
-        name: {
-            width: '90%'
-        },
+        id: {},
+        name: {},
         description: {
-            type: 'textarea',
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            type: 'textarea'
         }
     }
                     </pre>
@@ -176,53 +352,66 @@
                 <div class="body">
                     Defines some default options for fields. An example:
                     <pre class="brush: javascript">
-        fieldsConfig: {
-            constructors: {
-                default: require( './fields/field.js' ),
-                mapping: [
-                    {
-                        fieldTypes: [ 'date', 'datetime', 'time' ],
-                        constructor: require( './fields/datetime.js' )
-                    },
-                    {
-                        fieldTypes: [ 'datalist', 'select', 'radio', 'checkboxes' ],
-                        constructor: require( './fields/optionsField.js' )
-                    },
-                    {
-                        fieldTypes: [ 'checkbox' ],
-                        constructor: require( './fields/checkbox.js' )
-                    },
-                    {
-                        fieldTypes: [ 'subform' ],
-                        constructor: require( './fields/subform.js' )
-                    }
-                ]
-            },
-            defaultFieldOptions: {
-                datetime: {
+    fieldsConfig: {
+        constructors: {
+            default: require( './fields/field.js' ),
+            mapping: [
+                {
+                    fieldTypes: [ 'date', 'datetime', 'time' ],
+                    constructor: require( './fields/datetime.js' )
+                },
+                {
+                    fieldTypes: [ 'datalist', 'select', 'radio', 'checkboxes' ],
+                    constructor: require( './fields/optionsField.js' )
+                },
+                {
+                    fieldTypes: [ 'checkbox' ],
+                    constructor: require( './fields/checkbox.js' )
+                },
+                {
+                    fieldTypes: [ 'subform' ],
+                    constructor: require( './fields/subform.js' )
+                }
+            ]
+        },
+        defaultFieldOptions: {
+            datetime: {
+                customOptions: {
                     inline: false,
                     minYear: 1950,
                     maxYear: 2050,
                     maxHour: 23,
                     minutesStep: 5,
                     timerDelay: 100
-                },
-                date: {
+                }
+            },
+            date: {
+                customOptions: {
                     inline: false,
                     minYear: 1950,
                     maxYear: 2050
-                },
-                time: {
+                }
+            },
+            time: {
+                customOptions: {
                     inline: false,
                     maxHour: 99,
                     minutesStep: 5,
                     timerDelay: 100
                 }
             },
-            getDefaultFieldTemplate: function( field ){
-                return field.type + '@templates/fields/basic.html';
+            subform: {
+                buttons: {
+                    toolbar: [ 'subform_addNewRow' ],
+                    byRow: [ 'subform_deleteRow' ]  
+                },
+                components: {}
             }
+        },
+        getDefaultFieldTemplate: function( field ){
+            return field.type + '@templates/fields/basic.html';
         }
+    }
                     </pre>
                     
                     The options are:
@@ -243,12 +432,15 @@
                 <div class="body">
                     Configuration options about i18n. Default value:
                     <pre class="brush: javascript">
-        i18n: {
-            language: 'en',
-            filesPath: 'i18n',
-            i18nArrayVarName: 'i18nArray',
-            files: {}
+    i18n: {
+        language: 'en',
+        filesPath: 'i18n',
+        i18nArrayVarName: 'i18nArray',
+        files: { 
+            en: [ 'en-common.json' ],
+            es: [ 'es-common.json' ] 
         }
+    }
                     </pre>
                     
                     The options are:
@@ -270,7 +462,7 @@
         }
                     </pre>
                     
-                    Take a look at <a href="/tutorial/localization.html">Localization</a>.
+                    Take a look at <a href="/tutorial/localization.html">Working with texts, numbers and dates</a>.
                 </div>
             </li>
             <li>
@@ -297,11 +489,9 @@
                     <span class="default">undefined</span>
                 </div>
                 <div class="body">
-                    The id of the field working as the primary key.
-                    
-                    An example:
+                    The id of the field working as the primary key. There is no default value, you must set it a value. An example:
                     <pre class="brush: javascript">
-        key: 'id'
+    key: 'id'
                     </pre>
                 </div>
             </li>
@@ -320,7 +510,6 @@
             level: log4javascript.Level.ERROR
         }
                     </pre>
-
                     The options are:
                     <ul>
                         <li><em>isOn</em>. On/off logging.</li>
@@ -344,7 +533,7 @@
                     <span class="default">an object</span>
                 </div>
                 <div class="body">
-                    All about pages. See <a href="pages.html">pages</a> for details.
+                    All configuration about pages. See <a href="pages.html">Pages</a> for details.
                 </div>
             </li>
             <li>
@@ -355,7 +544,31 @@
                     <span class="default">true</span>
                 </div>
                 <div class="body">
-                    Defines whether ZCrud saves user preferences. Nowadays applicable to paging and sorting preferences.
+                    Defines whether ZCrud saves user preferences. Nowadays applicable only to paging and sorting preferences:
+                    <ul>
+                        <li>If value is set to <em>True</em> Zcrud will save into local storage the number of items per page to show and it will recover this value and use it in the future.</li>
+                        <li>If value is set to <em>False</em> Zcrud will use values defined by the options object and will forget values defined by users.</li>
+                    </ul>
+                    
+                </div>
+            </li>
+            <li>
+                <a id="showMessageFunction"></a>
+                <div class="header">
+                    <span class="name">showMessageFunction</span>
+                    <span class="dataType">function</span>
+                    <span class="default">a function</span>
+                </div>
+                <div class="body">
+                    This function is executed when ZCrud needs to show a general message. The default value is:
+                    <pre class="brush: javascript">
+    showMessageFunction: function( messageOptions ){
+        var swal = require( 'sweetalert' );
+        var thisOptions = $.extend( true, {}, this.defaultShowMessageOptions, messageOptions );
+        swal( thisOptions );
+    }
+                    </pre>
+                    This function uses <a href="https://sweetalert.js.org/guides/">Sweetalert</a>.
                 </div>
             </li>
             <li>
@@ -368,9 +581,9 @@
                 <div class="body">
                     Configuration options about templates. Default value:
                     <pre class="brush: javascript">
-        templates: {
-            declaredRemotePageUrls: []
-        }
+    templates: {
+        declaredRemotePageUrls: [ 'templates/lists.html', 'templates/fieldLists.html' ]
+    }
                     </pre>
                     
                     The options are:

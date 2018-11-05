@@ -10,10 +10,10 @@ var testUtils = require( './testUtils.js' );
 var defaultTestOptions = require( './subformTestOptions.js' );
 var options = $.extend( true, {}, defaultTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests

@@ -11,9 +11,9 @@ var formTestOptions = require( './noKeyFieldTestOptions.js' );
 var editableListTestOptions = require( './noKeyField-editableListTestOptions.js' );
 var subformTestOptions = require( './noKeyField-subformTestOptions.js' );
 
-var fatalErrorFunctionCounter = 0;
-editableListTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+editableListTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -217,7 +217,7 @@ QUnit.test( "editable list create test", function( assert ) {
         function( options ){
 
             testUtils.resetServices( undefined, true );
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -246,9 +246,9 @@ QUnit.test( "editable list create test", function( assert ) {
             };
             testHelper.fillNewRowEditableList( record );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             var fullRecord = $.extend( true, {}, record );
             fullRecord.id = "" + key;
@@ -300,7 +300,7 @@ QUnit.test( "editable list update test", function( assert ) {
         function( options ){
 
             testUtils.resetServices( undefined, true );
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -332,9 +332,9 @@ QUnit.test( "editable list update test", function( assert ) {
             };
             testHelper.fillEditableList( editedRecord, key );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             var fullEditedRecord = $.extend( true, {}, editedRecord );
             fullEditedRecord.id = "" + key;
@@ -368,7 +368,7 @@ QUnit.test( "editable list delete test", function( assert ) {
         function( options ){
 
             testUtils.resetServices( undefined, true );
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -397,9 +397,9 @@ QUnit.test( "editable list delete test", function( assert ) {
             testHelper.clickDeleteRowListButton( key );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkNoRecord( assert, key );
             

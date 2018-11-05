@@ -14,12 +14,12 @@ var options = undefined;
 var onlyChangesJSONBuilder = require( '../../../js/app/jsonBuilders/onlyChangesJSONBuilder.js' );
 var allJSONBuilder = require( '../../../js/app/jsonBuilders/allJSONBuilder.js' );
 
-var fatalErrorFunctionCounter = 0;
-subformTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+subformTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
-editableListTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+editableListTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -957,7 +957,7 @@ QUnit.test( "editable list create, 2 changes and delete (JSONBuilder: onlyChange
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             
             // Assert register with key 0 doesn't exist
             var key = 0;
@@ -975,10 +975,10 @@ QUnit.test( "editable list create, 2 changes and delete (JSONBuilder: onlyChange
             testHelper.clickLastDeleteRowListButton();
 
             // Submit 
-            // A 'No operation to do!' warning would be shown if fatalErrorFunction would not be overwritten
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            // A 'No operation to do!' warning would be shown if errorFunction would not be overwritten
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
             testHelper.checkNoRecord( assert, key );
 
             done();
@@ -1131,7 +1131,7 @@ QUnit.test( "subform create and delete test", function( assert ) {
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
@@ -1154,10 +1154,10 @@ QUnit.test( "subform create and delete test", function( assert ) {
             testHelper.clickDeleteSubformRowButton( 'members', 1 );
             
             // Submit 
-            // A 'No operation to do!' warning would be shown if fatalErrorFunction would not be overwritten
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            // A 'No operation to do!' warning would be shown if errorFunction would not be overwritten
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
 
             done();
         }

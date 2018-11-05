@@ -11,10 +11,10 @@ var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -52,7 +52,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
             };
             testUtils.setService( key, record );
             
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
@@ -118,7 +118,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -149,9 +149,9 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             // Check storage
             assert.deepEqual( testUtils.getService( key ), newRecord );
@@ -191,7 +191,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -230,9 +230,9 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), newRecord );
@@ -272,7 +272,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -299,9 +299,9 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), newRecord );
@@ -341,7 +341,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             };
             testUtils.setService( key, record );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -382,9 +382,9 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             testHelper.checkForm( assert, newRecord );
             
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), newRecord );

@@ -11,10 +11,10 @@ var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -212,9 +212,9 @@ QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, newRecord );
             
             done();
@@ -347,9 +347,9 @@ QUnit.test( "subform change undo/redo 3 actions test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, newRecord );
             
             done();

@@ -11,10 +11,10 @@ var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -59,7 +59,7 @@ QUnit.test( "delete test", function( assert ) {
             };
             testUtils.setService( key, record );
             
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             testUtils.setService( key, record );
@@ -87,9 +87,9 @@ QUnit.test( "delete test", function( assert ) {
             testHelper.checkForm( assert, editedRecord );
             
             // Submit and show the list again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             // Check storage
             assert.deepEqual( testUtils.getService( key ), editedRecord );
@@ -144,7 +144,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testUtils.setService( key, record );
@@ -178,9 +178,9 @@ QUnit.test( "delete 3 rows test", function( assert ) {
             testHelper.checkForm( assert, editedRecord );
             
             // Submit and show the list again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), editedRecord );
@@ -235,7 +235,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testUtils.setService( key, record );
@@ -273,9 +273,9 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Submit and show the list again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), editedRecord );
@@ -330,7 +330,7 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             };
             testUtils.setService( key, record );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             testUtils.setService( key, record );
@@ -405,9 +405,9 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             testHelper.assertHistory( assert, 3, 0, true );
             
             // Submit and show the list again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
             assert.deepEqual( testUtils.getService( key ), editedRecord );

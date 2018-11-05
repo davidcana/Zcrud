@@ -61,12 +61,12 @@ events.selectionChanged = function ( data, event ) {
 formOptions.events = events;
 editableListOptions.events = events;
 
-var fatalErrorFunctionCounter = 0;
-var fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+var errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
-formOptions.fatalErrorFunction = fatalErrorFunction;
-editableListOptions.fatalErrorFunction = fatalErrorFunction;
+formOptions.errorFunction = errorFunction;
+editableListOptions.errorFunction = errorFunction;
 
 var checkOpenCloseEvent = function( assert, data, $form, formType, options ){
     
@@ -552,7 +552,7 @@ QUnit.test( "event update editable list test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -574,9 +574,9 @@ QUnit.test( "event update editable list test", function( assert ) {
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             assert.deepEqual( 
                 counters,  
                 {
@@ -637,7 +637,7 @@ QUnit.test( "event create editable list test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -653,9 +653,9 @@ QUnit.test( "event create editable list test", function( assert ) {
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( newRecord );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             assert.deepEqual( 
                 counters,  
                 {
@@ -712,7 +712,7 @@ QUnit.test( "event delete editable list test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -729,9 +729,9 @@ QUnit.test( "event delete editable list test", function( assert ) {
             testHelper.clickDeleteRowListButton( key );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             assert.deepEqual( 
                 counters,  
                 {

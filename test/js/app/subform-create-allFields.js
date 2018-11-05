@@ -275,10 +275,10 @@ defaultTestOptions.fields.members.fields = {
 
 var options = undefined;
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-defaultTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+defaultTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -316,7 +316,7 @@ QUnit.test( "create text area test", function( assert ) {
             var varName = 'description';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Go to edit form
@@ -391,9 +391,9 @@ QUnit.test( "create text area test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -435,7 +435,7 @@ QUnit.test( "create datetime test", function( assert ) {
             var varName = 'datetime';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -517,9 +517,9 @@ QUnit.test( "create datetime test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -561,7 +561,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             var varName = 'datetime';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -652,9 +652,9 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -697,7 +697,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].customOptions.inline = true;
             
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -789,9 +789,9 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -833,7 +833,7 @@ QUnit.test( "create date test", function( assert ) {
             var varName = 'date';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -915,9 +915,9 @@ QUnit.test( "create date test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
             
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -959,7 +959,7 @@ QUnit.test( "create date using picker test", function( assert ) {
             var varName = 'date';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1049,9 +1049,9 @@ QUnit.test( "create date using picker test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1094,7 +1094,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].customOptions.inline = true;
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1186,9 +1186,9 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
             
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1230,7 +1230,7 @@ QUnit.test( "create time test", function( assert ) {
             var varName = 'time';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1305,9 +1305,9 @@ QUnit.test( "create time test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1349,7 +1349,7 @@ QUnit.test( "create time using picker test", function( assert ) {
             var varName = 'time';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1433,9 +1433,9 @@ QUnit.test( "create time using picker test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( editedRecord, options.fields ) );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1478,7 +1478,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].customOptions.inline = true;
             
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1562,9 +1562,9 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord, options.fields );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1606,7 +1606,7 @@ QUnit.test( "create checkbox test", function( assert ) {
             var varName = 'important';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1681,9 +1681,9 @@ QUnit.test( "create checkbox test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1725,7 +1725,7 @@ QUnit.test( "create radio test", function( assert ) {
             var varName = 'phoneType';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1800,9 +1800,9 @@ QUnit.test( "create radio test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1844,7 +1844,7 @@ QUnit.test( "create select test", function( assert ) {
             var varName = 'province';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -1919,9 +1919,9 @@ QUnit.test( "create select test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -1966,7 +1966,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             var varName2 = 'city';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName, varName2 ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -2054,9 +2054,9 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -2098,7 +2098,7 @@ QUnit.test( "create datalist test", function( assert ) {
             var varName = 'browser';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -2173,9 +2173,9 @@ QUnit.test( "create datalist test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();
@@ -2217,7 +2217,7 @@ QUnit.test( "create checkboxes test", function( assert ) {
             var varName = 'hobbies';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Go to edit form
@@ -2292,9 +2292,9 @@ QUnit.test( "create checkboxes test", function( assert ) {
             assert.deepEqual( testUtils.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickUpdateListButton( key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkForm( assert, editedRecord );
 
             done();

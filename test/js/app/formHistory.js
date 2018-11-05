@@ -11,10 +11,10 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 $( '#departmentsContainer' ).zcrud( 
@@ -26,7 +26,7 @@ $( '#departmentsContainer' ).zcrud(
         QUnit.test( "change undo/redo 1 action test (name)", function( assert ) {
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var editable = false;
@@ -63,9 +63,9 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             testHelper.checkRecord( assert, key, newRecord, editable );
         });
@@ -73,7 +73,7 @@ $( '#departmentsContainer' ).zcrud(
         QUnit.test( "change undo/redo all actions test (name)", function( assert ) {
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = false;
@@ -252,9 +252,9 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.assertHistory( assert, 11, 0, true );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
         });

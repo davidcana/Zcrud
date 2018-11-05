@@ -11,9 +11,9 @@ var context = require( '../../../js/app/context.js' );
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var options = undefined;
 
-var fatalErrorFunctionCounter = 0;
-defaultTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+defaultTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -53,10 +53,10 @@ QUnit.test( "create validation test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
             // Try to create record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
             testHelper.checkForm( assert, record );
             testHelper.checkNoRecord( assert, key );
             
@@ -67,7 +67,7 @@ QUnit.test( "create validation test", function( assert ) {
             
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
             
             // Go to edit form again and check record
@@ -121,10 +121,10 @@ QUnit.test( "update validation test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
             // Try to create record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
             testHelper.checkForm( assert, newRecord );
             
             // Fix the form
@@ -186,10 +186,10 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
             testHelper.setFormVal( badRecord, 'name' );
             
             // Try to create record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
             testHelper.checkForm( assert, badRecord );
             testHelper.checkNoRecord( assert, key );
             
@@ -210,7 +210,7 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
             
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
 
             // Go to edit form again and check record
@@ -270,10 +270,10 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
             testHelper.setFormVal( badRecord, 'name' );
             
             // Try to create record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
             testHelper.checkForm( assert, badRecord );
 
             // Fix the form undoing
@@ -293,7 +293,7 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
             
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ) );
             

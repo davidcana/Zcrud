@@ -231,7 +231,6 @@ module.exports = {
 
     templates: {
         declaredRemotePageUrls: [ 'templates/lists.html', 'templates/fieldLists.html' ]
-        //busyTemplate: "busyDefaultTemplate@templates/misc.html"
     },
 
     ajax: {
@@ -266,15 +265,14 @@ module.exports = {
 
     jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
     
-    defaultFatalErrorOptions: {
+    defaultErrorOptions: {
         icon: "error",
         closeOnClickOutside: false,
         title: 'Oops...'
     },
-    fatalErrorFunction: function( message ){
-        //alert( message );
+    errorFunction: function( message ){
         var swal = require( 'sweetalert' );
-        var thisOptions = $.extend( true, {}, this.defaultFatalErrorOptions );
+        var thisOptions = $.extend( true, {}, this.defaultErrorOptions );
         thisOptions.text = message;
         swal( thisOptions );
     },

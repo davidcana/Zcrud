@@ -11,10 +11,10 @@ var defaultTestOptions = require( './editableListTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -28,7 +28,7 @@ QUnit.test( "delete test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -57,9 +57,9 @@ QUnit.test( "delete test", function( assert ) {
             testHelper.clickDeleteRowListButton( key );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkNoRecord( assert, key );
             
@@ -78,7 +78,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Delete records
@@ -90,9 +90,9 @@ QUnit.test( "delete 3 rows test", function( assert ) {
             testHelper.clickDeleteRowListButton( key3 );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkNoRecord( assert, key1 );
             testHelper.checkNoRecord( assert, key2 );
@@ -113,7 +113,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -152,9 +152,9 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkNoRecord( assert, key );
             
@@ -173,7 +173,7 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -229,9 +229,9 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             testHelper.assertHistory( assert, 3, 0, true );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkNoRecord( assert, key1 );
             testHelper.checkNoRecord( assert, key2 );

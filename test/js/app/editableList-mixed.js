@@ -11,10 +11,10 @@ var defaultTestOptions = require( './editableListTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests
@@ -45,7 +45,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
             };
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             pagingTest( assert );
@@ -89,7 +89,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -123,9 +123,9 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             testHelper.clickDeleteRowListButton( key2 );
             
             // Submit
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check records
             testHelper.checkRecord( assert, key, newRecord, editable );
@@ -159,7 +159,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -194,9 +194,9 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             testHelper.fillNewRowEditableList( record2 );
             
             // Submit
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check records
             testHelper.checkRecord( assert, key, newRecord, editable, true );
@@ -230,7 +230,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -259,9 +259,9 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             testHelper.clickDeleteRowListButton( key2 );
             
             // Submit
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             // Check records
             testHelper.checkRecord( assert, key, record, editable, true );
@@ -295,7 +295,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -341,9 +341,9 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             testHelper.clickDeleteRowListButton( key3 );
             
             // Submit
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             // Check records
             testHelper.checkRecord( assert, key, newRecord, editable, true );

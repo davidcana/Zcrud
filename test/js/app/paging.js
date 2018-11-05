@@ -12,9 +12,9 @@ var subformsTestOptions = require( './2SubformsTestOptions.js' );
 var editableListTestOptions = require( './editableListTestOptions.js' );
 var options = undefined;
 
-var fatalErrorFunctionCounter = 0;
-var fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+var errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 var abortedConfirmFunctionCounter = 0;

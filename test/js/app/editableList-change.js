@@ -11,10 +11,10 @@ var defaultTestOptions = require( './editableListTestOptions.js' );
 var thisTestOptions = {};
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
 
-var fatalErrorFunctionCounter = 0;
+var errorFunctionCounter = 0;
 
-options.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+options.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 // Run tests        
@@ -28,7 +28,7 @@ QUnit.test( "change test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -62,9 +62,9 @@ QUnit.test( "change test", function( assert ) {
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
             
@@ -83,7 +83,7 @@ QUnit.test( "change with errors test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -117,9 +117,9 @@ QUnit.test( "change with errors test", function( assert ) {
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
 
             testHelper.checkRecord( assert, key, record, editable, true );
 
@@ -138,7 +138,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -183,9 +183,9 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.assertHistory( assert, 0, 0, false );
 
             testHelper.checkRecord( assert, key, newRecord, editable );
@@ -206,7 +206,7 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
         function( options ){
             
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -302,9 +302,9 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
             testHelper.assertHistory( assert, 3, 0, true );
 
             // Save
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.assertHistory( assert, 0, 0, false );
 
             testHelper.checkRecord( assert, key1, newRecord1, editable );

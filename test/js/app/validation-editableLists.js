@@ -11,9 +11,9 @@ var testUtils = require( './testUtils' );
 var defaultTestOptions = require( './editableListTestOptions.js' );
 var thisTestOptions = {};
 
-var fatalErrorFunctionCounter = 0;
-defaultTestOptions.fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+defaultTestOptions.errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
 
 var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
@@ -29,7 +29,7 @@ QUnit.test( "create test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -47,9 +47,9 @@ QUnit.test( "create test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
             // Try to create record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             
@@ -61,10 +61,10 @@ QUnit.test( "create test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
 
             // Try to edit record (no errors)
-            fatalErrorFunctionCounter = 0;
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            errorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
 
             var fixedRecord = $.extend( true, {}, newRecord, editedRecord );
@@ -85,7 +85,7 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -109,9 +109,9 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, badRecord );
             
             // Try to create record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             
@@ -131,9 +131,9 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
             testHelper.checkEditableListLastRow( assert, newRecord );
             
             // Create record (no errors)
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkRecord( assert, key, newRecord, editable, true );
 
             done();
@@ -151,7 +151,7 @@ QUnit.test( "change test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -175,9 +175,9 @@ QUnit.test( "change test", function( assert ) {
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             testHelper.checkRecord( assert, key, record, editable, true );
             
@@ -190,12 +190,12 @@ QUnit.test( "change test", function( assert ) {
             
             // Try to edit record (no errors)
             newRecord = $.extend( true, {}, record, editedRecord );
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             testHelper.checkEditableListForm( assert, key, newRecord );
             
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
             testHelper.checkRecord( assert, key, newRecord, editable );
@@ -215,7 +215,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
         function( options ){
 
             testUtils.resetServices();
-            fatalErrorFunctionCounter = 0;
+            errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var editable = true;
@@ -243,10 +243,10 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             testHelper.checkEditableListForm( assert, key, badRecord );
             
             // Try to edit record (1 error)
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
-            fatalErrorFunctionCounter = 0;
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
 
             // Fix the form undoing
             testHelper.clickUndoButton();
@@ -266,7 +266,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             
             // Edit record (no errors)
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.checkRecord( assert, key, newRecord, editable );
 
             done();

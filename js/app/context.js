@@ -36,7 +36,7 @@ module.exports = (function() {
             mustTranslate? 
             translate( message, params, format, subformat ): 
             message;
-        options.fatalErrorFunction( translated );
+        options.errorFunction( translated );
         if ( throwException ){
             throw translated;
         }

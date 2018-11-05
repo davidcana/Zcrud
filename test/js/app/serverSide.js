@@ -12,19 +12,19 @@ var formTestOptions = require( './defaultTestOptions.js' );
 var editableListTestOptions = require( './editableListTestOptions.js' );
 var options = undefined;
 
-var fatalErrorFunctionCounter = 0;
-var fatalErrorFunction = function( message ){
-    ++fatalErrorFunctionCounter;
+var errorFunctionCounter = 0;
+var errorFunction = function( message ){
+    ++errorFunctionCounter;
 };
-formTestOptions.fatalErrorFunction = fatalErrorFunction;
-editableListTestOptions.fatalErrorFunction = fatalErrorFunction;
+formTestOptions.errorFunction = errorFunction;
+editableListTestOptions.errorFunction = errorFunction;
 
 // Run tests
 
 QUnit.test( "form create record with duplicated key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = formTestOptions;
     
     $( '#departmentsContainer' ).zcrud( 
@@ -55,9 +55,9 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
             
             assert.deepEqual( testUtils.getService( key ), record );
             
@@ -69,7 +69,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
 QUnit.test( "form update record with no duplicated key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = formTestOptions;
     
     $( '#departmentsContainer' ).zcrud( 
@@ -100,9 +100,9 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
             testHelper.checkForm( assert, newRecord );
             
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkNoRecord( assert, key );
             assert.deepEqual( testUtils.getService( newKey ), newRecord );
@@ -115,7 +115,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
 QUnit.test( "form update record with duplicated key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = formTestOptions;
     
     $( '#departmentsContainer' ).zcrud( 
@@ -145,9 +145,9 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
 
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
 
             assert.deepEqual( testUtils.getService( key ), record );
 
@@ -159,7 +159,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
 QUnit.test( "form delete non existing record test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = formTestOptions;
     
     $( '#departmentsContainer' ).zcrud( 
@@ -185,9 +185,9 @@ QUnit.test( "form delete non existing record test", function( assert ) {
             testUtils.removeService( key ); 
 
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
 
             assert.deepEqual( testUtils.getService( key ), undefined );
             
@@ -199,7 +199,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
 QUnit.test( "editable list create record with duplicated key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = editableListTestOptions;
     
     $( '#departmentsContainer' ).zcrud( 
@@ -231,9 +231,9 @@ QUnit.test( "editable list create record with duplicated key test", function( as
             testHelper.fillNewRowEditableList( newRecord );
 
             // Check errors before and after button submit
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
 
             testHelper.checkRecord( assert, key, record, editable, true );
 
@@ -245,7 +245,7 @@ QUnit.test( "editable list create record with duplicated key test", function( as
 QUnit.test( "editable list update record with no duplicated key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = editableListTestOptions;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -279,9 +279,9 @@ QUnit.test( "editable list update record with no duplicated key test", function(
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual( testUtils.getService( key ), undefined );
             assert.deepEqual( testUtils.getService( newKey ), newRecord );
@@ -305,7 +305,7 @@ QUnit.test( "editable list update record with no duplicated key test", function(
 QUnit.test( "editable list update record with duplicated key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = editableListTestOptions;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -344,9 +344,9 @@ QUnit.test( "editable list update record with duplicated key test", function( as
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
             
             assert.deepEqual( testUtils.getService( key ), record );
             assert.deepEqual( testUtils.getService( newKey ), record2 );
@@ -359,7 +359,7 @@ QUnit.test( "editable list update record with duplicated key test", function( as
 QUnit.test( "editable list delete non existing record test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = editableListTestOptions;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -390,9 +390,9 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
             testHelper.clickDeleteRowListButton( key );
             
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 1 );
+            assert.equal( errorFunctionCounter, 1 );
 
             done();
         }
@@ -402,7 +402,7 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
 QUnit.test( "form create record with undefined key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = formTestOptions;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -424,9 +424,9 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
             
             // Submit 
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
 
             var fullNewRecord = $.extend( true, {}, newRecord );
             var key = 130;
@@ -455,7 +455,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
 QUnit.test( "editable list create record with undefined key test", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = editableListTestOptions;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -482,9 +482,9 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             testHelper.fillNewRowEditableList( record );
             
             // Check errors before and after button submit
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             var fullNewRecord = $.extend( true, {}, record );
             fullNewRecord.id = "" + key;
@@ -542,7 +542,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
 QUnit.test( "editable list create record with undefined key test and then update it", function( assert ) {
 
     var done = assert.async();
-    fatalErrorFunctionCounter = 0;
+    errorFunctionCounter = 0;
     options = editableListTestOptions;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -569,9 +569,9 @@ QUnit.test( "editable list create record with undefined key test and then update
             testHelper.fillNewRowEditableList( record );
             
             // Check errors before and after button submit
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             var fullNewRecord = $.extend( true, {}, record );
             fullNewRecord.id = "" + key;
@@ -582,9 +582,9 @@ QUnit.test( "editable list create record with undefined key test and then update
                 "name": "Service with key"
             };
             testHelper.fillEditableList( record, key );
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
-            assert.equal( fatalErrorFunctionCounter, 0 );
+            assert.equal( errorFunctionCounter, 0 );
             
             fullNewRecord = $.extend( true, {}, record );
             fullNewRecord.id = "" + key;
