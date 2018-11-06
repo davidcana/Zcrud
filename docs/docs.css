@@ -326,6 +326,32 @@ ul.buttonTypeList>li .header .bindableTo:before {
     content: "bindable to: ";
 }
 
+/* Button option list */
+ul.buttonOptionList {
+    list-style-type: none;
+}
+ul.buttonOptionList>li {
+    margin-bottom: 1em;
+}
+ul.buttonOptionList>li .header {
+    background: darkcyan;
+    color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: .5em;
+}
+ul.buttonOptionList>li .header .name {
+    font-weight: bold;
+    font-size: 130%;
+}
+ul.buttonOptionList>li .header .dataType:before {
+    margin-left: 2em;
+    content: "dataType: ";
+}
+ul.buttonOptionList>li .header .default:before {
+    margin-left: 2em;
+    content: "default: ";
+}
+
 /* Menu */
 nav.menu {
     background-color: darkcyan;

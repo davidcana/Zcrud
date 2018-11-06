@@ -21,6 +21,21 @@
             <h1>ZCrud API reference - Buttons - Button types</h1>
         </div>
         
+        <h2>Buttons</h2>
+        <p>
+            The <a href="pages.html#buttons">buttons in pages</a> and the <a href="fieldsOptions.html#buttons">buttons in fields</a> defines lists of HTML buttons. An example:
+        </p>
+        <pre class="brush: javascript">
+buttons: {
+    toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ],
+    byRow: [ 'list_deleteRow' ]
+}
+        </pre>
+
+        <p>
+            The <strong>toolbar</strong> element defines the list of buttons shown in the toolbar (a list of buttons usually shown in the bottom area). The <strong>byRow</strong> element defines the list of buttons shown in lists and subforms at every row.
+        </p>
+        
         <h2>Binds</h2>
         <p>
             A type of button can be bindable to a specific target, to several targets ot to any target. The available targets are:
@@ -98,6 +113,14 @@
                 </div>
                 <div class="body">
                     Copy rows from a subform to another.
+                    This button can be configured with some custom properties:
+                    <ul>
+                        <li><em>source</em> (String). The id of the subform working as source.</li>
+                        <li><em>target</em> (String). The id of the subform working as target.</li>
+                        <li><em>onlySelected</em> (boolean). Use all or only the selected items.</li>
+                        <li><em>removeFromSource</em> (boolean). Remove selected items from source after copying them.</li>
+                        <li><em>deselect</em> (boolean). Deselect items from source after copying them.</li>
+                    </ul>
                 </div>
             </li>
             
