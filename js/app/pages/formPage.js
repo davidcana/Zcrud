@@ -525,7 +525,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         };
         
         if ( jsonObject.url == undefined ){
-            jsonObject.url = thisOptions.url;
+            jsonObject.url = thisOptions.updateURL;
         }
         
         // Do the CRUD!

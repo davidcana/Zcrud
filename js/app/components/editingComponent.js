@@ -254,7 +254,7 @@ EditingComponent.prototype.submit = function( event ){
         error: function( request, status, error ){
             pageUtils.ajaxError( request, status, error, instance.options, context, undefined );
         },
-        url: this.thisOptions.url
+        url: this.thisOptions.updateURL
     };
 
     crudManager.batchUpdate( 

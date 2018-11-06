@@ -7,7 +7,7 @@ var options = {
     
     pageConf: {
         defaultPageConf: {
-            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=people',
+            updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=people',
             getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=people'
         },
         pages: {
@@ -21,7 +21,7 @@ var options = {
                 components: {
                     editing: {
                         isOn: true,
-                        url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=people'
+                        updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=people'
                     }
                 }
             }, 

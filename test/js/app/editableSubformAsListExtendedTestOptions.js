@@ -10,7 +10,7 @@ module.exports = {
     
     pageConf: {
         defaultPageConf: {
-            url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=memberCheck',
+            updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=memberCheck',
             getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=memberCheck'
         },
         pages: {
@@ -48,7 +48,7 @@ module.exports = {
             update: {
                 key: 'code',
                 getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=originalMembers',
-                url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
+                updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
                 fields: [
                     {
                         "type": "fieldsGroup",
@@ -58,7 +58,7 @@ module.exports = {
             },
             create: {
                 key: 'code',
-                url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
+                updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
                 fields: [
                     {
                         "type": "fieldsGroup",
@@ -69,7 +69,7 @@ module.exports = {
             delete: {
                 key: 'code',
                 getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=originalMembers',
-                url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
+                updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
                 fields: [
                     {
                         "type": "fieldsGroup",

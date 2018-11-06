@@ -969,7 +969,7 @@ QUnit.test( "form filtering test", function( assert ) {
         pageConf: {
             pages: {
                 list: {
-                    url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
+                    updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
                     getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
                     components: {
                         paging: {
@@ -1154,7 +1154,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
         pageConf: {
             pages: {
                 list: {
-                    url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
+                    updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
                     getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
                     components: {
                         paging: {

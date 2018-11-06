@@ -263,7 +263,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
 
         pageConf: {
             defaultPageConf: {
-                url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+                updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
             },
             pages: {
                 list: {
@@ -413,7 +413,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
 
         pageConf: {
             defaultPageConf: {
-                url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+                updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
             },
             pages: {
                 list: {

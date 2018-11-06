@@ -31,7 +31,7 @@ var options = {
                     },
                     editing: {
                         isOn: true,
-                        url: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+                        updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
                         dataToSend: 'modified', // possible values: 'modified', 'all',
                         modifiedFieldsClass: 'zcrud-modified-field',
                         modifiedRowsClass: 'zcrud-modified-row'
