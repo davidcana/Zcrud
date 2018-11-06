@@ -2,7 +2,6 @@ ZCrud 0.1.0
 -----------
 
 * Improve reference docs.
-    - Rename url option to getListURL and batchUpdateURL.
 * Add validation on 'Save changes' and 'Cancel' buttons.
 * Replace formFieldAttributes by attributes.
 * Implement Page class.
