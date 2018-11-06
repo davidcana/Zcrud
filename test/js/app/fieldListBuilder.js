@@ -267,7 +267,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             },
             pages: {
                 list: {
-                    url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                    getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                     fields: [ 'id', 'name' ],
                 }, 
                 create: {
@@ -417,7 +417,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
             },
             pages: {
                 list: {
-                    url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                    getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                     fields: [ 'id', 'name' ],
                 }, 
                 create: {

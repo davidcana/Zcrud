@@ -74,7 +74,8 @@ module.exports = (function() {
         }
         
         var thisOptions = {
-            url    : data.url || options.pageConf.pages.list.url,
+            url    : data.url,
+            //url    : data.url || options.pageConf.pages.list.url,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction

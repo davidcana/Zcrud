@@ -508,7 +508,7 @@ Subform.prototype.update = function ( root, dictionaryExtension, callback ) {
     
     crudManager.listRecords( 
         {
-            url: this.url,
+            url: this.getGroupOfRecordsURL,
             search: this.buildDataToSendForUpdate(),
             success: function( data ){
                 subformInstance.clientAndServerSuccessFunction.call( subformInstance, data, root, dictionaryExtension );

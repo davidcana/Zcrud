@@ -1170,7 +1170,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
         },
         fields: {
             verifiedMembers: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=verifiedMembers',
+                getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=verifiedMembers',
                 components: {
                     paging: {
                         isOn: true,

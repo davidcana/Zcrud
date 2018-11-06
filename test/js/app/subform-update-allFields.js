@@ -22,7 +22,7 @@ var defaultTestOptions = {
         },
         pages: {
             list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name' ],
                 components: {
                     paging: {

@@ -174,7 +174,7 @@
                             <ul>
                                 <li><em>isOn</em>. On/off editing. If true the list is a editable list; if false it is an only read list.</li>
                                 <li><em>constructorClass</em>. The path to the javascript class that implements this component.</li>
-                                <li><em>url</em>. The server URL to connect.</li>
+                                <li><em>updateURL</em>. The server URL to submit the new, the updated and the removed records.</li>
                                 <li><em>modifiedFieldsClass</em> and <em>modifiedRowsClass</em>. The class names added by ZCrud when a field is changed or if a row is changed.</li>
                                 <li><em>hideTr</em> and <em>showTr</em>. Functions to customize hide/show rows.</li>
                             </ul>
@@ -191,6 +191,17 @@
                 </div>
                 <div class="body">
                     Defines the list of fields of this page. Go to <a href="fieldsLists.html">Field lists</a> to see more details.
+                </div>
+            </li>
+            <li>
+                <a id="getGroupOfRecordsURL"></a>
+                <div class="header">
+                    <span class="name">getGroupOfRecordsURL</span>
+                    <span class="dataType">string</span>
+                    <span class="default">undefined</span>
+                </div>
+                <div class="body">
+                    The server URL to retrieve a group of records. Useful for lists and subforms.
                 </div>
             </li>
             <li>
@@ -267,18 +278,7 @@
                     <span class="default">undefined</span>
                 </div>
                 <div class="body">
-                    The server URL to submit the updates.
-                </div>
-            </li>
-            <li>
-                <a id="url"></a>
-                <div class="header">
-                    <span class="name">url</span>
-                    <span class="dataType">string</span>
-                    <span class="default">undefined</span>
-                </div>
-                <div class="body">
-                    The server URL to retrieve a list of records.
+                    The server URL to submit the new, the updated and the removed records.
                 </div>
             </li>
         </ul>

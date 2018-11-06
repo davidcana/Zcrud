@@ -14,7 +14,7 @@ module.exports = {
         },
         pages: {
             list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department',
                 fields: [ 'id', 'name' ],
                 components: {
@@ -85,7 +85,7 @@ module.exports = {
         },
         members: {
             type: 'subform',
-            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=members',
+            getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=members',
             subformKey: 'code',
             fields: { 
                 code: { },

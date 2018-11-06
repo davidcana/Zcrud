@@ -12,7 +12,7 @@ var options = {
         },
         pages: {
             list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=people',
+                getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=people',
                 fields: [ 'id', 'name', 'datetime', 'country', 'city', 'browser' ],
                 components: {
                     filtering: {

@@ -14,7 +14,7 @@ module.exports = {
     pageConf: {
         pages: {
             list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department',
                 fields: [ 'name', 'description' ],
                 buttons: {

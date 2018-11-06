@@ -12,7 +12,7 @@ module.exports = {
     pageConf: {
         pages: {
             list: {
-                url: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
+                getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
                 fields: [ 'id', 'name' ],
                 buttons: {
                     toolbar: [ 'list_addNewRow', 'undo', 'redo', 'list_submit' ]

@@ -70,7 +70,7 @@ var options = {
     fields: {
         originalMembers: {
             type: 'subform',
-            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=people',
+            getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=people',
             readOnly: true,
             subformKey: 'id',
             fields: { 

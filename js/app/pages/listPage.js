@@ -186,6 +186,7 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         var listInstance = self;
         crudManager.listRecords( 
             {
+                url: thisOptions.getGroupOfRecordsURL,
                 search: buildDataToSend(),
                 success: function( data ){
                     listInstance.clientAndServerSuccessFunction.call( 

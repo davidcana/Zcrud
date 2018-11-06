@@ -52,7 +52,7 @@ module.exports = {
     fields: {
         originalMembers: {
             type: 'subform',
-            url: 'http://localhost/CRUDManager.do?cmd=LIST&table=memberCheck',
+            getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=memberCheck',
             readOnly: true,
             subformKey: 'code',
             fields: { 
