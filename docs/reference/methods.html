@@ -94,6 +94,26 @@
                 </div>
             </li>
             <li>
+                <a id="getFormPage"></a>
+                <div class="header">
+                    <span class="name">getFormPage( )</span>
+                    <span class="return">a FormPage instance</span>
+                </div>
+                <div class="body">
+                    Retrieve the current form.
+                </div>
+            </li>
+            <li>
+                <a id="getListPage"></a>
+                <div class="header">
+                    <span class="name">getListPage( )</span>
+                    <span class="return">a ListPage instance</span>
+                </div>
+                <div class="body">
+                    Retrieve the current list.
+                </div>
+            </li>
+            <li>
                 <a id="getRecordByKey"></a>
                 <div class="header">
                     <span class="name">getRecordByKey( key )</span>
@@ -175,6 +195,21 @@
                         <li><em>data.filter</em> (object, optional, default: undefined). A record used as a filter.</li>
                         <li><em>data.load</em> (boolean, optional, default: true). Defines whether ZCrud must get the records from server or not (then use an empty array).</li>
                         <li><em>data.records</em> (array of objects, optional, default: undefined). Defines the records to show, so no server request is done.</li>
+                        <li><em>callback</em> (function, optional, default: undefined). A callback function that will be executed after all asynchronous code.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a id="renderForm"></a>
+                <div class="header">
+                    <span class="name">renderForm( data, callback )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Get data from server (if needed) and render the form page. Possible arguments:
+                    <ul>
+                        <li><em>data.load</em> (boolean, optional, default: true). Defines whether ZCrud must get the record from server or not (then use an empty record).</li>
+                        <li><em>data.record</em> (object, optional, default: undefined). Defines the record to show, so no server request is done.</li>
                         <li><em>callback</em> (function, optional, default: undefined). A callback function that will be executed after all asynchronous code.</li>
                     </ul>
                 </div>

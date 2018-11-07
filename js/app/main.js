@@ -1,19 +1,5 @@
 /* 
-
-Public methods of ZCrud:
------------------------
-
- - addRecord: Add a new record to the table. (!)
- - deleteRecord: Delete an existing record from the table. (!)
- - destroy: Completely removes table from it's container.
- - getRecordByKey: Get record by key field's value of the record.
- - init: Set options and normalize them.
- - load: Show the list page. 
- - getSelectedRecords: Return an array with the selected records.
- - getSelectedRows: Return a jQuery object with the selected rows.
- - selectRows: Make rows selected.
- - showCreateForm: Open a 'create new record' form dialog.
- - updateRecord: Update an existing record on the table. (!)
+    Main class of ZCrud
 */
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
