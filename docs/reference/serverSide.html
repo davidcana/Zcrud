@@ -4,11 +4,13 @@
         <meta charset="utf-8">
         <title>ZCrud API reference - Server side</title>
 
+        <script type="text/javascript" src="/lib/syntaxHighlighter/lib.js"></script>
         <script type="text/javascript" src="/lib/zpt.min.js" defer></script>
         <script type="text/javascript" src="/js/zpt.js" defer></script>
 
         <link rel="stylesheet" type="text/css" href="/themes/basic/theme.css" media="all">
         <link rel="stylesheet" type="text/css" href="/docs.css">
+        <link rel="stylesheet" type="text/css" href="/lib/syntaxHighlighter/theme.css">
     </head>
     <body>
         <div id="commonHeader" data-muse-macro="'header@templates.html'">
@@ -20,10 +22,232 @@
         </div>
         
         <h2>URLs</h2>
+        <p>
+            The start point of the client-server dialog are a set of URLs to configure. The configuration options to set are:
+        </p>
         
-        <h2>JSON sent from javascript to server</h2>
+        <ul>
+            <li><strong>getGroupOfRecordsURL</strong>. The server URL to retrieve a group of records. Useful for lists and subforms.</li>
+            <li><strong>getRecordURL</strong>. The server URL to retrieve a record by id.</li>
+            <li><strong>updateURL</strong>. The server URL to submit the new, the updated and the removed records..</li>
+        </ul>
         
-        <h2>JSON sent from server to javascript</h2>
+        <p>
+            You must add these setting to:
+        </p>
+        <ul>
+            <li><strong>pageConf/defaultPageConf</strong>. The 3 URL related configuration options (<em>getGroupOfRecordsURL</em>, <em>getRecordURL</em> and <em>updateURL</em>) can be added here. Default settings for all pages.</li>
+            <li><strong>pageConf/pages/[page-id]</strong>. The 3 URL related configuration options can be added here. Settings for one page.</li>
+            <li><strong>Editing component</strong> of list pages. Only <em>updateURL</em> configuration option. Settings for an editable list page.</li>
+            <li><strong>Subforms</strong>. Only <em>getGroupOfRecordsURL</em> configuration option. To support paging, sorting and filtering in subforms.</li>
+        </ul>
+        
+        <h2>Retrieving groups of records: getGroupOfRecordsURL</h2>
+        <h3>JSON sent from client to server</h3>
+        <p>
+            Let's take a look to a typical submit:
+        </p>
+        <pre class="brush: javascript">
+    {
+        "command":"listRecords",
+        "pageNumber":1,
+        "pageSize":10,
+        "sortFieldId":"name",
+        "sortType":"asc",
+        "filter":{
+            name: "Good"
+        }
+    }
+        </pre>
+
+        <p>
+            Let's explain the JSON:
+        </p>
+        <ul>
+            <li><strong>command</strong>. The command to run on server side.</li>
+            <li><strong>pageNumber</strong>. The number of the page to retrieve.</li>
+            <li><strong>pageSize</strong>. The maximum number of items per page.</li>
+            <li><strong>sortFieldId</strong>. The field id to sort by.</li>
+            <li><strong>sortType</strong>. The type of sort (<em>asc</em> or <em>desc</em>).</li>
+            <li><strong>filter</strong>. An object that defines a filter.</li>
+        </ul>
+        
+        <h3>JSON sent from server to client</h3>
+        <p>
+            Let's take a look to a typical response of the server:
+        </p>
+        <pre class="brush: javascript">
+    {
+        "result":"OK",
+        "message":"",
+        "totalNumberOfRecords":2,
+        "records":[
+            {
+                "id":"110",
+                "name":"Aaron Good",
+                "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+                "date":"2011-10-03T00:00:00.000Z",
+                "datetime":"2017-02-15T23:22:12.000Z",
+                "time":"09:07",
+                "phoneType":3,
+                "country":4,
+                "city":1,
+                "browser":"Safari",
+                "important":"true",
+                "hobbies":["reading_option","videogames_option","sports_option"]
+            },
+            {
+                "id":"49",
+                "name":"Jerome Goodman",
+                "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu",
+                "date":"2013-05-28T00:00:00.000Z",
+                "datetime":"2015-08-26T19:39:44.000Z",
+                "time":"08:46",
+                "phoneType":1,
+                "country":5,
+                "city":3,
+                "browser":"Chrome",
+                "important":"false",
+                "hobbies":["reading_option","videogames_option","sports_option"]
+            }
+        ]
+    }
+        </pre>
+        <p>
+            Let's explain the JSON:
+        </p>
+        <ul>
+            <li><strong>result</strong>. The result of the command. Possible values are <em>OK</em> or <em>Error</em>.</li>
+            <li><strong>message</strong>. A text message. A blank string or a message error.</li>
+            <li><strong>totalNumberOfRecords</strong>. The total number of records of the query.</li>
+            <li><strong>records</strong>. An array with the retrieved records.</li>
+        </ul>
+        
+        <h2>Retrieving only one record: getRecordURL</h2>
+        <h3>JSON sent from client to server</h3>
+        <p>
+            Let's take a look to a typical submit:
+        </p>
+        <pre class="brush: javascript">
+    {
+        "command":"getRecord",
+        "key":"110"
+    }
+        </pre>
+
+        <p>
+            Let's explain the JSON:
+        </p>
+        <ul>
+            <li><strong>command</strong>. The command to run on server side.</li>
+            <li><strong>key</strong>. The key of the record to retrieve.</li>
+        </ul>
+
+        <h3>JSON sent from server to client</h3>
+        <p>
+            Let's take a look to a typical response of the server:
+        </p>
+        <pre class="brush: javascript">
+    {
+        "result":"OK",
+        "message":"",
+        "record":{
+            "id":"1",
+            "name":"Ulysses Aguilar",
+            "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
+            "date":"2017-06-06T00:00:00.000Z",
+            "datetime":"2014-11-23T21:10:04.000Z",
+            "time":"04:40",
+            "phoneType":1,
+            "country":4,
+            "city":3,
+            "browser":"Internet Explorer",
+            "important":"false",
+            "hobbies":["reading_option","sports_option","cards_option"],
+            "skills":[
+                {
+                    "personId":1,
+                    "code":73,
+                    "name":"Software Engineering",
+                    "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
+                    "datetime":"2006-06-04T09:37:58.000Z"
+                },
+                {
+                    "personId":1,
+                    "code":93,
+                    "name":"Information Technology",
+                    "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing",
+                    "datetime":"2017-02-08T09:30:33.000Z"
+                }
+            ]
+        },
+        "fieldsData":{
+            "skills":{
+                "totalNumberOfRecords":2
+            }
+        }
+    }
+        </pre>
+        <p>
+            Let's explain the JSON:
+        </p>
+        <ul>
+            <li><strong>result</strong>. The result of the command. Possible values are <em>OK</em> or <em>Error</em>.</li>
+            <li><strong>message</strong>. A text message. A blank string or a message error.</li>
+            <li><strong>record</strong>. The retrieved record.</li>
+            <li><strong>fieldsData</strong>. Aditional data about some fields.</li>
+        </ul>
+        
+        <h2>Saving changes: updateURL</h2>
+        <h3>JSON sent from client to server</h3>
+        <p>
+            Let's take a look to a typical submit:
+        </p>
+        <pre class="brush: javascript">
+    {
+        "command":"batchUpdate",
+        "url":"http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=people",
+        "existingRecords":
+            {
+                "1":{
+                    "description":"Lorem ipsum dolor sit amet"
+                }
+            },
+        "newRecords":[],
+        "recordsToRemove":[]
+    }
+        </pre>
+
+        <p>
+            Let's explain the JSON:
+        </p>
+        <ul>
+            <li><strong>command</strong>. The command to run on server side.</li>
+            <li><strong>url</strong>. The URL.</li>
+            <li><strong>existingRecords</strong>. An object with the edited records.</li>
+            <li><strong>newRecords</strong>. An array containing the new records.</li>
+            <li><strong>recordsToRemove</strong>. An array containing the keys of the records to remove.</li>
+        </ul>
+
+        <h3>JSON sent from server to client</h3>
+        <p>
+            Let's take a look to a typical response of the server:
+        </p>
+        <pre class="brush: javascript">
+    {
+        "result":"OK",
+        "message":"",
+        "newRecords":[]
+    }
+        </pre>
+        <p>
+            Let's explain the JSON:
+        </p>
+        <ul>
+            <li><strong>result</strong>. The result of the command. Possible values are <em>OK</em> or <em>Error</em>.</li>
+            <li><strong>message</strong>. A text message. A blank string or a message error.</li>
+            <li><strong>newRecords</strong>. An array with the new records. These is needed to send the keys of the new records.</li>
+        </ul>
 
         <div id="commonFooter" data-muse-macro="'referenceFooter@templates.html'">
             The footer
