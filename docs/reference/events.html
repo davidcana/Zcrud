@@ -24,6 +24,21 @@
         </p>
         <ul class="eventList">
             <li>
+                <a id="formBatchUpdated"></a>
+                <div class="header">
+                    <span class="name">formBatchUpdated( data, event )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when a form working as a list saves some record on server side. data argument has some fields:
+                    <ul>
+                        <li><em>data.$form</em>. The form as jQuery selection.</li>
+                        <li><em>data.formType</em>. Possible values are <em>create</em>, <em>edit</em>, <em>delete</em> or <em>list</em>.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
                 <a id="formClosed"></a>
                 <div class="header">
                     <span class="name">formClosed( data, event )</span>
@@ -68,6 +83,20 @@
                         <li><em>data.options</em>. The full configuration options object.</li>
                     </ul>
                     Form validation can be done using this event. If it returns <em>false</em>, submit operation is cancelled.
+                </div>
+            </li>
+            <li>
+                <a id="listCreated"></a>
+                <div class="header">
+                    <span class="name">listCreated( data )</span>
+                    <span class="return">-</span>
+                </div>
+                <div class="body">
+                    Triggered when a list dialog is created. data argument has some fields:
+                    <ul>
+                        <li><em>data.$form</em>. The form as jQuery selection.</li>
+                        <li><em>data.options</em>. The full configuration options object.</li>
+                    </ul>
                 </div>
             </li>
             <li>
