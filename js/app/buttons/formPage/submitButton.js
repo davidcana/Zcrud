@@ -36,7 +36,7 @@ SubmitButton.prototype.run = function( event, formPage, $form ){
     event.preventDefault();
     event.stopPropagation();
     
-    formPage.getSubmitFunction()( event, $form );
+    formPage.getSubmitFunction().call( formPage, event, $form );
 };
 
 module.exports = SubmitButton;

@@ -531,7 +531,7 @@ Subform.prototype.buildDataToSendForUpdate = function(){
     
     var data = this.buildDataToSend();
     
-    data.key = this.page.getKey();
+    data.key = this.page.getKeyValue();
 
     return data;
 };
@@ -547,30 +547,7 @@ Subform.prototype.buildDataToSend = function(){
 
     return data;
 };
-/*
-Subform.prototype.buildDataToSendForUpdate = function(){
 
-    var data = {
-        key: this.page.getKey(),
-        filter: this.filter
-    };
-
-    this.componentsMap.addToDataToSend( data );
-    
-    return data;
-};
-
-Subform.prototype.buildDataToSend = function(){
-
-    var data = {
-        filter: this.filter
-    };
-
-    this.componentsMap.addToDataToSend( data );
-    
-    return data;
-};
-*/
 Subform.prototype.beforeProcessTemplate = function( data ){
     
     this.componentsMap.dataFromServer( data );

@@ -606,43 +606,43 @@ var ListPage = function ( optionsToApply, userDataToApply ) {
         show: show,
         showFromClientOnly: showFromClientOnly,
         showUsingRecords: showUsingRecords,
-        getId: getId,
-        getName: getName,
+        getId: getId, //common
+        getName: getName, //common
         showCreateForm: showCreateForm,
         showEditForm: showEditForm,
         showDeleteForm: showDeleteForm,
         getRecordByKey: getRecordByKey,
         getRowByKey: getRowByKey,
-        getOptions: getOptions,
-        getThisOptions: getThisOptions,
-        getComponent: getComponent,
-        getSecureComponent: getSecureComponent,
-        showStatusMessage: showStatusMessage,
+        getOptions: getOptions, //common
+        getThisOptions: getThisOptions, //common
+        getComponent: getComponent, //common
+        getSecureComponent: getSecureComponent, //common
+        showStatusMessage: showStatusMessage, //common
         updateBottomPanel: updateBottomPanel,
         getRecords: getRecords,
         getRecordsArray: getRecordsArray,
-        getDictionary: getDictionary,
-        getField: getField,
-        getFieldByName: getFieldByName,
-        getFields: getFields,
+        getDictionary: getDictionary, //common
+        getField: getField, //common
+        getFieldByName: getFieldByName,//common
+        getFields: getFields, //common
         get$form: get$form,
-        get$: get$,
+        get$: get$,//common
         instanceNewForm: instanceNewForm,
         addRecord: addRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
         isEditable: isEditable,
-        getKey: getKey,
+        getKey: getKey, //common
         getCurrentFormPage: getCurrentFormPage,
         isReadOnly: isReadOnly,
         clientAndServerSuccessFunction: clientAndServerSuccessFunction,
         isFiltered: isFiltered,
-        getFieldsSource: getFieldsSource,
+        getFieldsSource: getFieldsSource, //common 
         generateId: generateId,
         updateRecords: updateRecords,
-        isDirty: isDirty,
+        isDirty: isDirty, //common
         getByRowButtons: getByRowButtons,
-        getToolbarButtons: getToolbarButtons,
+        getToolbarButtons: getToolbarButtons,//common (invoke)
         bindButtonsEvent: bindButtonsEvent,
         removeChanges: removeChanges,
         update: update,

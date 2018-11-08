@@ -189,6 +189,10 @@ module.exports = {
             },
             buttons: {
                 byRow: []
+            },
+            confirm: {
+                save: true,
+                cancel: true
             }
         },
         pages: {
