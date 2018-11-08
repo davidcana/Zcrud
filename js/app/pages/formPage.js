@@ -339,7 +339,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
         
         // Add key if there is no field key
-        var key = getKeyFieldId();
+        var key = getKey();
         if ( newRecord[ key ] == undefined ){
             newRecord[ key ] = record[ key ];
         }
@@ -639,7 +639,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     
     var submitList = function( event, $form ){
 
-        var keyFieldId = getKeyFieldId();
+        var keyFieldId = getKey();
         return saveCommon( 
             id, 
             event,
@@ -659,7 +659,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll( 
-                getKeyFieldId(), 
+                getKey(), 
                 [ ],
                 fields,
                 undefined,
@@ -703,7 +703,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForAll(
-                getKeyFieldId(), 
+                getKey(), 
                 [ record ], 
                 fields,
                 undefined,
@@ -727,7 +727,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         }
         
         var jsonObject = context.getJSONBuilder( options ).buildJSONForUpdateRecordMethod( 
-            getKeyFieldId(),
+            getKey(),
             userRecord,
             userData.record,
             fieldsMap,
@@ -749,7 +749,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
             id, 
             event,
             context.getJSONBuilder( options ).buildJSONForRemoving(
-                [ getKey() ] ),
+                [ getKeyValue() ] ),
             $form );
     };
     
@@ -805,11 +805,11 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         return record[ fieldId ];
     };
     
-    var getKeyFieldId = function(){
+    var getKey = function(){
         return thisOptions.key || options.key;
     };
-    var getKey = function(){
-        return record[ getKeyFieldId() ];
+    var getKeyValue = function(){
+        return record[ getKey() ];
     };
     
     var isReadOnly = function(){
@@ -875,22 +875,22 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
         setRecord: setRecord,
         getRecord: getRecord,
         updateRecordProperty: updateRecordProperty,
-        getDictionary: getDictionary,
-        getThisOptions: getThisOptions,
+        getDictionary: getDictionary, //common
+        getThisOptions: getThisOptions, //common
         getType: getType,
-        getId: getId,
+        getId: getId, //common
         getTitle: getTitle,
-        getFields: getFields,
+        getFields: getFields, //common
         getField: getField,
         getView: getView,
         getFieldByName: getFieldByName,
         getParentFieldByName: getParentFieldByName,
-        getKey: getKey,
+        getKeyValue: getKeyValue,
         addRecord: addRecord,
         updateRecord: updateRecord,
         deleteRecord: deleteRecord,
         get$: get$,
-        getOptions: getOptions,
+        getOptions: getOptions, //common
         getFieldValue: getFieldValue,
         isReadOnly: isReadOnly,
         addToDataToSend: addToDataToSend,
