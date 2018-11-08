@@ -1,8 +1,11 @@
 /* 
     Class ListPage 
 */
+"use strict";
+
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
+var Page = require( './page.js' );
 var FormPage = require( './formPage.js' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
@@ -14,645 +17,505 @@ var zpt = require( 'zpt' );
 var log = zpt.logHelper;
 
 var ListPage = function ( optionsToApply, userDataToApply ) {
-    "use strict";
     
-    var options = optionsToApply;
-    var getOptions = function(){
-        return options;
-    };
+    Page.call( this, optionsToApply, userDataToApply );
     
-    var filter,
-        userRecords,
-        loadAtFirstExecution;
-    var isFirstExecution = true;
-    var initFromOptions = function( userData ){
-        
-        userData = userData || {};
-        filter = userData.filter || {};
-        userRecords = userData.records;
-        loadAtFirstExecution = userData.load == undefined? true: userData.load;
-    };
-    initFromOptions( userDataToApply || {} );
+    this.isFirstExecution = true;
+    this.thisOptions = this.options.pageConf.pages.list;
+    this.records = {};
+    this.id = this.thisOptions.id;
+    this.currentFormPage = undefined;
+    this.byRowButtons = undefined;
     
-    var thisOptions = options.pageConf.pages.list;
-    var getThisOptions = function(){
-        return thisOptions;
-    };
+    this.initFromOptions( userDataToApply || {} );
+    this.configure();
+}
+Page.doSuperClassOf( ListPage );
     
-    var dictionary = undefined;
-    var records = {};
-    var id = thisOptions.id;
-    
-    var fieldsMap = {};
-    var getField = function( fieldId ){
-        return fieldsMap[ fieldId ];
-    };
-    var getFieldByName = function( fieldName ){
-        
-        // Must remove [] and its contents
-        var index = fieldName.indexOf( '[' );
-        return getField( index === -1? fieldName: fieldName.substring( 0, index ) );
-    };
-    var fields = undefined;
-    var getFields = function(){
-        return fields;
-    };
-    
-    var currentFormPage = undefined;
-    var getCurrentFormPage = function(){
-        return currentFormPage;
-    };
-    
-    var componentsMap = undefined;
-    
-    // Initial configuration
-    var configure = function(){
+ListPage.prototype.initFromOptions = function( userData ){
 
-        buildFields();
-        componentsMap = new ComponentsMap( options, thisOptions.components, self, self );
-    };
+    userData = userData || {};
+    this.filter = userData.filter || {};
+    this.userRecords = userData.records;
+    this.loadAtFirstExecution = userData.load == undefined? true: userData.load;
+};
 
-    var buildFields = function(){
+ListPage.prototype.getField = function( fieldId ){
+    return this.fieldsMap[ fieldId ];
+};
+ListPage.prototype.getFieldByName = function( fieldName ){
 
-        var fieldsCache = fieldListBuilder.getForPage( 'list', options, undefined, self );
-        fields = fieldsCache.fieldsArray;
-        fieldsMap = fieldsCache.fieldsMap;
-    };
-    
-    var buildDataToSend = function(){
-        
-        var data = {};
-        
-        data.filter = filter;
-        componentsMap.addToDataToSend( data );
-        
-        return data;
-    };
-    
-    var buildDataFromClient = function( dataToSendToServer, recordsDiff ) {
-        
-        var data = {};
-        
-        data.result = 'OK';
-        data.message = '';
-        data.records = buildRecordsArray();
-        data.totalNumberOfRecords = recordsDiff + getTotalNumberOfRecords();
-        
-        return data;
-    };
-    
-    var showFromClientOnly = function ( dictionaryExtension, dataToSendToServer ) {
-        
-        var recordsDiff = History.updateRecordsMap( records, dataToSendToServer, options.key );
-        
-        clientAndServerSuccessFunction( 
-            buildDataFromClient( dataToSendToServer, recordsDiff ),
-            dictionaryExtension );
-    };
-    
-    var getRecordsPaging = function( recordsArray, data ){
-        
-        if ( data.pageNumber && data.pageSize ){
-            var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
-            return recordsArray.slice(
-                firstElementIndex, 
-                firstElementIndex + data.pageSize ); 
-        }
-        
-        return recordsArray;
-    };
-    
-    var buildDataUsingRecords = function( recordsToUse ) {
-        
-        var data = {};
+    // Must remove [] and its contents
+    var index = fieldName.indexOf( '[' );
+    return this.getField( index === -1? fieldName: fieldName.substring( 0, index ) );
+};
 
-        data.result = 'OK';
-        data.message = '';
-        data.records = getRecordsPaging( recordsToUse, buildDataToSend() );
-        data.totalNumberOfRecords = recordsToUse.length;
+ListPage.prototype.getCurrentFormPage = function(){
+    return this.currentFormPage;
+};
+    
+// Initial configuration
+ListPage.prototype.configure = function(){
 
-        return data;
-    };
-    
-    var showUsingRecords = function ( recordsToUse, dictionaryExtension, root, callback ) {
-        
-        clientAndServerSuccessFunction( 
-            buildDataUsingRecords( recordsToUse ),
-            dictionaryExtension, 
-            root, 
-            callback );
-    };
-    
-    var clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
-        
-        beforeProcessTemplate( data, dictionaryExtension );
-        buildHTMLAndJavascript( root );
-        afterProcessTemplate( get$form() );
-        
-        if ( callback ){
-            callback( true );
-        }
-    };
-    
-    var show = function( params ){
-        
-        // Init params
-        params = params || {};
-        var dictionaryExtension = params.dictionaryExtension;
-        var root = params.root;
-        var callback = params.callback;
-        
-        // Show list using user records
-        if ( userRecords ){
-            showUsingRecords( userRecords, dictionaryExtension, root, callback );
-            isFirstExecution = false;
-            return;
-        }
-        
-        // Show list using no records
-        if ( isFirstExecution && ! loadAtFirstExecution ){
-            showUsingRecords( [], dictionaryExtension, root, callback );
-            isFirstExecution = false;
-            return;
-        }
-        
-        // Show list using records from server
-        showUsingServer( dictionaryExtension, root, callback );
-        isFirstExecution = false;
-    };
-    
-    var showUsingServer = function( dictionaryExtension, root, callback ) {
+    this.buildFields();
+    this.componentsMap = new ComponentsMap( this.options, this.thisOptions.components, this, this );
+};
 
-        var listInstance = self;
-        crudManager.listRecords( 
-            {
-                url: thisOptions.getGroupOfRecordsURL,
-                search: buildDataToSend(),
-                success: function( data ){
-                    listInstance.clientAndServerSuccessFunction.call( 
-                        listInstance, 
-                        data, 
-                        dictionaryExtension, 
-                        root, 
-                        callback );
-                },
-                error: function(){
-                    context.showError( options, false, 'Server communication error!' );
-                    if ( callback ){
-                        callback( false );
-                    }
-                }
-            }, 
-            options );
-    };
-    
-    var beforeProcessTemplate = function( data, dictionaryExtension ){
-        
-        componentsMap.dataFromServer( data );
-        updateRecords( data.records );
-        updateDictionary( data.records, dictionaryExtension );
-    };
-    
-    var updateDictionary = function( newRecordsArray, dictionaryExtension ){
+ListPage.prototype.buildFields = function(){
 
-        var thisDictionary = $.extend(
-            {
-                options: options,
-                records: newRecordsArray
-            }, 
-            options.dictionary );
-        
-        if ( dictionaryExtension ){
-            dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
-        } else {
-            dictionary = thisDictionary;
-        }
-        
-        dictionary.instance = self;
-        dictionary.editable = self.isEditable();
-    };
+    var fieldsCache = fieldListBuilder.getForPage( 'list', this.options, undefined, this );
+    this.fields = fieldsCache.fieldsArray;
+    this.fieldsMap = fieldsCache.fieldsMap;
+};
     
-    var buildHTMLAndJavascript = function( root ){
-        
-        if ( ! root ){
-            pageUtils.configureTemplate( options, "'" + thisOptions.template + "'" );
-        } else {
-            componentsMap.resetPage();
-        }
-        
-        context.getZPTParser().run(
-            {
-                root: root || ( options.target? options.target[0]: null ) || options.body,
-                dictionary: dictionary,
-                notRemoveGeneratedTags: false
-            }
-        );
-    };
-    
-    var afterProcessTemplate = function( $form ){
-        
-        bindEvents();
-        triggerListCreatedEvent( $form );
-    };
-    
-    var triggerListCreatedEvent = function( $form ){
+ListPage.prototype.buildDataToSend = function(){
 
-        options.events.listCreated(
-            {
-                $form: $form,
-                options: options
-            });
-    };
-    
-    var bindButtonEvent = function( button ){
+    var data = {};
 
-        // Return if the button does not implement run method
-        if ( ! $.isFunction( button.run ) ){
-            return;    
-        }
-        
-        $( button.getSelector() )
-            .off()
-            .click(
-                function( event ){
-                    button.run( event, self, this );   
-                }
-            );
-    };
-    
-    var bindButtonsEvent = function( buttons ){
-        
-        for ( var c = 0; c < buttons.length; ++c ){
-            var button = buttons[ c ];
-            bindButtonEvent( button );
-        }
-    };
-    
-    var bindEvents = function() {
+    data.filter = this.filter;
+    this.componentsMap.addToDataToSend( data );
 
-        // Bind events of buttons
-        bindButtonsEvent( getToolbarButtons() );
-        bindButtonsEvent( getByRowButtons() );
-        /*
-        var showCreateFormButton = new options.buttons.list_showCreateForm();
-        bindButtonEvent( showCreateFormButton );
-        
-        var showEditFormButton = new options.buttons.list_showEditForm();
-        bindButtonEvent( showEditFormButton );
-        
-        var showDeleteFormButton = new options.buttons.list_showDeleteForm();
-        bindButtonEvent( showDeleteFormButton );
-        */
-        
-        // Bind events of components
-        componentsMap.bindEvents();
-    };
+    return data;
+};
     
-    var showCreateForm = function( event ){
-        showNewForm( 'create' );
-    };
+ListPage.prototype.buildDataFromClient = function( dataToSendToServer, recordsDiff ) {
 
-    var showNewFormUsingRecordFromServer = function( type, event, forcedKey ){
+    var data = {};
 
-        // Get the key of the record to get
-        var key = forcedKey || pageUtils.getKeyFromButton( event );
-        if ( key == undefined ){
-            throw 'Error trying to load record in listPage: key is null!';
-        }
+    data.result = 'OK';
+    data.message = '';
+    data.records = this.buildRecordsArray();
+    data.totalNumberOfRecords = recordsDiff + this.getTotalNumberOfRecords();
 
-        // Build the form instance
-        currentFormPage = new FormPage( 
-            options, 
-            {
-                type: type, 
-                parentPage: self
-            }
-        ); 
-        
-        // Update form retrieving record from server
-        currentFormPage.show( 
-            {
-                key: key, 
-                getRecordURL: thisOptions.getRecordURL 
-            }
-        );
-    };
+    return data;
+};
     
-    var showEditForm = function( event, forcedKey ){
-        showNewFormUsingRecordFromServer( 'update', event, forcedKey );
-    };
-    
-    var showDeleteForm = function( event, forcedKey ){
-        showNewFormUsingRecordFromServer( 'delete', event, forcedKey );
-    };
-    
-    var showNewForm = function( type, record ){
+ListPage.prototype.showFromClientOnly = function ( dictionaryExtension, dataToSendToServer ) {
 
-        currentFormPage = new FormPage( 
-            options, 
-            {
-                type: type, 
-                parentPage: self,
-                record: record
-            }
-        ); 
-        
-        currentFormPage.show();
-    };
+    var recordsDiff = History.updateRecordsMap( this.records, dataToSendToServer, this.options.key );
+
+    this.clientAndServerSuccessFunction( 
+        this.buildDataFromClient( dataToSendToServer, recordsDiff ),
+        dictionaryExtension );
+};
     
-    var instanceNewForm = function( type, key ){
-        
-        return new FormPage( 
-            options, 
-            {
-                type: type, 
-                parentPage: self,
-                record: getRecordByKey( key )
-            }
-        );
+ListPage.prototype.getRecordsPaging = function( recordsArray, data ){
+
+    if ( data.pageNumber && data.pageSize ){
+        var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
+        return recordsArray.slice(
+            firstElementIndex, 
+            firstElementIndex + data.pageSize ); 
     }
-    
-    // Iterate dictionary.records (an array) and put them into records (a map) using the id of each record as the key
-    /*
-    var updateRecords = function(){
-        
-        records = {};
-        for ( var c = 0; c < dictionary.records.length; c++ ) {
-            var record = dictionary.records[ c ];
-            records[ record[ options.key ] ] = record;
-        }
-    };*/
-    var updateRecords = function( newRecordsArray ){
 
-        records = {};
-        for ( var c = 0; c < newRecordsArray.length; c++ ) {
-            var record = newRecordsArray[ c ];
-            records[ record[ options.key ] ] = record;
-        }
-    };
-    var buildRecordsArray = function(){
-        
-        var recordsArray = [];
-        for ( var index in records ) {
-            var record = records[ index ];
-            recordsArray.push( record );
-        }
-        return recordsArray;
-    };
+    return recordsArray;
+};
     
-    var getId = function(){
-        return id;      
-    };
-    
-    var getName = function(){
-        return options.entityId;      
-    };
-    
-    var getRecordByKey = function( key, mustUpdateRecordFromSelection ){
-        
-        var record = records[ key ];
-        
-        if ( mustUpdateRecordFromSelection && ! this.readOnly ){
-            // TODO Implement fieldUtils.updateRecordFromListSelection
-            //fieldUtils.updateRecordFromListSelection( record, this.fieldsArray, $row );
-        }
+ListPage.prototype.buildDataUsingRecords = function( recordsToUse ) {
 
-        return record;
-    };
-    /*
-    var getRecordByKey = function( key ){
-        return records[ key ];
-    };*/
-    
-    var getRowByKey = function( key ){
-        return get$().find( "[data-record-key='" + key + "']" );
-    };
-    
-    var getComponent = function( id ){
-        return componentsMap.getComponent( id );
-    };
-    var getSecureComponent = function( id ){
-        return componentsMap.getSecureComponent( id );
-    };
-    
-    var showStatusMessage = function( dictionaryExtension ){
-        pageUtils.showStatusMessage( get$(), dictionary, dictionaryExtension, context );
-    };
-    
-    var updateBottomPanel = function( dictionaryExtension ){
-        
-        var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
+    var data = {};
 
-        context.getZPTParser().run({
-            root: getComponent( 'paging' ).get$()[0],
-            dictionary: thisDictionary,
-            notRemoveGeneratedTags: false
-        });
-        
-        bindEvents();
-    };
-    
-    var getRecords = function(){
-        return records;
-    };
-    var getRecordsArray = function(){
-        return buildRecordsArray();
-    };
-    
-    var getDictionary = function(){
-        return dictionary;
-    };
+    data.result = 'OK';
+    data.message = '';
+    data.records = this.getRecordsPaging( recordsToUse, this.buildDataToSend() );
+    data.totalNumberOfRecords = recordsToUse.length;
 
-    var get$form = function(){
-        return $( '#' + thisOptions.formId );
-    };
-    var get$ = function(){
-        return $( '#' + id );
-    };
+    return data;
+};
     
-    var getTotalNumberOfRecords = function(){
-        
-        var pagingComponent = getComponent( 'paging' );
-        if ( ! pagingComponent ){
-            return Object.keys( records ).length;
-        }
-        return pagingComponent.getTotalNumberOfRecords();
-    };
+ListPage.prototype.showUsingRecords = function ( recordsToUse, dictionaryExtension, root, callback ) {
+
+    this.clientAndServerSuccessFunction( 
+        this.buildDataUsingRecords( recordsToUse ),
+        dictionaryExtension, 
+        root, 
+        callback );
+};
+
+ListPage.prototype.clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
+
+    this.beforeProcessTemplate( data, dictionaryExtension );
+    this.buildHTMLAndJavascript( root );
+    this.afterProcessTemplate( this.get$form() );
+
+    if ( callback ){
+        callback( true );
+    }
+};
     
-    var addRecord = function( key, record ){
-        
-        records[ key ] = record;
-        dictionary.records.push( record );
-    };
-    var updateRecord = function( key, record ){
-        
-        records[ key ] = record;
-        dictionary.records[ getIndexInDictionaryByKey( key ) ] = record;
-    };
-    var deleteRecord = function( key ){
-        
-        delete records[ key ];
-        dictionary.records.splice( getIndexInDictionaryByKey( key ), 1 );
-    };
-    var getIndexInDictionaryByKey = function( key ){
-        
-        for ( var c = 0; c < dictionary.records.length; c++ ) {
-            var record = dictionary.records[ c ];
-            if ( key == record[ options.key ] ){
-                return c;
+ListPage.prototype.show = function( params ){
+
+    // Init params
+    params = params || {};
+    var dictionaryExtension = params.dictionaryExtension;
+    var root = params.root;
+    var callback = params.callback;
+
+    // Show list using user records
+    if ( this.userRecords ){
+        this.showUsingRecords( this.userRecords, dictionaryExtension, root, callback );
+        this.isFirstExecution = false;
+        return;
+    }
+
+    // Show list using no records
+    if ( this.isFirstExecution && ! this.loadAtFirstExecution ){
+        this.showUsingRecords( [], dictionaryExtension, root, callback );
+        this.isFirstExecution = false;
+        return;
+    }
+
+    // Show list using records from server
+    this.showUsingServer( dictionaryExtension, root, callback );
+    this.isFirstExecution = false;
+};
+    
+ListPage.prototype.showUsingServer = function( dictionaryExtension, root, callback ) {
+
+    var listInstance = this;
+    crudManager.listRecords( 
+        {
+            url: this.thisOptions.getGroupOfRecordsURL,
+            search: this.buildDataToSend(),
+            success: function( data ){
+                listInstance.clientAndServerSuccessFunction.call( 
+                    listInstance, 
+                    data, 
+                    dictionaryExtension, 
+                    root, 
+                    callback );
+            },
+            error: function(){
+                context.showError( this.options, false, 'Server communication error!' );
+                if ( callback ){
+                    callback( false );
+                }
             }
+        }, 
+        this.options );
+};
+    
+ListPage.prototype.beforeProcessTemplate = function( data, dictionaryExtension ){
+
+    this.componentsMap.dataFromServer( data );
+    this.updateRecords( data.records );
+    this.updateDictionary( data.records, dictionaryExtension );
+};
+    
+ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExtension ){
+
+    var thisDictionary = $.extend(
+        {
+            options: this.options,
+            records: newRecordsArray
+        }, 
+        this.options.dictionary 
+    );
+
+    if ( dictionaryExtension ){
+        this.dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
+    } else {
+        this.dictionary = thisDictionary;
+    }
+
+    this.dictionary.instance = this;
+    this.dictionary.editable = this.isEditable();
+};
+
+ListPage.prototype.buildHTMLAndJavascript = function( root ){
+
+    if ( ! root ){
+        pageUtils.configureTemplate( this.options, "'" + this.thisOptions.template + "'" );
+    } else {
+        this.componentsMap.resetPage();
+    }
+
+    context.getZPTParser().run(
+        {
+            root: root || ( this.options.target? this.options.target[0]: null ) || this.options.body,
+            dictionary: this.dictionary,
+            notRemoveGeneratedTags: false
         }
-        
-        var message = 'Record not found in dictionary!'
-        alert( message );
-        throw message;
-    };
+    );
+};
     
-    var isEditable = function(){
-        return getComponent( 'editing' )? true: false;
-    };
-    var isReadOnly = function(){
-        return ! isEditable();
-    };
-    
-    var getKey = function(){
-        return options.key;
-    };
-    
-    var isFiltered = function(){
+ListPage.prototype.afterProcessTemplate = function( $form ){
 
-        var filterComponent = getComponent( 'filtering' );
-        return filterComponent && filterComponent.filterIsOn();
-    };
+    this.bindEvents();
+    this.triggerListCreatedEvent( $form );
+};
     
-    var getFieldsSource = function(){
-        return options.fields;
-    };
+ListPage.prototype.triggerListCreatedEvent = function( $form ){
+
+    this.options.events.listCreated(
+        {
+            $form: $form,
+            options: this.options
+        });
+};
     
-    var generateId = function(){
-        return pageUtils.generateId();
-    };
+ListPage.prototype.bindButtonEvent = function( button ){
 
-    var isDirty = function(){
-        
-        var history = context.getHistory();
-        return history? history.isDirty(): false;
-    };
+    // Return if the button does not implement run method
+    if ( ! $.isFunction( button.run ) ){
+        return;    
+    }
 
-    var byRowButtons = undefined;
-    var getByRowButtons = function(){
-        
-        if ( byRowButtons == undefined ){
-            byRowButtons = buttonUtils.getButtonList( 
-                thisOptions.buttons.byRow, 
-                'listRow', 
-                self,
-                options );
-        }
-        
-        return byRowButtons;
-    };
-    
-    var toolbarButtons = undefined;
-    var getToolbarButtons = function(){
-
-        if ( toolbarButtons == undefined ){
-            toolbarButtons = buttonUtils.getButtonList( 
-                thisOptions.buttons.toolbar, 
-                'listToolbar', 
-                self,
-                options );
-        }
-
-        return toolbarButtons;
-    };
-    
-    var removeChanges = function(){
-        getSecureComponent( 'editing' ).removeChanges();
-    };
-    
-    var update = function(){
-        
-        // Get root
-        var root = [ $( '#' + thisOptions.tbodyId )[0] ];
-        
-        // Add pagingComponent to root
-        var pagingComponent = getComponent( 'paging' );
-        if ( pagingComponent ){
-            root.push( pagingComponent.get$()[0] );
-        }
-
-        // Show list page
-        show(
-            {
-                root: root
+    var instance = this;
+    $( button.getSelector() )
+        .off()
+        .click(
+            function( event ){
+                button.run( event, instance, this );   
             }
         );
-    };
+};
     
-    var goToFirstPage = function(){
-        
-        var pagingComponent = getComponent( 'paging' );
-        if ( pagingComponent ){
-            pagingComponent.goToFirstPage();
+ListPage.prototype.bindButtonsEvent = function( buttons ){
+
+    for ( var c = 0; c < buttons.length; ++c ){
+        var button = buttons[ c ];
+        this.bindButtonEvent( button );
+    }
+};
+    
+ListPage.prototype.bindEvents = function() {
+
+    // Bind events of buttons
+    this.bindButtonsEvent( this.getToolbarButtons() );
+    this.bindButtonsEvent( this.getByRowButtons() );
+
+    // Bind events of components
+    this.componentsMap.bindEvents();
+};
+    
+ListPage.prototype.showCreateForm = function( event ){
+    this.showNewForm( 'create' );
+};
+
+ListPage.prototype.showNewFormUsingRecordFromServer = function( type, event, forcedKey ){
+
+    // Get the key of the record to get
+    var key = forcedKey || pageUtils.getKeyFromButton( event );
+    if ( key == undefined ){
+        throw 'Error trying to load record in listPage: key is null!';
+    }
+
+    // Build the form instance
+    this.currentFormPage = new FormPage( 
+        this.options, 
+        {
+            type: type, 
+            parentPage: this
         }
-    };
+    ); 
+
+    // Update form retrieving record from server
+    this.currentFormPage.show( 
+        {
+            key: key, 
+            getRecordURL: this.thisOptions.getRecordURL 
+        }
+    );
+};
     
-    var getType = function(){
-        return 'list';
-    };
+ListPage.prototype.showEditForm = function( event, forcedKey ){
+    this.showNewFormUsingRecordFromServer( 'update', event, forcedKey );
+};
     
-    var self = {
-        show: show,
-        showFromClientOnly: showFromClientOnly,
-        showUsingRecords: showUsingRecords,
-        getId: getId, //common
-        getName: getName, //common
-        showCreateForm: showCreateForm,
-        showEditForm: showEditForm,
-        showDeleteForm: showDeleteForm,
-        getRecordByKey: getRecordByKey,
-        getRowByKey: getRowByKey,
-        getOptions: getOptions, //common
-        getThisOptions: getThisOptions, //common
-        getComponent: getComponent, //common
-        getSecureComponent: getSecureComponent, //common
-        showStatusMessage: showStatusMessage, //common
-        updateBottomPanel: updateBottomPanel,
-        getRecords: getRecords,
-        getRecordsArray: getRecordsArray,
-        getDictionary: getDictionary, //common
-        getField: getField, //common
-        getFieldByName: getFieldByName,//common
-        getFields: getFields, //common
-        get$form: get$form,
-        get$: get$,//common
-        instanceNewForm: instanceNewForm,
-        addRecord: addRecord,
-        updateRecord: updateRecord,
-        deleteRecord: deleteRecord,
-        isEditable: isEditable,
-        getKey: getKey, //common
-        getCurrentFormPage: getCurrentFormPage,
-        isReadOnly: isReadOnly,
-        clientAndServerSuccessFunction: clientAndServerSuccessFunction,
-        isFiltered: isFiltered,
-        getFieldsSource: getFieldsSource, //common 
-        generateId: generateId,
-        updateRecords: updateRecords,
-        isDirty: isDirty, //common
-        getByRowButtons: getByRowButtons,
-        getToolbarButtons: getToolbarButtons,//common (invoke)
-        bindButtonsEvent: bindButtonsEvent,
-        removeChanges: removeChanges,
-        update: update,
-        goToFirstPage: goToFirstPage,
-        getType: getType
-    };
+ListPage.prototype.showDeleteForm = function( event, forcedKey ){
+    this.showNewFormUsingRecordFromServer( 'delete', event, forcedKey );
+};
     
-    configure();
+ListPage.prototype.showNewForm = function( type, record ){
+
+    this.currentFormPage = new FormPage( 
+        this.options, 
+        {
+            type: type, 
+            parentPage: this,
+            record: record
+        }
+    ); 
+
+    this.currentFormPage.show();
+};
     
-    return self;
+ListPage.prototype.instanceNewForm = function( type, key ){
+
+    return new FormPage( 
+        this.options, 
+        {
+            type: type, 
+            parentPage: this,
+            record: this.getRecordByKey( key )
+        }
+    );
+}
+    
+// Iterate dictionary.records (an array) and put them into records (a map) using the id of each record as the key
+ListPage.prototype.updateRecords = function( newRecordsArray ){
+
+    this.records = {};
+    for ( var c = 0; c < newRecordsArray.length; c++ ) {
+        var record = newRecordsArray[ c ];
+        this.records[ record[ this.options.key ] ] = record;
+    }
+};
+ListPage.prototype.buildRecordsArray = function(){
+
+    var recordsArray = [];
+    for ( var index in this.records ) {
+        var record = this.records[ index ];
+        recordsArray.push( record );
+    }
+    return recordsArray;
+};
+    
+ListPage.prototype.getRecordByKey = function( key, mustUpdateRecordFromSelection ){
+
+    var record = this.records[ key ];
+
+    if ( mustUpdateRecordFromSelection && ! this.readOnly ){
+        // TODO Implement fieldUtils.updateRecordFromListSelection
+        //fieldUtils.updateRecordFromListSelection( record, this.fieldsArray, $row );
+    }
+
+    return record;
+};
+ListPage.prototype.getRowByKey = function( key ){
+    return this.get$().find( "[data-record-key='" + key + "']" );
+};
+    
+ListPage.prototype.updateBottomPanel = function( dictionaryExtension ){
+
+    var thisDictionary = $.extend( {}, this.dictionary, dictionaryExtension );
+
+    context.getZPTParser().run({
+        root: this.getComponent( 'paging' ).get$()[0],
+        dictionary: thisDictionary,
+        notRemoveGeneratedTags: false
+    });
+
+    this.bindEvents();
+};
+    
+ListPage.prototype.getRecords = function(){
+    return this.records;
+};
+ListPage.prototype.getRecordsArray = function(){
+    return this.buildRecordsArray();
+};
+
+ListPage.prototype.get$form = function(){
+    return $( '#' + this.thisOptions.formId );
+};
+
+ListPage.prototype.getTotalNumberOfRecords = function(){
+
+    var pagingComponent = this.getComponent( 'paging' );
+    if ( ! pagingComponent ){
+        return Object.keys( this.records ).length;
+    }
+    return pagingComponent.getTotalNumberOfRecords();
+};
+    
+ListPage.prototype.addRecord = function( key, record ){
+
+    this.records[ key ] = record;
+    this.dictionary.records.push( record );
+};
+ListPage.prototype.updateRecord = function( key, record ){
+
+    this.records[ key ] = record;
+    this.dictionary.records[ this.getIndexInDictionaryByKey( key ) ] = record;
+};
+ListPage.prototype.deleteRecord = function( key ){
+
+    delete this.records[ key ];
+    this.dictionary.records.splice( this.getIndexInDictionaryByKey( key ), 1 );
+};
+ListPage.prototype.getIndexInDictionaryByKey = function( key ){
+
+    for ( var c = 0; c < this.dictionary.records.length; c++ ) {
+        var record = this.dictionary.records[ c ];
+        if ( key == record[ this.options.key ] ){
+            return c;
+        }
+    }
+
+    var message = 'Record not found in dictionary!'
+    alert( message );
+    throw message;
+};
+    
+ListPage.prototype.isEditable = function(){
+    return this.getComponent( 'editing' )? true: false;
+};
+ListPage.prototype.isReadOnly = function(){
+    return ! this.isEditable();
+};
+    
+ListPage.prototype.isFiltered = function(){
+
+    var filterComponent = this.getComponent( 'filtering' );
+    return filterComponent && filterComponent.filterIsOn();
+};
+    
+ListPage.prototype.generateId = function(){
+    return pageUtils.generateId();
+};
+
+
+ListPage.prototype.getByRowButtons = function(){
+
+    if ( this.byRowButtons == undefined ){
+        this.byRowButtons = buttonUtils.getButtonList( 
+            this.thisOptions.buttons.byRow, 
+            'listRow', 
+            this,
+            this.options );
+    }
+
+    return this.byRowButtons;
+};
+ListPage.prototype.getToolbarButtons = function(){
+    return this.getPageToolbarButtons( 'listToolbar' );
+};
+    
+ListPage.prototype.removeChanges = function(){
+    this.getSecureComponent( 'editing' ).removeChanges();
+};
+    
+ListPage.prototype.update = function(){
+        
+    // Get root
+    var root = [ $( '#' + this.thisOptions.tbodyId )[0] ];
+
+    // Add pagingComponent to root
+    var pagingComponent = this.getComponent( 'paging' );
+    if ( pagingComponent ){
+        root.push( pagingComponent.get$()[0] );
+    }
+
+    // Show list page
+    this.show(
+        {
+            root: root
+        }
+    );
+};
+    
+ListPage.prototype.goToFirstPage = function(){
+
+    var pagingComponent = this.getComponent( 'paging' );
+    if ( pagingComponent ){
+        pagingComponent.goToFirstPage();
+    }
+};
+    
+ListPage.prototype.getType = function(){
+    return 'list';
 };
 
 module.exports = ListPage;

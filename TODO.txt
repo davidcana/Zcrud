@@ -3,6 +3,5 @@ ZCrud 0.1.0
 
 * Add validation on 'Save changes' and 'Cancel' buttons.
 * Replace formFieldAttributes by attributes.
-* Implement Page class.
 
 Bugs:

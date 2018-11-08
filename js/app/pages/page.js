@@ -11,7 +11,6 @@ var buttonUtils = require( '../buttons/buttonUtils.js' );
 var Page = function( optionsToApply, userDataToApply ) {
     
     this.options = optionsToApply;
-    //this.initFromOptions( userDataToApply );
     
     this.fieldsMap = {};
     this.fields = [];
