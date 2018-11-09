@@ -64,6 +64,9 @@ module.exports = {
             },
             showTr: function( $tr ){
                 $tr.fadeIn();
+            },
+            confirm: {
+                save: true
             }
         }
     },

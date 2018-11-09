@@ -146,6 +146,6 @@
     
     "confirmEditableListTitle": "Confirm save changes",
     "confirmEditableListText": "Do you wish to save changes?",
-    "confirmEditableListButton": "Oops! Stop it!",
+    "confirmEditableListCancelButton": "Oops! Stop it!",
     "confirmEditableListContinueButton": "Save changes!"
 }

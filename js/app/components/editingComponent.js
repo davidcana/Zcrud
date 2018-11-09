@@ -31,21 +31,6 @@ EditingComponent.prototype.bindEvents = function(){
 
     var $this = $( '#' + this.listPage.getId() );
 
-    // Init autoSubmitMode
-    /*
-        var editableEvent = thisOptions.event;
-        switch ( editableEvent ){
-            case 'fieldChange':
-                autoSubmitMode = true;
-                break;
-            case 'batch':
-                autoSubmitMode = false;
-                break;
-            default:
-                context.showError( options, true, 'Unknown event in editable list: ' + editableEvent );
-                return;
-        }*/
-
     // Register change of the field
     this.bindEventsInRows( $this );
 
@@ -187,23 +172,24 @@ EditingComponent.prototype.buildDictionaryForNewRow = function( newRecord ){
 
 // History methods
 EditingComponent.prototype.undo = function( event ){
-
     context.getHistory().undo( this.listPage.getId() );
-    /*
-        if ( autoSubmitMode ){
-            submit( event );
-        }*/
 };
 EditingComponent.prototype.redo = function( event ){
-
     context.getHistory().redo( this.listPage.getId() );
-    /*
-        if ( autoSubmitMode ){
-            submit( event );
-        }*/
 };
 
 EditingComponent.prototype.submit = function( event ){
+    
+    var instance = this;
+    this.parent.processDirty(
+        this.thisOptions.confirm.save,
+        'EditableList',
+        function(){
+            instance.doSubmit( event );
+        }
+    );
+};
+EditingComponent.prototype.doSubmit = function( event ){
 
     var instance = this;
     var jsonObject = context.getJSONBuilder( this.options ).buildJSONForAll(

@@ -41,6 +41,9 @@ module.exports = {
                         },
                         showTr: function( $tr ){
                             $tr.show();
+                        },
+                        confirm: {
+                            save: false
                         }
                     }
                 }
