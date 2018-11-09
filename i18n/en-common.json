@@ -116,6 +116,36 @@
     "max" : "max",
     "imageRatioNotAccepted" : "Image ratio is not accepted",
     
-    "invalidFormData": "There are errors in the form, form not send!"
+    "invalidFormData": "There are errors in the form, form not send!",
     
+    "_confirm": "",
+    "confirmCancelTitle": "Confirm cancel",
+    "confirmCancelText": "There are changes not saved!",
+    "confirmCancelCancelButton": "Oops! Stop it!",
+    "confirmCancelContinueButton": "Lose changes and continue!",
+    
+    "confirmUpdateTitle": "Confirm update",
+    "confirmUpdateText": "There are unsaved changes. Do you wish to save them?",
+    "confirmUpdateCancelButton": "Oops! Stop it!",
+    "confirmUpdateContinueButton": "Save changes!",
+    
+    "confirmCreateTitle": "Confirm create",
+    "confirmCreateText": "There are unsaved changes. Do you wish to save them?",
+    "confirmCreateCancelButton": "Oops! Stop it!",
+    "confirmCreateContinueButton": "Save changes!",
+    
+    "confirmDeleteTitle": "Confirm delete",
+    "confirmDeleteText": "Do you wish to delete this record?",
+    "confirmDeleteCancelButton": "Oops! Stop it!",
+    "confirmDeleteContinueButton": "Delete record!",
+    
+    "confirmOnlyFormTitle": "Confirm save changes",
+    "confirmOnlyFormText": "Do you wish to save changes?",
+    "confirmOnlyFormCancelButton": "Oops! Stop it!",
+    "confirmOnlyFormContinueButton": "Save changes!",
+    
+    "confirmEditableListTitle": "Confirm save changes",
+    "confirmEditableListText": "Do you wish to save changes?",
+    "confirmEditableListButton": "Oops! Stop it!",
+    "confirmEditableListContinueButton": "Save changes!"
 }

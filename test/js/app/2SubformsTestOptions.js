@@ -10,7 +10,11 @@ module.exports = {
     pageConf: {
         defaultPageConf: {
             updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-            dataToSend: 'modified'
+            dataToSend: 'modified',
+            confirm: {
+                save: false,
+                cancel: false
+            }
         },
         pages: {
             list: {

@@ -26,32 +26,30 @@ Page.prototype.configure = function(){
     throw 'configure method not implemented in Page class!';
 };
 
-Page.prototype.processConfirm = function( callback ){
+Page.prototype.processDirty = function( confirm, id, callback, noCheckDirty ){
 
-    if ( ! this.parent.isDirty() ){
+    if ( ! confirm || ( ! noCheckDirty && ! this.isDirty() ) ){
         callback();
         return;
     }
 
     // Page is dirty!
-    var instance = this;
     context.confirm(
         this.options,
         {
-            title: context.translate( 'dirtyPagingTitle' ),
-            text: context.translate( 'dirtyPagingText' ),
+            title: context.translate( 'confirm' + id + 'Title' ),
+            text: context.translate( 'confirm' + id + 'Text' ),
             className: 'wideConfirm',
             buttons: {
-                cancel: context.translate( 'dirtyPagingCancel' ),
-                discard: {
-                    text: context.translate( 'dirtyPagingDiscard' ),
-                    value: 'discard',
+                cancel: context.translate( 'confirm' + id + 'CancelButton' ),
+                continue: {
+                    text: context.translate( 'confirm' + id + 'ContinueButton' ),
+                    value: 'continue',
                 }
             }
         },
         function( value ){
-            if ( value == 'discard' ) {
-                instance.parent.removeChanges();
+            if ( value == 'continue' ) {
                 callback();
             }
         }

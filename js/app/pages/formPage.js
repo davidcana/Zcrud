@@ -609,6 +609,17 @@ FormPage.prototype.processDataFromServer = function( data ){
     
 FormPage.prototype.submitList = function( event, $form ){
 
+    var instance = this;
+    this.processDirty(
+        this.thisOptions.confirm.save,
+        'OnlyForm',
+        function(){
+            instance.doSubmitList( event, $form );
+        }
+    );
+};
+FormPage.prototype.doSubmitList = function( event, $form ){
+
     var keyFieldId = this.getKey();
     return this.saveCommon( 
         this.id, 
@@ -625,6 +636,17 @@ FormPage.prototype.submitList = function( event, $form ){
     
 FormPage.prototype.submitCreate = function( event, $form ){
 
+    var instance = this;
+    this.processDirty(
+        this.thisOptions.confirm.save,
+        'Create',
+        function(){
+            instance.doSubmitCreate( event, $form );
+        }
+    );
+};
+FormPage.prototype.doSubmitCreate = function( event, $form ){
+
     return this.saveCommon( 
         this.id, 
         event,
@@ -637,7 +659,7 @@ FormPage.prototype.submitCreate = function( event, $form ){
         $form 
     );
 };
-    
+
 FormPage.prototype.addRecord = function( userData ){
 
     var event = undefined;
@@ -669,6 +691,17 @@ FormPage.prototype.addProperties = function( fromObject, toObject, properties ){
 };
     
 FormPage.prototype.submitUpdate = function( event, $form ){
+    
+    var instance = this;
+    this.processDirty(
+        this.thisOptions.confirm.save,
+        'Update',
+        function(){
+            instance.doSubmitUpdate( event, $form );
+        }
+    );
+};
+FormPage.prototype.doSubmitUpdate = function( event, $form ){
 
     return this.saveCommon( 
         this.id, 
@@ -682,7 +715,7 @@ FormPage.prototype.submitUpdate = function( event, $form ){
         $form 
     );
 };
-    
+
 FormPage.prototype.updateRecord = function( userData ){
 
     if ( ! userData ){
@@ -718,6 +751,18 @@ FormPage.prototype.updateRecord = function( userData ){
     
 FormPage.prototype.submitDelete = function( event, $form ){
 
+    var instance = this;
+    this.processDirty(
+        this.thisOptions.confirm.save,
+        'Delete',
+        function(){
+            instance.doSubmitDelete( event, $form );
+        }, 
+        true
+    );
+};
+FormPage.prototype.doSubmitDelete = function( event, $form ){
+
     return this.saveCommon( 
         this.id, 
         event,
@@ -726,7 +771,7 @@ FormPage.prototype.submitDelete = function( event, $form ){
         $form 
     );
 };
-    
+
 FormPage.prototype.deleteRecord = function( userData ){
 
     var event = undefined;
@@ -745,11 +790,22 @@ FormPage.prototype.deleteRecord = function( userData ){
     
 FormPage.prototype.cancelForm = function( event, $form ){
 
+    var instance = this;
+    this.processDirty(
+        this.thisOptions.confirm.cancel,
+        'Cancel',
+        function(){
+            instance.doCancelForm( event, $form );
+        }
+    );
+};
+FormPage.prototype.doCancelForm = function( event, $form ){
+    
     this.triggerFormClosedEvent( event, $form );
     context.getHistory().reset( this.id );
     this.parentPage.show();
 };
-    
+
 /* Events */
 FormPage.prototype.triggerFormClosedEvent = function( event, $form ){
 

@@ -11,7 +11,11 @@ module.exports = {
     pageConf: {
         defaultPageConf: {
             updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
-            getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department'
+            getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department',
+            confirm: {
+                save: false,
+                cancel: false
+            }
         },
         pages: {
             list: {

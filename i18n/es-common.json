@@ -116,6 +116,36 @@
     "max" : "máximo",
     "imageRatioNotAccepted" : "El ratio de la imagen es incorrecto",
 
-    "invalidFormData": "Hay errores en el formulario. El formulario no ha sido enviado."
+    "invalidFormData": "Hay errores en el formulario. El formulario no ha sido enviado.",
+
+    "_confirm": "",
+    "confirmCancelTitle": "Confirmar cancelar",
+    "confirmCancelText": "¡Hay cambios que no se han guardado!",
+    "confirmCancelCancelButton": "¡Ups! ¡Para!",
+    "confirmCancelContinueButton": "¡Perder cambios y continuar!",
     
+    "confirmUpdateTitle": "Confirmar modificación",
+    "confirmUpdateText": "Se han realizado cambios. ¿Seguro que desea guardarlos?",
+    "confirmUpdateCancelButton": "¡Ups! ¡Para!",
+    "confirmUpdateContinueButton": "¡Guardar cambios!",
+
+    "confirmCreateTitle": "Confirmar creación",
+    "confirmCreateText": "Se han realizado cambios. ¿Seguro que desea guardarlos?",
+    "confirmCreateCancelButton": "¡Ups! ¡Para!",
+    "confirmCreateContinueButton": "¡Guardar cambios!",
+    
+    "confirmDeleteTitle": "Confirmar borrado",
+    "confirmDeleteText": "¿Seguro que desea eliminar este registro?",
+    "confirmDeleteCancelButton": "¡Ups! ¡Para!",
+    "confirmDeleteContinueButton": "¡Eliminar registro!",
+
+    "confirmOnlyFormTitle": "Confirmar guardar cambios",
+    "confirmOnlyFormText": "¿Seguro que desea guardar los cambios?",
+    "confirmOnlyFormCancelButton": "¡Ups! ¡Para!",
+    "confirmOnlyFormContinueButton": "¡Guardar cambios!",
+    
+    "confirmEditableListTitle": "Confirmar guardar cambios",
+    "confirmEditableListText": "¿Seguro que desea guardar los cambios?",
+    "confirmEditableListButton": "¡Ups! ¡Para!",
+    "confirmEditableListContinueButton": "¡Guardar cambios!"
 }
