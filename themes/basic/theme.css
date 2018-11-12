@@ -77,10 +77,11 @@ div.zcrud-main-container .zcrud-header .zcrud-header-title .zcrud-title {
   font-size: 3em;
 }
 div.zcrud-main-container .zcrud-new-command-button, div.zcrud-main-container .zcrud-new-row-command-button {
-  background: url("./images/add.png") no-repeat center;
+  /*background: url('./images/add.png') no-repeat center;
   background-size: 16px 16px;
   height: 30px;
-  width: 30px;
+  width: 30px;*/
+  font-weight: 900 !important;
 }
 div.zcrud-main-container .zcrud-edit-command-button {
   background: url("./images/edit.png") no-repeat center;
@@ -244,8 +245,33 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-goto-page input[type=text] {
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-toolbar {
   margin-left: 1em;
 }
-div.zcrud-main-container .zcrud-bottom-panel .zcrud-toolbar button {
+div.zcrud-main-container button,
+div.zcrud-main-container .zcrud-bottom-panel button {
+  color: Darkcyan;
   background-color: White;
+  font-size: 1.2em;
+  border-radius: 5px;
+  font-weight: 600;
+  padding: 0.1em 1em 0.1em 1em;
+  margin: 0.2em;
+  cursor: pointer;
+}
+div.zcrud-main-container .zcrud-button-panel button {
+  color: White;
+  background-color: Darkcyan;
+  font-size: 0.9em;
+  padding: 0.5em 1em 0.5em 1em;
+}
+div.zcrud-main-container .zcrud-command button {
+  border: none;
+  box-shadow: none;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+div.zcrud-main-container .zcrud-button-panel button:disabled,
+div.zcrud-main-container .zcrud-bottom-panel button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
 }
 div.zcrud-main-container form.zcrud-form {
   font-weight: 400;
@@ -477,7 +503,9 @@ div.zcrud-main-container .datetime .calendar td:hover {
   background: #b2edcb !important;
   box-shadow: none !important;
 }
-div.zcrud-main-container .datetime .save-button {
+div.zcrud-main-container .datetime button.save-button {
+  color: White;
+  background-color: Darkcyan;
   margin-top: 5px;
   width: 100%;
   font-weight: 300;
@@ -486,6 +514,11 @@ div.zcrud-main-container .datetime .save-button {
 div.zcrud-main-container .wideConfirm {
   width: 700px;
 }
+.swal-button {
+  color: White;
+  background-color: Darkcyan;
+}
+
 #zcrud-busy-message {
   cursor: wait;
   margin: 0.5em;

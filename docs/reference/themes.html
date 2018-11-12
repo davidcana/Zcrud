@@ -32,7 +32,8 @@
         <ul>
             <li><em>images</em>. A directory with images.</li>
             <li><em>_base.scss</em>. It contains definitions of configuration vars.</li>
-            <li><em>_color.scss</em>. Definitions of vars about colors.</li>
+            <li><em>_colors-physical.scss</em>. Definitions of vars about colors. It defines some names using colors.</li>
+            <li><em>_colors-logical.scss</em>. Definitions of vars about colors. It assigns colors using the names defined in <em>_color-physical.scss</em>.</li>
             <li><em>_common.scss</em>. The core of the styles.</li>
             <li><em>_fonts.scss</em>. Definitions of vars about fonts and web fonts.</li>
             <li><em>theme.css</em>. The resulting CSS file.</li>
@@ -44,8 +45,8 @@
             <em>Soft</em> theme is a theme built over <em>Basic</em> theme. It contains the next files:
         </p>
         <ul>
-            <li><em>_base.scss</em> (not required).</li>
-            <li><em>_color.scss</em> (not required).</li>
+            <li><em>_base.scss</em> (not required, but usually exists).</li>
+            <li><em>_colors-physical.scss</em> (not required, but usually exists).</li>
             <li><em>theme.css</em> (required). A theme can not work without this file!</li>
             <li><em>theme.css.map</em> (not required but recommended).</li>
             <li><em>theme.scss</em> (required if the theme is based on Sass).</li>

@@ -36,10 +36,11 @@ div.zcrud-main-container {
     
     // Commands buttons
     .zcrud-new-command-button, .zcrud-new-row-command-button {
-        background: url('#{$images-url}/add.png') no-repeat center;
+        /*background: url('#{$images-url}/add.png') no-repeat center;
         background-size: 16px 16px;
         height: 30px;
-        width: 30px;
+        width: 30px;*/
+        font-weight: 900 !important;
     }
     .zcrud-edit-command-button {
         background: url('#{$images-url}/edit.png') no-repeat center;
@@ -217,12 +218,41 @@ div.zcrud-main-container {
         }
         .zcrud-toolbar {
             margin-left: 1em;
-            button {
-                background-color: $bottom-panel-buttons-background-color;
-            }
         }
     }
     
+    // Buttons
+    button, 
+    .zcrud-bottom-panel button {
+        color: $bottom-panel-buttons-color;
+        background-color: $bottom-panel-buttons-background-color;
+        font-size: 1.2em;
+        border-radius: 5px;
+        font-weight: 600;
+        padding: 0.1em 1em 0.1em 1em;
+        margin: 0.2em;
+        cursor: pointer;
+    }
+    
+    .zcrud-button-panel button {
+        color: $button-panel-buttons-color;
+        background-color: $button-panel-buttons-background-color;
+        font-size: .9em;
+        padding: 0.5em 1em 0.5em 1em;
+    }
+    .zcrud-command button {
+        border: none;
+        box-shadow: none;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .zcrud-button-panel button:disabled,
+    .zcrud-bottom-panel button:disabled {
+        color: $disabled-buttons-color;
+        cursor: not-allowed;
+    }
+
     // Forms
     form {
         &.zcrud-form {
@@ -469,22 +499,35 @@ div.zcrud-main-container {
                 }
             }
         }
-        .save-button {
+        
+        button.save-button {
+            color: $button-panel-buttons-color;
+            background-color: $button-panel-buttons-background-color; 
             margin-top: 5px;
             width: 100%;
             font-weight: 300;
             height: 2em;
         }
     }
-
+    
     // Messages
     .confirm {}
     .wideConfirm {
         width: 700px;
     }
     .showMessage {}
-    
 }
+
+// Sweet alert
+.swal-overlay {}
+.swal-button {
+    color: $alert-buttons-color;
+    background-color: $alert-buttons-background-color;
+}
+.swal-footer {}
+.swal-text {}
+.swal-title {}
+.swal-modal {}
 
 // Busy message
 #zcrud-busy-message {

@@ -27,7 +27,10 @@ ShowCreateFormButton.prototype.getTextsBundle = function(){
             translate: true,
             text: 'Add new record'
         },
-        content: undefined
+        content: {
+            translate: false,
+            text: '+'
+        }
     };
 };
 
