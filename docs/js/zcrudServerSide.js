@@ -519,9 +519,14 @@ var zcrudServerSide = (function() {
 
         for ( var id in modified ){
             if ( subformsFields.indexOf( id ) !== -1 ){
+                var arrayOfRows = subformsData[ id ][ key ];
+                if ( ! arrayOfRows ){
+                    arrayOfRows = [];
+                    subformsData[ id ][ key ] = arrayOfRows;
+                }
                 subformFieldBatchUpdate( 
                     modified[ id ], 
-                    subformsData[ id ][ key ], 
+                    arrayOfRows,    
                     dataToSend );
                 delete modified[ id ]; // Delete subform data in modified, current has been already updated
             }
