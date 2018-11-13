@@ -97,7 +97,11 @@ module.exports = (function() {
 
     };
     
-    var formIsValid = function( options, eventData ){
+    var formIsValid = function( options, eventData, componentValidation ){
+        
+        if ( componentValidation !== true ){
+            return componentValidation;
+        }
         
         var eventResult = options.events.formSubmitting( eventData, options );
         var eventResultIsValid = eventResult === undefined || eventResult == true;
@@ -114,17 +118,6 @@ module.exports = (function() {
         }
         return $.isPlainObject( eventResult )? eventResult: false;
     };
-    /*
-    var formIsValid = function( options, eventData ){
-
-        var eventResult = options.events.formSubmitting( eventData, options );
-
-        if ( ! validationOn( options ) ){
-            return false != eventResult;
-        }
-
-        return $( '.' + errorClass ).length === 0 && false != eventResult;
-    };*/
     
     var buildFieldOptions = function( options ){
         return {};

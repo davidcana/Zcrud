@@ -154,4 +154,18 @@ FilteringComponent.prototype.getParent = function(){
     return this.parent;
 };
 
+FilteringComponent.prototype.validate = function(){
+    
+    if ( ! this.thisOptions.forceToFilter ){
+        return true;
+    }
+    
+    return this.filterIsOn()?
+        true:
+        {
+            translate: true,
+            message: 'forcedFilter'
+        };
+};
+
 module.exports = FilteringComponent;

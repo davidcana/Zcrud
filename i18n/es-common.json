@@ -119,7 +119,8 @@
     "min" : "mínimo",
     "max" : "máximo",
     "imageRatioNotAccepted" : "El ratio de la imagen es incorrecto",
-
+    "forcedFilter": "¡Por favor, use el filtro antes de guardar!",
+    
     "invalidFormData": "Hay errores en el formulario. El formulario no ha sido enviado.",
 
     "_confirm": "",

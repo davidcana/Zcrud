@@ -66,6 +66,10 @@ Component.prototype.getPage = function(){
     return this.page;
 };
 
+Component.prototype.validate = function(){
+    return true;
+};
+
 Component.prototype.resetPage = function(){};
 Component.prototype.addToDataToSend = function(){};
 Component.prototype.dataFromServer = function(){};

@@ -252,7 +252,8 @@ EditingComponent.prototype.doSubmit = function( event ){
             formType: 'list',
             dataToSend: newJSONObject,
             options: this.options
-        }
+        },
+        this.listPage.getComponentMap().validate()
     );
 
     return jsonObject;

@@ -24,6 +24,11 @@ var discardConfirmFunction = function( confirmOptions, onFulfilled ){
     onFulfilled( 'discard' );
 };
 
+var errorFunctionCounter = 0;
+var errorFunction = function( message ){
+    ++errorFunctionCounter;
+};
+
 // Run tests
 
 QUnit.test( "form simple test", function( assert ) {
@@ -1340,6 +1345,202 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
                 pageListActive: [ '2', '>', '>>' ]
             });
             
+            done();
+        }
+    );
+});
+
+QUnit.test( "form forcing filtering test with errors", function( assert ) {
+
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                list: {
+                    updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
+                    getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
+                    components: {
+                        paging: {
+                            isOn: false
+                        },
+                        filtering: {
+                            isOn: true,
+                            fields: [ 'originalMembers/name' ],
+                            forceToFilter: true
+                        }   
+                    }
+                }
+            }    
+        },
+        errorFunction: errorFunction
+    };
+    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options.fields.originalMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: []
+        }
+    };
+    options.fields.verifiedMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: [ 'subform_addNewRow' ]
+        }
+    };
+
+    var numberOfOriginalMembers = 12;
+    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    var itemName = 'Member';
+    testHelper.setDefaultItemName( itemName );
+    
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'renderForm' );
+
+            errorFunctionCounter = 0;
+            
+            // Assert  verified members is void
+            var form = $( '#departmentsContainer' ).zcrud( 'getFormPage' );
+            var verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                []
+            );
+            
+            // Select
+            testHelper.subformSelectByText( 'originalMembers', '1', '11' );
+
+            // Copy
+            var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
+            $copyButton.click();
+            
+            // Submit and check storage
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 1 );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "form forcing filtering test without errors", function( assert ) {
+
+    thisTestOptions = {
+        pageConf: {
+            pages: {
+                list: {
+                    updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
+                    getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
+                    components: {
+                        paging: {
+                            isOn: false
+                        },
+                        filtering: {
+                            isOn: true,
+                            fields: [ 'originalMembers/name' ],
+                            forceToFilter: true
+                        }   
+                    }
+                }
+            }    
+        },
+        errorFunction: errorFunction
+    };
+    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options.fields.originalMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: []
+        }
+    };
+    options.fields.verifiedMembers.buttons = {
+        buttons: {
+            toolbar: [],
+            byRow: [ 'subform_addNewRow' ]
+        }
+    };
+
+    var numberOfOriginalMembers = 12;
+    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    var itemName = 'Member';
+    testHelper.setDefaultItemName( itemName );
+
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            testUtils.resetServices();
+            $( '#departmentsContainer' ).zcrud( 'renderForm' );
+
+            errorFunctionCounter = 0;
+
+            // Assert  verified members is void
+            var form = $( '#departmentsContainer' ).zcrud( 'getFormPage' );
+            var verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                []
+            );
+
+            // Filter by name
+            $( '[name="originalMembers-name"]' ).val( '1' );
+            $( '.zcrud-filter-submit-button' ).click();
+
+            // Select
+            testHelper.subformSelectByText( 'originalMembers', '1', '11' );
+
+            // Copy
+            var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
+            $copyButton.click();
+
+            // Edit last row
+            testHelper.fillSubformNewRow(
+                {
+                    "description": "Description of Member 11 edited"
+                }, 
+                'verifiedMembers' );
+
+            // Submit and check storage
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 0 );
+            
+            var expectedVerifiedMembers = {
+                "1": {
+                    "filter": "1",
+                    "code": "1",
+                    "name": "Member 1",
+                    "description": "Description of Member 1",
+                    "hobbies": [],
+                    "important": false
+                },
+                "11": {
+                    "filter": "1",
+                    "code": "11",
+                    "name": "Member 11",
+                    "description": "Description of Member 11 edited",
+                    "hobbies": [],
+                    "important": false
+                }
+            };
+
+            assert.deepEqual( 
+                testUtils.getVerifiedMembers(), 
+                expectedVerifiedMembers );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+
             done();
         }
     );

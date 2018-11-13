@@ -513,7 +513,9 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
             formType: this.type,
             dataToSend: jsonObject,
             options: this.options
-        });
+        },
+        this.componentsMap.validate()
+    );
 
     return jsonObject;
 };

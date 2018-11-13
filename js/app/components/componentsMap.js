@@ -95,6 +95,20 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
         }
     };
     
+    var validate = function() {
+
+        for ( var id in components ){
+            var component = components[ id ];
+            var validation = component.validate();
+            if ( validation === true ){
+                continue;
+            }
+            return $.isPlainObject( validation )? validation: false;
+        }
+        
+        return true;
+    };
+    
     var self = {
         getComponent: getComponent,
         getSecureComponent: getSecureComponent,
@@ -102,7 +116,8 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
         addToDataToSend: addToDataToSend,
         dataFromServer: dataFromServer,
         bindEvents: bindEvents,
-        bindEventsIn1Row: bindEventsIn1Row
+        bindEventsIn1Row: bindEventsIn1Row,
+        validate: validate
     };
     
     configure();

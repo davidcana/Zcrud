@@ -23,6 +23,7 @@ var options = {
                     },
                     filtering: {
                         isOn: true,
+                        forceToFilter: true,
                         fields: [ 
                             {
                                 id: 'year',

@@ -352,7 +352,6 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
             if ( historyItem.saveEnabled() ){
-                //return validationManager.formIsValid( options );
                 return true;
             }
         }

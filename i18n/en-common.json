@@ -119,6 +119,7 @@
     "min" : "min",
     "max" : "max",
     "imageRatioNotAccepted" : "Image ratio is not accepted",
+    "forcedFilter": "Please, use filter before saving!",
     
     "invalidFormData": "There are errors in the form, form not send!",
     
