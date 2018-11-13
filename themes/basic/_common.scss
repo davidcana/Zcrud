@@ -269,7 +269,7 @@ div.zcrud-main-container {
                 border-radius: 10px;
             }
             legend {
-                background: white;
+                background-color: white;
                 padding: 0 .2em 0 .2em;
                 font-size: 90%;
             }
@@ -355,7 +355,7 @@ div.zcrud-main-container {
     // Datetime picker
     .datetime {
         box-shadow: 0 5px 15px -5px;
-        background: $datetime-background-color;
+        background-color: $datetime-background-color;
         border: 1px solid $datetime-border-color;
         padding: .5em;
         position: absolute;
@@ -471,6 +471,7 @@ div.zcrud-main-container {
                 width: 14%;
                 border: 1px solid $datetime-td-border-color;
                 color: $datetime-td-color;
+                background-color: $datetime-background-color;
                 font-size: .75em;
                 text-align: right;
                 padding: 0;
@@ -494,7 +495,7 @@ div.zcrud-main-container {
                 }
                 &:hover {
                     color: $datetime-td-hover-color !important;
-                    background: $datetime-td-hover-background-color !important;
+                    background-color: $datetime-td-hover-background-color !important;
                     box-shadow: none !important;
                 }
             }

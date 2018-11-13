@@ -288,7 +288,7 @@ div.zcrud-main-container form.zcrud-form fieldset {
   border-radius: 10px;
 }
 div.zcrud-main-container form.zcrud-form legend {
-  background: white;
+  background-color: white;
   padding: 0 0.2em 0 0.2em;
   font-size: 90%;
 }
@@ -362,7 +362,7 @@ div.zcrud-main-container .form-error-inline-absolute {
 }
 div.zcrud-main-container .datetime {
   box-shadow: 0 5px 15px -5px;
-  background: White;
+  background-color: White;
   border: 1px solid #ccc;
   padding: 0.5em;
   position: absolute;
@@ -476,6 +476,7 @@ div.zcrud-main-container .datetime .calendar td {
   width: 14%;
   border: 1px solid #ddd;
   color: #76797c;
+  background-color: White;
   font-size: 0.75em;
   text-align: right;
   padding: 0;
@@ -487,7 +488,7 @@ div.zcrud-main-container .datetime .calendar td > div {
   padding-right: 0.5em;
 }
 div.zcrud-main-container .datetime .calendar td .today {
-  color: #4fabff;
+  color: #2d89ef;
 }
 div.zcrud-main-container .datetime .calendar td .current {
   background-color: #4fabff;
@@ -500,7 +501,7 @@ div.zcrud-main-container .datetime .calendar td .other-month {
 }
 div.zcrud-main-container .datetime .calendar td:hover {
   color: White !important;
-  background: #94c5f2 !important;
+  background-color: #94c5f2 !important;
   box-shadow: none !important;
 }
 div.zcrud-main-container .datetime button.save-button {
