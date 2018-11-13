@@ -75,6 +75,10 @@
     "Redo": "Rehacer",
     "Save": "Guardar cambios",
     
+    "_calendar": "",
+    "togglePickerTitle": "Abrir/cerrar selector",
+    "goToCurrentMonth": "Ir al mes actual",
+    
     "_validation": "",
     "errorTitle": "Error en el envío del formulario",
     "requiredFields": "No ha rellenado todos los campos requeridos",

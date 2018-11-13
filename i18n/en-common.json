@@ -75,6 +75,10 @@
     "Redo": "Redo",
     "Save": "Save",
     
+    "_calendar": "",
+    "togglePickerTitle": "Open/close picker",
+    "goToCurrentMonth": "Go to current month",
+    
     "_validation": "",
     "errorTitle": "Form submission failed!",
     "requiredFields": "You have not answered all required fields",

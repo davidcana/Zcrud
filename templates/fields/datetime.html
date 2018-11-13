@@ -15,7 +15,8 @@
                                          class cond: isNotHistoryField null 'historyField';
                                          field/formFieldAttributes"
                        type="text">
-                <button type="button" class="toggle-picker">...</button>
+                <button type="button" class="toggle-picker"
+                        data-tattributes="title tr:'togglePickerTitle'">...</button>
             </div>
             
             <div data-tdefine="dateInfo field/getDateInfo( value );
@@ -44,7 +45,8 @@
                        type="text">
                 <button type="button" class="toggle-picker"
                         data-tdefine="timeInfo field/getTimeInfo( value );
-                                      inlinePart cond: field/customOptions/inline ' inline' ''">...</button>
+                                      inlinePart cond: field/customOptions/inline ' inline' ''"
+                        data-tattributes="title tr:'togglePickerTitle'">...</button>
             </div>
             
             <div data-tdefine="timeInfo field/getTimeInfo( value );
@@ -71,7 +73,8 @@
                                          class cond: isNotHistoryField null 'historyField';
                                          field/formFieldAttributes"
                        type="text">
-                <button type="button" class="toggle-picker">...</button>
+                <button type="button" class="toggle-picker"
+                        data-tattributes="title tr:'togglePickerTitle'">...</button>
             </div>
             
             <div data-tdefine="dateTimeInfo field/getDateTimeInfo( value );
@@ -115,7 +118,8 @@
             <div class="datepicker"
                  data-idomain="i18nArray">
                 <div class="monthpicker">
-                    <button type="button" class="today-button"><!--empty--></button>
+                    <button type="button" class="today-button"
+                            data-tattributes="title tr:'goToCurrentMonth'"><!--empty--></button>
                     <span>
                         <button type="button" class="prev prev-month"><!--empty--></button>
                         <select data-tattributes="name 'datepicker-month'">
