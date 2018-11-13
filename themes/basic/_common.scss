@@ -230,7 +230,6 @@ div.zcrud-main-container {
         border-radius: 5px;
         font-weight: 600;
         padding: 0.1em 1em 0.1em 1em;
-        margin: 0.2em;
         cursor: pointer;
     }
     
@@ -239,6 +238,7 @@ div.zcrud-main-container {
         background-color: $button-panel-buttons-background-color;
         font-size: .9em;
         padding: 0.5em 1em 0.5em 1em;
+        margin: 0.2em;
     }
     .zcrud-command button {
         border: none;
