@@ -40,6 +40,10 @@ AddNewRowButton.prototype.run = function( event, subformInstance, params ){
     event.preventDefault();
     event.stopPropagation();
     
+    if ( ! this.checkComponents() ){
+        return;
+    }
+    
     subformInstance.addNewRow( params );
 };
 

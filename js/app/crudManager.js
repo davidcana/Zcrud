@@ -29,11 +29,11 @@ module.exports = (function() {
         }
     };
     
-    var authIsOK = function( data, options, eventData, componentValidation ){
+    var authIsOK = function( data, options, eventData ){
         
         return data.formValidationOff? 
             true: 
-            validationManager.formIsValid( options, eventData, componentValidation );
+            validationManager.formIsValid( options, eventData );
     };
     
     /* 
@@ -75,7 +75,6 @@ module.exports = (function() {
         
         var thisOptions = {
             url    : data.url,
-            //url    : data.url || options.pageConf.pages.list.url,
             data   : data.ajaxPreFilterOff? dataToSend: options.ajax.ajaxPreFilter( dataToSend ),
             success: successFunction,
             error  : errorFunction
@@ -93,12 +92,13 @@ module.exports = (function() {
         - error: a function executed whenever there is some error
         - success: a function executed whenever the operation is OK
         - url: the url to retrieve data from server
-         
+        - componentValidation:
+        
         - existingRecords: the list of modified records
         - newRecords: the list of new records
         - recordsToRemove: the list of the ids of the records to remove
     */
-    var batchUpdate = function( data, options, event, eventData, componentValidation ){
+    var batchUpdate = function( data, options, eventData ){
         
         var dataToSend = data;
         dataToSend.command = 'batchUpdate';
@@ -111,7 +111,7 @@ module.exports = (function() {
             generalErrorFunction( data, options, dataFromServer );
         };
 
-        var validationData = authIsOK( data, options, eventData, componentValidation );
+        var validationData = authIsOK( data, options, eventData );
         
         if ( data.clientOnly ){
             if ( validationData === true ){
@@ -134,7 +134,8 @@ module.exports = (function() {
 
         if ( validationData === true ){
             options.ajax.ajaxFunction(
-                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) 
+            );
         } else {
             // Show custom or default error message
             var message, translate;

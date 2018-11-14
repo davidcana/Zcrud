@@ -1413,16 +1413,20 @@ QUnit.test( "form forcing filtering test with errors", function( assert ) {
             );
             
             // Select
+            assert.equal( errorFunctionCounter, 0 );
             testHelper.subformSelectByText( 'originalMembers', '1', '11' );
-
+            assert.equal( errorFunctionCounter, 0 );
+            
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
+            assert.equal( errorFunctionCounter, 0 );
             $copyButton.click();
+            assert.equal( errorFunctionCounter, 1 );
             
             // Submit and check storage
-            assert.equal( errorFunctionCounter, 0 );
-            testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 1 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 2 );
             
             done();
         }

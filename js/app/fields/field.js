@@ -13,6 +13,10 @@ Field.prototype.setPage = function( pageToApply ){
     this.page = pageToApply;
 };
 
+Field.prototype.getPage = function(){
+    return this.page;
+};
+
 Field.prototype.afterProcessTemplateForField = function( params, $selection ){
     // Nothing to do
 };

@@ -97,11 +97,7 @@ module.exports = (function() {
 
     };
     
-    var formIsValid = function( options, eventData, componentValidation ){
-        
-        if ( componentValidation !== true ){
-            return componentValidation;
-        }
+    var formIsValid = function( options, eventData ){
         
         var eventResult = options.events.formSubmitting( eventData, options );
         var eventResultIsValid = eventResult === undefined || eventResult == true;

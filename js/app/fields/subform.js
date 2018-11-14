@@ -100,14 +100,7 @@ Subform.prototype.afterProcessTemplateForField = function( params ){
     this.bindEventsInRows( params, $subform, undefined );
     
     this.bindButtonsEvent( this.getToolbarButtons(), $subform, params );
-    /*
-    var options = this.page.getOptions();
-    var addNewRowButton = new options.buttons.subform_addNewRow();
-    this.bindButtonEvent( $subform, addNewRowButton, subformInstance, params );
 
-    var showCreateFormButton = new options.buttons.subform_showCreateForm();
-    this.bindButtonEvent( $subform, showCreateFormButton, subformInstance );
-    */
     // Bind events of components
     this.componentsMap.bindEvents();
 };
@@ -231,16 +224,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
         );
     
     this.bindButtonsEvent( this.getByRowButtons(), $selection, params );
-    /*
-    var subformInstance = this;
-    var options = this.page.getOptions();
-    var deleteRowButton = new options.buttons.subform_deleteRow();
-    this.bindButtonEvent( $selection, deleteRowButton, subformInstance );
-    var deleteCommandButton = new options.buttons.subform_showDeleteForm();
-    this.bindButtonEvent( $selection, deleteCommandButton, subformInstance );
-    var editCommandButton = new options.buttons.subform_showEditForm();
-    this.bindButtonEvent( $selection, editCommandButton, subformInstance );
-    */
+
     if ( $tr ){
         this. bindEventsForFieldsIn1Row( 
             $tr, 
@@ -320,14 +304,14 @@ Subform.prototype.buildFields = function(){
     this.fieldsArray = [];
     this.fieldsMap = {};
     
-    $.each( this.fields, function ( subfieldId, subfield ) {
-        //if ( subfield.subformKey ){
-        //    subformInstance.subformKey = subfieldId;
-        //}
-        subformInstance.fieldsArray.push( subfield );
-        subformInstance.fieldsMap[ subfieldId ] = subfield;
-        subfield.setParentField( subformInstance );
-    });
+    $.each( 
+        this.fields, 
+        function ( subfieldId, subfield ) {
+            subformInstance.fieldsArray.push( subfield );
+            subformInstance.fieldsMap[ subfieldId ] = subfield;
+            subfield.setParentField( subformInstance );
+        }
+    );
 };
 
 Subform.prototype.getFields = function(){
@@ -377,13 +361,6 @@ Subform.prototype.getRecordByKey = function( key, $row, mustUpdateRecordFromSele
     
     return record;
 };
-/*
-Subform.prototype.getRecordByKey = function( key, $row ){
-
-    return this.readOnly?
-        this.buildMapValue()[ key ]:
-    fieldUtils.buildRecord( this.fieldsArray, $row );
-};*/
 
 Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection, deleteFrom, deselect ){
     
@@ -443,7 +420,8 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
                     0, 
                     $tr.attr( 'data-record-key' ), 
                     $tr,
-                    subformToDeleteFrom.name )
+                    subformToDeleteFrom.name 
+                )
             );
         }
     }
@@ -456,16 +434,7 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
 Subform.prototype.addNewRows = function( records ){
     return this.addNewRows_common( records );
 };
-/*
-Subform.prototype.buildDataToSend = function(){
-    
-    var dataToSend = {};
-    
-    this.componentsMap.addToDataToSend( dataToSend );
-    
-    return Object.keys( dataToSend ).length? dataToSend: undefined;
-};
-*/
+
 Subform.prototype.getPagingComponent = function(){
     return this.componentsMap.getComponent( 'paging' );
 };
@@ -480,17 +449,8 @@ Subform.prototype.getTotalNumberOfRecords = function(){
 };
 
 Subform.prototype.getRecords = function(){
-    //return this.getPagingComponent().getRecords();
     return this.page.getFieldValue( this.id );
 };
-/*
-Subform.prototype.addRecords = function( recordsToAdd ){
-    
-    var records = this.page.getFieldValue( this.id );
-    records = records.concat( recordsToAdd );
-    
-    this.page.updateRecordProperty( this.id, records );
-};*/
 
 Subform.prototype.dataFromServer = function( data ){
     

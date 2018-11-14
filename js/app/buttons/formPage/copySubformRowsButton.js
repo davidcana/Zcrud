@@ -38,6 +38,10 @@ CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThi
     event.preventDefault();
     event.stopPropagation();
 
+    if ( ! this.checkComponents() ){
+        return;
+    }
+    
     // Get the selectedRecords
     var targetField = formPage.getField( this.target );
     var selectedRecords = targetField.addNewRowsFromSubform( 
@@ -51,11 +55,6 @@ CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThi
             false, 
             'Please, select at least one item!' );
     }
-    /*
-    if ( autoSaveMode ){
-        save( event );
-    }
-    */
 };
 
 module.exports = CopySubformRowsButton;

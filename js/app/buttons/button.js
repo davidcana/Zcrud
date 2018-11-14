@@ -7,6 +7,7 @@
 
 var $ = require( 'jquery' );
 var pageUtils = require( '../pages/pageUtils.js' );
+var context = require( '../context.js' );
 
 var Button = function( properties, parentToSet ) {
     
@@ -25,10 +26,6 @@ Button.prototype.getCssClass = function(){
 };
 
 Button.prototype.selector = undefined;
-/*
-Button.prototype.getSelector = function(){
-    return this.selector? this.selector: 'button.' + this.getCssClass();
-};*/
 Button.prototype.getSelector = function(){
     return 'button.' + this.id;
 };
@@ -47,11 +44,7 @@ Button.prototype.getTextsBundle = function(){
     
     throw '"textsBundle" property not set in ' + this + '!';
 };
-/*
-Button.prototype.run = function(){
-    throw '"run" method not implemented in ' + this + '!';
-};
-*/
+
 Button.doSuperClassOf = function( ChildButtonClass ){
     
     ChildButtonClass.prototype = new Button();
@@ -64,6 +57,24 @@ Button.prototype.isBindable = function( type ){
 
 Button.prototype.toString = function(){
     return this.type + ' button (' + this.id + ')';
+};
+
+Button.prototype.checkComponents = function(){
+    
+    var page = this.parent.getPage();
+    var validationData = page.componentsMap.validate();
+    if ( validationData === true ){
+        return true;
+    }
+    
+    context.showError( 
+        page.getOptions(), 
+        false, 
+        validationData.message, 
+        validationData.translate 
+    );
+    
+    return false;
 };
 
 module.exports = Button;

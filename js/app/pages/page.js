@@ -18,6 +18,10 @@ var Page = function( optionsToApply, userDataToApply ) {
     this.componentsMap = undefined;
 };
 
+Page.prototype.getPage = function(){
+    return this;
+};
+
 Page.prototype.initFromOptions = function(){
     throw 'initFromOptions method not implemented in Page class!';
 };

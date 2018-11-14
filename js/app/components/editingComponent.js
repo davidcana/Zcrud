@@ -242,18 +242,16 @@ EditingComponent.prototype.doSubmit = function( event ){
         },
         url: this.thisOptions.updateURL
     };
-
+    
     crudManager.batchUpdate( 
         newJSONObject, 
         this.options, 
-        event,
         {
             $form: this.listPage.get$form(),
             formType: 'list',
             dataToSend: newJSONObject,
             options: this.options
-        },
-        this.listPage.getComponentMap().validate()
+        }
     );
 
     return jsonObject;

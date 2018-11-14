@@ -502,19 +502,17 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
     if ( jsonObject.url == undefined ){
         jsonObject.url = this.thisOptions.updateURL;
     }
-
+    
     // Do the CRUD!
     crudManager.batchUpdate( 
         jsonObject, 
         this.options, 
-        event,
         {
             $form: $form,
             formType: this.type,
             dataToSend: jsonObject,
             options: this.options
-        },
-        this.componentsMap.validate()
+        }
     );
 
     return jsonObject;
@@ -608,7 +606,7 @@ FormPage.prototype.processDataFromServer = function( data ){
         field.dataFromServer( data );
     }
 };
-    
+
 FormPage.prototype.submitList = function( event, $form ){
 
     var instance = this;
@@ -631,7 +629,8 @@ FormPage.prototype.doSubmitList = function( event, $form ){
             this.record[ keyFieldId ]? [ this.record ]: [],
             this.fields,
             undefined,
-            context.getHistory() ),
+            context.getHistory() 
+        ),
         $form 
     );
 };
@@ -657,7 +656,8 @@ FormPage.prototype.doSubmitCreate = function( event, $form ){
             [ ],
             this.fields,
             undefined,
-            context.getHistory() ),
+            context.getHistory() 
+        ),
         $form 
     );
 };
@@ -739,7 +739,8 @@ FormPage.prototype.updateRecord = function( userData ){
         userData.record,
         this.fieldsMap,
         this.fields,
-        context.getHistory() );
+        context.getHistory()
+    );
 
     this.addAllRecordMethodProperties( userData, jsonObject );
 
@@ -787,7 +788,8 @@ FormPage.prototype.deleteRecord = function( userData ){
         this.id, 
         event,
         jsonObject,
-        $form );
+        $form 
+    );
 };
     
 FormPage.prototype.cancelForm = function( event, $form ){
@@ -817,7 +819,8 @@ FormPage.prototype.triggerFormClosedEvent = function( event, $form ){
             formType: this.type,
             options: this.options
         },
-        event );
+        event 
+    );
 };
 FormPage.prototype.triggerFormCreatedEvent = function( $form ){
 
@@ -826,7 +829,8 @@ FormPage.prototype.triggerFormCreatedEvent = function( $form ){
             $form: $form,
             formType: this.type,
             options: this.options
-        });
+        }
+    );
 };
     
 FormPage.prototype.getFieldValue = function( fieldId ){

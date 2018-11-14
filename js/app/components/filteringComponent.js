@@ -87,25 +87,6 @@ FilteringComponent.prototype.updateParent = function(){
     }
     
     this.parent.update();
-    
-    /*
-    // Get root
-    var pagingComponent = this.parent.getComponent( 'paging' );
-    var root = pagingComponent?
-        [ 
-            $( '#' + this.parent.getThisOptions().tbodyId )[0], 
-            pagingComponent.get$()[0] 
-        ]:
-    [ 
-        $( '#' + this.parent.getThisOptions().tbodyId )[0]
-    ];
-
-    // Show list page
-    this.parent.show( 
-        {
-            root: root
-        }
-    );*/
 };
 
 FilteringComponent.prototype.get$ = function(){
