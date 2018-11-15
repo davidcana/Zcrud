@@ -67,7 +67,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                     "width": "90%",
                     "customOptions": {},
                     "elementId": "zcrud-name",
-                    "formFieldAttributes": {},
+                    "attributes": {},
                     "name": "name",
                     "sorting": true,
                     "template": "text@templates/fields/basic.html",
@@ -76,10 +76,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 {
                     "id": "description",
                     "type": "textarea",
-                    "formFieldAttributes": {
-                        "cols": 80,
-                        "rows": 6
-                    },
+                    "attributes": {},
                     "customOptions": {},
                     "elementId": "zcrud-description",
                     "name": "description",
@@ -102,9 +99,11 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 {
                     "id": "description",
                     "type": "textarea",
-                    "formFieldAttributes": {
-                        "cols": 80,
-                        "rows": 6
+                    "attributes": {
+                        "field": {
+                            "cols": 80,
+                            "rows": 6
+                        }
                     }
                 }
             ];
@@ -115,7 +114,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                     "width": "90%",
                     "customOptions": {},
                     "elementId": "zcrud-name",
-                    "formFieldAttributes": {},
+                    "attributes": {},
                     "name": "name",
                     "sorting": true,
                     "template": "text@templates/fields/basic.html",
@@ -124,10 +123,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 {
                     "id": "description",
                     "type": "textarea",
-                    "formFieldAttributes": {
-                        "cols": 80,
-                        "rows": 6
-                    },
+                    "attributes": {},
                     "customOptions": {},
                     "elementId": "zcrud-description",
                     "name": "description",
@@ -552,7 +548,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     "width": "90%",
                     "customOptions": {},
                     "elementId": "zcrud-name",
-                    "formFieldAttributes": {},
+                    "attributes": {},
                     "name": "name",
                     "sorting": true,
                     "template": "text@templates/fields/basic.html",
@@ -561,9 +557,11 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "id": "description",
                     "type": "textarea",
-                    "formFieldAttributes": {
-                        "cols": 80,
-                        "rows": 6
+                    "attributes": {
+                        "field": {
+                            "cols": 80,
+                            "rows": 6
+                        }
                     },
                     "customOptions": {},
                     "elementId": "zcrud-description",
@@ -602,9 +600,11 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                         {
                             "id": "description",
                             "type": "textarea",
-                            "formFieldAttributes": {
-                                "cols": 80,
-                                "rows": 6
+                            "attributes": {
+                                "field": {
+                                    "cols": 80,
+                                    "rows": 6
+                                }
                             }
                         }
                     ],
@@ -622,7 +622,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                     "width": "90%",
                     "customOptions": {},
                     "elementId": "zcrud-name",
-                    "formFieldAttributes": {},
+                    "attributes": {},
                     "name": "name",
                     "sorting": true,
                     "template": "text@templates/fields/basic.html",
@@ -631,9 +631,11 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "id": "description",
                     "type": "textarea",
-                    "formFieldAttributes": {
-                        "cols": 80,
-                        "rows": 6
+                    "attributes": {
+                        "field": {
+                            "cols": 80,
+                            "rows": 6
+                        }
                     },
                     "customOptions": {},
                     "elementId": "zcrud-description",

@@ -64,9 +64,11 @@ module.exports = {
                 name: { },
                 description: {
                     type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 2,
-                        cols: 40
+                    attributes: {
+                        field: {
+                            rows: 2,
+                            cols: 40
+                        }
                     }
                 }
             },
@@ -91,9 +93,11 @@ module.exports = {
                 name: { },
                 description: {
                     type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 2,
-                        cols: 40
+                    attributes: {
+                        field: {
+                            rows: 2,
+                            cols: 40
+                        }
                     }
                 }
             },

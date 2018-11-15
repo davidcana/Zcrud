@@ -109,8 +109,8 @@ module.exports = (function() {
             field.viewTemplate = field.getViewTemplate();
         }
         context.declareRemotePageUrl( field.template, options.templates.declaredRemotePageUrls );
-        if ( field.formFieldAttributes == undefined ){
-            field.formFieldAttributes = {};
+        if ( field.attributes == undefined ){
+            field.attributes = {};
         }
         if ( field.sorting == undefined ){
             field.sorting = true;

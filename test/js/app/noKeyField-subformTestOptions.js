@@ -76,11 +76,7 @@ module.exports = {
         },
         description: {
             width: '85%',
-            type: 'textarea',
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            type: 'textarea'
         },
         phoneType: {
             type: 'radio',
@@ -125,9 +121,10 @@ module.exports = {
                 name: { },
                 description: {
                     type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
+                    attributes: {
+                        field: {
+                            rows: 3
+                        }
                     }
                 }
             }

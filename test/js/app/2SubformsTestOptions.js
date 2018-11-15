@@ -78,11 +78,7 @@ module.exports = {
         },
         description: {
             type: 'textarea',
-            //template: "descriptionTextarea",
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            //template: "descriptionTextarea"
         },
         important: {
             type: 'checkbox'
@@ -97,9 +93,10 @@ module.exports = {
                 description: {
                     type: 'textarea',
                     sorting: false,
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
+                    attributes: {
+                        field: {
+                            rows: 3
+                        }
                     }
                 }
             },
@@ -125,9 +122,10 @@ module.exports = {
                 name: { },
                 description: {
                     type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
+                    attributes: {
+                        field: {
+                            rows: 3
+                        }
                     }
                 }
             }

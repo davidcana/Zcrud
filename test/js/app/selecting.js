@@ -625,9 +625,10 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                     name: { },
                     description: {
                         type: 'textarea',
-                        formFieldAttributes: {
-                            rows: 3,
-                            cols: 80
+                        attributes: {
+                            field: {
+                                rows: 3
+                            }
                         }
                     }
                 },
@@ -907,9 +908,10 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                     name: { },
                     description: {
                         type: 'textarea',
-                        formFieldAttributes: {
-                            rows: 3,
-                            cols: 80
+                        attributes: {
+                            field: {
+                                rows: 3
+                            }
                         }
                     }
                 },
@@ -1192,9 +1194,10 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                     name: { },
                     description: {
                         type: 'textarea',
-                        formFieldAttributes: {
-                            rows: 3,
-                            cols: 80
+                        attributes: {
+                            field: {
+                                rows: 3
+                            }
                         }
                     }
                 },
@@ -1566,9 +1569,10 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                     name: { },
                     description: {
                         type: 'textarea',
-                        formFieldAttributes: {
-                            rows: 3,
-                            cols: 80
+                        attributes: {
+                            field: {
+                                rows: 3
+                            }
                         }
                     }
                 },
@@ -1865,9 +1869,10 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
                     name: { },
                     description: {
                         type: 'textarea',
-                        formFieldAttributes: {
-                            rows: 3,
-                            cols: 80
+                        attributes: {
+                            field: {
+                                rows: 3
+                            }
                         }
                     }
                 },
@@ -2088,9 +2093,10 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                     },
                     description: {
                         type: 'textarea',
-                        formFieldAttributes: {
-                            rows: 3,
-                            cols: 80
+                        attributes: {
+                            field: {
+                                rows: 3
+                            }
                         }
                     }
                 },

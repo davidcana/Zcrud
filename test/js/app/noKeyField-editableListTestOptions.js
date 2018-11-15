@@ -76,11 +76,7 @@ module.exports = {
         name: {
         },
         description: {
-            type: 'textarea',
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            type: 'textarea'
         },
         phoneType: {
             type: 'radio',

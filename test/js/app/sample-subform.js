@@ -79,11 +79,7 @@ var defaultTestOptions = {
             width: '90%'
         },
         description: {
-            type: 'textarea',
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            type: 'textarea'
         },
         time: {
             type: 'time',
@@ -149,9 +145,10 @@ var defaultTestOptions = {
                 name: { },
                 description: {
                     type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
+                    attributes: {
+                        field: {
+                            rows: 3
+                        }
                     }
                 }
             }
@@ -205,9 +202,10 @@ defaultTestOptions.fields.members.fields = {
     name: { },
     description: {
         type: 'textarea',
-        formFieldAttributes: {
-            rows: 3,
-            cols: 80
+        attributes: {
+            field: {
+                rows: 3
+            }
         }
     },
     time: {

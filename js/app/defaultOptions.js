@@ -126,6 +126,14 @@ module.exports = {
                     byRow: [ 'subform_deleteRow' ]  
                 },
                 components: {}
+            },
+            textarea: {
+                attributes: {
+                    field: {
+                        rows: 6,
+                        cols: 80
+                    }
+                }
             }
         },
         getDefaultFieldTemplate: function( field ){

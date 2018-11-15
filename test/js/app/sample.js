@@ -74,12 +74,8 @@ var options = {
             width: '90%'
         },
         description: {
-            type: 'textarea',
-            //template: "descriptionTextarea",
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            type: 'textarea'
+            //template: "descriptionTextarea"
         },
         date: {
             type: 'date',

@@ -110,4 +110,8 @@ Field.prototype.goToFirstPage = function(){
     // Nothing to do
 };
 
+Field.prototype.getFieldAttributes = function(){
+    return this.attributes.field? this.attributes.field: {};
+};
+
 module.exports = Field;

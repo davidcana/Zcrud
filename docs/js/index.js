@@ -69,11 +69,7 @@ var options = {
             width: '30%'
         },
         description: {
-            type: 'textarea',
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            type: 'textarea'
         },
         date: {
             type: 'date',
@@ -187,9 +183,10 @@ var options = {
                 },
                 description: {
                     type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
+                    attributes: {
+                        field: {
+                            rows: 3
+                        }
                     }
                 }
             }

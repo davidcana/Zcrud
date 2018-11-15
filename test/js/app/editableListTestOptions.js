@@ -78,11 +78,7 @@ module.exports = {
         },
         description: {
             type: 'textarea',
-            //template: "descriptionTextarea",
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            //template: "descriptionTextarea"
         },
         date: {
             type: 'date',
