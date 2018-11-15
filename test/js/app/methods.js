@@ -735,10 +735,18 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
     var thisTestOptions = {
         fields: {
             name: {
-                width: '30%'
+                attributes:{
+                    rowHeader: {
+                        style: 'width:30%'
+                    }
+                }
             },
             description: {
-                width: '50%'
+                attributes:{
+                    rowHeader: {
+                        style: 'width:50%'
+                    }
+                }
             }
         }
     };

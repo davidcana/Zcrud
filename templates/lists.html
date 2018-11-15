@@ -108,10 +108,10 @@
                                       sortablePart cond: sortingOn ' zcrud-column-header-sortable' '';
                                       sortType cond: sortingComponent sortingComponent/getTypeForFieldId( field/id ) null;
                                       sortTypePart cond: (and: sortingOn (exists:sortType)) (string: zcrud-column-header-sorted-${sortType}) ''"
-                        data-tattributes="style cond: field/width (string:width:${field/width}) null;
-                                          class string:zcrud-column-header zcrud-column-header-${field/id}${sortablePart}${sortTypePart};
+                        data-tattributes="class string:zcrud-column-header zcrud-column-header-${field/id}${sortablePart}${sortTypePart};
                                           data-sort-field-id field/id;
-                                          data-sort-type sortType">
+                                          data-sort-type sortType;
+                                          field/getRowHeaderAttributes()">
                         <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
                     </th>
                     <th class="zcrud-command-column-header"><!--empty--></th>

@@ -27,6 +27,44 @@
         </p>
         <ul class="fieldOptionList">
             <li>
+                <a id="attributes"></a>
+                <div class="header">
+                    <span class="name">attributes</span>
+                    <span class="dataType">object</span>
+                    <span class="appliesTo">ANY</span>
+                    <span class="default">{}</span>
+                </div>
+                <div class="body">
+                    An object that can include any combination of these objects:
+                    <ul>
+                        <li><em>field</em>. Each member of this object will be added as an attribute to the HTML field.</li>
+                        <li><em>rowHeader</em>. Each member of this object will be added as an attribute to the header of the row (at lists and subforms).</li>
+                    </ul>
+                    The next example shows how to customize <em>rows</em> and <em>cols</em> attributes to a text area:
+                    <pre class="brush: javascript">
+        description: {
+            type: 'textarea',
+            attributes: {
+                field: {
+                    rows: 3,
+                    cols: 40
+                }
+            }
+        }
+                    </pre>
+                    The next example shows how to add 'style width:90%' to the column header in lists and subforms.
+                    <pre class="brush: javascript">
+        name: {
+            attributes:{
+                rowHeader: {
+                    style: 'width:90%'
+                }
+            }
+        }
+                    </pre>
+                </div>
+            </li>
+            <li>
                 <a id="buttons"></a>
                 <div class="header">
                     <span class="name">buttons</span>
@@ -180,34 +218,15 @@
                 name: { },
                 description: {
                     type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
+                    attributes: {
+                        field: {
+                            rows: 3,
+                            cols: 40
+                        }
                     }
                 }
             }
         }
-                    </pre>
-                </div>
-            </li>
-            <li>
-                <a id="formFieldAttributes"></a>
-                <div class="header">
-                    <span class="name">formFieldAttributes</span>
-                    <span class="dataType">object</span>
-                    <span class="appliesTo">ANY</span>
-                    <span class="default">undefined</span>
-                </div>
-                <div class="body">
-                    Each member of this object will be added as attribute to the HTML element. The next example shows how to add <em>rows</em> and <em>cols</em> attributes to a text area:
-                    <pre class="brush: javascript; highlight: [3]">
-                description: {
-                    type: 'textarea',
-                    formFieldAttributes: {
-                        rows: 3,
-                        cols: 80
-                    }
-                }
                     </pre>
                 </div>
             </li>
@@ -333,11 +352,7 @@
                     <pre class="brush: javascript; highlight: [3]">
         description: {
             type: 'textarea',
-            template: 'mytextarea@templates/fields/custom.html',
-            formFieldAttributes: {
-                rows: 6,
-                cols: 80
-            }
+            template: 'mytextarea@templates/fields/custom.html'
         }
                     </pre>
                 </div>
@@ -364,18 +379,6 @@
                 </div>
                 <div class="body">
                     Data type for this field. Available options are defined <a href="fieldsTypes.html">here</a>.
-                </div>
-            </li>
-            <li>
-                <a id="width"></a>
-                <div class="header">
-                    <span class="name">width</span>
-                    <span class="dataType">string</span>
-                    <span class="appliesTo">ANY</span>
-                    <span class="default">undefined</span>
-                </div>
-                <div class="body">
-                    If present ZCrud will add 'style width:{value}' to the column header in lists and subforms. It can be a percentage value (ex: '40%').
                 </div>
             </li>
         </ul>

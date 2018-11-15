@@ -81,7 +81,11 @@ var defaultTestOptions = {
             sorting: false
         },
         name: {
-            width: '90%'
+            attributes:{
+                rowHeader: {
+                    style: 'width:90%'
+                }
+            }
         },
         description: {
             type: 'textarea'

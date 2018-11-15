@@ -75,7 +75,11 @@ module.exports = {
         },
         description: {
             type: 'textarea',
-            width: '85%'
+            attributes:{
+                rowHeader: {
+                    style: 'width:85%'
+                }
+            }
         },
         phoneType: {
             type: 'radio',

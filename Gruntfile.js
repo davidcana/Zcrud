@@ -356,6 +356,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/buttons.js',
                 dest: 'build/buttons.js'
+            },
+            attributes: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/attributes.js',
+                dest: 'build/attributes.js'
             }
         },
         compress: {

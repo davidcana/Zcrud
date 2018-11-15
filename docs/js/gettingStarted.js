@@ -63,7 +63,11 @@ var options = {
         id: {
         },
         name: {
-            width: '30%'
+            attributes:{
+                rowHeader: {
+                    style: 'width:30%'
+                }
+            }
         },
         description: {
             type: 'textarea'
