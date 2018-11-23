@@ -110,12 +110,4 @@ Field.prototype.goToFirstPage = function(){
     // Nothing to do
 };
 
-Field.prototype.getFieldAttributes = function(){
-    return this.attributes.field? this.attributes.field: {};
-};
-
-Field.prototype.getRowHeaderAttributes = function(){
-    return this.attributes.rowHeader? this.attributes.rowHeader: {};
-};
-
 module.exports = Field;

@@ -10,7 +10,7 @@
                                      name field/name;
                                      value ( value || '' );
                                      class cond: isNotHistoryField null 'historyField';
-                                     field/getFieldAttributes()"
+                                     field/attributes/field"
                    type="text">
         </div>
         
@@ -18,7 +18,7 @@
             <textarea data-tattributes="id cond: renderIds field/elementId null;
                                         name field/name;
                                         class cond: isNotHistoryField null 'historyField';
-                                        field/getFieldAttributes()"
+                                        field/attributes/field"
                       data-tcontent="cond: value value ''">The textarea value.</textarea>
         </div>
         
@@ -27,7 +27,7 @@
                                      name field/name;
                                      value value;
                                      class cond: isNotHistoryField null 'historyField';
-                                     field/getFieldAttributes()"
+                                     field/attributes/field"
                    type="text">
         </div>
             
@@ -36,7 +36,7 @@
                                       name field/name;
                                       value value;
                                       class cond: isNotHistoryField null 'historyField';
-                                      field/getFieldAttributes()"
+                                      field/attributes/field"
                     data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )">
                 <option data-trepeat="option optionsList"
                         data-tattributes="value option/value; 
@@ -46,7 +46,7 @@
         </div>
 
         <div data-mdefine-macro="radio" data-tomit-tag=""
-             data-tattributes="field/getFieldAttributes()">
+             data-tattributes="field/attributes/field">
             <div data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
                  data-tattributes="class 'zcrud-radio-container'"
                  data-idomain="i18nArray">
@@ -70,7 +70,7 @@
                                      list string:${field/elementId}-datalist;
                                      value ( value || '' );
                                      class cond: isNotHistoryField null 'historyField';
-                                     field/getFieldAttributes()"
+                                     field/attributes/field"
                    type="text">
         </div>
         <div data-mdefine-macro="datalist-definition">
@@ -90,12 +90,12 @@
                                      value value;
                                      checked cond: value 'checked' null;
                                      class cond: isNotHistoryField null 'historyField';
-                                     field/getFieldAttributes()"
+                                     field/attributes/field"
                    type="checkbox">
         </div>
         
         <div data-mdefine-macro="checkboxes" data-tomit-tag=""
-             data-tattributes="field/getFieldAttributes()">
+             data-tattributes="field/attributes/field">
             <div data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
                  data-tattributes="class string:zcrud-checkboxes-container zcrud-checkboxes-container-${field/name}"
                  data-idomain="i18nArray">
