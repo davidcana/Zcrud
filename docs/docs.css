@@ -112,7 +112,7 @@ table.comparison tbody tr:nth-child(odd)  {
     background-color: #f4f4f4;
 }
 table.comparison tbody tr:hover {
-    background-color: #f2cece;
+    background-color: #ddd;
 }
 table.comparison th,
 table.comparison td {
