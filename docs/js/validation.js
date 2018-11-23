@@ -199,7 +199,7 @@ var zptParser = zpt.buildParser({
         document.getElementById( 'commonFooter' )
     ],
     dictionary: {},
-    declaredRemotePageUrls: [ 'templates.html' ]
+    declaredRemotePageUrls: [ '/templates.html' ]
 });
 
 zptParser.init(
