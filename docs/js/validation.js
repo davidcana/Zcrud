@@ -1,5 +1,4 @@
-//
-
+// Validation
 var options = {
 
     entityId: 'people',
@@ -195,11 +194,11 @@ var options = {
 };
 
 var zptParser = zpt.buildParser({
-    root: document.body,
-    //root: [ $( '#commonHeader' )[0], $( '#commonFooter' )[0] ],
-    dictionary: {
-        location: window.location
-    },
+    root: [ 
+        document.getElementById( 'commonHeader' ), 
+        document.getElementById( 'commonFooter' )
+    ],
+    dictionary: {},
     declaredRemotePageUrls: [ 'templates.html' ]
 });
 

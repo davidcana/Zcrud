@@ -1,11 +1,10 @@
 // Invoke ZPT
-
 var zptParser = zpt.buildParser({
-    root: document.body,
-    //root: [ $( '#commonHeader' )[0], $( '#commonFooter' )[0] ],
-    dictionary: {
-        location: window.location
-    },
+    root: [ 
+        document.getElementById( 'commonHeader' ), 
+        document.getElementById( 'commonFooter' )
+    ],
+    dictionary: {},
     declaredRemotePageUrls: [ 'templates.html' ]
 });
 
@@ -14,21 +13,3 @@ zptParser.init(
         zptParser.run();
     }
 );
-/*
-$( '#commonHeader' ).zpt({
-    dictionary: {}
-});
-$( '#commonFooter' ).zpt({
-    dictionary: {}
-});
-*/
-/*
-zpt.run({
-    root: $( '#commonHeader' )[0],
-    dictionary: {}
-});
-
-zpt.run({
-    root: $( '#commonFooter' )[0],
-    dictionary: {}
-});*/

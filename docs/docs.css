@@ -12,10 +12,11 @@ body {
 }
 
 h1 {
-    padding: .5em 2em 0 2em;
+    padding: .75em 2em .75em 2em;
     border-bottom: 0;
     text-align: center;
     font-size: 300%;
+    margin: 0;
 }
 
 a {
