@@ -265,8 +265,7 @@ module.exports = {
 
     i18n: {
         language: 'en',
-        filesPath: 'i18n',
-        i18nArrayVarName: 'i18nArray',
+        filesPath: 'i18n/',
         files: { 
             en: [ 'en-common.json' ],
             es: [ 'es-common.json' ] 

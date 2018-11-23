@@ -22,9 +22,8 @@ module.exports = (function() {
     
     // I18n
     var i18nArray = undefined;
-    var setI18nArray = function( i18nArrayToApply, options ){
+    var setI18nArray = function( i18nArrayToApply ){
         i18nArray = i18nArrayToApply;
-        options.dictionary[ options.i18n.i18nArrayVarName ] = i18nArray;
     };
     var translate = function( id, params, format, subformat ){
         return zpt.i18nHelper.tr( i18nArray, id, params, format || 'string', subformat );
@@ -170,13 +169,11 @@ module.exports = (function() {
     };
     
     // ZPT
-    var initZPT = function( zptOptions ){
-
-        zptParser = zpt.buildParser( zptOptions );
-        zptParser.init( zptOptions.callback );
-    };
     var getZPTParser = function(){
         return zptParser;
+    };
+    var setZPTParser = function( zptParserToApply ){
+        zptParser = zptParserToApply;
     };
     
     // Update visible fields (for testing purposes)
@@ -254,8 +251,8 @@ module.exports = (function() {
         getListPage: getListPage,
         getFormPage: getFormPage,
         declareRemotePageUrl: declareRemotePageUrl,
-        initZPT: initZPT,
         getZPTParser: getZPTParser,
+        setZPTParser: setZPTParser,
         updateFormVisibleFields: updateFormVisibleFields,
         updateListVisibleFields: updateListVisibleFields,
         updateSubformFields: updateSubformFields,

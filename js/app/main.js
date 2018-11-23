@@ -15,43 +15,45 @@ exports.init = function( userOptions, callback ){
     
     // Register in options.dictionary I18n instances
     var initI18n = function(){
-        
+
         // Build the list of file paths
-        var filePaths = [];
         var fileNames = options.i18n.files[ options.i18n.language ];
         if ( ! fileNames ){
             throw( 'No file names set to init i18n subsystem!' );
         }
-            
-        for ( var c = 0; c < fileNames.length; c++ ) {
-            var fileName = fileNames[ c ];
-            var filePath = options.i18n.filesPath? options.i18n.filesPath + '/' + fileName: fileName;
-            filePaths.push( filePath ); 
-        }
-        
-        // Load them, build the I18n instances and register them in the options.dictionary
-        zpt.i18nHelper.loadAsync( filePaths , function( i18nMap ){
-            var i18nArray = [];
-            for ( var c = 0; c < filePaths.length; c++ ) {
-                var filePath = filePaths[ c ];
-                var i18n =  new zpt.I18n( options.i18n.language, i18nMap[ filePath ] );
-                i18nArray.push( i18n );
+
+        // Build ZPT parser and add it to context
+        var zptOptions = {
+            root: options.body,
+            dictionary: options.dictionary,
+            declaredRemotePageUrls: options.allDeclaredRemotePageUrls,
+            notRemoveGeneratedTags: true,
+            i18n: {
+                urlPrefix: options.i18n.filesPath,
+                files: {}
             }
-            context.setI18nArray( i18nArray, options );
-            context.initZPT({
-                root: options.body,
-                dictionary: options.dictionary,
-                declaredRemotePageUrls: options.allDeclaredRemotePageUrls,
-                callback: function(){
-                    callback( options );
-                },
-                notRemoveGeneratedTags: true
-            });
-        });
+        };
+        zptOptions.i18n.files[ options.i18n.language ] = fileNames;
+        var zptParser = zpt.buildParser( zptOptions );
+        context.setZPTParser( zptParser );
+        
+        // Init ZPT parser
+        zptParser.init(
+            function(){
+                context.setI18nArray( options.dictionary.i18nArray );
+                callback( options );
+            }
+        );
     };
-    
+
     // Init options
     var options = $.extend( true, {}, defaultOptions, userOptions );
+    
+    // Configure logging
+    zpt.context.getConf().loggingOn = options.logging.isOn;
+    zpt.context.getConf().loggingLevel = options.logging.level;
+
+    log.info( 'Initializing ZCrud...' );
     
     // Register all field managers
     fieldBuilder.registerAllConstructors( options.fieldsConfig.constructors );
@@ -59,12 +61,6 @@ exports.init = function( userOptions, callback ){
     
     // Normalize options
     normalizer.run( options, userOptions );
-    
-    // Configure ZPT
-    zpt.context.getConf().loggingOn = options.logging.isOn;
-    zpt.context.getConf().loggingLevel = options.logging.level;
-    
-    log.info( 'Initializing ZCrud...' );
     
     // Init I18n
     initI18n();
