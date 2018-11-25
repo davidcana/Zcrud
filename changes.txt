@@ -1,5 +1,4 @@
-New in 0.2.0
-- New field types: password and passwordSetter.
+New in 0.3.0
 - Support of some HTML5 input fields: 
     * color
     * date
@@ -13,6 +12,10 @@ New in 0.2.0
     * time
     * url
     * week
+    
+New in 0.2.0
+- New button: export list to PDF.
+- New field types: password and passwordSetter.
 
 New in 0.1.0
 - Initial version.
