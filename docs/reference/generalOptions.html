@@ -437,7 +437,7 @@
                     <pre class="brush: javascript">
     i18n: {
         language: 'en',
-        filesPath: 'i18n/',
+        filesPath: '/i18n/',
         files: { 
             en: [ 'en-common.json' ],
             es: [ 'es-common.json' ] 
@@ -583,12 +583,14 @@
                     Configuration options about templates. Default value:
                     <pre class="brush: javascript">
     templates: {
+        filesPath: '/',
         declaredRemotePageUrls: [ 'templates/lists.html', 'templates/fieldLists.html' ]
     }
                     </pre>
                     
                     The options are:
                     <ul>
+                        <li><em>filesPath</em>. A prefix to add to all external templates. It makes it easy to configure the path to the templates.</li>
                         <li><em>declaredRemotePageUrls</em>. Useful for declaring template files. There is no need to configurate it manually.</li>
                     </ul>
                 </div>

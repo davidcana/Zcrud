@@ -35,8 +35,11 @@ exports.init = function( userOptions, callback ){
         };
         zptOptions.i18n.files[ options.i18n.language ] = fileNames;
         var zptParser = zpt.buildParser( zptOptions );
+        if ( options.templates.filesPath ){
+            zpt.context.setExternalMacroPrefixURL( options.templates.filesPath );
+        }
         context.setZPTParser( zptParser );
-        
+                    
         // Init ZPT parser
         zptParser.init(
             function(){

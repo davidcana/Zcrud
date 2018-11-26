@@ -245,6 +245,7 @@ module.exports = {
     },
 
     templates: {
+        filesPath: '/',
         declaredRemotePageUrls: [ 'templates/lists.html', 'templates/fieldLists.html' ]
     },
 
@@ -265,7 +266,7 @@ module.exports = {
 
     i18n: {
         language: 'en',
-        filesPath: 'i18n/',
+        filesPath: '/i18n/',
         files: { 
             en: [ 'en-common.json' ],
             es: [ 'es-common.json' ] 

@@ -328,7 +328,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
         
         i18n: {
             language: 'en',
-            filesPath: 'i18n/',
+            filesPath: '/i18n/',
             files: { 
                 en: [ 'en-common.json', 'en-services.json' ],
                 es: [ 'es-common.json', 'es-services.json' ] 
@@ -490,7 +490,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
 
         i18n: {
             language: 'en',
-            filesPath: 'i18n/',
+            filesPath: '/i18n/',
             files: { 
                 en: [ 'en-common.json', 'en-services.json' ],
                 es: [ 'es-common.json', 'es-services.json' ] 
