@@ -29,14 +29,14 @@ exports.init = function( userOptions, callback ){
             declaredRemotePageUrls: options.allDeclaredRemotePageUrls,
             notRemoveGeneratedTags: true,
             i18n: {
-                urlPrefix: options.i18n.filesPath,
+                urlPrefix: options.filesPathPrefix + options.i18n.filesPath,
                 files: {}
             }
         };
         zptOptions.i18n.files[ options.i18n.language ] = fileNames;
         var zptParser = zpt.buildParser( zptOptions );
         if ( options.templates.filesPath ){
-            zpt.context.getConf().externalMacroPrefixURL = options.templates.filesPath;
+            zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + options.templates.filesPath;
         }
         context.setZPTParser( zptParser );
                     

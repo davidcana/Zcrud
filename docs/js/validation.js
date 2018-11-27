@@ -193,6 +193,11 @@ var options = {
     }
 };
 
+// This is needed to make the git pages work
+if ( location.pathname.startsWith( '/Zcrud' ) ){
+    options.filesPathPrefix = '/Zcrud';
+}
+
 var zptParser = zpt.buildParser({
     root: [ 
         document.getElementById( 'commonHeader' ), 

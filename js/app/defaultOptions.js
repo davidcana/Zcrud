@@ -243,7 +243,9 @@ module.exports = {
             }
         }
     },
-
+    
+    filesPathPrefix: '',
+    
     templates: {
         filesPath: '/',
         declaredRemotePageUrls: [ 'templates/lists.html', 'templates/fieldLists.html' ]
