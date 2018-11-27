@@ -1,0 +1,61 @@
+// Logical colors
+$title-color: $color;
+$title-background-color: $background-color;
+
+$table-header-color: $em-color;
+$table-header-background-color: $em-background-color;
+
+$table-border-color: $table-header-background-color;
+$table-cell-border-color: $soft-border-color;
+
+$busy-color: $em-color;
+$busy-background-color: $em-background-color;
+$busy-border-color: $em-border-color;
+
+$fieldset-border-color: $soft-border-color;
+$filter-panel-border-color: $soft-border-color;
+
+$data-row-even-background-color: $item-even-background-color;
+$data-row-odd-background-color: $item-odd-background-color;
+$data-row-hover-background-color: $item-hover-background-color;
+
+$data-row-selected-background-color: $selected-item-background-color;
+
+$bottom-panel-color: $em-color;
+$bottom-panel-background-color: $em-background-color;
+
+$bottom-panel-border-color: $bottom-panel-color;
+
+$button-panel-buttons-color: $em-color;
+$button-panel-buttons-background-color: $em-background-color;
+$bottom-panel-buttons-color: $em-background-color;
+$bottom-panel-buttons-background-color: $em-color;
+$alert-buttons-color: $em-color;
+$alert-buttons-background-color: $em-background-color;
+
+$paging-buttons-background-color: $over-em-background-color;
+$paging-buttons-color: $over-em-color;
+
+$disabled-buttons-color: $disabled-items-color;
+$disabled-paging-buttons-color: $disabled-items-color;
+
+$help-color: $less-important-color;
+
+$subform-border-color: $less-important-color;
+
+$modified-row-background-color: $warn-background-color;
+
+$validation-error-background-color: $error-background-color;
+$validation-error-color: $error-color;
+
+$datetime-background-color: $background-color;
+$datetime-border-color: $dark-border-color;
+$datetime-th-color: $less-important-color;
+$datetime-td-color: $datetime-th-color;
+$datetime-td-hover-background-color: $selected-item-background-color;
+$datetime-td-hover-color: $selected-item-color;
+$datetime-th-border-color: $soft-border-color;
+$datetime-td-border-color: $datetime-th-border-color;
+$datetime-today-color: $over-em-background-color;
+$datetime-current-background-color: $over2-em-background-color;
+$datetime-current-color: $over2-em-color;

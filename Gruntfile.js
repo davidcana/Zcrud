@@ -453,6 +453,20 @@ module.exports = function(grunt) {
             standaloneMin: {
                 src: 'build/standalone.min.js',
                 dest: 'docs/lib/zcrud.min.js'
+            },
+            i18n: {
+                expand: true,
+                dest: 'docs/i18n',
+                cwd: 'i18n/',
+                src: '**'
+            },
+            templates: {
+                src: 'templates/**',
+                dest: 'docs/'
+            },
+            themes: {
+                src: 'themes/**',
+                dest: 'docs/'
             }
         },
         sass: {

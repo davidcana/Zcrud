@@ -1,0 +1,537 @@
+@charset "UTF-8";
+/* 
+ * ZCrud main SCSS file
+ */
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Open Sans Light"), local("OpenSans-Light"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTRa1RVmPjeKy21_GQJaLlJI.woff) format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 300;
+  src: local("Open Sans Light Italic"), local("OpenSansLight-Italic"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/PRmiXeptR36kaC0GEAetxrsuoFAk0leveMLeqYtnfAY.woff) format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), local("OpenSans"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/u-WUoqrET9fUeobQW7jkRT8E0i7KZn-EPnyo3HZu7kw.woff) format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Open Sans Italic"), local("OpenSans-Italic"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/xjAJXh38I15wypJXxuGMBtIh4imgI8P11RFo6YPCPC0.woff) format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Open Sans Semibold"), local("OpenSans-Semibold"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSha1RVmPjeKy21_GQJaLlJI.woff) format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 600;
+  src: local("Open Sans Semibold Italic"), local("OpenSans-SemiboldItalic"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/PRmiXeptR36kaC0GEAetxmWeb5PoA5ztb49yLyUzH1A.woff) format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzBa1RVmPjeKy21_GQJaLlJI.woff) format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: local("Open Sans Bold Italic"), local("OpenSans-BoldItalic"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/PRmiXeptR36kaC0GEAetxoUt79146ZFaIJxILcpzmhI.woff) format("woff");
+}
+/* 
+ * Based on jTable metro style theme - Blue
+ * Created by Halil İbrahim Kalkan
+ * A lot of changes by David Cana
+ */
+div.zcrud-main-container {
+  font-family: "Open Sans", Verdana, Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+  line-height: 1.3;
+  position: relative;
+  color: Black;
+  background-color: White;
+}
+div.zcrud-main-container button:hover, div.zcrud-main-container button:active, div.zcrud-main-container button:focus {
+  outline: none;
+}
+div.zcrud-main-container .zcrud-header .zcrud-header-title {
+  background-color: White;
+  color: Black;
+  padding-left: 0.5em;
+}
+div.zcrud-main-container .zcrud-header .zcrud-header-title .zcrud-title {
+  text-align: left;
+  font-size: 3em;
+}
+div.zcrud-main-container .zcrud-new-command-button, div.zcrud-main-container .zcrud-new-row-command-button {
+  /*background: url('./images/add.png') no-repeat center;
+  background-size: 16px 16px;
+  height: 30px;
+  width: 30px;*/
+  font-weight: 900 !important;
+}
+div.zcrud-main-container .zcrud-edit-command-button {
+  background: url("./images/edit.png") no-repeat center;
+  background-size: 16px 16px;
+  height: 30px;
+  width: 30px;
+}
+div.zcrud-main-container .zcrud-edit-command-button:hover {
+  opacity: 0.8;
+}
+div.zcrud-main-container .zcrud-delete-command-button, div.zcrud-main-container .zcrud-delete-row-command-button {
+  background: url("./images/delete.png") no-repeat center;
+  background-size: 16px 16px;
+  height: 30px;
+  width: 30px;
+}
+div.zcrud-main-container table.zcrud {
+  width: 100%;
+  border: 1px solid Darkcyan;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+div.zcrud-main-container table.zcrud > thead {
+  background-color: Darkcyan;
+}
+div.zcrud-main-container table.zcrud > thead th {
+  font-weight: 300;
+  font-size: 1.5em;
+  color: White;
+  padding-left: 5px;
+  vertical-align: middle;
+  text-align: left;
+}
+div.zcrud-main-container table.zcrud > thead th.zcrud-command-column-header {
+  text-align: center;
+  width: 1%;
+}
+div.zcrud-main-container table.zcrud > thead th.zcrud-column-header-sortable {
+  cursor: pointer;
+}
+div.zcrud-main-container table.zcrud > thead th.zcrud-column-header {
+  height: 24px;
+  margin-left: 4px;
+}
+div.zcrud-main-container table.zcrud > thead th.zcrud-column-header-sortable {
+  background: url("./images/column-sortable.png") no-repeat left;
+  padding-left: 20px;
+}
+div.zcrud-main-container table.zcrud > thead th.zcrud-column-header-sorted-asc {
+  background: url("./images/column-asc.png") no-repeat left;
+}
+div.zcrud-main-container table.zcrud > thead th.zcrud-column-header-sorted-desc {
+  background: url("./images/column-desc.png") no-repeat left;
+}
+div.zcrud-main-container table.zcrud tbody tr > td {
+  border: 1px solid #ddd;
+  padding-left: 5px;
+}
+div.zcrud-main-container table.zcrud tbody tr > td.zcrud-command {
+  text-align: center;
+  white-space: nowrap;
+}
+div.zcrud-main-container table.zcrud tbody tr.zcrud-no-data-row {
+  text-align: center;
+}
+div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row > td {
+  padding: 4px;
+}
+div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row > td > .zcrud-delete-command-button:hover {
+  opacity: 0.8;
+}
+div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(even) {
+  background-color: #e8eaef;
+}
+div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(odd) {
+  background-color: White;
+}
+div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:hover {
+  background-color: #ddd;
+}
+div.zcrud-main-container .zcrud-subform-content table.zcrud > thead th {
+  font-weight: 800;
+  font-size: 1em;
+}
+div.zcrud-main-container th.zcrud-column-header-selecting {
+  text-align: center;
+  width: 1%;
+}
+div.zcrud-main-container th.zcrud-column-header-selecting input {
+  cursor: pointer;
+}
+div.zcrud-main-container tr.zcrud-row-selected {
+  background-color: #b2edcb !important;
+}
+div.zcrud-main-container .zcrud-bottom-panel {
+  background-color: Darkcyan;
+  color: White;
+  min-height: 24px;
+  border: 1px solid White;
+  border-top: none;
+  text-align: left;
+  position: relative;
+  font-size: 80%;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-right-area {
+  right: 0px;
+  bottom: 0px;
+  position: absolute;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list {
+  display: inline-block;
+  margin: 0 0 0 1em;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
+  background-color: Darkcyan;
+  color: White;
+  margin: 1px;
+  padding: 2px 5px;
+  font-size: 150%;
+  border-radius: 8px;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next:hover {
+  background-color: #cfec58;
+  color: Darkcyan;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled {
+  opacity: 0.75;
+  filter: alpha(opacity=50);
+  color: #ccc;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled:hover {
+  background-color: Darkcyan;
+  color: #ccc;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
+  padding: 2px 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled {
+  cursor: default;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-paging-info {
+  display: inline-block;
+  padding: 4px;
+  vertical-align: middle;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-size-change, div.zcrud-main-container .zcrud-bottom-panel .zcrud-goto-page {
+  display: inline-block;
+  padding: 2px 0px 2px 0px;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-size-change {
+  margin-left: 5px;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-goto-page {
+  margin-left: 5px;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-goto-page input[type=text] {
+  width: 22px;
+}
+div.zcrud-main-container .zcrud-bottom-panel .zcrud-toolbar {
+  margin-left: 1em;
+}
+div.zcrud-main-container button,
+div.zcrud-main-container .zcrud-bottom-panel button {
+  color: Darkcyan;
+  background-color: White;
+  font-size: 1.2em;
+  border-radius: 5px;
+  font-weight: 600;
+  padding: 0.1em 1em 0.1em 1em;
+  cursor: pointer;
+}
+div.zcrud-main-container .zcrud-button-panel button {
+  color: White;
+  background-color: Darkcyan;
+  font-size: 0.9em;
+  padding: 0.5em 1em 0.5em 1em;
+  margin: 0.2em;
+}
+div.zcrud-main-container .zcrud-command button {
+  border: none;
+  box-shadow: none;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+div.zcrud-main-container .zcrud-button-panel button:disabled,
+div.zcrud-main-container .zcrud-bottom-panel button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+div.zcrud-main-container form.zcrud-form {
+  font-weight: 400;
+  font-size: 1em;
+}
+div.zcrud-main-container form.zcrud-form .zcrud-field, div.zcrud-main-container form.zcrud-form fieldset {
+  margin: 0 0.5em 0.5em 0;
+  padding: 0.5em;
+}
+div.zcrud-main-container form.zcrud-form fieldset {
+  border: 1px solid #ddd;
+  line-height: 1.5em;
+  width: auto;
+  border-radius: 10px;
+}
+div.zcrud-main-container form.zcrud-form legend {
+  background-color: white;
+  padding: 0 0.2em 0 0.2em;
+  font-size: 90%;
+}
+div.zcrud-main-container form.zcrud-form .zcrud-subform-content {
+  border: 1px dotted #76797c;
+  padding: 0.5em;
+}
+div.zcrud-main-container form .zcrud-filter-field {
+  margin: 0 0.5em 0.5em 0;
+  padding: 0.5em;
+}
+div.zcrud-main-container form .zcrud-field-help, div.zcrud-main-container form .zcrud-container-help {
+  display: block;
+  font-size: 90%;
+  color: #76797c;
+  margin: 0 0 0.25em 0;
+}
+div.zcrud-main-container form .zcrud-field-label, div.zcrud-main-container form .zcrud-label {
+  font-size: 100%;
+  font-weight: bold;
+}
+div.zcrud-main-container form .zcrud-field-label {
+  display: block;
+}
+div.zcrud-main-container .zcrud-filter-panel {
+  padding: 0.5em;
+  border: 1px solid #ddd;
+}
+div.zcrud-main-container .zcrud-filter-panel .zcrud-label::after {
+  content: ": ";
+}
+div.zcrud-main-container td.zcrud-modified-field {
+  background-image: url("./images/square-dirty.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+}
+div.zcrud-main-container tr.zcrud-modified-row td, div.zcrud-main-container div.zcrud-modified-field {
+  background-color: #f0cac6;
+}
+div.zcrud-main-container .error {
+  color: White;
+  background-color: #ff3600;
+}
+div.zcrud-main-container .form-error-fixed {
+  position: fixed;
+  right: 1em;
+  top: 1em;
+  z-index: 1;
+  color: White;
+  background-color: #ff3600;
+  padding: 0 1em 0 1em;
+  border-radius: 10px;
+  font-weight: 600;
+}
+div.zcrud-main-container .form-error-inline-static {
+  color: White;
+  background-color: #ff3600;
+  padding: 0 1em 0 1em;
+  border-radius: 10px;
+  font-weight: 600;
+}
+div.zcrud-main-container .form-error-inline-absolute {
+  position: absolute;
+  margin-top: 0.25em;
+  z-index: 1;
+  color: White;
+  background-color: #ff3600;
+  padding: 0 1em 0 1em;
+  border-radius: 10px;
+  font-weight: 600;
+}
+div.zcrud-main-container .datetime {
+  box-shadow: 0 5px 15px -5px;
+  background-color: White;
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  position: absolute;
+  z-index: 9999;
+  display: none;
+}
+div.zcrud-main-container .datetime.inline {
+  display: inline-block;
+  position: static;
+  box-shadow: none;
+}
+div.zcrud-main-container .datetime .datepicker {
+  width: 22em;
+  float: left;
+}
+div.zcrud-main-container .datetime .timepicker {
+  float: left;
+}
+div.zcrud-main-container .datetime .timepicker .time {
+  font-size: 3em;
+}
+div.zcrud-main-container .datetime .next-buttons, div.zcrud-main-container .datetime .prev-buttons {
+  font-size: 0.25em;
+}
+div.zcrud-main-container .datetime .next-minute, div.zcrud-main-container .datetime .prev-minute {
+  left: 3em;
+}
+div.zcrud-main-container .datetime .datepicker + .timepicker {
+  padding: 2.5em;
+}
+div.zcrud-main-container .datetime .monthpicker {
+  position: relative;
+  text-align: center;
+}
+div.zcrud-main-container .datetime .prev, div.zcrud-main-container .datetime .next, div.zcrud-main-container .datetime .today-button {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0NBRjI1NjM0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0NBRjI1NjQ0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQ0FGMjU2MTQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQ0FGMjU2MjQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNEP54AAAIOSURBVHja7Jq9TsMwEMcxrZD4WpBYeKUCe+kTMCACHZh4BFfHO/AAIHZGFhYkBBsSEqxsLCAgXKhbXYOTxh9pfJVP+qutnZ5s/5Lz2Y5I03QhWji2GIcgAokWgfCxNvcOCCGKqiSqhUp0laHOne05vdEyGMfkdxJDVjgwDlEQgYQBgx+ULJaWSXXS6r/ER5FBVR8VfGftTKcITNs+a1XpcFoExREIDF14AVIFxgQUS+h520cdud6wNkC0UBw6BCO/HoCYwBhD8QCkQ/x1mwDyD4plh4D6DDV0TAGyo4HcawLIBBSLDkHeH0Mg2yVP3l4TQMZQDDsEOl/MgHQqhMNuE0D+oBh0CIr8MAKyazBH9WyBuKxDWgbXfjNf32TZ1KWm/Ap1oSk/R53UtQ5xTh3LUlMmT8gt6g51Q9p+SobxgJQ/qmsfZhWywGFSl0yBjCLJCMgXail3b7+rumdVJ2YRss4cN+r6qAHDkPWjPjdJCF4n9RmAD/V9A/Wp4NQassDjwlB6XBiCxcJQWmZZb8THFilfy/lfrTvLghq2TqTHrRMTKNJ0sIhdo15RT+RpyWwFdY96UZ/LdQKBGjcXpcc1AlSFEfLmouD+1knuxBDUVrvOBmoOC/rEcN7OQxKVeJTCiAdUzUJhA2Oez9QTkp72OTVcxDcXY8iKNkxGAJXmJCOQwOa6dhyXsOa6XwEGAKdeb5ET3rQdAAAAAElFTkSuQmCC);
+}
+div.zcrud-main-container .datetime .prev {
+  background-position: -20px 0;
+}
+div.zcrud-main-container .datetime .today-button {
+  background-position: -70px 0;
+  margin-right: 1em;
+}
+div.zcrud-main-container .datetime .next {
+  background-position: 0 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0 none;
+  cursor: pointer;
+  height: 30px;
+  opacity: 0.5;
+  outline: medium none;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  text-indent: 100%;
+  white-space: nowrap;
+  width: 20px;
+  min-width: 0;
+}
+div.zcrud-main-container .datetime .prev, div.zcrud-main-container .datetime .today-button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0 none;
+  cursor: pointer;
+  height: 30px;
+  opacity: 0.5;
+  outline: medium none;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  text-indent: 100%;
+  white-space: nowrap;
+  width: 20px;
+  min-width: 0;
+}
+div.zcrud-main-container .datetime .timepicker .prev, div.zcrud-main-container .datetime .timepicker .next {
+  float: none;
+  background-position: -40px 0;
+  height: 15px;
+  width: 30px;
+  margin-left: 14px;
+  margin-top: 7px;
+}
+div.zcrud-main-container .datetime .timepicker .prev {
+  background-position: -40px -15px;
+  margin-bottom: 7px;
+  margin-top: 0;
+}
+div.zcrud-main-container .datetime .today-button:hover, div.zcrud-main-container .datetime .next:hover, div.zcrud-main-container .datetime .prev:hover {
+  opacity: 1;
+}
+div.zcrud-main-container .datetime .calendar table {
+  border-collapse: collapse;
+  width: 100%;
+}
+div.zcrud-main-container .datetime .calendar th {
+  width: 14%;
+  border: 1px solid #ddd;
+  font-size: 0.75em;
+  padding: 0;
+  border-collapse: collapse;
+  cursor: pointer;
+  height: 2em;
+  font-weight: 700;
+  text-align: center;
+  color: #76797c;
+}
+div.zcrud-main-container .datetime .calendar td {
+  width: 14%;
+  border: 1px solid #ddd;
+  color: #76797c;
+  background-color: White;
+  font-size: 0.75em;
+  text-align: right;
+  padding: 0;
+  border-collapse: collapse;
+  cursor: pointer;
+  height: 2em;
+}
+div.zcrud-main-container .datetime .calendar td > div {
+  padding-right: 0.5em;
+}
+div.zcrud-main-container .datetime .calendar td .today {
+  color: Darkcyan;
+}
+div.zcrud-main-container .datetime .calendar td .current {
+  background-color: #cfec58;
+  box-shadow: #cfec58 0 1px 3px 0 inset;
+  color: Darkcyan;
+  font-weight: 700;
+}
+div.zcrud-main-container .datetime .calendar td .other-month {
+  opacity: 0.5;
+}
+div.zcrud-main-container .datetime .calendar td:hover {
+  color: White !important;
+  background-color: #b2edcb !important;
+  box-shadow: none !important;
+}
+div.zcrud-main-container .datetime button.save-button {
+  color: White;
+  background-color: Darkcyan;
+  margin-top: 5px;
+  width: 100%;
+  font-weight: 300;
+  height: 2em;
+}
+div.zcrud-main-container .wideConfirm {
+  width: 700px;
+}
+.swal-button {
+  color: White;
+  background-color: Darkcyan;
+}
+
+#zcrud-busy-message {
+  cursor: wait;
+  margin: 0.5em;
+  font-family: "Open Sans", Verdana, Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1.5em;
+  border: 1px solid White;
+  padding: 5px 5px 5px 58px;
+  color: White;
+  background: url("./images/loading.gif") no-repeat;
+  background-color: Darkcyan;
+  background-position: 8px;
+}
+
+/*# sourceMappingURL=theme.css.map */

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of date/time fields</title>
+    </head>
+    <body>                        
+        <div data-mdefine-macro="date">
+            <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
+                <input data-tdefine="formattedValue field/formatToClient( value )"
+                       data-tattributes="id cond: renderIds field/elementId null;
+                                         name field/name;
+                                         value formattedValue;
+                                         data-picker-value formattedValue;
+                                         class cond: isNotHistoryField null 'historyField';
+                                         field/attributes/field"
+                       type="text">
+                <button type="button" class="toggle-picker"
+                        data-tattributes="title tr:'togglePickerTitle'">...</button>
+            </div>
+            
+            <div data-tdefine="dateInfo field/getDateInfo( value );
+                               inlinePart cond: field/customOptions/inline ' inline' ''"
+                 data-tattributes="class string:datetime${inlinePart}">
+                <div>
+                    <div data-muse-macro="'datePart'"><!--empty--></div>
+                </div>
+                <div data-tcondition="not: field/customOptions/inline">
+                    <button type="button" class="save-button">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="time">
+            
+            <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
+                <input data-tattributes="id cond: renderIds field/elementId null;
+                                         name field/name;
+                                         value ( value || '' );
+                                         data-picker-value ( value || '' );
+                                         class cond: isNotHistoryField null 'historyField';
+                                         field/attributes/field"
+                       type="text">
+                <button type="button" class="toggle-picker"
+                        data-tdefine="timeInfo field/getTimeInfo( value );
+                                      inlinePart cond: field/customOptions/inline ' inline' ''"
+                        data-tattributes="title tr:'togglePickerTitle'">...</button>
+            </div>
+            
+            <div data-tdefine="timeInfo field/getTimeInfo( value );
+                               inlinePart cond: field/customOptions/inline ' inline' ''"
+                 data-tattributes="class string:datetime${inlinePart}">
+                <div>
+                    <div data-muse-macro="'timePart'"><!--empty--></div>
+                </div>
+                <div data-tcondition="not: field/customOptions/inline">
+                    <button type="button" class="save-button">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="datetime">
+            <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
+                <input data-tdefine="formattedValue field/formatToClient( value )"
+                       data-tattributes="id cond: renderIds field/elementId null;
+                                         name field/name;
+                                         value formattedValue;
+                                         data-picker-value formattedValue;
+                                         class cond: isNotHistoryField null 'historyField';
+                                         field/attributes/field"
+                       type="text">
+                <button type="button" class="toggle-picker"
+                        data-tattributes="title tr:'togglePickerTitle'">...</button>
+            </div>
+            
+            <div data-tdefine="dateTimeInfo field/getDateTimeInfo( value );
+                               dateInfo dateTimeInfo/dateInfo;
+                               timeInfo dateTimeInfo/timeInfo;
+                               inlinePart cond: field/customOptions/inline ' inline' ''"
+                 data-tattributes="class string:datetime${inlinePart}">
+                <div>
+                    <div data-muse-macro="'datePart'"><!--empty--></div>
+                    <div data-muse-macro="'timePart'"><!--empty--></div>
+                </div>
+                <div data-tcondition="not: field/customOptions/inline">
+                    <button type="button" class="save-button">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="timePart" data-tomit-tag="">
+            <div class="timepicker">
+                <div class="time">
+                    <div class="next-buttons">
+                        <button type="button" class="next next-hour"><!--empty--></button>
+                        <button type="button" class="next next-minute"><!--empty--></button>
+                    </div>
+                    <div class="time-display">
+                        <span class="hours" data-tcontent="timeInfo/hoursToShow">00</span>
+                        <span class="time-separator">:</span>
+                        <span class="minutes" data-tcontent="timeInfo/minutesToShow">00</span>
+                    </div>
+                    <div class="prev-buttons">
+                        <button type="button" class="prev prev-hour"><!--empty--></button>
+                        <button type="button" class="prev prev-minute"><!--empty--></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="datePart" data-tomit-tag="">
+            <div class="datepicker"
+                 data-idomain="i18nArray">
+                <div class="monthpicker">
+                    <button type="button" class="today-button"
+                            data-tattributes="title tr:'goToCurrentMonth'"><!--empty--></button>
+                    <span>
+                        <button type="button" class="prev prev-month"><!--empty--></button>
+                        <select data-tattributes="name 'datepicker-month'">
+                            <option data-trepeat="month dateInfo/months"
+                                    data-tattributes="value month/value; 
+                                                      selected cond: month/current 'selected' null"
+                                    data-tcontent="tr: month/name">
+                                June
+                            </option>
+                        </select>
+                        <button type="button" class="next next-month"><!--empty--></button>
+                    </span>
+                    <span>
+                        <button type="button" class="prev prev-year"><!--empty--></button>
+                        <select data-tattributes="name 'datepicker-year'">
+                            <option data-trepeat="year dateInfo/years"
+                                    data-tattributes="value year/value; 
+                                                      selected cond: year/current 'selected' null"
+                                    data-tcontent="year/value">
+                                2014
+                            </option>
+                        </select>
+                        <button type="button" class="next next-year"><!--empty--></button>
+                    </span>
+                </div>
+                <div class="calendar">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-trepeat="weekDay dateInfo/weekDays">
+                                    <span data-treplace="tr: weekDay">Sun</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-trepeat="week dateInfo/daysInWeeks">
+                                <td data-trepeat="day week">
+                                    <div data-tdefine="dayOfWeek string: day_of_week${day/dayOfWeek};
+                                                       current cond:day/current ' current' '';
+                                                       today cond:day/today ' today' '';
+                                                       otherMonth cond:day/otherMonth ' other-month' '';
+                                                       weekEnd cond:day/weekEnd ' weekend' ''"
+                                         data-tattributes="data-date day/day;
+                                                           data-month day/month;
+                                                           data-year day/year;
+                                                           class string:date${dayOfWeek}${current}${today}${otherMonth}${weekEnd}"
+                                         data-tcontent="day/day">
+                                        1
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

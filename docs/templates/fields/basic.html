@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of fields in forms</title>
+    </head>
+    <body> 
+        <div data-mdefine-macro="text" data-tomit-tag="">
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/name;
+                                     value ( value || '' );
+                                     class cond: isNotHistoryField null 'historyField';
+                                     field/attributes/field"
+                   type="text">
+        </div>
+        
+        <div data-mdefine-macro="textarea" data-tomit-tag="">
+            <textarea data-tattributes="id cond: renderIds field/elementId null;
+                                        name field/name;
+                                        class cond: isNotHistoryField null 'historyField';
+                                        field/attributes/field"
+                      data-tcontent="cond: value value ''">The textarea value.</textarea>
+        </div>
+        
+        <div data-mdefine-macro="datetime" data-tomit-tag="">
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/name;
+                                     value value;
+                                     class cond: isNotHistoryField null 'historyField';
+                                     field/attributes/field"
+                   type="text">
+        </div>
+            
+        <div data-mdefine-macro="select" data-tomit-tag="">
+            <select data-tattributes="id cond: renderIds field/elementId null;
+                                      name field/name;
+                                      value value;
+                                      class cond: isNotHistoryField null 'historyField';
+                                      field/attributes/field"
+                    data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )">
+                <option data-trepeat="option optionsList"
+                        data-tattributes="value option/value; 
+                                          selected cond: (eq: option/value value) 'selected' null"
+                        data-tcontent="cond: field/translateOptions (tr:option/displayText) option/displayText"></option>
+            </select>
+        </div>
+
+        <div data-mdefine-macro="radio" data-tomit-tag=""
+             data-tattributes="field/attributes/field">
+            <div data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
+                 data-tattributes="class 'zcrud-radio-container'"
+                 data-idomain="i18nArray">
+                <div data-trepeat="option optionsList">
+                    <label>
+                        <input type="radio"
+                               data-tdefine="nameIndex data-record-index"
+                               data-tattributes="name string:${field/name}[${nameIndex}];
+                                                 value option/value;
+                                                 checked cond: (eq: option/value value) 'checked' null;
+                                                 class 'historyField zcrud-active';">
+                        <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="datalist" data-tomit-tag="">
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/name;
+                                     list string:${field/elementId}-datalist;
+                                     value ( value || '' );
+                                     class cond: isNotHistoryField null 'historyField';
+                                     field/attributes/field"
+                   type="text">
+        </div>
+        <div data-mdefine-macro="datalist-definition">
+            <datalist data-tattributes="id string:${field/elementId}-datalist"
+                      data-tdefine="optionsList optionsListFromForm || field/getOptionsFromBlank( options )">
+                <option data-trepeat="option optionsList"
+                        data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
+                        data-tattributes="value option/value;
+                                          selected cond: (eq: option/value value) 'selected' null;
+                                          label displayText">&nbsp;</option>
+            </datalist>
+        </div>
+        
+        <div data-mdefine-macro="checkbox" data-tomit-tag="">
+            <input data-tattributes="id cond: renderIds field/elementId null;
+                                     name field/name;
+                                     value value;
+                                     checked cond: value 'checked' null;
+                                     class cond: isNotHistoryField null 'historyField';
+                                     field/attributes/field"
+                   type="checkbox">
+        </div>
+        
+        <div data-mdefine-macro="checkboxes" data-tomit-tag=""
+             data-tattributes="field/attributes/field">
+            <div data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
+                 data-tattributes="class string:zcrud-checkboxes-container zcrud-checkboxes-container-${field/name}"
+                 data-idomain="i18nArray">
+                <div data-trepeat="option optionsList">
+                    <label>
+                        <input type="checkbox"
+                               data-tdefine="nameIndex data-record-index;
+                                             isChecked cond: (exists: value) (lt: -1 value/indexOf(option/value)) false"
+                               data-tattributes="name string:${field/name}[${nameIndex}];
+                                                 value option/value;
+                                                 checked cond: isChecked 'checked' null;
+                                                 class 'historyField zcrud-active';">
+                        <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

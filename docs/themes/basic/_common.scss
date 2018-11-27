@@ -1,0 +1,546 @@
+/* 
+ * Based on jTable metro style theme - Blue
+ * Created by Halil İbrahim Kalkan
+ * A lot of changes by David Cana
+ */
+
+// Main container
+div.zcrud-main-container {
+    font-family: $font-stack;
+    font-weight: 300;
+    font-size: 1em;
+    line-height: 1.3;
+    position: relative;
+    color: $color;
+    background-color: $background-color;
+    
+    button {
+        &:hover, &:active, &:focus {
+            outline: none;
+        }
+    }
+    
+    // Header
+    .zcrud-header {
+        .zcrud-header-title {
+            background-color: $title-background-color;
+            color: $title-color;
+            padding-left: .5em;
+            // Title
+            .zcrud-title {
+                text-align: left;
+                font-size: 3em;
+            }    
+        }  
+    }
+    
+    // Commands buttons
+    .zcrud-new-command-button, .zcrud-new-row-command-button {
+        /*background: url('#{$images-url}/add.png') no-repeat center;
+        background-size: 16px 16px;
+        height: 30px;
+        width: 30px;*/
+        font-weight: 900 !important;
+    }
+    .zcrud-edit-command-button {
+        background: url('#{$images-url}/edit.png') no-repeat center;
+        background-size: 16px 16px;
+        height: 30px;
+        width: 30px;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    .zcrud-delete-command-button, .zcrud-delete-row-command-button {
+        background: url('#{$images-url}/delete.png') no-repeat center;
+        background-size: 16px 16px;
+        height: 30px;
+        width: 30px;
+    }
+    
+    // Table
+    table.zcrud {
+        width: 100%;
+        border: 1px solid $table-border-color;
+        border-collapse: collapse;
+        border-spacing: 0;
+        > thead {
+            background-color: $table-header-background-color;
+            th {
+                font-weight: 300;
+                font-size: 1.5em;
+                color: $table-header-color;
+                padding-left: 5px;
+                vertical-align: middle;
+                text-align: left;
+                &.zcrud-command-column-header {
+                    text-align: center;
+                    width: 1%;
+                }
+                &.zcrud-column-header-sortable {
+                    cursor: pointer;
+                }
+                &.zcrud-column-header {
+                    height: 24px;
+                    margin-left: 4px;
+                }
+                &.zcrud-column-header-sortable {
+                    background: url('#{$images-url}/column-sortable.png') no-repeat left;
+                    padding-left: 20px;
+                }
+                &.zcrud-column-header-sorted-asc {
+                    background: url('#{$images-url}/column-asc.png') no-repeat left;
+                }
+                &.zcrud-column-header-sorted-desc {
+                    background: url('#{$images-url}/column-desc.png') no-repeat left;
+                }
+            }
+        }
+        tbody {
+            tr {
+                > td {
+                    border: 1px solid $table-cell-border-color;
+                    padding-left: 5px;
+                    &.zcrud-command {
+                        text-align: center;
+                        white-space: nowrap;
+                    }
+                }
+                &.zcrud-no-data-row {
+                    text-align: center;
+                }
+                &.zcrud-data-row {
+                    > td {
+                        padding: 4px;
+                        > .zcrud-delete-command-button:hover {
+                            opacity: 0.8;
+                        }
+                    }
+                    &:nth-child(even) {
+                        background-color: $data-row-even-background-color;
+                    }
+                    &:nth-child(odd) {
+                        background-color: $data-row-odd-background-color;
+                    }
+                    &:hover {
+                        background-color: $data-row-hover-background-color;
+                    }
+                }
+            }
+        }
+    }
+    
+    // Subforms
+    .zcrud-subform-content table.zcrud > thead th {
+        font-weight: 800;
+        font-size: 1em;
+    }
+    
+    // Selecting
+    th.zcrud-column-header-selecting {
+        text-align: center;
+        width: 1%;
+        input {
+            cursor: pointer;
+        }
+    }
+    
+    // Selected rows
+    tr.zcrud-row-selected {
+        background-color: $data-row-selected-background-color !important;
+    }
+    
+    // Bottom panel
+    .zcrud-bottom-panel {
+        background-color: $bottom-panel-background-color;
+        color: $bottom-panel-color;
+        min-height: 24px;
+        border: 1px solid $bottom-panel-border-color;
+        border-top: none;
+        text-align: left;
+        position: relative;
+        font-size: 80%;
+        .zcrud-right-area {
+            right: 0px;
+            bottom: 0px;
+            position: absolute;
+        }
+        .zcrud-page-list {
+            display: inline-block;
+            margin: 0 0 0 1em;
+            .zcrud-page-number, .zcrud-page-number-first, .zcrud-page-number-last, .zcrud-page-number-previous, .zcrud-page-number-next, .zcrud-page-number-active {
+                background-color: $paging-buttons-background-color;
+                color: $paging-buttons-color;
+                margin: 1px;
+                padding: 2px 5px;
+                font-size: 150%;
+                border-radius: 8px;
+            }
+            .zcrud-page-number:hover, .zcrud-page-number-first:hover, .zcrud-page-number-last:hover, .zcrud-page-number-previous:hover, .zcrud-page-number-next:hover {
+                background-color: $over2-em-background-color;
+                color: $over2-em-color;
+            }
+            .zcrud-page-number-disabled {
+                opacity: 0.75;
+                filter: alpha(opacity = 50);
+                color: $disabled-paging-buttons-color;
+                &:hover {
+                    background-color: $over-em-background-color;
+                    color: $disabled-paging-buttons-color;
+                }
+            }
+            .zcrud-page-number, .zcrud-page-number-space, .zcrud-page-number-first, .zcrud-page-number-last, .zcrud-page-number-previous, .zcrud-page-number-next, .zcrud-page-number-active {
+                padding: 2px 5px;
+                display: inline-block;
+                cursor: pointer;
+            }
+            .zcrud-page-number-space, .zcrud-page-number-active, .zcrud-page-number-disabled {
+                cursor: default;
+            }
+        }
+        .zcrud-paging-info {
+            display: inline-block;
+            padding: 4px;
+            vertical-align: middle;
+        }
+        .zcrud-page-size-change, .zcrud-goto-page {
+            display: inline-block;
+            padding: 2px 0px 2px 0px;
+        }
+        .zcrud-page-size-change {
+            margin-left: 5px;
+        }
+        .zcrud-goto-page {
+            margin-left: 5px;
+            input[type=text] {
+                width: 22px;
+            }
+        }
+        .zcrud-toolbar {
+            margin-left: 1em;
+        }
+    }
+    
+    // Buttons
+    button, 
+    .zcrud-bottom-panel button {
+        color: $bottom-panel-buttons-color;
+        background-color: $bottom-panel-buttons-background-color;
+        font-size: 1.2em;
+        border-radius: 5px;
+        font-weight: 600;
+        padding: 0.1em 1em 0.1em 1em;
+        cursor: pointer;
+    }
+    
+    .zcrud-button-panel button {
+        color: $button-panel-buttons-color;
+        background-color: $button-panel-buttons-background-color;
+        font-size: .9em;
+        padding: 0.5em 1em 0.5em 1em;
+        margin: 0.2em;
+    }
+    .zcrud-command button {
+        border: none;
+        box-shadow: none;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .zcrud-button-panel button:disabled,
+    .zcrud-bottom-panel button:disabled {
+        color: $disabled-buttons-color;
+        cursor: not-allowed;
+    }
+
+    // Forms
+    form {
+        &.zcrud-form {
+            font-weight: 400;
+            font-size: 1em;
+            .zcrud-field, fieldset {
+                margin: 0 .5em .5em 0;
+                padding: 0.5em;
+            }
+            fieldset {
+                border: 1px solid $fieldset-border-color;
+                line-height: 1.5em;
+                width: auto;
+                border-radius: 10px;
+            }
+            legend {
+                background-color: white;
+                padding: 0 .2em 0 .2em;
+                font-size: 90%;
+            }
+            .zcrud-subform-content {
+                border: 1px dotted $subform-border-color;
+                padding: .5em;
+            }
+        }
+        .zcrud-filter-field {
+            margin: 0 .5em .5em 0;
+            padding: 0.5em;
+        }
+        .zcrud-field-help, .zcrud-container-help {
+            display: block;
+            font-size: 90%;
+            color: $help-color;
+            margin: 0 0 .25em 0;
+        }
+        .zcrud-field-label, .zcrud-label {
+            font-size: 100%;
+            font-weight: bold;
+        }
+        .zcrud-field-label {
+            display: block;
+        }
+    }
+    
+    // Filter panel
+    .zcrud-filter-panel {
+        padding: .5em;
+        border: 1px solid $filter-panel-border-color;
+        .zcrud-label::after {
+            content: ": ";
+        }
+    }
+    
+    // Modified fields
+    td.zcrud-modified-field {
+        background-image: url('#{$images-url}/square-dirty.gif');
+        background-repeat: no-repeat;
+        background-position: left top;
+    }
+
+    tr.zcrud-modified-row td, div.zcrud-modified-field {
+        background-color: $modified-row-background-color;
+    }
+    
+    // Form validation
+    .valid {}
+    .error {
+        color: $validation-error-color;
+        background-color: $validation-error-background-color;
+    }
+    .form-error-fixed {
+        position: fixed;
+        right: 1em;
+        top: 1em;
+        z-index: 1;
+        color: $validation-error-color;
+        background-color: $validation-error-background-color;
+        padding: 0 1em 0 1em;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+    .form-error-inline-static {
+        color: $validation-error-color;
+        background-color: $validation-error-background-color;
+        padding: 0 1em 0 1em;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+    .form-error-inline-absolute {
+        position: absolute;
+        margin-top: .25em;
+        z-index: 1;
+        color: $validation-error-color;
+        background-color: $validation-error-background-color;
+        padding: 0 1em 0 1em;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    // Datetime picker
+    .datetime {
+        box-shadow: 0 5px 15px -5px;
+        background-color: $datetime-background-color;
+        border: 1px solid $datetime-border-color;
+        padding: .5em;
+        position: absolute;
+        z-index: 9999;
+        display: none;
+        &.inline {
+            display: inline-block;
+            position: static;
+            box-shadow: none;
+        }
+        .datepicker {
+            width: 22em;
+            float: left;
+        }
+        .timepicker {
+            float: left;
+            .time {
+                font-size: 3em;
+            }
+        }
+        .next-buttons, .prev-buttons {
+            font-size: .25em;
+        }
+        .next-minute, .prev-minute {
+            left: 3em;
+        }
+        .datepicker + .timepicker {
+            padding: 2.5em;
+        }
+        .monthpicker {
+            position: relative;
+            text-align: center;
+        }
+        .prev, .next, .today-button {
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0NBRjI1NjM0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0NBRjI1NjQ0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQ0FGMjU2MTQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQ0FGMjU2MjQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNEP54AAAIOSURBVHja7Jq9TsMwEMcxrZD4WpBYeKUCe+kTMCACHZh4BFfHO/AAIHZGFhYkBBsSEqxsLCAgXKhbXYOTxh9pfJVP+qutnZ5s/5Lz2Y5I03QhWji2GIcgAokWgfCxNvcOCCGKqiSqhUp0laHOne05vdEyGMfkdxJDVjgwDlEQgYQBgx+ULJaWSXXS6r/ER5FBVR8VfGftTKcITNs+a1XpcFoExREIDF14AVIFxgQUS+h520cdud6wNkC0UBw6BCO/HoCYwBhD8QCkQ/x1mwDyD4plh4D6DDV0TAGyo4HcawLIBBSLDkHeH0Mg2yVP3l4TQMZQDDsEOl/MgHQqhMNuE0D+oBh0CIr8MAKyazBH9WyBuKxDWgbXfjNf32TZ1KWm/Ap1oSk/R53UtQ5xTh3LUlMmT8gt6g51Q9p+SobxgJQ/qmsfZhWywGFSl0yBjCLJCMgXail3b7+rumdVJ2YRss4cN+r6qAHDkPWjPjdJCF4n9RmAD/V9A/Wp4NQassDjwlB6XBiCxcJQWmZZb8THFilfy/lfrTvLghq2TqTHrRMTKNJ0sIhdo15RT+RpyWwFdY96UZ/LdQKBGjcXpcc1AlSFEfLmouD+1knuxBDUVrvOBmoOC/rEcN7OQxKVeJTCiAdUzUJhA2Oez9QTkp72OTVcxDcXY8iKNkxGAJXmJCOQwOa6dhyXsOa6XwEGAKdeb5ET3rQdAAAAAElFTkSuQmCC);
+        }
+        .prev {
+            background-position: -20px 0;
+        }
+        .today-button {
+            background-position: -70px 0;
+            margin-right: 1em;
+        }
+        .next {
+            background-position: 0 0;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            border: 0 none;
+            cursor: pointer;
+            height: 30px;
+            opacity: 0.5;
+            outline: medium none;
+            overflow: hidden;
+            padding: 0;
+            position: relative;
+            text-indent: 100%;
+            white-space: nowrap;
+            width: 20px;
+            min-width: 0;
+        }
+        .prev, .today-button {
+            background-color: transparent;
+            background-repeat: no-repeat;
+            border: 0 none;
+            cursor: pointer;
+            height: 30px;
+            opacity: 0.5;
+            outline: medium none;
+            overflow: hidden;
+            padding: 0;
+            position: relative;
+            text-indent: 100%;
+            white-space: nowrap;
+            width: 20px;
+            min-width: 0;
+        }
+        .timepicker {
+            .prev, .next {
+                float: none;
+                background-position: -40px 0;
+                height: 15px;
+                width: 30px;
+                margin-left: 14px;
+                margin-top: 7px;
+            }
+            .prev {
+                background-position: -40px -15px;
+                margin-bottom: 7px;
+                margin-top: 0;
+            }
+        }
+        .today-button:hover, .next:hover, .prev:hover {
+            opacity: 1;
+        }
+        .calendar {
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th {
+                width: 14%;
+                border: 1px solid $datetime-th-border-color;
+                font-size: .75em;
+                padding: 0;
+                border-collapse: collapse;
+                cursor: pointer;
+                height: 2em;
+                font-weight: 700;
+                text-align: center;
+                color: $datetime-th-color;
+            }
+            td {
+                width: 14%;
+                border: 1px solid $datetime-td-border-color;
+                color: $datetime-td-color;
+                background-color: $datetime-background-color;
+                font-size: .75em;
+                text-align: right;
+                padding: 0;
+                border-collapse: collapse;
+                cursor: pointer;
+                height: 2em;
+                > div {
+                    padding-right: .5em;
+                }
+                .today {
+                    color: $datetime-today-color;
+                }
+                .current {
+                    background-color: $datetime-current-background-color;
+                    box-shadow: $datetime-current-background-color 0 1px 3px 0 inset;
+                    color: $datetime-current-color;
+                    font-weight: 700;
+                }
+                .other-month {
+                    opacity: 0.5;
+                }
+                &:hover {
+                    color: $datetime-td-hover-color !important;
+                    background-color: $datetime-td-hover-background-color !important;
+                    box-shadow: none !important;
+                }
+            }
+        }
+        
+        button.save-button {
+            color: $button-panel-buttons-color;
+            background-color: $button-panel-buttons-background-color; 
+            margin-top: 5px;
+            width: 100%;
+            font-weight: 300;
+            height: 2em;
+        }
+    }
+    
+    // Messages
+    .confirm {}
+    .wideConfirm {
+        width: 700px;
+    }
+    .showMessage {}
+}
+
+// Sweet alert
+.swal-overlay {}
+.swal-button {
+    color: $alert-buttons-color;
+    background-color: $alert-buttons-background-color;
+}
+.swal-footer {}
+.swal-text {}
+.swal-title {}
+.swal-modal {}
+
+// Busy message
+#zcrud-busy-message {
+    cursor: wait;
+    margin: .5em;
+    font-family: $font-stack;
+    font-weight: 300;
+    font-size: 1.5em;
+    border: 1px solid $busy-border-color;
+    padding: 5px 5px 5px 58px;
+    color: $busy-color;
+    background: url('#{$images-url}/loading.gif') no-repeat;
+    background-color: $busy-background-color;
+    background-position: 8px;
+}

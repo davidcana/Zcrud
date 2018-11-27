@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of containers</title>
+    </head>
+    <body> 
+        <div data-mdefine-macro="fieldSet">
+            <fieldset data-tdefine="viewItems container/fields">
+                <legend data-tcontent="container/title || tr:string:${container/id}_title">Legend</legend>
+                <div class="zcrud-container-help" 
+                      data-tdefine="description container/description || tr:string:${container/id}_description"
+                      data-tcontent="description"
+                      data-tcondition="description">
+                    The description of this container.
+                </div>
+                <div data-muse-macro="viewItemsInFormExternalMacro">
+                    The fields
+                </div>
+                <div data-tdefine="buttons container/getToolbarButtons()"
+                     data-tcondition="exists: buttons"
+                     data-muse-macro="'buttons'">
+                    Buttons
+                </div>
+            </fieldset>
+        </div>
+        
+        <div data-mdefine-macro="div">
+            <div data-tdefine="viewItems container/fields">
+                <div class="zcrud-container-help" 
+                     data-tdefine="description container/description || tr:string:${container/id}_description"
+                     data-tcontent="description"
+                     data-tcondition="description">
+                    The description of this container.
+                </div>
+                <div data-muse-macro="viewItemsInFormExternalMacro">
+                    The fields
+                </div>
+            </div>
+        </div>
+        
+        <span data-mdefine-macro="fieldSet-compact">
+            <fieldset data-tdefine="viewItems container/fields">
+                <legend data-tdefine="legend container/title || tr:string:${container/id}_title"
+                        data-tcondition="legend"
+                        data-tcontent="legend">Legend</legend>
+                <span data-muse-macro="viewItemsInFormExternalMacro">
+                    The fields
+                </span>
+            </fieldset>
+        </span>
+        
+        <span data-mdefine-macro="buttons">
+            <span data-trepeat="button buttons">
+                <button data-tdefine="textsBundle button/getTextsBundle();
+                                      title textsBundle/title;
+                                      content textsBundle/content"
+                        data-tattributes="class string:${button/getCssClass()} ${button/id};
+                                          title cond: title (cond: title/translate (tr: title/text) title/text) null;
+                                          disabled button/disabled" 
+                        data-tcontent="cond: content (cond: content/translate (tr: content/text) content/text) ''">
+                    Undo
+                </button>
+            </span>
+        </span>
+    </body>
+</html>

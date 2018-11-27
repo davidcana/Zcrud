@@ -1,0 +1,33 @@
+// Physical colors
+$color: Black;
+$background-color: White;
+
+$em-color: White;
+$em-background-color: #1c78de;
+$em-border-color: $em-color;
+
+$over-em-color: White;
+$over-em-background-color: #2d89ef;
+
+$over2-em-color: White;
+$over2-em-background-color: #4fabff;
+
+$item-even-background-color: #e8eaef;
+$item-odd-background-color: White;
+
+$item-hover-background-color: #ddd;
+
+$selected-item-background-color: #94c5f2;
+$selected-item-color: White;
+
+$disabled-items-color: #ccc;
+
+$less-important-color: #76797c;
+
+$warn-background-color: #f0cac6;
+
+$error-background-color: #ff3600;
+$error-color: White;
+
+$soft-border-color: $item-hover-background-color;
+$dark-border-color: $disabled-items-color;

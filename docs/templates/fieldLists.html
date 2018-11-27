@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of field lists</title>
+    </head>
+    <body>        
+        <span data-mdefine-macro="compact-editable">
+            <span data-trepeat="viewItem viewItems"
+                  data-tdefine="isContainer (eq: viewItem/type 'fieldContainer')">
+                <span data-tcondition="isContainer">
+                    <span data-tdefine="container viewItem">
+                        <span data-muse-macro="container/template">
+                            The container
+                        </span>
+                    </span>
+                </span>
+                <span data-tcondition="not: isContainer"
+                      data-tdefine="field viewItem;
+                                    value '';
+                                    spanFieldClass spanFieldClass | 'fieldList'"
+                      data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
+                    <label>
+                        <span data-tcontent="field/title || tr:string:${field/id}_title"
+                              data-tattributes="class 'zcrud-label';
+                                                title field/description || tr:string:${field/id}_description">
+                            The id of the field
+                        </span>
+                        <span data-muse-macro="field/template">
+                            The field
+                        </span>
+                    </label>
+                </span>
+            </span>
+        </span>
+        
+        <div data-mdefine-macro="standard-editable">
+            <div data-trepeat="viewItem viewItems"
+                 data-tdefine="isContainer (eq: viewItem/type 'fieldContainer')">
+                <div data-tcondition="isContainer">
+                    <div data-tdefine="container viewItem">
+                        <div data-muse-macro="container/template">
+                            The container
+                        </div>
+                    </div>
+                </div>
+                <div data-tcondition="not: isContainer">
+                    <div data-tdefine="field viewItem;
+                                       id field/id; 
+                                       value record[ id ]"
+                         data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id} zcrud-like-field-${field/name}">
+                        <label data-tomit-tag="field/mustHideLabel()">
+                            <span class="zcrud-field-label" data-tcontent="field/title || tr:string:${id}_title">
+                                The label of this field.
+                            </span>
+                            <span class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
+                                The description of this field.
+                            </span>
+                            <span data-muse-macro="cond: (or: forceEditable (not: field/isReadOnly())) field/template field/viewTemplate">
+                                The field
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div data-mdefine-macro="standard-readOnly">
+            <div data-trepeat="viewItem viewItems"
+                 data-tdefine="isContainer (eq: viewItem/type 'fieldContainer')">
+                <div data-tcondition="isContainer">
+                    <div data-tdefine="container viewItem">
+                        <div data-muse-macro="container/template">
+                            The container
+                        </div>
+                    </div>
+                </div>
+                <div data-tcondition="not: isContainer">
+                    <div data-tdefine="field viewItem;
+                                       id field/id; 
+                                       value record[ id ];
+                                       template field/viewTemplate"
+                         data-tattributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
+                        <div data-tcontent="field/title || tr:string:${id}_title" class="zcrud-field-label">
+                            The name of the field
+                        </div>
+                        <div class="zcrud-field-help" data-tcontent="field/description || tr:string:${id}_description">
+                            The description of this field.
+                        </div>
+                        <div data-tcondition="not: template" 
+                             data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) field/getViewValueFromRecord( record )"
+                             class="zcrud-property">
+                            The value
+                        </div>
+                        <div data-tcondition="template" data-muse-macro="template">
+                            The field
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
