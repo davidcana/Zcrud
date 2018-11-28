@@ -4,6 +4,7 @@ $( '#themeSelector' ).change(
     function () {
         var $this = $( this );
         var theme = $this.val();
-        $( '#stylesheet' ).attr( 'href', '/themes/' + theme + '/theme.css' );
+        var prefix = location.pathname.startsWith( '/Zcrud' )? '/Zcrud': '';
+        $( '#stylesheet' ).attr( 'href', prefix + '/themes/' + theme + '/theme.css' );
     }
 );

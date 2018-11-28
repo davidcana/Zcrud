@@ -6,12 +6,14 @@
     </head>
     <body>
         <header data-mdefine-macro="header">
-            <nav class="menu" data-tdefine="pathname window/location/pathname">
+            <nav class="menu" data-tdefine="prefix context/getConf()/externalMacroPrefixURL;
+                                            pathname window/location/pathname">
                 <ul class="leftPart">
                     <li>
                         <a href="/" 
                            title="Home page"
-                           data-tattributes="class cond: (eq: '/' pathname) 'selected' ''">ZCrud</a>
+                           data-tattributes="href string:${prefix};
+                                             class cond: (in: pathname prefix) 'selected' ''">ZCrud</a>
                     </li>
                 </ul>
                 
@@ -20,22 +22,26 @@
                         <li>
                             <a href="/tutorial/index.html"
                                title="Articles with demos"
-                               data-tattributes="class cond: (pathname/startsWith('/tutorial/')) 'selected' ''">Tutorial</a>
+                               data-tattributes="href string:${prefix}tutorial/index.html;
+                                                 class cond: (pathname/startsWith(string:${prefix}tutorial/)) 'selected' ''">Tutorial</a>
                         </li>
                         <li>
                             <a href="/reference/index.html"
                                title="Complete ZCrud reference documentation. Includes all methods, events, options and more."
-                               data-tattributes="class cond: (pathname/startsWith('/reference/')) 'selected' ''">Reference</a>
+                               data-tattributes="href string:${prefix}reference/index.html;
+                                                 class cond: (pathname/startsWith(string:${prefix}reference/)) 'selected' ''">Reference</a>
                         </li>
                         <li>
                             <a href="/zCrudVsJtable.html" 
                                title="In-depth comparison"
-                               data-tattributes="class cond: (eq: '/zCrudVsJtable.html' pathname) 'selected' ''">ZCrud vs jTable</a>
+                               data-tattributes="href string:${prefix}zCrudVsJtable.html;
+                                                 class cond: (pathname/startsWith(string:${prefix}zCrudVsJtable.html)) 'selected' ''">ZCrud vs jTable</a>
                         </li>
                         <li>
                             <a href="/download.html" 
                                title="Download and install instructions"
-                               data-tattributes="class cond: (eq: '/download.html' pathname) 'selected' ''">Download</a>
+                               data-tattributes="href string:${prefix}download.html;
+                                                 class cond: (pathname/startsWith(string:${prefix}download.html)) 'selected' ''">Download</a>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +50,8 @@
                     <li>
                         <a href="/changes.html" 
                            title="A list of changes on all ZCrud versions"
-                           data-tattributes="class cond: (eq: '/changes.html' pathname) 'selected' ''">0.1.0 (10 October 2018)</a>
+                           data-tattributes="href string:${prefix}changes.html;
+                                             class cond: (pathname/startsWith(string:${prefix}changes.html)) 'selected' ''">0.1.0 (10 October 2018)</a>
                     </li>
                 </ul>
             </nav>
