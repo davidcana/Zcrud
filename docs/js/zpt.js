@@ -5,8 +5,11 @@ var zptParser = zpt.buildParser({
         document.getElementById( 'commonFooter' )
     ],
     dictionary: {},
-    declaredRemotePageUrls: [ '/templates.html' ]
+    declaredRemotePageUrls: [ 'templates.html' ]
 });
+
+// This is needed to make the git pages work
+zpt.context.getConf().externalMacroPrefixURL = location.pathname.startsWith( '/Zcrud' )? '/Zcrud/': '/';
 
 zptParser.init(
     function(){

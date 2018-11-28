@@ -194,8 +194,10 @@ var zptParser = zpt.buildParser({
         document.getElementById( 'commonFooter' )
     ],
     dictionary: {},
-    declaredRemotePageUrls: [ '/templates.html' ]
+    declaredRemotePageUrls: [ 'templates.html' ]
 });
+
+zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + '/';
 
 zptParser.init(
     function(){

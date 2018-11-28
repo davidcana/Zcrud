@@ -189,9 +189,7 @@ var options = {
 };
 
 // This is needed to make the git pages work
-if ( location.pathname.startsWith( '/Zcrud' ) ){
-    options.filesPathPrefix = '/Zcrud';
-}
+options.filesPathPrefix = location.pathname.startsWith( '/Zcrud' )? '/Zcrud': '';
 
 var zptParser = zpt.buildParser({
     root: [ 
@@ -199,8 +197,10 @@ var zptParser = zpt.buildParser({
         document.getElementById( 'commonFooter' )
     ],
     dictionary: {},
-    declaredRemotePageUrls: [ '/templates.html' ]
+    declaredRemotePageUrls: [ 'templates.html' ]
 });
+
+zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + '/';
 
 zptParser.init(
     function(){
