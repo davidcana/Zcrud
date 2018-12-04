@@ -185,8 +185,12 @@ ListPage.prototype.showUsingServer = function( dictionaryExtension, root, callba
                     root, 
                     callback );
             },
-            error: function(){
-                context.showError( this.options, false, 'Server communication error!' );
+            error: function( dataFromServer ){
+                context.showError( 
+                    listInstance.options, 
+                    false, 
+                    dataFromServer.message || 'Server communication error!'
+                );
                 if ( callback ){
                     callback( false );
                 }

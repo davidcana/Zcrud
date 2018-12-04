@@ -293,8 +293,12 @@ FormPage.prototype.showUsingServer = function( key, getRecordURL, dictionaryExte
                     callback, 
                     dataFromServer );
             },
-            error: function(){
-                context.showError( instance.options, false, 'Server communication error!' );
+            error: function( dataFromServer ){
+                context.showError( 
+                    instance.options, 
+                    false, 
+                    dataFromServer.message || 'Server communication error!'
+                );
             }
         }, 
         this.options 

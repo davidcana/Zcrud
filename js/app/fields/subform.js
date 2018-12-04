@@ -473,11 +473,12 @@ Subform.prototype.update = function ( root, dictionaryExtension, callback ) {
             success: function( data ){
                 subformInstance.clientAndServerSuccessFunction.call( subformInstance, data, root, dictionaryExtension );
             },
-            error: function(){
+            error: function( dataFromServer ){
                 context.showError( 
                     subformInstance.page.getOptions(), 
                     false, 
-                    'Server communication error!' );
+                    dataFromServer.message || 'Server communication error!'
+                );
                 if ( callback ){
                     callback( false );
                 }
