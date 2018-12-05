@@ -132,8 +132,8 @@ FormPage.prototype.configure = function(){
             this.submitFunction = this.submitCreate;
             this.eventFunction = this.options.events.recordAdded;
             this.successMessage = 'createSuccess';
-            if ( ! this.record ) {
-                this.record = fieldUtils.buildDefaultValuesRecord( this.fields );
+            if ( ! this.userRecord ) {
+                this.userRecord = fieldUtils.buildDefaultValuesRecord( this.fields );
             }
             break;
         case 'update':
