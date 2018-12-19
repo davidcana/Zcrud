@@ -4,6 +4,7 @@
 "use strict";
 
 var context = require( '../context.js' );
+var crudManager = require( '../crudManager.js' );
 var $ = require( 'jquery' );
 
 var OptionProvider = function() {
@@ -70,7 +71,7 @@ var OptionProvider = function() {
             // Build options if needed
             if ( mustBuild ){
                 optionsList = buildOptionsFromArrayOrObject(
-                    downloadOptions( 
+                    crudManager.getOptions(
                         params.field.id, 
                         optionsSource, 
                         params.options ),
@@ -122,34 +123,6 @@ var OptionProvider = function() {
         }
 
         return list;
-    };
-    
-    // Download options for a field from server
-    var downloadOptions = function ( fieldId, url, options ) {
-        
-        var result = [];
-        
-        var thisOptions = {
-            url    : url,
-            async  : false,
-            success: function ( data ) {
-                data = options.ajax.ajaxPostFilter( data );
-                if ( data.result != 'OK' ) {
-                    throw 'Error downloading options:' + data.message;
-                }
-
-                result = data.options;
-            },
-            error  : function ( data ) {
-                data = options.ajax.ajaxPostFilter( data );
-                throw 'Can not load options for ' + fieldId;
-            }
-        };
-        
-        options.ajax.ajaxFunction(
-            $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
-
-        return result;
     };
     
     // Sort given options according to sorting parameter

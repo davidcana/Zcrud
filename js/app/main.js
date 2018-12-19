@@ -75,17 +75,26 @@ exports.init = function( userOptions, callback ){
 
 exports.renderList = function( options, data, callback ){
 
-    log.info( 'Rendering list...' );
-    
-    var listPage =  new ListPage( options, data );
-    context.putPage( listPage.getId(), listPage );
-    listPage.show( 
-        {
-            callback: callback
-        } 
-    );
-    
-    log.info( '...list rendering finished.' );
+    try {
+        log.info( 'Rendering list...' );
+
+        var listPage =  new ListPage( options, data );
+        context.putPage( listPage.getId(), listPage );
+        listPage.show( 
+            {
+                callback: callback
+            } 
+        );
+
+        log.info( '...list rendering finished.' );
+        
+    } catch ( e ) {
+        context.showError( 
+            options, 
+            false, 
+            'Error trying to render list: ' + e.message
+        );
+    }
 };
 
 exports.renderForm = function( options, data, callback ){

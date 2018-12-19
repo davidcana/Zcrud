@@ -123,6 +123,16 @@ module.exports = (function() {
         jsonUpdatesArray = [];
     };
     
+    var forceError = function( options ){
+        
+        var dataToSend = {
+            result: 'Error',
+            message: 'Forced error!'
+        };
+        
+        options.success( dataToSend );
+    };
+    
     var ajax = function( options ){
         
         // Get file, cmd and table
@@ -134,6 +144,12 @@ module.exports = (function() {
         var parameters = parseQueryString( url.split( '?' )[ 1 ] );
         var cmd = parameters.cmd;
         var table = parameters.table;
+        
+        // Force error if requested
+        if ( parameters.forceError ){
+            forceError( options );
+            return;
+        }
         
         // Run AJAX
         switch ( table ) {

@@ -95,11 +95,11 @@ var options = {
         },
         phoneType: {
             type: 'radio',
-            translateOptions: true,
-            //options: 'http://localhost/CRUDManager.do?table=phoneTypes',
-            options: function(){
+            translateOptions: false,
+            options: 'http://localhost/CRUDManager.do?table=phoneTypes',
+            /*options: function(){
                 return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
-            }
+            }*/
             /*
             options: function(){
                 return [ 'Home phone!', 'Office phone!', 'Cell phone!!!' ];

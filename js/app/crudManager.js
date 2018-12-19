@@ -1,21 +1,38 @@
 /* 
     crudManager singleton class
 */
+"use strict";
+
+var $ = require( 'jquery' );
+var context = require( './context.js' );
+var validationManager = require( './validationManager.js' );
+var pageUtils = require( './pages/pageUtils.js' );
+
 module.exports = (function() {
-    "use strict";
-    
-    var $ = require( 'jquery' );
-    var context = require( './context.js' );
-    var validationManager = require( './validationManager.js' );
     
     var generalSuccessFunction = function( data, options, dataFromServer ){
         
-        if ( ! data.ajaxPostFilterOff ) {
-            dataFromServer = options.ajax.ajaxPostFilter( dataFromServer );
-        }
-        
-        if ( data.success ){
-            data.success( dataFromServer );
+        try {
+            if ( dataFromServer.result != 'OK' ) {
+                //generalErrorFunction( data, options, dataFromServer );
+                pageUtils.serverSideError( dataFromServer, options, context );
+                return;
+            }
+
+            if ( ! data.ajaxPostFilterOff ) {
+                dataFromServer = options.ajax.ajaxPostFilter( dataFromServer );
+            }
+
+            if ( data.success ){
+                data.success( dataFromServer );
+            }
+            
+        } catch ( e ) {
+            context.showError( 
+                options, 
+                false, 
+                'Error in crudManager: ' + ( e.message || e )
+            );
         }
     };
     
@@ -198,9 +215,36 @@ module.exports = (function() {
             $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
     };
 
+    var getOptions = function ( fieldId, url, options ) {
+
+        var result = [];
+
+        var thisOptions = {
+            url    : url,
+            async  : true,
+            success: function ( data ) {
+                data = options.ajax.ajaxPostFilter( data );
+                if ( data.result != 'OK' ) {
+                    throw 'Error downloading options:' + data.message;
+                }
+
+                result = data.options;
+            },
+            error  : function () {
+                throw 'Can not load options for ' + fieldId;
+            }
+        };
+
+        options.ajax.ajaxFunction(
+            $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+
+        return result;
+    };
+    
     return {
         listRecords: listRecords,
         batchUpdate: batchUpdate,
-        getRecord: getRecord
+        getRecord: getRecord,
+        getOptions: getOptions
     };
 })();

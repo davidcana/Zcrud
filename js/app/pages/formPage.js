@@ -470,10 +470,11 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
     jsonObject.success = function( dataFromServer ){
 
         // Check server side validation
+        /*
         if ( ! dataFromServer || dataFromServer.result != 'OK' ){
             pageUtils.serverSideError( dataFromServer, instance.options, context, userError );
             return false;
-        }
+        }*/
 
         // Update record if needed
         instance.updateRecordFromJSON.call( instance, jsonObject );

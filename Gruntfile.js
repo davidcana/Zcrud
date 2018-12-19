@@ -374,6 +374,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/path.js',
                 dest: 'build/path.js'
+            },
+            errors: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/errors.js',
+                dest: 'build/errors.js'
             }
         },
         compress: {

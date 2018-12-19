@@ -212,10 +212,11 @@ EditingComponent.prototype.doSubmit = function( event ){
         success: function( dataFromServer ){
 
             // Check server side validation
+            /*
             if ( ! dataFromServer || dataFromServer.result != 'OK' ){
                 pageUtils.serverSideError( dataFromServer, instance.options, context, undefined );
                 return false;
-            }
+            }*/
             instance.listPage.showStatusMessage({
                 status:{
                     message: 'listUpdateSuccess',

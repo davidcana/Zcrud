@@ -35,6 +35,11 @@ var alertFunction = function( event ){
     alert( 'It worked!' );
 };
 
+var errorFunctionCounter = 0;
+var errorFunction = function( message ){
+    ++errorFunctionCounter;
+};
+
 // Run tests
 
 QUnit.test( "listToolbar (binding using listCreated method) test", function( assert ) {
@@ -882,10 +887,7 @@ QUnit.test( "unknown button in listToolbar test", function( assert ) {
     };
     options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
     options.logging.isOn = false;
-    
-    // Reset counters
-    runCounter1 = 0;
-    runCounter2 = 0;
+    options.errorFunction = errorFunction;
 
     var done = assert.async();
     
@@ -893,11 +895,10 @@ QUnit.test( "unknown button in listToolbar test", function( assert ) {
         'init',
         options,
         function( options ){
-            assert.throws(
-                function(){
-                    $( '#departmentsContainer' ).zcrud( 'renderList' );
-                }
-            );
+            assert.equal( errorFunctionCounter, 0 );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            assert.equal( errorFunctionCounter, 1 );
+            
             done();
         }
     );
