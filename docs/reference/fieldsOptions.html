@@ -278,16 +278,6 @@
                             </pre>
                         </li>
                         <li>
-                            <em>URL</em>. A URL to download the option list for this field. The URL must return data in any of the previous formats (an array or an object):
-                            <pre class="brush: javascript; highlight: [4]">
-        phoneType: {
-            type: 'radio',
-            translateOptions: true,
-            options: 'https://your-domain.org/CRUDManager.do?table=phoneTypes'
-        }
-                            </pre>
-                        </li>
-                        <li>
                             <em>function</em>. A function that takes some arguments and returns an object, an array or a URL string:
                             <pre class="brush: javascript; highlight: [4]">
         phoneType: {
@@ -298,6 +288,35 @@
             }
         }
                             </pre>
+                        </li>
+                        <li>
+                            <em>URL</em>. A URL to download the option list for this field:
+                            <pre class="brush: javascript; highlight: [4]">
+        phoneType: {
+            type: 'radio',
+            translateOptions: true,
+            options: 'https://your-domain.org/CRUDManager.do?table=phoneTypes'
+        }
+                            </pre>
+                            If an error occurs the server response must be:
+                            <pre class="brush: javascript">
+    {
+        "result":"Error",
+        "message":"An error message"
+    }
+                            </pre>
+                            If everything is OK the server response must be:
+                            <pre class="brush: javascript">
+    {
+        "result":"OK",
+        "options":[
+            { value: '1', displayText: 'Yes' }, 
+            { value: '2', displayText: 'No' }, 
+            { value: '3', displayText: 'Sometimes' } 
+        ]
+    }
+                            </pre>
+                            <em>options</em> must contain data in any of the previous formats (an array or an object).
                         </li>
                     </ul>
                     As seen in the examples, the <em>translateOptions</em> property indicates ZCrud to search the displayText in the i18n files. See <a href="/tutorial/localization.html">Working with texts, numbers and dates</a> for more details about i18n.
