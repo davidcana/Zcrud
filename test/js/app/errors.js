@@ -24,7 +24,6 @@ editableListTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( "list error test", function( assert ) {
 
     var done = assert.async();
@@ -227,7 +226,6 @@ QUnit.test( "update error in editable list test", function( assert ) {
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             assert.equal( errorFunctionCounter, 0 );
             
-            
             // Edit record
             var key = 2;
             var editedRecord =  {
@@ -240,6 +238,48 @@ QUnit.test( "update error in editable list test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 1 );
 
+            done();
+        }
+    );
+});
+
+QUnit.test( "i18n file not found error test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, formOptions );
+    options.i18n.files.en = [ 'en-common.json', 'en-notFound.json' ];
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            assert.equal( 1, 0, "Error must be thrown!" );
+            done();
+        },
+        function( msg ){
+            assert.equal( msg, "Error trying to get /i18n/en-notFound.json: Not Found" );
+            done();
+        }
+    );
+});
+
+QUnit.test( "not found field in list error test", function( assert ) {
+
+    var done = assert.async();
+    options = $.extend( true, {}, formOptions );
+    options.pageConf.pages.list.fields = [ 'id', 'notFound' ];
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
+            errorFunctionCounter = 0;
+
+            assert.equal( errorFunctionCounter, 0 );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            assert.equal( errorFunctionCounter, 1 );
+            
             done();
         }
     );

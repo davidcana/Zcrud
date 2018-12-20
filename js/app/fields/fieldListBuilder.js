@@ -289,12 +289,23 @@ module.exports = (function() {
         return source.startsWith( 'subform/' )? source.substring( 'subform/'.length ): undefined;
     };*/
     
+    var validateField = function( field, id ){
+        
+        if ( field ){
+            return field;
+        }
+        
+        throw 'Field with id "' + id + '" not found!';
+    };
+    
     var getFieldUsingId = function( fields, id ){
         
         var index = id.indexOf( '/' );
         
         if ( index === -1 ){
-            return fields[ id ];
+            return validateField( 
+                fields[ id ], 
+                id );
         }
         
         var subformId = id.substring( 0, index );
@@ -305,7 +316,9 @@ module.exports = (function() {
             throw 'Subform with id "' + subformId + '" not found!';
         }
         
-        return subform.fields[ subformFieldId ];
+        return validateField( 
+            subform.fields[ subformFieldId ], 
+            id );
     };
     
     var self = {

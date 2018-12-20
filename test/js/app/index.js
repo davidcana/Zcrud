@@ -35,5 +35,6 @@ QUnit.testSuites([
     { name: "forms Test Suite", path: "./forms.html" },
     { name: "buttons Test Suite", path: "./buttons.html" },
     { name: "attributes Test Suite", path: "./attributes.html" },
-    { name: "path Test Suite", path: "./moreTest/path.html" }
+    { name: "path Test Suite", path: "./moreTest/path.html" },
+    { name: "errors Test Suite", path: "./errors.html" }
 ]);

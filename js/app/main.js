@@ -11,7 +11,7 @@ var normalizer = require( './normalizer.js' );
 var fieldBuilder = require( './fields/fieldBuilder' );
 var defaultOptions = require( './defaultOptions.js' );
 
-exports.init = function( userOptions, callback ){
+exports.init = function( userOptions, callback, failCallback ){
     
     // Register in options.dictionary I18n instances
     var initI18n = function(){
@@ -44,7 +44,14 @@ exports.init = function( userOptions, callback ){
         zptParser.init(
             function(){
                 context.setI18nArray( options.dictionary.i18nArray );
-                callback( options );
+                if ( callback && $.isFunction( callback ) ){
+                    callback( options );
+                }
+            },
+            function( msg ){
+                if ( failCallback && $.isFunction( failCallback ) ){
+                    failCallback( msg );
+                }
             }
         );
     };
@@ -92,27 +99,36 @@ exports.renderList = function( options, data, callback ){
         context.showError( 
             options, 
             false, 
-            'Error trying to render list: ' + e.message
+            'Error trying to render list: ' + ( e.message || e )
         );
     }
 };
 
 exports.renderForm = function( options, data, callback ){
 
-    log.info( 'Rendering form...' );
+    try {
+        log.info( 'Rendering form...' );
 
-    data = data || {};
-    data.type = 'list';
-    var formPage = new FormPage( options, data ); 
-    
-    context.putPage( formPage.getId(), formPage );
-    formPage.show( 
-        {
-            callback: callback
-        } 
-    );
-    
-    log.info( '...form rendering finished.' );
+        data = data || {};
+        data.type = 'list';
+        var formPage = new FormPage( options, data ); 
+
+        context.putPage( formPage.getId(), formPage );
+        formPage.show( 
+            {
+                callback: callback
+            } 
+        );
+
+        log.info( '...form rendering finished.' );
+        
+    } catch ( e ) {
+        context.showError( 
+            options, 
+            false, 
+            'Error trying to render form: ' + ( e.message || e )
+        );
+    }
 };
 
 exports.destroy = function( options ){
@@ -123,7 +139,12 @@ exports.showCreateForm = function( listPageIdSource ){
     
     var listPage = context.getListPage( listPageIdSource );
     if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+        //alert( 'No list found using that source:' + listPageIdSource );
+        context.showError( 
+            options, 
+            false, 
+            'No list found using that source:' + listPageIdSource
+        );
         return;
     }
     listPage.showCreateForm();

@@ -1,6 +1,7 @@
 ZCrud 0.1.0
 -----------
 
-* Replace formFieldAttributes by attributes.
+* Manage subforms in JSON at root.
+* Review defaultValues. Add support to subforms.
 
 Bugs:
