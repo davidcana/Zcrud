@@ -498,10 +498,12 @@ Subform.prototype.buildDataToSendForUpdate = function(){
 };
 
 Subform.prototype.buildDataToSend = function(){
-
-    var data = {
-        filter: this.filter
-    };
+    
+    var data = {};
+    
+    if ( ! $.isEmptyObject( this.filter ) ){
+        data.filter = this.filter;
+    }
 
     this.componentsMap.addToDataToSend( data );
     this.page.getComponentMap().addToDataToSend( data );

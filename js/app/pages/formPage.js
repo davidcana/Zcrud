@@ -276,14 +276,14 @@ FormPage.prototype.buildSearch = function( key ){
     return search;
 };
     
-FormPage.prototype.showUsingServer = function( key, getRecordURL, dictionaryExtension, root, callback, filter ) {
+FormPage.prototype.showUsingServer = function( key, getRecordURL, dictionaryExtension, root, callback ) {
 
     // Get the record from the server and show the form
     var instance = this;
     crudManager.getRecord( 
         {
             url: getRecordURL || this.thisOptions.getRecordURL,
-            search: this.buildSearch( key, filter ),
+            search: this.buildSearch( key ),
             success: function( dataFromServer ){
                 instance.showUsingRecord.call( 
                     instance,
