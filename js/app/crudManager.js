@@ -221,7 +221,7 @@ module.exports = (function() {
 
         var thisOptions = {
             url    : url,
-            async  : true,
+            async  : false,
             success: function ( data ) {
                 data = options.ajax.ajaxPostFilter( data );
                 if ( data.result != 'OK' ) {
