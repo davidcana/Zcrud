@@ -856,7 +856,7 @@ FormPage.prototype.addToDataToSend = function( dataToSend ){
         var field = this.fields[ c ];
         var fieldDataToSend = field.buildDataToSend();
 
-        if ( fieldDataToSend ){
+        if ( fieldDataToSend && ! $.isEmptyObject( fieldDataToSend ) ){
             dataToSend[ field.id ] = fieldDataToSend;
         }
     }
