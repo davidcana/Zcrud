@@ -456,7 +456,7 @@ Subform.prototype.dataFromServer = function( data ){
     
     this.componentsMap.dataFromServer(
         {
-            totalNumberOfRecords: data.fieldsData[ this.id ]? data.fieldsData[ this.id ].totalNumberOfRecords: 0,
+            totalNumberOfRecords: data.fieldsData && data.fieldsData[ this.id ]? data.fieldsData[ this.id ].totalNumberOfRecords: 0,
             records: data.record? data.record[ this.id ]: []
         }
     );
