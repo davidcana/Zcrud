@@ -1048,6 +1048,42 @@ module.exports = (function() {
 
         return result;
     };
+    var getRadioOptions = function( name, $row ){
+
+        var result = [];
+        var $element = $row || get$Form();
+
+        // Can not use :visible, it does not work in Chrome
+        //$element.find( "[name='" + name +"'] option:visible" ).each( function() {
+        $element.find( "input[name='" + name +"']" ).each( function() {
+            var value = $( this ).val();
+            if ( value && value.trim() !== defaultOptionValue ){
+                result.push( value );
+            }
+        });
+
+        return result;
+    };
+    var getRadioTexts = function( name, $row ){
+
+        var result = '';
+        var $element = $row || get$Form();
+        var c = 0;
+        
+        // Can not use :visible, it does not work in Chrome
+        //$element.find( "[name='" + name +"'] option:visible" ).each( function() {
+        $element.find( "input[name='" + name +"']" ).each( function() {
+            var value = $( this ).parent().text().trim();
+            if ( value && value !== defaultOptionValue ){
+                if ( c++ > 0 ){
+                    result += '/';
+                }
+                result += value;
+            }
+        });
+
+        return result;
+    };
     
     var getSubformVal = function( name, $row ){
         
@@ -1548,6 +1584,8 @@ module.exports = (function() {
         get$row: get$row,
         getLastRow: getLastRow,
         getSelectOptions: getSelectOptions,
+        getRadioOptions: getRadioOptions,
+        getRadioTexts: getRadioTexts,
         fillSubform: fillSubform,
         fillSubformNewRow: fillSubformNewRow,
         clickCreateSubformRowButton: clickCreateSubformRowButton,

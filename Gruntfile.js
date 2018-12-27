@@ -383,6 +383,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/errors.js',
                 dest: 'build/errors.js'
+            },
+            radioOptions: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/radioOptions.js',
+                dest: 'build/radioOptions.js'
             }
         },
         compress: {
