@@ -23,7 +23,9 @@ editableListTestOptions.errorFunction = function( message ){
     ++errorFunctionCounter;
 };
 
-var testOptions = function( assert, options, values, text ) {
+var key = 2;
+
+var testPhoneOptions = function( assert, options, values, text ) {
     
     var done = assert.async();
     $( '#departmentsContainer' ).zcrud( 
@@ -38,7 +40,7 @@ var testOptions = function( assert, options, values, text ) {
             assert.equal( errorFunctionCounter, 0 );
 
             // Go to edit form
-            testHelper.clickUpdateListButton( 2 );
+            testHelper.clickUpdateListButton( key );
             assert.equal( errorFunctionCounter, 0 );
 
             assert.deepEqual(
@@ -54,7 +56,45 @@ var testOptions = function( assert, options, values, text ) {
             done();
         }
     );
-}
+};
+
+var testCityOptions = function( assert, options, values1, values2 ) {
+
+    var done = assert.async();
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            errorFunctionCounter = 0;
+
+            assert.equal( errorFunctionCounter, 0 );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            assert.equal( errorFunctionCounter, 0 );
+
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            assert.equal( errorFunctionCounter, 0 );
+
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city' ),
+                values1
+            );
+            
+            var editedRecord =  {
+                "province": "Cádiz"
+            };
+            testHelper.fillForm( editedRecord );
+            
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city' ),
+                values2
+            );
+            
+            done();
+        }
+    );
+};
 
 // Run tests
 
@@ -68,7 +108,7 @@ QUnit.test( "array of objects test", function( assert ) {
         { value: '3', displayText: 'cellPhone_option' } 
     ];
     
-    testOptions( 
+    testPhoneOptions( 
         assert, 
         options, 
         [ '1', '2', '3' ],
@@ -82,7 +122,7 @@ QUnit.test( "simple array test", function( assert ) {
     options.fields.phoneType.translateOptions = false;
     options.fields.phoneType.options = [ '1', '2', '3' ];
 
-    testOptions( 
+    testPhoneOptions( 
         assert, 
         options, 
         [ '1', '2', '3' ],
@@ -100,7 +140,7 @@ QUnit.test( "object test", function( assert ) {
         '3': 'cellPhone_option'
     };
 
-    testOptions( 
+    testPhoneOptions( 
         assert, 
         options, 
         [ '1', '2', '3' ],
@@ -116,7 +156,7 @@ QUnit.test( "function test", function( assert ) {
         return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
     };
 
-    testOptions( 
+    testPhoneOptions( 
         assert, 
         options, 
         [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ],
@@ -130,10 +170,56 @@ QUnit.test( "URL returning array of objects test", function( assert ) {
     options.fields.phoneType.translateOptions = false;
     options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypes';
 
-    testOptions( 
+    testPhoneOptions( 
         assert, 
         options, 
         [ 'Home phone', 'Office phone', 'Cell phone' ],
         'Home phone/Office phone/Cell phone'
+    );
+});
+
+QUnit.test( "function returning URL returning array of objects test", function( assert ) {
+
+    options = $.extend( true, {}, formOptions );
+    options.fields.city.options = function( data ){
+        if ( ! data.dependedValues.province ){
+            return [];
+        }
+        return 'http://localhost/CRUDManager.do?table=cities&province=' + data.dependedValues.province;
+    };
+
+    testCityOptions( 
+        assert, 
+        options, 
+        [], 
+        [ 'Algeciras', 'Los Barrios', 'Tarifa' ]
+    );
+});
+
+QUnit.test( "function returning URL returning array of objects and adding current value test", function( assert ) {
+
+    options = $.extend( true, {}, formOptions );
+    options.fields.city.addCurrentValueToOptions = true;
+    options.fields.city.options = function( data ){
+        if ( ! data.dependedValues.province ){
+            return [];
+        }
+        return 'http://localhost/CRUDManager.do?table=cities&province=' + data.dependedValues.province;
+    };
+
+    // Setup services
+    testUtils.resetServices();
+    var record =  {
+        "id": "" + key,
+        "name": "Service " + key,
+        "city": "San Roque"
+    };
+    testUtils.setService( key, record );
+    
+    testCityOptions( 
+        assert, 
+        options, 
+        [ 'San Roque' ],
+        [ 'San Roque', 'Algeciras', 'Los Barrios', 'Tarifa' ]
     );
 });

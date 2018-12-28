@@ -108,6 +108,10 @@ module.exports = (function() {
     };
     
     var phoneTypes = [ 'Home phone', 'Office phone', 'Cell phone' ];
+    var cities = {
+        'Cádiz': [ 'Algeciras', 'Los Barrios', 'Tarifa' ],
+        'Málaga': [ 'Estepona', 'Manilva', 'Marbella' ]
+    };
     var urls = [];
     var lastListUrl = undefined;
     var lastBatchUpdateUrl = undefined;
@@ -158,6 +162,9 @@ module.exports = (function() {
                 break;
             case "phoneTypes":
                 ajaxPhoneTypes( options );
+                break;
+            case "cities":
+                ajaxCities( options, parameters );
                 break;
             case "members":
                 ajaxMembersFields( 'members', options, data );
@@ -818,6 +825,15 @@ module.exports = (function() {
             result: 'OK',
             message: '',
             options: phoneTypes
+        });
+    };
+    
+    var ajaxCities = function( options, parameters ){
+        
+        options.success({
+            result: 'OK',
+            message: '',
+            options: cities[ parameters.province ]? cities[ parameters.province ]: []
         });
     };
     

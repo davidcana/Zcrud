@@ -87,7 +87,35 @@ var OptionProvider = function() {
             optionsList = buildOptionsFromArrayOrObject( optionsSource, params.field );
         }
 
-        return optionsList;
+        return params.field.addCurrentValueToOptions? 
+            addCurrentValue( optionsList, params ): 
+            optionsList;
+    };
+    
+    var buildItem = function( value, text ){
+        
+        return {
+            value: value,
+            displayText: text? text: value
+        };
+    };
+    
+    var addCurrentValue = function( list, params ){
+        
+        var result = [];
+        
+        // Add the value
+        var value = params.value;
+        if ( value ){
+            result.push( buildItem( value ) );
+        }
+        
+        // Add all the items of list
+        for ( var i = 0; i < list.length; i++ ) {
+            result.push( list[ i ] );
+        }
+        
+        return result;
     };
     
     var buildOptionsFromArrayOrObject = function( optionsSource, field ){
@@ -115,10 +143,11 @@ var OptionProvider = function() {
             if ( $.isPlainObject( optionsArray[ i ] ) ) {
                 list.push( optionsArray[ i ] );
             } else { // Assumed as primitive type (int, string...)
-                list.push({
+                list.push( buildItem( optionsArray[ i ] ) );
+                /*list.push({
                     value: optionsArray[ i ],
                     displayText: optionsArray[ i ]
-                });
+                });*/
             }
         }
 
@@ -188,10 +217,11 @@ var OptionProvider = function() {
         var list = [];
 
         $.each( options, function ( propName, propValue ) {
-            list.push({
+            list.push( buildItem( propName, propValue ) );
+            /*list.push({
                 value: propName,
                 displayText: propValue
-            });
+            });*/
         });
 
         return list;
