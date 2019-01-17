@@ -556,21 +556,22 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                 continue;
             }
 
-            if ( record[ id ] == undefined ){
-                record[ id ] = [];
+            var fieldId = context.buildFieldIdFromSubformsRecordsId( options, id );
+            if ( record[ fieldId ] == undefined ){
+                record[ fieldId ] = [];
             }
             
             // Add new records
-            record[ id ] = record[ id ].concat( item.newRecords );
+            record[ fieldId ] = record[ fieldId ].concat( item.newRecords );
             
             // Update modified records
-            var keyField = options.fields[ id ].subformKey;
+            var keyField = options.fields[ fieldId ].subformKey;
             for ( var modifiedId in item.existingRecords ){
                 var existingRecord = item.existingRecords[ modifiedId ];
                 var done = false;
                 var i = 0;
                 while ( ! done ){
-                    var row = record[ id ][ i++ ];
+                    var row = record[ fieldId ][ i++ ];
                     if ( ! row ){
                         throw 'Error trying to update record: row not found!';
                     } else if ( row[ keyField ] == modifiedId ){
@@ -582,7 +583,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             
             // Delete removed records
             for ( var c = 0; c < item.recordsToRemove.length; ++c ){
-                delete record[ id ][ c ];
+                delete record[ fieldId ][ c ];
             }
         } 
     };
@@ -601,6 +602,10 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         }
         
         return false;
+    };
+    
+    var getOptions = function(){
+        return options;
     };
     
     var self = {
@@ -636,7 +641,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         buildIterator: buildIterator,
         updateRecord: updateRecord,
         isDirty: isDirty,
-        isSubformDirty: isSubformDirty
+        isSubformDirty: isSubformDirty,
+        getOptions: getOptions
     };
     
     return self;

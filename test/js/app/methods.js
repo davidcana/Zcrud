@@ -596,7 +596,8 @@ QUnit.test( "simple updateRecord test", function( assert ) {
                 'updateRecord', 
                 {
                     record: editedRecord,
-                    key: key
+                    key: key,
+                    options: options
                 } );
             
             // Check it

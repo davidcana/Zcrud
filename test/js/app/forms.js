@@ -30,7 +30,6 @@ var errorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
@@ -158,22 +157,22 @@ QUnit.test( "form simple test", function( assert ) {
                     "code": "3",
                     "name": "Member 3",
                     "description": "Description of Member 3 edited",
-                    "important": false,
-                    "hobbies": []
+                    "hobbies": [],
+                    "important": false
                 },
                 "5": {
                     "code": "5",
                     "name": "Member 5",
                     "description": "Description of Member 5",
-                    "important": false,
-                    "hobbies": []
+                    "hobbies": [],
+                    "important": false
                 },
                 "7": {
                     "code": "7",
                     "name": "Member 7",
                     "description": "Description of Member 7 edited",
-                    "important": false,
-                    "hobbies": []
+                    "hobbies": [],
+                    "important": false
                 }
                 
             };
@@ -946,9 +945,7 @@ QUnit.test( "form after form test", function( assert ) {
                     "name": "Member 6 edited",
                     "description": "Description of Member 6",
                     "important": false,
-                    "hobbies": [],
-                    "datetime": undefined,
-                    "browser": undefined
+                    "hobbies": []
                 }
             };
             
@@ -957,7 +954,7 @@ QUnit.test( "form after form test", function( assert ) {
             expectedVerifiedMembers[ 0 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 0 ] );
             expectedVerifiedMembers[ 1 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 1 ] );
             expectedVerifiedMembers[ 2 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 2 ] );
-            expectedVerifiedMembers[ 6 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 6 ] );
+            //expectedVerifiedMembers[ 6 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 6 ] );
 
             assert.deepEqual( 
                 testUtils.getVerifiedMembers(), 

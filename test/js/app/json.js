@@ -102,7 +102,7 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             var expectedExistingRecords = {
                 "4": {
                     "name": "Service 4 edited",
-                    "members": {
+                    "membersZCrudRecords": {
                         "existingRecords": {
                             "1": {
                                 "description": "Description of Bart Simpson edited"
@@ -217,7 +217,7 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
                     "id": "4",
                     "name": "Service 4 edited",
                     "description": "Description 4",
-                    "members": {
+                    "membersZCrudRecords": {
                         "existingRecords": {
                             "1": {
                                 "code": "1",
@@ -317,7 +317,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
                 {
                     "id": "0",
                     "name": "Service 0",
-                    "members": {
+                    "membersZCrudRecords": {
                         "existingRecords": {},
                         "newRecords": [
                             {
@@ -416,7 +416,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
                 {
                     "id": "0",
                     "name": "Service 0",
-                    "members": {
+                    "membersZCrudRecords": {
                         "existingRecords": {},
                         "newRecords": [
                             {
@@ -1066,7 +1066,7 @@ QUnit.test( "subform update and delete test", function( assert ) {
             var jsonObject = testUtils.getJSONUpdate( 0 );
             var expectedExistingRecords = {
                 "4": {
-                    "members": {
+                    "membersZCrudRecords": {
                         "existingRecords": {
                             "2": {
                                 "description": "Description of Lisa Simpson edited",

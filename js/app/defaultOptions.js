@@ -315,5 +315,7 @@ module.exports = {
         var swal = require( 'sweetalert' );
         var thisOptions = $.extend( true, {}, this.defaultShowMessageOptions, messageOptions );
         swal( thisOptions );
-    }
+    },
+    
+    subformsRecordsSuffix: 'ZCrudRecords'
 };

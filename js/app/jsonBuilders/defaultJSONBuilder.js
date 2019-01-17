@@ -3,6 +3,7 @@
 */
 var HistoryDelete = require( '../history/delete.js' );
 var $ = require( 'jquery' );
+var context = require( '../context.js' );
 
 module.exports = (function() {
     "use strict";
@@ -22,8 +23,39 @@ module.exports = (function() {
         data.recordsToRemove = recordsToRemove;
         return data;
     };
-
-    var build1Row = function( actionsObject, records, sendOnlyModified, keyField, fields ){
+    /*
+    var getFieldFromFieldsArray = function( fields, id ){
+        
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            if ( field.id == id ){
+                return field;
+            }
+        }
+        
+        return null;
+    };
+    */
+    var filterSubforms = function( row, fields, options ){
+        
+        var result = $.extend( true, {}, row );
+        
+        for ( var c = 0; c < fields.length; c++ ) {
+            var field = fields[ c ];
+            if ( field.type === 'subform' ){
+                var fieldId = buildSubformRecordsId( field, options );
+                var value = row[ fieldId ];
+                if ( value !== undefined ){
+                    result[ fieldId ] = value;
+                }
+                delete result[ field.id ];
+            }
+        }
+        
+        return result;
+    };
+    
+    var build1Row = function( actionsObject, records, sendOnlyModified, keyField, fields, options ){
         
         var jsonObject = buildEmpty();
         
@@ -44,9 +76,11 @@ module.exports = (function() {
             if ( ! sendOnlyModified ){
                 row = $.extend( true, {}, record, row );
             }
-            jsonObject.existingRecords[ key ] = row;
+            //jsonObject.existingRecords[ key ] = filterSubforms( row, fields );
+            //jsonObject.existingRecords[ key ] = row;
             
-            buildSubformsRow( row, record, sendOnlyModified, fields );
+            buildSubformsRow( row, record, sendOnlyModified, fields, options  );
+            jsonObject.existingRecords[ key ] = filterSubforms( row, fields, options );
         }
 
         // Build new
@@ -54,9 +88,11 @@ module.exports = (function() {
             row = actionsObject.new[ rowIndex ];
             key = row[ keyField ];
 
-            jsonObject.newRecords.push( row );
+            //jsonObject.newRecords.push( filterSubforms( row, fields ) );
+            //jsonObject.newRecords.push( row );
             
-            buildNewSubformsRow( row, sendOnlyModified, fields );
+            buildNewSubformsRow( row, sendOnlyModified, fields, options  );
+            jsonObject.newRecords.push( filterSubforms( row, fields, options ) );
         }
         
         // Build delete
@@ -65,7 +101,11 @@ module.exports = (function() {
         return jsonObject;
     };
     
-    var buildNewSubformsRow = function( row, sendOnlyModified, fields ){
+    var buildSubformRecordsId = function( field, options ){
+        return context.buildSubformsRecordsIdFromFieldId( options, field.id );
+    };
+    
+    var buildNewSubformsRow = function( row, sendOnlyModified, fields, options ){
 
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
@@ -75,13 +115,15 @@ module.exports = (function() {
                     {}, 
                     sendOnlyModified, 
                     field.subformKey, 
-                    buildFieldArrayFromMap( field.fields ) );
-                row[ field.id ] = subform;
+                    buildFieldArrayFromMap( field.fields ),
+                    options
+                );
+                row[ buildSubformRecordsId( field, options ) ] = subform;
             }
         }
     };
     
-    var buildSubformsRow = function( row, record, sendOnlyModified, fields ){
+    var buildSubformsRow = function( row, record, sendOnlyModified, fields, options ){
     
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
@@ -93,8 +135,10 @@ module.exports = (function() {
                         field.subformKey ), 
                     sendOnlyModified, 
                     field.subformKey, 
-                    buildFieldArrayFromMap( field.fields ) );
-                row[ field.id ] = subform;
+                    buildFieldArrayFromMap( field.fields ),
+                    options
+                );
+                row[ buildSubformRecordsId( field, options ) ] = subform;
             }
         }
     };
@@ -132,7 +176,9 @@ module.exports = (function() {
             records, 
             sendOnlyModified, 
             keyField, 
-            fields );
+            fields,
+            history.getOptions()
+        );
 
         // Return false if there is no record to modify, to create or to delete
         if ( Object.keys( jsonObject.existingRecords ).length == 0 
@@ -180,7 +226,9 @@ module.exports = (function() {
             keyField,  
             records, 
             fields,
-            actionsObject );
+            actionsObject,
+            history
+        );
     };
     
     var buildMap = function( rows, keyField ){

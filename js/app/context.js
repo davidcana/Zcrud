@@ -234,6 +234,17 @@ module.exports = (function() {
         return history;
     };
     
+    // Subforms
+    var buildSubformsRecordsIdFromFieldId = function( options, subformsRecordsId ){
+        return subformsRecordsId + options.subformsRecordsSuffix;
+    };
+    var buildFieldIdFromSubformsRecordsId = function( options, subformsRecordsId ){
+        return removeChars( subformsRecordsId, options.subformsRecordsSuffix );
+    };
+    var removeChars = function( string, toRemove ){
+        return string.replace( toRemove, '' );
+    };
+    
     return {
         put: put,
         get: get,
@@ -263,6 +274,8 @@ module.exports = (function() {
         setFieldBuilder: setFieldBuilder,
         getFieldBuilder: getFieldBuilder,
         setHistory: setHistory,
-        getHistory: getHistory
+        getHistory: getHistory,
+        buildSubformsRecordsIdFromFieldId: buildSubformsRecordsIdFromFieldId,
+        buildFieldIdFromSubformsRecordsId: buildFieldIdFromSubformsRecordsId
     };
 })();

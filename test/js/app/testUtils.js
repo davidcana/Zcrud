@@ -8,6 +8,7 @@ module.exports = (function() {
     
     var services = {};
     var servicesSubformsFields = [ 'members', 'externalMembers' ];
+    var subformsRecordsSuffix = 'ZCrudRecords';
     var numberOfServices = 130;
     var serviceIndex = numberOfServices - 1;
     var resetServices = function( newServices, addDescriptions ){
@@ -419,7 +420,7 @@ module.exports = (function() {
 
         // Add all existing services
         for ( var id in data.existingRecords ) {
-            var modifiedItem = data.existingRecords.verifiedMembers[ id ].verifiedMembers;
+            var modifiedItem = data.existingRecords.verifiedMembersZCrudRecords[ id ].verifiedMembers;
             var currentItem = input[ id ];
 
             if ( ! currentItem ){
@@ -446,8 +447,8 @@ module.exports = (function() {
         }
 
         // Add all new services
-        for ( var c = 0; c < data.newRecords[ 0 ].verifiedMembers.newRecords.length; c++ ) {
-            var newItem = data.newRecords[ 0 ].verifiedMembers.newRecords[ c ];
+        for ( var c = 0; c < data.newRecords[ 0 ].verifiedMembersZCrudRecords.newRecords.length; c++ ) {
+            var newItem = data.newRecords[ 0 ].verifiedMembersZCrudRecords.newRecords[ c ];
 
             if ( newItem.code == undefined ){
                 newItem.code = buildVerifiedMemberId( input );
@@ -466,8 +467,8 @@ module.exports = (function() {
         }
 
         // Remove all services to remove
-        for ( c = 0; c < data.newRecords[ 0 ].verifiedMembers.recordsToRemove.length; c++ ) {
-            id = data.newRecords[ 0 ].verifiedMembers.recordsToRemove[ c ];
+        for ( c = 0; c < data.newRecords[ 0 ].verifiedMembersZCrudRecords.recordsToRemove.length; c++ ) {
+            id = data.newRecords[ 0 ].verifiedMembersZCrudRecords.recordsToRemove[ c ];
             currentItem = input[ id ];
 
             if ( ! currentItem ){
@@ -516,7 +517,7 @@ module.exports = (function() {
         }*/
 
         for ( var filterId in data.existingRecords ) {
-            var record = data.existingRecords[ filterId ].verifiedMembers;
+            var record = data.existingRecords[ filterId ].verifiedMembersZCrudRecords;
                 
             // Add all existing services
             for ( var id in record.existingRecords ) {
@@ -706,7 +707,7 @@ module.exports = (function() {
     };
     
     var processMembersSubformsInGet = function( data, record, dataToSend ){
-
+        
         var subformsFields = [ 'originalMembers', 'verifiedMembers' ];
         var filters = {
             originalMembers: function( input ){
@@ -971,8 +972,9 @@ module.exports = (function() {
             }
             
             var newServiceClone = $.extend( true, {}, newService );
-            if ( newService.members ){
+            if ( newService.membersZCrudRecords ){
                 newService.members = [];
+                delete newService.membersZCrudRecords;
             }
             servicesSubformsListBatchUpdate( newService, newServiceClone, dataToSend );
             services[ id ] = newService;
@@ -1030,14 +1032,19 @@ module.exports = (function() {
     var subformsListBatchUpdate = function( subformsFields, current, modified, dataToSend ){
         
         for ( var id in modified ){
-            if ( subformsFields.indexOf( id ) !== -1 ){
+            var fieldId = removeChars( id, subformsRecordsSuffix );
+            if ( subformsFields.indexOf( fieldId ) !== -1 ){
                 subformFieldBatchUpdate( 
                     modified[ id ], 
-                    current[ id ], 
+                    current[ fieldId ], 
                     dataToSend );
                 delete modified[ id ]; // Delete subform data in modified, current has been already updated
             }
         }
+    };
+    
+    var removeChars = function( string, toRemove ){
+        return string.replace( toRemove, '' );
     };
     
     var subformFieldBatchUpdate = function( data, current, dataToSend ){

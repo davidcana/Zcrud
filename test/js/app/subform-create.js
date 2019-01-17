@@ -17,6 +17,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
+
 QUnit.test( "subform create test", function( assert ) {
 
     var done = assert.async();
@@ -147,7 +148,7 @@ QUnit.test( "subform create and form create test", function( assert ) {
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
             testHelper.checkForm( assert, editedRecord );
-
+            
             done();
         }
     );
@@ -350,7 +351,6 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
         }
     );
 });
-
 
 QUnit.test( "subform create undo/redo 1 action with default values test", function( assert ) {
     
