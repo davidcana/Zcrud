@@ -2,6 +2,7 @@
 var zcrudServerSide = (function() {
 
     var allowedSubformsFields = [ 'skills' ];
+    var subformsRecordsSuffix = 'ZCrudRecords';
     
     var people = {};
     var addPeople = function( peopleArray ){
@@ -508,7 +509,11 @@ var zcrudServerSide = (function() {
 
         return dataToSend;
     };
-
+    
+    var removeChars = function( string, toRemove ){
+        return string.replace( toRemove, '' );
+    };
+    
     var subformsListBatchUpdate = function( current, modified, dataToSend, subformsData, key ){
 
         if ( ! subformsData ){
@@ -518,11 +523,12 @@ var zcrudServerSide = (function() {
         var subformsFields = allowedSubformsFields;
 
         for ( var id in modified ){
-            if ( subformsFields.indexOf( id ) !== -1 ){
-                var arrayOfRows = subformsData[ id ][ key ];
+            var fieldId = removeChars( id, subformsRecordsSuffix );
+            if ( subformsFields.indexOf( fieldId ) !== -1 ){
+                var arrayOfRows = subformsData[ fieldId ][ key ];
                 if ( ! arrayOfRows ){
                     arrayOfRows = [];
-                    subformsData[ id ][ key ] = arrayOfRows;
+                    subformsData[ fieldId ][ key ] = arrayOfRows;
                 }
                 subformFieldBatchUpdate( 
                     modified[ id ], 
