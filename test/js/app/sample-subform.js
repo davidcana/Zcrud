@@ -87,21 +87,15 @@ var defaultTestOptions = {
         },
         time: {
             type: 'time',
-            customOptions: {
-                inline: true
-            }
+            inline: true
         },
         datetime: {
             type: 'datetime',
-            customOptions: {
-                inline: true
-            }
+            inline: true
         },
         date: {
             type: 'date',
-            customOptions: {
-                inline: true
-            }
+            inline: true
         },
         phoneType: {
             type: 'radio',
@@ -214,21 +208,15 @@ defaultTestOptions.fields.members.fields = {
     },
     time: {
         type: 'time',
-        customOptions: {
-            inline: false
-        }
+        inline: false
     },
     datetime: {
         type: 'datetime',
-        customOptions: {
-            inline: false
-        }
+        inline: false
     },
     date: {
         type: 'date',
-        customOptions: {
-            inline: false
-        }
+        inline: false
     }
 };
 

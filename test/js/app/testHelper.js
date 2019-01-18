@@ -1274,7 +1274,7 @@ module.exports = (function() {
             hours, 
             parseInt( getDatetimeMinutes( $field ) ), 
             'minute',
-            field.customOptions.minutesStep );
+            field.minutesStep );
     };
     
     var setDatetimeTimeValue = function( $field, value, current, classPart, step ){
@@ -1337,7 +1337,7 @@ module.exports = (function() {
             field.buildTimeObjectFromString( stringValue ):
             field.getValueFromString( stringValue )
         
-        if ( ! field.customOptions.inline ){
+        if ( ! field.inline ){
             togglePicker( $field );
         }
 
@@ -1358,7 +1358,7 @@ module.exports = (function() {
             setDatetimeMinutes( $field, minutes, field );
         }
 
-        if ( ! field.customOptions.inline ){
+        if ( ! field.inline ){
             clickDatetimeOK( $field );
         }
     };

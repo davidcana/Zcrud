@@ -92,21 +92,15 @@ var defaultTestOptions = {
         },
         time: {
             type: 'time',
-            customOptions: {
-                inline: false
-            }
+            inline: false
         },
         datetime: {
             type: 'datetime',
-            customOptions: {
-                inline: false
-            }
+            inline: false
         },
         date: {
             type: 'date',
-            customOptions: {
-                inline: false
-            }
+            inline: false
         },
         phoneType: {
             type: 'radio',
@@ -219,21 +213,15 @@ defaultTestOptions.fields.members.fields = {
     },
     time: {
         type: 'time',
-        customOptions: {
-            inline: false
-        }
+        inline: false
     },
     datetime: {
         type: 'datetime',
-        customOptions: {
-            inline: false
-        }
+        inline: false
     },
     date: {
         type: 'date',
-        customOptions: {
-            inline: false
-        }
+        inline: false
     },
     important: {
         type: 'checkbox'
@@ -701,7 +689,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
 
             var varName = 'datetime';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
-            options.fields.members.fields[ varName ].customOptions.inline = true;
+            options.fields.members.fields[ varName ].inline = true;
             
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1098,7 +1086,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
 
             var varName = 'date';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
-            options.fields.members.fields[ varName ].customOptions.inline = true;
+            options.fields.members.fields[ varName ].inline = true;
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1482,7 +1470,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
 
             var varName = 'time';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
-            options.fields.members.fields[ varName ].customOptions.inline = true;
+            options.fields.members.fields[ varName ].inline = true;
             
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );

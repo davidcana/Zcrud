@@ -64,7 +64,6 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 {
                     "id": "name",
                     "type": "text",
-                    "customOptions": {},
                     "elementId": "zcrud-name",
                     "attributes": {},
                     "name": "name",
@@ -76,7 +75,6 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                     "id": "description",
                     "type": "textarea",
                     "attributes": {},
-                    "customOptions": {},
                     "elementId": "zcrud-description",
                     "name": "description",
                     "sorting": true,
@@ -103,7 +101,6 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                 {
                     "id": "name",
                     "type": "text",
-                    "customOptions": {},
                     "elementId": "zcrud-name",
                     "attributes": {},
                     "name": "name",
@@ -115,7 +112,6 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
                     "id": "description",
                     "type": "textarea",
                     "attributes": {},
-                    "customOptions": {},
                     "elementId": "zcrud-description",
                     "name": "description",
                     "sorting": true,
@@ -566,7 +562,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "id": "name",
                     "type": "text",
-                    "customOptions": {},
                     "elementId": "zcrud-name",
                     "attributes": {},
                     "name": "name",
@@ -583,7 +578,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                             "rows": 6
                         }
                     },
-                    "customOptions": {},
                     "elementId": "zcrud-description",
                     "name": "description",
                     "sorting": true,
@@ -638,7 +632,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                 {
                     "id": "name",
                     "type": "text",
-                    "customOptions": {},
                     "elementId": "zcrud-name",
                     "attributes": {},
                     "name": "name",
@@ -655,7 +648,6 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
                             "rows": 6
                         }
                     },
-                    "customOptions": {},
                     "elementId": "zcrud-description",
                     "name": "description",
                     "sorting": true,

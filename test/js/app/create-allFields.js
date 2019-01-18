@@ -198,7 +198,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
 
             var varName = 'datetime';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-            options.fields[ varName ].customOptions.inline = true;
+            options.fields[ varName ].inline = true;
             
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -376,7 +376,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
 
             var varName = 'date';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-            options.fields[ varName ].customOptions.inline = true;
+            options.fields[ varName ].inline = true;
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -552,7 +552,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
 
             var varName = 'time';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
-            options.fields[ varName ].customOptions.inline = true;
+            options.fields[ varName ].inline = true;
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;

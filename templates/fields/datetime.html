@@ -6,7 +6,7 @@
     </head>
     <body>                        
         <div data-mdefine-macro="date">
-            <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
+            <div data-tattributes="style cond: field/inline 'display: none;' null">
                 <input data-tdefine="formattedValue field/formatToClient( value )"
                        data-tattributes="id cond: renderIds field/elementId null;
                                          name field/name;
@@ -20,12 +20,12 @@
             </div>
             
             <div data-tdefine="dateInfo field/getDateInfo( value );
-                               inlinePart cond: field/customOptions/inline ' inline' ''"
+                               inlinePart cond: field/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
                 <div>
                     <div data-muse-macro="'datePart'"><!--empty--></div>
                 </div>
-                <div data-tcondition="not: field/customOptions/inline">
+                <div data-tcondition="not: field/inline">
                     <button type="button" class="save-button">
                         OK
                     </button>
@@ -35,7 +35,7 @@
         
         <div data-mdefine-macro="time">
             
-            <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
+            <div data-tattributes="style cond: field/inline 'display: none;' null">
                 <input data-tattributes="id cond: renderIds field/elementId null;
                                          name field/name;
                                          value ( value || '' );
@@ -45,17 +45,17 @@
                        type="text">
                 <button type="button" class="toggle-picker"
                         data-tdefine="timeInfo field/getTimeInfo( value );
-                                      inlinePart cond: field/customOptions/inline ' inline' ''"
+                                      inlinePart cond: field/inline ' inline' ''"
                         data-tattributes="title tr:'togglePickerTitle'">...</button>
             </div>
             
             <div data-tdefine="timeInfo field/getTimeInfo( value );
-                               inlinePart cond: field/customOptions/inline ' inline' ''"
+                               inlinePart cond: field/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
                 <div>
                     <div data-muse-macro="'timePart'"><!--empty--></div>
                 </div>
-                <div data-tcondition="not: field/customOptions/inline">
+                <div data-tcondition="not: field/inline">
                     <button type="button" class="save-button">
                         OK
                     </button>
@@ -64,7 +64,7 @@
         </div>
         
         <div data-mdefine-macro="datetime">
-            <div data-tattributes="style cond: field/customOptions/inline 'display: none;' null">
+            <div data-tattributes="style cond: field/inline 'display: none;' null">
                 <input data-tdefine="formattedValue field/formatToClient( value )"
                        data-tattributes="id cond: renderIds field/elementId null;
                                          name field/name;
@@ -80,13 +80,13 @@
             <div data-tdefine="dateTimeInfo field/getDateTimeInfo( value );
                                dateInfo dateTimeInfo/dateInfo;
                                timeInfo dateTimeInfo/timeInfo;
-                               inlinePart cond: field/customOptions/inline ' inline' ''"
+                               inlinePart cond: field/inline ' inline' ''"
                  data-tattributes="class string:datetime${inlinePart}">
                 <div>
                     <div data-muse-macro="'datePart'"><!--empty--></div>
                     <div data-muse-macro="'timePart'"><!--empty--></div>
                 </div>
-                <div data-tcondition="not: field/customOptions/inline">
+                <div data-tcondition="not: field/inline">
                     <button type="button" class="save-button">
                         OK
                     </button>

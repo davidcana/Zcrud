@@ -1,8 +1,6 @@
 ZCrud 0.1.0
 -----------
 
-* Manage subforms in JSON at root.
-* Remove customOptions.
 * Review defaultValues. Add support to subforms.
 
 Bugs:

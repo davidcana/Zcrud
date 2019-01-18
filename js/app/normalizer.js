@@ -124,11 +124,6 @@ module.exports = (function() {
                 field.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
             }
         }
-
-        // Create customOptions if needed
-        if ( ! field.customOptions ){
-            field.customOptions = {};
-        }
         
         // Normalize components if any
         if ( field.components ){

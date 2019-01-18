@@ -76,9 +76,7 @@ var options = {
         },
         date: {
             type: 'date',
-            customOptions: {
-                inline: false
-            }
+            inline: false
         },
         time: {
             type: 'time'

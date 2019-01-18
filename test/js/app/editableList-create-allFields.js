@@ -238,7 +238,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
         options,
         function( options ){
             
-            options.fields[ varName ].customOptions.inline = true;
+            options.fields[ varName ].inline = true;
             
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -455,7 +455,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
         options,
         function( options ){
 
-            options.fields[ varName ].customOptions.inline = true;
+            options.fields[ varName ].inline = true;
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -672,7 +672,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
         options,
         function( options ){
 
-            options.fields[ varName ].customOptions.inline = true;
+            options.fields[ varName ].inline = true;
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;

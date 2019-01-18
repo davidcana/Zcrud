@@ -85,9 +85,7 @@ module.exports = {
         },
         date: {
             type: 'date',
-            customOptions: {
-                inline: false
-            }
+            inline: false
         },
         time: {
             type: 'time'

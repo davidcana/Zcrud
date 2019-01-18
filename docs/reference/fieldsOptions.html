@@ -106,26 +106,6 @@
                 </div>
             </li>
             <li>
-                <a id="customOptions"></a>
-                <div class="header">
-                    <span class="name">customOptions</span>
-                    <span class="dataType">object</span>
-                    <span class="appliesTo">ANY</span>
-                    <span class="default">{}</span>
-                </div>
-                <div class="body">
-                    An object containing configuration options. Useful to add specific configuration options for some field types only (for example <em>inline</em> property in date fields):
-                    <pre class="brush: javascript; highlight: [3]">
-        date: {
-            type: 'date',
-            customOptions: {
-                inline: false
-            }
-        }
-                    </pre>
-                </div>
-            </li>
-            <li>
                 <a id="defaultValue"></a>
                 <div class="header">
                     <span class="name">defaultValue</span>
@@ -240,6 +220,66 @@
             }
         }
                     </pre>
+                </div>
+            </li>
+            <li>
+                <a id="inline"></a>
+                <div class="header">
+                    <span class="name">inline</span>
+                    <span class="dataType">boolean</span>
+                    <span class="appliesTo">date, datetime and time</span>
+                    <span class="default">false</span>
+                </div>
+                <div class="body">
+                    Defines whether the element is inline (true) or if it will be visible only after clicking a button (false).
+                </div>
+            </li>
+            <li>
+                <a id="maxHour"></a>
+                <div class="header">
+                    <span class="name">maxHour</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">datetime and time</span>
+                    <span class="default">23 (datetime) or 99 (time)</span>
+                </div>
+                <div class="body">
+                    The maximum value allowed for the hour.
+                </div>
+            </li>
+            <li>
+                <a id="maxYear"></a>
+                <div class="header">
+                    <span class="name">maxYear</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">datetime and date</span>
+                    <span class="default">2050</span>
+                </div>
+                <div class="body">
+                    The maximum value allowed for the year.
+                </div>
+            </li>
+            <li>
+                <a id="minutesStep"></a>
+                <div class="header">
+                    <span class="name">minutesStep</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">datetime and time</span>
+                    <span class="default">5</span>
+                </div>
+                <div class="body">
+                    This property defines the number of minutes to add or substract every time the user click on the buttons to modify its value.
+                </div>
+            </li>
+            <li>
+                <a id="minYear"></a>
+                <div class="header">
+                    <span class="name">minYear</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">datetime and date</span>
+                    <span class="default">1950</span>
+                </div>
+                <div class="body">
+                    The minimum value allowed for the year.
                 </div>
             </li>
             <li>
@@ -389,6 +429,18 @@
                 </div>
             </li>
             <li>
+                <a id="timerDelay"></a>
+                <div class="header">
+                    <span class="name">timerDelay</span>
+                    <span class="dataType">integer</span>
+                    <span class="appliesTo">datetime and time</span>
+                    <span class="default">100</span>
+                </div>
+                <div class="body">
+                    Delay to apply when keeping buttons pressed.
+                </div>
+            </li>
+            <li>
                 <a id="translateOptions"></a>
                 <div class="header">
                     <span class="name">translateOptions</span>
@@ -410,85 +462,6 @@
                 </div>
                 <div class="body">
                     Data type for this field. Available options are defined <a href="fieldsTypes.html">here</a>.
-                </div>
-            </li>
-        </ul>
-        
-        <h2>Custom options</h2>
-        <p>
-            Custom options are specific configuration options for some field types only. They must be inside a <em>customOption</em> object. The list of custom options is:
-        </p>
-        <ul class="customOptionsList">
-            <li>
-                <a id="inline"></a>
-                <div class="header">
-                    <span class="name">inline</span>
-                    <span class="dataType">boolean</span>
-                    <span class="appliesTo">date, datetime and time</span>
-                    <span class="default">false</span>
-                </div>
-                <div class="body">
-                    Defines whether the element is inline (true) or if it will be visible only after clicking a button (false).
-                </div>
-            </li>
-            <li>
-                <a id="maxHour"></a>
-                <div class="header">
-                    <span class="name">maxHour</span>
-                    <span class="dataType">integer</span>
-                    <span class="appliesTo">datetime and time</span>
-                    <span class="default">23 (datetime) or 99 (time)</span>
-                </div>
-                <div class="body">
-                    The maximum value allowed for the hour.
-                </div>
-            </li>
-            <li>
-                <a id="maxYear"></a>
-                <div class="header">
-                    <span class="name">maxYear</span>
-                    <span class="dataType">integer</span>
-                    <span class="appliesTo">datetime and date</span>
-                    <span class="default">2050</span>
-                </div>
-                <div class="body">
-                    The maximum value allowed for the year.
-                </div>
-            </li>
-            <li>
-                <a id="minutesStep"></a>
-                <div class="header">
-                    <span class="name">minutesStep</span>
-                    <span class="dataType">integer</span>
-                    <span class="appliesTo">datetime and time</span>
-                    <span class="default">5</span>
-                </div>
-                <div class="body">
-                    This property defines the number of minutes to add or substract every time the user click on the buttons to modify its value.
-                </div>
-            </li>
-            <li>
-                <a id="minYear"></a>
-                <div class="header">
-                    <span class="name">minYear</span>
-                    <span class="dataType">integer</span>
-                    <span class="appliesTo">datetime and date</span>
-                    <span class="default">1950</span>
-                </div>
-                <div class="body">
-                    The minimum value allowed for the year.
-                </div>
-            </li>
-            <li>
-                <a id="timerDelay"></a>
-                <div class="header">
-                    <span class="name">timerDelay</span>
-                    <span class="dataType">integer</span>
-                    <span class="appliesTo">datetime and time</span>
-                    <span class="default">100</span>
-                </div>
-                <div class="body">
-                    Delay to apply when keeping buttons pressed.
                 </div>
             </li>
         </ul>

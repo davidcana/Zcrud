@@ -75,7 +75,7 @@ Datetime.prototype.setValueToFormForTime = function( value, $this ){
         .val( value )
         .attr( this.pickerValueAttr, value );
 
-    if ( this.customOptions.inline ){
+    if ( this.inline ){
         var $datetime = this.get$datetime( 
             $this.parents( '.zcrud-data-entity' ).first() );
         var timeObject = this.buildTimeObjectFromString( value );
@@ -90,7 +90,7 @@ Datetime.prototype.setValueToFormForDatetime = function( value, $this, manageTim
         .val( formattedValue )
         .attr( this.pickerValueAttr, formattedValue );
 
-    if ( this.customOptions.inline ){
+    if ( this.inline ){
         var $datetime = this.get$datetime( $this.parents( '.zcrud-data-entity' ).first() );
 
         // Update dictionary
@@ -201,7 +201,7 @@ Datetime.prototype.getI18nFormat = function(){
 
 Datetime.prototype.getValueFromForm = function( $selection ){
     
-    return this.customOptions.inline? 
+    return this.inline? 
            this.getValueFromFormForInline( $selection ): 
            this.getValueFromFormForNotInline( $selection );
 };
@@ -304,7 +304,7 @@ Datetime.prototype.buildTimeObjectFromString = function( timeString ){
         && timeArray.length == 2 
         && ! isNaN( timeArray[0] ) && ! isNaN( timeArray[1] )
         && timeArray[0] >= 0 && timeArray[1] >= 0 
-        && timeArray[0] <= this.customOptions.maxHour && timeArray[1] <= 59 ){
+        && timeArray[0] <= this.maxHour && timeArray[1] <= 59 ){
 
         hours = timeArray[0];
         minutes = timeArray[1];
@@ -327,7 +327,7 @@ Datetime.prototype.buildTimeObjectFromHoursAndMinutes = function( hours, minutes
         minutes: minutes,
         minutesToShow: this.formatTimeNumber( minutes, 59 ),
         hours: hours,
-        hoursToShow: this.formatTimeNumber( hours, this.customOptions.maxHour )
+        hoursToShow: this.formatTimeNumber( hours, this.maxHour )
     };
 };
 
@@ -407,8 +407,8 @@ Datetime.prototype.getWeekDays = function(){
 Datetime.prototype.buildYears = function( referenceDate ){
     
     var currentYear = referenceDate.getFullYear();
-    var minYear = this.customOptions.minYear;
-    var maxYear = this.customOptions.maxYear;
+    var minYear = this.minYear;
+    var maxYear = this.maxYear;
 
     var years = [];
     for ( var c = minYear; c <= maxYear; ++c ){
@@ -676,8 +676,8 @@ Datetime.prototype.bindCommonEvents = function( params, $selection, $datetime ){
 Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
     
     var datetimeInstance = this;
-    var delay = this.customOptions.timerDelay;
-    var minutesStep = this.customOptions.minutesStep;
+    var delay = this.timerDelay;
+    var minutesStep = this.minutesStep;
     var hoursStep = 1;
 
     var mouseupFunction = function( event ){
@@ -811,7 +811,7 @@ Datetime.prototype.addHours = function( event, $datetime, valueToAdd ){
     
     var $hours = this.get$hours( $datetime );
     var currentValue = parseInt( $hours.text() );
-    var maxHourPlus1 = 1 + this.customOptions.maxHour;
+    var maxHourPlus1 = 1 + this.maxHour;
 
     // Get the new value
     currentValue += valueToAdd;
@@ -824,10 +824,10 @@ Datetime.prototype.addHours = function( event, $datetime, valueToAdd ){
 
     // Update value
     $hours.text(
-        this.formatTimeNumber( currentValue, this.customOptions.maxHour ) );
+        this.formatTimeNumber( currentValue, this.maxHour ) );
 
     // Save value if inline
-    if ( this.customOptions.inline ){
+    if ( this.inline ){
         this.save( $datetime, false );
     }
 };
@@ -879,7 +879,7 @@ Datetime.prototype.addMinutes = function( event, $datetime, valueToAdd ){
         this.formatTimeNumber( currentValue, 59 ) );
 
     // Save value if inline
-    if ( this.customOptions.inline ){
+    if ( this.inline ){
         this.save( $datetime, false );
     }
 };
@@ -909,7 +909,7 @@ Datetime.prototype.updateCalendarValue = function( $datetime, $cell ){
     $datetime.find( '.' + this.selectedDateClass ).removeClass( this.selectedDateClass );
     $cell.addClass( this.selectedDateClass );
 
-    if ( this.customOptions.inline ){
+    if ( this.inline ){
         this.save( $datetime, false );
     }
 };

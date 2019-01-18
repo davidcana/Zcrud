@@ -205,36 +205,6 @@ ul.fieldTypeList a {
     color: White;
 }
 
-/* Custom options list */
-ul.customOptionsList {
-    list-style-type: none;
-}
-ul.customOptionsList>li {
-    margin-bottom: 1em;
-}
-ul.customOptionsList>li .header {
-    background: darkcyan;
-    color: white;
-    padding: 0.5em 1em 0.5em 1em;
-    margin-bottom: .5em;
-}
-ul.customOptionsList>li .header .name {
-    font-weight: bold;
-    font-size: 130%;
-}
-ul.customOptionsList>li .header .dataType:before {
-    margin-left: 2em;
-    content: "dataType: ";
-}
-ul.customOptionsList>li .header .appliesTo:before {
-    margin-left: 2em;
-    content: "appliesTo: ";
-}
-ul.customOptionsList>li .header .default:before {
-    margin-left: 2em;
-    content: "default: ";
-}
-
 /* General option list */
 ul.generalOptionList {
     list-style-type: none;
