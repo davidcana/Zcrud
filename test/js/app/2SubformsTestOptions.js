@@ -1,6 +1,6 @@
 "use strict";
 
-var testUtils = require( './testUtils' );
+var testServerSide = require( './testServerSide' );
 
 module.exports = {
 
@@ -151,7 +151,7 @@ module.exports = {
     },
     
     ajax:{
-        ajaxFunction: testUtils.ajax    
+        ajaxFunction: testServerSide.ajax    
     },
 
     events: {},

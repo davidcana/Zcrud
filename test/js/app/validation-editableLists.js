@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils' );
+var testServerSide = require( './testServerSide' );
 
 //var defaultTestOptions = require( './subformTestOptions.js' );
 var defaultTestOptions = require( './editableListTestOptions.js' );
@@ -28,7 +28,7 @@ QUnit.test( "create test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -84,7 +84,7 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -150,7 +150,7 @@ QUnit.test( "change test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -214,7 +214,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 

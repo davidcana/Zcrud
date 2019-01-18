@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
 
@@ -188,7 +188,7 @@ var defaultTestOptions = {
     },
 
     ajax:{
-        ajaxFunction: testUtils.ajax    
+        ajaxFunction: testServerSide.ajax    
     },
 
     events: {},
@@ -299,7 +299,7 @@ QUnit.test( "update text area test", function( assert ) {
         function( options ){
             
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -317,7 +317,7 @@ QUnit.test( "update text area test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             var varName = 'description';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -360,7 +360,7 @@ QUnit.test( "update text area test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -384,7 +384,7 @@ QUnit.test( "update datetime test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -402,7 +402,7 @@ QUnit.test( "update datetime test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
 
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'datetime' ] );
 
@@ -454,7 +454,7 @@ QUnit.test( "update datetime test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
             
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -479,7 +479,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -497,7 +497,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
 
             var varName = 'datetime';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -554,7 +554,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -578,7 +578,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -596,7 +596,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
 
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'datetime' ] );
             
@@ -657,7 +657,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -681,7 +681,7 @@ QUnit.test( "update date test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -699,7 +699,7 @@ QUnit.test( "update date test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
 
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
 
@@ -751,7 +751,7 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -775,7 +775,7 @@ QUnit.test( "update date using picker test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -793,7 +793,7 @@ QUnit.test( "update date using picker test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
 
             var varName = "date";
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -851,7 +851,7 @@ QUnit.test( "update date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -875,7 +875,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -893,7 +893,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
             
             var varName = "date";
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -954,7 +954,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) ); 
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -978,7 +978,7 @@ QUnit.test( "update time test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -996,7 +996,7 @@ QUnit.test( "update time test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
 
             var varName = "time";
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1048,7 +1048,7 @@ QUnit.test( "update time test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1072,7 +1072,7 @@ QUnit.test( "update time using picker test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -1090,7 +1090,7 @@ QUnit.test( "update time using picker test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
             
             var varName = "time";
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1147,7 +1147,7 @@ QUnit.test( "update time using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+            assert.deepEqual( testServerSide.getService( key ), context.getFieldBuilder().filterValues( newRecord, options.fields ) );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1171,7 +1171,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
                 "id": "" + key,
@@ -1189,7 +1189,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, serverRecord );
+            testServerSide.setService( key, serverRecord );
 
             var varName = "time";
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1249,7 +1249,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1273,7 +1273,7 @@ QUnit.test( "update checkbox test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -1291,7 +1291,7 @@ QUnit.test( "update checkbox test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             var varName = 'important';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1334,7 +1334,7 @@ QUnit.test( "update checkbox test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1358,7 +1358,7 @@ QUnit.test( "update radio test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -1376,7 +1376,7 @@ QUnit.test( "update radio test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             var varName = 'phoneType';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1419,7 +1419,7 @@ QUnit.test( "update radio test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1443,7 +1443,7 @@ QUnit.test( "update select test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -1461,7 +1461,7 @@ QUnit.test( "update select test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             var varName = 'province';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1504,7 +1504,7 @@ QUnit.test( "update select test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1528,7 +1528,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -1548,7 +1548,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             var varName = 'province';
             var varName2 = 'city';
@@ -1635,7 +1635,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1659,7 +1659,7 @@ QUnit.test( "update datalist test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -1677,7 +1677,7 @@ QUnit.test( "update datalist test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             var varName = 'browser';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1720,7 +1720,7 @@ QUnit.test( "update datalist test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );
@@ -1744,7 +1744,7 @@ QUnit.test( "update chackboxes test", function( assert ) {
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -1762,7 +1762,7 @@ QUnit.test( "update chackboxes test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             var varName = 'hobbies';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
@@ -1805,7 +1805,7 @@ QUnit.test( "update chackboxes test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             assert.equal( errorFunctionCounter, 0 );

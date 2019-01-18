@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
 var formOptions = require( './defaultTestOptions.js' );
@@ -38,7 +38,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var $departmentsContainer = $( '#departmentsContainer' );
@@ -129,7 +129,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var $departmentsContainer = $( '#departmentsContainer' );
@@ -225,7 +225,7 @@ QUnit.test( "showCreateForm test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             assert.equal( 
@@ -270,7 +270,7 @@ QUnit.test( "showUpdateForm test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             assert.equal( 
@@ -319,7 +319,7 @@ QUnit.test( "showDeleteForm test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             assert.equal( 
@@ -352,7 +352,7 @@ QUnit.test( "getRecordByKey/getRowByKey test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             var key = 2;
@@ -388,7 +388,7 @@ QUnit.test( "load (using filter) test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 
                 'renderList',
                 { 
@@ -430,7 +430,7 @@ QUnit.test( "load (using callback and filter) test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 
                 'renderList',
                 { 
@@ -470,7 +470,7 @@ QUnit.test( "simple addRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
@@ -519,7 +519,7 @@ QUnit.test( "simple deleteRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
@@ -566,7 +566,7 @@ QUnit.test( "simple updateRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
@@ -585,7 +585,7 @@ QUnit.test( "simple updateRecord test", function( assert ) {
                 "city": "Marbella",
                 "browser": "Firefox",
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             // Update record using method
             var editedRecord =  {
@@ -620,7 +620,7 @@ QUnit.test( "change key updateRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
@@ -639,7 +639,7 @@ QUnit.test( "change key updateRecord test", function( assert ) {
                 "city": "Marbella",
                 "browser": "Firefox",
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             // Update record using method
             var newKey = 0;
@@ -675,7 +675,7 @@ QUnit.test( "subform updateRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             // Update record on server
             var key = 2;
@@ -695,7 +695,7 @@ QUnit.test( "subform updateRecord test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             // Load from server
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -759,7 +759,7 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
@@ -786,7 +786,7 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
             // Check it
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkRecordInList( assert, key, newRecord );
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
@@ -843,7 +843,7 @@ QUnit.test( "clientOnly deleteRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
@@ -873,7 +873,7 @@ QUnit.test( "clientOnly deleteRecord test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             var values2 = testHelper.buildCustomValuesList( testHelper.buildValuesList( 11, 20 ) );
             testHelper.pagingTest({
@@ -920,7 +920,7 @@ QUnit.test( "clientOnly addRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Add record
@@ -940,7 +940,7 @@ QUnit.test( "clientOnly addRecord test", function( assert ) {
                 } );
             
             // Check it
-            assert.equal( testUtils.getService( key ), undefined );
+            assert.equal( testServerSide.getService( key ), undefined );
             
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 0, 10 ) );
             testHelper.pagingTest({
@@ -1001,7 +1001,7 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
@@ -1020,7 +1020,7 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
                 "city": "Marbella",
                 "browser": "Firefox",
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             // Update record using method
             var url = 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department&customArg=myValue';
@@ -1040,7 +1040,7 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
             
-            assert.equal( testUtils.getLastBatchUpdateUrl(), url );
+            assert.equal( testServerSide.getLastBatchUpdateUrl(), url );
             
             done();
         }
@@ -1058,7 +1058,7 @@ QUnit.test( "success function updateRecord test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Check record
@@ -1077,7 +1077,7 @@ QUnit.test( "success function updateRecord test", function( assert ) {
                 "city": "Marbella",
                 "browser": "Firefox",
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             // Update record using method
             var editedRecord =  {
@@ -1117,7 +1117,7 @@ QUnit.test( "load (using records) / getRecords test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             
             var buildRecordsArray = function( first, numberOfRecords ){
                 
@@ -1233,7 +1233,7 @@ QUnit.test( "load (not using records) / getRecords test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             var buildRecordsArray = function( first, numberOfRecords ){
 
@@ -1322,7 +1322,7 @@ QUnit.test( "load (not loading records) / getRecords test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             $( '#departmentsContainer' ).zcrud( 
                 'renderList',

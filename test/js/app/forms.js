@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var formTestOptions = require( './editableSubformAsListTestOptions.js' );
@@ -34,7 +34,7 @@ QUnit.test( "form simple test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     
     var done = assert.async();
 
@@ -43,7 +43,7 @@ QUnit.test( "form simple test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
             
             assert.equal( testHelper.getSelectedFromSubform( 'originalMembers', true ).length, 0 );
@@ -98,7 +98,7 @@ QUnit.test( "form simple test", function( assert ) {
                 }
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             // Delete row
@@ -117,7 +117,7 @@ QUnit.test( "form simple test", function( assert ) {
                 }
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             // Select
@@ -177,7 +177,7 @@ QUnit.test( "form simple test", function( assert ) {
                 
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             done();
@@ -189,7 +189,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
 
     options = $.extend( true, {}, formTestOptions );
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
 
     var done = assert.async();
 
@@ -198,7 +198,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
 
             assert.equal( testHelper.getSelectedFromSubform( 'originalMembers', true ).length, 0 );
@@ -369,7 +369,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
 
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
 
             done();
@@ -394,7 +394,7 @@ QUnit.test( "subform filtering test", function( assert ) {
     options = $.extend( true, {}, formTestOptions, thisTestOptions );
 
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
     var subformName = 'originalMembers';
     testHelper.setDefaultItemName( itemName );
@@ -406,7 +406,7 @@ QUnit.test( "subform filtering test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
 
             testHelper.pagingSubformTest({
@@ -479,7 +479,7 @@ QUnit.test( "subform filtering test", function( assert ) {
                 }
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             // Delete row
@@ -498,7 +498,7 @@ QUnit.test( "subform filtering test", function( assert ) {
                 }
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             // Select
@@ -558,7 +558,7 @@ QUnit.test( "subform filtering test", function( assert ) {
 
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             done();
@@ -583,7 +583,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
     options = $.extend( true, {}, formTestOptions, thisTestOptions );
 
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
     var subformName = 'originalMembers';
     testHelper.setDefaultItemName( itemName );
@@ -595,7 +595,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 
                 'renderForm', 
                 {
@@ -685,7 +685,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
                 }
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
 
             // Delete row
@@ -704,7 +704,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
                 }
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             // Select
@@ -764,7 +764,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
 
             };
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             done();
@@ -776,7 +776,7 @@ QUnit.test( "form after form test", function( assert ) {
 
     options = $.extend( true, {}, extendedFormTestOptions );
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
 
     var done = assert.async();
 
@@ -785,14 +785,14 @@ QUnit.test( "form after form test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
             
             // Check record 1 value
             var key = "1";
             var record = buildMemberRecord( key );
             assert.deepEqual( 
-                testUtils.getOriginalMembersByCode( key ), 
+                testServerSide.getOriginalMembersByCode( key ), 
                 record );
 
             // Click update button and update record
@@ -820,7 +820,7 @@ QUnit.test( "form after form test", function( assert ) {
             );
             expectedRecord.description = record.description;
             assert.deepEqual( 
-                testUtils.getOriginalMembers()[ 0 ],
+                testServerSide.getOriginalMembers()[ 0 ],
                 expectedRecord
             );
             
@@ -828,7 +828,7 @@ QUnit.test( "form after form test", function( assert ) {
             key = "2";
             record = buildMemberRecord( key );
             assert.deepEqual( 
-                testUtils.getOriginalMembersByCode( key ), 
+                testServerSide.getOriginalMembersByCode( key ), 
                 record );
             
             // Click update button and update record
@@ -856,7 +856,7 @@ QUnit.test( "form after form test", function( assert ) {
             );
             expectedRecord.description = record.description;
             assert.deepEqual( 
-                testUtils.getOriginalMembersByCode( key ),
+                testServerSide.getOriginalMembersByCode( key ),
                 expectedRecord
             );
             
@@ -864,14 +864,14 @@ QUnit.test( "form after form test", function( assert ) {
             key = "3";
             record = buildMemberRecord( key );
             assert.deepEqual( 
-                testUtils.getOriginalMembers()[ 2 ], 
+                testServerSide.getOriginalMembers()[ 2 ], 
                 record );
             
             // Click delete button and delete record
             testHelper.clickDeleteFormSubformRowButton( 'originalMembers', 2 );
             testHelper.clickFormSubmitButton();
             assert.deepEqual( 
-                testUtils.getOriginalMembersByCode( key ),
+                testServerSide.getOriginalMembersByCode( key ),
                 undefined
             );
             
@@ -894,7 +894,7 @@ QUnit.test( "form after form test", function( assert ) {
                 options.fields.originalMembers.fields
             );
             assert.deepEqual( 
-                testUtils.getOriginalMembersByCode( key ),
+                testServerSide.getOriginalMembersByCode( key ),
                 expectedRecord
             );
             
@@ -957,7 +957,7 @@ QUnit.test( "form after form test", function( assert ) {
             //expectedVerifiedMembers[ 6 ].datetime = datetimeField.filterValue( expectedVerifiedMembers[ 6 ] );
 
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             
             done();
@@ -1001,7 +1001,7 @@ QUnit.test( "form filtering test", function( assert ) {
     };
     
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
     testHelper.setDefaultItemName( itemName );
     
@@ -1012,7 +1012,7 @@ QUnit.test( "form filtering test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
             
             // Assert  verified members is void
@@ -1064,7 +1064,7 @@ QUnit.test( "form filtering test", function( assert ) {
             };
             
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
@@ -1101,7 +1101,7 @@ QUnit.test( "form filtering test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
@@ -1121,7 +1121,7 @@ QUnit.test( "form filtering test", function( assert ) {
             $( '.zcrud-filter-submit-button' ).click();
             
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
@@ -1198,7 +1198,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
     };
 
     var numberOfOriginalMembers = 121;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
     testHelper.setDefaultItemName( itemName );
 
@@ -1209,7 +1209,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
 
             // Assert  verified members is void
@@ -1238,7 +1238,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
             var expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 18, "1" );
 
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
@@ -1385,7 +1385,7 @@ QUnit.test( "form forcing filtering test with errors", function( assert ) {
     };
 
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
     testHelper.setDefaultItemName( itemName );
     
@@ -1396,7 +1396,7 @@ QUnit.test( "form forcing filtering test with errors", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
 
             errorFunctionCounter = 0;
@@ -1468,7 +1468,7 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
     };
 
     var numberOfOriginalMembers = 12;
-    testUtils.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
+    testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     var itemName = 'Member';
     testHelper.setDefaultItemName( itemName );
 
@@ -1479,7 +1479,7 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
 
             errorFunctionCounter = 0;
@@ -1535,7 +1535,7 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
             };
 
             assert.deepEqual( 
-                testUtils.getVerifiedMembers(), 
+                testServerSide.getVerifiedMembers(), 
                 expectedVerifiedMembers );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 

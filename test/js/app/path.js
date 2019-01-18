@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );

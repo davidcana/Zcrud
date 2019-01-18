@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './editableListAllFieldsTestOptions.js' );
@@ -30,7 +30,7 @@ QUnit.test( "update text area test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -96,7 +96,7 @@ QUnit.test( "update datetime test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -162,7 +162,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -235,7 +235,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
 
             options.fields[ varName ].customOptions.inline = true;
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -306,7 +306,7 @@ QUnit.test( "update date test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -372,7 +372,7 @@ QUnit.test( "update date using picker test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -445,7 +445,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             
             options.fields[ varName ].customOptions.inline = true;
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -516,7 +516,7 @@ QUnit.test( "update time test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -582,7 +582,7 @@ QUnit.test( "update time using picker test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -654,7 +654,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
 
             options.fields[ varName ].customOptions.inline = true;
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -723,7 +723,7 @@ QUnit.test( "update checkbox test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -789,7 +789,7 @@ QUnit.test( "update radio test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -855,7 +855,7 @@ QUnit.test( "update 2 radios test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -948,7 +948,7 @@ QUnit.test( "update select test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -1020,7 +1020,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -1125,7 +1125,7 @@ QUnit.test( "update datalist test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -1191,7 +1191,7 @@ QUnit.test( "update hobbies test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 

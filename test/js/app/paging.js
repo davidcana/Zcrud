@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var subformsTestOptions = require( './2SubformsTestOptions.js' );
@@ -112,7 +112,7 @@ QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
     
@@ -163,7 +163,7 @@ QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert 
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
 
@@ -212,7 +212,7 @@ QUnit.test( "subform broken paging: abort test", function( assert ) {
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
 
@@ -263,7 +263,7 @@ QUnit.test( "subform broken paging: discard test", function( assert ) {
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
 

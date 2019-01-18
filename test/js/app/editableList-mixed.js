@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './editableListTestOptions.js' );
 var thisTestOptions = {};
@@ -44,7 +44,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
                 });
             };
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -88,7 +88,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -158,7 +158,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -229,7 +229,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -294,7 +294,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 

@@ -4,7 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
 
@@ -183,7 +183,7 @@ var defaultTestOptions = {
     },
 
     ajax:{
-        ajaxFunction: testUtils.ajax    
+        ajaxFunction: testServerSide.ajax    
     },
 
     events: {},
@@ -249,7 +249,7 @@ defaultTestOptions.errorFunction = function( message ){
         function( options ){
 
             // Setup services
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record = {
                 "id": "" + key,
@@ -274,7 +274,7 @@ defaultTestOptions.errorFunction = function( message ){
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
             context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );

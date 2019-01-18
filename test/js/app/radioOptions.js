@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var formOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
@@ -208,13 +208,13 @@ QUnit.test( "function returning URL returning array of objects and adding curren
     };
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var record =  {
         "id": "" + key,
         "name": "Service " + key,
         "city": "San Roque"
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
     
     testCityOptions( 
         assert, 

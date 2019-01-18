@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
@@ -21,7 +21,7 @@ QUnit.test( "delete test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -93,7 +93,7 @@ QUnit.test( "delete with subform test", function( assert ) {
         options,
         function( options ){
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             
             // Assert register with key 2 is OK
             var key = 2;
@@ -112,7 +112,7 @@ QUnit.test( "delete with subform test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -138,7 +138,7 @@ QUnit.test( "english delete form test", function( assert ) {
         function( options ){
 
             // Set the service
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             var key = 2;
             var record =  {
@@ -154,7 +154,7 @@ QUnit.test( "english delete form test", function( assert ) {
                 "important": true,
                 "hobbies": [ 'reading_option', 'sports_option' ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             var clientRecord = $.extend( true, {}, record );
             
@@ -197,7 +197,7 @@ QUnit.test( "spanish delete form test", function( assert ) {
         function( options ){
 
             // Set the service
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             var key = 2;
             var record =  {
@@ -213,7 +213,7 @@ QUnit.test( "spanish delete form test", function( assert ) {
                 "important": true,
                 "hobbies": [ 'reading_option', 'sports_option' ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             var clientRecord = $.extend( true, {}, record );
 

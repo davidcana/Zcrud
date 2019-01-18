@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var formTestOptions = require( './defaultTestOptions.js' );
@@ -32,7 +32,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
         options,
         function( options ){
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -59,7 +59,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 1 );
             
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }
@@ -77,7 +77,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
         options,
         function( options ){
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -105,7 +105,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
             assert.equal( errorFunctionCounter, 0 );
 
             testHelper.checkNoRecord( assert, key );
-            assert.deepEqual( testUtils.getService( newKey ), newRecord );
+            assert.deepEqual( testServerSide.getService( newKey ), newRecord );
 
             done();
         }
@@ -123,7 +123,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
         options,
         function( options ){
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -149,7 +149,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 1 );
 
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
 
             done();
         }
@@ -167,7 +167,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -182,14 +182,14 @@ QUnit.test( "form delete non existing record test", function( assert ) {
             testHelper.clickDeleteListButton( key );
             
             // Remove service
-            testUtils.removeService( key ); 
+            testServerSide.removeService( key ); 
 
             // Submit 
             assert.equal( errorFunctionCounter, 0 );
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 1 );
 
-            assert.deepEqual( testUtils.getService( key ), undefined );
+            assert.deepEqual( testServerSide.getService( key ), undefined );
             
             done();
         }
@@ -207,7 +207,7 @@ QUnit.test( "editable list create record with duplicated key test", function( as
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -253,7 +253,7 @@ QUnit.test( "editable list update record with no duplicated key test", function(
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -283,8 +283,8 @@ QUnit.test( "editable list update record with no duplicated key test", function(
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), undefined );
-            assert.deepEqual( testUtils.getService( newKey ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), undefined );
+            assert.deepEqual( testServerSide.getService( newKey ), newRecord );
             testHelper.pagingTest({
                 options: options,
                 assert: assert,
@@ -313,7 +313,7 @@ QUnit.test( "editable list update record with duplicated key test", function( as
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -348,8 +348,8 @@ QUnit.test( "editable list update record with duplicated key test", function( as
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 1 );
             
-            assert.deepEqual( testUtils.getService( key ), record );
-            assert.deepEqual( testUtils.getService( newKey ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( newKey ), record2 );
 
             done();
         }
@@ -367,7 +367,7 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -383,8 +383,8 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
             testHelper.checkRecord( assert, key, record, editable, true );
 
             // Remove service
-            testUtils.removeService( key ); 
-            assert.deepEqual( testUtils.getService( key ), undefined );
+            testServerSide.removeService( key ); 
+            assert.deepEqual( testServerSide.getService( key ), undefined );
             
             // Try to delete again
             testHelper.clickDeleteRowListButton( key );
@@ -410,7 +410,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             delete options.fields[ 'province' ].defaultValue;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -431,7 +431,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
             var fullNewRecord = $.extend( true, {}, newRecord );
             var key = 130;
             fullNewRecord.id = "" + key;
-            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+            assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
 
             testHelper.pagingTest({
                 action: { 
@@ -463,7 +463,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -475,7 +475,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             var record =  {
                 "name": "Service with no key"
             };
-            assert.deepEqual( testUtils.getService( key ), undefined );
+            assert.deepEqual( testServerSide.getService( key ), undefined );
             
             // Try to create
             testHelper.clickCreateRowListButton();
@@ -488,7 +488,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             
             var fullNewRecord = $.extend( true, {}, record );
             fullNewRecord.id = "" + key;
-            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+            assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
             testHelper.pagingTest({
                 options: options,
@@ -550,7 +550,7 @@ QUnit.test( "editable list create record with undefined key test and then update
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             context.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -562,7 +562,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             var record =  {
                 "name": "Service with no key"
             };
-            assert.deepEqual( testUtils.getService( key ), undefined );
+            assert.deepEqual( testServerSide.getService( key ), undefined );
             
             // Try to create
             testHelper.clickCreateRowListButton();
@@ -575,7 +575,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             
             var fullNewRecord = $.extend( true, {}, record );
             fullNewRecord.id = "" + key;
-            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+            assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
             // Update it 
             record =  {
@@ -588,7 +588,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             
             fullNewRecord = $.extend( true, {}, record );
             fullNewRecord.id = "" + key;
-            assert.deepEqual( testUtils.getService( key ), fullNewRecord );
+            assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
             testHelper.pagingTest({
                 options: options,

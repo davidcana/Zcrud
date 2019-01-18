@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var formTestOptions = require( './noKeyFieldTestOptions.js' );
 var editableListTestOptions = require( './noKeyField-editableListTestOptions.js' );
@@ -27,7 +27,7 @@ QUnit.test( "create form test", function( assert ) {
         options,
         function( options ){
             
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 130 not exists
@@ -79,7 +79,7 @@ QUnit.test( "create form test", function( assert ) {
             var fullRecord = $.extend( true, {}, record );
             fullRecord.id = "" + key;
             testHelper.checkRecordInList( assert, key, fullRecord, false, true );
-            assert.deepEqual( testUtils.getService( key ), fullRecord );
+            assert.deepEqual( testServerSide.getService( key ), fullRecord );
             
             done();
         }
@@ -96,7 +96,7 @@ QUnit.test( "update form test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 not exists
@@ -143,7 +143,7 @@ QUnit.test( "update form test", function( assert ) {
             var fullRecord = $.extend( true, {}, record );
             fullRecord.id = "" + key;
             testHelper.checkRecordInList( assert, key, fullRecord, false, true );
-            assert.deepEqual( testUtils.getService( key ), fullRecord );
+            assert.deepEqual( testServerSide.getService( key ), fullRecord );
             
             done();
         }
@@ -160,7 +160,7 @@ QUnit.test( "delete form test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -170,7 +170,7 @@ QUnit.test( "delete form test", function( assert ) {
                 "name": "Service " + key,
                 "description": "Service " + key + " description"
             };
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             // Check
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -216,7 +216,7 @@ QUnit.test( "editable list create test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
             errorFunctionCounter = 0;
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -299,7 +299,7 @@ QUnit.test( "editable list update test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
             errorFunctionCounter = 0;
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -367,7 +367,7 @@ QUnit.test( "editable list delete test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
             errorFunctionCounter = 0;
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -430,7 +430,7 @@ QUnit.test( "create subform test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
 
             // Setup register
             var key = 2;
@@ -456,7 +456,7 @@ QUnit.test( "create subform test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -490,7 +490,7 @@ QUnit.test( "create subform test", function( assert ) {
             var editedRecord = $.extend( true, {}, record );
             subformRecord3.code = "3";
             editedRecord.members.push( subformRecord3 );
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
             
             // Go to edit form again and check the form again
             delete editedRecord.id;
@@ -516,7 +516,7 @@ QUnit.test( "update subform test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
 
             // Setup register
             var key = 2;
@@ -542,7 +542,7 @@ QUnit.test( "update subform test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -589,7 +589,7 @@ QUnit.test( "update subform test", function( assert ) {
                     }
                 ]
             };
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             done();
         }
@@ -606,7 +606,7 @@ QUnit.test( "delete subform test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
 
             // Setup register
             var key = 2;
@@ -632,7 +632,7 @@ QUnit.test( "delete subform test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -664,7 +664,7 @@ QUnit.test( "delete subform test", function( assert ) {
                     }
                 ]
             };
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             done();
         }
@@ -681,7 +681,7 @@ QUnit.test( "create form and subform test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices( undefined, true );
+            testServerSide.resetServices( undefined, true );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -744,7 +744,7 @@ QUnit.test( "create form and subform test", function( assert ) {
             fullRecord.id = key;
             fullRecord.members[ 0 ].code = "1";
             fullRecord.members[ 1 ].code = "2";
-            assert.deepEqual( testUtils.getService( key ), fullRecord );
+            assert.deepEqual( testServerSide.getService( key ), fullRecord );
             
             // Go to edit form again and check the form again
             testHelper.goToLastPage( options );

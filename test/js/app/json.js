@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var subformTestOptions = require( './subformTestOptions.js' );
 var editableListTestOptions = require( './editableListTestOptions.js' );
@@ -53,8 +53,8 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
                     }
                 ]
             };
-            testUtils.reset();
-            testUtils.setService( key, record );
+            testServerSide.reset();
+            testServerSide.setService( key, record );
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -98,7 +98,7 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             testHelper.clickFormSubmitButton();
             
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
                 "4": {
                     "name": "Service 4 edited",
@@ -125,7 +125,7 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             assert.deepEqual( jsonObject.recordsToRemove, expectedRecordsToRemove );
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
             
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
@@ -166,8 +166,8 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
                     }
                 ]
             };
-            testUtils.reset();
-            testUtils.setService( key, record );
+            testServerSide.reset();
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -211,7 +211,7 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
             testHelper.clickFormSubmitButton();
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
                 "4": {
                     "id": "4",
@@ -243,7 +243,7 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
             assert.deepEqual( jsonObject.recordsToRemove, expectedRecordsToRemove );
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
@@ -262,7 +262,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
     options.jsonBuilder = onlyChangesJSONBuilder;
     delete options.fields[ 'province' ].defaultValue;
     
-    testUtils.reset();
+    testServerSide.reset();
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -311,7 +311,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
             testHelper.clickFormSubmitButton();
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
@@ -342,7 +342,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
             assert.deepEqual( jsonObject.recordsToRemove, expectedRecordsToRemove );
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
@@ -361,7 +361,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
     options.jsonBuilder = allJSONBuilder;
     delete options.fields[ 'province' ].defaultValue;
     
-    testUtils.reset();
+    testServerSide.reset();
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -410,7 +410,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
             testHelper.clickFormSubmitButton();
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
@@ -441,7 +441,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
             assert.deepEqual( jsonObject.recordsToRemove, expectedRecordsToRemove );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
 
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
@@ -482,8 +482,8 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
                     }
                 ]
             };
-            testUtils.reset();
-            testUtils.setService( key, record );
+            testServerSide.reset();
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -492,7 +492,7 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             testHelper.clickFormSubmitButton();
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
             var expectedRecordsToRemove = [ "4" ];
@@ -502,7 +502,7 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             assert.deepEqual( jsonObject.recordsToRemove, expectedRecordsToRemove );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), undefined );
+            assert.deepEqual( testServerSide.getService( key ), undefined );
 
             done();
         }
@@ -539,8 +539,8 @@ QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert )
                     }
                 ]
             };
-            testUtils.reset();
-            testUtils.setService( key, record );
+            testServerSide.reset();
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -549,7 +549,7 @@ QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert )
             testHelper.clickFormSubmitButton();
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
             var expectedRecordsToRemove = [ "4" ];
@@ -559,7 +559,7 @@ QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert )
             assert.deepEqual( jsonObject.recordsToRemove, expectedRecordsToRemove );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), undefined );
+            assert.deepEqual( testServerSide.getService( key ), undefined );
 
             done();
         }
@@ -573,7 +573,7 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
     
-    testUtils.reset();
+    testServerSide.reset();
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -606,7 +606,7 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
             testHelper.checkRecord( assert, key, newRecord, editable );
             
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
                 "2": {
                     "name": "Service 2 edited",
@@ -631,7 +631,7 @@ QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function(
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
-    testUtils.reset();
+    testServerSide.reset();
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -664,7 +664,7 @@ QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function(
             testHelper.checkRecord( assert, key, newRecord, editable );
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
                 "2": {
                     "id": "2",
@@ -691,7 +691,7 @@ QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", f
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
-    testUtils.reset();
+    testServerSide.reset();
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -718,7 +718,7 @@ QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", f
             testHelper.checkRecord( assert, key, newRecord, editable, true );
             
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
@@ -745,7 +745,7 @@ QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function(
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
-    testUtils.reset();
+    testServerSide.reset();
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -772,7 +772,7 @@ QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function(
             testHelper.checkRecord( assert, key, newRecord, editable, true );
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
@@ -798,7 +798,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) t
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
-    testUtils.reset();
+    testServerSide.reset();
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -823,7 +823,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) t
             testHelper.checkNoRecord( assert, key3 );
             
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
             var expectedRecordsToRemove = [ "3", "5", "7" ];
@@ -844,7 +844,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: allJSONBuilder) test", fu
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
-    testUtils.reset();
+    testServerSide.reset();
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -869,7 +869,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: allJSONBuilder) test", fu
             testHelper.checkNoRecord( assert, key3 );
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
             var expectedRecordsToRemove = [ "3", "5", "7" ];
@@ -890,7 +890,7 @@ QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilde
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
-    testUtils.reset();
+    testServerSide.reset();
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -927,7 +927,7 @@ QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilde
             testHelper.checkNoRecord( assert, key1 );
 
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
             var expectedRecordsToRemove = [ "2" ];
@@ -948,7 +948,7 @@ QUnit.test( "editable list create, 2 changes and delete (JSONBuilder: onlyChange
     options = $.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
-    testUtils.reset();
+    testServerSide.reset();
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1017,7 +1017,7 @@ QUnit.test( "subform update and delete test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -1063,7 +1063,7 @@ QUnit.test( "subform update and delete test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             // Check JSON
-            var jsonObject = testUtils.getJSONUpdate( 0 );
+            var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
                 "4": {
                     "membersZCrudRecords": {
@@ -1090,7 +1090,7 @@ QUnit.test( "subform update and delete test", function( assert ) {
             
             // Check storage
             newRecord.members = [ newRecord.members[1] ];
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
             
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
@@ -1127,7 +1127,7 @@ QUnit.test( "subform create and delete test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             

@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
 var options = $.extend( true, {}, defaultTestOptions );
@@ -45,7 +45,7 @@ QUnit.test( "subform create test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -80,7 +80,7 @@ QUnit.test( "subform create test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
             
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
@@ -143,7 +143,7 @@ QUnit.test( "subform create and form create test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
             
             // Go to edit form again and check the form again
             testHelper.clickUpdateListButton( key );
@@ -181,7 +181,7 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -234,7 +234,7 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
             
             done();
         }
@@ -268,7 +268,7 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -345,7 +345,7 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
 
             done();
         }
@@ -399,7 +399,7 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -441,7 +441,7 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
             testHelper.clickFormSubmitButton();
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
 
             done();
         }
@@ -451,7 +451,7 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
 QUnit.test( "add records to subform test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -479,7 +479,7 @@ QUnit.test( "add records to subform test", function( assert ) {
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
 
     var thisTestOptions = {
         pageConf: {
@@ -583,7 +583,7 @@ QUnit.test( "add records to subform test", function( assert ) {
 
             // Check storage
             record.members = record.members.concat( newMembers );
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }

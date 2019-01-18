@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils' );
+var testServerSide = require( './testServerSide' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
 var options = undefined;
@@ -18,7 +18,7 @@ defaultTestOptions.errorFunction = function( message ){
 // Run tests
 QUnit.test( "create with subforms validation test", function( assert ) {
 
-    testUtils.resetServices();
+    testServerSide.resetServices();
     
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -74,7 +74,7 @@ QUnit.test( "create with subforms validation test", function( assert ) {
 
 QUnit.test( "update with updated subforms validation test", function( assert ) {
 
-    testUtils.resetServices();
+    testServerSide.resetServices();
     
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -101,7 +101,7 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -177,7 +177,7 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
 
 QUnit.test( "update with added subforms validation test", function( assert ) {
 
-    testUtils.resetServices();
+    testServerSide.resetServices();
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -204,7 +204,7 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -292,7 +292,7 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
 
 QUnit.test( "update with updated subforms undo/redo 1 action validation test", function( assert ) {
 
-    testUtils.resetServices();
+    testServerSide.resetServices();
 
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
@@ -319,7 +319,7 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 

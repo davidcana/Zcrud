@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
@@ -31,7 +31,7 @@ QUnit.test( "create text area test", function( assert ) {
             var varName = 'description';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -65,7 +65,7 @@ QUnit.test( "create text area test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
             
             done();
         }
@@ -84,7 +84,7 @@ QUnit.test( "create datetime test", function( assert ) {
             var varName = 'datetime';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -120,7 +120,7 @@ QUnit.test( "create datetime test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -139,7 +139,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             var varName = 'datetime';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -180,7 +180,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -200,7 +200,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].customOptions.inline = true;
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -241,7 +241,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -261,7 +261,7 @@ QUnit.test( "create date test", function( assert ) {
             var varName = 'date';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -297,7 +297,7 @@ QUnit.test( "create date test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -317,7 +317,7 @@ QUnit.test( "create date using picker test", function( assert ) {
             var varName = 'date';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -358,7 +358,7 @@ QUnit.test( "create date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
             
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -378,7 +378,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].customOptions.inline = true;
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -421,7 +421,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -440,7 +440,7 @@ QUnit.test( "create time test", function( assert ) {
             var varName = 'time';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -474,7 +474,7 @@ QUnit.test( "create time test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -493,7 +493,7 @@ QUnit.test( "create time using picker test", function( assert ) {
             var varName = 'time';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -534,7 +534,7 @@ QUnit.test( "create time using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -554,7 +554,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].customOptions.inline = true;
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -595,7 +595,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -614,7 +614,7 @@ QUnit.test( "create checkbox test", function( assert ) {
             var varName = 'important';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -647,7 +647,7 @@ QUnit.test( "create checkbox test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -666,7 +666,7 @@ QUnit.test( "create radio test", function( assert ) {
             var varName = 'phoneType';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -699,7 +699,7 @@ QUnit.test( "create radio test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -719,7 +719,7 @@ QUnit.test( "create select test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             delete options.fields[ varName ].defaultValue;
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -755,7 +755,7 @@ QUnit.test( "create select test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -776,7 +776,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             context.updateFormVisibleFields( options, [ 'id', 'name', varName, varName2 ] );
             delete options.fields[ varName ].defaultValue;
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -847,7 +847,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record3 );
+            assert.deepEqual( testServerSide.getService( key ), record3 );
 
             done();
         }
@@ -867,7 +867,7 @@ QUnit.test( "create datalist test", function( assert ) {
             var varName = 'browser';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -900,7 +900,7 @@ QUnit.test( "create datalist test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }
@@ -920,7 +920,7 @@ QUnit.test( "create checkboxes test", function( assert ) {
             var varName = 'hobbies';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -953,7 +953,7 @@ QUnit.test( "create checkboxes test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            assert.deepEqual( testUtils.getService( key ), record2 );
+            assert.deepEqual( testServerSide.getService( key ), record2 );
 
             done();
         }

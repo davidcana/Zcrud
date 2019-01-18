@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
@@ -559,7 +559,7 @@ QUnit.test( "subformToolbar (binding using listCreated method) test", function( 
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -649,7 +649,7 @@ QUnit.test( "subformToolbar (binding automatically) test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -743,7 +743,7 @@ QUnit.test( "subformByRow (binding using listCreated method) test", function( as
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );
@@ -833,7 +833,7 @@ QUnit.test( "subformByRow (binding automatically) test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             // Go to edit form
             testHelper.clickUpdateListButton( key );

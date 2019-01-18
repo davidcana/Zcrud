@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var subformsTestOptions = require( './2SubformsTestOptions.js' );
@@ -147,7 +147,7 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
     testHelper.setDefaultItemName( itemName );
@@ -365,7 +365,7 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
     testHelper.setDefaultItemName( itemName );
@@ -481,7 +481,7 @@ QUnit.test( "filtering subform breaking paging: abort (standard list of fields) 
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
     testHelper.setDefaultItemName( itemName );
@@ -573,7 +573,7 @@ QUnit.test( "filtering subform breaking paging: discard (standard list of fields
     var serviceKeys = [ serviceKey ];
     var numberOfMembers = 129;
     var numberOfExternalMembers = 14;
-    testUtils.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
+    testServerSide.reset2SubformMembersServices( serviceKeys, numberOfMembers, numberOfExternalMembers );
     var itemName = 'Member';
     var subformName = 'members';
     testHelper.setDefaultItemName( itemName );

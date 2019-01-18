@@ -2,7 +2,7 @@
     testHelper singleton class
 */
 var $ = require( 'jquery' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 module.exports = (function() {
@@ -645,7 +645,7 @@ module.exports = (function() {
         }
         
         // Check record from storage
-        assert.deepEqual( testUtils.getService( key ), expectedRecord );
+        assert.deepEqual( testServerSide.getService( key ), expectedRecord );
     };
     
     var checkNoRecord = function( assert, key ){
@@ -659,7 +659,7 @@ module.exports = (function() {
         assert.equal( row.length, 0 );
         
         // Check record from storage
-        assert.equal( testUtils.getService( key ), undefined );
+        assert.equal( testServerSide.getService( key ), undefined );
     };
     
     var clickRowButton = function( $row, cssClass ){

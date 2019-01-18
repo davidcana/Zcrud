@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
@@ -32,7 +32,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
             };
 
             // 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -50,7 +50,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -98,7 +98,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
         function( options ){
 
             // 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -116,7 +116,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -154,7 +154,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
             
             done();
         }
@@ -171,7 +171,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
         function( options ){
 
             // 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -189,7 +189,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -235,7 +235,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             done();
         }
@@ -252,7 +252,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
         function( options ){
 
             // 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -270,7 +270,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -304,7 +304,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             done();
         }
@@ -321,7 +321,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
         function( options ){
 
             // 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             var key = 4;
             var record =  {
                 "id": "" + key,
@@ -339,7 +339,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -387,7 +387,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), newRecord );
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
 
             done();
         }

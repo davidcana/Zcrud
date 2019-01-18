@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var editableListOptions = require( './editableListTestOptions.js' );
@@ -134,7 +134,7 @@ QUnit.test( "events update form test", function( assert ) {
         options,
         function( options ){
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             // Assert register with key 2 exists
@@ -282,7 +282,7 @@ QUnit.test( "events create form test", function( assert ) {
         options,
         function( options ){
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 0 not exists
@@ -413,7 +413,7 @@ QUnit.test( "event delete form test", function( assert ) {
         options,
         function( options ){
             
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 is OK
@@ -551,7 +551,7 @@ QUnit.test( "event update editable list test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -636,7 +636,7 @@ QUnit.test( "event create editable list test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -711,7 +711,7 @@ QUnit.test( "event delete editable list test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -791,7 +791,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
             // Assert register with key 2 exists
@@ -838,7 +838,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
             
             // Try to submit, but validation must be false
             testHelper.clickFormSubmitButton();
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             assert.deepEqual( 
                 counters,  
                 {
@@ -892,7 +892,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
             var $departmentsContainer = $( '#departmentsContainer' );

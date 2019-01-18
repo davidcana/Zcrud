@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
@@ -27,7 +27,7 @@ QUnit.test( "delete test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
             
             // Update record in server
             var key = 6;
@@ -57,12 +57,12 @@ QUnit.test( "delete test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
@@ -92,7 +92,7 @@ QUnit.test( "delete test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
             
             // Go to edit form again and test form
             testHelper.clickUpdateListButton( key );
@@ -112,7 +112,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             // Update record in server
             var key = 6;
@@ -142,12 +142,12 @@ QUnit.test( "delete 3 rows test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
@@ -183,7 +183,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
 
             // Go to edit form again and test form
             testHelper.clickUpdateListButton( key );
@@ -203,7 +203,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             // Update record in server
             var key = 6;
@@ -233,12 +233,12 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
@@ -278,7 +278,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
 
             // Go to edit form again and test form
             testHelper.clickUpdateListButton( key );
@@ -298,7 +298,7 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
         options,
         function( options ){
 
-            testUtils.resetServices();
+            testServerSide.resetServices();
 
             // Update record in server
             var key = 6;
@@ -328,12 +328,12 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
                     }
                 ]
             };
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
-            testUtils.setService( key, record );
+            testServerSide.setService( key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
             testHelper.pagingTest({
                 options: options,
@@ -410,7 +410,7 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
 
             // Check storage
-            assert.deepEqual( testUtils.getService( key ), editedRecord );
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
 
             // Go to edit form again and test form
             testHelper.clickUpdateListButton( key );

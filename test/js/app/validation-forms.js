@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils' );
+var testServerSide = require( './testServerSide' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
@@ -19,7 +19,7 @@ defaultTestOptions.errorFunction = function( message ){
 // Run tests
 QUnit.test( "create validation test", function( assert ) {
 
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
     
@@ -81,7 +81,7 @@ QUnit.test( "create validation test", function( assert ) {
 
 QUnit.test( "update validation test", function( assert ) {
     
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
     
@@ -147,7 +147,7 @@ QUnit.test( "update validation test", function( assert ) {
 
 QUnit.test( "create undo/redo validation test", function( assert ) {
     
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
 
@@ -224,7 +224,7 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
 
 QUnit.test( "update undo/redo validation test", function( assert ) {
     
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var done = assert.async();
     options = $.extend( true, {}, defaultTestOptions );
 

@@ -5,7 +5,7 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 
 var listTestOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
@@ -53,7 +53,7 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 QUnit.test( "list selecting test", function( assert ) {
     
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     
     thisTestOptions = {
         pageConf: {
@@ -321,7 +321,7 @@ QUnit.test( "list selecting test", function( assert ) {
 QUnit.test( "subform selecting test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -349,7 +349,7 @@ QUnit.test( "subform selecting test", function( assert ) {
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
     
     thisTestOptions = {
         pageConf: {
@@ -560,7 +560,7 @@ QUnit.test( "subform selecting test", function( assert ) {
 QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -595,7 +595,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
 
     thisTestOptions = {
         pageConf: {
@@ -833,7 +833,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                     "description": "Description of Marge Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }
@@ -843,7 +843,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
 QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -878,7 +878,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
 
     thisTestOptions = {
         pageConf: {
@@ -1118,7 +1118,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                     "description": "Description of Marge Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }
@@ -1128,7 +1128,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
 QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -1163,7 +1163,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
 
     thisTestOptions = {
         pageConf: {
@@ -1402,7 +1402,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                     "description": "Description of Marge Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             // Go to edit form again
             testHelper.clickUpdateListButton( key );
@@ -1493,7 +1493,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                     "description": "Description of Lisa Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }
@@ -1503,7 +1503,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
 QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -1538,7 +1538,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
 
     thisTestOptions = {
         pageConf: {
@@ -1749,7 +1749,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                     "description": "Description of Marge Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
 
             // Go to edit form again
             testHelper.clickUpdateListButton( key );
@@ -1793,7 +1793,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                     "description": "Description of Bart Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }
@@ -1803,7 +1803,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
 QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same record twice) test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -1838,7 +1838,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
 
     thisTestOptions = {
         pageConf: {
@@ -2013,7 +2013,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
                     "description": "Description of Marge Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }
@@ -2023,7 +2023,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
 QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting and cut/paste (cuting the same record twice) test", function( assert ) {
 
     // Setup services
-    testUtils.resetServices();
+    testServerSide.resetServices();
     var key = 4;
     var record =  {
         "id": "" + key,
@@ -2058,7 +2058,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             }
         ]
     };
-    testUtils.setService( key, record );
+    testServerSide.setService( key, record );
 
     thisTestOptions = {
         pageConf: {
@@ -2237,7 +2237,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                     "description": "Description of Marge Simpson"
                 }
             ];
-            assert.deepEqual( testUtils.getService( key ), record );
+            assert.deepEqual( testServerSide.getService( key ), record );
             
             done();
         }

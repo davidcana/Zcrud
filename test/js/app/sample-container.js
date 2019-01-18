@@ -4,7 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 //var Qunit = require( 'qunit' );
-var testUtils = require( './testUtils' );
+var testServerSide = require( './testServerSide' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
 
@@ -174,7 +174,7 @@ var options = {
     },
     
     ajax: {
-        ajaxFunction: testUtils.ajax    
+        ajaxFunction: testServerSide.ajax    
     },
     
     i18n: {

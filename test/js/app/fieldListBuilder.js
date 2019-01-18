@@ -4,7 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
-var testUtils = require( './testUtils.js' );
+var testServerSide = require( './testServerSide.js' );
 var testHelper = require( './testHelper.js' );
 var fieldListBuilder = require( '../../../js/app/fields/fieldListBuilder.js' );
 
@@ -323,7 +323,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
         },
         
         ajax: {
-            ajaxFunction: testUtils.ajax    
+            ajaxFunction: testServerSide.ajax    
         },
         
         i18n: {
@@ -485,7 +485,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
         },
 
         ajax: {
-            ajaxFunction: testUtils.ajax    
+            ajaxFunction: testServerSide.ajax    
         },
 
         i18n: {

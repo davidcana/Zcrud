@@ -1,5 +1,5 @@
 /* 
-    testUtils singleton class
+    testServerSide singleton class
 */
 module.exports = (function() {
     "use strict";
