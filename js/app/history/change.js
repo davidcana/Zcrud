@@ -99,7 +99,7 @@ Change.prototype.getNewValue = function(){
     return this.newValue;
 };
 
-Change.prototype.doAction = function( actionsObject, records ){
+Change.prototype.doAction = function( actionsObject, records, defaultValue ){
 
     // Build or get row and then attach it to actionsObject
     var row = this.history.buildAndAttachRowForDoAction( 
@@ -112,10 +112,51 @@ Change.prototype.doAction = function( actionsObject, records ){
         undefined,
         true );
 
+    //
+    this.processDefaultValue( records, row, defaultValue );
+    
     // Set new value
     row[ this.name ] = this.newValue;
 };
 
+Change.prototype.processDefaultValue = function( records, row, defaultValue ){
+
+    if ( ! $.isEmptyObject( row ) || ! this.isNew( records ) ){
+        return;
+    }
+    
+    var defaultRow = this.subformName? defaultValue[ this.subformName ]: this.buildFirstRowDefaultValue( defaultValue );
+    
+    this.copyProperties( defaultRow, row, false );
+};
+
+Change.prototype.buildFirstRowDefaultValue = function( defaultValue ){
+    
+    var result = {};
+    
+    this.copyProperties( defaultValue, result, true );
+    
+    return result;
+};
+
+Change.prototype.copyProperties = function( from, to, excludeObjects ){
+
+    for ( var id in from ){
+        var itemValue = from[ id ];
+        if ( ! excludeObjects || ! $.isPlainObject( itemValue ) ){
+            to[ id ] = itemValue;
+        }
+    }
+};
+
+Change.prototype.isNew = function( records ){
+    return this.history.isNew( records, this.rowIndex );
+};
+/*
+Change.prototype.isNew = function( records ){
+    return ! records[ this.rowIndex ];
+};
+*/
 Change.prototype.saveEnabled = function(){
     return true;
 };

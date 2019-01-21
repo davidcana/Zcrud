@@ -12,8 +12,8 @@ module.exports = (function() {
         return defaultJSONBuilder.buildJSONForRemoving( recordsToRemove );
     };
 
-    var buildJSONForAll = function( keyField, records, fields, forcedActionsObject, history ){
-        return defaultJSONBuilder.buildJSONForAll( sendOnlyModified, keyField, records, fields, forcedActionsObject, history );
+    var buildJSONForAll = function( keyField, records, fields, forcedActionsObject, history, defaultValue ){
+        return defaultJSONBuilder.buildJSONForAll( sendOnlyModified, keyField, records, fields, forcedActionsObject, history, defaultValue );
     };
     
     var buildJSONForAddRecordMethod = function( record ){

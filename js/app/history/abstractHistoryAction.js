@@ -47,10 +47,10 @@ AbstractHistoryAction.prototype.doAction = function(){
     throw 'Method doAction not implemented!';
 };
 
-AbstractHistoryAction.prototype.doActionIfNotOff = function( actionsObject, records, historyCleaner ){
+AbstractHistoryAction.prototype.doActionIfNotOff = function( actionsObject, records, historyCleaner, defaultValue ){
     
     if ( historyCleaner.historyItemIsOn( this ) ){
-        this.doAction( actionsObject, records );
+        return this.doAction( actionsObject, records, defaultValue );
     }
 };
 
@@ -72,6 +72,10 @@ AbstractHistoryAction.prototype.getAtomicItems = function(){
 
 AbstractHistoryAction.prototype.getCreationItems = function(){
     throw 'Method getCreationItems not implemented!';
+};
+
+AbstractHistoryAction.prototype.isNew = function(){
+    return false;
 };
 
 AbstractHistoryAction.prototype.type = 'AbstractHistoryAction';

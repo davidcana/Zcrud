@@ -661,7 +661,8 @@ FormPage.prototype.doSubmitCreate = function( event, $form ){
             [ ],
             this.fields,
             undefined,
-            context.getHistory() 
+            context.getHistory(),
+            this.userRecord
         ),
         $form 
     );
@@ -718,7 +719,8 @@ FormPage.prototype.doSubmitUpdate = function( event, $form ){
             [ this.record ], 
             this.fields,
             undefined,
-            context.getHistory() ),
+            context.getHistory()
+        ),
         $form 
     );
 };

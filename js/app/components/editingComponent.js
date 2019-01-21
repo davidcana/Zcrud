@@ -197,7 +197,8 @@ EditingComponent.prototype.doSubmit = function( event ){
         this.listPage.getDictionary().records,
         this.listPage.getFields(),
         undefined,
-        context.getHistory() );
+        context.getHistory()
+    );
 
     // Return if there is no operation to do
     if ( ! jsonObject ){

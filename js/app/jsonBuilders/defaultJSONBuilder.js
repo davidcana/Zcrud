@@ -166,9 +166,9 @@ module.exports = (function() {
         return recordsMap;
     };
     
-    var buildJSONForAll = function( sendOnlyModified, keyField, records, fields, forcedActionsObject, history ){
+    var buildJSONForAll = function( sendOnlyModified, keyField, records, fields, forcedActionsObject, history, defaultValue ){
         
-        var actionsObject = forcedActionsObject || history.buildActionsObject( records );
+        var actionsObject = forcedActionsObject || history.buildActionsObject( records, defaultValue );
 
         // Build jsonObject now
         var jsonObject = build1Row( 

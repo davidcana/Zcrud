@@ -418,32 +418,29 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         return result;
     };
-    /*
-    var getAllTr$FromCreateItems = function( subformId ){
 
-        var result = [];
-
+    var buildActionsObject = function( records, defaultValue ){
+        
+        var actionsObject = buildEmptyActionsObject();
+        
+        var historyCleaner = new HistoryCleaner();
+        historyCleaner.run( buildIterator() );
+        
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
-            if ( historyItem.type === 'create' ){
-                if ( subformId && subformId !== historyItem.subformName ){
-                    continue;    
-                }
-                result.push( historyItem.get$Tr() );
-            }
+            historyItem.doActionIfNotOff( actionsObject, records, historyCleaner, defaultValue );
         }
 
-        return result;
+        return actionsObject;
     };
-    */
-
+    /*
     var buildActionsObject = function( records ){
 
         var historyCleaner = new HistoryCleaner();
         historyCleaner.run( buildIterator() );
-        
+
         var actionsObject = buildEmptyActionsObject();
-        
+
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
             historyItem.doActionIfNotOff( actionsObject, records, historyCleaner );
@@ -451,7 +448,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         return actionsObject;
     };
-    
+    */
     var buildAndAttachRowForDoAction = function( actionsObject, records, rowIndex, subformName, subformRowIndex, subformRowKey, record, searchRow ){
 
         var subformElementIsNew = subformRowKey == '' || ! subformRowKey? true: false;
@@ -494,12 +491,20 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         return row;
     };
     
+    var isNew = function( records, rowIndex ){
+        return ! records[ rowIndex ];
+    };
+    
+    var getMap = function( actionsObject, records, rowIndex ){
+        return isNew( records, rowIndex )? actionsObject.new: actionsObject.modified;
+    };
+    /*
     var getMap = function( actionsObject, records, rowIndex ){
 
         var record = records[ rowIndex ];
         return record? actionsObject.modified: actionsObject.new;
     };
-    
+    */
     var getSubformMapKey = function( exists ){
         return exists? 'modified': 'new';
     };
@@ -642,7 +647,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         updateRecord: updateRecord,
         isDirty: isDirty,
         isSubformDirty: isSubformDirty,
-        getOptions: getOptions
+        getOptions: getOptions,
+        isNew: isNew
     };
     
     return self;
