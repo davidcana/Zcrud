@@ -31,6 +31,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     this.view = undefined;
     this.successMessage = undefined;
     this.eventFunction = undefined;
+    this.omitKey = false;
     
     this.initFromOptions( userDataToApply || {} );
     this.configure();
@@ -135,6 +136,7 @@ FormPage.prototype.configure = function(){
             if ( ! this.userRecord ) {
                 this.userRecord = fieldUtils.buildDefaultValuesRecord( this.fields );
             }
+            this.omitKey = true;
             break;
         case 'update':
             this.title = "Edit form";
@@ -332,14 +334,20 @@ FormPage.prototype.updateDictionary = function( dictionaryExtension ){
             options: this.options,
             record: this.buildRecordForDictionary()
         }, 
-        this.options.dictionary );
+        this.options.dictionary
+    );
 
+    // Set omitKey to true to make default value of subforms to work
+    if ( this.omitKey ){
+        thisDictionary.omitKey = true;
+    }
+    
     if ( dictionaryExtension ){
         this.dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
     } else {
         this.dictionary = thisDictionary;
     }
-
+    
     this.dictionary.instance = this;
 };
     
@@ -662,7 +670,8 @@ FormPage.prototype.doSubmitCreate = function( event, $form ){
             this.fields,
             undefined,
             context.getHistory(),
-            this.userRecord
+            this.userRecord,
+            this.fieldsMap
         ),
         $form 
     );

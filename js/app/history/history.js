@@ -419,7 +419,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         return result;
     };
 
-    var buildActionsObject = function( records, defaultValue ){
+    var buildActionsObject = function( records, defaultValue, fieldsMap ){
         
         var actionsObject = buildEmptyActionsObject();
         
@@ -428,27 +428,12 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         for ( var c = 0; c < current; ++c ){
             var historyItem = items[ c ];
-            historyItem.doActionIfNotOff( actionsObject, records, historyCleaner, defaultValue );
+            historyItem.doActionIfNotOff( actionsObject, records, historyCleaner, defaultValue, fieldsMap );
         }
-
+        
         return actionsObject;
     };
-    /*
-    var buildActionsObject = function( records ){
-
-        var historyCleaner = new HistoryCleaner();
-        historyCleaner.run( buildIterator() );
-
-        var actionsObject = buildEmptyActionsObject();
-
-        for ( var c = 0; c < current; ++c ){
-            var historyItem = items[ c ];
-            historyItem.doActionIfNotOff( actionsObject, records, historyCleaner );
-        }
-
-        return actionsObject;
-    };
-    */
+    
     var buildAndAttachRowForDoAction = function( actionsObject, records, rowIndex, subformName, subformRowIndex, subformRowKey, record, searchRow ){
 
         var subformElementIsNew = subformRowKey == '' || ! subformRowKey? true: false;
@@ -529,7 +514,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             var subformActionObject = createNestedObject( 
                 map, 
                 [ rowIndex, subformName ], 
-                buildEmptyActionsObject() );
+                buildEmptyActionsObject() 
+            );
             subformRows = subformActionObject[ subformMapKey ];
         } else {
             subformRows = map[ rowIndex ][ subformName ][ subformMapKey ];

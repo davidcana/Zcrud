@@ -47,10 +47,10 @@ AbstractHistoryAction.prototype.doAction = function(){
     throw 'Method doAction not implemented!';
 };
 
-AbstractHistoryAction.prototype.doActionIfNotOff = function( actionsObject, records, historyCleaner, defaultValue ){
+AbstractHistoryAction.prototype.doActionIfNotOff = function( actionsObject, records, historyCleaner, defaultValue, fieldsMap ){
     
     if ( historyCleaner.historyItemIsOn( this ) ){
-        return this.doAction( actionsObject, records, defaultValue );
+        return this.doAction( actionsObject, records, defaultValue, fieldsMap );
     }
 };
 

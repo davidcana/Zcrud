@@ -598,10 +598,6 @@ QUnit.test( "subform create with fields with default values test", function( ass
     
     options = $.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].fields.description.defaultValue = "Default description";
-    /*
-    options.fields[ 'members' ].defaultValue = {
-        "description": "Default description"
-    };*/
     
     var done = assert.async();
 
@@ -662,6 +658,204 @@ QUnit.test( "subform create with fields with default values test", function( ass
             
             testHelper.checkForm( assert, editedRecord );
 
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform create with default value (2 rows, 0 changed) test", function( assert ) {
+
+    options = $.extend( true, {}, defaultTestOptions );
+    options.fields[ 'members' ].defaultValue = [
+        {
+            "code": "1",
+            "name": "Default Bart Simpson",
+            "description": "Default description of Bart Simpson"
+        },
+        {
+            "code": "2",
+            "name": "Default Lisa Simpson",
+            "description": "Default description of Lisa Simpson"
+        }
+    ];
+
+    testServerSide.resetServices();
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+
+            // Check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.province = options.fields[ 'province' ].defaultValue;
+            editedRecord.members = options.fields[ 'members' ].defaultValue;
+            testHelper.checkForm( assert, editedRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform create with default value (2 rows, 1 changed) test", function( assert ) {
+
+    options = $.extend( true, {}, defaultTestOptions );
+    options.fields[ 'members' ].defaultValue = [
+        {
+            "code": "1",
+            "name": "Default Bart Simpson",
+            "description": "Default description of Bart Simpson"
+        },
+        {
+            "code": "2",
+            "name": "Default Lisa Simpson",
+            "description": "Default description of Lisa Simpson"
+        }
+    ];
+
+    testServerSide.resetServices();
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"  
+                    }
+                ]
+            };
+
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+
+            // Check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.province = options.fields[ 'province' ].defaultValue;
+            editedRecord.members = options.fields[ 'members' ].defaultValue;
+            editedRecord.members[ 0 ].name = "Bart Simpson";
+            editedRecord.members[ 0 ].description = "Description of Bart Simpson";
+            testHelper.checkForm( assert, editedRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform create with default value (2 rows, 1 changed) and default values test", function( assert ) {
+
+    options = $.extend( true, {}, defaultTestOptions );
+    options.fields[ 'members' ].defaultValue = [
+        {
+            "code": "1",
+            "name": "Default Bart Simpson",
+            "description": "Default description of Bart Simpson"
+        },
+        {
+            "code": "2",
+            "name": "Default Lisa Simpson",
+            "description": "Default description of Lisa Simpson"
+        }
+    ];
+    options.fields[ 'members' ].fields.description.defaultValue = "Default description";
+    
+    testServerSide.resetServices();
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"  
+                    }
+                ]
+            };
+
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+            
+            // Add subform record 3
+            var subformRecord = {
+                "code": "3",
+                "name": "Homer Simpson"
+            };
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord, 'members' );
+            
+            // Check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.province = options.fields[ 'province' ].defaultValue;
+            editedRecord.members = options.fields[ 'members' ].defaultValue;
+            editedRecord.members[ 0 ].name = "Bart Simpson";
+            editedRecord.members[ 0 ].description = "Description of Bart Simpson";
+            editedRecord.members[ 2 ] = subformRecord;
+            editedRecord.members[ 2 ].description = options.fields[ 'members' ].fields.description.defaultValue;
+            testHelper.checkForm( assert, editedRecord );
+            
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
 

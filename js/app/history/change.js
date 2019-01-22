@@ -6,6 +6,7 @@
 var $ = require( 'jquery' );
 var context = require( '../../../js/app/context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
+var fieldUtils = require( '../fields/fieldUtils.js' );
 
 var Change = function( historyToApply, optionsToApply, recordIdToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
@@ -99,7 +100,7 @@ Change.prototype.getNewValue = function(){
     return this.newValue;
 };
 
-Change.prototype.doAction = function( actionsObject, records, defaultValue ){
+Change.prototype.doAction = function( actionsObject, records, defaultValue, fieldsMap ){
 
     // Build or get row and then attach it to actionsObject
     var row = this.history.buildAndAttachRowForDoAction( 
@@ -113,21 +114,60 @@ Change.prototype.doAction = function( actionsObject, records, defaultValue ){
         true );
 
     //
-    this.processDefaultValue( records, row, defaultValue );
+    this.processDefaultValue( actionsObject, records, defaultValue, fieldsMap, row );
     
     // Set new value
     row[ this.name ] = this.newValue;
 };
 
-Change.prototype.processDefaultValue = function( records, row, defaultValue ){
+Change.prototype.processDefaultValue = function( actionsObject, records, defaultValue, fieldsMap, row ){
 
+    // Return if it is not needed
     if ( ! $.isEmptyObject( row ) || ! this.isNew( records ) ){
         return;
     }
     
-    var defaultRow = this.subformName? defaultValue[ this.subformName ]: this.buildFirstRowDefaultValue( defaultValue );
-    
+    // Copy properties from defaultRow to row excluding arrays
+    var defaultRow = this.subformName? 
+                     this.buildSubformRowDefaultValue( defaultValue ):
+                     this.buildFirstRowDefaultValue( defaultValue );
     this.copyProperties( defaultRow, row, false );
+    
+    // Add default subforms
+    this.addDefaultSubformsToActionsObject( actionsObject, defaultValue, fieldsMap, row );
+};
+
+Change.prototype.addDefaultSubformsToActionsObject = function( actionsObject, defaultValue, fieldsMap, row ){
+    
+    for ( var id in defaultValue ){
+        var value = defaultValue[ id ];
+        var field = fieldsMap[ id ];
+
+        if ( $.isArray( value ) && field && field.type == 'subform' ){
+            var subformActionsObject = this.history.buildEmptyActionsObject();
+            row[ id ] = subformActionsObject;
+            
+            for ( var c = 0; c < value.length; ++c ){
+                var arrayItem = value[ c ];
+                subformActionsObject.new[ c ] = arrayItem;
+            }
+        }
+    }
+};
+
+Change.prototype.buildSubformRowDefaultValue = function( defaultValue ){
+
+    var subformRecords = defaultValue[ this.subformName ];
+    if ( ! subformRecords ){
+        return undefined;
+    }
+    
+    var defaultSubformValue = subformRecords[ this.subformRowIndex ];
+    if ( ! defaultSubformValue ){
+        return undefined;
+    }
+    
+    return this.buildFirstRowDefaultValue( defaultSubformValue );
 };
 
 Change.prototype.buildFirstRowDefaultValue = function( defaultValue ){
@@ -139,11 +179,15 @@ Change.prototype.buildFirstRowDefaultValue = function( defaultValue ){
     return result;
 };
 
-Change.prototype.copyProperties = function( from, to, excludeObjects ){
+Change.prototype.copyProperties = function( from, to, excludeArrays ){
 
+    if ( ! from ){
+        return;
+    }
+    
     for ( var id in from ){
         var itemValue = from[ id ];
-        if ( ! excludeObjects || ! $.isPlainObject( itemValue ) ){
+        if ( ! excludeArrays || ! $.isArray( itemValue ) ){
             to[ id ] = itemValue;
         }
     }
