@@ -8,18 +8,19 @@ var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
-var options = $.extend( true, {}, defaultTestOptions );
+var options = undefined;
 
 var errorFunctionCounter = 0;
 
-options.errorFunction = function( message ){
+defaultTestOptions.errorFunction = function( message ){
     ++errorFunctionCounter;
 };
 
 // Run tests
 
 QUnit.test( "subform create test", function( assert ) {
-
+    
+    options = $.extend( true, {}, defaultTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -92,7 +93,8 @@ QUnit.test( "subform create test", function( assert ) {
 });
 
 QUnit.test( "subform create and form create test", function( assert ) {
-
+    
+    options = $.extend( true, {}, defaultTestOptions );
     var done = assert.async();
     delete options.fields[ 'province' ].defaultValue;
     
@@ -156,6 +158,7 @@ QUnit.test( "subform create and form create test", function( assert ) {
 
 QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
 
+    options = $.extend( true, {}, defaultTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -243,6 +246,7 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
 
 QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
 
+    options = $.extend( true, {}, defaultTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -584,6 +588,89 @@ QUnit.test( "add records to subform test", function( assert ) {
             // Check storage
             record.members = record.members.concat( newMembers );
             assert.deepEqual( testServerSide.getService( key ), record );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform create with fields with default values test", function( assert ) {
+    
+    options = $.extend( true, {}, defaultTestOptions );
+    options.fields[ 'members' ].fields.description.defaultValue = "Default description";
+    /*
+    options.fields[ 'members' ].defaultValue = {
+        "description": "Default description"
+    };*/
+    
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            // 
+            var key = 3;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "code": "1",
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"
+                    },
+                    {
+                        "code": "2",
+                        "name": "Lisa Simpson",
+                        "description": "Description of Lisa Simpson"
+                    }
+                ]
+            };
+            testServerSide.setService( key, record );
+
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+
+            // Add subform record 3
+            var subformRecord3 = {
+                "code": "3",
+                "name": "Homer Simpson",
+                //"description": "Description of Homer Simpson"
+            };
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord3, 'members' );
+
+            // Add subform record 4
+            var subformRecord4 = {
+                "code": "4",
+                "name": "Marge Simpson",
+                "description": "Description of Marge Simpson"
+            };
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord4, 'members' );
+            
+            // Build edited record and check form
+            var editedRecord = $.extend( true, {}, record );
+            var realSubformRecord3 = $.extend( true, {}, subformRecord3 );
+            realSubformRecord3.description = options.fields[ 'members' ].fields.description.defaultValue;
+            editedRecord.members.push( realSubformRecord3 );
+            editedRecord.members.push( subformRecord4);
+            
+            testHelper.checkForm( assert, editedRecord );
+
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord );
             
             done();
         }
