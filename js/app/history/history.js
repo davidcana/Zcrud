@@ -142,7 +142,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         return historyItem;
     };
     
-    var putDelete = function( id, recordId, rowIndex, key, $tr, field ) {
+    var putDelete = function( id, recordId, rowIndex, key, $tr, field, subformRowIndex ) {
 
         var historyItem = new HistoryDelete( 
             self, 
@@ -150,7 +150,9 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             rowIndex, 
             key, 
             $tr,
-            field? field.name: undefined );
+            field? field.name: undefined, 
+            subformRowIndex
+        );
 
         put( id, historyItem );
         

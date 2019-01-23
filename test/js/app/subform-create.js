@@ -870,3 +870,131 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) and default v
         }
     );
 });
+
+QUnit.test( "subform create with default value (2 rows, 0 changed, 1 deleted) test", function( assert ) {
+
+    options = $.extend( true, {}, defaultTestOptions );
+    options.fields[ 'members' ].defaultValue = [
+        {
+            "code": "1",
+            "name": "Default Bart Simpson",
+            "description": "Default description of Bart Simpson"
+        },
+        {
+            "code": "2",
+            "name": "Default Lisa Simpson",
+            "description": "Default description of Lisa Simpson"
+        }
+    ];
+
+    testServerSide.resetServices();
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+            
+            // Delete subform row
+            testHelper.clickDeleteSubformRowButton( 'members', 0 );
+            
+            // Check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.province = options.fields[ 'province' ].defaultValue;
+            editedRecord.members = options.fields[ 'members' ].defaultValue;
+            editedRecord.members = [ editedRecord.members[ 1 ] ];
+            testHelper.checkForm( assert, editedRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "subform create with default value (2 rows, 1 changed, 1 deleted) test", function( assert ) {
+
+    options = $.extend( true, {}, defaultTestOptions );
+    options.fields[ 'members' ].defaultValue = [
+        {
+            "code": "1",
+            "name": "Default Bart Simpson",
+            "description": "Default description of Bart Simpson"
+        },
+        {
+            "code": "2",
+            "name": "Default Lisa Simpson",
+            "description": "Default description of Lisa Simpson"
+        }
+    ];
+
+    testServerSide.resetServices();
+    var done = assert.async();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            var key = 0;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key,
+                "members": [
+                    {
+                        "name": "Bart Simpson",
+                        "description": "Description of Bart Simpson"  
+                    }
+                ]
+            };
+
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record );
+
+            // Delete subform row
+            testHelper.clickDeleteSubformRowButton( 'members', 1 );
+            
+            // Check form
+            var editedRecord = $.extend( true, {}, record );
+            editedRecord.province = options.fields[ 'province' ].defaultValue;
+            editedRecord.members = [ editedRecord.members[ 0 ] ];
+            editedRecord.members[ 0 ].code = '1';
+            testHelper.checkForm( assert, editedRecord );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, editedRecord );
+            
+            done();
+        }
+    );
+});

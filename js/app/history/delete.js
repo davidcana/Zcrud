@@ -7,7 +7,7 @@ var $ = require( 'jquery' );
 var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
-var Delete = function( historyToApply, recordIdToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply ) {
+var Delete = function( historyToApply, recordIdToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply, subformRowIndexToApply ) {
     
     AbstractHistoryAction.call( this, historyToApply, recordIdToApply );
     
@@ -15,6 +15,7 @@ var Delete = function( historyToApply, recordIdToApply, rowIndexToApply, keyToAp
     this.key = keyToApply;
     this.$tr = $trToApply;
     this.subformName = subformNameToApply;
+    this.subformRowIndex = subformRowIndexToApply || 0;
     
     if ( this.$tr ){
         this.history.hideTr( this.$tr );
@@ -61,6 +62,16 @@ Delete.prototype.getDeletedMap = function( actionsObject, records ){
 
 Delete.prototype.doAction = function( actionsObject, records ){
 
+    // The deleted row is new
+    if ( this.key == undefined ){
+        if ( this.subformName ){
+            delete actionsObject.new[ 0 ][ this.subformName ].new[ this.subformRowIndex ];
+            return;
+        }
+        throw 'No subform name found trying to delete subform row!';
+    }
+    
+    // The deleted row is NOT new
     var deletedMap = 
         this.subformName? 
         this.getDeletedMap( actionsObject, records ):

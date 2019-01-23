@@ -287,7 +287,9 @@ Subform.prototype.deleteRow = function( event ){
         0, 
         $tr.attr( 'data-record-key' ), 
         $tr,
-        this );
+        this,
+        $tr.attr( 'data-record-index' )
+    );
 };
 
 Subform.prototype.getTemplate = function(){
