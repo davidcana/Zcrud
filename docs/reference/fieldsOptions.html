@@ -127,8 +127,72 @@
                 { value: 4, displayText: 'Spain' }, 
                 { value: 5, displayText: 'UK' }
             ],
-            defaultValue: '4'
+            defaultValue: 4
         }
+                    </pre>
+                    
+                    You can also set the default value of the field in a subform. When a new row is added the fields with default values will show them:
+                    
+                    <pre class="brush: javascript; highlight: [11]">
+    fields: {
+        ...
+        members: {
+            type: 'subform',
+            subformKey: 'code',
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    defaultValue: 'Default description',
+                    attributes: {
+                        field: {
+                            rows: 3
+                        }
+                    }
+                }
+            }
+        },
+        ...
+    }
+                    </pre>
+                    
+                    ZCrud also allows to set an array as the default value of a subform. ZCrud will add rows to the subform with the corresponding values of the items of the array:
+                    
+                    <pre class="brush: javascript; highlight: [6]">
+    fields: {
+        ...
+        members: {
+            type: 'subform',
+            subformKey: 'code',
+            defaultValue: [
+                {
+                    code: 1,
+                    name: 'Default name 1',
+                    description: 'Default description 1'
+                },
+                {
+                    code: 2,
+                    name: 'Default name 2',
+                    description: 'Default description 2'
+                }
+            ],
+            fields: { 
+                code: { },
+                name: { },
+                description: {
+                    type: 'textarea',
+                    defaultValue: 'Default description',
+                    attributes: {
+                        field: {
+                            rows: 3
+                        }
+                    }
+                }
+            }
+        },
+        ...
+    }
                     </pre>
                 </div>
             </li>
@@ -153,7 +217,7 @@
                 { value: 4, displayText: 'Spain' }, 
                 { value: 5, displayText: 'UK' }
             ],
-            defaultValue: '4'
+            defaultValue: 4
         },
         city: {
             type: 'select',

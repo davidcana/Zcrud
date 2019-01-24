@@ -88,9 +88,9 @@ var options = {
             type: 'radio',
             translateOptions: true,
             options: [
-                { value: '1', displayText: 'homePhone_option' }, 
-                { value: '2', displayText: 'officePhone_option' }, 
-                { value: '3', displayText: 'cellPhone_option' } 
+                { value: 1, displayText: 'homePhone_option' }, 
+                { value: 2, displayText: 'officePhone_option' }, 
+                { value: 3, displayText: 'cellPhone_option' } 
             ]
         },
         country: {
@@ -103,7 +103,7 @@ var options = {
                 { value: 4, displayText: 'Spain' }, 
                 { value: 5, displayText: 'UK' }
             ],
-            defaultValue: '4'
+            defaultValue: 4
         },
         city: {
             type: 'select',
