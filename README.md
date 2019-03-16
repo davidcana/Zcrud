@@ -36,7 +36,7 @@ npm install zcrud
 
 ## Usage
 
-The most important thing about **ZCRUD** is that we define a javascript object to configure the CRUD:
+The most important thing about **ZCrud** is that we define a javascript object to configure the CRUD:
 
 ```javascript
 // Build this object to configure ZCrud instance
