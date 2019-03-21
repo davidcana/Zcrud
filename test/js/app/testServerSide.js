@@ -708,6 +708,7 @@ module.exports = (function() {
     
     var processMembersSubformsInGet = function( data, record, dataToSend ){
         
+        var fieldsData = data.searchFieldsData || {};
         var subformsFields = [ 'originalMembers', 'verifiedMembers' ];
         var filters = {
             originalMembers: function( input ){
@@ -724,8 +725,8 @@ module.exports = (function() {
             var allSubformValues = members[ subformFieldId ]? 
                 cloneArray( members[ subformFieldId ] ): 
                 {};
-            var thisFieldData = data[ subformFieldId ]? 
-                cloneArray( data[ subformFieldId ] ): 
+            var thisFieldData = fieldsData[ subformFieldId ]? 
+                cloneArray( fieldsData[ subformFieldId ] ): 
                 {};
             
             // Filter them
@@ -876,6 +877,8 @@ module.exports = (function() {
     
     var processSubformsInGet = function( data, subformsFields, record, dataToSend ){
         
+        var fieldsData = data.searchFieldsData || {};
+        
         for ( var c = 0; c < subformsFields.length; ++c ){
             var subformFieldId = subformsFields[ c ];
             
@@ -885,7 +888,7 @@ module.exports = (function() {
             }
             
             var allSubformValues = record[ subformFieldId ] || {};
-            var thisFieldData = data[ subformFieldId ] || {};
+            var thisFieldData = fieldsData[ subformFieldId ] || {};
             
             // Filter them
             

@@ -225,6 +225,7 @@ var zcrudServerSide = (function() {
     var processMembersSubformsInGet = function( data, record, dataToSend ){
         
         var subformFieldId;
+        var fieldsData = data.searchFieldsData || {};
         
         var originalMembersFilterFunction = function( person ){
             if ( ! data.filter || ! data.filter.year ){
@@ -248,11 +249,14 @@ var zcrudServerSide = (function() {
         pageSubformRecords( 
             record, 
             subformFieldId, 
-            data[ subformFieldId ]? 
-                cloneArray( data[ subformFieldId ] ): 
+            fieldsData[ subformFieldId ]? 
+                cloneArray( 
+                    fieldsData[ subformFieldId ] 
+                ): 
                 {}, 
             record[ subformFieldId ], 
-            dataToSend );
+            dataToSend
+        );
         
         // Process verifiedMembers
         subformFieldId = 'verifiedMembers';
@@ -260,11 +264,14 @@ var zcrudServerSide = (function() {
         pageSubformRecords( 
             record, 
             subformFieldId, 
-            data[ subformFieldId ]? 
-                cloneArray( data[ subformFieldId ] ): 
+            fieldsData[ subformFieldId ]? 
+                cloneArray( 
+                    fieldsData[ subformFieldId ] 
+                ): 
                 {}, 
             record[ subformFieldId ], 
-            dataToSend );
+            dataToSend 
+        );
     };
     
     var cloneArray = function( arrayToClone ){

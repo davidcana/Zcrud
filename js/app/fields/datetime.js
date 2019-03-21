@@ -145,24 +145,10 @@ Datetime.prototype.getValue = function( $this ){
 Datetime.prototype.afterProcessTemplateForField = function( params, $selection ){
     
     if ( this.isReadOnly() ){
-    //if ( this.page.isReadOnly() ){
         return;
     }
     
     this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
-    /*
-    switch( params.source ) {
-        case 'create':
-        case 'update':
-        case 'list':
-            this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
-            break;
-        case 'delete':
-            // Nothing to do
-            break; 
-        default:
-            throw "Unknown source in Datetime: " + params.source;
-    }*/
 };
 
 Datetime.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( params, $selection ){

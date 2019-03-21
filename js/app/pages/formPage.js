@@ -868,9 +868,18 @@ FormPage.prototype.addToDataToSend = function( dataToSend ){
         var fieldDataToSend = field.buildDataToSend();
 
         if ( fieldDataToSend && ! $.isEmptyObject( fieldDataToSend ) ){
-            dataToSend[ field.id ] = fieldDataToSend;
+            this.addFieldToDataToSend( dataToSend, fieldDataToSend, field );
         }
     }
+};
+
+FormPage.prototype.addFieldToDataToSend = function( dataToSend, fieldDataToSend, field ){
+    
+    if ( ! dataToSend.searchFieldsData ){
+        dataToSend.searchFieldsData = {};
+    }
+    
+    dataToSend.searchFieldsData[ field.id ] = fieldDataToSend;
 };
 
 FormPage.prototype.getToolbarButtons = function(){
