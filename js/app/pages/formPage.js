@@ -200,20 +200,17 @@ FormPage.prototype.buildDataUsingRecord = function( recordToUse ) {
     
 FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension, root, callback, dataFromServer ) {
 
-    // Update record
-    if ( ! recordToUse ){
-        throw "No record to show in form!";
-    }
-    this.record = recordToUse;
+    this.beforeProcessTemplate( recordToUse, dictionaryExtension, dataFromServer );
+    this.buildHTMLAndJavascript( root );
+    this.afterProcessTemplate( this.get$form() );
 
-    // Process dataFromServer
-    if ( ! dataFromServer ){
-        dataFromServer = this.buildDataUsingRecord( this.record );
+    if ( callback ){
+        callback( true );
     }
-    this.processDataFromServer( dataFromServer );
+}
 
-    // Render template
-    this.beforeProcessTemplate( dictionaryExtension );
+FormPage.prototype.buildHTMLAndJavascript = function( root ) {
+    
     if ( ! root ){
         pageUtils.configureTemplate( 
             this.options, 
@@ -226,14 +223,8 @@ FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension,
         declaredRemotePageUrls: this.options.templates.declaredRemotePageUrls,
         notRemoveGeneratedTags: false
     });
-    this.afterProcessTemplate( this.get$form() );
+};
 
-    // Process callback
-    if ( callback ){
-        callback( true );
-    }
-}
-    
 FormPage.prototype.show = function( params ){
 
     // Init params
@@ -364,7 +355,20 @@ FormPage.prototype.buildProcessTemplateParams = function( field ){
     };
 };
     
-FormPage.prototype.beforeProcessTemplate = function( dictionaryExtension ){        
+FormPage.prototype.beforeProcessTemplate = function( recordToUse, dictionaryExtension, dataFromServer ){
+    
+    // Update record
+    if ( ! recordToUse ){
+        throw "No record to show in form!";
+    }
+    this.record = recordToUse;
+
+    // Process dataFromServer
+    if ( ! dataFromServer ){
+        dataFromServer = this.buildDataUsingRecord( this.record );
+    }
+    this.processDataFromServer( dataFromServer );
+    
     this.updateDictionary( dictionaryExtension );
 };
     

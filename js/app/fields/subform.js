@@ -522,23 +522,31 @@ Subform.prototype.beforeProcessTemplate = function( data ){
 Subform.prototype.clientAndServerSuccessFunction = function( data, root, dictionaryExtension, callback ){
 
     this.beforeProcessTemplate( data );
-    
-    context.getZPTParser().run({
-        root: root || [ 
-                this.get$().find( 'tbody' )[0], 
-                this.getPagingComponent()? this.getPagingComponent().get$()[0]: undefined
-        ],
-        dictionary: this.buildDictionaryForUpdate( dictionaryExtension ),
-        notRemoveGeneratedTags: false
-    });
-    
-    this.afterProcessTemplateForField(
-        this.page.buildProcessTemplateParams( this )
-    );
+    this.buildHTMLAndJavascript( root, dictionaryExtension );
+    this.afterProcessTemplate();
     
     if ( callback ){
         callback( true );
     }
+};
+
+Subform.prototype.buildHTMLAndJavascript = function( root, dictionaryExtension ){
+    
+    context.getZPTParser().run({
+        root: root || [ 
+            this.get$().find( 'tbody' )[0], 
+            this.getPagingComponent()? this.getPagingComponent().get$()[0]: undefined
+        ],
+        dictionary: this.buildDictionaryForUpdate( dictionaryExtension ),
+        notRemoveGeneratedTags: false
+    });
+};
+
+Subform.prototype.afterProcessTemplate = function(){
+    
+    this.afterProcessTemplateForField(
+        this.page.buildProcessTemplateParams( this )
+    );
 };
 
 Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
