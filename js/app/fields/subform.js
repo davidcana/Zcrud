@@ -58,9 +58,8 @@ Subform.prototype.filterValue = function( record ){
     return newRecords;
 };
 
-Subform.prototype.getValueFromRecord = function( record, params ){
+Subform.prototype.getValueFromRecord = function( record ){
     
-    var dictionary = this.page.getDictionary();
     var subformRecords = record[ this.id ] || [];
     var subformFields = this.fields;
 
@@ -68,9 +67,7 @@ Subform.prototype.getValueFromRecord = function( record, params ){
         var subformRecord = subformRecords[ i ];
         for ( var c in subformFields ){
             var subformField = subformFields[ c ];
-            subformRecord[ subformField.id ] = subformField.getValueFromRecord(  
-                subformRecord, 
-                this.buildProcessTemplateParams( subformField, subformRecord, dictionary, params ) );
+            subformRecord[ subformField.id ] = subformField.getValueFromRecord( subformRecord );
         }
     }
 

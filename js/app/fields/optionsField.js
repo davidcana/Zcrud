@@ -167,32 +167,6 @@ OptionsField.prototype.getValue = function( $this ){
     throw "Unknown field type in optionsField: " + this.type;
 };
 
-/*
-OptionsField.prototype.getValueFromRecord = function( record, params ){
-
-    switch( params.source ) {
-        case 'create':
-        case 'update':
-            return record[ this.id ];
-        case 'delete':
-        case 'list':
-            var optionsList = this.getOptionsFromRecord( record, this.page.getOptions() );
-            var tempValue = record[ this.id ];
-            try {
-                var map = this.getDisplayTextMapFromArrayOptions( optionsList );
-                if ( this.type == 'checkboxes' ){
-                    return this.getMultipleValueFromRecord( map, tempValue );
-                }
-                var inMapValue = map[ tempValue ];
-                return inMapValue? inMapValue: tempValue;
-            } catch ( e ){
-                return tempValue;
-            }
-        default:
-            throw "Unknown source in OptionsField: " + params.source;
-    }
-};
-*/
 OptionsField.prototype.getViewValueFromRecord = function( record ){
 
         var optionsList = this.getOptionsFromRecord( record, this.page.getOptions() );

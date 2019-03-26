@@ -304,9 +304,7 @@ FormPage.prototype.buildRecordForDictionary = function(){
 
     for ( var c = 0; c < this.fields.length; c++ ) {
         var field = this.fields[ c ];
-        newRecord[ field.id ] = field.getValueFromRecord( 
-            this.record, 
-            this.buildProcessTemplateParams( field ) );
+        newRecord[ field.id ] = field.getValueFromRecord( this.record );
     }
 
     // Add key if there is no field key

@@ -175,6 +175,14 @@ Page.prototype.showStatusMessage = function( dictionaryExtension ){
     );
 };
 
+Page.prototype.filterRecordFromServerData = function( serverDataRecord ){
+    
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        serverDataRecord[ field.id ] = field.getValueFromRecord( serverDataRecord );
+    }
+};
+
 Page.doSuperClassOf = function( ChildClass ){
 
     ChildClass.prototype = new Page();

@@ -226,34 +226,6 @@ Datetime.prototype.getValueFromRecord = function( record ){
 
     throw 'Unknown type in Datetime: ' + this.type;
 };
-/*
-Datetime.prototype.getValueFromRecord = function( record, params ){
-    
-    var value = record[ this.id ];
-    if ( ! value || value.length == 0 ){
-        return value;
-    }
-
-    switch( this.type ) {
-        case 'date':
-        case 'datetime':
-            var dateInstance = new Date( value );
-            switch( params.source ) {
-                case 'create':
-                case 'update':
-                case 'list':
-                    return dateInstance;
-                case 'delete':
-                    return this.formatToClient( dateInstance );
-                default:
-                    throw "Unknown source in Datetime: " + params.source;
-            }
-        case 'time':
-            return value;
-    }
-
-    throw 'Unknown type in Datetime: ' + this.type;
-};*/
 
 Datetime.prototype.getViewValueFromRecord = function( record ){
 
