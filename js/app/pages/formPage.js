@@ -297,7 +297,25 @@ FormPage.prototype.showUsingServer = function( key, getRecordURL, dictionaryExte
         this.options 
     );
 };
-    
+
+FormPage.prototype.buildRecordForDictionary = function(){
+
+    var newRecord = {};
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        newRecord[ field.id ] = this.record[ field.id ];
+    }
+
+    // Add key if there is no field key
+    var key = this.getKey();
+    if ( newRecord[ key ] == undefined ){
+        newRecord[ key ] = this.record[ key ];
+    }
+
+    return newRecord;
+};
+/*
 FormPage.prototype.buildRecordForDictionary = function(){
 
     var newRecord = {};
@@ -315,7 +333,7 @@ FormPage.prototype.buildRecordForDictionary = function(){
 
     return newRecord;
 };
-    
+*/
 FormPage.prototype.updateDictionary = function( dictionaryExtension ){
 
     var thisDictionary = $.extend( 
@@ -362,7 +380,9 @@ FormPage.prototype.beforeProcessTemplate = function( recordToUse, dictionaryExte
     this.record = recordToUse;
 
     // Process dataFromServer
-    if ( ! dataFromServer ){
+    if ( dataFromServer ){
+        this.filterRecordFromServerData( dataFromServer.record, this.fields );
+    } else {
         dataFromServer = this.buildDataUsingRecord( this.record );
     }
     this.processDataFromServer( dataFromServer );

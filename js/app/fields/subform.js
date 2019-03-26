@@ -513,7 +513,8 @@ Subform.prototype.buildDataToSend = function(){
 Subform.prototype.beforeProcessTemplate = function( data ){
     
     this.componentsMap.dataFromServer( data );
-    this.updateRecords( data.records );    
+    this.page.filterArrayOfRecordsFromServerData( data.records, this.fieldsArray );
+    this.updateRecords( data.records );
 };
 
 Subform.prototype.clientAndServerSuccessFunction = function( data, root, dictionaryExtension, callback ){

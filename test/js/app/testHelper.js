@@ -393,8 +393,36 @@ module.exports = (function() {
         if ( testOptions.ids ){
             assert.equal( getColumnValues( 'id', testOptions.editable ), testOptions.ids );
         }
-        assert.equal( getColumnValues( 'name', testOptions.editable ), testOptions.names );
+        if ( testOptions.names ){
+            assert.equal( getColumnValues( 'name', testOptions.editable ), testOptions.names );
+        }
+        if ( testOptions.records ){
+            assert.deepEqual( getRecordsValues( testOptions.editable ), testOptions.records );
+        }
         checkPageListInfo( assert, options, testOptions.pageListNotActive, testOptions.pageListActive );
+    };
+    
+    var getRecordsValues = function( isFormField ){
+        
+        var records = [];
+        
+        $( '.zcrud-data-row:not(:hidden)' ).map( 
+            function( index, element ) {
+                
+                var record = $.map(
+                    this.cells,
+                    function( element, index ) {
+                        return element.classList.contains( 'zcrud-column-data' )? element.innerText.trim(): null;
+                    }
+                );
+                
+                records.push( 
+                    record.join( '|' )
+                );
+            } 
+        );
+        
+        return records;
     };
     
     var multiplePagingTest = function( testOptions ){

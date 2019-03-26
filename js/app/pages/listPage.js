@@ -202,6 +202,7 @@ ListPage.prototype.showUsingServer = function( dictionaryExtension, root, callba
 ListPage.prototype.beforeProcessTemplate = function( data, dictionaryExtension ){
 
     this.componentsMap.dataFromServer( data );
+    this.filterArrayOfRecordsFromServerData( data.records, this.fields );
     this.updateRecords( data.records );
     this.updateDictionary( data.records, dictionaryExtension );
 };

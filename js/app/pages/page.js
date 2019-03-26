@@ -175,11 +175,21 @@ Page.prototype.showStatusMessage = function( dictionaryExtension ){
     );
 };
 
-Page.prototype.filterRecordFromServerData = function( serverDataRecord ){
+Page.prototype.filterRecordFromServerData = function( serverDataRecord, thisFields ){
     
-    for ( var c = 0; c < this.fields.length; c++ ) {
-        var field = this.fields[ c ];
-        serverDataRecord[ field.id ] = field.getValueFromRecord( serverDataRecord );
+    for ( var c = 0; c < thisFields.length; c++ ) {
+        var field = thisFields[ c ];
+        if ( serverDataRecord.hasOwnProperty( field.id ) ){
+            serverDataRecord[ field.id ] = field.getValueFromRecord( serverDataRecord );
+        }
+    }
+};
+
+Page.prototype.filterArrayOfRecordsFromServerData = function( serverDataArrayOfRecords, thisFields ){
+
+    for ( var c = 0; c < serverDataArrayOfRecords.length; c++ ) {
+        var record = serverDataArrayOfRecords[ c ];
+        this.filterRecordFromServerData( record, thisFields );
     }
 };
 

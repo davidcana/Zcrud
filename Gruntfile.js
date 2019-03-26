@@ -392,6 +392,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/radioOptions.js',
                 dest: 'build/radioOptions.js'
+            },
+            viewAllFieldTypes: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/viewAllFieldTypes.js',
+                dest: 'build/viewAllFieldTypes.js'
             }
         },
         compress: {
