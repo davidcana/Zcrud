@@ -16,7 +16,7 @@ module.exports = (function() {
             "time": "04:40",
             "phoneType": 1,
             "browser": "Internet Explorer",
-            "important": "false",
+            "important": false,
             "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
         },
         {
@@ -28,7 +28,7 @@ module.exports = (function() {
             "time": "09:14",
             "phoneType": 3,
             "browser": "Internet Explorer",
-            "important": "true",
+            "important": true,
             "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
         },
         {
@@ -40,7 +40,7 @@ module.exports = (function() {
             "time": "13:57",
             "phoneType": 2,
             "browser": "Chrome",
-            "important": "true",
+            "important": true,
             "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
         },
         {
@@ -52,7 +52,7 @@ module.exports = (function() {
             "time": "10:15",
             "phoneType": 3,
             "browser": "Opera",
-            "important": "true",
+            "important": true,
             "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
         },
         {
@@ -64,7 +64,7 @@ module.exports = (function() {
             "time": "04:11",
             "phoneType": 1,
             "browser": "Safari",
-            "important": "false",
+            "important": false,
             "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
         },
         {
@@ -76,7 +76,7 @@ module.exports = (function() {
             "time": "23:25",
             "phoneType": 2,
             "browser": "Chrome",
-            "important": "false",
+            "important": false,
             "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
         },
         {
@@ -88,7 +88,7 @@ module.exports = (function() {
             "time": "12:57",
             "phoneType": 2,
             "browser": "Chrome",
-            "important": "false",
+            "important": false,
             "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
         },
         {
@@ -100,7 +100,7 @@ module.exports = (function() {
             "time": "08:39",
             "phoneType": 3,
             "browser": "Opera",
-            "important": "false",
+            "important": false,
             "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
         },
         {
@@ -112,7 +112,7 @@ module.exports = (function() {
             "time": "06:30",
             "phoneType": 1,
             "browser": "Firefox",
-            "important": "false",
+            "important": false,
             "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
         },
         {
@@ -124,7 +124,7 @@ module.exports = (function() {
             "time": "23:39",
             "phoneType": 2,
             "browser": "Safari",
-            "important": "true",
+            "important": true,
             "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
         },
         {
@@ -136,7 +136,7 @@ module.exports = (function() {
             "time": "09:19",
             "phoneType": 2,
             "browser": "Opera",
-            "important": "true",
+            "important": "true", // Boolean as text
             "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
         },
         {
@@ -148,7 +148,7 @@ module.exports = (function() {
             "time": "09:28",
             "phoneType": 2,
             "browser": "Opera",
-            "important": "true",
+            "important": "true", // Boolean as text
             "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
         }
     ];
@@ -1492,6 +1492,10 @@ module.exports = (function() {
         return dataToSend;
     };
     
+    var getPerson = function( key ){
+        return clone( people[ key ] );
+    };
+    
     return {
         ajax: ajax,
         getService: getService,
@@ -1508,6 +1512,7 @@ module.exports = (function() {
         getLastBatchUpdateUrl: getLastBatchUpdateUrl,
         getJSONUpdate: getJSONUpdate,
         reset: reset,
-        resetPeople: resetPeople
+        resetPeople: resetPeople,
+        getPerson: getPerson
     };
 })();

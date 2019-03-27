@@ -6,6 +6,7 @@ require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
+var context = require( '../../../js/app/context.js' );
 
 var formOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
@@ -23,10 +24,8 @@ editableListTestOptions.errorFunction = function( message ){
     ++errorFunctionCounter;
 };
 
-// Run tests
-QUnit.test( "list test", function( assert ) {
-
-    var done = assert.async();
+var configureFormOptions = function(){
+    
     options = $.extend( true, {}, formOptions );
     options.pageConf.defaultPageConf.getRecordURL = 'http://localhost/CRUDManager.do?cmd=GET&table=people';
     options.pageConf.pages.list.getGroupOfRecordsURL = 'http://localhost/CRUDManager.do?cmd=LIST&table=people';
@@ -40,7 +39,14 @@ QUnit.test( "list test", function( assert ) {
     delete options.fields.province;
     delete options.fields.city;
     delete options.fields.number;
-    
+};
+
+// Run tests
+
+QUnit.test( "list test", function( assert ) {
+
+    var done = assert.async();
+    configureFormOptions();
     testServerSide.resetPeople();
     
     $( '#departmentsContainer' ).zcrud( 
@@ -120,3 +126,85 @@ QUnit.test( "list test", function( assert ) {
     );
 });
 
+var buildRecord1 = function(){
+    
+    return {
+        "id": "1",
+        "name": "Ulysses Aguilar",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
+        "date": new Date( "2017-06-06" ).getTime(),
+        "datetime": new Date( "2014-11-23T22:10:04" ).getTime(),
+        "time": "04:40",
+        "phoneType": 1,
+        "browser": "Internet Explorer",
+        "important": false,
+        "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+    };
+};
+
+QUnit.test( "update test", function( assert ) {
+
+    var done = assert.async();
+    configureFormOptions();
+    testServerSide.resetPeople();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 1 exists
+            var key = 1;
+            var record = buildRecord1();
+            assert.deepEqual( testServerSide.getPerson( key ), record );
+            
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            
+            // Check it
+            var clientRecord = $.extend( true, {}, record );
+            clientRecord.date = '06/06/2017';
+            clientRecord.datetime = '11/23/2014 22:10';
+            clientRecord.phoneType = "" + record.phoneType;
+            testHelper.checkForm( assert, clientRecord );
+            
+            done();
+        }
+    );
+});
+
+QUnit.test( "delete test", function( assert ) {
+
+    var done = assert.async();
+    configureFormOptions();
+    testServerSide.resetPeople();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 1 exists
+            var key = 1;
+            var record = buildRecord1();
+            assert.deepEqual( testServerSide.getPerson( key ), record );
+
+            // Go to edit form
+            testHelper.clickDeleteListButton( key );
+
+            // Check it
+            var clientRecord = $.extend( true, {}, record );
+            clientRecord.date = '06/06/2017';
+            clientRecord.datetime = '11/23/2014 22:10';
+            clientRecord.phoneType = 'Home phone';
+            clientRecord.important = 'False';
+            clientRecord.hobbies = 'Reading, Sports, Cards';
+            
+            testHelper.checkDeleteForm( assert, clientRecord );
+
+            done();
+        }
+    );
+});
