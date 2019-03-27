@@ -28,7 +28,7 @@ module.exports = (function() {
             "time": "09:14",
             "phoneType": 3,
             "browser": "Internet Explorer",
-            "important": "false",
+            "important": "true",
             "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
         },
         {
@@ -40,7 +40,7 @@ module.exports = (function() {
             "time": "13:57",
             "phoneType": 2,
             "browser": "Chrome",
-            "important": "false",
+            "important": "true",
             "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
         },
         {
@@ -52,7 +52,7 @@ module.exports = (function() {
             "time": "10:15",
             "phoneType": 3,
             "browser": "Opera",
-            "important": "false",
+            "important": "true",
             "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
         },
         {

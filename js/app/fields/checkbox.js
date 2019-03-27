@@ -27,16 +27,14 @@ Checkbox.prototype.setValueToForm = function( value, $this ){
 };
 
 Checkbox.prototype.getValueFromRecord = function( record ){
-    
+
     var value = record[ this.id ];
-    return value == undefined? false: value;
+    return value === false || value === true? value: value == 'true';
 };
 
 Checkbox.prototype.getViewValueFromRecord = function( record ){
-    
-    var value = record[ this.id ];
-    value = value == undefined? false: value;
 
+    var value = this.getValueFromRecord( record );
     return value? context.translate( 'true' ): context.translate( 'false' )
 };
 
