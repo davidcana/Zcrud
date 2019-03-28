@@ -397,12 +397,37 @@ module.exports = (function() {
             assert.equal( getColumnValues( 'name', testOptions.editable ), testOptions.names );
         }
         if ( testOptions.records ){
-            assert.deepEqual( getRecordsValues( testOptions.editable ), testOptions.records );
+            assert.deepEqual( 
+                testOptions.editable? getEditableRecordsValues(): getRecordsValues(), 
+                testOptions.records 
+            );
         }
         checkPageListInfo( assert, options, testOptions.pageListNotActive, testOptions.pageListActive );
     };
     
-    var getRecordsValues = function( isFormField ){
+    var getEditableRecordsValues = function(){
+        
+        var listVal = getListVal();
+        
+        var records = [];
+        
+        for ( var i in listVal ){
+            var record = listVal[ i ];
+            var recordText = $.map(
+                record,
+                function ( value ) {
+                    return $.isArray( value )?
+                        '[' + value.join( '/' ) + ']':
+                        value;
+                }
+            ).join( '|' );
+            records.push( recordText );
+        }
+        
+        return records;
+    };
+    
+    var getRecordsValues = function(){
         
         var records = [];
         
@@ -411,7 +436,7 @@ module.exports = (function() {
                 
                 var record = $.map(
                     this.cells,
-                    function( element, index ) {
+                    function( element ) {
                         return element.classList.contains( 'zcrud-column-data' )? element.innerText.trim(): null;
                     }
                 );
@@ -939,7 +964,7 @@ module.exports = (function() {
         checkViewField( assert, 'important', record, $form );
         checkViewField( assert, 'number', record, $form );
         checkViewField( assert, 'hobbies', record, $form );
-        //assert.deepEqual( getSubformVal( 'members' ), record.members );
+        assert.deepEqual( getReadOnlySubformVal( 'members' ), record.members );
     };
     
     var setFormCheckboxesVal = function( record, name, $row, subformName ){
@@ -1122,6 +1147,8 @@ module.exports = (function() {
             return undefined;
         }
         
+        return getAbstractListVal( $field, name );
+        /*
         var result = [];
         $field
             .find( ".zcrud-data-row:not(.zcrud-hidden)" )
@@ -1146,7 +1173,91 @@ module.exports = (function() {
                 putSubformVal( row, 'hobbies', getFormCheckboxesVal( 'hobbies', $this, name ) );
         });
         
+        return result;*/
+    };
+    
+    var getListVal = function(){
+        return getAbstractListVal( get$List() );
+    };
+    
+    var getAbstractListVal = function( $field, name ){
+
+        var result = [];
+        $field
+            .find( ".zcrud-data-row:not(.zcrud-hidden)" )
+            .each( 
+            function() {
+                var $this = $( this );
+                var row = {};
+                result.push( row );
+                
+                putSubformVal( row, 'id', getFormVal( 'id', $this, name ) );
+                putSubformVal( row, 'code', getFormVal( 'code', $this, name ) );
+                putSubformVal( row, 'name', getFormVal( 'name', $this, name ) );
+                putSubformVal( row, 'description', getFormVal( 'description', $this, name ) );
+                putSubformVal( row, 'date', getFormVal( 'date', $this, name ) );
+                putSubformVal( row, 'time', getFormVal( 'time', $this, name ) );
+                putSubformVal( row, 'datetime', getFormVal( 'datetime', $this, name ) );
+                putSubformVal( row, 'phoneType', getFormRadioVal( 'phoneType', $this, name ) );
+                putSubformVal( row, 'province', getFormVal( 'province', $this, name ) );
+                putSubformVal( row, 'city', getFormVal( 'city', $this, name ) );
+                putSubformVal( row, 'browser', getFormVal( 'browser', $this, name ) );
+                putSubformVal( row, 'important', getFormCheckboxVal( 'important', $this, name ) );
+                putSubformVal( row, 'number', getFormVal( 'number', $this, name ) );
+                putSubformVal( row, 'hobbies', getFormCheckboxesVal( 'hobbies', $this, name ) );
+            }
+        );
+
         return result;
+    };
+    
+    var getReadOnlyVal = function( name, $row ){
+
+        var $element = $row || get$Form();
+        return $element.find( ".zcrud-column-data-" + name ).text().trim();
+    };
+    
+    var getReadOnlySubformVal = function( name, $row ){
+
+        var $element = $row || get$Form();
+        var $field = $element.find( ".zcrud-field-" + name );
+
+        if ( $field.length === 0 ){
+            return undefined;
+        }
+
+        var result = [];
+        $field
+            .find( ".zcrud-data-row:not(.zcrud-hidden)" )
+            .each( function() {
+
+            var $this = $( this );
+            var row = {};
+            result.push( row );
+            
+            putReadOnlySubformVal( row, 'code', getReadOnlyVal( 'code', $this, name ) );
+            putReadOnlySubformVal( row, 'name', getReadOnlyVal( 'name', $this, name ) );
+            putReadOnlySubformVal( row, 'description', getReadOnlyVal( 'description', $this, name ) );
+            putReadOnlySubformVal( row, 'date', getReadOnlyVal( 'date', $this, name ) );
+            putReadOnlySubformVal( row, 'time', getReadOnlyVal( 'time', $this, name ) );
+            putReadOnlySubformVal( row, 'datetime', getReadOnlyVal( 'datetime', $this, name ) );
+            putReadOnlySubformVal( row, 'phoneType', getReadOnlyVal( 'phoneType', $this, name ) );
+            putReadOnlySubformVal( row, 'province', getReadOnlyVal( 'province', $this, name ) );
+            putReadOnlySubformVal( row, 'city', getReadOnlyVal( 'city', $this, name ) );
+            putReadOnlySubformVal( row, 'browser', getReadOnlyVal( 'browser', $this, name ) );
+            putReadOnlySubformVal( row, 'important', getReadOnlyVal( 'important', $this, name ) );
+            putReadOnlySubformVal( row, 'number', getReadOnlyVal( 'number', $this, name ) );
+            putReadOnlySubformVal( row, 'hobbies', getReadOnlyVal( 'hobbies', $this, name ) );
+        });
+
+        return result;
+    };
+    
+    var putReadOnlySubformVal = function( row, id, value ){
+
+        if ( value != undefined && value != '' ){
+            row[ id ] = value;
+        }
     };
     
     var putSubformVal = function( row, id, value ){

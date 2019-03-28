@@ -29,7 +29,33 @@ module.exports = (function() {
             "phoneType": 3,
             "browser": "Internet Explorer",
             "important": true,
-            "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+            "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ],
+            "members": [
+                {
+                    "code": 1,
+                    "name": "Leah Nguyen",
+                    "description": "Lorem",
+                    "date": new Date( "2012-10-11" ).getTime(),
+                    "datetime": new Date( "2019-06-19T07:57:41" ).getTime(),
+                    "time": "13:57",
+                    "phoneType": 2,
+                    "browser": "Chrome",
+                    "important": true,
+                    "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]  
+                },
+                {
+                    "code": 2,
+                    "name": "Victor Knight",
+                    "description": "Lorem ipsum",
+                    "date": new Date( "2019-02-21" ).getTime(),
+                    "datetime": new Date( "2017-08-04T22:40:04" ).getTime(),
+                    "time": "10:15",
+                    "phoneType": 3,
+                    "browser": "Opera",
+                    "important": false,
+                    "hobbies": [ 'videogames_option', 'cards_option' ]  
+                }
+            ]
         },
         {
             "id": 3,
