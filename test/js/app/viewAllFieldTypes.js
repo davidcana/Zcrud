@@ -87,6 +87,7 @@ var configureSubformOptions = function(){
     ];
     options.fields.members = {
         type: 'subform',
+        getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=peopleMembers',
         subformKey: 'code',
         fields: { 
             code: { 
@@ -132,6 +133,19 @@ var configureSubformOptions = function(){
                 type: 'checkboxes',
                 translateOptions: true,
                 options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
+            }
+        },
+        components: {
+            paging: {
+                isOn: true,
+                defaultPageSize: 10,
+                pageSizes: [10, 25, 50, 100, 250, 500],
+                pageSizeChangeArea: true,
+                gotoPageFieldType: 'combobox', // possible values: 'textbox', 'combobox', 'none'
+                maxNumberOfAllShownPages: 5,
+                block1NumberOfPages: 1,
+                block2NumberOfPages: 5,
+                block3NumberOfPages: 1
             }
         }
     };
@@ -280,6 +294,92 @@ QUnit.test( "list test", function( assert ) {
     );
 });
 
+QUnit.test( "editable list test", function( assert ) {
+
+    var done = assert.async();
+    configureEditableListFormOptions();
+    testServerSide.resetPeople();
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+
+            errorFunctionCounter = 0;
+
+            assert.equal( errorFunctionCounter, 0 );
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            assert.equal( errorFunctionCounter, 0 );
+
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 12',
+                records: [
+                    "1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Internet Explorer|false|[reading_option/sports_option/cards_option]",
+                    "2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Internet Explorer|true|[videogames_option/sports_option/cards_option]",
+                    "3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|2|Chrome|true|[reading_option/videogames_option/sports_option]",
+                    "4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|3|Opera|true|[reading_option/videogames_option/cards_option]",
+                    "5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|1|Safari|false|[reading_option/videogames_option/sports_option]",
+                    "6|Wade Pierce|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.|10/21/2012|23:25|12/19/2013 12:01|2|Chrome|false|[reading_option/sports_option/cards_option]",
+                    "7|Seth Hatfield|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed|09/28/2017|12:57|01/15/2017 12:40|2|Chrome|false|[reading_option/videogames_option/cards_option]",
+                    "8|Henry Moses|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|10/01/2017|08:39|07/16/2018 14:35|3|Opera|false|[videogames_option/sports_option/cards_option]",
+                    "9|Ivy Duncan|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|06/15/2011|06:30|02/07/2019 13:51|1|Firefox|false|[reading_option/videogames_option/cards_option]",
+                    "10|Tatum Edwards|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|09/11/2015|23:39|09/11/2016 22:24|2|Safari|true|[videogames_option/sports_option/cards_option]"
+                ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '>', '>>' ],
+                editable: true
+            });
+
+            testHelper.pagingTest({
+                action: { 
+                    nextPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 2,
+                pagingInfo: 'Showing 11-12 of 12',
+                records: [
+                    "11|Hamish Jones|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer|09/29/2018|09:19|07/01/2016 00:15|2|Opera|true|[reading_option/sports_option/cards_option]",
+                    "12|Amos Norton|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|12/05/2013|09:28|05/06/2017 12:45|2|Opera|true|[reading_option/videogames_option/cards_option]"
+                ],
+                pageListNotActive: [ "2", ">", ">>" ],
+                pageListActive: [ "<<", "<", "1" ],
+                editable: true
+            });
+
+            testHelper.pagingTest({
+                action: { 
+                    previousPage: true
+                },
+                options: options,
+                assert: assert,
+                visibleRows: 10,
+                pagingInfo: 'Showing 1-10 of 12',
+                records: [
+                    "1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Internet Explorer|false|[reading_option/sports_option/cards_option]",
+                    "2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Internet Explorer|true|[videogames_option/sports_option/cards_option]",
+                    "3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|2|Chrome|true|[reading_option/videogames_option/sports_option]",
+                    "4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|3|Opera|true|[reading_option/videogames_option/cards_option]",
+                    "5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|1|Safari|false|[reading_option/videogames_option/sports_option]",
+                    "6|Wade Pierce|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.|10/21/2012|23:25|12/19/2013 12:01|2|Chrome|false|[reading_option/sports_option/cards_option]",
+                    "7|Seth Hatfield|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed|09/28/2017|12:57|01/15/2017 12:40|2|Chrome|false|[reading_option/videogames_option/cards_option]",
+                    "8|Henry Moses|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|10/01/2017|08:39|07/16/2018 14:35|3|Opera|false|[videogames_option/sports_option/cards_option]",
+                    "9|Ivy Duncan|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|06/15/2011|06:30|02/07/2019 13:51|1|Firefox|false|[reading_option/videogames_option/cards_option]",
+                    "10|Tatum Edwards|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|09/11/2015|23:39|09/11/2016 22:24|2|Safari|true|[videogames_option/sports_option/cards_option]"
+                ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '>', '>>' ],
+                editable: true
+            });
+
+            done();
+        }
+    );
+});
+
 QUnit.test( "form update test", function( assert ) {
 
     var done = assert.async();
@@ -358,29 +458,270 @@ QUnit.test( "subform update test", function( assert ) {
         options,
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'renderList' );
-
-            // Assert register with key 1 exists
-            var key = 2;
-            var record = buildSubformRecord1();
-            assert.deepEqual( testServerSide.getPerson( key ), record );
             
             // Go to edit form
+            var key = 2;
             testHelper.clickUpdateListButton( key );
             
-            // Check it
-            var clientRecord = $.extend( true, {}, record );
-            clientRecord.date = '04/07/2013';
-            clientRecord.datetime = '07/06/2013 19:44';
-            clientRecord.phoneType = '' + record.phoneType;
-            clientRecord.members[0].code = '' + record.members[0].code;
-            clientRecord.members[0].date = '10/11/2012';
-            clientRecord.members[0].datetime = '06/19/2019 07:57';
-            clientRecord.members[0].phoneType = '' + record.members[0].phoneType;
-            clientRecord.members[1].code = '' + record.members[1].code;
-            clientRecord.members[1].date = '02/21/2019';
-            clientRecord.members[1].datetime = '08/04/2017 22:40';
-            clientRecord.members[1].phoneType = '' + record.members[1].phoneType;
+            // Check it (page 1 of members)
+            var clientRecord = {
+                "id": "2",
+                "name": "Mara Riggs",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                date: '04/07/2013',
+                datetime: '07/06/2013 19:44',
+                "time": "09:14",
+                "phoneType": '3',
+                "browser": "Internet Explorer",
+                "important": true,
+                "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ],
+                "members": [
+                    {
+                        "browser": "Chrome",
+                        "code": "1",
+                        "date": "10/11/2012",
+                        "datetime": "06/19/2019 07:57",
+                        "description": "Lorem",
+                        "hobbies": [
+                            "reading_option",
+                            "videogames_option",
+                            "sports_option"
+                        ],
+                        "important": true,
+                        "name": "Leah Nguyen",
+                        "phoneType": "2",
+                        "time": "13:57"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "2",
+                        "date": "02/21/2019",
+                        "datetime": "08/04/2017 22:40",
+                        "description": "Lorem ipsum",
+                        "hobbies": [
+                            "videogames_option",
+                            "cards_option"
+                        ],
+                        "important": false,
+                        "name": "Victor Knight",
+                        "phoneType": "3",
+                        "time": "10:15"
+                    },
+                    {
+                        "browser": "Safari",
+                        "code": "3",
+                        "date": "04/05/2018",
+                        "datetime": "07/13/2015 03:46",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et",
+                        "hobbies": [
+                            "reading_option",
+                            "videogames_option",
+                            "sports_option"
+                        ],
+                        "important": false,
+                        "name": "Samson Bernard",
+                        "phoneType": "1",
+                        "time": "04:11"
+                    },
+                    {
+                        "browser": "Chrome",
+                        "code": "4",
+                        "date": "10/21/2012",
+                        "datetime": "12/19/2013 12:01",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.",
+                        "hobbies": [
+                            "reading_option",
+                            "sports_option",
+                            "cards_option"
+                        ],
+                        "important": false,
+                        "name": "Wade Pierce",
+                        "phoneType": "2",
+                        "time": "23:25"
+                    },
+                    {
+                        "browser": "Chrome",
+                        "code": "5",
+                        "date": "09/28/2017",
+                        "datetime": "01/15/2017 12:40",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "hobbies": [
+                            "reading_option",
+                            "videogames_option",
+                            "cards_option"
+                        ],
+                        "important": false,
+                        "name": "Seth Hatfield",
+                        "phoneType": "2",
+                        "time": "12:57"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "6",
+                        "date": "10/01/2017",
+                        "datetime": "07/16/2018 14:35",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                        "hobbies": [
+                            "videogames_option",
+                            "sports_option",
+                            "cards_option"
+                        ],
+                        "important": false,
+                        "name": "Henry Moses",
+                        "phoneType": "3",
+                        "time": "08:39"
+                    },
+                    {
+                        "browser": "Firefox",
+                        "code": "7",
+                        "date": "06/15/2011",
+                        "datetime": "02/07/2019 13:51",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+                        "hobbies": [
+                            "reading_option",
+                            "videogames_option",
+                            "cards_option"
+                        ],
+                        "important": false,
+                        "name": "Ivy Duncan",
+                        "phoneType": "1",
+                        "time": "06:30"
+                    },
+                    {
+                        "browser": "Safari",
+                        "code": "8",
+                        "date": "09/11/2015",
+                        "datetime": "09/11/2016 22:24",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+                        "hobbies": [
+                            "videogames_option",
+                            "sports_option",
+                            "cards_option"
+                        ],
+                        "important": true,
+                        "name": "Tatum Edwards",
+                        "phoneType": "2",
+                        "time": "23:39"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "9",
+                        "date": "09/29/2018",
+                        "datetime": "07/01/2016 00:15",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
+                        "hobbies": [
+                            "reading_option",
+                            "sports_option",
+                            "cards_option"
+                        ],
+                        "important": true,
+                        "name": "Hamish Jones",
+                        "phoneType": "2",
+                        "time": "09:19"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "10",
+                        "date": "12/05/2013",
+                        "datetime": "05/06/2017 12:45",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                        "hobbies": [
+                            "reading_option",
+                            "videogames_option",
+                            "cards_option"
+                        ],
+                        "important": true,
+                        "name": "Amos Norton",
+                        "phoneType": "2",
+                        "time": "09:28"
+                    }
+                ]
+            };
             testHelper.checkForm( assert, clientRecord );
+            
+            // Go to next page of members
+            testHelper.goToNextSubformPage( 'members' );
+            
+            // Check it (page 2 of members)
+            var clientRecord2 = {
+                "id": "2",
+                "name": "Mara Riggs",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                date: '04/07/2013',
+                datetime: '07/06/2013 19:44',
+                "time": "09:14",
+                "phoneType": '3',
+                "browser": "Internet Explorer",
+                "important": true,
+                "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ],
+                "members": [
+                    {
+                        "browser": "Opera",
+                        "code": "11",
+                        "date": "01/20/2019",
+                        "datetime": "06/22/2013 22:12",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                        "hobbies": [
+                            "videogames_option",
+                            "sports_option",
+                            "cards_option"
+                        ],
+                        "important": true,
+                        "name": "Tiger Flynn",
+                        "phoneType": "2",
+                        "time": "08:54"
+                    },
+                    {
+                        "browser": "Chrome",
+                        "code": "12",
+                        "date": "11/13/2011",
+                        "datetime": "11/10/2015 05:45",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
+                        "hobbies": [
+                            "reading_option",
+                            "videogames_option",
+                            "cards_option"
+                        ],
+                        "important": false,
+                        "name": "Cheryl Martinez",
+                        "phoneType": "1",
+                        "time": "02:12"
+                    },
+                    {
+                        "browser": "Internet Explorer",
+                        "code": "13",
+                        "date": "03/10/2017",
+                        "datetime": "07/26/2014 07:16",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "hobbies": [
+                            "reading_option",
+                            "videogames_option",
+                            "cards_option"
+                        ],
+                        "important": false,
+                        "name": "Stone Sanford",
+                        "phoneType": "1",
+                        "time": "23:25"
+                    },
+                    {
+                        "browser": "Safari",
+                        "code": "14",
+                        "date": "09/26/2019",
+                        "datetime": "03/01/2018 19:40",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu",
+                        "hobbies": [
+                            "reading_option",
+                            "sports_option",
+                            "cards_option"
+                        ],
+                        "important": true,
+                        "name": "Merrill Thomas",
+                        "phoneType": "1",
+                        "time": "08:55"
+                    }
+                ]
+            };
+            testHelper.checkForm( assert, clientRecord2 );
             
             done();
         }
@@ -399,124 +740,217 @@ QUnit.test( "subform delete test", function( assert ) {
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
-            // Assert register with key 1 exists
-            var key = 2;
-            var record = buildSubformRecord1();
-            assert.deepEqual( testServerSide.getPerson( key ), record );
-
             // Go to edit form
+            var key = 2;
             testHelper.clickDeleteListButton( key );
 
             // Check it
-            var clientRecord = $.extend( true, {}, record );
-            clientRecord.date = '04/07/2013';
-            clientRecord.datetime = '07/06/2013 19:44';
-            clientRecord.phoneType = 'Cell phone';
-            clientRecord.important = 'True';
-            clientRecord.hobbies = 'Videogames, Sports, Cards';
-            clientRecord.members[0].code = '' + record.members[0].code;
-            clientRecord.members[0].date = '10/11/2012';
-            clientRecord.members[0].important = 'True';
-            clientRecord.members[0].datetime = '06/19/2019 07:57';
-            clientRecord.members[0].phoneType = 'Office phone';
-            clientRecord.members[0].hobbies = 'Reading, Videogames, Sports';
-            clientRecord.members[1].code = '' + record.members[1].code;
-            clientRecord.members[1].date = '02/21/2019';
-            clientRecord.members[1].important = 'False';
-            clientRecord.members[1].datetime = '08/04/2017 22:40';
-            clientRecord.members[1].phoneType = 'Cell phone';
-            clientRecord.members[1].hobbies = 'Videogames, Cards';
+            var clientRecord = {
+                "id": "2",
+                "name": "Mara Riggs",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                date: '04/07/2013',
+                datetime: '07/06/2013 19:44',
+                "time": "09:14",
+                "phoneType": 'Cell phone',
+                "browser": "Internet Explorer",
+                "important": "True",
+                "hobbies": 'Videogames, Sports, Cards',
+                members: [
+                    {
+                        "browser": "Chrome",
+                        "code": "1",
+                        "date": "10/11/2012",
+                        "datetime": "06/19/2019 07:57",
+                        "description": "Lorem",
+                        "hobbies": "Reading, Videogames, Sports",
+                        "important": "True",
+                        "name": "Leah Nguyen",
+                        "phoneType": "Office phone",
+                        "time": "13:57"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "2",
+                        "date": "02/21/2019",
+                        "datetime": "08/04/2017 22:40",
+                        "description": "Lorem ipsum",
+                        "hobbies": "Videogames, Cards",
+                        "important": "False",
+                        "name": "Victor Knight",
+                        "phoneType": "Cell phone",
+                        "time": "10:15"
+                    },
+                    {
+                        "browser": "Safari",
+                        "code": "3",
+                        "date": "04/05/2018",
+                        "datetime": "07/13/2015 03:46",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et",
+                        "hobbies": "Reading, Videogames, Sports",
+                        "important": "False",
+                        "name": "Samson Bernard",
+                        "phoneType": "Home phone",
+                        "time": "04:11"
+                    },
+                    {
+                        "browser": "Chrome",
+                        "code": "4",
+                        "date": "10/21/2012",
+                        "datetime": "12/19/2013 12:01",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.",
+                        "hobbies": "Reading, Sports, Cards",
+                        "important": "False",
+                        "name": "Wade Pierce",
+                        "phoneType": "Office phone",
+                        "time": "23:25"
+                    },
+                    {
+                        "browser": "Chrome",
+                        "code": "5",
+                        "date": "09/28/2017",
+                        "datetime": "01/15/2017 12:40",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "hobbies": "Reading, Videogames, Cards",
+                        "important": "False",
+                        "name": "Seth Hatfield",
+                        "phoneType": "Office phone",
+                        "time": "12:57"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "6",
+                        "date": "10/01/2017",
+                        "datetime": "07/16/2018 14:35",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                        "hobbies": "Videogames, Sports, Cards",
+                        "important": "False",
+                        "name": "Henry Moses",
+                        "phoneType": "Cell phone",
+                        "time": "08:39"
+                    },
+                    {
+                        "browser": "Firefox",
+                        "code": "7",
+                        "date": "06/15/2011",
+                        "datetime": "02/07/2019 13:51",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+                        "hobbies": "Reading, Videogames, Cards",
+                        "important": "False",
+                        "name": "Ivy Duncan",
+                        "phoneType": "Home phone",
+                        "time": "06:30"
+                    },
+                    {
+                        "browser": "Safari",
+                        "code": "8",
+                        "date": "09/11/2015",
+                        "datetime": "09/11/2016 22:24",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+                        "hobbies": "Videogames, Sports, Cards",
+                        "important": "True",
+                        "name": "Tatum Edwards",
+                        "phoneType": "Office phone",
+                        "time": "23:39"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "9",
+                        "date": "09/29/2018",
+                        "datetime": "07/01/2016 00:15",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
+                        "hobbies": "Reading, Sports, Cards",
+                        "important": "True",
+                        "name": "Hamish Jones",
+                        "phoneType": "Office phone",
+                        "time": "09:19"
+                    },
+                    {
+                        "browser": "Opera",
+                        "code": "10",
+                        "date": "12/05/2013",
+                        "datetime": "05/06/2017 12:45",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                        "hobbies": "Reading, Videogames, Cards",
+                        "important": "True",
+                        "name": "Amos Norton",
+                        "phoneType": "Office phone",
+                        "time": "09:28"
+                    }
+                ]
+            };
             
             testHelper.checkDeleteForm( assert, clientRecord );
 
+            // Go to next page of members
+            testHelper.goToNextSubformPage( 'members' );
+
+            // Check it (page 2 of members)
+            var clientRecord2 = {
+                "id": "2",
+                "name": "Mara Riggs",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                date: '04/07/2013',
+                datetime: '07/06/2013 19:44',
+                "time": "09:14",
+                "phoneType": 'Cell phone',
+                "browser": "Internet Explorer",
+                "important": "True",
+                "hobbies": 'Videogames, Sports, Cards',
+                "members": [
+                    {
+                        "browser": "Opera",
+                        "code": "11",
+                        "date": "01/20/2019",
+                        "datetime": "06/22/2013 22:12",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                        "hobbies": "Videogames, Sports, Cards",
+                        "important": "True",
+                        "name": "Tiger Flynn",
+                        "phoneType": "Office phone",
+                        "time": "08:54"
+                    },
+                    {
+                        "browser": "Chrome",
+                        "code": "12",
+                        "date": "11/13/2011",
+                        "datetime": "11/10/2015 05:45",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
+                        "hobbies": "Reading, Videogames, Cards",
+                        "important": "False",
+                        "name": "Cheryl Martinez",
+                        "phoneType": "Home phone",
+                        "time": "02:12"
+                    },
+                    {
+                        "browser": "Internet Explorer",
+                        "code": "13",
+                        "date": "03/10/2017",
+                        "datetime": "07/26/2014 07:16",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "hobbies": "Reading, Videogames, Cards",
+                        "important": "False",
+                        "name": "Stone Sanford",
+                        "phoneType": "Home phone",
+                        "time": "23:25"
+                    },
+                    {
+                        "browser": "Safari",
+                        "code": "14",
+                        "date": "09/26/2019",
+                        "datetime": "03/01/2018 19:40",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu",
+                        "hobbies": "Reading, Sports, Cards",
+                        "important": "True",
+                        "name": "Merrill Thomas",
+                        "phoneType": "Home phone",
+                        "time": "08:55"
+                    }
+                ]
+            };
+            testHelper.checkDeleteForm( assert, clientRecord2 );
+            
             done();
         }
     );
 });
-
-QUnit.test( "editable list test", function( assert ) {
-
-    var done = assert.async();
-    configureEditableListFormOptions();
-    testServerSide.resetPeople();
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            errorFunctionCounter = 0;
-
-            assert.equal( errorFunctionCounter, 0 );
-            $( '#departmentsContainer' ).zcrud( 'renderList' );
-            assert.equal( errorFunctionCounter, 0 );
-
-            testHelper.pagingTest({
-                options: options,
-                assert: assert,
-                visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 12',
-                records: [
-                    "1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Internet Explorer|false|[reading_option/sports_option/cards_option]",
-                    "2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Internet Explorer|true|[videogames_option/sports_option/cards_option]",
-                    "3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|2|Chrome|true|[reading_option/videogames_option/sports_option]",
-                    "4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|3|Opera|true|[reading_option/videogames_option/cards_option]",
-                    "5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|1|Safari|false|[reading_option/videogames_option/sports_option]",
-                    "6|Wade Pierce|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.|10/21/2012|23:25|12/19/2013 12:01|2|Chrome|false|[reading_option/sports_option/cards_option]",
-                    "7|Seth Hatfield|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed|09/28/2017|12:57|01/15/2017 12:40|2|Chrome|false|[reading_option/videogames_option/cards_option]",
-                    "8|Henry Moses|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|10/01/2017|08:39|07/16/2018 14:35|3|Opera|false|[videogames_option/sports_option/cards_option]",
-                    "9|Ivy Duncan|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|06/15/2011|06:30|02/07/2019 13:51|1|Firefox|false|[reading_option/videogames_option/cards_option]",
-                    "10|Tatum Edwards|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|09/11/2015|23:39|09/11/2016 22:24|2|Safari|true|[videogames_option/sports_option/cards_option]"
-                ],
-                pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '>', '>>' ],
-                editable: true
-            });
-            
-            testHelper.pagingTest({
-                action: { 
-                    nextPage: true
-                },
-                options: options,
-                assert: assert,
-                visibleRows: 2,
-                pagingInfo: 'Showing 11-12 of 12',
-                records: [
-                    "11|Hamish Jones|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer|09/29/2018|09:19|07/01/2016 00:15|2|Opera|true|[reading_option/sports_option/cards_option]",
-                    "12|Amos Norton|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|12/05/2013|09:28|05/06/2017 12:45|2|Opera|true|[reading_option/videogames_option/cards_option]"
-                ],
-                pageListNotActive: [ "2", ">", ">>" ],
-                pageListActive: [ "<<", "<", "1" ],
-                editable: true
-            });
-            
-            testHelper.pagingTest({
-                action: { 
-                    previousPage: true
-                },
-                options: options,
-                assert: assert,
-                visibleRows: 10,
-                pagingInfo: 'Showing 1-10 of 12',
-                records: [
-                    "1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Internet Explorer|false|[reading_option/sports_option/cards_option]",
-                    "2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Internet Explorer|true|[videogames_option/sports_option/cards_option]",
-                    "3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|2|Chrome|true|[reading_option/videogames_option/sports_option]",
-                    "4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|3|Opera|true|[reading_option/videogames_option/cards_option]",
-                    "5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|1|Safari|false|[reading_option/videogames_option/sports_option]",
-                    "6|Wade Pierce|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.|10/21/2012|23:25|12/19/2013 12:01|2|Chrome|false|[reading_option/sports_option/cards_option]",
-                    "7|Seth Hatfield|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed|09/28/2017|12:57|01/15/2017 12:40|2|Chrome|false|[reading_option/videogames_option/cards_option]",
-                    "8|Henry Moses|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|10/01/2017|08:39|07/16/2018 14:35|3|Opera|false|[videogames_option/sports_option/cards_option]",
-                    "9|Ivy Duncan|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|06/15/2011|06:30|02/07/2019 13:51|1|Firefox|false|[reading_option/videogames_option/cards_option]",
-                    "10|Tatum Edwards|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut|09/11/2015|23:39|09/11/2016 22:24|2|Safari|true|[videogames_option/sports_option/cards_option]"
-                ],
-                pageListNotActive: [ '<<', '<', '1' ],
-                pageListActive: [ '2', '>', '>>' ],
-                editable: true
-            });
-
-            done();
-        }
-    );
-});
-

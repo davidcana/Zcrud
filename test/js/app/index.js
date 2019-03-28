@@ -37,5 +37,6 @@ QUnit.testSuites([
     { name: "attributes Test Suite", path: "./attributes.html" },
     { name: "path Test Suite", path: "./moreTest/path.html" },
     { name: "errors Test Suite", path: "./errors.html" },
-    { name: "radio options Test Suite", path: "./radioOptions.html" }
+    { name: "radio options Test Suite", path: "./radioOptions.html" },
+    { name: "view all field types Test Suite", path: "./viewAllFieldTypes.html" }
 ]);

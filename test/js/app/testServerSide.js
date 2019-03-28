@@ -54,6 +54,150 @@ module.exports = (function() {
                     "browser": "Opera",
                     "important": false,
                     "hobbies": [ 'videogames_option', 'cards_option' ]  
+                },
+                {
+                    "code": 3,
+                    "name": "Samson Bernard",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et",
+                    "date": new Date( "2018-04-05" ),
+                    "datetime": new Date( "2015-07-13T03:46:19" ),
+                    "time": "04:11",
+                    "phoneType": 1,
+                    "browser": "Safari",
+                    "important": "false",
+                    "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
+                },
+                {
+                    "code": 4,
+                    "name": "Wade Pierce",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.",
+                    "date": new Date( "2012-10-21" ),
+                    "datetime": new Date( "2013-12-19T12:01:49" ),
+                    "time": "23:25",
+                    "phoneType": 2,
+                    "browser": "Chrome",
+                    "important": "false",
+                    "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+                },
+                {
+                    "code": 5,
+                    "name": "Seth Hatfield",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                    "date": new Date( "2017-09-28" ),
+                    "datetime": new Date( "2017-01-15T12:40:02" ),
+                    "time": "12:57",
+                    "phoneType": 2,
+                    "browser": "Chrome",
+                    "important": "false",
+                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                },
+                {
+                    "code": 6,
+                    "name": "Henry Moses",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                    "date": new Date( "2017-10-01" ),
+                    "datetime": new Date( "2018-07-16T14:35:35" ),
+                    "time": "08:39",
+                    "phoneType": 3,
+                    "browser": "Opera",
+                    "important": "false",
+                    "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+                },
+                {
+                    "code": 7,
+                    "name": "Ivy Duncan",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+                    "date": new Date( "2011-06-15" ),
+                    "datetime": new Date( "2019-02-07T13:51:38" ),
+                    "time": "06:30",
+                    "phoneType": 1,
+                    "browser": "Firefox",
+                    "important": "false",
+                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                },
+                {
+                    "code": 8,
+                    "name": "Tatum Edwards",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
+                    "date": new Date( "2015-09-11" ),
+                    "datetime": new Date( "2016-09-11T22:24:04" ),
+                    "time": "23:39",
+                    "phoneType": 2,
+                    "browser": "Safari",
+                    "important": "true",
+                    "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+                },
+                {
+                    "code": 9,
+                    "name": "Hamish Jones",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
+                    "date": new Date( "2018-09-29" ),
+                    "datetime": new Date( "2016-07-01T00:15:37" ),
+                    "time": "09:19",
+                    "phoneType": 2,
+                    "browser": "Opera",
+                    "important": "true",
+                    "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+                },
+                {
+                    "code": 10,
+                    "name": "Amos Norton",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                    "date": new Date( "2013-12-05" ),
+                    "datetime": new Date( "2017-05-06T12:45:39" ),
+                    "time": "09:28",
+                    "phoneType": 2,
+                    "browser": "Opera",
+                    "important": "true",
+                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                },
+                {
+                    "code": 11,
+                    "name": "Tiger Flynn",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
+                    "date": new Date( "2019-01-20" ),
+                    "datetime": new Date( "2013-06-22T22:12:30" ),
+                    "time": "08:54",
+                    "phoneType": 2,
+                    "browser": "Opera",
+                    "important": "true",
+                    "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+                },
+                {
+                    "code": 12,
+                    "name": "Cheryl Martinez",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
+                    "date": new Date( "2011-11-13" ),
+                    "datetime": new Date( "2015-11-10T05:45:58" ),
+                    "time": "02:12",
+                    "phoneType": 1,
+                    "browser": "Chrome",
+                    "important": "false",
+                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                },
+                {
+                    "code": 13,
+                    "name": "Stone Sanford",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                    "date": new Date( "2017-03-10" ),
+                    "datetime": new Date( "2014-07-26T07:16:53" ),
+                    "time": "23:25",
+                    "phoneType": 1,
+                    "browser": "Internet Explorer",
+                    "important": "false",
+                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                },
+                {
+                    "code": 14,
+                    "name": "Merrill Thomas",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu",
+                    "date": new Date( "2019-09-26" ),
+                    "datetime": new Date( "2018-03-01T19:40:40" ),
+                    "time": "08:55",
+                    "phoneType": 1,
+                    "browser": "Safari",
+                    "important": "true",
+                    "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
                 }
             ]
         },
@@ -179,6 +323,7 @@ module.exports = (function() {
         }
     ];
     var people = {};
+    var peopleSubformsFields = [ 'members' ];
     var resetPeople = function( newPeople ){
 
         if ( newPeople ){
@@ -380,6 +525,9 @@ module.exports = (function() {
                 break;
             case "people":
                 ajaxPeople( options, cmd, file, data, url );
+                break;
+            case "peopleMembers":
+                ajaxPeopleMembersFields( 'members', options, data );
                 break;
             default:
                 throw "Unknown table in ajax: " + table;
@@ -1103,6 +1251,49 @@ module.exports = (function() {
         }
     };
     
+    var ajaxPeopleMembersFields = function( subformId, options, data ){
+
+        // Init data
+        var dataToSend = {};
+        dataToSend.result = 'OK';
+        dataToSend.message = '';
+        var thisFieldData = data;
+
+        // Add all records to data
+        var person = people[ data.key ];
+        if ( ! person ){
+            dataToSend.message += 'Person with key "' + data.key + '" not found trying to get ' + subformId + ' subform!';
+            options.error( dataToSend );
+            return;
+        }
+
+        var input = person[ subformId ] || [];
+        var allRecords = [];
+
+        // Filter them
+        for ( var id in input ) {
+            var member = input[ id ];
+            if ( ! matches( member, thisFieldData.filter ) ){
+                continue;
+            }
+            member.id = id;
+            allRecords.push( 
+                clone( member ) 
+            );
+        }
+
+        // Sort them
+        if ( thisFieldData.sortFieldId && thisFieldData.sortType ){
+            allRecords.sort( 
+                dynamicSort( thisFieldData.sortFieldId, thisFieldData.sortType ) );
+        }
+
+        // Page them
+        pageRecords( thisFieldData, dataToSend, allRecords );
+
+        options.success( dataToSend );
+    };
+    
     var pageRecords = function( data, dataToSend, allRecords ){
         
         if ( data.pageNumber && data.pageSize ){
@@ -1513,7 +1704,7 @@ module.exports = (function() {
         // Build record
         dataToSend.record = $.extend( true, {}, people[ data.key ] );
         dataToSend.fieldsData = {};
-        //processSubformsInGet( data, servicesSubformsFields, dataToSend.record, dataToSend );
+        processSubformsInGet( data, peopleSubformsFields, dataToSend.record, dataToSend );
 
         return dataToSend;
     };
