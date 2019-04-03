@@ -86,9 +86,9 @@ var zcrudServerSide = (function() {
         var dataToSend = {};
         dataToSend.message = '';
 
-        if ( data.newRecords ){
-            for ( var i in data.newRecords[ 0 ] ) {
-                var newItem = data.newRecords[ 0 ][ i ];
+        if ( data.existingRecords ){
+            for ( var i in data.existingRecords[ 0 ] ) {
+                var newItem = data.existingRecords[ 0 ][ i ];
                 customItemsAjaxBatchUpdate( newItem, dataToSend, data.filter );
             }
         }
@@ -106,6 +106,7 @@ var zcrudServerSide = (function() {
         // Init vars
         dataToSend.subforms = {};
         dataToSend.subforms.verifiedMembers = {};
+        dataToSend.subforms.verifiedMembers.newRecords = [];
         
         // Add all existing services
         for ( var id in data.existingRecords ) {
@@ -117,7 +118,7 @@ var zcrudServerSide = (function() {
                 continue;       
             }
             
-            currentItem = people[ id ];
+            //currentItem = people[ id ];
             var newId = modifiedItem.id;
             var newIdItem = people[ newId ];
             if ( id != newId && newIdItem ){
@@ -129,12 +130,14 @@ var zcrudServerSide = (function() {
                 delete verifiedMembers[ id ];
                 id = newId;
             }
-            verifiedMembers[ id ] = currentItem;  
+            
+            var newItem = $.extend( true, {}, currentItem, modifiedItem );
+            verifiedMembers[ id ] = newItem;  
         }
 
         // Add all new services
         for ( var c = 0; c < data.newRecords.length; c++ ) {
-            var newItem = data.newRecords[ c ];
+            newItem = data.newRecords[ c ];
             id = newItem.id;
             currentItem = verifiedMembers[ id ];
 
@@ -147,10 +150,10 @@ var zcrudServerSide = (function() {
             verifiedMembers[ id ] = newItemClone;
             
             var newRecordsToSend = dataToSend.subforms.verifiedMembers.newRecords;
-            if ( ! newRecordsToSend ){
+            /*if ( ! newRecordsToSend ){
                 newRecordsToSend = [];
                 dataToSend.subforms.verifiedMembers.newRecords = newRecordsToSend;
-            }
+            }*/
             newRecordsToSend.push( newItemClone );
             
             if ( newItemClone.groupId == undefined ){
