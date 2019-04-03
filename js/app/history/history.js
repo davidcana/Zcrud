@@ -576,7 +576,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             
             // Delete removed records
             for ( var c = 0; c < item.recordsToRemove.length; ++c ){
-                delete record[ fieldId ][ c ];
+                record[ fieldId ].splice( c, 1 );
             }
         } 
     };

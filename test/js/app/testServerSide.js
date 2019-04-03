@@ -764,10 +764,11 @@ module.exports = (function() {
         dataToSend.subforms.verifiedMembers.newRecords = [];
         var error = false;
         var input = members.verifiedMembers;
-
+        var verifiedMembersZCrudRecords = data.existingRecords[ 0 ].verifiedMembersZCrudRecords;
+        
         // Add all existing services
-        for ( var id in data.existingRecords ) {
-            var modifiedItem = data.existingRecords.verifiedMembersZCrudRecords[ id ].verifiedMembers;
+        for ( var id in verifiedMembersZCrudRecords.existingRecords ) {
+            var modifiedItem = verifiedMembersZCrudRecords.existingRecords[ id ];
             var currentItem = input[ id ];
 
             if ( ! currentItem ){
@@ -787,15 +788,15 @@ module.exports = (function() {
             var extendedItem = $.extend( true, {}, currentItem, modifiedItem );
 
             if ( newId && id !== newId ){
-                delete services[ id ];
+                delete input[ id ];
                 id = newId;
             }
-            services[ id ] = extendedItem;  
+            input[ id ] = extendedItem;  
         }
 
         // Add all new services
-        for ( var c = 0; c < data.newRecords[ 0 ].verifiedMembersZCrudRecords.newRecords.length; c++ ) {
-            var newItem = data.newRecords[ 0 ].verifiedMembersZCrudRecords.newRecords[ c ];
+        for ( var c = 0; c < verifiedMembersZCrudRecords.newRecords.length; c++ ) {
+            var newItem = verifiedMembersZCrudRecords.newRecords[ c ];
 
             if ( newItem.code == undefined ){
                 newItem.code = buildVerifiedMemberId( input );
@@ -814,8 +815,8 @@ module.exports = (function() {
         }
 
         // Remove all services to remove
-        for ( c = 0; c < data.newRecords[ 0 ].verifiedMembersZCrudRecords.recordsToRemove.length; c++ ) {
-            id = data.newRecords[ 0 ].verifiedMembersZCrudRecords.recordsToRemove[ c ];
+        for ( c = 0; c < verifiedMembersZCrudRecords.recordsToRemove.length; c++ ) {
+            id = verifiedMembersZCrudRecords.recordsToRemove[ c ];
             currentItem = input[ id ];
 
             if ( ! currentItem ){

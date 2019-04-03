@@ -96,7 +96,9 @@ module.exports = (function() {
         }
         
         // Build delete
-        jsonObject.recordsToRemove = actionsObject.deleted;
+        if ( actionsObject.deleted ){
+            jsonObject.recordsToRemove = actionsObject.deleted;
+        }
         
         return jsonObject;
     };
@@ -159,8 +161,10 @@ module.exports = (function() {
         
         for ( var c = 0; c < recordsArray.length; c++ ) {
             var record = recordsArray[ c ];
-            var key = record[ keyField ];
-            recordsMap[ key ] = record;
+            if ( record ){
+                var key = record[ keyField ];
+                recordsMap[ key ] = record;   
+            }
         }
         
         return recordsMap;

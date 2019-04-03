@@ -376,7 +376,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
         }
     );
 });
-
+/*
 QUnit.test( "subform filtering test", function( assert ) {
 
     thisTestOptions = {
@@ -771,7 +771,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
         }
     );
 });
-
+*/
 QUnit.test( "form after form test", function( assert ) {
 
     options = $.extend( true, {}, extendedFormTestOptions );
@@ -1492,10 +1492,9 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
                 []
             );
 
-            // Filter by name
-            $( '[name="originalMembers-name"]' ).val( '1' );
-            $( '.zcrud-filter-submit-button' ).click();
-
+            // Filter
+            filterByName( '1' );
+            
             // Select
             testHelper.subformSelectByText( 'originalMembers', '1', '11' );
 
@@ -1533,15 +1532,79 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
                     "important": false
                 }
             };
-
+            
+            verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
             assert.deepEqual( 
                 testServerSide.getVerifiedMembers(), 
-                expectedVerifiedMembers );
+                expectedVerifiedMembers 
+            );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
                 testHelper.fromObjectToArray( expectedVerifiedMembers  )
             );
+            
+            // Filter
+            filterByName( '2' );
+            filterByName( '1' );
+            
+            verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Edit last row
+            var newDescription = "Description of Member 11 edited (2)";
+            testHelper.fillSubformNewRow(
+                {
+                    "description": newDescription
+                }, 
+                'verifiedMembers' 
+            );
 
+            // Submit and check storage
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 0 );
+            
+            expectedVerifiedMembers[ '11' ].description = newDescription;
+            verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            assert.deepEqual( 
+                testServerSide.getVerifiedMembers(), 
+                expectedVerifiedMembers 
+            );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Filter
+            filterByName( '2' );
+            filterByName( '1' );
+            
+            verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers  )
+            );
+            
+            // Click delete button and delete record
+            testHelper.clickDeleteSubformRowButton( 'verifiedMembers', 0 );
+            testHelper.clickFormSubmitButton();
+            
+            verifiedMembersSubform = form.getFieldByName( 'verifiedMembers' );
+            var expectedVerifiedMembers2 = {
+                '11': expectedVerifiedMembers[ '11' ]
+            };
+            assert.deepEqual( 
+                testServerSide.getVerifiedMembers(), 
+                expectedVerifiedMembers2 
+            );
+            assert.deepEqual( 
+                verifiedMembersSubform.getRecords(), 
+                testHelper.fromObjectToArray( expectedVerifiedMembers2 )
+            );
+            
             done();
         }
     );
@@ -1575,4 +1638,10 @@ var buildMapOfMemberRecords = function( firstKey, begin, end, filter ){
     }
     
     return expectedVerifiedMembers;
+};
+
+var filterByName = function( name ){
+
+    $( '[name="originalMembers-name"]' ).val( name );
+    $( '.zcrud-filter-submit-button' ).click();
 };
