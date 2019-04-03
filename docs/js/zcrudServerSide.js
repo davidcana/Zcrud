@@ -231,7 +231,7 @@ var zcrudServerSide = (function() {
             if ( ! data.filter || ! data.filter.year ){
                 return true;
             }
-            var datetime = person.datetime;
+            var datetime = new Date( person.datetime );
             var year = datetime.getFullYear();
             return year == data.filter.year;
         };
