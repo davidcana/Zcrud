@@ -7,7 +7,7 @@ var Field = require( './field.js' );
 var context = require( '../context.js' );
 var optionProvider = require( './optionProvider.js' );
 var $ = require( 'jquery' );
-//var zpt = require( 'zpt' );
+var zpt = require( 'zpt' );
 
 var OptionsField = function( properties ) {
     Field.call( this, properties );
@@ -26,8 +26,9 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
     var $thisDropdown = $selection.find( "[name='" + this.name + "']");
 
     // Build dictionary
-    //var dictionary = $.extend( {}, params.dictionary );
-    var dictionary = $.extend( true, {}, this.page.getDictionary() );
+    //var dictionary = $.extend( true, {}, this.page.getDictionary() );
+    //var dictionary = this.page.getDictionary();
+    var dictionary = {};
     dictionary.field = this;
     dictionary.type = this.type;
     dictionary.value = params.value;
@@ -47,7 +48,8 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                     params.field, 
                     page.getOptions(), 
                     $selection, 
-                    params ) ;
+                    params 
+                ) ;
                 dictionary.optionsListFromForm = optionProvider.buildOptions( params );
                 dictionary.record = params.record;
                 dictionary.value = params.record[ params.field.id ];
@@ -56,10 +58,9 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                 dictionary.value = params.value;
 
                 // Refresh template
-                context.getZPTParser().run({
+                zpt.run({
                     root: $thisDropdown[ 0 ],
-                    dictionary: dictionary,
-                    notRemoveGeneratedTags: false
+                    dictionaryExtension: dictionary
                 });
 
                 // Trigger change event to refresh multi cascade dropdowns.

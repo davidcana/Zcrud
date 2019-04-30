@@ -9,13 +9,13 @@ var testHelper = require( './testHelper.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
-var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options;
 
 // Run tests
-
 QUnit.test( "create test", function( assert ) {
-
+    
+    options = $.extend( true, {}, defaultTestOptions );
+    
     testServerSide.resetServices();
     var done = assert.async();
     
@@ -78,7 +78,7 @@ QUnit.test( "create test", function( assert ) {
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
             testHelper.checkForm( assert, record );
-
+            
             // Return to list again and check it
             testHelper.clickFormCancelButton();
             testHelper.pagingTest({
@@ -99,6 +99,8 @@ QUnit.test( "create test", function( assert ) {
 });
 
 QUnit.test( "create with default values test", function( assert ) {
+    
+    options = $.extend( true, {}, defaultTestOptions );
     
     testServerSide.resetServices();
     var done = assert.async();
@@ -140,7 +142,7 @@ QUnit.test( "create with default values test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-
+            
             // Go to create form and create record
             testHelper.clickCreateListButton();
             testHelper.fillForm( record );
@@ -160,11 +162,11 @@ QUnit.test( "create with default values test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( fullRecord, options.fields ) );
-
+            
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
             testHelper.checkForm( assert, fullRecord );
-
+            
             // Return to list again and check it
             testHelper.clickFormCancelButton();
             testHelper.pagingTest({

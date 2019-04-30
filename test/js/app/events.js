@@ -125,7 +125,7 @@ var checkSelectionChangedEvent = function( assert, data, $rows, record, options 
 // Run tests
 QUnit.test( "events update form test", function( assert ) {
 
-    options = formOptions;
+    options = $.extend( true, {}, formOptions );
     resetCounters();
     var done = assert.async();
     
@@ -273,7 +273,7 @@ QUnit.test( "events update form test", function( assert ) {
 
 QUnit.test( "events create form test", function( assert ) {
 
-    options = formOptions;
+    options = $.extend( true, {}, formOptions );
     resetCounters();
     var done = assert.async();
     
@@ -404,7 +404,7 @@ QUnit.test( "events create form test", function( assert ) {
 
 QUnit.test( "event delete form test", function( assert ) {
 
-    options = formOptions;
+    options = $.extend( true, {}, formOptions );
     resetCounters();
     var done = assert.async();
     
@@ -542,7 +542,7 @@ QUnit.test( "event delete form test", function( assert ) {
 
 QUnit.test( "event update editable list test", function( assert ) {
 
-    options = editableListOptions;
+    options = $.extend( true, {}, editableListOptions );
     resetCounters();
     var done = assert.async();
     
@@ -627,7 +627,7 @@ QUnit.test( "event update editable list test", function( assert ) {
 
 QUnit.test( "event create editable list test", function( assert ) {
     
-    options = editableListOptions;
+    options = $.extend( true, {}, editableListOptions );
     resetCounters();
     var done = assert.async();
     
@@ -702,7 +702,7 @@ QUnit.test( "event create editable list test", function( assert ) {
 
 QUnit.test( "event delete editable list test", function( assert ) {
     
-    options = editableListOptions;
+    options = $.extend( true, {}, editableListOptions );
     resetCounters();
     var done = assert.async();
 

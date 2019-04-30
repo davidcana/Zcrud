@@ -199,10 +199,21 @@ module.exports = (function() {
             {
                 type: "fieldContainer",
                 template: options.containers.types[ container.containerType ].template,
+                fields: []
+            }
+        );
+        container.options = options;
+        /*
+        $.extend( 
+            true, 
+            container,
+            {
+                type: "fieldContainer",
+                template: options.containers.types[ container.containerType ].template,
                 fields: [],
                 options: options
             }
-        );
+        );*/
         
         return new Container( container );
     };

@@ -7,7 +7,8 @@ var $ = require( 'jquery' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
 
 var Container = function( properties ) {
-    $.extend( true, this, properties );
+    $.extend( this, properties );
+    //$.extend( true, this, properties );
 };
 
 Container.prototype.getToolbarButtons = function(){

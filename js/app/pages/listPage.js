@@ -14,7 +14,6 @@ var ComponentsMap = require( '../components/componentsMap.js' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
-var log = zpt.logHelper;
 
 var ListPage = function ( optionsToApply, userDataToApply ) {
     
@@ -206,7 +205,8 @@ ListPage.prototype.beforeProcessTemplate = function( data, dictionaryExtension )
     this.updateRecords( data.records );
     this.updateDictionary( data.records, dictionaryExtension );
 };
-    
+
+/*
 ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExtension ){
 
     var thisDictionary = $.extend(
@@ -226,6 +226,20 @@ ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExten
     this.dictionary.instance = this;
     this.dictionary.editable = this.isEditable();
 };
+*/
+ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExtension ){
+
+    this.instanceDictionaryExtension = {
+        records: newRecordsArray,
+        instance: this,
+        editable: this.isEditable(),
+        omitKey: false
+    };
+    
+    if ( dictionaryExtension ){
+        $.extend( this.instanceDictionaryExtension, dictionaryExtension );
+    }
+};
 
 ListPage.prototype.buildHTMLAndJavascript = function( root ){
 
@@ -235,13 +249,13 @@ ListPage.prototype.buildHTMLAndJavascript = function( root ){
         this.componentsMap.resetPage();
     }
 
-    context.getZPTParser().run(
-        {
-            root: root || ( this.options.target? this.options.target[0]: null ) || this.options.body,
-            dictionary: this.dictionary,
-            notRemoveGeneratedTags: false
-        }
-    );
+    // Build zptOptions
+    var zptOptions = {
+        root: root || ( this.options.target? this.options.target[0]: null ) || document.body,
+        dictionaryExtension: this.instanceDictionaryExtension  
+    };
+    
+    zpt.run( zptOptions );
 };
     
 ListPage.prototype.afterProcessTemplate = function( $form ){
@@ -394,17 +408,16 @@ ListPage.prototype.getRowByKey = function( key ){
     
 ListPage.prototype.updateBottomPanel = function( dictionaryExtension ){
 
-    var thisDictionary = $.extend( {}, this.dictionary, dictionaryExtension );
+    var thisDictionary = $.extend( {}, this.instanceDictionaryExtension, dictionaryExtension );
 
-    context.getZPTParser().run({
+    zpt.run({
         root: this.getComponent( 'paging' ).get$()[0],
-        dictionary: thisDictionary,
-        notRemoveGeneratedTags: false
+        dictionaryExtension: thisDictionary
     });
 
     this.bindEvents();
 };
-    
+
 ListPage.prototype.getRecords = function(){
     return this.records;
 };
@@ -428,22 +441,22 @@ ListPage.prototype.getTotalNumberOfRecords = function(){
 ListPage.prototype.addRecord = function( key, record ){
 
     this.records[ key ] = record;
-    this.dictionary.records.push( record );
+    this.instanceDictionaryExtension.records.push( record );
 };
 ListPage.prototype.updateRecord = function( key, record ){
 
     this.records[ key ] = record;
-    this.dictionary.records[ this.getIndexInDictionaryByKey( key ) ] = record;
+    this.instanceDictionaryExtension.records[ this.getIndexInDictionaryByKey( key ) ] = record;
 };
 ListPage.prototype.deleteRecord = function( key ){
 
     delete this.records[ key ];
-    this.dictionary.records.splice( this.getIndexInDictionaryByKey( key ), 1 );
+    this.instanceDictionaryExtension.records.splice( this.getIndexInDictionaryByKey( key ), 1 );
 };
 ListPage.prototype.getIndexInDictionaryByKey = function( key ){
 
-    for ( var c = 0; c < this.dictionary.records.length; c++ ) {
-        var record = this.dictionary.records[ c ];
+    for ( var c = 0; c < this.instanceDictionaryExtension.records.length; c++ ) {
+        var record = this.instanceDictionaryExtension.records[ c ];
         if ( key == record[ this.options.key ] ){
             return c;
         }

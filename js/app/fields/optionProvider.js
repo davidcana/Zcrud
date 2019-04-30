@@ -36,14 +36,21 @@ var OptionProvider = function() {
         // Check if it is a function
         if ( $.isFunction( optionsSource ) ) {
             // Prepare parameter to the function
-            funcParams = $.extend( true, {
-                _cacheCleared: false,
-                dependedValues: {},
-                clearCache: function () {
-                    this._cacheCleared = true;
-                }
-            }, funcParams );
-
+            /*
+            funcParams = $.extend( 
+                true,
+                {
+                    _cacheCleared: false,
+                    dependedValues: {},
+                    clearCache: function () {
+                        this._cacheCleared = true;
+                    }
+                }, 
+                funcParams 
+            );
+            */
+            funcParams = buildFuncParams( funcParams );
+            
             // Call function and get actual options source
             optionsSource = optionsSource( funcParams );
         }
@@ -90,6 +97,25 @@ var OptionProvider = function() {
         return params.field.addCurrentValueToOptions? 
             addCurrentValue( optionsList, params ): 
             optionsList;
+    };
+    
+    var buildFuncParams = function( funcParams ){
+        
+        var newFuncParams = {
+            _cacheCleared: false,
+            dependedValues: {},
+            clearCache: function () {
+                this._cacheCleared = true;
+            }
+        };
+        
+        for ( var i in funcParams ){
+            newFuncParams[ i ] = i == 'options' || i == 'dictionary'|| i == 'formPage'?
+                funcParams[ i ]:
+                $.extend( true, {}, funcParams[ i ] );
+        }
+        
+        return newFuncParams;
     };
     
     var buildItem = function( value, text ){

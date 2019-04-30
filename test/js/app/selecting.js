@@ -50,6 +50,7 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 };
 
 // Run tests
+/*
 QUnit.test( "list selecting test", function( assert ) {
     
     // Setup services
@@ -1124,7 +1125,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
         }
     );
 });
-
+*/
 QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) test", function( assert ) {
 
     // Setup services
@@ -1243,7 +1244,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             assert.equal( testHelper.getSelectedFromSubform( 'members' ).length, 0 );
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
             testHelper.assertHistory( assert, 0, 0, true );
-
+            
             // Select
             testHelper.readOnlySubformSelect( 'members', '1', '3' );
             assert.deepEqual( 
@@ -1284,7 +1285,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
-
+            
             // Select at the external members
             testHelper.subformSelect( 'externalMembers', '5' );
             assert.deepEqual( 
@@ -1356,7 +1357,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
-
+            
             // Check storage
             record.members = [
                 {
@@ -1403,7 +1404,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
-            
+            /*
             // Go to edit form again
             testHelper.clickUpdateListButton( key );
             
@@ -1494,12 +1495,12 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
-            
+            */
             done();
         }
     );
 });
-
+/*
 QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) test", function( assert ) {
 
     // Setup services
@@ -2243,3 +2244,4 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
         }
     );
 });
+*/

@@ -71,7 +71,7 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
     this.listPage.bindButtonsEvent( this.listPage.getByRowButtons() );
 
     // Bind events for fields
-    var dictionary = this.listPage.getDictionary();
+    var dictionary = this.listPage.getInstanceDictionaryExtension();
     var fields = this.listPage.getFields();
 
     if ( record ){
@@ -79,12 +79,14 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
             fields, 
             dictionary, 
             record, 
-            $preselection );
+            $preselection 
+        );
     } else {
         this.bindEventsForFieldsAndAllRecords( 
             fields, 
             dictionary,
-            dictionary.records );
+            dictionary.records 
+        );
     }
 };
 
@@ -149,7 +151,8 @@ EditingComponent.prototype.addNewRow = function( event ){
         this.listPage.getId(), 
         thisDictionary,
         $( '#' + this.listPage.getThisOptions().tbodyId ),
-        newRecord );
+        newRecord 
+    );
     var $tr = createHistoryItem.get$Tr();
 
     // Bind events
@@ -157,13 +160,15 @@ EditingComponent.prototype.addNewRow = function( event ){
     validationManager.initFormValidation( 
         this.listPage.getThisOptions().formId, 
         $tr, 
-        this.options );
+        this.options 
+    );
 };
 
 EditingComponent.prototype.buildDictionaryForNewRow = function( newRecord ){
 
-    var thisDictionary = $.extend( true, {}, this.listPage.getDictionary() );
-
+    var thisDictionary = $.extend( {}, this.listPage.getInstanceDictionaryExtension() );
+    //var thisDictionary = $.extend( true, {}, this.listPage.getDictionary() );
+    
     thisDictionary.records = [ newRecord ];
     thisDictionary.editable = true;
 
@@ -194,7 +199,7 @@ EditingComponent.prototype.doSubmit = function( event ){
     var instance = this;
     var jsonObject = context.getJSONBuilder( this.options ).buildJSONForAll(
         this.thisOptions.key || this.options.key, 
-        this.listPage.getDictionary().records,
+        this.listPage.getInstanceDictionaryExtension().records,
         this.listPage.getFields(),
         undefined,
         context.getHistory()

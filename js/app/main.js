@@ -14,7 +14,7 @@ var defaultOptions = require( './defaultOptions.js' );
 exports.init = function( userOptions, callback, failCallback ){
     
     // Register in options.dictionary I18n instances
-    var initI18n = function(){
+    var initI18n = function( dictionary ){
 
         // Build the list of file paths
         var fileNames = options.i18n.files[ options.i18n.language ];
@@ -22,42 +22,47 @@ exports.init = function( userOptions, callback, failCallback ){
             throw( 'No file names set to init i18n subsystem!' );
         }
 
-        // Build ZPT parser and add it to context
+        // Build ZPT options
         var zptOptions = {
-            root: options.body,
-            dictionary: options.dictionary,
+            command: 'preload',
+            root: document.body,
+            //root: ( options.target? options.target[0]: null ) || options.body,
+            dictionary: dictionary,
             declaredRemotePageUrls: options.allDeclaredRemotePageUrls,
             notRemoveGeneratedTags: true,
             i18n: {
                 urlPrefix: options.filesPathPrefix + options.i18n.filesPath,
                 files: {}
-            }
-        };
-        zptOptions.i18n.files[ options.i18n.language ] = fileNames;
-        var zptParser = zpt.buildParser( zptOptions );
-        if ( options.templates.filesPath ){
-            zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + options.templates.filesPath;
-        }
-        context.setZPTParser( zptParser );
-                    
-        // Init ZPT parser
-        zptParser.init(
-            function(){
-                context.setI18nArray( options.dictionary.i18nArray );
+            },
+            callback: function(){
+                context.setI18nArray( dictionary.i18nArray );
                 if ( callback && $.isFunction( callback ) ){
                     callback( options );
                 }
             },
-            function( msg ){
+            failCallback: function( msg ){
                 if ( failCallback && $.isFunction( failCallback ) ){
                     failCallback( msg );
                 }
             }
-        );
+        };
+        zptOptions.i18n.files[ options.i18n.language ] = fileNames;
+        if ( options.templates.filesPath ){
+            zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + options.templates.filesPath;
+        }
+                    
+        // Init ZPT parser
+        zpt.run( zptOptions );
     };
 
     // Init options
     var options = $.extend( true, {}, defaultOptions, userOptions );
+    
+    // Init dictionary, set in context and remove 
+    var dictionary = options.dictionary;
+    dictionary.options = options;
+    context.setDictionary( dictionary );
+    delete options.dictionary;
     
     // Configure logging
     zpt.context.getConf().loggingOn = options.logging.isOn;
@@ -73,7 +78,7 @@ exports.init = function( userOptions, callback, failCallback ){
     normalizer.run( options, userOptions );
     
     // Init I18n
-    initI18n();
+    initI18n( dictionary );
     
     log.info( '...ZCrud initialized.' );
     

@@ -815,7 +815,7 @@ QUnit.test( "update radio test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
                 editable: editable
             });
-
+            
             // Edit record
             var editedRecord =  {
                 "phoneType": "officePhone_option"
@@ -823,7 +823,7 @@ QUnit.test( "update radio test", function( assert ) {
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-
+            
             // Undo
             testHelper.clickUndoButton();
             testHelper.checkEditableListForm( assert, key, record, editable );

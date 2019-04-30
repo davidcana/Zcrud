@@ -6,6 +6,7 @@
 var Field = require( './field.js' );
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
 var validationManager = require( '../validationManager.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
 var fieldUtils = require( './fieldUtils.js' );
@@ -122,7 +123,8 @@ Subform.prototype.showNewForm = function( type, record ){
 
 Subform.prototype.buildDictionary = function( newRecord ){
     
-    var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
+    //var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
+    var thisDictionary = $.extend( {}, context.getDictionary(), {} );
     
     thisDictionary.editable = true;
     thisDictionary.instance = this;
@@ -530,13 +532,12 @@ Subform.prototype.clientAndServerSuccessFunction = function( data, root, diction
 
 Subform.prototype.buildHTMLAndJavascript = function( root, dictionaryExtension ){
     
-    context.getZPTParser().run({
+    zpt.run({
         root: root || [ 
             this.get$().find( 'tbody' )[0], 
             this.getPagingComponent()? this.getPagingComponent().get$()[0]: undefined
         ],
-        dictionary: this.buildDictionaryForUpdate( dictionaryExtension ),
-        notRemoveGeneratedTags: false
+        dictionaryExtension: this.buildDictionaryForUpdate( dictionaryExtension )
     });
 };
 
@@ -549,15 +550,12 @@ Subform.prototype.afterProcessTemplate = function(){
 
 Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
 
-    var options = this.page.getOptions();
-    
-    var dictionary = $.extend( true, options.dictionary, {} );
+    var dictionary = {};
     
     if ( dictionaryExtension ){
-        dictionary = $.extend( {}, dictionary, dictionaryExtension );
+        $.extend( dictionary, dictionaryExtension );
     }
     
-    dictionary.options = options;
     dictionary.records = this.getRecords();
     dictionary.field = this;
     dictionary.editable = ! this.isReadOnly();
@@ -565,6 +563,26 @@ Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
     
     return dictionary;
 };
+/*
+Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
+
+    var options = this.page.getOptions();
+
+    var dictionary = $.extend( true, options.dictionary, {} );
+
+    if ( dictionaryExtension ){
+        dictionary = $.extend( {}, dictionary, dictionaryExtension );
+    }
+
+    dictionary.options = options;
+    dictionary.records = this.getRecords();
+    dictionary.field = this;
+    dictionary.editable = ! this.isReadOnly();
+    dictionary.instance = this;
+
+    return dictionary;
+};
+*/
 
 Subform.prototype.isFiltered = function(){
     

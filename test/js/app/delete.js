@@ -43,11 +43,13 @@ QUnit.test( "delete test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-
+            
             // Go to delete form and cancel
             testHelper.clickDeleteListButton( key );
             testHelper.clickFormCancelButton();
+            
             testHelper.checkRecord( assert, key, expectedRecord );
+            
             testHelper.pagingTest({
                 options: options,
                 assert: assert,
@@ -58,7 +60,7 @@ QUnit.test( "delete test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
-
+            
             // Go to delete form and delete record
             testHelper.clickDeleteListButton( key );
             

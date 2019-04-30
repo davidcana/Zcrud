@@ -6,7 +6,7 @@
 var Field = require( './field.js' );
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
-//var zpt = require( 'zpt' );
+var zpt = require( 'zpt' );
 var DateFormatter = require( '../../../lib/php-date-formatter.js' );
 
 var Datetime = function( properties ) {
@@ -540,11 +540,9 @@ Datetime.prototype.goToday = function( event, $datetime, params ){
 
 Datetime.prototype.buildDictionaryFromParams = function( params ){
     
-    this.dictionary = $.extend( params.dictionary );
-    //this.dictionary = $.extend( true, {}, params.dictionary );
-    //this.dictionary = $.extend( true, {}, this.page.getDictionary() );
+    //this.dictionary = $.extend( params.dictionary );
+    this.dictionary = {};
     this.dictionary.field = this;
-    //this.dictionary.value = params.value;
 
     return this.dictionary;
 };
@@ -570,10 +568,11 @@ Datetime.prototype.updateDatePicker = function( referenceDate, selectedDate, $da
         selectedDate );
 
     // Refresh template
-    context.getZPTParser().run({
+    zpt.run({
+    //context.getZPTParser().run({
         root: $datetime.find( '.datepicker' )[ 0 ],
-        dictionary: this.dictionary,
-        notRemoveGeneratedTags: false
+        dictionaryExtension: this.dictionary
+        //notRemoveGeneratedTags: false
     });
 
     // Bind events

@@ -52,7 +52,7 @@ QUnit.test( "change test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
             });
-
+            
             // Edit record
             var editedRecord =  {
                 "name": "Service 2 edited",
@@ -61,7 +61,7 @@ QUnit.test( "change test", function( assert ) {
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = $.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
-
+            
             assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
@@ -195,7 +195,6 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
     );
 });
 
-
 QUnit.test( "change undo/redo 3 actions test", function( assert ) {
     
     var done = assert.async();
@@ -315,4 +314,3 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
         }
     );
 });
-

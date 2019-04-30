@@ -17,7 +17,6 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( "create test", function( assert ) {
     
     var done = assert.async();

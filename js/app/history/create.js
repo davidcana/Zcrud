@@ -4,6 +4,7 @@
 "use strict";
 
 var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
 var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
@@ -53,9 +54,10 @@ Create.prototype.addRow = function(){
     //var omitKeyBackup = this.thisDictionary.omitKey;
     //this.thisDictionary.omitKey = true;
     
-    context.getZPTParser().run({
+    zpt.run({
+    //context.getZPTParser().run({
         root: this.$tbody[ 0 ],
-        dictionary: this.thisDictionary,
+        dictionaryExtension: this.thisDictionary,
         notRemoveGeneratedTags: true
     });
 

@@ -8,6 +8,7 @@ var pageUtils = require( './pageUtils.js' );
 var Page = require( './page.js' );
 var validationManager = require( '../validationManager.js' );
 var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
@@ -26,7 +27,6 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     this.isFirstExecution = true;
     this.id = this.options.formId;
     this.title = undefined;
-    this.dictionary = undefined;
     this.submitFunction = undefined;
     this.view = undefined;
     this.successMessage = undefined;
@@ -46,7 +46,6 @@ FormPage.prototype.initFromOptions = function( userData ){
     this.userRecord = userData.record;
     this.loadAtFirstExecution = userData.load == undefined? true: userData.load;
 };
-    
     
 FormPage.prototype.getParentPage = function(){
     return this.parentPage;
@@ -219,11 +218,9 @@ FormPage.prototype.buildHTMLAndJavascript = function( root ) {
             "'" + this.thisOptions.template + "'" );
     }
 
-    context.getZPTParser().run({
-        root: root || ( this.options.target? this.options.target[0]: null ) || this.options.body,
-        dictionary: this.dictionary,
-        declaredRemotePageUrls: this.options.templates.declaredRemotePageUrls,
-        notRemoveGeneratedTags: false
+    zpt.run({
+        root: root || ( this.options.target? this.options.target[0]: null ) || document.body,
+        dictionaryExtension: this.instanceDictionaryExtension
     });
 };
 
@@ -336,6 +333,7 @@ FormPage.prototype.buildRecordForDictionary = function(){
     return newRecord;
 };
 */
+/*
 FormPage.prototype.updateDictionary = function( dictionaryExtension ){
 
     var thisDictionary = $.extend( 
@@ -359,7 +357,23 @@ FormPage.prototype.updateDictionary = function( dictionaryExtension ){
     
     this.dictionary.instance = this;
 };
+*/
+FormPage.prototype.updateDictionary = function( dictionaryExtension ){
     
+    this.instanceDictionaryExtension = {};
+    this.instanceDictionaryExtension.instance = this;
+    this.instanceDictionaryExtension.record = this.buildRecordForDictionary();
+
+    // Set omitKey to true to make default value of subforms to work
+    if ( this.omitKey ){
+        this.instanceDictionaryExtension.omitKey = true;
+    }
+
+    if ( dictionaryExtension ){
+        $.extend( this.instanceDictionaryExtension, dictionaryExtension );
+    }
+};
+
 FormPage.prototype.buildProcessTemplateParams = function( field ){
 
     return {
@@ -368,7 +382,7 @@ FormPage.prototype.buildProcessTemplateParams = function( field ){
         options: this.options,
         record: this.record,
         source: this.type,
-        dictionary: this.dictionary,
+        dictionary: context.getDictionary(),
         formPage: this
     };
 };

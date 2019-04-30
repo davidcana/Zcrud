@@ -214,9 +214,9 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         HistoryDelete.resetCSS( $list, editableOptions );
     };
     
-    var getValueFromRecord =  function( rowIndex, name, subformName, subformRowIndex ){
+    var getValueFromRecord = function( rowIndex, name, subformName, subformRowIndex ){
         
-        var dictionary = dictionaryProvider.getDictionary();
+        var dictionary = dictionaryProvider.getInstanceDictionaryExtension();
 
         // Try to get the record
         try {

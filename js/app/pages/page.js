@@ -76,6 +76,10 @@ Page.prototype.getDictionary = function(){
     return this.dictionary;
 };
 
+Page.prototype.getInstanceDictionaryExtension = function(){
+    return this.instanceDictionaryExtension;
+};
+
 Page.prototype.getType = function(){
     throw 'getType method not implemented in Page class!';
 };
@@ -169,9 +173,9 @@ Page.prototype.showStatusMessage = function( dictionaryExtension ){
     
     pageUtils.showStatusMessage( 
         this.get$(), 
-        this.dictionary, 
-        dictionaryExtension, 
-        context 
+        //this.dictionary, 
+        dictionaryExtension
+        //context 
     );
 };
 

@@ -25,7 +25,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = formTestOptions;
+    options = $.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -70,7 +70,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = formTestOptions;
+    options = $.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -116,7 +116,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = formTestOptions;
+    options = $.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -160,7 +160,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = formTestOptions;
+    options = $.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -200,7 +200,7 @@ QUnit.test( "editable list create record with duplicated key test", function( as
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = editableListTestOptions;
+    options = $.extend( true, {}, editableListTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -246,7 +246,7 @@ QUnit.test( "editable list update record with no duplicated key test", function(
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = editableListTestOptions;
+    options = $.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -306,7 +306,7 @@ QUnit.test( "editable list update record with duplicated key test", function( as
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = editableListTestOptions;
+    options = $.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -360,7 +360,7 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = editableListTestOptions;
+    options = $.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -403,7 +403,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = formTestOptions;
+    options = $.extend( true, {}, formTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -456,7 +456,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = editableListTestOptions;
+    options = $.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -543,7 +543,7 @@ QUnit.test( "editable list create record with undefined key test and then update
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = editableListTestOptions;
+    options = $.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',

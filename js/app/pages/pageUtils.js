@@ -3,6 +3,7 @@
 */
 
 var $ = require( 'jquery' );
+var zpt = require( 'zpt' );
 
 module.exports = (function() {
     "use strict";
@@ -124,14 +125,23 @@ module.exports = (function() {
         return result;
     }
     
+    /*
     var showStatusMessage = function( $this, dictionary, dictionaryExtension, context ){
 
         var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
 
-        context.getZPTParser().run({
-            //root: get$().find( '.zcrud-status' )[0],
+        zpt.run({
+        //context.getZPTParser().run({
             root: $this.find( '.zcrud-status' )[0],
             dictionary: thisDictionary
+        });
+    };
+    */
+    var showStatusMessage = function( $this, dictionaryExtension ){
+
+        zpt.run({
+            root: $this.find( '.zcrud-status' )[0],
+            dictionaryExtension: dictionaryExtension
         });
     };
     

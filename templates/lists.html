@@ -121,11 +121,11 @@
                                  key instance/getKey()"
                    data-idomain="i18nArray">
                 <tr data-trepeat="record records"
+                    data-tdefine="data-record-index record-repeat/index()"
                     data-tattributes="data-record-key cond:omitKey null record[ key ];
-                                      data-record-index repeat/record/index();
+                                      data-record-index data-record-index;
                                       data-record-id instance/generateId();
-                                      class 'zcrud-data-row zcrud-data-entity'"
-                    data-tdefine="data-record-index repeat/record/index()">
+                                      class 'zcrud-data-row zcrud-data-entity'">
                     <td data-tcondition="selectingCheckbox">
                         <input class="zcrud-select-row" type="checkbox">
                     </td>

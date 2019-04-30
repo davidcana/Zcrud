@@ -16,7 +16,7 @@ module.exports = {
     dictionary: {},
 
     saveUserPreferences: true,
-    body: document.body,
+    //body: document.body,
     entityId: 'entity',
     
     defaultComponentsConfig: {

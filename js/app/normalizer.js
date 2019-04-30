@@ -1,11 +1,12 @@
 /* 
     normalizer singleton class
 */
+"use strict";
+
 var context = require( './context.js' );
 var $ = require( 'jquery' );
 
 module.exports = (function() {
-    "use strict";
 
     // Normalizes some options (sets default values)
     var run = function( options, userOptions ) {

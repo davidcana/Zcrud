@@ -8,7 +8,7 @@ module.exports = (function() {
     var zpt = require( 'zpt' );
     var pageUtils = require( './pages/pageUtils.js' );
     
-    var zptParser = undefined;
+    //var zptParser = undefined;
     var subformSeparator = '-';
     
     // Cache
@@ -169,12 +169,14 @@ module.exports = (function() {
     };
     
     // ZPT
+    /*
     var getZPTParser = function(){
         return zptParser;
     };
     var setZPTParser = function( zptParserToApply ){
         zptParser = zptParserToApply;
     };
+    */
     
     // Update visible fields (for testing purposes)
     var updateFormVisibleFields = function( options, fieldIdList ){
@@ -245,6 +247,15 @@ module.exports = (function() {
         return string.replace( toRemove, '' );
     };
     
+    // Dictionary
+    var dictionary;
+    var setDictionary = function( _dictionary ){
+        dictionary = _dictionary;
+    };
+    var getDictionary = function(){
+        return dictionary;
+    };
+    
     return {
         put: put,
         get: get,
@@ -262,8 +273,8 @@ module.exports = (function() {
         getListPage: getListPage,
         getFormPage: getFormPage,
         declareRemotePageUrl: declareRemotePageUrl,
-        getZPTParser: getZPTParser,
-        setZPTParser: setZPTParser,
+        //getZPTParser: getZPTParser,
+        //setZPTParser: setZPTParser,
         updateFormVisibleFields: updateFormVisibleFields,
         updateListVisibleFields: updateListVisibleFields,
         updateSubformFields: updateSubformFields,
@@ -276,6 +287,8 @@ module.exports = (function() {
         setHistory: setHistory,
         getHistory: getHistory,
         buildSubformsRecordsIdFromFieldId: buildSubformsRecordsIdFromFieldId,
-        buildFieldIdFromSubformsRecordsId: buildFieldIdFromSubformsRecordsId
+        buildFieldIdFromSubformsRecordsId: buildFieldIdFromSubformsRecordsId,
+        setDictionary: setDictionary,
+        getDictionary: getDictionary
     };
 })();
