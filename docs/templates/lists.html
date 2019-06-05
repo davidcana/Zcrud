@@ -5,142 +5,143 @@
         <title>Templates of lists</title>
     </head>
     <body>
-        <div data-mdefine-macro="listDefaultTemplate" 
+        <div data-define-macro="listDefaultTemplate" 
              class="zcrud-main-container" 
              style="display: none"
-             data-tattributes="id instance/getThisOptions()/id"
-             data-idomain="i18nArray">
+             data-attributes="id instance/getThisOptions()/id"
+             data-domain="i18nArray">
             
-            <form data-tomit-tag="not: exists: instance/getComponent( 'editing' )"
-                  data-tattributes="id instance/getThisOptions()/formId">
+            <form data-omit-tag="not: exists: instance/getComponent( 'editing' )"
+                  data-attributes="id instance/getThisOptions()/formId">
                 <div class="zcrud-header">
                     <div class="zcrud-header-title">
                         <span class="zcrud-title"
-                              data-tcontent="options/title || tr:'general_entityName'">
+                              data-content="options/title || tr:'general_entityName'">
                             The title option
                         </span>
                     </div>
 
-                    <div data-muse-macro="'filterPanel'"
-                         data-tcondition="instance/getComponent( 'filtering' )">
+                    <div data-use-macro="'filterPanel'"
+                         data-condition="instance/getComponent( 'filtering' )">
                         The filter panel
                     </div>
                     
-                    <div data-muse-macro="'status'"
-                         data-tcondition="instance/getThisOptions()/showStatus">
+                    <div data-use-macro="'status'"
+                         data-condition="instance/getThisOptions()/showStatus">
                         The status message
                     </div>
                 </div>
                 
-                <div data-muse-macro="'table'">
+                <div data-use-macro="'table'">
                     The ZCrud table
                 </div>
 
-                <div data-muse-macro="'postTemplates'">
+                <div data-use-macro="'postTemplates'">
                     The post templates
                 </div>
                 
-                <div data-muse-macro="'pagingPanel'"
-                     data-tcondition="instance/getComponent( 'paging' )">
+                <div data-use-macro="'pagingPanel'"
+                     data-condition="instance/getComponent( 'paging' )">
                     The bottom panel
                 </div>
             </form>
         </div>
         
-        <span data-mdefine-macro="toolbar">
-            <span data-trepeat="button buttons">
-                <button data-tdefine="textsBundle button/getTextsBundle();
+        <span data-define-macro="toolbar">
+            <span data-repeat="button buttons">
+                <button data-define="textsBundle button/getTextsBundle();
                                       title textsBundle/title;
                                       content textsBundle/content"
-                        data-tattributes="class string:${button/getCssClass()} ${button/id};
+                        data-attributes="class string:${button/getCssClass()} ${button/id};
                                           title cond: title (cond: title/translate (tr: title/text) title/text) null;
                                           disabled button/disabled" 
-                        data-tcontent="cond: content (cond: content/translate (tr: content/text) content/text) ''">
+                        data-content="cond: content (cond: content/translate (tr: content/text) content/text) ''">
                     Undo
                 </button>
             </span>
         </span>
         
-        <div data-mdefine-macro="postTemplates" 
+        <div data-define-macro="postTemplates" 
              class="zcrud-post-templates">
             
-            <div data-muse-macro="'postTemplates-fields'"
-                 data-tdefine="fields instance/getFields()">
+            <div data-use-macro="'postTemplates-fields'"
+                 data-define="fields instance/getFields()">
                 The post templates
             </div>
         </div>
         
-        <div data-mdefine-macro="postTemplates-fields">
-            <div data-trepeat="field fields"
-                 data-tdefine="fieldsInside field/getFields()">
-                <div data-tcondition="fieldsInside">
-                    <div data-muse-macro="'postTemplates-fields'"
-                         data-tdefine="fields fieldsInside">
+        <div data-define-macro="postTemplates-fields">
+            <div data-repeat="field fields"
+                 data-define="fieldsInside field/getFields()">
+                <div data-condition="fieldsInside">
+                    <div data-use-macro="'postTemplates-fields'"
+                         data-define="fields fieldsInside">
                         The post templates
                     </div>
                 </div>
-                <div data-tcondition="not: fieldsInside">
-                    <div data-tdefine="postTemplate field/getPostTemplate()"
-                         data-tcondition="postTemplate">
-                        <div data-muse-macro="postTemplate"><!--empty--></div>
+                <div data-condition="not: fieldsInside">
+                    <div data-define="postTemplate field/getPostTemplate()"
+                         data-condition="postTemplate">
+                        <div data-use-macro="postTemplate"><!--empty--></div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <table data-mdefine-macro="table" 
+        <table data-define-macro="table" 
                class="zcrud"
-               data-idomain="i18nArray"
-               data-tattributes="id instance/getThisOptions()/tableId">
-            <thead data-tdefine="sortingComponent instance/getComponent( 'sorting' );
+               data-domain="i18nArray"
+               data-attributes="id instance/getThisOptions()/tableId">
+            <thead data-define="sortingComponent instance/getComponent( 'sorting' );
                                  selectingComponent instance/getComponent( 'selecting' );
                                  selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'))"
-                   data-idomain="i18nArray">
+                   data-domain="i18nArray">
                 <tr>
-                    <th data-tcondition="selectingCheckbox">
+                    <th data-condition="selectingCheckbox">
                         <input class="zcrud-select-all-rows" type="checkbox">
                     </th>
-                    <th data-trepeat="field instance/getFields()" 
-                        data-tdefine="sortingOn and: sortingComponent field/sorting;
+                    <th data-repeat="field instance/getFields()" 
+                        data-define="sortingOn and: sortingComponent field/sorting;
                                       sortablePart cond: sortingOn ' zcrud-column-header-sortable' '';
                                       sortType cond: sortingComponent sortingComponent/getTypeForFieldId( field/id ) null;
                                       sortTypePart cond: (and: sortingOn (exists:sortType)) (string: zcrud-column-header-sorted-${sortType}) ''"
-                        data-tattributes="class string:zcrud-column-header zcrud-column-header-${field/id}${sortablePart}${sortTypePart};
+                        data-attributes="class string:zcrud-column-header zcrud-column-header-${field/id}${sortablePart}${sortTypePart};
                                           data-sort-field-id field/id;
                                           data-sort-type sortType;
                                           field/attributes/rowHeader">
-                        <span data-treplace="field/title || tr:string:${field/id}_title">Field title</span>
+                        <span data-replace="field/title || tr:string:${field/id}_title">Field title</span>
                     </th>
                     <th class="zcrud-command-column-header"><!--empty--></th>
                 </tr>
             </thead>
-            <tbody data-tattributes="id instance/getThisOptions()/tbodyId"
-                   data-tdefine="selectingComponent instance/getComponent( 'selecting' );
+            <tbody data-attributes="id instance/getThisOptions()/tbodyId"
+                   data-define="selectingComponent instance/getComponent( 'selecting' );
                                  selectingCheckbox and: (exists:selectingComponent) (lt: -1 selectingComponent/getThisOptions()/mode/indexOf('checkbox'));
                                  renderIds false;
                                  key instance/getKey()"
-                   data-idomain="i18nArray">
-                <tr data-trepeat="record records"
-                    data-tattributes="data-record-key cond:omitKey null record[ key ];
-                                      data-record-index record-repeat/index();
+                   data-domain="i18nArray">
+                <tr data-repeat="record records"
+                    data-define="data-record-index record-repeat/index()"
+                    data-attributes="data-record-key cond:omitKey null record[ key ];
+                                      data-record-index data-record-index;
                                       data-record-id instance/generateId();
                                       class 'zcrud-data-row zcrud-data-entity'">
-                    <td data-tcondition="selectingCheckbox">
+                    <td data-condition="selectingCheckbox">
                         <input class="zcrud-select-row" type="checkbox">
                     </td>
-                    <td data-trepeat="field instance/getFields()"
-                        data-tattributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
-                        data-tdefine="value record[ field/id ];
+                    <td data-repeat="field instance/getFields()"
+                        data-attributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
+                        data-define="value record[ field/id ];
                                       fieldIsEditable and: editable (not: field/isReadOnly())">
-                        <span data-tcondition="not: fieldIsEditable" 
-                              data-tcontent="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) field/getViewValueFromRecord( record )">
+                        <span data-condition="not: fieldIsEditable" 
+                              data-content="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) field/getViewValueFromRecord( record )">
                             Field value
                         </span>
-                        <span data-tcondition="fieldIsEditable" data-muse-macro="field/template"><!--empty--></span>
+                        <span data-condition="fieldIsEditable" data-use-macro="field/template"><!--empty--></span>
                     </td>
                     <td class="zcrud-command">
-                        <span data-muse-macro="'toolbar'"
-                              data-tdefine="buttons instance/getByRowButtons()">
+                        <span data-use-macro="'toolbar'"
+                              data-define="buttons instance/getByRowButtons()">
                             The buttons of the toolbar
                         </span>
                     </td>
@@ -148,47 +149,47 @@
             </tbody>
         </table>
         
-        <div data-mdefine-macro="filterPanel" 
-             data-tdefine="component instance/getComponent( 'filtering' );
+        <div data-define-macro="filterPanel" 
+             data-define="component instance/getComponent( 'filtering' );
                            thisOptions component/getThisOptions();
                            record component/getInitialRecord()"
-             data-tattributes="class cond: thisOptions/cssClass (string:${component/getClass()} ${thisOptions/cssClass}) component/getClass()"
-             data-idomain="i18nArray">
+             data-attributes="class cond: thisOptions/cssClass (string:${component/getClass()} ${thisOptions/cssClass}) component/getClass()"
+             data-domain="i18nArray">
             <form>
-                <span class="zcrud-field-help" data-tcontent="tr:string:${component/getParent()/getName()}_filter_description">
+                <span class="zcrud-field-help" data-content="tr:string:${component/getParent()/getName()}_filter_description">
                     The description of this filter.
                 </span>
-                <span data-muse-macro="thisOptions/fieldsTemplate"
-                      data-tdefine="viewItems component/getFields();
+                <span data-use-macro="thisOptions/fieldsTemplate"
+                      data-define="viewItems component/getFields();
                                    isNotHistoryField true;
                                    spanFieldClass 'zcrud-filter-field';
                                    forceEditable true">
                     The list of fields of the filter
                 </span>
                 <button type="button" 
-                        data-tattributes="class 'zcrud-filter-submit-button'"
-                        data-tcontent="tr:'Filter'">
+                        data-attributes="class 'zcrud-filter-submit-button'"
+                        data-content="tr:'Filter'">
                     Filter
                 </button>
             </form>
         </div>
         
-        <div data-mdefine-macro="status" 
-             data-tattributes="class 'zcrud-status'"
-             data-idomain="i18nArray">
-            <span data-tcontent="tr: 'Status:'">Status:</span>
-            <span data-tcondition="status">
-                <span data-tattributes="id 'zcrud-message'"
-                      data-tcondition="status/message"
-                      data-tcontent="tr: status/message">Operation done!</span>
-                <span data-tattributes="id 'zcrud-message-time'"
-                      data-tcondition="status/date"
-                      data-tcontent="string:(${status/date})">(14:23)</span>
+        <div data-define-macro="status" 
+             data-attributes="class 'zcrud-status'"
+             data-domain="i18nArray">
+            <span data-content="tr: 'Status:'">Status:</span>
+            <span data-condition="status">
+                <span data-attributes="id 'zcrud-message'"
+                      data-condition="status/message"
+                      data-content="tr: status/message">Operation done!</span>
+                <span data-attributes="id 'zcrud-message-time'"
+                      data-condition="status/date"
+                      data-content="string:(${status/date})">(14:23)</span>
             </span>
         </div>
         
-        <div data-mdefine-macro="pagingPanel" 
-             data-tdefine="component instance/getComponent( 'paging' );
+        <div data-define-macro="pagingPanel" 
+             data-define="component instance/getComponent( 'paging' );
                            pagingInfo component/buildInfo();
                            currentPageNumber pagingInfo/pageNumber;
                            pageListInfo pagingInfo/pageListInfo;
@@ -198,80 +199,80 @@
                            firstSuffix cond: pagingInfo/isFirstPage ' zcrud-page-number-disabled' '';
                            lastSuffix cond: pagingInfo/isLastPage ' zcrud-page-number-disabled' '';
                            thisOptions component/getThisOptions()"
-             data-tattributes="class component/getClass()"
-             data-idomain="i18nArray">
+             data-attributes="class component/getClass()"
+             data-domain="i18nArray">
             
             <div class="zcrud-left-area">
                 <span class="zcrud-page-list">
-                    <span data-tattributes="class string:zcrud-page-number-first${firstSuffix}"
+                    <span data-attributes="class string:zcrud-page-number-first${firstSuffix}"
                           data-page="1">&lt;&lt;</span>
-                    <span data-tattributes="class string:zcrud-page-number-previous${firstSuffix};
+                    <span data-attributes="class string:zcrud-page-number-previous${firstSuffix};
                                             data-page (-: currentPageNumber 1)">&lt;</span>
-                    <span data-trepeat="pageNumber block1OfPages" 
-                          data-tdefine="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
-                          data-tattributes="class string:zcrud-page-number${suffix};
+                    <span data-repeat="pageNumber block1OfPages" 
+                          data-define="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
+                          data-attributes="class string:zcrud-page-number${suffix};
                                             data-page pageNumber"
-                          data-tcontent="pageNumber">
+                          data-content="pageNumber">
                           1
                     </span>
-                    <span class="zcrud-page-number-space" data-tcondition="lt: 0 block2OfPages/length">...</span>
-                    <span data-trepeat="pageNumber block2OfPages" 
-                          data-tdefine="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
-                          data-tattributes="class string:zcrud-page-number${suffix};
+                    <span class="zcrud-page-number-space" data-condition="lt: 0 block2OfPages/length">...</span>
+                    <span data-repeat="pageNumber block2OfPages" 
+                          data-define="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
+                          data-attributes="class string:zcrud-page-number${suffix};
                                             data-page pageNumber"
-                          data-tcontent="pageNumber">
+                          data-content="pageNumber">
                           10
                     </span>
-                    <span class="zcrud-page-number-space" data-tcondition="lt: 0 block3OfPages/length">...</span>
-                    <span data-trepeat="pageNumber block3OfPages" 
-                          data-tdefine="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
-                          data-tattributes="class string:zcrud-page-number${suffix};
+                    <span class="zcrud-page-number-space" data-condition="lt: 0 block3OfPages/length">...</span>
+                    <span data-repeat="pageNumber block3OfPages" 
+                          data-define="suffix cond: (eq: pageNumber currentPageNumber) ' zcrud-page-number-active zcrud-page-number-disabled' ''"
+                          data-attributes="class string:zcrud-page-number${suffix};
                                             data-page pageNumber"
-                          data-tcontent="pageNumber">
+                          data-content="pageNumber">
                           25
                     </span>
-                    <span data-tattributes="class string:zcrud-page-number-next${lastSuffix};
+                    <span data-attributes="class string:zcrud-page-number-next${lastSuffix};
                                             data-page (+: currentPageNumber 1)">&gt;</span>
-                    <span data-tattributes="class string:zcrud-page-number-last${lastSuffix};
+                    <span data-attributes="class string:zcrud-page-number-last${lastSuffix};
                                             data-page pagingInfo/numberOfPages">&gt;&gt;</span>
                 </span>
                 <span class="zcrud-goto-page">
-                    <span data-tcontent="tr:'Go to page:'">Go to page: </span>
-                    <span data-tcondition="eq: thisOptions/gotoPageFieldType 'combobox'">
-                        <select data-tdefine="goToPageList pagingInfo/goToPageList;
+                    <span data-content="tr:'Go to page:'">Go to page: </span>
+                    <span data-condition="eq: thisOptions/gotoPageFieldType 'combobox'">
+                        <select data-define="goToPageList pagingInfo/goToPageList;
                                               currentPageNumber pagingInfo/pageNumber"
-                                data-tattributes="class thisOptions/goToPageFieldClass">
-                            <option data-trepeat="pageNumber goToPageList"
-                                    data-tattributes="value pageNumber; selected cond: (eq: pageNumber currentPageNumber) 'selected' null"
-                                    data-tcontent="pageNumber">&nbsp;</option>
+                                data-attributes="class thisOptions/goToPageFieldClass">
+                            <option data-repeat="pageNumber goToPageList"
+                                    data-attributes="value pageNumber; selected cond: (eq: pageNumber currentPageNumber) 'selected' null"
+                                    data-content="pageNumber">&nbsp;</option>
                         </select>
                     </span>
-                    <span data-tcondition="eq: thisOptions/gotoPageFieldType 'textbox'">
-                        <input data-tattributes="class thisOptions/goToPageFieldClass;
+                    <span data-condition="eq: thisOptions/gotoPageFieldType 'textbox'">
+                        <input data-attributes="class thisOptions/goToPageFieldClass;
                                                  thisOptions/gotoPageFieldAttributes">
                     </span>
                 </span>
                 <span class="zcrud-page-size-change">
-                    <span data-tcontent="tr:'Row count:'">Row count: </span>
-                    <select data-tdefine="currentPageSize component/getPageSize()"
-                            data-tattributes="class thisOptions/pageSizeChangeFieldClass">
-                        <option data-trepeat="pageSize component/getPageSizes()"
-                                data-tattributes="value pageSize; selected cond: (eq: pageSize currentPageSize) 'selected' null"
-                                data-tcontent="pageSize">&nbsp;</option>
+                    <span data-content="tr:'Row count:'">Row count: </span>
+                    <select data-define="currentPageSize component/getPageSize()"
+                            data-attributes="class thisOptions/pageSizeChangeFieldClass">
+                        <option data-repeat="pageSize component/getPageSizes()"
+                                data-attributes="value pageSize; selected cond: (eq: pageSize currentPageSize) 'selected' null"
+                                data-content="pageSize">&nbsp;</option>
                     </select>
                 </span>
                 <span class="zcrud-toolbar">
-                    <span data-muse-macro="'toolbar'"
-                          data-tdefine="buttons instance/getToolbarButtons()">
+                    <span data-use-macro="'toolbar'"
+                          data-define="buttons instance/getToolbarButtons()">
                         The buttons of the toolbar
                     </span>
                 </span>
             </div>
             <div class="zcrud-right-area">
                 <span class="zcrud-paging-info" 
-                      data-tdefine="pagingMessageSuffix cond:instance/isFiltered() (tr:'pagingMessageFilteredSuffix') '';
+                      data-define="pagingMessageSuffix cond:instance/isFiltered() (tr:'pagingMessageFilteredSuffix') '';
                                     pagingMessage cond:(eq: 0 pagingInfo/totalNumberOfRecords) (tr:'pagingNoRecordsMessage') (tr:'pagingMessage' ( first pagingInfo/first; last pagingInfo/last; total pagingInfo/totalNumberOfRecords ))"
-                      data-tcontent="string:${pagingMessage}${pagingMessageSuffix}">
+                      data-content="string:${pagingMessage}${pagingMessageSuffix}">
                     Showing 126-128 of 128
                 </span>
             </div>

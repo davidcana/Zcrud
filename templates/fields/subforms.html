@@ -5,55 +5,55 @@
         <title>Templates of subforms</title>
     </head>
     <body>
-        <div data-mdefine-macro="subform" data-tomit-tag="">
-            <div data-muse-macro="'filterPanel@templates/lists.html'"
-                 data-tdefine="instance field"
-                 data-tcondition="instance/getComponent( 'filtering' )">
+        <div data-define-macro="subform" data-omit-tag="">
+            <div data-use-macro="'filterPanel@templates/lists.html'"
+                 data-define="instance field"
+                 data-condition="instance/getComponent( 'filtering' )">
                 The bottom panel
             </div>
             
             <div class="zcrud-subform-content"
-                 data-tdefine="instance field;
+                 data-define="instance field;
                                pagingComponent instance/getComponent( 'paging' )">
-                <div data-muse-macro="'table@templates/lists.html'"
-                     data-tdefine="editable true;
+                <div data-use-macro="'table@templates/lists.html'"
+                     data-define="editable true;
                                    records value">
                     The ZCrud table
                 </div>
                 
-                <div data-muse-macro="'pagingPanel@templates/lists.html'"
-                     data-tcondition="pagingComponent">
+                <div data-use-macro="'pagingPanel@templates/lists.html'"
+                     data-condition="pagingComponent">
                     The bottom panel
                 </div>
                 <div class="zcrud-subform-toolbar"
-                     data-tcondition="not: pagingComponent">
-                    <span data-muse-macro="'toolbar'"
-                          data-tdefine="buttons instance/getToolbarButtons()">
+                     data-condition="not: pagingComponent">
+                    <span data-use-macro="'toolbar'"
+                          data-define="buttons instance/getToolbarButtons()">
                         The buttons of the toolbar
                     </span>
                 </div>
             </div>
         </div>
         
-        <div data-mdefine-macro="view" data-tomit-tag="">
-            <div data-muse-macro="'filterPanel@templates/lists.html'"
-                 data-tdefine="instance field"
-                 data-tcondition="instance/getComponent( 'filtering' )">
+        <div data-define-macro="view" data-omit-tag="">
+            <div data-use-macro="'filterPanel@templates/lists.html'"
+                 data-define="instance field"
+                 data-condition="instance/getComponent( 'filtering' )">
                 The bottom panel
             </div>
             
             <div class="zcrud-subform-content"
-                 data-tdefine="instance field;
+                 data-define="instance field;
                                pagingComponent instance/getComponent( 'paging' )">
-                <div data-muse-macro="'table@templates/lists.html'"
-                     data-tdefine="editable false;
+                <div data-use-macro="'table@templates/lists.html'"
+                     data-define="editable false;
                                    records value;
                                    renderIds false">
                     The ZCrud table
                 </div>
                 
-                <div data-muse-macro="'pagingPanel@templates/lists.html'"
-                     data-tcondition="pagingComponent">
+                <div data-use-macro="'pagingPanel@templates/lists.html'"
+                     data-condition="pagingComponent">
                     The bottom panel
                 </div>
             </div>

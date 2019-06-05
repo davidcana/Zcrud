@@ -5,8 +5,8 @@
         <title>Templates of fields in forms</title>
     </head>
     <body> 
-        <div data-mdefine-macro="text" data-tomit-tag="">
-            <input data-tattributes="id cond: renderIds field/elementId null;
+        <div data-define-macro="text" data-omit-tag="">
+            <input data-attributes="id cond: renderIds field/elementId null;
                                      name field/name;
                                      value ( value || '' );
                                      class cond: isNotHistoryField null 'historyField';
@@ -14,16 +14,16 @@
                    type="text">
         </div>
         
-        <div data-mdefine-macro="textarea" data-tomit-tag="">
-            <textarea data-tattributes="id cond: renderIds field/elementId null;
+        <div data-define-macro="textarea" data-omit-tag="">
+            <textarea data-attributes="id cond: renderIds field/elementId null;
                                         name field/name;
                                         class cond: isNotHistoryField null 'historyField';
                                         field/attributes/field"
-                      data-tcontent="cond: value value ''">The textarea value.</textarea>
+                      data-content="cond: value value ''">The textarea value.</textarea>
         </div>
         
-        <div data-mdefine-macro="datetime" data-tomit-tag="">
-            <input data-tattributes="id cond: renderIds field/elementId null;
+        <div data-define-macro="datetime" data-omit-tag="">
+            <input data-attributes="id cond: renderIds field/elementId null;
                                      name field/name;
                                      value value;
                                      class cond: isNotHistoryField null 'historyField';
@@ -31,40 +31,40 @@
                    type="text">
         </div>
             
-        <div data-mdefine-macro="select" data-tomit-tag="">
-            <select data-tattributes="id cond: renderIds field/elementId null;
+        <div data-define-macro="select" data-omit-tag="">
+            <select data-attributes="id cond: renderIds field/elementId null;
                                       name field/name;
                                       value value;
                                       class cond: isNotHistoryField null 'historyField';
                                       field/attributes/field"
-                    data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )">
-                <option data-trepeat="option optionsList"
-                        data-tattributes="value option/value; 
+                    data-define="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )">
+                <option data-repeat="option optionsList"
+                        data-attributes="value option/value; 
                                           selected cond: (eq: option/value value) 'selected' null"
-                        data-tcontent="cond: field/translateOptions (tr:option/displayText) option/displayText"></option>
+                        data-content="cond: field/translateOptions (tr:option/displayText) option/displayText"></option>
             </select>
         </div>
 
-        <div data-mdefine-macro="radio" data-tomit-tag=""
-             data-tattributes="field/attributes/field">
-            <div data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
-                 data-tattributes="class 'zcrud-radio-container'"
-                 data-idomain="i18nArray">
-                <div data-trepeat="option optionsList">
+        <div data-define-macro="radio" data-omit-tag=""
+             data-attributes="field/attributes/field">
+            <div data-define="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
+                 data-attributes="class 'zcrud-radio-container'"
+                 data-domain="i18nArray">
+                <div data-repeat="option optionsList">
                     <label>
                         <input type="radio"
-                               data-tattributes="name string:${field/name}[${data-record-index}];
+                               data-attributes="name string:${field/name}[${data-record-index}];
                                                  value option/value;
                                                  checked cond: (eq: option/value value) 'checked' null;
                                                  class 'historyField zcrud-active';">
-                        <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                        <span data-replace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
                     </label>
                 </div>
             </div>
         </div>
         
-        <div data-mdefine-macro="datalist" data-tomit-tag="">
-            <input data-tattributes="id cond: renderIds field/elementId null;
+        <div data-define-macro="datalist" data-omit-tag="">
+            <input data-attributes="id cond: renderIds field/elementId null;
                                      name field/name;
                                      list string:${field/elementId}-datalist;
                                      value ( value || '' );
@@ -72,19 +72,19 @@
                                      field/attributes/field"
                    type="text">
         </div>
-        <div data-mdefine-macro="datalist-definition">
-            <datalist data-tattributes="id string:${field/elementId}-datalist"
-                      data-tdefine="optionsList optionsListFromForm || field/getOptionsFromBlank( options )">
-                <option data-trepeat="option optionsList"
-                        data-tdefine="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
-                        data-tattributes="value option/value;
+        <div data-define-macro="datalist-definition">
+            <datalist data-attributes="id string:${field/elementId}-datalist"
+                      data-define="optionsList optionsListFromForm || field/getOptionsFromBlank( options )">
+                <option data-repeat="option optionsList"
+                        data-define="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
+                        data-attributes="value option/value;
                                           selected cond: (eq: option/value value) 'selected' null;
                                           label displayText">&nbsp;</option>
             </datalist>
         </div>
         
-        <div data-mdefine-macro="checkbox" data-tomit-tag="">
-            <input data-tattributes="id cond: renderIds field/elementId null;
+        <div data-define-macro="checkbox" data-omit-tag="">
+            <input data-attributes="id cond: renderIds field/elementId null;
                                      name field/name;
                                      value value;
                                      checked cond: value 'checked' null;
@@ -93,20 +93,20 @@
                    type="checkbox">
         </div>
         
-        <div data-mdefine-macro="checkboxes" data-tomit-tag=""
-             data-tattributes="field/attributes/field">
-            <div data-tdefine="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
-                 data-tattributes="class string:zcrud-checkboxes-container zcrud-checkboxes-container-${field/name}"
-                 data-idomain="i18nArray">
-                <div data-trepeat="option optionsList">
+        <div data-define-macro="checkboxes" data-omit-tag=""
+             data-attributes="field/attributes/field">
+            <div data-define="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
+                 data-attributes="class string:zcrud-checkboxes-container zcrud-checkboxes-container-${field/name}"
+                 data-domain="i18nArray">
+                <div data-repeat="option optionsList">
                     <label>
                         <input type="checkbox"
-                               data-tdefine="isChecked cond: (exists: value) (lt: -1 value/indexOf(option/value)) false"
-                               data-tattributes="name string:${field/name}[${data-record-index}];
+                               data-define="isChecked cond: (exists: value) (lt: -1 value/indexOf(option/value)) false"
+                               data-attributes="name string:${field/name}[${data-record-index}];
                                                  value option/value;
                                                  checked cond: isChecked 'checked' null;
                                                  class 'historyField zcrud-active';">
-                        <span data-treplace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
+                        <span data-replace="cond: field/translateOptions (tr:option/displayText) option/displayText">The display text</span>
                     </label>
                 </div>
             </div>

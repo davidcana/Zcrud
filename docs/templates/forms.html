@@ -5,90 +5,90 @@
         <title>Templates of forms</title>
     </head>
     <body>
-        <div data-mdefine-macro="formDefaultTemplate" 
+        <div data-define-macro="formDefaultTemplate" 
              style="display: none"
-             data-tattributes="class string:zcrud-main-container zcrud-${instance/getType()}-form;
+             data-attributes="class string:zcrud-main-container zcrud-${instance/getType()}-form;
                                id string:${options/entityId}-form"
-             data-idomain="i18nArray">
+             data-domain="i18nArray">
             
-            <div data-tattributes="id 'zcrud-message'"><!--empty--></div>
+            <div data-attributes="id 'zcrud-message'"><!--empty--></div>
             <div class="zcrud-header">
                 <div class="zcrud-header-title">
-                    <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
+                    <span class="zcrud-title" data-content="options/title || tr:'general_entityName'">
                         The title option
                     </span>
-                    <span data-tcontent="tr: instance/getTitle()">
+                    <span data-content="tr: instance/getTitle()">
                         Current form title
                     </span>
                 </div>
             </div>
             
             <form class="zcrud-form zcrud-data-entity" 
-                  data-tattributes="id instance/getId()">
-                <div data-muse-macro="'filterPanel@templates/lists.html'"
-                     data-tcondition="instance/getComponent( 'filtering' )">
+                  data-attributes="id instance/getId()">
+                <div data-use-macro="'filterPanel@templates/lists.html'"
+                     data-condition="instance/getComponent( 'filtering' )">
                     The filter panel
                 </div>
                 
                 <div class="zcrud-form-updatable"
-                     data-tdefine="viewItemsInFormExternalMacro 'standard-editable@templates/fieldLists.html';
+                     data-define="viewItemsInFormExternalMacro 'standard-editable@templates/fieldLists.html';
                                    data-record-index 0;
                                    renderIds false;
                                    viewItems instance/getView()"
-                     data-idomain="i18nArray">
-                    <div data-muse-macro="'status@templates/lists.html'"
-                         data-tcondition="instance/getThisOptions()/showStatus">
+                     data-domain="i18nArray">
+                    <div data-use-macro="'status@templates/lists.html'"
+                         data-condition="instance/getThisOptions()/showStatus">
                         The status message
                     </div>
 
-                    <div data-muse-macro="viewItemsInFormExternalMacro"
-                         data-tdefine="spanFieldClass 'zcrud-field'">
+                    <div data-use-macro="viewItemsInFormExternalMacro"
+                         data-define="spanFieldClass 'zcrud-field'">
                         The fields
                     </div>
                 </div>
                 
-                <div data-muse-macro="'postTemplates@templates/lists.html'">
+                <div data-use-macro="'postTemplates@templates/lists.html'">
                     The post templates
                 </div>
                 
                 <div class="zcrud-button-panel">
-                    <span data-muse-macro="'toolbar'"
-                          data-tdefine="buttons instance/getToolbarButtons()">
+                    <span data-use-macro="'toolbar'"
+                          data-define="buttons instance/getToolbarButtons()">
                         The buttons of the toolbar
                     </span>
                 </div>
             </form>
         </div>
         
-        <div data-mdefine-macro="deleteDefaultTemplate" 
+        <div data-define-macro="deleteDefaultTemplate" 
              class="zcrud-main-container zcrud-delete-form" 
              style="display: none"
-             data-tattributes="id string:${options/entityId}-form"
-             data-idomain="i18nArray">
+             data-attributes="id string:${options/entityId}-form"
+             data-domain="i18nArray">
             
-            <div data-tattributes="id 'zcrud-message'"><!--empty--></div>
+            <div data-attributes="id 'zcrud-message'"><!--empty--></div>
             <div class="zcrud-header">
                 <div class="zcrud-header-title">
-                    <span class="zcrud-title" data-tcontent="options/title || tr:'general_entityName'">
+                    <span class="zcrud-title" data-content="options/title || tr:'general_entityName'">
                         The title option
                     </span>
-                    <span data-tcontent="tr: instance/getTitle()">
+                    <span data-content="tr: instance/getTitle()">
                         Current form title
                     </span>
                 </div>
             </div>
             <form class="zcrud-form" 
-                  data-tattributes="id instance/getId()"
-                  data-tdefine="viewItemsInFormExternalMacro 'standard-readOnly@templates/fieldLists.html';
+                  data-attributes="id instance/getId()"
+                  data-define="viewItemsInFormExternalMacro 'standard-readOnly@templates/fieldLists.html';
                                 viewItems instance/getView()">
                 
-                <div data-muse-macro="viewItemsInFormExternalMacro"
-                     data-tdefine="spanFieldClass 'zcrud-field'">
+                <div data-use-macro="viewItemsInFormExternalMacro"
+                     data-define="spanFieldClass 'zcrud-field'">
                     The fields
                 </div>
                 <div class="zcrud-button-panel">
-                    <span data-muse-macro="'toolbar'"
-                          data-tdefine="buttons instance/getToolbarButtons()">
+                    <span data-use-macro="'toolbar'"
+                          data-define="buttons instance/getToolbarButtons()">
                         The buttons of the toolbar
                     </span>
                 </div>
