@@ -152,7 +152,7 @@ FormPage.prototype.configure = function(){
             break;
         case 'customForm':
             this.title = "Custom form";
-            this.submitFunction = this.submitList;
+            this.submitFunction = this.submitCustomForm;
             this.eventFunction = this.options.events.formBatchUpdated;
             this.successMessage = 'formListUpdateSuccess';
             if ( ! this.record ) {
@@ -202,7 +202,7 @@ FormPage.prototype.buildDataUsingRecord = function( recordToUse ) {
 FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension, root, callback, dataFromServer ) {
 
     this.beforeProcessTemplate( recordToUse, dictionaryExtension, dataFromServer );
-    this.buildHTMLAndJavascript( root );
+    this.processTemplate( root );
     this.afterProcessTemplate( this.get$form() );
 
     if ( callback ){
@@ -210,7 +210,7 @@ FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension,
     }
 }
 
-FormPage.prototype.buildHTMLAndJavascript = function( root ) {
+FormPage.prototype.processTemplate = function( root ) {
     
     if ( ! root ){
         pageUtils.configureTemplate( 
@@ -314,50 +314,7 @@ FormPage.prototype.buildRecordForDictionary = function(){
 
     return newRecord;
 };
-/*
-FormPage.prototype.buildRecordForDictionary = function(){
 
-    var newRecord = {};
-
-    for ( var c = 0; c < this.fields.length; c++ ) {
-        var field = this.fields[ c ];
-        newRecord[ field.id ] = field.getValueFromRecord( this.record );
-    }
-
-    // Add key if there is no field key
-    var key = this.getKey();
-    if ( newRecord[ key ] == undefined ){
-        newRecord[ key ] = this.record[ key ];
-    }
-
-    return newRecord;
-};
-*/
-/*
-FormPage.prototype.updateDictionary = function( dictionaryExtension ){
-
-    var thisDictionary = $.extend( 
-        {
-            options: this.options,
-            record: this.buildRecordForDictionary()
-        }, 
-        this.options.dictionary
-    );
-
-    // Set omitKey to true to make default value of subforms to work
-    if ( this.omitKey ){
-        thisDictionary.omitKey = true;
-    }
-    
-    if ( dictionaryExtension ){
-        this.dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
-    } else {
-        this.dictionary = thisDictionary;
-    }
-    
-    this.dictionary.instance = this;
-};
-*/
 FormPage.prototype.updateDictionary = function( dictionaryExtension ){
     
     this.instanceDictionaryExtension = {};
@@ -520,13 +477,6 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
     var instance = this;
     jsonObject.success = function( dataFromServer ){
 
-        // Check server side validation
-        /*
-        if ( ! dataFromServer || dataFromServer.result != 'OK' ){
-            pageUtils.serverSideError( dataFromServer, instance.options, context, userError );
-            return false;
-        }*/
-
         // Update record if needed
         instance.updateRecordFromJSON.call( instance, jsonObject );
 
@@ -538,7 +488,8 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
                 serverResponse: dataFromServer,
                 options: instance.options
             }, 
-            event );
+            event 
+        );
         instance.triggerFormClosedEvent.call( instance, event, $form );
 
         // Show list or update status
@@ -627,7 +578,8 @@ FormPage.prototype.updateKeysForField = function( field, dataFromServerOfField )
         context.showError( 
             this.options, 
             true, 
-            'Error trying to update keys of field "' + field.id + '": $trArray and records length does not match!' );
+            'Error trying to update keys of field "' + field.id + '": $trArray and records length does not match!' 
+        );
         return;
     }
 
@@ -663,18 +615,18 @@ FormPage.prototype.processDataFromServer = function( data ){
     }
 };
 
-FormPage.prototype.submitList = function( event, $form ){
+FormPage.prototype.submitCustomForm = function( event, $form ){
 
     var instance = this;
     this.processDirty(
         this.thisOptions.confirm.save,
         'OnlyForm',
         function(){
-            instance.doSubmitList( event, $form );
+            instance.doSubmitCustomForm( event, $form );
         }
     );
 };
-FormPage.prototype.doSubmitList = function( event, $form ){
+FormPage.prototype.doSubmitCustomForm = function( event, $form ){
     
     return this.saveCommon( 
         this.id, 

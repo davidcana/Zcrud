@@ -50,24 +50,11 @@ Create.prototype.redo = function(){
 
 Create.prototype.addRow = function(){
     
-    // Backup omitKey value and set to true
-    //var omitKeyBackup = this.thisDictionary.omitKey;
-    //this.thisDictionary.omitKey = true;
-    
     zpt.run({
-    //context.getZPTParser().run({
         root: this.$tbody[ 0 ],
         dictionaryExtension: this.thisDictionary,
         notRemoveGeneratedTags: true
     });
-
-    // Restore omitKey value
-    /*
-    if ( omitKeyBackup == undefined ){
-        delete this.thisDictionary.omitKey;
-    } else {
-        this.thisDictionary.omitKey = omitKeyBackup;
-    }*/
     
     this.$tr = this.$tbody.find( 'tr.zcrud-data-row:last' );
 

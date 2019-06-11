@@ -26,8 +26,6 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
     var $thisDropdown = $selection.find( "[name='" + this.name + "']");
 
     // Build dictionary
-    //var dictionary = $.extend( true, {}, this.page.getDictionary() );
-    //var dictionary = this.page.getDictionary();
     var dictionary = {};
     dictionary.field = this;
     dictionary.type = this.type;

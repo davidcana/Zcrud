@@ -1,18 +1,12 @@
 /* 
     context singleton class
 */
+"use strict";
 
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 
 module.exports = (function() {
-    "use strict";
-       
-    /*
-    var configureTemplate = function( options, templatePath ){
-        options.target.attr(
-            'data-use-macro', templatePath );
-    };*/
     
     var configureTemplate = function( options, templatePath ){
         
@@ -21,9 +15,7 @@ module.exports = (function() {
         options.target.html( $containerDiv );
     };
     
-    /* Normalizes a number between given bounds or sets to a defaultValue
-    *  if it is undefined
-    *************************************************************************/
+    // Normalizes a number between given bounds or sets to a defaultValue if it is undefined
     var normalizeNumber = function ( number, min, max, defaultValue ) {
         
         if ( number == undefined || number == null || isNaN( number ) ) {
@@ -41,8 +33,7 @@ module.exports = (function() {
         return number;
     };
     
-    /* Finds index of an element in an array according to given comparision function
-        *************************************************************************/
+    // Finds index of an element in an array according to given comparision function
     var findIndexInArray = function ( value, array, compareFunc ) {
 
         // If not defined, use default comparision
@@ -58,17 +49,6 @@ module.exports = (function() {
             }
         }
         return -1;
-        
-        /*
-        var result = -1;
-        array.each( function( index ) {
-            if ( compareFunc( value, $( this ) ) ) {
-                result = index;
-                return false;
-            }
-        });
-        
-        return result;*/
     };
     
     var ajaxError = function( request, status, error, options, context, userErrorFunction ){
@@ -125,18 +105,6 @@ module.exports = (function() {
         return result;
     }
     
-    /*
-    var showStatusMessage = function( $this, dictionary, dictionaryExtension, context ){
-
-        var thisDictionary = $.extend( {}, dictionary, dictionaryExtension );
-
-        zpt.run({
-        //context.getZPTParser().run({
-            root: $this.find( '.zcrud-status' )[0],
-            dictionary: thisDictionary
-        });
-    };
-    */
     var showStatusMessage = function( $this, dictionaryExtension ){
 
         zpt.run({

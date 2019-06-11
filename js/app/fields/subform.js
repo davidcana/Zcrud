@@ -93,7 +93,6 @@ Subform.prototype.getViewValueFromRecord = function( record ){
 
 Subform.prototype.afterProcessTemplateForField = function( params ){
     
-    //var subformInstance = this;
     var $subform = this.get$();
     this.bindEventsInRows( params, $subform, undefined );
     
@@ -123,7 +122,6 @@ Subform.prototype.showNewForm = function( type, record ){
 
 Subform.prototype.buildDictionary = function( newRecord ){
     
-    //var thisDictionary = $.extend( {}, this.page.getDictionary(), {} );
     var thisDictionary = $.extend( {}, context.getDictionary(), {} );
     
     thisDictionary.editable = true;
@@ -522,7 +520,7 @@ Subform.prototype.beforeProcessTemplate = function( data ){
 Subform.prototype.clientAndServerSuccessFunction = function( data, root, dictionaryExtension, callback ){
 
     this.beforeProcessTemplate( data );
-    this.buildHTMLAndJavascript( root, dictionaryExtension );
+    this.processTemplate( root, dictionaryExtension );
     this.afterProcessTemplate();
     
     if ( callback ){
@@ -530,7 +528,7 @@ Subform.prototype.clientAndServerSuccessFunction = function( data, root, diction
     }
 };
 
-Subform.prototype.buildHTMLAndJavascript = function( root, dictionaryExtension ){
+Subform.prototype.processTemplate = function( root, dictionaryExtension ){
     
     zpt.run({
         root: root || [ 
@@ -563,26 +561,6 @@ Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
     
     return dictionary;
 };
-/*
-Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
-
-    var options = this.page.getOptions();
-
-    var dictionary = $.extend( true, options.dictionary, {} );
-
-    if ( dictionaryExtension ){
-        dictionary = $.extend( {}, dictionary, dictionaryExtension );
-    }
-
-    dictionary.options = options;
-    dictionary.records = this.getRecords();
-    dictionary.field = this;
-    dictionary.editable = ! this.isReadOnly();
-    dictionary.instance = this;
-
-    return dictionary;
-};
-*/
 
 Subform.prototype.isFiltered = function(){
     

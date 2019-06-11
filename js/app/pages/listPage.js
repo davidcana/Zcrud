@@ -134,7 +134,7 @@ ListPage.prototype.showUsingRecords = function ( recordsToUse, dictionaryExtensi
 ListPage.prototype.clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
 
     this.beforeProcessTemplate( data, dictionaryExtension );
-    this.buildHTMLAndJavascript( root );
+    this.processTemplate( root );
     this.afterProcessTemplate( this.get$form() );
 
     if ( callback ){
@@ -206,27 +206,6 @@ ListPage.prototype.beforeProcessTemplate = function( data, dictionaryExtension )
     this.updateDictionary( data.records, dictionaryExtension );
 };
 
-/*
-ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExtension ){
-
-    var thisDictionary = $.extend(
-        {
-            options: this.options,
-            records: newRecordsArray
-        }, 
-        this.options.dictionary 
-    );
-
-    if ( dictionaryExtension ){
-        this.dictionary = $.extend( {}, thisDictionary, dictionaryExtension );
-    } else {
-        this.dictionary = thisDictionary;
-    }
-
-    this.dictionary.instance = this;
-    this.dictionary.editable = this.isEditable();
-};
-*/
 ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExtension ){
 
     this.instanceDictionaryExtension = {
@@ -241,7 +220,7 @@ ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExten
     }
 };
 
-ListPage.prototype.buildHTMLAndJavascript = function( root ){
+ListPage.prototype.processTemplate = function( root ){
 
     if ( ! root ){
         pageUtils.configureTemplate( this.options, "'" + this.thisOptions.template + "'" );

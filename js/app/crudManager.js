@@ -14,7 +14,6 @@ module.exports = (function() {
         
         try {
             if ( dataFromServer.result != 'OK' ) {
-                //generalErrorFunction( data, options, dataFromServer );
                 pageUtils.serverSideError( dataFromServer, options, context );
                 return;
             }
