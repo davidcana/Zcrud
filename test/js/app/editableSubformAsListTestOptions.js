@@ -18,8 +18,7 @@ module.exports = {
             }
         },
         pages: {
-            list: {
-                template: "formDefaultTemplate@templates/forms.html",
+            customForm: {
                 fields: [ 
                     {
                         "type": "fieldsGroup"

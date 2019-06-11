@@ -340,7 +340,7 @@ module.exports = (function() {
                 return jsonObject.existingRecords[ Object.keys( jsonObject.existingRecords )[ 0 ] ];
             case 'delete':
                 return jsonObject.recordsToRemove[ 0 ];
-            case 'list':
+            case 'customForm':
                 history.updateRecord( 
                     record, 
                     jsonObject.newRecords[ 0 ] || jsonObject.existingRecords[ Object.keys( jsonObject.existingRecords )[ 0 ] ],

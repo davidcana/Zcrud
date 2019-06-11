@@ -10,8 +10,7 @@ var options = {
             getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=memberCheck'
         },
         pages: {
-            list: {
-                template: "formDefaultTemplate@templates/forms.html",
+            customForm: {
                 fields: [ 
                     'originalMembers', 
                     'verifiedMembers'

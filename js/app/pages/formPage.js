@@ -150,8 +150,8 @@ FormPage.prototype.configure = function(){
             this.eventFunction = this.options.events.recordDeleted;
             this.successMessage = 'deleteSuccess';
             break;
-        case 'list':
-            this.title = "List form";
+        case 'customForm':
+            this.title = "Custom form";
             this.submitFunction = this.submitList;
             this.eventFunction = this.options.events.formBatchUpdated;
             this.successMessage = 'formListUpdateSuccess';
@@ -485,7 +485,7 @@ FormPage.prototype.updateRecordFromJSON = function( jsonObject ) {
     switch ( this.type ) {
         case 'create':
         case 'update':
-        case 'list':
+        case 'customForm':
             this.record = context.getJSONBuilder( this.options ).getRecordFromJSON( 
                 jsonObject, 
                 this.type, 

@@ -77,19 +77,6 @@ OptionsField.prototype.afterProcessTemplateForField = function( params, $selecti
     }
     
     this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
-    /*
-    switch( params.source ) {
-        case 'create':
-        case 'update':
-        case 'list':
-            this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
-            break;
-        case 'delete':
-            // Nothing to do
-            break; 
-        default:
-            throw "Unknown source in OptionsField: " + params.source;
-    }*/
 };
 
 OptionsField.prototype.getValueFromSelectionAndField = function( $selection ){

@@ -234,6 +234,19 @@ module.exports = {
                 buttons: {
                     toolbar: [ 'form_cancel', 'form_submit' ]
                 }
+            },
+            customForm: {
+                template: "formDefaultTemplate@templates/forms.html",
+                showStatus: true,
+                components: {
+                    paging: {
+                        isOn: true
+                    }
+                },
+                buttons: {
+                    toolbar: [ 'list_showCreateForm' ],
+                    byRow: [ 'list_showEditForm', 'list_showDeleteForm' ]
+                }
             }
         }
     },

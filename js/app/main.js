@@ -115,7 +115,7 @@ exports.renderForm = function( options, data, callback ){
         log.info( 'Rendering form...' );
 
         data = data || {};
-        data.type = 'list';
+        data.type = 'customForm';
         var formPage = new FormPage( options, data ); 
 
         context.putPage( formPage.getId(), formPage );

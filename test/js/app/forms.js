@@ -810,7 +810,7 @@ QUnit.test( "form after form test", function( assert ) {
 
             testHelper.checkForm( assert, newRecord );
             
-            // Submit and show the list again
+            // Submit and show the custom form again
             testHelper.clickFormSubmitButton();
             
             var newRecord2 = $.extend( true, {}, newRecord );
@@ -846,7 +846,7 @@ QUnit.test( "form after form test", function( assert ) {
             
             testHelper.checkForm( assert, newRecord );
             
-            // Submit and show the list again
+            // Submit and show the custom form again
             testHelper.clickFormSubmitButton();
 
             newRecord2 = $.extend( true, {}, newRecord );
@@ -887,7 +887,7 @@ QUnit.test( "form after form test", function( assert ) {
             };
             testHelper.fillForm( editedRecord );
             
-            // Submit and show the list again
+            // Submit and show the custom form again
             testHelper.clickFormSubmitButton();
             expectedRecord = context.getFieldBuilder().filterValues( 
                 editedRecord, 
@@ -970,7 +970,7 @@ QUnit.test( "form filtering test", function( assert ) {
     thisTestOptions = {
         pageConf: {
             pages: {
-                list: {
+                customForm: {
                     updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
                     getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
                     components: {
@@ -1155,7 +1155,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
     thisTestOptions = {
         pageConf: {
             pages: {
-                list: {
+                customForm: {
                     updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
                     getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
                     components: {
@@ -1352,7 +1352,7 @@ QUnit.test( "form forcing filtering test with errors", function( assert ) {
     thisTestOptions = {
         pageConf: {
             pages: {
-                list: {
+                customForm: {
                     updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
                     getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
                     components: {
@@ -1435,7 +1435,7 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
     thisTestOptions = {
         pageConf: {
             pages: {
-                list: {
+                customForm: {
                     updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE_FILTERING&table=memberCheck',
                     getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET_FILTERING&table=memberCheck',
                     components: {

@@ -44,7 +44,7 @@
         <p>
             The configuration for this case is:
         </p>
-        <pre class="brush: js; highlight: [9, 44]">
+        <pre class="brush: js; highlight: [8, 43]">
     ...
     pageConf: {
         defaultPageConf: {
@@ -52,8 +52,7 @@
             getRecordURL: 'http://your-domain/CRUDManager.do?cmd=GET&table=memberCheck'
         },
         pages: {
-            list: {
-                template: "formDefaultTemplate@templates/forms.html",
+            customForm: {
                 fields: [ 
                     {
                         "type": "fieldsGroup"
