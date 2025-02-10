@@ -21,9 +21,9 @@
                                     spanFieldClass spanFieldClass | 'fieldList'"
                       data-attributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
                     <label>
-                        <span data-content="field/title || tr:string:${field/id}_title"
+                        <span data-content="field/title | tr:string:${field/id}_title"
                               data-attributes="class 'zcrud-label';
-                                                title field/description || tr:string:${field/id}_description">
+                                                title field/description | tr:string:${field/id}_description">
                             The id of the field
                         </span>
                         <span data-use-macro="field/template">
@@ -50,10 +50,10 @@
                                        value record[ id ]"
                          data-attributes="class string:${spanFieldClass} ${spanFieldClass}-${id} zcrud-like-field-${field/name}">
                         <label data-omit-tag="field/mustHideLabel()">
-                            <span class="zcrud-field-label" data-content="field/title || tr:string:${id}_title">
+                            <span class="zcrud-field-label" data-content="field/title | tr:string:${id}_title">
                                 The label of this field.
                             </span>
-                            <span class="zcrud-field-help" data-content="field/description || tr:string:${id}_description">
+                            <span class="zcrud-field-help" data-content="field/description | tr:string:${id}_description">
                                 The description of this field.
                             </span>
                             <span data-use-macro="cond: (or: forceEditable (not: field/isReadOnly())) field/template field/viewTemplate">
@@ -81,10 +81,10 @@
                                        value record[ id ];
                                        template field/viewTemplate"
                          data-attributes="class string:${spanFieldClass} ${spanFieldClass}-${id}">
-                        <div data-content="field/title || tr:string:${id}_title" class="zcrud-field-label">
+                        <div data-content="field/title | tr:string:${id}_title" class="zcrud-field-label">
                             The name of the field
                         </div>
-                        <div class="zcrud-field-help" data-content="field/description || tr:string:${id}_description">
+                        <div class="zcrud-field-help" data-content="field/description | tr:string:${id}_description">
                             The description of this field.
                         </div>
                         <div data-condition="not: template" 

@@ -7,9 +7,9 @@
     <body> 
         <div data-define-macro="fieldSet">
             <fieldset data-define="viewItems container/fields">
-                <legend data-content="container/title || tr:string:${container/id}_title">Legend</legend>
+                <legend data-content="container/title | tr:string:${container/id}_title">Legend</legend>
                 <div class="zcrud-container-help" 
-                      data-define="description container/description || tr:string:${container/id}_description"
+                      data-define="description container/description | tr:string:${container/id}_description"
                       data-content="description"
                       data-condition="description">
                     The description of this container.
@@ -28,7 +28,7 @@
         <div data-define-macro="div">
             <div data-define="viewItems container/fields">
                 <div class="zcrud-container-help" 
-                     data-define="description container/description || tr:string:${container/id}_description"
+                     data-define="description container/description | tr:string:${container/id}_description"
                      data-content="description"
                      data-condition="description">
                     The description of this container.
@@ -41,7 +41,7 @@
         
         <span data-define-macro="fieldSet-compact">
             <fieldset data-define="viewItems container/fields">
-                <legend data-define="legend container/title || tr:string:${container/id}_title"
+                <legend data-define="legend container/title | tr:string:${container/id}_title"
                         data-condition="legend"
                         data-content="legend">Legend</legend>
                 <span data-use-macro="viewItemsInFormExternalMacro">

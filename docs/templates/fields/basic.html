@@ -8,7 +8,7 @@
         <div data-define-macro="text" data-omit-tag="">
             <input data-attributes="id cond: renderIds field/elementId null;
                                      name field/name;
-                                     value ( value || '' );
+                                     value ( value | '' );
                                      class cond: isNotHistoryField null 'historyField';
                                      field/attributes/field"
                    type="text">
@@ -37,7 +37,7 @@
                                       value value;
                                       class cond: isNotHistoryField null 'historyField';
                                       field/attributes/field"
-                    data-define="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )">
+                    data-define="optionsList optionsListFromForm | field/getOptionsFromRecord( record, options )">
                 <option data-repeat="option optionsList"
                         data-attributes="value option/value; 
                                           selected cond: (eq: option/value value) 'selected' null"
@@ -47,7 +47,7 @@
 
         <div data-define-macro="radio" data-omit-tag=""
              data-attributes="field/attributes/field">
-            <div data-define="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
+            <div data-define="optionsList optionsListFromForm | field/getOptionsFromRecord( record, options )"
                  data-attributes="class 'zcrud-radio-container'"
                  data-domain="i18nArray">
                 <div data-repeat="option optionsList">
@@ -67,14 +67,14 @@
             <input data-attributes="id cond: renderIds field/elementId null;
                                      name field/name;
                                      list string:${field/elementId}-datalist;
-                                     value ( value || '' );
+                                     value ( value | '' );
                                      class cond: isNotHistoryField null 'historyField';
                                      field/attributes/field"
                    type="text">
         </div>
         <div data-define-macro="datalist-definition">
             <datalist data-attributes="id string:${field/elementId}-datalist"
-                      data-define="optionsList optionsListFromForm || field/getOptionsFromBlank( options )">
+                      data-define="optionsList optionsListFromForm | field/getOptionsFromBlank( options )">
                 <option data-repeat="option optionsList"
                         data-define="displayText cond: field/translateOptions (tr:option/displayText) option/displayText"
                         data-attributes="value option/value;
@@ -95,7 +95,7 @@
         
         <div data-define-macro="checkboxes" data-omit-tag=""
              data-attributes="field/attributes/field">
-            <div data-define="optionsList optionsListFromForm || field/getOptionsFromRecord( record, options )"
+            <div data-define="optionsList optionsListFromForm | field/getOptionsFromRecord( record, options )"
                  data-attributes="class string:zcrud-checkboxes-container zcrud-checkboxes-container-${field/name}"
                  data-domain="i18nArray">
                 <div data-repeat="option optionsList">

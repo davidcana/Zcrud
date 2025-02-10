@@ -16,7 +16,7 @@
                 <div class="zcrud-header">
                     <div class="zcrud-header-title">
                         <span class="zcrud-title"
-                              data-content="options/title || tr:'general_entityName'">
+                              data-content="options/title | tr:'general_entityName'">
                             The title option
                         </span>
                     </div>
@@ -109,7 +109,7 @@
                                           data-sort-field-id field/id;
                                           data-sort-type sortType;
                                           field/attributes/rowHeader">
-                        <span data-replace="field/title || tr:string:${field/id}_title">Field title</span>
+                        <span data-replace="field/title | tr:string:${field/id}_title">Field title</span>
                     </th>
                     <th class="zcrud-command-column-header"><!--empty--></th>
                 </tr>
