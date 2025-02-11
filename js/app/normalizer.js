@@ -119,7 +119,7 @@ module.exports = (function() {
         }
 
         // Convert dependsOn to array if it's a comma separated lists
-        if ( field.dependsOn && $.type( field.dependsOn ) === 'string' ) {
+        if ( field.dependsOn && utils.isString( field.dependsOn ) ) {
             var dependsOnArray = field.dependsOn.split( ',' );
             field.dependsOn = [];
             for ( var i = 0; i < dependsOnArray.length; i++ ) {

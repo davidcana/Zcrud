@@ -98,7 +98,7 @@ module.exports = (function() {
     var build1Pass = function( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId, container ) {
 
         // Is string?
-        if ( $.type( item ) === 'string' ){
+        if ( utils.isString( item ) ){
             addField( 
                 getFieldUsingId( fields, item ), 
                 result, 
@@ -260,7 +260,7 @@ module.exports = (function() {
                 var item = source[ i ];
                 
                 // Is string?
-                if ( $.type( item ) === 'string' ){
+                if ( utils.isString( item ) ){
                     result.push( options.fields[ item ] );
 
                 // Must be a field instance

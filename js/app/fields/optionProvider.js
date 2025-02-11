@@ -200,7 +200,7 @@ var OptionProvider = function() {
         }
 
         var compareFunc = undefined;
-        if ( $.type( dataSelector( options[ 0 ] ) ) == 'string' ) {
+        if ( utils.isString( dataSelector( options[ 0 ] ) ) ) {
             compareFunc = function ( option1, option2 ) {
                 return dataSelector( option1 ).localeCompare( dataSelector( option2 ) );
             };
