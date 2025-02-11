@@ -113,7 +113,7 @@ module.exports = (function() {
         if ( isValid ){
             return true;
         }
-        return $.isPlainObject( eventResult )? eventResult: false;
+        return utils.isPlainObject( eventResult )? eventResult: false;
     };
     
     var buildFieldOptions = function( options ){

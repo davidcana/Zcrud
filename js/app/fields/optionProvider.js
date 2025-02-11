@@ -167,7 +167,7 @@ var OptionProvider = function() {
         var list = [];
 
         for ( var i = 0; i < optionsArray.length; i++ ) {
-            if ( $.isPlainObject( optionsArray[ i ] ) ) {
+            if ( utils.isPlainObject( optionsArray[ i ] ) ) {
                 list.push( optionsArray[ i ] );
             } else { // Assumed as primitive type (int, string...)
                 list.push( buildItem( optionsArray[ i ] ) );

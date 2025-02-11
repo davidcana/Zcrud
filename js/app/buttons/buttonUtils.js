@@ -4,6 +4,7 @@
 "use strict";
 
 var $ = require( 'jquery' );
+var utils = require( '../utils.js' );
 
 var ButtonUtils = function() {
     
@@ -32,7 +33,7 @@ var ButtonUtils = function() {
         
         var button = undefined;
         
-        if ( $.isPlainObject( sourceItem ) ){
+        if ( utils.isPlainObject( sourceItem ) ){
             button = buildButton( 
                 sourceItem.type || 'generic', 
                 sourceItem, 

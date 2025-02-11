@@ -5,6 +5,7 @@
 
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
+var utils = require( '../utils.js' );
 
 var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
     
@@ -103,7 +104,7 @@ var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply
             if ( validation === true ){
                 continue;
             }
-            return $.isPlainObject( validation )? validation: false;
+            return utils.isPlainObject( validation )? validation: false;
         }
         
         return true;

@@ -545,7 +545,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             
             var item = items[ id ];
             
-            if ( ! $.isPlainObject( item ) ){
+            if ( ! utils.isPlainObject( item ) ){
                 record[ id ] = item;
                 continue;
             }

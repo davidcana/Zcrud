@@ -30,7 +30,7 @@ module.exports = (function() {
             var value = userOptions[ id ];
             if ( utils.isArray( value ) ){
                 options[ id ] = value;
-            } else if ( $.isPlainObject( value ) ) {
+            } else if ( utils.isPlainObject( value ) ) {
                 fixArrays( options[ id ], userOptions[ id ] );
             }
         }
