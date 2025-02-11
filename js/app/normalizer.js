@@ -123,7 +123,7 @@ module.exports = (function() {
             var dependsOnArray = field.dependsOn.split( ',' );
             field.dependsOn = [];
             for ( var i = 0; i < dependsOnArray.length; i++ ) {
-                field.dependsOn.push( $.trim( dependsOnArray[ i ] ) );
+                field.dependsOn.push( dependsOnArray[ i ].trim() );
             }
         }
         
