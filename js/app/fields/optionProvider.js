@@ -35,7 +35,7 @@ var OptionProvider = function() {
         var funcParams = params;
         
         // Check if it is a function
-        if ( $.isFunction( optionsSource ) ) {
+        if ( utils.isFunction( optionsSource ) ) {
             // Prepare parameter to the function
             /*
             funcParams = utils.extend( 

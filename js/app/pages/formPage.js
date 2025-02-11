@@ -388,7 +388,7 @@ FormPage.prototype.afterProcessTemplate = function( $form ){
 FormPage.prototype.bindButtonEvent = function( $form, button ){
 
     // Return if the button does not implement run method
-    if ( ! $.isFunction( button.run ) ){
+    if ( ! utils.isFunction( button.run ) ){
         return;    
     }
 

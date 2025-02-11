@@ -37,7 +37,7 @@ exports.init = function( userOptions, callback, failCallback ){
             },
             callback: function(){
                 context.setI18nArray( dictionary.i18nArray );
-                if ( callback && $.isFunction( callback ) ){
+                if ( callback && utils.isFunction( callback ) ){
                     callback( options );
                 }
             },

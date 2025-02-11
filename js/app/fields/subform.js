@@ -178,7 +178,7 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
 Subform.prototype.bindButtonEvent = function( $selection, button, subformInstance, params ){
     
     // Return if the button does not implement run method
-    if ( ! $.isFunction( button.run ) ){
+    if ( ! utils.isFunction( button.run ) ){
         return;    
     }
     

@@ -4,6 +4,7 @@
 var $ = require( 'jquery' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
+var utils = require( '../../../js/app/utils.js' );
 
 module.exports = (function() {
     "use strict";
@@ -1508,7 +1509,7 @@ module.exports = (function() {
     
     var checkAllPropertiesInFirstInSecond = function( assert, first, second ){
         
-        if ( isPrimitive( first ) || $.isFunction( first ) ){
+        if ( isPrimitive( first ) || utils.isFunction( first ) ){
             assert.equal( first, second );
             
         } else if ( $.isArray( first ) ){
