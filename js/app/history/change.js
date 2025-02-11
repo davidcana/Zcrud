@@ -124,7 +124,7 @@ Change.prototype.doAction = function( actionsObject, records, defaultValue, fiel
 Change.prototype.processDefaultValue = function( actionsObject, records, defaultValue, fieldsMap, row ){
 
     // Return if it is not needed
-    if ( ! $.isEmptyObject( row ) || ! this.isNew( records ) ){
+    if ( ! utils.isEmptyObject( row ) || ! this.isNew( records ) ){
         return;
     }
     

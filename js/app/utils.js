@@ -131,7 +131,7 @@ module.exports = (function() {
     };
 
     var isEmptyObject = function( x ) {
-        return Object.keys( x ).length === 0;
+        return isPlainObject( x ) && Object.keys( x ).length === 0;
     };
 
     var isString = function( x ) {

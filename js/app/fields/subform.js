@@ -501,7 +501,7 @@ Subform.prototype.buildDataToSend = function(){
     
     var data = {};
     
-    if ( ! $.isEmptyObject( this.filter ) ){
+    if ( ! utils.isEmptyObject( this.filter ) ){
         data.filter = this.filter;
     }
 

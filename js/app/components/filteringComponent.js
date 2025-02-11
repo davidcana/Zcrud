@@ -69,7 +69,7 @@ FilteringComponent.prototype.doFilter = function(){
 FilteringComponent.prototype.addToDataToSend = function( dataToSend ){
 
     this.fullFilter = utils.extend( true, {}, this.filterRecord, dataToSend.filter );
-    if ( ! $.isEmptyObject( this.fullFilter ) ){
+    if ( ! utils.isEmptyObject( this.fullFilter ) ){
         dataToSend.filter = this.fullFilter;
     }
 };
