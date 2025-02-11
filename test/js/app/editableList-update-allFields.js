@@ -4,13 +4,14 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './editableListAllFieldsTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -61,7 +62,7 @@ QUnit.test( "update text area test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = "Service " + key + " description";
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -127,7 +128,7 @@ QUnit.test( "update datetime test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = "10/12/2017 16:00";
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Undo
@@ -199,7 +200,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
             
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             // Undo
             testHelper.clickUndoButton();
@@ -271,7 +272,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -337,7 +338,7 @@ QUnit.test( "update date test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = "10/12/2017";
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -408,7 +409,7 @@ QUnit.test( "update date using picker test", function( assert ) {
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -481,7 +482,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -547,7 +548,7 @@ QUnit.test( "update time test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = "03:10";
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -617,7 +618,7 @@ QUnit.test( "update time using picker test", function( assert ) {
                 varName, 
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Undo
@@ -689,7 +690,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
                 varName, 
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Undo
@@ -755,7 +756,7 @@ QUnit.test( "update checkbox test", function( assert ) {
                 "important": true
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -821,7 +822,7 @@ QUnit.test( "update radio test", function( assert ) {
                 "phoneType": "officePhone_option"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Undo
@@ -887,7 +888,7 @@ QUnit.test( "update 2 radios test", function( assert ) {
                 "phoneType": "officePhone_option"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Assert register with key 4 exists
@@ -903,7 +904,7 @@ QUnit.test( "update 2 radios test", function( assert ) {
                 "phoneType": "cellPhone_option"
             };
             testHelper.fillEditableList( editedRecord2, key2 );
-            var newRecord2 = $.extend( true, {}, record2, editedRecord2 );
+            var newRecord2 = utils.extend( true, {}, record2, editedRecord2 );
             testHelper.checkEditableListForm( assert, key2, newRecord2 );
 
             // Undo (1)
@@ -986,7 +987,7 @@ QUnit.test( "update select test", function( assert ) {
             };
             testHelper.fillEditableList( editedRecord, key );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -1056,7 +1057,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             };
             testHelper.fillEditableList( editedRecord, key );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             var editedRecord2 =  {
@@ -1067,7 +1068,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                 testHelper.getSelectOptions( 'city', testHelper.get$row( key ) ),
                 [ 'Estepona', 'Marbella' ] );
 
-            var newRecord2 = $.extend( true, {}, newRecord, editedRecord2 );
+            var newRecord2 = utils.extend( true, {}, newRecord, editedRecord2 );
             testHelper.checkEditableListForm( assert, key, newRecord2 );
 
             testHelper.assertHistory( assert, 2, 0, true );
@@ -1157,7 +1158,7 @@ QUnit.test( "update datalist test", function( assert ) {
                 "browser": "Firefox"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Undo
@@ -1223,7 +1224,7 @@ QUnit.test( "update hobbies test", function( assert ) {
                 "hobbies": [ 'reading_option', 'sports_option' ]
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Undo (2 times)

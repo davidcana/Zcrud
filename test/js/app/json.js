@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -26,7 +27,7 @@ editableListTestOptions.errorFunction = function( message ){
 QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
     
     $( '#departmentsContainer' ).zcrud( 
@@ -139,7 +140,7 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
 QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -258,7 +259,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
 
     var done = assert.async();
     
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
     delete options.fields[ 'province' ].defaultValue;
     
@@ -302,7 +303,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord1 );
             editedRecord.members.push( subformRecord2 );
             testHelper.checkForm( assert, editedRecord );
@@ -357,7 +358,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
 
     var done = assert.async();
     
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = allJSONBuilder;
     delete options.fields[ 'province' ].defaultValue;
     
@@ -401,7 +402,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord1 );
             editedRecord.members.push( subformRecord2 );
             testHelper.checkForm( assert, editedRecord );
@@ -455,7 +456,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
 QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -512,7 +513,7 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
 QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
     $( '#departmentsContainer' ).zcrud( 
@@ -570,7 +571,7 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
 
     var done = assert.async();
     
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
     
     testServerSide.reset();
@@ -598,7 +599,7 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
                 "number": "3"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Save changes
@@ -628,7 +629,7 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
 QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
     testServerSide.reset();
@@ -656,7 +657,7 @@ QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function(
                 "number": "3"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Save changes
@@ -688,7 +689,7 @@ QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", f
 
     var done = assert.async();
     
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
     testServerSide.reset();
@@ -742,7 +743,7 @@ QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function(
 
     var done = assert.async();
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
     testServerSide.reset();
@@ -795,7 +796,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) t
 
     var done = assert.async();
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
     testServerSide.reset();
@@ -841,7 +842,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: allJSONBuilder) test", fu
 
     var done = assert.async();
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = allJSONBuilder;
 
     testServerSide.reset();
@@ -887,7 +888,7 @@ QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilde
 
     var done = assert.async();
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
     testServerSide.reset();
@@ -915,7 +916,7 @@ QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilde
                 "number": "3"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             // Delete records
@@ -945,7 +946,7 @@ QUnit.test( "editable list create, 2 changes and delete (JSONBuilder: onlyChange
 
     var done = assert.async();
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
 
     testServerSide.reset();
@@ -990,7 +991,7 @@ QUnit.test( "subform update and delete test", function( assert ) {
 
     var done = assert.async();
 
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
     delete options.fields[ 'province' ].defaultValue;
     
@@ -1105,7 +1106,7 @@ QUnit.test( "subform create and delete test", function( assert ) {
 
     var done = assert.async();
 
-    options = $.extend( true, {}, subformTestOptions );
+    options = utils.extend( true, {}, subformTestOptions );
     options.jsonBuilder = onlyChangesJSONBuilder;
     delete options.fields[ 'province' ].defaultValue;
 
@@ -1146,7 +1147,7 @@ QUnit.test( "subform create and delete test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord1, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord1 );
             testHelper.checkForm( assert, editedRecord );
 

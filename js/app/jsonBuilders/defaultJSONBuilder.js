@@ -4,6 +4,7 @@
 var HistoryDelete = require( '../history/delete.js' );
 var $ = require( 'jquery' );
 var context = require( '../context.js' );
+var utils = require( '../utils.js' );
 
 module.exports = (function() {
     "use strict";
@@ -38,7 +39,7 @@ module.exports = (function() {
     */
     var filterSubforms = function( row, fields, options ){
         
-        var result = $.extend( true, {}, row );
+        var result = utils.extend( true, {}, row );
         
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
@@ -74,7 +75,7 @@ module.exports = (function() {
             }
 
             if ( ! sendOnlyModified ){
-                row = $.extend( true, {}, record, row );
+                row = utils.extend( true, {}, record, row );
             }
             //jsonObject.existingRecords[ key ] = filterSubforms( row, fields );
             //jsonObject.existingRecords[ key ] = row;

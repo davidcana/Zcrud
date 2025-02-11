@@ -4,12 +4,13 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './editableListTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -59,7 +60,7 @@ QUnit.test( "change test", function( assert ) {
                 "number": "3"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             assert.equal( errorFunctionCounter, 0 );
@@ -114,7 +115,7 @@ QUnit.test( "change with errors test", function( assert ) {
                 "number": "a"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             assert.equal( errorFunctionCounter, 0 );
@@ -168,7 +169,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
                 "name": "Service 2 edited"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
@@ -235,7 +236,7 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
                 "name": "Service " + key1 + " edited"
             };
             testHelper.fillEditableList( editedRecord, key1 );
-            var newRecord1 = $.extend( true, {}, record1, editedRecord );
+            var newRecord1 = utils.extend( true, {}, record1, editedRecord );
             testHelper.checkEditableListForm( assert, key1, newRecord1 );
 
             testHelper.assertHistory( assert, 1, 0, true );
@@ -250,7 +251,7 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
                 "name": "Service " + key2 + " edited"
             };
             testHelper.fillEditableList( editedRecord2, key2 );
-            var newRecord2 = $.extend( true, {}, record2, editedRecord2 );
+            var newRecord2 = utils.extend( true, {}, record2, editedRecord2 );
             testHelper.checkEditableListForm( assert, key2, newRecord2 );
 
             testHelper.assertHistory( assert, 2, 0, true );
@@ -265,7 +266,7 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
                 "name": "Service " + key3 + " edited"
             };
             testHelper.fillEditableList( editedRecord3, key3 );
-            var newRecord3 = $.extend( true, {}, record3, editedRecord3 );
+            var newRecord3 = utils.extend( true, {}, record3, editedRecord3 );
             testHelper.checkEditableListForm( assert, key3, newRecord3 );
 
             testHelper.assertHistory( assert, 3, 0, true );

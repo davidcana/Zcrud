@@ -4,12 +4,13 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 // Run tests
 QUnit.test( "update test", function( assert ) {
@@ -59,7 +60,7 @@ QUnit.test( "update test", function( assert ) {
                 };
 
                 testHelper.fillForm( editedRecord );
-                var newRecord = $.extend( true, {}, record, editedRecord );
+                var newRecord = utils.extend( true, {}, record, editedRecord );
 
                 testHelper.checkForm( assert, newRecord );
 

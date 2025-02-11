@@ -8,11 +8,12 @@
 var $ = require( 'jquery' );
 var pageUtils = require( '../pages/pageUtils.js' );
 var context = require( '../context.js' );
+var utils = require( '../utils.js' );
 
 var Button = function( properties, parentToSet ) {
     
     if ( properties ){
-        $.extend( true, this, properties );
+        utils.extend( true, this, properties );
     }
     this.parent = parentToSet;
     this.id = 'button-' + pageUtils.generateId();

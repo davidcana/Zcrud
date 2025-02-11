@@ -4,12 +4,13 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -191,7 +192,7 @@ QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
 
             testHelper.assertHistory( assert, 4, 0, true );
 
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             
             // Undo
             testHelper.clickUndoButton();
@@ -302,7 +303,7 @@ QUnit.test( "subform change undo/redo 3 actions test", function( assert ) {
 
             testHelper.assertHistory( assert, 4, 0, true );
 
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             
             // Undo (1)
             testHelper.clickUndoButton();

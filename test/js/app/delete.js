@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -14,7 +15,7 @@ var subformTestOptions = require( './subformTestOptions.js' );
 QUnit.test( "delete test", function( assert ) {
 
     var done = assert.async();
-    var options = $.extend( true, {}, defaultTestOptions );
+    var options = utils.extend( true, {}, defaultTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -88,7 +89,7 @@ QUnit.test( "delete test", function( assert ) {
 QUnit.test( "delete with subform test", function( assert ) {
 
     var done = assert.async();
-    var options = $.extend( true, {}, subformTestOptions );
+    var options = utils.extend( true, {}, subformTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -132,7 +133,7 @@ QUnit.test( "delete with subform test", function( assert ) {
 QUnit.test( "english delete form test", function( assert ) {
 
     var done = assert.async();
-    var options = $.extend( true, {}, defaultTestOptions );
+    var options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -158,7 +159,7 @@ QUnit.test( "english delete form test", function( assert ) {
             };
             testServerSide.setService( key, record );
             
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             
             var varName1 = 'datetime';
             var varName2 = 'date';
@@ -190,7 +191,7 @@ QUnit.test( "english delete form test", function( assert ) {
 QUnit.test( "spanish delete form test", function( assert ) {
 
     var done = assert.async();
-    var options = $.extend( true, {}, defaultTestOptions );
+    var options = utils.extend( true, {}, defaultTestOptions );
     options.i18n.language = 'es';
     
     $( '#departmentsContainer' ).zcrud( 
@@ -217,7 +218,7 @@ QUnit.test( "spanish delete form test", function( assert ) {
             };
             testServerSide.setService( key, record );
 
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
 
             var varName1 = 'datetime';
             var varName2 = 'date';

@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -76,7 +77,7 @@ QUnit.test( "create form test", function( assert ) {
                 pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ]
             });
             
-            var fullRecord = $.extend( true, {}, record );
+            var fullRecord = utils.extend( true, {}, record );
             fullRecord.id = "" + key;
             testHelper.checkRecordInList( assert, key, fullRecord, false, true );
             assert.deepEqual( testServerSide.getService( key ), fullRecord );
@@ -140,7 +141,7 @@ QUnit.test( "update form test", function( assert ) {
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             
-            var fullRecord = $.extend( true, {}, record );
+            var fullRecord = utils.extend( true, {}, record );
             fullRecord.id = "" + key;
             testHelper.checkRecordInList( assert, key, fullRecord, false, true );
             assert.deepEqual( testServerSide.getService( key ), fullRecord );
@@ -250,7 +251,7 @@ QUnit.test( "editable list create test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
             
-            var fullRecord = $.extend( true, {}, record );
+            var fullRecord = utils.extend( true, {}, record );
             fullRecord.id = "" + key;
             testHelper.checkRecord( assert, key, fullRecord, editable, true );
             
@@ -336,7 +337,7 @@ QUnit.test( "editable list update test", function( assert ) {
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
             
-            var fullEditedRecord = $.extend( true, {}, editedRecord );
+            var fullEditedRecord = utils.extend( true, {}, editedRecord );
             fullEditedRecord.id = "" + key;
             testHelper.checkRecord( assert, key, fullEditedRecord, editable, true );
 
@@ -487,7 +488,7 @@ QUnit.test( "create subform test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             // Check storage
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             subformRecord3.code = "3";
             editedRecord.members.push( subformRecord3 );
             assert.deepEqual( testServerSide.getService( key ), editedRecord );
@@ -730,7 +731,7 @@ QUnit.test( "create form and subform test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord1 );
             editedRecord.members.push( subformRecord2 );
             testHelper.checkForm( assert, editedRecord );
@@ -739,7 +740,7 @@ QUnit.test( "create form and subform test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             // Check storage
-            var fullRecord = $.extend( true, {}, editedRecord );
+            var fullRecord = utils.extend( true, {}, editedRecord );
             var key = "130";
             fullRecord.id = key;
             fullRecord.members[ 0 ].code = "1";

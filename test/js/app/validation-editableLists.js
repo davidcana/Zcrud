@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide' );
 
@@ -16,7 +17,7 @@ defaultTestOptions.errorFunction = function( message ){
     ++errorFunctionCounter;
 };
 
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 // Run tests
 QUnit.test( "create test", function( assert ) {
@@ -67,7 +68,7 @@ QUnit.test( "create test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
 
-            var fixedRecord = $.extend( true, {}, newRecord, editedRecord );
+            var fixedRecord = utils.extend( true, {}, newRecord, editedRecord );
             testHelper.checkRecord( assert, key, fixedRecord, editable, true );
 
             done();
@@ -102,7 +103,7 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
 
             // Set an invalid name
-            var badRecord = $.extend( true, {}, newRecord );
+            var badRecord = utils.extend( true, {}, newRecord );
             badRecord.name = "" + key;
             testHelper.fillNewRowEditableList( badRecord);
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
@@ -172,7 +173,7 @@ QUnit.test( "change test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
             // Try to edit record (1 error)
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             assert.equal( errorFunctionCounter, 0 );
@@ -189,7 +190,7 @@ QUnit.test( "change test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
             // Try to edit record (no errors)
-            newRecord = $.extend( true, {}, record, editedRecord );
+            newRecord = utils.extend( true, {}, record, editedRecord );
             errorFunctionCounter = 0;
             testHelper.checkEditableListForm( assert, key, newRecord );
             
@@ -236,7 +237,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
             // Set an invalid name
-            var badRecord = $.extend( true, {}, record, editedRecord );
+            var badRecord = utils.extend( true, {}, record, editedRecord );
             badRecord.name = "" + key;
             testHelper.fillEditableList( badRecord, key );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
@@ -251,7 +252,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             // Fix the form undoing
             testHelper.clickUndoButton();
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
             
             // Set the name to an invalid value again redoing

@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testServerSide = require( './testServerSide.js' );
 var testHelper = require( './testHelper.js' );
 var fieldListBuilder = require( '../../../js/app/fields/fieldListBuilder.js' );
@@ -829,7 +830,7 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',

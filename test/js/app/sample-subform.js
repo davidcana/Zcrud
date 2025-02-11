@@ -3,6 +3,7 @@
 var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -229,7 +230,7 @@ defaultTestOptions.errorFunction = function( message ){
 };
 
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',

@@ -11,6 +11,7 @@ var History = require( '../history/history.js' );
 var crudManager = require( '../crudManager.js' );
 var validationManager = require( '../validationManager.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
+var utils = require( '../utils.js' );
 
 var EditingComponent = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     
@@ -166,8 +167,8 @@ EditingComponent.prototype.addNewRow = function( event ){
 
 EditingComponent.prototype.buildDictionaryForNewRow = function( newRecord ){
 
-    var thisDictionary = $.extend( {}, this.listPage.getInstanceDictionaryExtension() );
-    //var thisDictionary = $.extend( true, {}, this.listPage.getDictionary() );
+    var thisDictionary = utils.extend( {}, this.listPage.getInstanceDictionaryExtension() );
+    //var thisDictionary = utils.extend( true, {}, this.listPage.getDictionary() );
     
     thisDictionary.records = [ newRecord ];
     thisDictionary.editable = true;
@@ -268,7 +269,7 @@ EditingComponent.prototype.updateRecords = function( jsonObjectToSend, dataFromS
         var modifiedRecord = jsonObjectToSend.existingRecords[ key ];
         var currentRecord = records[ key ];
         var newKey = modifiedRecord[ this.options.key ];
-        var extendedRecord = $.extend( true, {}, currentRecord, modifiedRecord );
+        var extendedRecord = utils.extend( true, {}, currentRecord, modifiedRecord );
 
         var currentKey = key;
         if ( newKey && key !== newKey ){
@@ -298,7 +299,7 @@ EditingComponent.prototype.updateRecords = function( jsonObjectToSend, dataFromS
     for ( var c = 0; c < jsonObjectToSend.recordsToRemove.length; c++ ) {
         --delta;
         key = jsonObjectToSend.recordsToRemove[ c ];
-        var deletedRecord = $.extend( true, {}, records[ key ] );
+        var deletedRecord = utils.extend( true, {}, records[ key ] );
         this.listPage.deleteRecord( key );
         this.triggerEvent( 
             this.options.events.recordDeleted, 

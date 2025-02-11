@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -100,7 +101,7 @@ var testCityOptions = function( assert, options, values1, values2 ) {
 
 QUnit.test( "array of objects test", function( assert ) {
     
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = true;
     options.fields.phoneType.options = [
         { value: '1', displayText: 'homePhone_option' }, 
@@ -118,7 +119,7 @@ QUnit.test( "array of objects test", function( assert ) {
 
 QUnit.test( "simple array test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = false;
     options.fields.phoneType.options = [ '1', '2', '3' ];
 
@@ -132,7 +133,7 @@ QUnit.test( "simple array test", function( assert ) {
 
 QUnit.test( "object test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = true;
     options.fields.phoneType.options = {
         '1': 'homePhone_option', 
@@ -150,7 +151,7 @@ QUnit.test( "object test", function( assert ) {
 
 QUnit.test( "function test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = true;
     options.fields.phoneType.options = function(){
         return [ 'homePhone_option', 'officePhone_option', 'cellPhone_option' ];
@@ -166,7 +167,7 @@ QUnit.test( "function test", function( assert ) {
 
 QUnit.test( "URL returning array of objects test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = false;
     options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypes';
 
@@ -180,7 +181,7 @@ QUnit.test( "URL returning array of objects test", function( assert ) {
 
 QUnit.test( "function returning URL returning array of objects test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.city.options = function( data ){
         if ( ! data.dependedValues.province ){
             return [];
@@ -198,7 +199,7 @@ QUnit.test( "function returning URL returning array of objects test", function( 
 
 QUnit.test( "function returning URL returning array of objects and adding current value test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.city.addCurrentValueToOptions = true;
     options.fields.city.options = function( data ){
         if ( ! data.dependedValues.province ){

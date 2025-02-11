@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -32,7 +33,7 @@ var errorFunction = function( message ){
 // Run tests
 QUnit.test( "form simple test", function( assert ) {
 
-    options = $.extend( true, {}, formTestOptions );
+    options = utils.extend( true, {}, formTestOptions );
     var numberOfOriginalMembers = 12;
     testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
     
@@ -187,7 +188,7 @@ QUnit.test( "form simple test", function( assert ) {
 
 QUnit.test( "form undo/redo test", function( assert ) {
 
-    options = $.extend( true, {}, formTestOptions );
+    options = utils.extend( true, {}, formTestOptions );
     var numberOfOriginalMembers = 12;
     testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
 
@@ -252,7 +253,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
                 'verifiedMembers' );
 
             // Check subform again
-            var expectedVerifiedMembers2 = $.extend( true, [], expectedVerifiedMembers );
+            var expectedVerifiedMembers2 = utils.extend( true, [], expectedVerifiedMembers );
             expectedVerifiedMembers2[ 1 ].description = "Description of Member 3 edited";
             assert.deepEqual( 
                 testHelper.getSubformVal( 'verifiedMembers' ), expectedVerifiedMembers2 );
@@ -391,7 +392,7 @@ QUnit.test( "subform filtering test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, formTestOptions, thisTestOptions );
 
     var numberOfOriginalMembers = 12;
     testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
@@ -580,7 +581,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, formTestOptions, thisTestOptions );
 
     var numberOfOriginalMembers = 12;
     testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
@@ -774,7 +775,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
 */
 QUnit.test( "form after form test", function( assert ) {
 
-    options = $.extend( true, {}, extendedFormTestOptions );
+    options = utils.extend( true, {}, extendedFormTestOptions );
     var numberOfOriginalMembers = 12;
     testServerSide.resetOriginalAndVerifiedMembers( 'Member', numberOfOriginalMembers );
 
@@ -805,7 +806,7 @@ QUnit.test( "form after form test", function( assert ) {
                 "hobbies": [ 'reading_option', 'sports_option' ]
             };
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, editedRecord );
+            var newRecord = utils.extend( true, {}, editedRecord );
             newRecord.code = key;
 
             testHelper.checkForm( assert, newRecord );
@@ -813,7 +814,7 @@ QUnit.test( "form after form test", function( assert ) {
             // Submit and show the custom form again
             testHelper.clickFormSubmitButton();
             
-            var newRecord2 = $.extend( true, {}, newRecord );
+            var newRecord2 = utils.extend( true, {}, newRecord );
             var expectedRecord = context.getFieldBuilder().filterValues( 
                     newRecord2, 
                     options.fields.originalMembers.fields
@@ -841,7 +842,7 @@ QUnit.test( "form after form test", function( assert ) {
                 "hobbies": [ 'reading_option', 'cards_option' ]
             };
             testHelper.fillForm( editedRecord );
-            newRecord = $.extend( true, {}, editedRecord );
+            newRecord = utils.extend( true, {}, editedRecord );
             newRecord.code = key;
             
             testHelper.checkForm( assert, newRecord );
@@ -849,7 +850,7 @@ QUnit.test( "form after form test", function( assert ) {
             // Submit and show the custom form again
             testHelper.clickFormSubmitButton();
 
-            newRecord2 = $.extend( true, {}, newRecord );
+            newRecord2 = utils.extend( true, {}, newRecord );
             expectedRecord = context.getFieldBuilder().filterValues( 
                 newRecord2, 
                 options.fields.originalMembers.fields
@@ -986,7 +987,7 @@ QUnit.test( "form filtering test", function( assert ) {
             }    
         }
     };
-    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, formTestOptions, thisTestOptions );
     options.fields.originalMembers.buttons = {
         buttons: {
             toolbar: [],
@@ -1183,7 +1184,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
             }
         }
     };
-    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, formTestOptions, thisTestOptions );
     options.fields.originalMembers.buttons = {
         buttons: {
             toolbar: [],
@@ -1370,7 +1371,7 @@ QUnit.test( "form forcing filtering test with errors", function( assert ) {
         },
         errorFunction: errorFunction
     };
-    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, formTestOptions, thisTestOptions );
     options.fields.originalMembers.buttons = {
         buttons: {
             toolbar: [],
@@ -1453,7 +1454,7 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
         },
         errorFunction: errorFunction
     };
-    options = $.extend( true, {}, formTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, formTestOptions, thisTestOptions );
     options.fields.originalMembers.buttons = {
         buttons: {
             toolbar: [],

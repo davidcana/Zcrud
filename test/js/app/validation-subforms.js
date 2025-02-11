@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide' );
 
@@ -21,7 +22,7 @@ QUnit.test( "create with subforms validation test", function( assert ) {
     testServerSide.resetServices();
     
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -77,7 +78,7 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
     testServerSide.resetServices();
     
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -180,7 +181,7 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
     testServerSide.resetServices();
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -295,7 +296,7 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
     testServerSide.resetServices();
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -344,7 +345,7 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
             errorFunctionCounter = 0;
             
             // Undo
-            var tempRecord = $.extend( true, {} , record );
+            var tempRecord = utils.extend( true, {} , record );
             testHelper.clickUndoButton();
             tempRecord.name = editedRecord.name;
             testHelper.checkForm( assert, tempRecord );
@@ -359,7 +360,7 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
             // Undo
-            tempRecord = $.extend( true, {} , record );
+            tempRecord = utils.extend( true, {} , record );
             testHelper.clickUndoButton();
             tempRecord.name = editedRecord.name;
             testHelper.checkForm( assert, tempRecord );

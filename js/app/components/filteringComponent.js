@@ -9,6 +9,7 @@ var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
+var utils = require( '../utils.js' );
 
 var FilteringComponent = function( optionsToApply, thisOptionsToApply, parentToApply ) {
     
@@ -67,7 +68,7 @@ FilteringComponent.prototype.doFilter = function(){
 
 FilteringComponent.prototype.addToDataToSend = function( dataToSend ){
 
-    this.fullFilter = $.extend( true, {}, this.filterRecord, dataToSend.filter );
+    this.fullFilter = utils.extend( true, {}, this.filterRecord, dataToSend.filter );
     if ( ! $.isEmptyObject( this.fullFilter ) ){
         dataToSend.filter = this.fullFilter;
     }

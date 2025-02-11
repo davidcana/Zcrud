@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -31,7 +32,7 @@ var discardConfirmFunction = function( confirmOptions, onFulfilled ){
 // Run tests
 QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.pageConf.pages.list.components.paging.gotoPageFieldType = 'combobox';
             
     var done = assert.async();
@@ -66,7 +67,7 @@ QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
 
 QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.pageConf.pages.list.components.paging.gotoPageFieldType = 'textbox';
     options.pageConf.pages.list.components.paging.gotoPageFieldAttributes = {
         size: 2
@@ -152,7 +153,7 @@ QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert
 
 QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert ) {
 
-    options = $.extend( true, {}, subformsTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions );
     options.fields.members.components.paging.gotoPageFieldType = 'textbox';
     options.fields.members.components.paging.gotoPageFieldAttributes = {
         size: 2
@@ -203,7 +204,7 @@ QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert 
 
 QUnit.test( "subform broken paging: abort test", function( assert ) {
 
-    options = $.extend( true, {}, subformsTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions );
     options.fields.members.components.paging.gotoPageFieldType = 'combobox';
     options.confirmFunction = abortedConfirmFunction;
     
@@ -254,7 +255,7 @@ QUnit.test( "subform broken paging: abort test", function( assert ) {
 
 QUnit.test( "subform broken paging: discard test", function( assert ) {
 
-    options = $.extend( true, {}, subformsTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions );
     options.fields.members.components.paging.gotoPageFieldType = 'combobox';
     options.confirmFunction = discardConfirmFunction;
 
@@ -306,7 +307,7 @@ QUnit.test( "subform broken paging: discard test", function( assert ) {
 
 QUnit.test( "editable list broken paging: discard test", function( assert ) {
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.confirmFunction = discardConfirmFunction;
 
     // Setup services
@@ -347,7 +348,7 @@ QUnit.test( "editable list broken paging: discard test", function( assert ) {
 
 QUnit.test( "editable list broken paging: abort test", function( assert ) {
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.confirmFunction = abortedConfirmFunction;
 
     // Setup services

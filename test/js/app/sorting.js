@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -46,7 +47,7 @@ QUnit.test( "sorting list test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     
     var done = assert.async();
     
@@ -104,7 +105,7 @@ QUnit.test( "sorting subform test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions, thisTestOptions );
     
     // Setup services
     var serviceKey = 2;
@@ -176,7 +177,7 @@ QUnit.test( "sorting subform breaking paging: abort test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions, thisTestOptions );
     options.confirmFunction = abortedConfirmFunction;
     
     // Setup services
@@ -269,7 +270,7 @@ QUnit.test( "sorting subform breaking paging: discard test", function( assert ) 
             }
         }
     };
-    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions, thisTestOptions );
     options.confirmFunction = discardConfirmFunction;
 
     // Setup services

@@ -540,7 +540,7 @@ Datetime.prototype.goToday = function( event, $datetime, params ){
 
 Datetime.prototype.buildDictionaryFromParams = function( params ){
     
-    //this.dictionary = $.extend( params.dictionary );
+    //this.dictionary = utils.extend( params.dictionary );
     this.dictionary = {};
     this.dictionary.field = this;
 

@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide' );
 var context = require( '../../../js/app/context.js' );
@@ -21,7 +22,7 @@ QUnit.test( "create validation test", function( assert ) {
 
     testServerSide.resetServices();
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -83,7 +84,7 @@ QUnit.test( "update validation test", function( assert ) {
     
     testServerSide.resetServices();
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -116,7 +117,7 @@ QUnit.test( "update validation test", function( assert ) {
             };
 
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
@@ -149,7 +150,7 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
     
     testServerSide.resetServices();
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -181,7 +182,7 @@ QUnit.test( "create undo/redo validation test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
             // Set an invalid name
-            var badRecord = $.extend( true, {}, record );
+            var badRecord = utils.extend( true, {}, record );
             badRecord.name = "" + key;
             testHelper.setFormVal( badRecord, 'name' );
             
@@ -226,7 +227,7 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
     
     testServerSide.resetServices();
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -264,8 +265,8 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
 
             // Set an invalid name
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            var badRecord = $.extend( true, {}, newRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            var badRecord = utils.extend( true, {}, newRecord );
             badRecord.name = "" + key;
             testHelper.setFormVal( badRecord, 'name' );
             

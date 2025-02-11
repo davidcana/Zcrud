@@ -6,6 +6,7 @@
 var context = require( '../context.js' );
 var crudManager = require( '../crudManager.js' );
 var $ = require( 'jquery' );
+var utils = require( '../utils.js' );
 
 var OptionProvider = function() {
     
@@ -37,7 +38,7 @@ var OptionProvider = function() {
         if ( $.isFunction( optionsSource ) ) {
             // Prepare parameter to the function
             /*
-            funcParams = $.extend( 
+            funcParams = utils.extend( 
                 true,
                 {
                     _cacheCleared: false,
@@ -112,7 +113,7 @@ var OptionProvider = function() {
         for ( var i in funcParams ){
             newFuncParams[ i ] = i == 'options' || i == 'dictionary'|| i == 'formPage'?
                 funcParams[ i ]:
-                $.extend( true, {}, funcParams[ i ] );
+                utils.extend( true, {}, funcParams[ i ] );
         }
         
         return newFuncParams;

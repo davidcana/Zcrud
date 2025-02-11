@@ -14,6 +14,7 @@ var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
+var utils = require( '../utils.js' );
 
 var FormPage = function ( optionsToApply, userDataToApply ) {
     
@@ -327,7 +328,7 @@ FormPage.prototype.updateDictionary = function( dictionaryExtension ){
     }
 
     if ( dictionaryExtension ){
-        $.extend( this.instanceDictionaryExtension, dictionaryExtension );
+        utils.extend( this.instanceDictionaryExtension, dictionaryExtension );
     }
 };
 

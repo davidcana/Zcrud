@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -279,7 +280,7 @@ defaultTestOptions.errorFunction = function( message ){
 QUnit.test( "create text area test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -322,12 +323,12 @@ QUnit.test( "create text area test", function( assert ) {
                 "name": "Homer Simpson",
                 "description": "Description of Homer Simpson"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -398,7 +399,7 @@ QUnit.test( "create text area test", function( assert ) {
 QUnit.test( "create datetime test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -441,19 +442,19 @@ QUnit.test( "create datetime test", function( assert ) {
                 "name": "Homer Simpson",
                 "datetime": "10/02/2017 20:00"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -524,7 +525,7 @@ QUnit.test( "create datetime test", function( assert ) {
 QUnit.test( "create datetime using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -566,7 +567,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
                 "code": "3",
                 "name": "Homer Simpson"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
@@ -577,18 +578,18 @@ QUnit.test( "create datetime using picker test", function( assert ) {
                 2, 
                 options.fields.members.fields[ varName ],
                 subformRecord3[ varName ] );
-            subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             
             
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -659,7 +660,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
 QUnit.test( "create inline datetime using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -702,7 +703,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
                 "code": "3",
                 "name": "Homer Simpson"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             
             testHelper.clickCreateSubformRowButton( 'members' );
             
@@ -715,17 +716,17 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
                 2, 
                 options.fields.members.fields[ varName ],
                 subformRecord3[ varName ] );
-            subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 8, 0, true );
@@ -796,7 +797,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
 QUnit.test( "create date test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -839,19 +840,19 @@ QUnit.test( "create date test", function( assert ) {
                 "name": "Homer Simpson",
                 "date": "10/02/2017"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -922,7 +923,7 @@ QUnit.test( "create date test", function( assert ) {
 QUnit.test( "create date using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -964,7 +965,7 @@ QUnit.test( "create date using picker test", function( assert ) {
                 "code": "3",
                 "name": "Homer Simpson"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
@@ -975,17 +976,17 @@ QUnit.test( "create date using picker test", function( assert ) {
                 2, 
                 options.fields.members.fields[ varName ],
                 subformRecord3[ varName ] );
-            subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -1056,7 +1057,7 @@ QUnit.test( "create date using picker test", function( assert ) {
 QUnit.test( "create inline date using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1099,7 +1100,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
                 "code": "3",
                 "name": "Homer Simpson"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
 
             testHelper.clickCreateSubformRowButton( 'members' );
 
@@ -1112,17 +1113,17 @@ QUnit.test( "create inline date using picker test", function( assert ) {
                 2, 
                 options.fields.members.fields[ varName ],
                 subformRecord3[ varName ] );
-            subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -1193,7 +1194,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
 QUnit.test( "create time test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1236,12 +1237,12 @@ QUnit.test( "create time test", function( assert ) {
                 "name": "Homer Simpson",
                 "time": "02:05"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, serverRecord );
+            var editedRecord = utils.extend( true, {}, serverRecord );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -1312,7 +1313,7 @@ QUnit.test( "create time test", function( assert ) {
 QUnit.test( "create time using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1355,7 +1356,7 @@ QUnit.test( "create time using picker test", function( assert ) {
                 "name": "Homer Simpson"
                 //"time": "02:05"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
@@ -1366,10 +1367,10 @@ QUnit.test( "create time using picker test", function( assert ) {
                 2, 
                 options.fields.members.fields[ varName ],
                 subformRecord3[ varName ] );
-            subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, serverRecord );
+            var editedRecord = utils.extend( true, {}, serverRecord );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -1440,7 +1441,7 @@ QUnit.test( "create time using picker test", function( assert ) {
 QUnit.test( "create inline time using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1484,7 +1485,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
                 "name": "Homer Simpson"
                 //"time": "02:05"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
@@ -1495,10 +1496,10 @@ QUnit.test( "create inline time using picker test", function( assert ) {
                 2, 
                 options.fields.members.fields[ varName ],
                 subformRecord3[ varName ] );
-            subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, serverRecord );
+            var editedRecord = utils.extend( true, {}, serverRecord );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 6, 0, true );
@@ -1569,7 +1570,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
 QUnit.test( "create checkbox test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1612,12 +1613,12 @@ QUnit.test( "create checkbox test", function( assert ) {
                 "name": "Homer Simpson",
                 "important": true
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -1688,7 +1689,7 @@ QUnit.test( "create checkbox test", function( assert ) {
 QUnit.test( "create radio test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1731,12 +1732,12 @@ QUnit.test( "create radio test", function( assert ) {
                 "name": "Homer Simpson",
                 "phoneType": "cellPhone_option"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -1807,7 +1808,7 @@ QUnit.test( "create radio test", function( assert ) {
 QUnit.test( "create select test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1850,12 +1851,12 @@ QUnit.test( "create select test", function( assert ) {
                 "name": "Homer Simpson",
                 "province": "Cádiz"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -1926,7 +1927,7 @@ QUnit.test( "create select test", function( assert ) {
 QUnit.test( "create 2 linked select test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1973,12 +1974,12 @@ QUnit.test( "create 2 linked select test", function( assert ) {
                 "province": "Cádiz",
                 "city": "Tarifa"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 5, 0, true );
@@ -2061,7 +2062,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
 QUnit.test( "create datalist test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -2104,12 +2105,12 @@ QUnit.test( "create datalist test", function( assert ) {
                 "name": "Homer Simpson",
                 "browser": "Firefox"
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 4, 0, true );
@@ -2180,7 +2181,7 @@ QUnit.test( "create datalist test", function( assert ) {
 QUnit.test( "create checkboxes test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -2223,12 +2224,12 @@ QUnit.test( "create checkboxes test", function( assert ) {
                 "name": "Homer Simpson",
                 "hobbies": [ 'sports_option', 'cards_option' ]
             };
-            var subformRecord3Clone = $.extend( true, {}, subformRecord3 );
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3Clone );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 5, 0, true );

@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -71,7 +72,7 @@ QUnit.test( "list selecting test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, listTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, listTestOptions, thisTestOptions );
     var done = assert.async();
     
     $( '#departmentsContainer' ).zcrud( 
@@ -404,7 +405,7 @@ QUnit.test( "subform selecting test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -659,7 +660,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
     
     $( '#departmentsContainer' ).zcrud( 
@@ -942,7 +943,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -1228,7 +1229,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -1603,7 +1604,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -1903,7 +1904,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -2127,7 +2128,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 

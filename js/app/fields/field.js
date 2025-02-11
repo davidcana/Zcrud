@@ -4,9 +4,10 @@
 "use strict";
 
 var $ = require( 'jquery' );
+var utils = require( '../utils.js' );
 
 var Field = function( properties ) {
-    $.extend( true, this, properties );
+    utils.extend( true, this, properties );
 };
 
 Field.prototype.setPage = function( pageToApply ){

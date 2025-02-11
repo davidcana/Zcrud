@@ -6,6 +6,7 @@ require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var context = require( '../../../js/app/context.js' );
+var utils = require( '../../../js/app/utils.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions;
@@ -27,7 +28,7 @@ QUnit.test( "field attributes test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     
     var done = assert.async();
     
@@ -66,7 +67,7 @@ QUnit.test( "rowHeader attributes test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
     var done = assert.async();
 

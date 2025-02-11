@@ -5,10 +5,11 @@
 
 var $ = require( 'jquery' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
+var utils = require( '../utils.js' );
 
 var Container = function( properties ) {
-    $.extend( this, properties );
-    //$.extend( true, this, properties );
+    utils.extend( this, properties );
+    //utils.extend( true, this, properties );
 };
 
 Container.prototype.getToolbarButtons = function(){

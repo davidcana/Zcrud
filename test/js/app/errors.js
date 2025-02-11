@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -27,7 +28,7 @@ editableListTestOptions.errorFunction = function( message ){
 QUnit.test( "list error test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.pageConf.pages.list.getGroupOfRecordsURL = 'http://localhost/CRUDManager.do?cmd=LIST&table=department&forceError=true';
     
     $( '#departmentsContainer' ).zcrud( 
@@ -49,7 +50,7 @@ QUnit.test( "list error test", function( assert ) {
 QUnit.test( "options error test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = false;
     //options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypes';
     options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypes&forceError=true';
@@ -77,7 +78,7 @@ QUnit.test( "options error test", function( assert ) {
 QUnit.test( "get error in update form page test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.pageConf.defaultPageConf.getRecordURL = 'http://localhost/CRUDManager.do?cmd=GET&table=department&forceError=true';
 
     $( '#departmentsContainer' ).zcrud( 
@@ -103,7 +104,7 @@ QUnit.test( "get error in update form page test", function( assert ) {
 QUnit.test( "update error in update form page test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.pageConf.defaultPageConf.updateURL = 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department&forceError=true';
 
     $( '#departmentsContainer' ).zcrud( 
@@ -153,7 +154,7 @@ QUnit.test( "update error in update form page test", function( assert ) {
 QUnit.test( "get error in delete page test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.pageConf.defaultPageConf.getRecordURL = 'http://localhost/CRUDManager.do?cmd=GET&table=department&forceError=true';
 
     $( '#departmentsContainer' ).zcrud( 
@@ -179,7 +180,7 @@ QUnit.test( "get error in delete page test", function( assert ) {
 QUnit.test( "delete error in delete form page test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.pageConf.defaultPageConf.updateURL = 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department&forceError=true';
 
     $( '#departmentsContainer' ).zcrud( 
@@ -212,7 +213,7 @@ QUnit.test( "delete error in delete form page test", function( assert ) {
 QUnit.test( "update error in editable list test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.pageConf.pages.list.components.editing.updateURL = 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department&forceError=true';
 
     $( '#departmentsContainer' ).zcrud( 
@@ -246,7 +247,7 @@ QUnit.test( "update error in editable list test", function( assert ) {
 QUnit.test( "i18n file not found error test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.i18n.files.en = [ 'en-common.json', 'en-notFound.json' ];
 
     $( '#departmentsContainer' ).zcrud( 
@@ -266,7 +267,7 @@ QUnit.test( "i18n file not found error test", function( assert ) {
 QUnit.test( "not found field in list error test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.pageConf.pages.list.fields = [ 'id', 'notFound' ];
 
     $( '#departmentsContainer' ).zcrud( 

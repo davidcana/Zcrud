@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -41,7 +42,7 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     
     var itemName = 'Service';
     testHelper.setDefaultItemName( itemName );
@@ -140,7 +141,7 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
             }
         }
     };
-    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions, thisTestOptions );
     
     // Setup services
     var serviceKey = 2;
@@ -257,7 +258,7 @@ QUnit.test( "filtering list (standard list of fields) test", function( assert ) 
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     
     var itemName = 'Service';
     testHelper.setDefaultItemName( itemName );
@@ -358,7 +359,7 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
             }
         }
     };
-    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions, thisTestOptions );
 
     // Setup services
     var serviceKey = 2;
@@ -473,7 +474,7 @@ QUnit.test( "filtering subform breaking paging: abort (standard list of fields) 
             }
         }
     };
-    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions, thisTestOptions );
     options.confirmFunction = abortedConfirmFunction;
     
     // Setup services
@@ -565,7 +566,7 @@ QUnit.test( "filtering subform breaking paging: discard (standard list of fields
             }
         }
     };
-    options = $.extend( true, {}, subformsTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions, thisTestOptions );
     options.confirmFunction = discardConfirmFunction;
 
     // Setup services

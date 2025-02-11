@@ -4,12 +4,13 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -139,7 +140,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             testHelper.clickDeleteSubformRowButton( 'members', 1 );
             
             // Check the form
-            var newRecord = $.extend( true, {} , record );
+            var newRecord = utils.extend( true, {} , record );
             newRecord.members = [];
             newRecord.members[ 0 ] = {
                 "code": "1",
@@ -218,7 +219,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
             
             // Check the form
-            var newRecord = $.extend( true, {} , record );
+            var newRecord = utils.extend( true, {} , record );
             newRecord.members = [];
             newRecord.members[ 0 ] = {
                 "code": "1",
@@ -292,7 +293,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             testHelper.clickDeleteSubformRowButton( 'members', 1 );
             
             // Check the form
-            var newRecord = $.extend( true, {} , record );
+            var newRecord = utils.extend( true, {} , record );
             newRecord.members = [];
             newRecord.members[ 0 ] = record.members[ 0 ];
             newRecord.members[ 1 ] = subformRecord3;
@@ -371,7 +372,7 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             testHelper.clickDeleteSubformRowButton( 'members', 1 );
             
             // Check the form
-            var newRecord = $.extend( true, {} , record );
+            var newRecord = utils.extend( true, {} , record );
             newRecord.members = [];
             newRecord.members[ 0 ] = {
                 "code": "1",

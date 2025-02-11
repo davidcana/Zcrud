@@ -10,6 +10,7 @@ var FormPage = require( './pages/formPage.js' );
 var normalizer = require( './normalizer.js' );
 var fieldBuilder = require( './fields/fieldBuilder' );
 var defaultOptions = require( './defaultOptions.js' );
+var utils = require( './utils.js' );
 
 exports.init = function( userOptions, callback, failCallback ){
     
@@ -56,7 +57,7 @@ exports.init = function( userOptions, callback, failCallback ){
     };
 
     // Init options
-    var options = $.extend( true, {}, defaultOptions, userOptions );
+    var options = utils.extend( true, {}, defaultOptions, userOptions );
     
     // Init dictionary, set in context and remove 
     var dictionary = options.dictionary;
@@ -66,7 +67,7 @@ exports.init = function( userOptions, callback, failCallback ){
     
     // Configure logging
     zpt.context.getConf().loggingOn = options.logging.isOn;
-    zpt.context.getConf().loggingLevel = options.logging.level;
+    zpt.context.getConf().loggingLevel = utils.buildLoggingLevel( options.logging.level );
 
     log.info( 'Initializing ZCrud...' );
     

@@ -5,6 +5,7 @@
 
 var context = require( './context.js' );
 var $ = require( 'jquery' );
+var utils = require( './utils.js' );
 
 module.exports = (function() {
 
@@ -128,7 +129,7 @@ module.exports = (function() {
         
         // Normalize components if any
         if ( field.components ){
-            field.components = $.extend( true, {}, options.defaultComponentsConfig, field.components );
+            field.components = utils.extend( true, {}, options.defaultComponentsConfig, field.components );
         }
         
         // Normalize subfields in this field
@@ -144,7 +145,7 @@ module.exports = (function() {
             return field;
         }
 
-        return $.extend( true, {}, defaultFieldOptions, field );
+        return utils.extend( true, {}, defaultFieldOptions, field );
     };
     
     var normalizeGeneralOptionsPostFields = function( options ) {
@@ -169,9 +170,9 @@ module.exports = (function() {
         var defaultPageConf = options.pageConf.defaultPageConf;
         var defaultComponentsConfig = options.defaultComponentsConfig;
         $.each( options.pageConf.pages, function ( pageId, page ) {
-            var pageConf = $.extend( true, {}, defaultPageConf, page );
+            var pageConf = utils.extend( true, {}, defaultPageConf, page );
             options.pageConf.pages[ pageId ] = pageConf;
-            var componentsConf = $.extend( true, {}, defaultComponentsConfig, pageConf.components );
+            var componentsConf = utils.extend( true, {}, defaultComponentsConfig, pageConf.components );
             pageConf.components = componentsConf;
         });
     };

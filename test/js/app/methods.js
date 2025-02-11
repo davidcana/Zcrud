@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -30,7 +31,7 @@ QUnit.test( "selection related methods test (using selectRows)", function( asser
             }
         }
     };
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -121,7 +122,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
             }
         }
     };
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -217,7 +218,7 @@ QUnit.test( "selection related methods test (using selectRecords)", function( as
 QUnit.test( "showCreateForm test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -262,7 +263,7 @@ QUnit.test( "showCreateForm test", function( assert ) {
 QUnit.test( "showUpdateForm test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -295,7 +296,7 @@ QUnit.test( "showUpdateForm test", function( assert ) {
                 "province": "Málaga",
                 "city": "Marbella"
             };
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.fillForm( editedRecord );
             testHelper.checkForm( assert, newRecord );
 
@@ -311,7 +312,7 @@ QUnit.test( "showUpdateForm test", function( assert ) {
 QUnit.test( "showDeleteForm test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -344,7 +345,7 @@ QUnit.test( "showDeleteForm test", function( assert ) {
 QUnit.test( "getRecordByKey/getRowByKey test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -380,7 +381,7 @@ QUnit.test( "getRecordByKey/getRowByKey test", function( assert ) {
 QUnit.test( "load (using filter) test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -417,7 +418,7 @@ QUnit.test( "load (using filter) test", function( assert ) {
 QUnit.test( "load (using callback and filter) test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var c = 0;
     var thisCallback = function(){
         ++c;
@@ -462,7 +463,7 @@ QUnit.test( "load (using callback and filter) test", function( assert ) {
 QUnit.test( "simple addRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -511,7 +512,7 @@ QUnit.test( "simple addRecord test", function( assert ) {
 QUnit.test( "simple deleteRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -558,7 +559,7 @@ QUnit.test( "simple deleteRecord test", function( assert ) {
 QUnit.test( "simple updateRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -601,7 +602,7 @@ QUnit.test( "simple updateRecord test", function( assert ) {
                 } );
             
             // Check it
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
             
             done();
@@ -612,7 +613,7 @@ QUnit.test( "simple updateRecord test", function( assert ) {
 QUnit.test( "change key updateRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -656,7 +657,7 @@ QUnit.test( "change key updateRecord test", function( assert ) {
                 } );
 
             // Check it
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, newKey, newRecord );
 
             done();
@@ -667,7 +668,7 @@ QUnit.test( "change key updateRecord test", function( assert ) {
 QUnit.test( "subform updateRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -723,7 +724,7 @@ QUnit.test( "subform updateRecord test", function( assert ) {
                 } );
 
             // Check it
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
 
             done();
@@ -751,7 +752,7 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -784,7 +785,7 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
                 } );
 
             // Check it
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkRecordInList( assert, key, newRecord );
             assert.deepEqual( testServerSide.getService( key ), record );
             
@@ -835,7 +836,7 @@ QUnit.test( "clientOnly updateRecord test", function( assert ) {
 QUnit.test( "clientOnly deleteRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -912,7 +913,7 @@ QUnit.test( "clientOnly deleteRecord test", function( assert ) {
 QUnit.test( "clientOnly addRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -993,7 +994,7 @@ QUnit.test( "clientOnly addRecord test", function( assert ) {
 QUnit.test( "custom url updateRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -1037,7 +1038,7 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
                 } );
 
             // Check it
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
             
             assert.equal( testServerSide.getLastBatchUpdateUrl(), url );
@@ -1050,7 +1051,7 @@ QUnit.test( "custom url updateRecord test", function( assert ) {
 QUnit.test( "success function updateRecord test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -1096,7 +1097,7 @@ QUnit.test( "success function updateRecord test", function( assert ) {
                 } );
 
             // Check it
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkRecord( assert, key, newRecord );
             
             assert.equal( successCounter, 1 );
@@ -1109,7 +1110,7 @@ QUnit.test( "success function updateRecord test", function( assert ) {
 QUnit.test( "load (using records) / getRecords test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -1225,7 +1226,7 @@ QUnit.test( "load (using records) / getRecords test", function( assert ) {
 QUnit.test( "load (not using records) / getRecords test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -1314,7 +1315,7 @@ QUnit.test( "load (not using records) / getRecords test", function( assert ) {
 QUnit.test( "load (not loading records) / getRecords test", function( assert ) {
 
     var thisTestOptions = {};
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 

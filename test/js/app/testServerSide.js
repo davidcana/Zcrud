@@ -5,6 +5,7 @@ module.exports = (function() {
     "use strict";
     
     var $ = require( 'jquery' );
+    var utils = require( '../../../js/app/utils.js' );
     
     var defaultPeople = [
         {
@@ -636,7 +637,7 @@ module.exports = (function() {
 
         lastBatchUpdateUrl = url;
         jsonUpdatesArray.push( 
-            $.extend( true, {}, data ) );
+            utils.extend( true, {}, data ) );
 
         // Init data
         var dataToSend = {};
@@ -663,7 +664,7 @@ module.exports = (function() {
                 continue;    
             }
 
-            var extendedService = $.extend( true, {}, currentItem, modifiedItem );
+            var extendedService = utils.extend( true, {}, currentItem, modifiedItem );
 
             if ( ! replaceOriginalMember( id, extendedService ) ){
                 dataToSend.message += 'Original member with key "' + id + '" not found trying to replace it!';
@@ -744,7 +745,7 @@ module.exports = (function() {
                 thisOriginalMember = currentItem;
             }
         }*/
-        dataToSend.record = $.extend( true, {}, thisOriginalMember );
+        dataToSend.record = utils.extend( true, {}, thisOriginalMember );
         dataToSend.fieldsData = {};
 
         return dataToSend;
@@ -754,7 +755,7 @@ module.exports = (function() {
 
         lastBatchUpdateUrl = url;
         jsonUpdatesArray.push( 
-            $.extend( true, {}, data ) );
+            utils.extend( true, {}, data ) );
 
         // Init data
         var dataToSend = {};
@@ -785,7 +786,7 @@ module.exports = (function() {
                 continue;    
             }
 
-            var extendedItem = $.extend( true, {}, currentItem, modifiedItem );
+            var extendedItem = utils.extend( true, {}, currentItem, modifiedItem );
 
             if ( newId && id !== newId ){
                 delete input[ id ];
@@ -848,7 +849,7 @@ module.exports = (function() {
         
         lastBatchUpdateUrl = url;
         jsonUpdatesArray.push( 
-            $.extend( true, {}, data ) );
+            utils.extend( true, {}, data ) );
 
         // Init data
         //dataToSend.verifiedMembers = {};
@@ -886,7 +887,7 @@ module.exports = (function() {
                     continue;    
                 }
 
-                var extendedItem = $.extend( true, {}, currentItem, modifiedItem );
+                var extendedItem = utils.extend( true, {}, currentItem, modifiedItem );
 
                 if ( newId && id !== newId ){
                     delete input[ id ];
@@ -1051,7 +1052,7 @@ module.exports = (function() {
     };
     
     var cloneArray = function( arrayToClone ){
-        return $.extend( true, [], arrayToClone );
+        return utils.extend( true, [], arrayToClone );
     };
     
     var processMembersSubformsInGet = function( data, record, dataToSend ){
@@ -1216,7 +1217,7 @@ module.exports = (function() {
         dataToSend.message = '';
         
         // Build record
-        dataToSend.record = $.extend( true, {}, services[ data.key ] );
+        dataToSend.record = utils.extend( true, {}, services[ data.key ] );
         dataToSend.fieldsData = {};
         processSubformsInGet( data, servicesSubformsFields, dataToSend.record, dataToSend );
         
@@ -1312,7 +1313,7 @@ module.exports = (function() {
 
         lastBatchUpdateUrl = url;
         jsonUpdatesArray.push( 
-            $.extend( true, {}, data ) );
+            utils.extend( true, {}, data ) );
         
         // Init data
         var dataToSend = {};
@@ -1341,7 +1342,7 @@ module.exports = (function() {
             
             servicesSubformsListBatchUpdate( currentService, modifiedService, dataToSend );
             
-            var extendedService = $.extend( true, {}, currentService, modifiedService );
+            var extendedService = utils.extend( true, {}, currentService, modifiedService );
 
             if ( newId && id !== newId ){
                 delete services[ id ];
@@ -1365,7 +1366,7 @@ module.exports = (function() {
                 continue;
             }
             
-            var newServiceClone = $.extend( true, {}, newService );
+            var newServiceClone = utils.extend( true, {}, newService );
             if ( newService.membersZCrudRecords ){
                 newService.members = [];
                 delete newService.membersZCrudRecords;
@@ -1455,7 +1456,7 @@ module.exports = (function() {
                 continue;       
             }
             
-            $.extend( true, currentItem, modifiedItem );
+            utils.extend( true, currentItem, modifiedItem );
         }
         
         // Add all new items
@@ -1616,7 +1617,7 @@ module.exports = (function() {
     
     var setService = function( key, service ){
         //services[ key ] = clone( service );
-        services[ key ] = $.extend( true, {}, service );
+        services[ key ] = utils.extend( true, {}, service );
     };
     
     var removeService = function( key ){
@@ -1703,7 +1704,7 @@ module.exports = (function() {
         dataToSend.message = '';
 
         // Build record
-        dataToSend.record = $.extend( true, {}, people[ data.key ] );
+        dataToSend.record = utils.extend( true, {}, people[ data.key ] );
         dataToSend.fieldsData = {};
         processSubformsInGet( data, peopleSubformsFields, dataToSend.record, dataToSend );
 

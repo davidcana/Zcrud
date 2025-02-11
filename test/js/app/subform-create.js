@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -20,7 +21,7 @@ defaultTestOptions.errorFunction = function( message ){
 
 QUnit.test( "subform create test", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -72,7 +73,7 @@ QUnit.test( "subform create test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3 );
             editedRecord.members.push( subformRecord4 );
             testHelper.checkForm( assert, editedRecord );
@@ -94,7 +95,7 @@ QUnit.test( "subform create test", function( assert ) {
 
 QUnit.test( "subform create and form create test", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
     delete options.fields[ 'province' ].defaultValue;
     
@@ -136,7 +137,7 @@ QUnit.test( "subform create and form create test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord1 );
             editedRecord.members.push( subformRecord2 );
             testHelper.checkForm( assert, editedRecord );
@@ -158,7 +159,7 @@ QUnit.test( "subform create and form create test", function( assert ) {
 
 QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -210,16 +211,16 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3 );
             editedRecord.members.push( subformRecord4 );
             testHelper.checkForm( assert, editedRecord );
             
             testHelper.assertHistory( assert, 8, 0, false );
-            var newRecord = $.extend( true, {} , record );
+            var newRecord = utils.extend( true, {} , record );
             newRecord.members.push( subformRecord3 );
             newRecord.members.push( subformRecord4 );
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             
             // Undo
             testHelper.clickUndoButton();
@@ -246,7 +247,7 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
 
 QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -298,16 +299,16 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
 
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( subformRecord3 );
             editedRecord.members.push( subformRecord4 );
             testHelper.checkForm( assert, editedRecord );
 
             testHelper.assertHistory( assert, 8, 0, false );
-            var newRecord = $.extend( true, {} , record );
+            var newRecord = utils.extend( true, {} , record );
             newRecord.members.push( subformRecord3 );
             newRecord.members.push( subformRecord4 );
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
 
             // Undo (1)
             testHelper.clickUndoButton();
@@ -377,7 +378,7 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -420,11 +421,11 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
             
             // Build editedSubformRecord3
-            var editedSubformRecord3 = $.extend( true, {}, subformRecord3 );
+            var editedSubformRecord3 = utils.extend( true, {}, subformRecord3 );
             editedSubformRecord3.description = defaultMember.description;
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.members.push( editedSubformRecord3 );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 3, 0, false );
@@ -522,7 +523,7 @@ QUnit.test( "add records to subform test", function( assert ) {
         }
     };
 
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     var done = assert.async();
 
     var newMembers = [
@@ -596,7 +597,7 @@ QUnit.test( "add records to subform test", function( assert ) {
 
 QUnit.test( "subform create with fields with default values test", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].fields.description.defaultValue = "Default description";
     
     var done = assert.async();
@@ -650,8 +651,8 @@ QUnit.test( "subform create with fields with default values test", function( ass
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
             
             // Build edited record and check form
-            var editedRecord = $.extend( true, {}, record );
-            var realSubformRecord3 = $.extend( true, {}, subformRecord3 );
+            var editedRecord = utils.extend( true, {}, record );
+            var realSubformRecord3 = utils.extend( true, {}, subformRecord3 );
             realSubformRecord3.description = options.fields[ 'members' ].fields.description.defaultValue;
             editedRecord.members.push( realSubformRecord3 );
             editedRecord.members.push( subformRecord4);
@@ -675,7 +676,7 @@ QUnit.test( "subform create with fields with default values test", function( ass
 
 QUnit.test( "subform create with default value (2 rows, 0 changed) test", function( assert ) {
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
             "code": "1",
@@ -710,7 +711,7 @@ QUnit.test( "subform create with default value (2 rows, 0 changed) test", functi
             testHelper.fillForm( record );
 
             // Check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.province = options.fields[ 'province' ].defaultValue;
             editedRecord.members = options.fields[ 'members' ].defaultValue;
             testHelper.checkForm( assert, editedRecord );
@@ -732,7 +733,7 @@ QUnit.test( "subform create with default value (2 rows, 0 changed) test", functi
 
 QUnit.test( "subform create with default value (2 rows, 1 changed) test", function( assert ) {
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
             "code": "1",
@@ -773,7 +774,7 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) test", functi
             testHelper.fillForm( record );
 
             // Check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.province = options.fields[ 'province' ].defaultValue;
             editedRecord.members = options.fields[ 'members' ].defaultValue;
             editedRecord.members[ 0 ].name = "Bart Simpson";
@@ -797,7 +798,7 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) test", functi
 
 QUnit.test( "subform create with default value (2 rows, 1 changed) and default values test", function( assert ) {
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
             "code": "1",
@@ -847,7 +848,7 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) and default v
             testHelper.fillSubformNewRow( subformRecord, 'members' );
             
             // Check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.province = options.fields[ 'province' ].defaultValue;
             editedRecord.members = options.fields[ 'members' ].defaultValue;
             editedRecord.members[ 0 ].name = "Bart Simpson";
@@ -873,7 +874,7 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) and default v
 
 QUnit.test( "subform create with default value (2 rows, 0 changed, 1 deleted) test", function( assert ) {
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
             "code": "1",
@@ -911,7 +912,7 @@ QUnit.test( "subform create with default value (2 rows, 0 changed, 1 deleted) te
             testHelper.clickDeleteSubformRowButton( 'members', 0 );
             
             // Check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.province = options.fields[ 'province' ].defaultValue;
             editedRecord.members = options.fields[ 'members' ].defaultValue;
             editedRecord.members = [ editedRecord.members[ 1 ] ];
@@ -934,7 +935,7 @@ QUnit.test( "subform create with default value (2 rows, 0 changed, 1 deleted) te
 
 QUnit.test( "subform create with default value (2 rows, 1 changed, 1 deleted) test", function( assert ) {
 
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
             "code": "1",
@@ -978,7 +979,7 @@ QUnit.test( "subform create with default value (2 rows, 1 changed, 1 deleted) te
             testHelper.clickDeleteSubformRowButton( 'members', 1 );
             
             // Check form
-            var editedRecord = $.extend( true, {}, record );
+            var editedRecord = utils.extend( true, {}, record );
             editedRecord.province = options.fields[ 'province' ].defaultValue;
             editedRecord.members = [ editedRecord.members[ 0 ] ];
             editedRecord.members[ 0 ].code = '1';

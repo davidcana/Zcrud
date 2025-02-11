@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -279,7 +280,7 @@ defaultTestOptions.errorFunction = function( message ){
 QUnit.test( "update text area test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -325,20 +326,20 @@ QUnit.test( "update text area test", function( assert ) {
             testHelper.fillForm( editedRecord );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
             
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -364,7 +365,7 @@ QUnit.test( "update text area test", function( assert ) {
 QUnit.test( "update datetime test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -412,27 +413,27 @@ QUnit.test( "update datetime test", function( assert ) {
             testHelper.fillForm( editedRecord );
             
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
             
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -459,7 +460,7 @@ QUnit.test( "update datetime test", function( assert ) {
 QUnit.test( "update datetime using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -512,27 +513,27 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                 editedRecord.members[ 1 ][ varName ] );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -558,7 +559,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
 QUnit.test( "update inline datetime using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -614,7 +615,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                 editedRecord.members[ 1 ][ varName ] );
             
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
@@ -622,20 +623,20 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             
             // Check form
             var numberOfActions = 6;
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, numberOfActions, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton( numberOfActions );
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, numberOfActions, false );
             
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton( numberOfActions );
             testHelper.checkForm( assert, tempRecord );
@@ -661,7 +662,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
 QUnit.test( "update date test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -709,27 +710,27 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -755,7 +756,7 @@ QUnit.test( "update date test", function( assert ) {
 QUnit.test( "update date using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -809,27 +810,27 @@ QUnit.test( "update date using picker test", function( assert ) {
                 editedRecord.members[ 1 ][ varName ] );
             
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -855,7 +856,7 @@ QUnit.test( "update date using picker test", function( assert ) {
 QUnit.test( "update inline date using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -911,7 +912,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                 editedRecord.members[ 1 ][ varName ] );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
@@ -919,20 +920,20 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             
             // Check form
             var numberOfActions = 1;
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, numberOfActions, 0, true );
 
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton( numberOfActions );
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, numberOfActions, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton( numberOfActions );
             testHelper.checkForm( assert, tempRecord );
@@ -958,7 +959,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
 QUnit.test( "update time test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1006,27 +1007,27 @@ QUnit.test( "update time test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -1052,7 +1053,7 @@ QUnit.test( "update time test", function( assert ) {
 QUnit.test( "update time using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1105,27 +1106,27 @@ QUnit.test( "update time using picker test", function( assert ) {
                 editedRecord.members[ 1 ][ varName ] );
 
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 1 ][ varName ] );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -1151,7 +1152,7 @@ QUnit.test( "update time using picker test", function( assert ) {
 QUnit.test( "update inline time using picker test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1206,7 +1207,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
                 editedRecord.members[ 1 ][ varName ] );
             
             // Transform date instances into string
-            var record = $.extend( true, {}, serverRecord );
+            var record = utils.extend( true, {}, serverRecord );
             record.members[ 0 ][ varName ] = options.fields[ varName ].formatToClient(
                 record.members[ 0 ][ varName ] );
             record.members[ 1 ][ varName ] = options.fields[ varName ].formatToClient(
@@ -1214,20 +1215,20 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             
             // Check form
             var numberOfActions = 2;
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, numberOfActions, 0, true );
 
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton( numberOfActions );
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, numberOfActions, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton( numberOfActions );
             testHelper.checkForm( assert, tempRecord );
@@ -1253,7 +1254,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
 QUnit.test( "update checkbox test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1299,20 +1300,20 @@ QUnit.test( "update checkbox test", function( assert ) {
             testHelper.fillForm( editedRecord );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -1338,7 +1339,7 @@ QUnit.test( "update checkbox test", function( assert ) {
 QUnit.test( "update radio test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1384,20 +1385,20 @@ QUnit.test( "update radio test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
             
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -1423,7 +1424,7 @@ QUnit.test( "update radio test", function( assert ) {
 QUnit.test( "update select test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1469,20 +1470,20 @@ QUnit.test( "update select test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -1508,7 +1509,7 @@ QUnit.test( "update select test", function( assert ) {
 QUnit.test( "update 2 linked select test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1558,7 +1559,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.fillForm( editedRecord );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             newRecord.members[ 1 ][ varName2 ] = editedRecord.members[ 1 ][ varName2 ];
             testHelper.checkForm( assert, newRecord );
@@ -1572,7 +1573,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                 [ 'Algeciras', 'Tarifa' ] );
             
             // Undo (1)
-            var tempRecord = $.extend( true, {} , record );
+            var tempRecord = utils.extend( true, {} , record );
             tempRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             delete tempRecord.members[ 1 ][ varName2 ];
             testHelper.clickUndoButton();
@@ -1639,7 +1640,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
 QUnit.test( "update datalist test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1685,20 +1686,20 @@ QUnit.test( "update datalist test", function( assert ) {
             testHelper.fillForm( editedRecord );
             
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 1, 0, true );
 
             // Undo
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 1, false );
 
             // Redo
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
@@ -1724,7 +1725,7 @@ QUnit.test( "update datalist test", function( assert ) {
 QUnit.test( "update chackboxes test", function( assert ) {
 
     var done = assert.async();
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1770,20 +1771,20 @@ QUnit.test( "update chackboxes test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             // Check form
-            var newRecord = $.extend( true, {}, record );
+            var newRecord = utils.extend( true, {}, record );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.checkForm( assert, newRecord );
             testHelper.assertHistory( assert, 2, 0, true );
             
             // Undo (2 times)
-            var tempRecord = $.extend( true, {} , newRecord );
+            var tempRecord = utils.extend( true, {} , newRecord );
             tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
             testHelper.clickUndoButton( 2 );
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 0, 2, false );
             
             // Redo (2 times)
-            tempRecord = $.extend( true, {} , newRecord );
+            tempRecord = utils.extend( true, {} , newRecord );
             newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
             testHelper.clickRedoButton( 2 );
             testHelper.checkForm( assert, tempRecord );

@@ -7,6 +7,7 @@ var Qunit = require( 'qunit' );
 var testServerSide = require( './testServerSide.js' );
 var testHelper = require( './testHelper.js' );
 var context = require( '../../../js/app/context.js' );
+var utils = require( '../../../js/app/utils.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var options;
@@ -14,7 +15,7 @@ var options;
 // Run tests
 QUnit.test( "create test", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     
     testServerSide.resetServices();
     var done = assert.async();
@@ -100,7 +101,7 @@ QUnit.test( "create test", function( assert ) {
 
 QUnit.test( "create with default values test", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     
     testServerSide.resetServices();
     var done = assert.async();
@@ -127,7 +128,7 @@ QUnit.test( "create with default values test", function( assert ) {
                 "number": "3",
                 "hobbies": [ 'reading_option', 'sports_option' ]
             };
-            var fullRecord = $.extend( true, {}, record );
+            var fullRecord = utils.extend( true, {}, record );
             fullRecord.province = 'Cádiz';
             
             testHelper.checkNoRecord( assert, key );

@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
@@ -86,7 +87,7 @@ QUnit.test( "listToolbar (binding using listCreated method) test", function( ass
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     
     // Reset counters
     runCounter1 = 0;
@@ -156,7 +157,7 @@ QUnit.test( "listToolbar (binding automatically) test", function( assert ) {
             },
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -230,7 +231,7 @@ QUnit.test( "listByRow (binding using listCreated method) test", function( asser
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -300,7 +301,7 @@ QUnit.test( "listByRow (binding automatically) test", function( assert ) {
             },
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -376,7 +377,7 @@ QUnit.test( "formToolbar (binding using listCreated method) test", function( ass
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -452,7 +453,7 @@ QUnit.test( "formToolbar (binding automatically) test", function( assert ) {
             },
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -527,7 +528,7 @@ QUnit.test( "subformToolbar (binding using listCreated method) test", function( 
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -617,7 +618,7 @@ QUnit.test( "subformToolbar (binding automatically) test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -711,7 +712,7 @@ QUnit.test( "subformByRow (binding using listCreated method) test", function( as
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -801,7 +802,7 @@ QUnit.test( "subformByRow (binding automatically) test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, subformTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, subformTestOptions, thisTestOptions );
 
     // Reset counters
     runCounter1 = 0;
@@ -885,7 +886,7 @@ QUnit.test( "unknown button in listToolbar test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     options.logging.isOn = false;
     options.errorFunction = errorFunction;
 

@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -25,7 +26,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, formTestOptions );
+    options = utils.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -70,7 +71,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, formTestOptions );
+    options = utils.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -116,7 +117,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, formTestOptions );
+    options = utils.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -160,7 +161,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, formTestOptions );
+    options = utils.extend( true, {}, formTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -200,7 +201,7 @@ QUnit.test( "editable list create record with duplicated key test", function( as
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -246,7 +247,7 @@ QUnit.test( "editable list update record with no duplicated key test", function(
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -306,7 +307,7 @@ QUnit.test( "editable list update record with duplicated key test", function( as
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -360,7 +361,7 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -403,7 +404,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, formTestOptions );
+    options = utils.extend( true, {}, formTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -428,7 +429,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
 
-            var fullNewRecord = $.extend( true, {}, newRecord );
+            var fullNewRecord = utils.extend( true, {}, newRecord );
             var key = 130;
             fullNewRecord.id = "" + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
@@ -456,7 +457,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -486,7 +487,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
             
-            var fullNewRecord = $.extend( true, {}, record );
+            var fullNewRecord = utils.extend( true, {}, record );
             fullNewRecord.id = "" + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
@@ -543,7 +544,7 @@ QUnit.test( "editable list create record with undefined key test and then update
 
     var done = assert.async();
     errorFunctionCounter = 0;
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -573,7 +574,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
             
-            var fullNewRecord = $.extend( true, {}, record );
+            var fullNewRecord = utils.extend( true, {}, record );
             fullNewRecord.id = "" + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
@@ -586,7 +587,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             testHelper.clickEditableListSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
             
-            fullNewRecord = $.extend( true, {}, record );
+            fullNewRecord = utils.extend( true, {}, record );
             fullNewRecord.id = "" + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             

@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -14,7 +15,7 @@ var options = undefined;
 // Run tests
 QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     
-    options = $.extend( true, {}, defaultTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions );
     options.pageConf.pages.list.components.paging.gotoPageFieldType = 'combobox';
     
     var done = assert.async();
@@ -94,7 +95,7 @@ QUnit.test( "update test", function( assert ) {
             };
 
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
 
             testHelper.checkForm( assert, newRecord );
 

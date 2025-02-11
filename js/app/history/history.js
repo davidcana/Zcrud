@@ -8,6 +8,7 @@ var HistoryCleaner = require( './historyCleaner.js' );
 var crudManager = require( '../crudManager.js' );
 var context = require( '../context.js' );
 var $ = require( 'jquery' );
+var utils = require( '../utils.js' );
 
 var History = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
     "use strict";
@@ -568,7 +569,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                     if ( ! row ){
                         throw 'Error trying to update record: row not found!';
                     } else if ( row[ keyField ] == modifiedId ){
-                        $.extend( true, row, existingRecord );
+                        utils.extend( true, row, existingRecord );
                         done = true;
                     }
                 }
@@ -648,7 +649,7 @@ History.updateRecordsMap = function( records, jsonObject, keyField ){
     
     $.each( jsonObject.existingRecords, function ( id, record ) {
         var currentRecord = records[ id ];
-        records[ id ] = $.extend( true, {}, currentRecord, record );
+        records[ id ] = utils.extend( true, {}, currentRecord, record );
     });
 
     for ( var c = 0; c < jsonObject.newRecords.length; ++c ){

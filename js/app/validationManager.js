@@ -7,6 +7,7 @@ module.exports = (function() {
     var $ = require( 'jquery' );
     require( 'jquery-form-validator' );
     var context = require( './context.js' );
+    var utils = require( './utils.js' );    
     
     var errorClass = 'error';
     var initialized = false;
@@ -39,14 +40,14 @@ module.exports = (function() {
             language: context.getFormValidationLanguage(),
             decimalSeparator: context.translate( 'decimalSeparator' )
         };
-        var configurationOptionsToApply = $.extend( {}, defaultConfigurationOptions, options.validation.configuration );
+        var configurationOptionsToApply = utils.extend( {}, defaultConfigurationOptions, options.validation.configuration );
         $.validate( configurationOptionsToApply );
     };
     
     var addAttributes = function( $forms, options ){
         
         var fieldValidationOptions = buildFieldOptions();
-        var validate = $.extend( true, {}, options.validation.rules, fieldValidationOptions );
+        var validate = utils.extend( true, {}, options.validation.rules, fieldValidationOptions );
         addGeneralAttributes( $forms, options, validate );
     };
     

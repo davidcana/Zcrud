@@ -17,6 +17,7 @@ var crudManager = require( '../crudManager.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
 var FormPage = require( '../pages/formPage.js' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
+var utils = require( '../utils.js' );
 
 var Subform = function( properties ) {
     Field.call( this, properties );
@@ -122,7 +123,7 @@ Subform.prototype.showNewForm = function( type, record ){
 
 Subform.prototype.buildDictionary = function( newRecord ){
     
-    var thisDictionary = $.extend( {}, context.getDictionary(), {} );
+    var thisDictionary = utils.extend( {}, context.getDictionary(), {} );
     
     thisDictionary.editable = true;
     thisDictionary.instance = this;
@@ -551,7 +552,7 @@ Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
     var dictionary = {};
     
     if ( dictionaryExtension ){
-        $.extend( dictionary, dictionaryExtension );
+        utils.extend( dictionary, dictionaryExtension );
     }
     
     dictionary.records = this.getRecords();

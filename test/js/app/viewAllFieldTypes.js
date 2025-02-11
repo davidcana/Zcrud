@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -26,7 +27,7 @@ editableListTestOptions.errorFunction = function( message ){
 
 var configureOptions = function( optionsToExtend ){
 
-    options = $.extend( true, {}, optionsToExtend );
+    options = utils.extend( true, {}, optionsToExtend );
     options.pageConf.defaultPageConf.getRecordURL = 'http://localhost/CRUDManager.do?cmd=GET&table=people';
     options.pageConf.pages.list.getGroupOfRecordsURL = 'http://localhost/CRUDManager.do?cmd=LIST&table=people';
     options.pageConf.pages.list.fields = [ 
@@ -47,7 +48,7 @@ var configureFormOptions = function(){
 
 var configureEditableListFormOptions = function(){
 
-    options = $.extend( true, {}, editableListTestOptions );
+    options = utils.extend( true, {}, editableListTestOptions );
     options.pageConf.pages.list.getGroupOfRecordsURL = 'http://localhost/CRUDManager.do?cmd=LIST&table=people';
     options.pageConf.pages.list.fields = [ 
         {
@@ -401,7 +402,7 @@ QUnit.test( "form update test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             
             // Check it
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             clientRecord.date = '06/06/2017';
             clientRecord.datetime = '11/23/2014 22:10';
             clientRecord.phoneType = "" + record.phoneType;
@@ -433,7 +434,7 @@ QUnit.test( "form delete test", function( assert ) {
             testHelper.clickDeleteListButton( key );
 
             // Check it
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             clientRecord.date = '06/06/2017';
             clientRecord.datetime = '11/23/2014 22:10';
             clientRecord.phoneType = 'Home phone';

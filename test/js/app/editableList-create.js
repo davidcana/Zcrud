@@ -4,11 +4,12 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './editableListTestOptions.js' );
-var options = $.extend( true, {}, defaultTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -291,7 +292,7 @@ QUnit.test( "create with default values test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+    options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
     var done = assert.async();
 
     $( '#departmentsContainer' ).zcrud( 
@@ -327,7 +328,7 @@ QUnit.test( "create with default values test", function( assert ) {
             
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( clientRecord );
-            var newRecord = $.extend( true, {}, defaultRecord, clientRecord );
+            var newRecord = utils.extend( true, {}, defaultRecord, clientRecord );
             
             assert.equal( errorFunctionCounter, 0 );
             testHelper.clickEditableListSubmitButton();

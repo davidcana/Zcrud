@@ -2,6 +2,7 @@
 
 var $ = require( 'jquery' );
 var log4javascript = require( 'log4javascript' );
+var utils = require( './utils.js' );
 
 module.exports = {
 
@@ -284,7 +285,8 @@ module.exports = {
 
     logging: {
         isOn: false,
-        level: log4javascript.Level.ERROR
+        level: 'error'
+        //level: log4javascript.Level.ERROR
     },
 
     jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
@@ -296,7 +298,7 @@ module.exports = {
     },
     errorFunction: function( message ){
         var swal = require( 'sweetalert' );
-        var thisOptions = $.extend( true, {}, this.defaultErrorOptions );
+        var thisOptions = utils.extend( true, {}, this.defaultErrorOptions );
         thisOptions.text = message;
         swal( thisOptions );
     },
@@ -309,7 +311,7 @@ module.exports = {
     },
     confirmFunction: function( confirmOptions, onFulfilled ){
         var swal = require( 'sweetalert' );
-        var thisOptions = $.extend( true, {}, this.defaultConfirmOptions, confirmOptions );
+        var thisOptions = utils.extend( true, {}, this.defaultConfirmOptions, confirmOptions );
         swal( thisOptions ).then( onFulfilled );
     },
     
@@ -320,7 +322,7 @@ module.exports = {
     },
     showMessageFunction: function( messageOptions ){
         var swal = require( 'sweetalert' );
-        var thisOptions = $.extend( true, {}, this.defaultShowMessageOptions, messageOptions );
+        var thisOptions = utils.extend( true, {}, this.defaultShowMessageOptions, messageOptions );
         swal( thisOptions );
     },
     

@@ -4,13 +4,14 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -47,7 +48,7 @@ QUnit.test( "update text area test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = "Service " + key + " description";
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.clickUpdateListButton( key );
             testHelper.fillForm( editedRecord );
 
@@ -100,13 +101,13 @@ QUnit.test( "update datetime test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T20:00:00.000" );
-            var clientRecord = $.extend( true, {}, editedRecord );
+            var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.fillForm( clientRecord );
             
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            var newClientRecord = utils.extend( true, {}, record, clientRecord );
             testHelper.checkForm( assert, newClientRecord );
             
             // Undo
@@ -165,11 +166,11 @@ QUnit.test( "update datetime using picker test", function( assert ) {
                 options.fields[ varName ], 
                 varValue );
             
-            var clientRecord = $.extend( true, {}, editedRecord );
+            var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            var newClientRecord = utils.extend( true, {}, record, clientRecord );
             testHelper.checkForm( assert, newClientRecord );
             
             // Undo
@@ -229,11 +230,11 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
                 options.fields[ varName ], 
                 varValue );
             
-            var clientRecord = $.extend( true, {}, editedRecord );
+            var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            var newClientRecord = utils.extend( true, {}, record, clientRecord );
             testHelper.checkForm( assert, newClientRecord );
             
             // Undo
@@ -285,13 +286,13 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
             editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
-            var clientRecord = $.extend( true, {}, editedRecord );
+            var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.fillForm( clientRecord );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            var newClientRecord = utils.extend( true, {}, record, clientRecord );
             testHelper.checkForm( assert, newClientRecord );
 
             // Undo
@@ -350,11 +351,11 @@ QUnit.test( "update date using picker test", function( assert ) {
                 options.fields[ varName ], 
                 varValue );
 
-            var clientRecord = $.extend( true, {}, editedRecord );
+            var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            var newClientRecord = utils.extend( true, {}, record, clientRecord );
             testHelper.checkForm( assert, newClientRecord );
 
             // Undo
@@ -414,11 +415,11 @@ QUnit.test( "update inline date using picker test", function( assert ) {
                 options.fields[ varName ], 
                 varValue );
 
-            var clientRecord = $.extend( true, {}, editedRecord );
+            var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
-            var newClientRecord = $.extend( true, {}, record, clientRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            var newClientRecord = utils.extend( true, {}, record, clientRecord );
             testHelper.checkForm( assert, newClientRecord );
             
             // Undo
@@ -471,7 +472,7 @@ QUnit.test( "update time test", function( assert ) {
             var editedRecord = {};
             editedRecord[ varName ] = "03:05";
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
 
             // Undo
@@ -527,7 +528,7 @@ QUnit.test( "update time using picker test", function( assert ) {
                 varName, 
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
             
             // Undo
@@ -584,7 +585,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
                 varName, 
                 options.fields[ varName ], 
                 editedRecord[ varName ] );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
             
             // Undo
@@ -637,7 +638,7 @@ QUnit.test( "update checkbox test", function( assert ) {
                 "important": true
             };
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
 
             // Undo
@@ -690,7 +691,7 @@ QUnit.test( "update radio test", function( assert ) {
                 "phoneType": "officePhone_option"
             };
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
 
             // Undo
@@ -747,7 +748,7 @@ QUnit.test( "update select test", function( assert ) {
             };
             testHelper.fillForm( editedRecord );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
 
             // Undo
@@ -804,7 +805,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             };
             testHelper.fillForm( editedRecord );
 
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
 
             var editedRecord2 =  {
@@ -815,7 +816,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Estepona', 'Marbella' ] );
 
-            var newRecord2 = $.extend( true, {}, newRecord, editedRecord2 );
+            var newRecord2 = utils.extend( true, {}, newRecord, editedRecord2 );
             testHelper.checkForm( assert, newRecord2 );
 
             testHelper.assertHistory( assert, 2, 0, true );
@@ -892,7 +893,7 @@ QUnit.test( "update datalist test", function( assert ) {
                 "browser": "Firefox"
             };
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
 
             // Undo
@@ -945,7 +946,7 @@ QUnit.test( "update checkboxes test", function( assert ) {
                 "hobbies": [ 'reading_option', 'sports_option' ]
             };
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
             
             // Undo (2 times)

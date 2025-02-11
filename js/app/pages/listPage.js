@@ -14,6 +14,7 @@ var ComponentsMap = require( '../components/componentsMap.js' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
+var utils = require( '../utils.js' );
 
 var ListPage = function ( optionsToApply, userDataToApply ) {
     
@@ -216,7 +217,7 @@ ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExten
     };
     
     if ( dictionaryExtension ){
-        $.extend( this.instanceDictionaryExtension, dictionaryExtension );
+        utils.extend( this.instanceDictionaryExtension, dictionaryExtension );
     }
 };
 
@@ -387,7 +388,7 @@ ListPage.prototype.getRowByKey = function( key ){
     
 ListPage.prototype.updateBottomPanel = function( dictionaryExtension ){
 
-    var thisDictionary = $.extend( {}, this.instanceDictionaryExtension, dictionaryExtension );
+    var thisDictionary = utils.extend( {}, this.instanceDictionaryExtension, dictionaryExtension );
 
     zpt.run({
         root: this.getComponent( 'paging' ).get$()[0],

@@ -5,6 +5,7 @@ var $ = require( 'jquery' );
 var context = require( '../context.js' );
 var normalizer = require( '../normalizer.js' );
 var Container = require( './container.js' );
+var utils = require( '../utils.js' );
 
 module.exports = (function() {
     "use strict";
@@ -193,7 +194,7 @@ module.exports = (function() {
     
     var buildContainerInstance = function( container, options ){
         
-        $.extend( 
+        utils.extend( 
             true, 
             container,
             {
@@ -204,7 +205,7 @@ module.exports = (function() {
         );
         container.options = options;
         /*
-        $.extend( 
+        utils.extend( 
             true, 
             container,
             {

@@ -4,12 +4,13 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
 var defaultTestOptions = require( './subformTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -82,7 +83,7 @@ QUnit.test( "delete test", function( assert ) {
             var subformIndexToDelete = 2;
             testHelper.clickDeleteSubformRowButton( 'members', subformIndexToDelete );
             
-            var editedRecord = $.extend( true, {} , record );
+            var editedRecord = utils.extend( true, {} , record );
             editedRecord.members.splice( subformIndexToDelete, 1 );
             testHelper.checkForm( assert, editedRecord );
             
@@ -171,7 +172,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
             testHelper.clickDeleteSubformRowButton( 'members', subformIndexToDelete2 );
             testHelper.clickDeleteSubformRowButton( 'members', subformIndexToDelete3 );
             
-            var editedRecord = $.extend( true, {} , record );
+            var editedRecord = utils.extend( true, {} , record );
             editedRecord.members.splice( subformIndexToDelete1, 1 );
             editedRecord.members.splice( subformIndexToDelete2, 1 );
             editedRecord.members.splice( subformIndexToDelete3, 1 );
@@ -258,7 +259,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             var subformIndexToDelete = 2;
             testHelper.clickDeleteSubformRowButton( 'members', subformIndexToDelete );
             
-            var editedRecord = $.extend( true, {} , record );
+            var editedRecord = utils.extend( true, {} , record );
             editedRecord.members.splice( subformIndexToDelete, 1 );
             testHelper.checkForm( assert, editedRecord );
             
@@ -361,7 +362,7 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             var member1 = record.members[ 1 ];
             var member2 = record.members[ 2 ];
             var member3 = record.members[ 3 ];
-            var editedRecord = $.extend( true, {} , record );
+            var editedRecord = utils.extend( true, {} , record );
             editedRecord.members.splice( subformIndexToDelete1, 1 );
             editedRecord.members.splice( subformIndexToDelete2, 1 );
             editedRecord.members.splice( subformIndexToDelete3, 1 );
@@ -370,7 +371,7 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             testHelper.assertHistory( assert, 3, 0, false );
             
             // Undo (1)
-            var tempRecord = $.extend( true, {} , record );
+            var tempRecord = utils.extend( true, {} , record );
             tempRecord.members = [ member0, member2 ];
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );

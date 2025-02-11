@@ -4,6 +4,7 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
@@ -125,7 +126,7 @@ var checkSelectionChangedEvent = function( assert, data, $rows, record, options 
 // Run tests
 QUnit.test( "events update form test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     resetCounters();
     var done = assert.async();
     
@@ -181,14 +182,14 @@ QUnit.test( "events update form test", function( assert ) {
                 "important": true,
                 "number": "3"
             };
-            var editedClientRecord = $.extend( true, {}, editedServerRecord );
+            var editedClientRecord = utils.extend( true, {}, editedServerRecord );
             editedClientRecord[ 'date' ] = options.fields[ 'date' ].formatToClient(
                 editedClientRecord[ 'date' ] );
             editedClientRecord[ 'datetime' ] = options.fields[ 'datetime' ].formatToClient(
                 editedClientRecord[ 'datetime' ] );
             testHelper.fillForm( editedClientRecord );
 
-            var newClientRecord = $.extend( true, {}, record, editedClientRecord );
+            var newClientRecord = utils.extend( true, {}, record, editedClientRecord );
             testHelper.checkForm( assert, newClientRecord );
             
             // Submit and show the list again
@@ -208,7 +209,7 @@ QUnit.test( "events update form test", function( assert ) {
                     selectionChanged: 0
                 });
             
-            //var serverRecord2 = $.extend( true, {}, record, editedServerRecord );
+            //var serverRecord2 = utils.extend( true, {}, record, editedServerRecord );
             //serverRecord2 = context.getFieldBuilder().filterValues( serverRecord2, options.fields );
             
             checkFormSubmittingEvent( 
@@ -273,7 +274,7 @@ QUnit.test( "events update form test", function( assert ) {
 
 QUnit.test( "events create form test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     resetCounters();
     var done = assert.async();
     
@@ -301,7 +302,7 @@ QUnit.test( "events create form test", function( assert ) {
                 "important": true,
                 "number": "3"
             };
-            var clientRecord = $.extend( true, {}, serverRecord );
+            var clientRecord = utils.extend( true, {}, serverRecord );
             clientRecord[ 'date' ] = options.fields[ 'date' ].formatToClient(
                 clientRecord[ 'date' ] );
             clientRecord[ 'datetime' ] = options.fields[ 'datetime' ].formatToClient(
@@ -404,7 +405,7 @@ QUnit.test( "events create form test", function( assert ) {
 
 QUnit.test( "event delete form test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     resetCounters();
     var done = assert.async();
     
@@ -542,7 +543,7 @@ QUnit.test( "event delete form test", function( assert ) {
 
 QUnit.test( "event update editable list test", function( assert ) {
 
-    options = $.extend( true, {}, editableListOptions );
+    options = utils.extend( true, {}, editableListOptions );
     resetCounters();
     var done = assert.async();
     
@@ -571,7 +572,7 @@ QUnit.test( "event update editable list test", function( assert ) {
                 "number": "3"
             };
             testHelper.fillEditableList( editedRecord, key );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
             assert.equal( errorFunctionCounter, 0 );
@@ -627,7 +628,7 @@ QUnit.test( "event update editable list test", function( assert ) {
 
 QUnit.test( "event create editable list test", function( assert ) {
     
-    options = $.extend( true, {}, editableListOptions );
+    options = utils.extend( true, {}, editableListOptions );
     resetCounters();
     var done = assert.async();
     
@@ -702,7 +703,7 @@ QUnit.test( "event create editable list test", function( assert ) {
 
 QUnit.test( "event delete editable list test", function( assert ) {
     
-    options = $.extend( true, {}, editableListOptions );
+    options = utils.extend( true, {}, editableListOptions );
     resetCounters();
     var done = assert.async();
 
@@ -778,7 +779,7 @@ QUnit.test( "event delete editable list test", function( assert ) {
 
 QUnit.test( "events update with failed validation form test", function( assert ) {
 
-    options = $.extend( true, {}, formOptions );
+    options = utils.extend( true, {}, formOptions );
     options.events.formSubmitting = function ( data, event ) {
         eventFunction( 'formSubmitting', data, event );
         return false;
@@ -832,7 +833,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
             };
 
             testHelper.fillForm( editedRecord );
-            var newRecord = $.extend( true, {}, record, editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
             
             testHelper.checkForm( assert, newRecord );
             
@@ -883,7 +884,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
             }
         }
     };
-    options = $.extend( true, {}, formOptions, thisTestOptions );
+    options = utils.extend( true, {}, formOptions, thisTestOptions );
     resetCounters();
     var done = assert.async();
 

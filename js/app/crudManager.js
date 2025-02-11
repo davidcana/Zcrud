@@ -7,6 +7,7 @@ var $ = require( 'jquery' );
 var context = require( './context.js' );
 var validationManager = require( './validationManager.js' );
 var pageUtils = require( './pages/pageUtils.js' );
+var utils = require( './utils.js' );
 
 module.exports = (function() {
     
@@ -97,7 +98,8 @@ module.exports = (function() {
         };
         
         options.ajax.ajaxFunction(
-            $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+            utils.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions )
+        );
     };
     
     /* 
@@ -150,7 +152,7 @@ module.exports = (function() {
 
         if ( validationData === true ){
             options.ajax.ajaxFunction(
-                $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) 
+                utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions ) 
             );
         } else {
             // Show custom or default error message
@@ -211,7 +213,8 @@ module.exports = (function() {
         };
 
         options.ajax.ajaxFunction(
-            $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+            utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
+        );
     };
 
     var getOptions = function ( fieldId, url, options ) {
@@ -235,7 +238,8 @@ module.exports = (function() {
         };
 
         options.ajax.ajaxFunction(
-            $.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions ) );
+            utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
+        );
 
         return result;
     };

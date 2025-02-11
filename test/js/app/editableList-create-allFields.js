@@ -4,13 +4,14 @@ var $ = require( 'jquery' );
 var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
+var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
 
 var defaultTestOptions = require( './editableListAllFieldsTestOptions.js' );
 var thisTestOptions = {};
-var options = $.extend( true, {}, defaultTestOptions, thisTestOptions );
+var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 var errorFunctionCounter = 0;
 
@@ -42,7 +43,7 @@ QUnit.test( "create text area test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "Service " + key + " description";
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -108,7 +109,7 @@ QUnit.test( "create datetime test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = new Date( "2017-09-10T20:00:00.000Z" );
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -126,7 +127,7 @@ QUnit.test( "create datetime test", function( assert ) {
             });
             
             // Create record
-            var clientRecord = $.extend( true, {}, record2 );
+            var clientRecord = utils.extend( true, {}, record2 );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.clickCreateRowListButton();
@@ -177,7 +178,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = new Date( "2017-09-10T20:00:00.000Z" );
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -195,7 +196,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             });
             
             // Create record
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateRowListButton();
@@ -252,7 +253,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = new Date( "2017-09-10T03:10:00.000" );
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -270,7 +271,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             });
             
             // Create record
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateRowListButton();
@@ -325,7 +326,7 @@ QUnit.test( "create date test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -343,7 +344,7 @@ QUnit.test( "create date test", function( assert ) {
             });
 
             // Create record
-            var clientRecord = $.extend( true, {}, record2 );
+            var clientRecord = utils.extend( true, {}, record2 );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
             testHelper.clickCreateRowListButton();
@@ -394,7 +395,7 @@ QUnit.test( "create date using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -412,7 +413,7 @@ QUnit.test( "create date using picker test", function( assert ) {
             });
 
             // Create record
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateRowListButton();
@@ -469,7 +470,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -487,7 +488,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             });
 
             // Create record
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             var varValue = options.fields[ varName ].formatToClient(
                 record2[ varName ] );
             testHelper.clickCreateRowListButton();
@@ -544,7 +545,7 @@ QUnit.test( "create time test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "03:05";
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -611,7 +612,7 @@ QUnit.test( "create time using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "03:05";
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -629,7 +630,7 @@ QUnit.test( "create time using picker test", function( assert ) {
             });
 
             // Create record
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             var varValue = record2[ varName ];
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( clientRecord );
@@ -686,7 +687,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "03:05";
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -704,7 +705,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             });
 
             // Create record
-            var clientRecord = $.extend( true, {}, record );
+            var clientRecord = utils.extend( true, {}, record );
             var varValue = record2[ varName ];
             testHelper.clickCreateRowListButton();
             testHelper.fillNewRowEditableList( clientRecord );
@@ -759,7 +760,7 @@ QUnit.test( "create checkbox test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = true;
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -825,7 +826,7 @@ QUnit.test( "create radio test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "officePhone_option";
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -891,7 +892,7 @@ QUnit.test( "create select test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "Málaga";
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -961,11 +962,11 @@ QUnit.test( "create 2 linked select test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "Málaga";
             var record2Step2 = {};
             record2Step2[ varName2 ] = "Marbella";
-            var record3 = $.extend( true, {}, record2, record2Step2 );
+            var record3 = utils.extend( true, {}, record2, record2Step2 );
             testHelper.checkNoRecord( assert, key, record2, editable );
             
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 5 ) );
@@ -1065,7 +1066,7 @@ QUnit.test( "create datalist test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = "Firefox";
             testHelper.checkNoRecord( assert, key, record2, editable );
 
@@ -1131,7 +1132,7 @@ QUnit.test( "create checkboxes test", function( assert ) {
                 "id": "" + key,
                 "name": "Service " + key
             };
-            var record2 = $.extend( true, {}, record );
+            var record2 = utils.extend( true, {}, record );
             record2[ varName ] = [ 'reading_option', 'sports_option' ];
             testHelper.checkNoRecord( assert, key, record2, editable );
 
