@@ -149,7 +149,7 @@ var OptionProvider = function() {
         
         var optionsList = undefined;
         
-        if ( $.isArray( optionsSource ) ) { // It is an array
+        if ( utils.isArray( optionsSource ) ) { // It is an array
             optionsList = buildOptionsFromArray( optionsSource );
             sortFieldOptions( optionsList, field.optionsSorting );
             

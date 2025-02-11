@@ -417,7 +417,7 @@ module.exports = (function() {
             var recordText = $.map(
                 record,
                 function ( value ) {
-                    return $.isArray( value )?
+                    return utils.isArray( value )?
                         '[' + value.join( '/' ) + ']':
                         value;
                 }
@@ -627,7 +627,7 @@ module.exports = (function() {
             }
             addSlash = true;
             var item = arguments[ c ];
-            if ( ! $.isArray( item ) ){
+            if ( ! utils.isArray( item ) ){
                 ids += item;
                 services += itemName + ' ' + item;
             } else {
@@ -1512,7 +1512,7 @@ module.exports = (function() {
         if ( isPrimitive( first ) || utils.isFunction( first ) ){
             assert.equal( first, second );
             
-        } else if ( $.isArray( first ) ){
+        } else if ( utils.isArray( first ) ){
             for ( var i = 0; i < first.length; ++i ){
                 checkAllPropertiesInFirstInSecond( assert, first[ i ], second[ i ] );
             }

@@ -28,7 +28,7 @@ module.exports = (function() {
         
         for ( var id in userOptions ){
             var value = userOptions[ id ];
-            if ( $.isArray( value ) ){
+            if ( utils.isArray( value ) ){
                 options[ id ] = value;
             } else if ( $.isPlainObject( value ) ) {
                 fixArrays( options[ id ], userOptions[ id ] );

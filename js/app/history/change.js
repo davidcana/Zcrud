@@ -7,6 +7,7 @@ var $ = require( 'jquery' );
 var context = require( '../../../js/app/context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
+var utils = require( '../../../js/app/utils.js' );
 
 var Change = function( historyToApply, optionsToApply, recordIdToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
@@ -143,7 +144,7 @@ Change.prototype.addDefaultSubformsToActionsObject = function( actionsObject, de
         var value = defaultValue[ id ];
         var field = fieldsMap[ id ];
 
-        if ( $.isArray( value ) && field && field.type == 'subform' ){
+        if ( utils.isArray( value ) && field && field.type == 'subform' ){
             var subformActionsObject = this.history.buildEmptyActionsObject();
             row[ id ] = subformActionsObject;
             
@@ -187,7 +188,7 @@ Change.prototype.copyProperties = function( from, to, excludeArrays ){
     
     for ( var id in from ){
         var itemValue = from[ id ];
-        if ( ! excludeArrays || ! $.isArray( itemValue ) ){
+        if ( ! excludeArrays || ! utils.isArray( itemValue ) ){
             to[ id ] = itemValue;
         }
     }

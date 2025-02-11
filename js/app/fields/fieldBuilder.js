@@ -5,7 +5,8 @@ module.exports = (function() {
     "use strict";
     
     var $ = require( 'jquery' );
-    
+    var utils = require( '../utils.js' );
+
     var defaultConstructor = undefined;
     var constructors = {};
     
@@ -34,7 +35,7 @@ module.exports = (function() {
 
         fieldTypes = fieldTypes || constructor.types;
 
-        if ( $.isArray( fieldTypes ) ){ 
+        if ( utils.isArray( fieldTypes ) ){
             for ( var c = 0; c < fieldTypes.length; c++ ) {
                 constructors[ fieldTypes[ c ] ] = constructor;
             }

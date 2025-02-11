@@ -254,7 +254,7 @@ module.exports = (function() {
         var result = undefined;
         
         // Is array?
-        if ( $.isArray( source ) ){
+        if ( utils.isArray( source ) ){
             result = [];
             for ( var i = 0; i < source.length; ++i ){
                 var item = source[ i ];
