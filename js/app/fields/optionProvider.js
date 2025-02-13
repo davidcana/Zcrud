@@ -243,14 +243,16 @@ var OptionProvider = function() {
         
         var list = [];
 
+        for ( var propName in options ){
+            var propValue = options[ propName ];
+            list.push( buildItem( propName, propValue ) );
+        }
+        /*
         $.each( options, function ( propName, propValue ) {
             list.push( buildItem( propName, propValue ) );
-            /*list.push({
-                value: propName,
-                displayText: propValue
-            });*/
         });
-
+        */
+       
         return list;
     };
     

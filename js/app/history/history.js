@@ -647,11 +647,18 @@ History.updateRecordsMap = function( records, jsonObject, keyField ){
 
     var diff = 0;
     
+    for ( var id in jsonObject.existingRecords ){
+        var record = jsonObject.existingRecords[ id ];
+        var currentRecord = records[ id ];
+        records[ id ] = utils.extend( true, {}, currentRecord, record );
+    }
+    /*
     $.each( jsonObject.existingRecords, function ( id, record ) {
         var currentRecord = records[ id ];
         records[ id ] = utils.extend( true, {}, currentRecord, record );
     });
-
+    */
+   
     for ( var c = 0; c < jsonObject.newRecords.length; ++c ){
         var currentRecord = jsonObject.newRecords[ c ];
         var key = currentRecord[ keyField ];

@@ -62,10 +62,20 @@ module.exports = (function() {
     var normalizeFieldGroupOptions = function ( fields, options, parent ) {
 
         var fieldInstances = {};
-
+        
+        for ( var fieldId in fields ){
+            fieldInstances[ fieldId ] = buildFullFieldInstance(
+                fieldId,
+                fields[ fieldId ],
+                options,
+                parent
+            );
+        }
+        /*
         $.each( fields, function ( fieldId, field ) {
             fieldInstances[ fieldId ] = buildFullFieldInstance( fieldId, field, options, parent );
         });
+        */
 
         return fieldInstances;
     };
@@ -169,12 +179,21 @@ module.exports = (function() {
         
         var defaultPageConf = options.pageConf.defaultPageConf;
         var defaultComponentsConfig = options.defaultComponentsConfig;
+        for ( var pageId in options.pageConf.pages ){
+            var page = options.pageConf.pages[ pageId ];
+            var pageConf = utils.extend( true, {}, defaultPageConf, page );
+            options.pageConf.pages[ pageId ] = pageConf;
+            var componentsConf = utils.extend( true, {}, defaultComponentsConfig, pageConf.components );
+            pageConf.components = componentsConf;
+        }
+        /*
         $.each( options.pageConf.pages, function ( pageId, page ) {
             var pageConf = utils.extend( true, {}, defaultPageConf, page );
             options.pageConf.pages[ pageId ] = pageConf;
             var componentsConf = utils.extend( true, {}, defaultComponentsConfig, pageConf.components );
             pageConf.components = componentsConf;
         });
+        */
     };
     
     return {

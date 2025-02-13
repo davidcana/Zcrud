@@ -275,9 +275,15 @@ module.exports = (function() {
         // Is default?
         if ( ! source || source === '' || source === 'default' ){
             result = [];
+            for ( var fieldId in options.fields ){
+                var field = options.fields[ fieldId ];
+                result.push( field );
+            }
+            /*
             $.each( options.fields, function ( fieldId, field ) {
                 result.push( field );
             });
+            */
             return result;
         }
         
@@ -285,9 +291,16 @@ module.exports = (function() {
         if ( source.startsWith( 'subform/' ) ){
             var subformId = source.substring( 'subform/'.length );
             result = [];
+
+            for ( var fieldId in options.fields[ subformId ].fields ){
+                var field = options.fields[ subformId ].fields[ fieldId ];
+                result.push( field );
+            }
+            /*
             $.each( options.fields[ subformId ].fields, function ( fieldId, field ) {
                 result.push( field );
             });
+            */
             return result;
         }
         

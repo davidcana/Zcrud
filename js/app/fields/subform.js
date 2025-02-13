@@ -304,6 +304,13 @@ Subform.prototype.buildFields = function(){
     this.fieldsArray = [];
     this.fieldsMap = {};
     
+    for ( var subfieldId in this.fields ){
+        var subfield = this.fields[ subfieldId ];
+        subformInstance.fieldsArray.push( subfield );
+        subformInstance.fieldsMap[ subfieldId ] = subfield;
+        subfield.setParentField( subformInstance );
+    }
+    /*
     $.each( 
         this.fields, 
         function ( subfieldId, subfield ) {
@@ -312,6 +319,7 @@ Subform.prototype.buildFields = function(){
             subfield.setParentField( subformInstance );
         }
     );
+    */
 };
 
 Subform.prototype.getFields = function(){

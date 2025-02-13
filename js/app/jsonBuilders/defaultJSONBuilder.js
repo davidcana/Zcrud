@@ -207,6 +207,25 @@ module.exports = (function() {
         var records = [ currentRecord ];
         var actionsObject = history.buildEmptyActionsObject();
         
+        for ( var id in editedRecord ){
+            var newValue = editedRecord[ id ];
+            var currentValue = currentRecord[ id ];
+            if ( newValue != currentValue ){
+                var field = fieldsMap[ id ];
+                
+                if ( field.type == 'subform' ){
+                    buildSubform( actionsObject, records, field, currentValue, newValue, field.subformKey, history );
+                    
+                } else {
+                    var historyItem = history.instanceChange( 
+                        newValue, 
+                        0,
+                        field );
+                    historyItem.doAction( actionsObject, records );
+                }
+            }
+        }
+        /*
         $.each( editedRecord, function ( id, newValue ) {
             
             var currentValue = currentRecord[ id ];
@@ -225,6 +244,7 @@ module.exports = (function() {
                 }
             }
         });
+        */
         
         return buildJSONForAll( 
             sendOnlyModified,

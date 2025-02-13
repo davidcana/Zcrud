@@ -32,6 +32,42 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
     dictionary.value = params.value;
 
     // For each dependency
+    for ( var index in this.dependsOn ){
+        var dependsOn = this.dependsOn[ index ];
+        var dependsOnField = context.getField( page.getOptions().fields, dependsOn );
+
+        // Find the depended combobox
+        var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']" );
+        
+        // When depended combobox changes
+        $dependsOnDropdown.change(
+            function (){
+                // Refresh options
+                params.dependedValues = optionProvider.createDependedValuesUsingForm( 
+                    params.field, 
+                    page.getOptions(), 
+                    $selection, 
+                    params 
+                );
+                dictionary.optionsListFromForm = optionProvider.buildOptions( params );
+                dictionary.record = params.record;
+                dictionary.value = params.record[ params.field.id ];
+                dictionary.field = params.field;
+                dictionary.type = params.field.type;
+                dictionary.value = params.value;
+
+                // Refresh template
+                zpt.run({
+                    root: $thisDropdown[ 0 ],
+                    dictionaryExtension: dictionary
+                });
+
+                // Trigger change event to refresh multi cascade dropdowns.
+                $thisDropdown.trigger( "change", [ true ] );
+            }
+        );
+    }
+    /*
     $.each( this.dependsOn, function ( index, dependsOn ) {
         var dependsOnField = context.getField( page.getOptions().fields, dependsOn );
 
@@ -66,6 +102,7 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
             }
         );
     });
+    */
 };
 
 OptionsField.prototype.afterProcessTemplateForField = function( params, $selection ){

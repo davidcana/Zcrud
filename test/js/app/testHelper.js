@@ -414,6 +414,12 @@ module.exports = (function() {
         
         for ( var i in listVal ){
             var record = listVal[ i ];
+            var recordText = Object.values( record )
+                .map( value => utils.isArray( value )?
+                    '[' + value.join( '/' ) + ']':
+                    value
+                ).join( '|' );
+            /*
             var recordText = $.map(
                 record,
                 function ( value ) {
@@ -422,6 +428,7 @@ module.exports = (function() {
                         value;
                 }
             ).join( '|' );
+            */
             records.push( recordText );
         }
         
@@ -435,16 +442,21 @@ module.exports = (function() {
         $( '.zcrud-data-row:not(:hidden)' ).map( 
             function( index, element ) {
                 
+                var recordText = Object.values( this.cells ).map(
+                    element => element.classList.contains( 'zcrud-column-data' )? element.innerText.trim(): null
+                ).join( '|' );
+                records.push( recordText );
+                /*
                 var record = $.map(
                     this.cells,
                     function( element ) {
                         return element.classList.contains( 'zcrud-column-data' )? element.innerText.trim(): null;
                     }
                 );
-                
                 records.push( 
                     record.join( '|' )
                 );
+                */
             } 
         );
         
@@ -1518,10 +1530,17 @@ module.exports = (function() {
             }
             
         } else {
+            for ( var propertyId in first ){
+                var propertyInFirst = first[ propertyId ];
+                var propertyInSecond = second[ propertyId ];
+                checkAllPropertiesInFirstInSecond( assert, propertyInFirst, propertyInSecond );
+            }
+            /*
             $.each( first, function ( propertyId, propertyInFirst ){
                 var propertyInSecond = second[ propertyId ];
                 checkAllPropertiesInFirstInSecond( assert, propertyInFirst, propertyInSecond );
             });
+            */
         }
     };
     
