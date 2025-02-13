@@ -197,6 +197,19 @@ module.exports = (function() {
     };
     
     var triggerKeyPressed = function( $field, code ){
+
+        $field[ 0 ].dispatchEvent(
+            new KeyboardEvent(
+                'keypress',
+                {
+                    keyCode: code,
+                    which: code
+                }
+            )
+        );
+    };
+    /*
+    var triggerKeyPressed = function( $field, code ){
         
         var event = $.Event( 'keypress' );
         
@@ -208,7 +221,8 @@ module.exports = (function() {
         
         $field.trigger( event );
     };
-    
+    */
+
     var goToPageUsingField = function( options, pageId ){
         
         var $field = get$BottomPanel().find( '.zcrud-go-to-page-field' );
@@ -653,7 +667,8 @@ module.exports = (function() {
         result.push( services );
         return result;
     };
-    
+
+    /*
     var keyEvent = function( key, event ){
         var e = $.Event( event, { which: key } );
         $( 'body' ).trigger( e );
@@ -664,7 +679,8 @@ module.exports = (function() {
     var keyUp = function( key ){
         keyEvent( key, 'keyup' );
     };
-    
+    */
+
     var get$row = function( key ){
         
         if ( ! key ){
@@ -1715,8 +1731,8 @@ module.exports = (function() {
         buildValuesList: buildValuesList,
         buildCustomValuesList: buildCustomValuesList,
         getCurrentList: getCurrentList,
-        keyDown: keyDown,
-        keyUp: keyUp,
+        //keyDown: keyDown,
+        //keyUp: keyUp,
         checkRecordInList: checkRecordInList,
         checkRecord: checkRecord,
         checkNoRecord: checkNoRecord,
