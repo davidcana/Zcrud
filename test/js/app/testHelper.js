@@ -1460,7 +1460,7 @@ module.exports = (function() {
 
         for( var c = 0; c < clicks; ++c ){
             $button
-                .mousedown()
+                .trigger( 'mousedown' )
                 .mouseup();
         }
     };

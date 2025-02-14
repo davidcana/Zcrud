@@ -648,7 +648,8 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
 
     $datetime
         .find( '.prev-hour' )
-        .mousedown( 
+        .on(
+            'mousedown',
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -658,7 +659,8 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
 
     $datetime
         .find( '.prev-minute' )
-        .mousedown( 
+        .on(
+            'mousedown',
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -668,7 +670,8 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
 
     $datetime
         .find( '.next-hour' )
-        .mousedown( 
+        .on(
+            'mousedown',
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -678,7 +681,8 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
 
     $datetime
         .find( '.next-minute' )
-        .mousedown( 
+        .on(
+            'mousedown',
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
