@@ -308,11 +308,11 @@ SelectingComponent.prototype.getSelectedRecords = function(){
 
             // Get record
             var record;
-            var key = $row.data( 'record-key' );
+            var key = $row.attr( 'data-record-key' );
             if ( key != undefined ){
                 record = instance.parent.getRecordByKey( key, $row, true );
             } else {
-                var recordId = $row.data( 'record-id' );
+                var recordId = $row.attr( 'data-record-id' );
                 if ( recordId != undefined ){
                     record = instance.parent.getFromAddedRecords( recordId );
                 } else {

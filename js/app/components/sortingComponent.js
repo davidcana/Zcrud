@@ -59,8 +59,8 @@ SortingComponent.prototype.bindEvents = function(){
             function ( e ) {
                 e.preventDefault();
                 instance.changeSort( 
-                    $( this ).data( 'sort-field-id'), 
-                    $( this ).data( 'sort-type' ) );
+                    $( this ).attr( 'data-sort-field-id' ),
+                    $( this ).attr( 'data-sort-type' ) );
             }
     );
 };
