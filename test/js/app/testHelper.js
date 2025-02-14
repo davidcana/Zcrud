@@ -452,12 +452,15 @@ module.exports = (function() {
     var getRecordsValues = function(){
         
         var records = [];
-        
-        $( '.zcrud-data-row:not(:hidden)' ).map( 
+
+        $( '.zcrud-data-row' ).map(
             function( index, element ) {
-                
-                var recordText = Object.values( this.cells ).map(
-                    element => element.classList.contains( 'zcrud-column-data' )? element.innerText.trim(): null
+                // Filter just the columns of class zcrud-column-data
+                var filteredCells = Array.from( this.cells ).filter( ( element ) => element.classList.contains( 'zcrud-column-data' ) );
+
+                // Build a string with the inner text separated using |
+                var recordText = Object.values( filteredCells ).map(
+                    element => element.innerText.trim()
                 ).join( '|' );
                 records.push( recordText );
                 /*
