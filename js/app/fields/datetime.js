@@ -655,7 +655,7 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addHoursInterval( event, $datetime, -hoursStep, delay );
             }
-        ).mouseup( mouseupFunction );
+        ).on( 'mouseup', mouseupFunction );
 
     $datetime
         .find( '.prev-minute' )
@@ -666,7 +666,7 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addMinutesInterval( event, $datetime, -minutesStep, delay );
             }
-        ).mouseup( mouseupFunction );
+        ).on( 'mouseup', mouseupFunction );
 
     $datetime
         .find( '.next-hour' )
@@ -677,7 +677,7 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addHoursInterval( event, $datetime, hoursStep, delay );
             }
-        ).mouseup( mouseupFunction );
+        ).on( 'mouseup', mouseupFunction );
 
     $datetime
         .find( '.next-minute' )
@@ -688,7 +688,7 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addMinutesInterval( event, $datetime, minutesStep, delay );
             }
-        ).mouseup( mouseupFunction );
+        ).on( 'mouseup', mouseupFunction );
 };
 
 Datetime.prototype.bindDateEvents = function( params, $selection, $datetime ){

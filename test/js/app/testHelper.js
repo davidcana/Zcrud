@@ -1461,7 +1461,7 @@ module.exports = (function() {
         for( var c = 0; c < clicks; ++c ){
             $button
                 .trigger( 'mousedown' )
-                .mouseup();
+                .trigger( 'mouseup' );
         }
     };
     
