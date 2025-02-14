@@ -78,7 +78,8 @@ PagingComponent.prototype.bindEventsToPageSizeChangeCombobox = function(){
     var instance = this;
     this.get$().find( '.' + this.thisOptions.pageSizeChangeFieldClass )
         .off() // Remove previous event handlers
-        .change( 
+        .on(
+            'change',
             function() {
                 instance.changePageSize(
                     parseInt( $( this ).val() )
@@ -166,7 +167,8 @@ PagingComponent.prototype.bindEventsToGoToPage = function() {
     if ( this.thisOptions.gotoPageFieldType == 'combobox' ) {
         this.get$().find( '.' + this.thisOptions.goToPageFieldClass )
             .off() // Remove previous event handlers
-            .change( 
+            .on(
+                'change',
                 function() {
                     instance.changePage(
                         parseInt( $( this ).val() ) );

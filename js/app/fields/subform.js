@@ -201,7 +201,8 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
     $selection
         .find( 'input.historyField, textarea.historyField, select.historyField' )
         //.off()
-        .change( 
+        .on(
+            'change',
             function ( event, disableHistory ) {
                 if ( disableHistory ){
                     return;

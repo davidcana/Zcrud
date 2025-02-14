@@ -747,7 +747,8 @@ Datetime.prototype.bindDateEvents = function( params, $selection, $datetime ){
 
     $datetime
         .find( "[name='datepicker-month'], [name='datepicker-year']" )
-        .change( 
+        .on(
+            'change',
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();

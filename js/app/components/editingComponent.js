@@ -48,25 +48,26 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
     var instance = this;
     $preselection
         .find( '.zcrud-column-data input.historyField, .zcrud-column-data textarea.historyField, .zcrud-column-data select.historyField' )
-        .change( 
-        function ( event, disableHistory ) {
-            if ( disableHistory ){
-                return;
+        .on(
+            'change',
+            function ( event, disableHistory ) {
+                if ( disableHistory ){
+                    return;
+                }
+                var $this = $( this );
+                var field = instance.listPage.getFieldByName( $this.prop( 'name' ) );
+                var $tr = $this.closest( 'tr' );
+                context.getHistory().putChange( 
+                    $this, 
+                    field.getValue( $this ),
+                    $tr.attr( 'data-record-index' ),
+                    $tr.attr( 'data-record-id' ),
+                    instance.listPage.getId(),
+                    field );
+                if ( instance.autoSubmitMode ){
+                    instance.submit.call( instance, event );
+                }
             }
-            var $this = $( this );
-            var field = instance.listPage.getFieldByName( $this.prop( 'name' ) );
-            var $tr = $this.closest( 'tr' );
-            context.getHistory().putChange( 
-                $this, 
-                field.getValue( $this ),
-                $tr.attr( 'data-record-index' ),
-                $tr.attr( 'data-record-id' ),
-                instance.listPage.getId(),
-                field );
-            if ( instance.autoSubmitMode ){
-                instance.submit.call( instance, event );
-            }
-        }
     );
 
     this.listPage.bindButtonsEvent( this.listPage.getByRowButtons() );

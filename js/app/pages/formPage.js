@@ -418,7 +418,8 @@ FormPage.prototype.bindEvents = function( $form ) {
     $form
         .find( 'input.historyField, textarea.historyField, select.historyField' )
         .not( "[name*='" + context.subformSeparator + "']" )  // Must exclude fields in subforms
-        .change(
+        .on(
+            'change',
             function ( event, disableHistory ) {
                 if ( disableHistory ){
                     return;

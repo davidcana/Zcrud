@@ -1,6 +1,7 @@
 // Change stylesheet of theme when themeSelector changes
 
-$( '#themeSelector' ).change(
+$( '#themeSelector' ).on(
+    'change',
     function () {
         var $this = $( this );
         var theme = $this.val();

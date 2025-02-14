@@ -40,7 +40,8 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
         var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']" );
         
         // When depended combobox changes
-        $dependsOnDropdown.change(
+        $dependsOnDropdown.on(
+            'change',
             function (){
                 // Refresh options
                 params.dependedValues = optionProvider.createDependedValuesUsingForm( 
@@ -75,7 +76,8 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
         var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']");
         
         // When depended combobox changes
-        $dependsOnDropdown.change(
+        $dependsOnDropdown.on(
+            'change',
             function (){
                 // Refresh options
                 params.dependedValues = optionProvider.createDependedValuesUsingForm( 
