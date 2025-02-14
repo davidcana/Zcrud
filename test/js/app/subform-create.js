@@ -513,7 +513,8 @@ QUnit.test( "add records to subform test", function( assert ) {
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.addMembers' ).click( 
+                $( 'button.addMembers' ).on(
+                    'click',
                     function ( event ) {
                         event.preventDefault();
                         addMembers( 'members', newMembers );
@@ -563,7 +564,7 @@ QUnit.test( "add records to subform test", function( assert ) {
                 [ '1', '2', '3', '4' ]);
             
             // Add items to members
-            $( 'button.addMembers' ).click();
+            $( 'button.addMembers' ).trigger( 'click' );
             testHelper.assertHistory( assert, 1, 0, true );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'members' ), 

@@ -54,7 +54,8 @@ SortingComponent.prototype.bindEvents = function(){
     this.parent.get$()
         .find( '.zcrud-column-header-sortable' )
         .off() // Remove previous event handlers
-        .click( 
+        .on(
+            'click',  
             function ( e ) {
                 e.preventDefault();
                 instance.changeSort( 

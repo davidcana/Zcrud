@@ -72,7 +72,7 @@ QUnit.test( "form simple test", function( assert ) {
 
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 3 edited"
@@ -143,7 +143,7 @@ QUnit.test( "form simple test", function( assert ) {
                 ]);
             
             // Copy
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 7 edited"
@@ -227,7 +227,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
 
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             
             // Check subform
             var expectedVerifiedMembers = [
@@ -306,7 +306,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
                 ]);
 
             // Copy
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 7 edited"
@@ -453,7 +453,7 @@ QUnit.test( "subform filtering test", function( assert ) {
             
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 11 edited"
@@ -524,7 +524,7 @@ QUnit.test( "subform filtering test", function( assert ) {
                 ]);
             
             // Copy
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 12 edited"
@@ -659,7 +659,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
 
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 11 edited"
@@ -730,7 +730,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
                 ]);
 
             // Copy
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "description": "Description of Member 12 edited"
@@ -904,7 +904,7 @@ QUnit.test( "form after form test", function( assert ) {
   
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
                     "name": "Member 6 edited"
@@ -1026,14 +1026,14 @@ QUnit.test( "form filtering test", function( assert ) {
             
             // Filter by name
             $( '[name="originalMembers-name"]' ).val( '1' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             
             // Select
             testHelper.subformSelectByText( 'originalMembers', '1', '11' );
             
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             
             // Edit last row
             testHelper.fillSubformNewRow(
@@ -1074,7 +1074,7 @@ QUnit.test( "form filtering test", function( assert ) {
             
             // Filter by name again
             $( '[name="originalMembers-name"]' ).val( '2' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
                 []
@@ -1082,7 +1082,7 @@ QUnit.test( "form filtering test", function( assert ) {
             
             // Filter by name again
             $( '[name="originalMembers-name"]' ).val( '1' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
                 testHelper.fromObjectToArray( expectedVerifiedMembers  )
@@ -1111,7 +1111,7 @@ QUnit.test( "form filtering test", function( assert ) {
             
             // Filter by name again
             $( '[name="originalMembers-name"]' ).val( '2' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
                 []
@@ -1119,7 +1119,7 @@ QUnit.test( "form filtering test", function( assert ) {
             
             // Filter by name again
             $( '[name="originalMembers-name"]' ).val( '1' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             
             assert.deepEqual( 
                 testServerSide.getVerifiedMembers(), 
@@ -1223,14 +1223,14 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
             
             // Filter by name
             $( '[name="originalMembers-name"]' ).val( '1' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             
             // Select
             testHelper.subformToggleSelect( 'originalMembers' );
             
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
 
             // Submit and check storage
             testHelper.clickFormSubmitButton();
@@ -1248,7 +1248,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
             
             // Filter by name again
             $( '[name="originalMembers-name"]' ).val( '2' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
                 []
@@ -1256,7 +1256,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
             
             // Filter by name again
             $( '[name="originalMembers-name"]' ).val( '1' );
-            $( '.zcrud-filter-submit-button' ).click();
+            $( '.zcrud-filter-submit-button' ).trigger( 'click' );
             expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 13, "1" );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
@@ -1418,7 +1418,7 @@ QUnit.test( "form forcing filtering test with errors", function( assert ) {
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
             assert.equal( errorFunctionCounter, 0 );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
             assert.equal( errorFunctionCounter, 1 );
             
             // Submit and check storage
@@ -1501,7 +1501,7 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
 
             // Copy
             var $copyButton = $( 'button.zcrud-copy-subform-rows-command-button' );
-            $copyButton.click();
+            $copyButton.trigger( 'click' );
 
             // Edit last row
             testHelper.fillSubformNewRow(
@@ -1644,5 +1644,5 @@ var buildMapOfMemberRecords = function( firstKey, begin, end, filter ){
 var filterByName = function( name ){
 
     $( '[name="originalMembers-name"]' ).val( name );
-    $( '.zcrud-filter-submit-button' ).click();
+    $( '.zcrud-filter-submit-button' ).trigger( 'click' );
 };

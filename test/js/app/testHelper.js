@@ -1389,7 +1389,7 @@ module.exports = (function() {
     };
     
     var togglePicker = function( $field ){
-        $field.find( '.toggle-picker' ).click();
+        $field.find( '.toggle-picker' ).trigger( 'click' );
     };
     
     var getDatetimeYear = function( $field ){
@@ -1417,7 +1417,7 @@ module.exports = (function() {
     };
     
     var setDatetimeDay = function( $field, day ){
-        $field.find( "td .date[data-date='" + day + "']"  ).click();
+        $field.find( "td .date[data-date='" + day + "']"  ).trigger( 'click' );
     };
     
     var getDatetimeHours = function( $field ){
@@ -1466,7 +1466,7 @@ module.exports = (function() {
     };
     
     var clickDatetimeOK = function( $field ){
-        $field.find( '.save-button:visible' ).click();
+        $field.find( '.save-button:visible' ).trigger( 'click' );
     };
     
     var updateDatetimePickerInForm = function( fieldName, field, stringValue ){
@@ -1535,7 +1535,7 @@ module.exports = (function() {
     };
     
     var clickDatetimePickerDay = function( day ){
-        $( "td.date[data-date='" + day + "']" ).click();
+        $( "td.date[data-date='" + day + "']" ).trigger( 'click' );
     };
     
     var checkAllPropertiesInFirstInSecond = function( assert, first, second ){

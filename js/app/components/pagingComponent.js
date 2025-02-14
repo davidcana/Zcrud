@@ -218,7 +218,8 @@ PagingComponent.prototype.bindEventsToPageNumberButtons = function () {
         .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
         .not( '.zcrud-page-number-disabled' )
         .off() // Remove previous event handlers
-        .click( 
+        .on(
+            'click',  
             function ( e ) {
                 e.preventDefault();
                 instance.changePage( $( this )[ 0 ].getAttribute( 'data-page' ) );

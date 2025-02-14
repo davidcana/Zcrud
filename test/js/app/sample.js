@@ -209,7 +209,7 @@ zcrud.init( options, function( options ){
         });
 });*/
 
-$( '#customButton' ).click( function ( event ) {
+$( '#customButton' ).on( 'click',  function ( event ) {
     
     alert( JSON.stringify(
         $( '#departmentsContainer' ).zcrud( 'getSelectedRecords' ) ) );

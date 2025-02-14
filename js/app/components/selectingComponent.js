@@ -57,7 +57,8 @@ SelectingComponent.prototype.get$allTableRows = function(){
 SelectingComponent.prototype.bindSelectAllHeader = function(){
 
     var instance = this;
-    this.get$selectAllCheckbox().click( 
+    this.get$selectAllCheckbox().on(
+        'click',  
         function () {
             var allTableRows = instance.get$allTableRows();
             if ( allTableRows.length <= 0 ) {
@@ -82,7 +83,8 @@ SelectingComponent.prototype.bindRowsEvents = function( $selection ){
     
     // Select/deselect on row click
     if ( this.modeOnRowClickOn ) {
-        $selection.click( 
+        $selection.on( 
+            'click',  
             function () {
                 instance.invertRowSelection( $( this ) );
             }
@@ -91,7 +93,8 @@ SelectingComponent.prototype.bindRowsEvents = function( $selection ){
 
     // Select/deselect checkbox column
     if ( ! this.modeOnRowClickOn && this.modeCheckBoxOn ) {
-        $selection.find( '.zcrud-select-row' ).click( 
+        $selection.find( '.zcrud-select-row' ).on(
+            'click',  
             function () {
                 instance.invertRowSelection( $( this ).parents( 'tr' ) );
             }

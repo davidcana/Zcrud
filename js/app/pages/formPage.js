@@ -396,7 +396,8 @@ FormPage.prototype.bindButtonEvent = function( $form, button ){
     $form
         .find( button.getSelector() )
         .off()
-        .click(
+        .on(
+            'click',
             function( event ){
                 button.run( event, instance, $form, this );     
             }

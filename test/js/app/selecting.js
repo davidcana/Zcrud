@@ -391,7 +391,7 @@ QUnit.test( "subform selecting test", function( assert ) {
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.doAction' ).click( function ( event ) {
+                $( 'button.doAction' ).on( 'click',  function ( event ) {
                     event.preventDefault();
                     
                     var listPage = $( '#departmentsContainer' ).zcrud( 'getListPage' );
@@ -645,13 +645,13 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.copyMembers' ).click( 
+                $( 'button.copyMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'members', 'externalMembers', false );
                     }
                 );
-                $( 'button.copyExternalMembers' ).click( 
+                $( 'button.copyExternalMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'externalMembers', 'members', false );
@@ -745,7 +745,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                 ]);
             
             // Copy selected items from members to external
-            $( 'button.copyMembers' ).click();
+            $( 'button.copyMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
@@ -755,7 +755,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Copy selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'members' ), 
                 [ '1', '2', '3', '4', '5' ]);
@@ -768,7 +768,7 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
             testHelper.subformSelect( 'externalMembers', '1' );
             
             // Copy selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'members' ), 
                 [ '1', '2', '3', '4', '5', '5', '1' ]);
@@ -928,13 +928,13 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.copyMembers' ).click( 
+                $( 'button.copyMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'members', 'externalMembers', true );
                     }
                 );
-                $( 'button.copyExternalMembers' ).click( 
+                $( 'button.copyExternalMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'externalMembers', 'members', true );
@@ -1028,7 +1028,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                 ]);
 
             // Copy selected items from members to external
-            $( 'button.copyMembers' ).click();
+            $( 'button.copyMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
@@ -1038,7 +1038,7 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Copy selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'members' ), 
                 [ '2', '4', '5' ]);
@@ -1214,13 +1214,15 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.copyMembers' ).click( 
+                $( 'button.copyMembers' ).on(
+                    'click',
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'members', 'externalMembers', false );
                     }
                 );
-                $( 'button.copyExternalMembers' ).click( 
+                $( 'button.copyExternalMembers' ).on(
+                    'click',
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'externalMembers', 'members', false );
@@ -1314,7 +1316,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                 ]);
             
             // Copy selected items from members to external
-            $( 'button.copyMembers' ).click();
+            $( 'button.copyMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
@@ -1324,7 +1326,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Copy selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getReadOnlySubformItemsKeys( 'members' ), 
                 [ '1', '2', '3', '4', '5' ]);
@@ -1337,7 +1339,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             testHelper.subformSelect( 'externalMembers', '1' );
 
             // Copy selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getReadOnlySubformItemsKeys( 'members' ), 
                 [ '1', '2', '3', '4', '5', '5', '1' ]);
@@ -1413,7 +1415,7 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             testHelper.readOnlySubformSelect( 'members', '2' );
             
             // Copy selected items from members to external
-            $( 'button.copyMembers' ).click();
+            $( 'button.copyMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3', '2' ]);
@@ -1589,13 +1591,13 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.copyMembers' ).click( 
+                $( 'button.copyMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'members', 'externalMembers', true );
                     }
                 );
-                $( 'button.copyExternalMembers' ).click( 
+                $( 'button.copyExternalMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'externalMembers', 'members', true );
@@ -1689,7 +1691,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                 ]);
             
             // Cut selected items from members to external
-            $( 'button.copyMembers' ).click();
+            $( 'button.copyMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
@@ -1699,7 +1701,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             testHelper.assertHistory( assert, 1, 0, true );
             
             // Cut selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getReadOnlySubformItemsKeys( 'members' ), 
                 [ '2', '4', '5' ]);
@@ -1760,7 +1762,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             testHelper.subformSelect( 'externalMembers', '3', '5' );
             
             // Cut selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             
             // Submit a second time and show the list again
             testHelper.clickFormSubmitButton();
@@ -1889,13 +1891,13 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.copyMembers' ).click( 
+                $( 'button.copyMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'members', 'externalMembers', true );
                     }
                 );
-                $( 'button.copyExternalMembers' ).click( 
+                $( 'button.copyExternalMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'externalMembers', 'members', true );
@@ -1940,7 +1942,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
 
             // Cut selected items from members to external
-            $( 'button.copyMembers' ).click();
+            $( 'button.copyMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getSubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
@@ -1953,7 +1955,7 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
             testHelper.subformSelect( 'externalMembers', '5', '1' );
             
             // Cut selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getReadOnlySubformItemsKeys( 'members' ), 
                 [ '2', '4', '5', '1' ]);
@@ -2113,13 +2115,13 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.copyMembers' ).click( 
+                $( 'button.copyMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'members', 'externalMembers', true );
                     }
                 );
-                $( 'button.copyExternalMembers' ).click( 
+                $( 'button.copyExternalMembers' ).on( 'click',  
                     function ( event ) {
                         event.preventDefault();
                         copyMembers( 'externalMembers', 'members', true );
@@ -2164,7 +2166,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
             
             // Cut selected items from members to external
-            $( 'button.copyMembers' ).click();
+            $( 'button.copyMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getReadOnlySubformItemsKeys( 'externalMembers' ), 
                 [ '5', '1', '3' ]);
@@ -2177,7 +2179,7 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             testHelper.subformSelectByText( 'externalMembers', '5', '1' );
             
             // Cut selected items from external to members
-            $( 'button.copyExternalMembers' ).click();
+            $( 'button.copyExternalMembers' ).trigger( 'click' );
             assert.deepEqual( 
                 testHelper.getReadOnlySubformItemsKeys( 'members' ), 
                 [ '2', '4', '5', '1' ]);

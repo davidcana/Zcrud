@@ -36,11 +36,12 @@ FilteringComponent.prototype.bindEvents = function(){
     this.get$()
         .find( '.zcrud-filter-submit-button' )
         .off() // Remove previous event handlers
-        .click( 
-        function ( e ) {
-            e.preventDefault();
-            instance.filter();
-        }
+        .on( 
+            'click',  
+            function ( e ) {
+                e.preventDefault();
+                instance.filter();
+            }
     );
 };
 

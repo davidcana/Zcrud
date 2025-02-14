@@ -602,31 +602,34 @@ Datetime.prototype.bindCommonEvents = function( params, $selection, $datetime ){
     var datetimeInstance = this;
     $datetime
         .find( '.save-button' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.save( $datetime, true );
-        }
+        .on(
+            'click',  
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.save( $datetime, true );
+            }
     );
     $datetime
         .find( '.cancel-button' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.cancel( event, $datetime, params );
-        }
+        .on(
+            'click',  
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.cancel( event, $datetime, params );
+            }
     );
     $datetime
         .find( '.toggle-picker' )
         .off( 'click' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.toggle( event, $datetime, params );
-        }
+        .on(
+            'click',  
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.toggle( event, $datetime, params );
+            }
     );
 };
 
@@ -689,62 +692,67 @@ Datetime.prototype.bindDateEvents = function( params, $selection, $datetime ){
     var datetimeInstance = this;
     $datetime
         .find( '.today-button' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.goToday( event, $datetime, params );
-        }
+        .on(
+            'click',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.goToday( event, $datetime, params );
+            }
     );
 
     $datetime
         .find( '.prev-month' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.goToPreviousMonth( event, $datetime, params );
-        }
+        .on(
+            'click',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.goToPreviousMonth( event, $datetime, params );
+            }
     );
 
     $datetime
         .find( '.next-month' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.goToNextMonth( event, $datetime, params );
-        }
+        .on(
+            'click',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.goToNextMonth( event, $datetime, params );
+            }
     );
 
     $datetime
         .find( '.prev-year' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.goToPreviousYear( event, $datetime, params );
-        }
+        .on(
+            'click',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.goToPreviousYear( event, $datetime, params );
+            }
     );
 
     $datetime
         .find( '.next-year' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.goToNextYear( event, $datetime, params );
-        }
+        .on(
+            'click',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.goToNextYear( event, $datetime, params );
+            }
     );
 
     $datetime
         .find( "[name='datepicker-month'], [name='datepicker-year']" )
         .change( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.update( event, $datetime, params );
-        }
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.update( event, $datetime, params );
+            }
     );
 
     this.bindDatePickerEvents( $datetime );
@@ -755,12 +763,13 @@ Datetime.prototype.bindDatePickerEvents = function( $datetime ){
     var datetimeInstance = this;
     $datetime
         .find( '.date' )
-        .click( 
-        function ( event ) {
-            event.preventDefault();
-            event.stopPropagation();
-            datetimeInstance.updateCalendarValue( $datetime, $( this ) );
-        }
+        .on(
+            'click',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+                datetimeInstance.updateCalendarValue( $datetime, $( this ) );
+            }
     );
 };
 

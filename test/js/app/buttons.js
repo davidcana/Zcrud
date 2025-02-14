@@ -82,8 +82,8 @@ QUnit.test( "listToolbar (binding using listCreated method) test", function( ass
         },
         events: {
             listCreated: function ( data ) {
-                $( 'button.customButton1' ).click( clickEventFunction1 );
-                $( 'button.customButton2' ).click( clickEventFunction2 );
+                $( 'button.customButton1' ).on( 'click',  clickEventFunction1 );
+                $( 'button.customButton2' ).on( 'click',  clickEventFunction2 );
             }
         }
     };
@@ -104,11 +104,11 @@ QUnit.test( "listToolbar (binding using listCreated method) test", function( ass
             assert.equal( runCounter1, 0 );
             assert.equal( runCounter2, 0 );
             
-            $( 'button.customButton1' ).click();
+            $( 'button.customButton1' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 0 );
             
-            $( 'button.customButton2' ).click();
+            $( 'button.customButton2' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
             
@@ -174,11 +174,11 @@ QUnit.test( "listToolbar (binding automatically) test", function( assert ) {
             assert.equal( runCounter1, 0 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton1' ).click();
+            $( 'button.customButton1' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton2' ).click();
+            $( 'button.customButton2' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
 
@@ -226,8 +226,8 @@ QUnit.test( "listByRow (binding using listCreated method) test", function( asser
         },
         events: {
             listCreated: function ( data ) {
-                $( 'button.customButton1' ).click( clickEventFunction1 );
-                $( 'button.customButton2' ).click( clickEventFunction2 );
+                $( 'button.customButton1' ).on( 'click',  clickEventFunction1 );
+                $( 'button.customButton2' ).on( 'click',  clickEventFunction2 );
             }
         }
     };
@@ -372,8 +372,8 @@ QUnit.test( "formToolbar (binding using listCreated method) test", function( ass
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.customButton1' ).click( clickEventFunction1 );
-                $( 'button.customButton2' ).click( clickEventFunction2 );
+                $( 'button.customButton1' ).on( 'click',  clickEventFunction1 );
+                $( 'button.customButton2' ).on( 'click',  clickEventFunction2 );
             }
         }
     };
@@ -398,11 +398,11 @@ QUnit.test( "formToolbar (binding using listCreated method) test", function( ass
             assert.equal( runCounter1, 0 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton1' ).click();
+            $( 'button.customButton1' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton2' ).click();
+            $( 'button.customButton2' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
             
@@ -474,11 +474,11 @@ QUnit.test( "formToolbar (binding automatically) test", function( assert ) {
             assert.equal( runCounter1, 0 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton1' ).click();
+            $( 'button.customButton1' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton2' ).click();
+            $( 'button.customButton2' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
 
@@ -523,8 +523,8 @@ QUnit.test( "subformToolbar (binding using listCreated method) test", function( 
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.customButton1' ).click( clickEventFunction1 );
-                $( 'button.customButton2' ).click( clickEventFunction2 );
+                $( 'button.customButton1' ).on( 'click',  clickEventFunction1 );
+                $( 'button.customButton2' ).on( 'click',  clickEventFunction2 );
             }
         }
     };
@@ -568,11 +568,11 @@ QUnit.test( "subformToolbar (binding using listCreated method) test", function( 
             assert.equal( runCounter1, 0 );
             assert.equal( runCounter2, 0 );
             
-            $( 'button.customButton1' ).click();
+            $( 'button.customButton1' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton2' ).click();
+            $( 'button.customButton2' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
 
@@ -658,11 +658,11 @@ QUnit.test( "subformToolbar (binding automatically) test", function( assert ) {
             assert.equal( runCounter1, 0 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton1' ).click();
+            $( 'button.customButton1' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 0 );
 
-            $( 'button.customButton2' ).click();
+            $( 'button.customButton2' ).trigger( 'click' );
             assert.equal( runCounter1, 1 );
             assert.equal( runCounter2, 1 );
 
@@ -707,8 +707,8 @@ QUnit.test( "subformByRow (binding using listCreated method) test", function( as
         },
         events: {
             formCreated: function ( data ) {
-                $( 'button.customButton1' ).click( clickEventFunction1 );
-                $( 'button.customButton2' ).click( clickEventFunction2 );
+                $( 'button.customButton1' ).on( 'click',  clickEventFunction1 );
+                $( 'button.customButton2' ).on( 'click',  clickEventFunction2 );
             }
         }
     };
@@ -882,7 +882,7 @@ QUnit.test( "unknown button in listToolbar test", function( assert ) {
         },
         events: {
             listCreated: function ( data ) {
-                $( 'button.customButton1' ).click( clickEventFunction1 );
+                $( 'button.customButton1' ).on( 'click',  clickEventFunction1 );
             }
         }
     };

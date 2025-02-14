@@ -263,7 +263,8 @@ ListPage.prototype.bindButtonEvent = function( button ){
     var instance = this;
     $( button.getSelector() )
         .off()
-        .click(
+        .on(
+            'click',
             function( event ){
                 button.run( event, instance, this );   
             }
