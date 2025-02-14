@@ -188,11 +188,11 @@ PagingComponent.prototype.bindEventsToGoToPage = function() {
                     } else if ( event.which == 43 ) { // +
                         event.preventDefault();
                         instance.changePage( instance.pageNumber + 1 );
-                        instance.get$().find( '.' + instance.thisOptions.goToPageFieldClass ).focus();
+                        instance.get$().find( '.' + instance.thisOptions.goToPageFieldClass ).trigger( 'focus' );
                     } else if ( event.which == 45 ) { // -
                         event.preventDefault();
                         instance.changePage( instance.pageNumber - 1 );
-                        instance.get$().find( '.' + instance.thisOptions.goToPageFieldClass ).focus();
+                        instance.get$().find( '.' + instance.thisOptions.goToPageFieldClass ).trigger( 'focus' );
                     } else {
                         // Allow only digits
                         var isValid =
