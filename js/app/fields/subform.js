@@ -423,7 +423,8 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
         
         // Add deletion if needed
         if ( subformToDeleteFrom ){
-            var $tr = $( $selectedRows.get( c ) );
+            var $tr = $selectedRows[ c ];
+            //var $tr = $( $selectedRows.get( c ) );
             composition.add( 
                 new HistoryDelete( 
                     context.getHistory(), 
