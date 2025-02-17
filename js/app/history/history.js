@@ -319,6 +319,11 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     var updateButton = function( $list, selector, newNumber ){
         
         var $buttton = $list.find( selector );
+
+        if ( ! $buttton.length ){
+            return;
+        }
+
         var text = $buttton.text();
         var fixedPart = getFixedPartOfButtonText( text, ' (' );
         
@@ -326,7 +331,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             newNumber == 0?
             fixedPart:
             fixedPart + ' (' + newNumber + ')');
-        $buttton.prop( 'disabled', newNumber == 0 );
+        $buttton[0].disabled = newNumber == 0; // TODO Use disabled method
+        //$buttton.prop( 'disabled', newNumber == 0 );
     };
     
     var updateHTML = function( id, removeHidden ){
@@ -338,8 +344,12 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         updateButton( $list, '.zcrud-redo-command-button', getNumberOfRedo() );
         
         // Set disabled of save button
-        $list.find( '.zcrud-save-command-button' ).prop( 'disabled', ! isSaveEnabled() );
-        
+        var saveCommandButton = $list.find( '.zcrud-save-command-button' )[0]; // TODO Use disabled method
+        if ( saveCommandButton ){
+            saveCommandButton.disabled = ! isSaveEnabled();
+        }
+        //$list.find( '.zcrud-save-command-button' ).prop( 'disabled', ! isSaveEnabled() );
+
         // Remove hidden trs
         if ( removeHidden ){
             $list.find( 'tr.zcrud-data-row:hidden' ).remove();

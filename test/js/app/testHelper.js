@@ -116,7 +116,7 @@ module.exports = (function() {
             notActive: [],
             active: []
         };
-        
+
         getCurrentList( options ).find( '.zcrud-page-list' ).children().filter( ':visible' ).each( function( index ) {
             var $this = $( this );
             var id = $this.text().trim();
@@ -812,9 +812,11 @@ module.exports = (function() {
     var clickEditableListSubmitButton = function(){
         getSaveButton().trigger( 'click' );
     };
+    /*
     var saveEnabled = function(){
         return ! getSaveButton().prop( "disabled" );
     };
+    */
     
     var click$button = function( $button, times ){
 
