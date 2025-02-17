@@ -218,13 +218,19 @@ PagingComponent.prototype.bindEventsToPageNumberButtons = function () {
     var instance = this;
     this.get$()
         .find( '.zcrud-page-number,.zcrud-page-number-previous,.zcrud-page-number-next,.zcrud-page-number-first,.zcrud-page-number-last' )
-        .not( '.zcrud-page-number-disabled' )
+        //.not( '.zcrud-page-number-disabled' )
         .off() // Remove previous event handlers
         .on(
             'click',  
             function ( e ) {
                 e.preventDefault();
-                instance.changePage( $( this )[ 0 ].getAttribute( 'data-page' ) );
+                var $this = $( this );
+
+                // Exclude zcrud-page-number-disabled class
+                if ( ! $this.hasClass( '.zcrud-page-number-disabled' ) ){
+                    instance.changePage( $this.attr( 'data-page' ) );
+                }
+                //instance.changePage( $( this )[ 0 ].getAttribute( 'data-page' ) );
             }
         );
 };

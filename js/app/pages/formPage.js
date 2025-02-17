@@ -413,11 +413,16 @@ FormPage.prototype.bindEvents = function( $form ) {
         this.bindButtonEvent( $form, button );
     }
 
+    // Build the selector, is a bit complex
+    var nameNot = ':not([name*="' + context.subformSeparator + '"])'; // Must exclude fields in subforms
+    var selector = `input.historyField${nameNot}, textarea.historyField${nameNot}, select.historyField${nameNot}`;
+
     // Bind change event
     var instance = this;
     $form
-        .find( 'input.historyField, textarea.historyField, select.historyField' )
-        .not( "[name*='" + context.subformSeparator + "']" )  // Must exclude fields in subforms
+        .find( selector )
+        //.find( 'input.historyField, textarea.historyField, select.historyField' )
+        //.not( "[name*='" + context.subformSeparator + "']" )  // Must exclude fields in subforms
         .on(
             'change',
             function ( event, disableHistory ) {
