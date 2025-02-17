@@ -117,7 +117,12 @@ module.exports = (function() {
             active: []
         };
 
-        getCurrentList( options ).find( '.zcrud-page-list' ).children().filter( ':visible' ).each( function( index ) {
+        getCurrentList( options ).find( '.zcrud-page-list' ).children().each( function( index ) {
+
+            if ( ! this.checkVisibility() ){
+                return;
+            }
+
             var $this = $( this );
             var id = $this.text().trim();
             
@@ -153,8 +158,12 @@ module.exports = (function() {
             active: []
         };
 
-        get$FormFieldByNameClass( subformName ).find( '.zcrud-page-list' ).children().filter( ':visible' ).each( 
+        get$FormFieldByNameClass( subformName ).find( '.zcrud-page-list' ).children().each(
             function() {
+                if ( ! this.checkVisibility() ){
+                    return;
+                }
+
                 var $this = $( this );
                 var id = $this.text().trim();
 
@@ -1124,8 +1133,6 @@ module.exports = (function() {
         var result = [];
         var $element = $row || get$Form();
 
-        // Can not use :visible, it does not work in Chrome
-        //$element.find( "[name='" + name +"'] option:visible" ).each( function() {
         $element.find( "[name='" + name +"'] option" ).each( function() {
             var value = $( this ).val();
             if ( value && value.trim() !== defaultOptionValue ){
@@ -1140,8 +1147,6 @@ module.exports = (function() {
         var result = [];
         var $element = $row || get$Form();
 
-        // Can not use :visible, it does not work in Chrome
-        //$element.find( "[name='" + name +"'] option:visible" ).each( function() {
         $element.find( "input[name='" + name +"']" ).each( function() {
             var value = $( this ).val();
             if ( value && value.trim() !== defaultOptionValue ){
@@ -1157,8 +1162,6 @@ module.exports = (function() {
         var $element = $row || get$Form();
         var c = 0;
         
-        // Can not use :visible, it does not work in Chrome
-        //$element.find( "[name='" + name +"'] option:visible" ).each( function() {
         $element.find( "input[name='" + name +"']" ).each( function() {
             var value = $( this ).parent().text().trim();
             if ( value && value !== defaultOptionValue ){
