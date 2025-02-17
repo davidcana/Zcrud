@@ -425,7 +425,8 @@ FormPage.prototype.bindEvents = function( $form ) {
                     return;
                 }
                 var $this = $( this );
-                var field = instance.getFieldByName.call( instance, $this.prop( 'name' ) );
+                var field = instance.getFieldByName.call( instance, $this.attr( 'name' ) );
+                //var field = instance.getFieldByName.call( instance, $this.prop( 'name' ) );
                 context.getHistory().putChange( 
                     $this, 
                     field.getValue( $this ), 

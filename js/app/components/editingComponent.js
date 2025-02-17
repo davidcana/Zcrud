@@ -55,7 +55,8 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
                     return;
                 }
                 var $this = $( this );
-                var field = instance.listPage.getFieldByName( $this.prop( 'name' ) );
+                var field = instance.listPage.getFieldByName( $this.attr( 'name' ) );
+                //var field = instance.listPage.getFieldByName( $this.prop( 'name' ) );
                 var $tr = $this.closest( 'tr' );
                 context.getHistory().putChange( 
                     $this, 

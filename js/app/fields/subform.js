@@ -208,7 +208,8 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                     return;
                 }
                 var $this = $( this );
-                var fullName = $this.prop( 'name' );
+                var fullName = $this.attr( 'name' );
+                //var fullName = $this.prop( 'name' );
                 var field = page.getFieldByName( fullName );
                 var $tr = $tr || $this.closest( 'tr' );
                 context.getHistory().putChange( 
