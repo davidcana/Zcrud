@@ -3,6 +3,7 @@
 var $ = require( 'jquery' );
 var log4javascript = require( 'log4javascript' );
 var utils = require( './utils.js' );
+var requestHelper = require( './requestHelper.js' );
 
 module.exports = {
 
@@ -261,6 +262,7 @@ module.exports = {
 
     ajax: {
         ajaxFunction: $.ajax,
+        //ajaxFunction: requestHelper.fetch,
         defaultFormAjaxOptions: {
             dataType   : 'json',
             contentType: 'application/json; charset=UTF-8',
