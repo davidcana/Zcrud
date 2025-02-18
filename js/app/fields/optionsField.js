@@ -64,7 +64,13 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                 });
 
                 // Trigger change event to refresh multi cascade dropdowns.
-                $thisDropdown.trigger( "change", [ true ] );
+                $thisDropdown.trigger(
+                    'change',
+                    //[ true ]
+                    {
+                        'disableHistory': true
+                    }
+                );
             }
         );
     }
@@ -100,7 +106,7 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                 });
 
                 // Trigger change event to refresh multi cascade dropdowns.
-                $thisDropdown.trigger( "change", [ true ] );
+                $thisDropdown.trigger( 'change', [ true ] );
             }
         );
     });
@@ -170,7 +176,13 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
         case 'select':
         case 'datalist':
             $this.val( value );
-            $this.trigger( "change", [ true ] );
+            $this.trigger(
+                'change',
+                //[ true ]
+                {
+                    'disableHistory': true
+                }
+            );
             this.throwEventsForSetValueToForm( $this );
             return;
     }

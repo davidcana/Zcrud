@@ -152,6 +152,10 @@ module.exports = (function() {
         return levels[ string ];
     };
 
+    var getParam = function( params, paramId ){
+        return isPlainObject( params )? params[ paramId ]: undefined;
+    };
+
     return {
         extend: extend,
         isFunction: isFunction,
@@ -159,6 +163,7 @@ module.exports = (function() {
         isPlainObject: isPlainObject,
         isEmptyObject: isEmptyObject,
         isString: isString,
-        buildLoggingLevel: buildLoggingLevel
+        buildLoggingLevel: buildLoggingLevel,
+        getParam: getParam
     };
 })();

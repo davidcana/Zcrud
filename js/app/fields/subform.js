@@ -203,7 +203,8 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
         //.off()
         .on(
             'change',
-            function ( event, disableHistory ) {
+            function ( event, params ) {
+                var disableHistory = utils.getParam( params, 'disableHistory' );
                 if ( disableHistory ){
                     return;
                 }

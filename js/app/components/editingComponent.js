@@ -50,7 +50,8 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
         .find( '.zcrud-column-data input.historyField, .zcrud-column-data textarea.historyField, .zcrud-column-data select.historyField' )
         .on(
             'change',
-            function ( event, disableHistory ) {
+            function ( event, params ) {
+                var disableHistory = utils.getParam( params, 'disableHistory' );
                 if ( disableHistory ){
                     return;
                 }
