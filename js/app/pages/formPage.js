@@ -284,7 +284,8 @@ FormPage.prototype.showUsingServer = function( key, getRecordURL, dictionaryExte
                     dictionaryExtension, 
                     root, 
                     callback, 
-                    dataFromServer );
+                    dataFromServer
+                );
             },
             error: function( dataFromServer ){
                 context.showError( 

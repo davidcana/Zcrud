@@ -29,11 +29,12 @@ var OptionProvider = function() {
         return buildOptions( params );
     };
     
-    var buildOptions = function( params ){
-        
+    var buildOptions = function( params, callback ){
+
         var optionsSource = params.field.options;
         var funcParams = params;
-        
+        var mustBuild = false;
+
         // Check if it is a function
         if ( utils.isFunction( optionsSource ) ) {
             // Prepare parameter to the function
@@ -60,7 +61,6 @@ var OptionProvider = function() {
         var optionsList = undefined;
         if ( typeof optionsSource == 'string' ) { // It is an URL to download options
             var cacheKey = 'options_' + params.field.id + '_' + optionsSource; // Create an unique cache key
-            var mustBuild = false;
             if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
                 // If user calls clearCache() or options are not found in the cache, download options
                 mustBuild = true;
@@ -78,14 +78,31 @@ var OptionProvider = function() {
             
             // Build options if needed
             if ( mustBuild ){
-                optionsList = buildOptionsFromArrayOrObject(
-                    crudManager.getOptions(
-                        params.field.id, 
-                        optionsSource, 
-                        params.options ),
-                    params.field );
-                cache[ cacheKey ] = optionsList;
-                sortFieldOptions( cache[ cacheKey ], params.field.optionsSorting );
+                crudManager.getOptions(
+                    params.field.id, 
+                    optionsSource, 
+                    params.options,
+                    function( newValues ){
+                        optionsList = buildOptionsFromArrayOrObject(
+                            newValues,
+                            params.field
+                        );
+                        cache[ cacheKey ] = optionsList;
+                        sortFieldOptions(
+                            cache[ cacheKey ],
+                            params.field.optionsSorting
+                        );
+
+                        if ( params.field.addCurrentValueToOptions ){
+                            optionsList = addCurrentValue( optionsList, params );
+                        }
+
+                        if ( callback ){
+                            callback( optionsList );
+                        }
+                        return;
+                    }
+                )
                 
             } else {
                 optionsList = cache[ cacheKey ];
@@ -95,9 +112,26 @@ var OptionProvider = function() {
             optionsList = buildOptionsFromArrayOrObject( optionsSource, params.field );
         }
 
+        // Return undefined if must build optionsList
+        if ( mustBuild ){
+            return undefined;
+        }
+        
+        if ( params.field.addCurrentValueToOptions ){
+            optionsList = addCurrentValue( optionsList, params );
+        }
+        
+        if ( callback ){
+            callback( optionsList );
+            return;
+        }
+        
+        return optionsList;
+        /*
         return params.field.addCurrentValueToOptions? 
             addCurrentValue( optionsList, params ): 
             optionsList;
+        */
     };
     
     var buildFuncParams = function( funcParams ){

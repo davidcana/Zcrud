@@ -50,6 +50,40 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                     $selection, 
                     params 
                 );
+
+                optionProvider.buildOptions(
+                    params,
+                    function( optionsList ){
+                        // optionsList does not contain any values, exit
+                        if ( ! optionsList ){
+                            return;
+                        }
+
+                        // optionsList contains values, continue
+                        dictionary.optionsListFromForm = optionsList;
+                        dictionary.record = params.record;
+                        dictionary.value = params.record[ params.field.id ];
+                        dictionary.field = params.field;
+                        dictionary.type = params.field.type;
+                        dictionary.value = params.value;
+        
+                        // Refresh template
+                        zpt.run({
+                            root: $thisDropdown[ 0 ],
+                            dictionaryExtension: dictionary
+                        });
+        
+                        // Trigger change event to refresh multi cascade dropdowns.
+                        $thisDropdown.trigger(
+                            'change',
+                            //[ true ]
+                            {
+                                'disableHistory': true
+                            }
+                        );
+                    }
+                )
+                /*
                 dictionary.optionsListFromForm = optionProvider.buildOptions( params );
                 dictionary.record = params.record;
                 dictionary.value = params.record[ params.field.id ];
@@ -71,46 +105,10 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                         'disableHistory': true
                     }
                 );
+                */
             }
         );
     }
-    /*
-    $.each( this.dependsOn, function ( index, dependsOn ) {
-        var dependsOnField = context.getField( page.getOptions().fields, dependsOn );
-
-        // Find the depended combobox
-        var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']");
-        
-        // When depended combobox changes
-        $dependsOnDropdown.on(
-            'change',
-            function (){
-                // Refresh options
-                params.dependedValues = optionProvider.createDependedValuesUsingForm( 
-                    params.field, 
-                    page.getOptions(), 
-                    $selection, 
-                    params 
-                ) ;
-                dictionary.optionsListFromForm = optionProvider.buildOptions( params );
-                dictionary.record = params.record;
-                dictionary.value = params.record[ params.field.id ];
-                dictionary.field = params.field;
-                dictionary.type = params.field.type;
-                dictionary.value = params.value;
-
-                // Refresh template
-                zpt.run({
-                    root: $thisDropdown[ 0 ],
-                    dictionaryExtension: dictionary
-                });
-
-                // Trigger change event to refresh multi cascade dropdowns.
-                $thisDropdown.trigger( 'change', [ true ] );
-            }
-        );
-    });
-    */
 };
 
 OptionsField.prototype.afterProcessTemplateForField = function( params, $selection ){

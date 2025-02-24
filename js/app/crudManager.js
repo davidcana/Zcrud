@@ -216,20 +216,21 @@ module.exports = (function() {
         );
     };
 
-    var getOptions = function ( fieldId, url, options ) {
+    var getOptions = function ( fieldId, url, options, callback ) {
 
-        var result = [];
+        //var result = [];
 
         var thisOptions = {
             url    : url,
-            async  : false,
+            //async  : false,
             success: function ( data ) {
                 data = options.ajax.ajaxPostFilter( data );
                 if ( data.result != 'OK' ) {
                     throw 'Error downloading options:' + data.message;
                 }
 
-                result = data.options;
+                //result = data.options;
+                callback( data.options );
             },
             error  : function () {
                 throw 'Can not load options for ' + fieldId;
@@ -240,7 +241,7 @@ module.exports = (function() {
             utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
         );
 
-        return result;
+        //return result;
     };
     
     return {
