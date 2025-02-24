@@ -261,8 +261,8 @@ module.exports = {
     },
 
     ajax: {
-        ajaxFunction: $.ajax,
-        //ajaxFunction: requestHelper.fetch,
+        //ajaxFunction: $.ajax,
+        ajaxFunction: requestHelper.fetch,
         defaultFormAjaxOptions: {
             dataType   : 'json',
             contentType: 'application/json; charset=UTF-8',

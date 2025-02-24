@@ -12,6 +12,8 @@ var fieldBuilder = require( './fields/fieldBuilder' );
 var defaultOptions = require( './defaultOptions.js' );
 var utils = require( './utils.js' );
 
+exports.version = '0.2.0-SNAPSHOT';
+
 exports.init = function( userOptions, callback, failCallback ){
     
     // Register in options.dictionary I18n instances

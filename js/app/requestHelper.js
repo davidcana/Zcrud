@@ -75,7 +75,7 @@ module.exports = (function() {
      * @param {Object} fecthOptions
      * 
      */
-    var fetch = function( fecthOptions ){
+    var requestFetch = function( fecthOptions ){
 
         post(
             fecthOptions.url,
@@ -95,6 +95,6 @@ module.exports = (function() {
     };
 
     return {
-        fetch: fetch
+        fetch: requestFetch
     };
 })();
