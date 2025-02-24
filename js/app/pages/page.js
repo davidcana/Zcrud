@@ -7,6 +7,7 @@ var $ = require( 'jquery' );
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
+var utils = require( '../utils.js' );
 
 var Page = function( optionsToApply, userDataToApply ) {
     
@@ -195,6 +196,53 @@ Page.prototype.filterArrayOfRecordsFromServerData = function( serverDataArrayOfR
         var record = serverDataArrayOfRecords[ c ];
         this.filterRecordFromServerData( record, thisFields );
     }
+};
+
+Page.prototype.runAsync = function( record, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFields = this.buildListOfAsyncFunctionsFields();
+
+    // Run them; afterwards run the callback
+    this.runAsyncFunctions( asyncFields, record, callback );
+};
+
+Page.prototype.buildListOfAsyncFunctionsFields = function(){
+
+    var asyncFields = [];
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        //if ( utils.isFunction( field.getAsync ) ){
+        if ( utils.isFunction( field.mayBeAsync ) && field.mayBeAsync() ){
+            asyncFields.push( field );
+        }
+    }
+
+    return asyncFields;
+};
+
+Page.prototype.runAsyncFunctions = function( asyncFields, record, callback ){
+
+    // Get the first item and remove it from asyncFunctions
+    var firstAsyncField = asyncFields.shift();
+
+    // Run callback and exit if there is no more items
+    if ( ! firstAsyncField ){
+        if ( callback && utils.isFunction( callback ) ){
+            callback();
+        }
+        return;
+    }
+
+    // Run firstAsyncFunction and continue
+    var self = this;
+    firstAsyncField.getAsync(
+        record,
+        function(){
+            self.runAsyncFunctions( asyncFields, record, callback );
+        }
+    );
 };
 
 Page.doSuperClassOf = function( ChildClass ){

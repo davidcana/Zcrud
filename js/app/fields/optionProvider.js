@@ -29,6 +29,19 @@ var OptionProvider = function() {
         return buildOptions( params );
     };
     
+    var asyncGetOptionsFromRecord = function( record, field, options, callback ){
+        
+        var params = {
+            field: field,
+            value: record[ field.id ],
+            options: options,
+            record: record
+        };
+        params.dependedValues = createDependedValuesUsingRecord( record, field );
+        
+        buildOptions( params, callback );
+    };
+
     var buildOptions = function( params, callback ){
 
         var optionsSource = params.field.options;
@@ -125,7 +138,7 @@ var OptionProvider = function() {
             callback( optionsList );
             return;
         }
-        
+
         return optionsList;
         /*
         return params.field.addCurrentValueToOptions? 
@@ -325,6 +338,7 @@ var OptionProvider = function() {
         buildOptions: buildOptions,
         getOptionsFromBlank: getOptionsFromBlank,
         getOptionsFromRecord: getOptionsFromRecord,
+        asyncGetOptionsFromRecord: asyncGetOptionsFromRecord,
         createDependedValuesUsingForm: createDependedValuesUsingForm
     };
 }();

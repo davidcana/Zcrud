@@ -203,13 +203,20 @@ FormPage.prototype.buildDataUsingRecord = function( recordToUse ) {
 FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension, root, callback, dataFromServer ) {
 
     this.beforeProcessTemplate( recordToUse, dictionaryExtension, dataFromServer );
-    this.processTemplate( root );
-    this.afterProcessTemplate( this.get$form() );
 
-    if ( callback ){
-        callback( true );
-    }
-}
+    var self = this;
+    this.runAsync(
+        recordToUse,
+        function(){
+            self.processTemplate( root );
+            self.afterProcessTemplate( self.get$form() );
+        
+            if ( callback ){
+                callback( true );
+            }
+        }
+    );
+};
 
 FormPage.prototype.processTemplate = function( root ) {
     

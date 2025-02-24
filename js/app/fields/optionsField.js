@@ -8,6 +8,7 @@ var context = require( '../context.js' );
 var optionProvider = require( './optionProvider.js' );
 var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
+var utils  = require( '../utils.js' );
 
 var OptionsField = function( properties ) {
     Field.call( this, properties );
@@ -284,6 +285,15 @@ OptionsField.prototype.getOptionsFromBlank = function( options ){
 
 OptionsField.prototype.getOptionsFromRecord = function( record, options ){
     return optionProvider.getOptionsFromRecord( record, this, options );
+};
+
+OptionsField.prototype.getAsync = function( record, callback ){
+    optionProvider.asyncGetOptionsFromRecord( record, this, this.page.getOptions(), callback );
+};
+
+OptionsField.prototype.mayBeAsync = function(){
+    var optionsSource = this.options;
+    return typeof optionsSource == 'string' || utils.isFunction( optionsSource );
 };
 
 module.exports = OptionsField;
