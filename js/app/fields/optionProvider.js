@@ -29,16 +29,17 @@ var OptionProvider = function() {
         return buildOptions( params );
     };
     
-    var asyncGetOptionsFromRecord = function( record, field, options, callback ){
+    var asyncGetOptions = function( field, options, callback ){
         
         var params = {
             field: field,
-            value: record[ field.id ],
+            //value: record[ field.id ],
             options: options,
-            record: record
+            //record: record
         };
-        params.dependedValues = createDependedValuesUsingRecord( record, field );
-        
+        //params.dependedValues = createDependedValuesUsingRecord( record, field );
+        params.dependedValues = {};
+
         buildOptions( params, callback );
     };
 
@@ -51,19 +52,6 @@ var OptionProvider = function() {
         // Check if it is a function
         if ( utils.isFunction( optionsSource ) ) {
             // Prepare parameter to the function
-            /*
-            funcParams = utils.extend( 
-                true,
-                {
-                    _cacheCleared: false,
-                    dependedValues: {},
-                    clearCache: function () {
-                        this._cacheCleared = true;
-                    }
-                }, 
-                funcParams 
-            );
-            */
             funcParams = buildFuncParams( funcParams );
             
             // Call function and get actual options source
@@ -338,7 +326,7 @@ var OptionProvider = function() {
         buildOptions: buildOptions,
         getOptionsFromBlank: getOptionsFromBlank,
         getOptionsFromRecord: getOptionsFromRecord,
-        asyncGetOptionsFromRecord: asyncGetOptionsFromRecord,
+        asyncGetOptions: asyncGetOptions,
         createDependedValuesUsingForm: createDependedValuesUsingForm
     };
 }();

@@ -1247,3 +1247,4 @@ QUnit.test( "update hobbies test", function( assert ) {
         }
     );
 });
+

@@ -287,8 +287,8 @@ OptionsField.prototype.getOptionsFromRecord = function( record, options ){
     return optionProvider.getOptionsFromRecord( record, this, options );
 };
 
-OptionsField.prototype.getAsync = function( record, callback ){
-    optionProvider.asyncGetOptionsFromRecord( record, this, this.page.getOptions(), callback );
+OptionsField.prototype.getAsync = function( callback ){
+    optionProvider.asyncGetOptions( this, this.page.getOptions(), callback );
 };
 
 OptionsField.prototype.mayBeAsync = function(){

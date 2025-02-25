@@ -135,12 +135,18 @@ ListPage.prototype.showUsingRecords = function ( recordsToUse, dictionaryExtensi
 ListPage.prototype.clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
 
     this.beforeProcessTemplate( data, dictionaryExtension );
-    this.processTemplate( root );
-    this.afterProcessTemplate( this.get$form() );
 
-    if ( callback ){
-        callback( true );
-    }
+    var self = this;
+    this.runAsync(
+        function(){
+            self.processTemplate( root );
+            self.afterProcessTemplate( self.get$form() );
+        
+            if ( callback ){
+                callback( true );
+            }
+        }
+    );
 };
     
 ListPage.prototype.show = function( params ){
