@@ -345,7 +345,10 @@ module.exports = (function() {
     var subformsRecordsSuffix = 'ZCrudRecords';
     var numberOfServices = 130;
     var serviceIndex = numberOfServices - 1;
-    var resetServices = function( newServices, addDescriptions ){
+    var provinces = [ 'Cádiz', 'Málaga' ];
+    var cities0 = [ 'Algeciras', 'Tarifa' ];
+    var cities1 = [ 'Estepona', 'Marbella' ];
+    var resetServices = function( newServices, addDescriptions, addProvinceAndCity ){
         
         if ( newServices ){
             services = newServices;
@@ -353,6 +356,9 @@ module.exports = (function() {
         }
         
         services = {};
+        var cities0Index = 0;
+        var cities1Index = 0;
+        var citiesToUse;
         for ( var c = 1; c < numberOfServices; ++c ){
             var service = { 
                 name: 'Service ' + c 
@@ -360,6 +366,24 @@ module.exports = (function() {
             services[ c ] = service;
             if ( addDescriptions ){
                 service.description = service.name + ' description';
+            }
+            if ( addProvinceAndCity ){
+                service.province = c % 2 == 0? provinces[ 0 ]: provinces[ 1 ];
+                if ( c % 2 == 0 ){
+                    // use cities0
+                    citiesToUse = cities0;
+                    service.city = cities0[ cities0Index ];
+                    if ( ++cities0Index == cities0.length ){
+                        cities0Index = 0;
+                    }
+                } else {
+                    // use cities1
+                    citiesToUse = cities1;
+                    service.city = cities1[ cities1Index ];
+                    if ( ++cities1Index == cities1.length ){
+                        cities1Index = 0;
+                    }
+                }
             }
         }
         serviceIndex = numberOfServices - 1;

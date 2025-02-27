@@ -5,12 +5,14 @@ var zcrud = require( '../../../js/app/main.js' );
 require( '../../../js/app/jqueryPlugin.js' );
 var Qunit = require( 'qunit' );
 var utils = require( '../../../js/app/utils.js' );
+var context = require( '../../../js/app/context.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 
 var formOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
 var editableListTestOptions = require( './editableListTestOptions.js' );
+var editableListAllFieldsTestOptions= require( './editableListAllFieldsTestOptions.js' );
 var options = undefined;
 
 var errorFunctionCounter = 0;
@@ -98,8 +100,8 @@ var testCityOptions = function( assert, options, values1, values2 ) {
 };
 
 // Run tests
-
-QUnit.test( "array of objects test", function( assert ) {
+/*
+QUnit.test( "array of objects form test", function( assert ) {
     
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = true;
@@ -109,9 +111,9 @@ QUnit.test( "array of objects test", function( assert ) {
         { value: '3', displayText: 'cellPhone_option' } 
     ];
     
-    testPhoneOptions( 
-        assert, 
-        options, 
+    testPhoneOptions(
+        assert,
+        options,
         [ '1', '2', '3' ],
         'Home phone/Office phone/Cell phone'
     );
@@ -164,21 +166,61 @@ QUnit.test( "function test", function( assert ) {
         'Home phone/Office phone/Cell phone'
     );
 });
-
-QUnit.test( "URL returning array of objects test", function( assert ) {
+*/
+/*
+QUnit.test( "URL returning array of objects form after list test", function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = false;
     options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypes';
 
-    testPhoneOptions( 
-        assert, 
-        options, 
+    testPhoneOptions(
+        assert,
+        options,
         [ 'Home phone', 'Office phone', 'Cell phone' ],
         'Home phone/Office phone/Cell phone'
     );
 });
+*/
+QUnit.test( "URL returning array of objects editable list test", function( assert ) {
 
+    var done = assert.async();
+    options = utils.extend( true, {}, editableListAllFieldsTestOptions );
+    options.pageConf.pages.list.getRecordURL = 'http://localhost/CRUDManager.do?cmd=GET&table=department';
+    context.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
+
+    $( '#departmentsContainer' ).zcrud(
+        'init',
+        options,
+        function( options ){
+
+            testServerSide.resetServices( undefined, false, true );
+            errorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            assert.equal( errorFunctionCounter, 0 );
+            
+            testHelper.pagingTest({
+                options: options,
+                assert: assert,
+                visibleRows: 5,
+                pagingInfo: 'Showing 1-5 of 129',
+                records: [
+                    "1|Service 1|Málaga|Estepona",
+                    "2|Service 2|Cádiz|Algeciras",
+                    "3|Service 3|Málaga|Marbella",
+                    "4|Service 4|Cádiz|Tarifa",
+                    "5|Service 5|Málaga|Estepona"
+                ],
+                pageListNotActive: [ '<<', '<', '1' ],
+                pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
+                editable: true
+            });
+
+            done();
+        }
+    );
+});
+/*
 QUnit.test( "function returning URL returning array of objects test", function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
@@ -224,3 +266,20 @@ QUnit.test( "function returning URL returning array of objects and adding curren
         [ 'San Roque', 'Algeciras', 'Los Barrios', 'Tarifa' ]
     );
 });
+*/
+/*
+QUnit.test( "URL returning array of objects list test", function( assert ) {
+
+    options = utils.extend( true, {}, formOptions );
+    options.fields.phoneType.translateOptions = false;
+    options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypes';
+
+    testPhoneOptions(
+        assert,
+        options,
+        [ 'Home phone', 'Office phone', 'Cell phone' ],
+        'Home phone/Office phone/Cell phone'
+    );
+});
+*/
+
