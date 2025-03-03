@@ -683,4 +683,28 @@ Subform.prototype.getType = function(){
     return this.page.getType();
 };
 
+Subform.prototype.getAsync = function( callback ){
+
+    for ( var c = 0; c < this.fieldsArray.length; ++c ){
+        var field = this.fieldsArray[ c ]
+        if ( utils.isFunction( field.getAsync ) ){
+            field.getAsync( callback );
+        }
+    }
+};
+
+Subform.prototype.buildAsyncFieldList = function(){
+
+    var result = [];
+
+    for ( var c = 0; c < this.fieldsArray.length; ++c ){
+        var field = this.fieldsArray[ c ]
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            result.push( field.buildAsyncFieldList() );
+        }
+    }
+
+    return result;
+};
+
 module.exports = Subform;

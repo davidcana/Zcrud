@@ -329,7 +329,7 @@ module.exports = (function() {
 
         if ( newPeople ){
             people = newPeople;
-            return;
+            return people;
         }
 
         people = {};
@@ -337,9 +337,30 @@ module.exports = (function() {
             var person = defaultPeople[ c ];
             people[ person.id ] = person;
         }
+
+        return people;
     };
     resetPeople();
     
+    var addAddressesToPeopleObject = function( peopleObject ){
+
+        peopleObject[ 1 ][ "addresses" ] = [
+            {
+                "address": "Plaza Alta 2",
+                "province": "Cádiz",
+                "city": "Algeciras"
+            },{
+                "address": "Calle Regino Martínez 3",
+                "province": "Cádiz",
+                "city": "Algeciras"
+            },{
+                "address": "Calle Andalucía 113",
+                "province": "Cádiz",
+                "city": "Algeciras"
+            }
+        ];
+    };
+
     var services = {};
     var servicesSubformsFields = [ 'members', 'externalMembers' ];
     var subformsRecordsSuffix = 'ZCrudRecords';
@@ -553,6 +574,9 @@ module.exports = (function() {
                 break;
             case "peopleMembers":
                 ajaxPeopleMembersFields( 'members', options, data );
+                break;
+            case "provinces":
+                ajaxProvinces(  options, parameters );
                 break;
             default:
                 throw "Unknown table in ajax: " + table;
@@ -1212,6 +1236,15 @@ module.exports = (function() {
         });
     };
     
+    var ajaxProvinces = function( options, parameters ){
+        
+        options.success({
+            result: 'OK',
+            message: '',
+            options: provinces
+        });
+    };
+
     var ajaxServices = function( options, cmd, file, data, url ){
         
         // Run command
@@ -1756,6 +1789,7 @@ module.exports = (function() {
         getJSONUpdate: getJSONUpdate,
         reset: reset,
         resetPeople: resetPeople,
-        getPerson: getPerson
+        getPerson: getPerson,
+        addAddressesToPeopleObject: addAddressesToPeopleObject
     };
 })();

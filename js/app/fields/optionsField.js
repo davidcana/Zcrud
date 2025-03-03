@@ -291,9 +291,11 @@ OptionsField.prototype.getAsync = function( callback ){
     optionProvider.asyncGetOptions( this, this.page.getOptions(), callback );
 };
 
-OptionsField.prototype.mayBeAsync = function(){
+OptionsField.prototype.buildAsyncFieldList = function(){
     var optionsSource = this.options;
-    return typeof optionsSource == 'string' || utils.isFunction( optionsSource );
+    return typeof optionsSource == 'string' || utils.isFunction( optionsSource )?
+        this:
+        undefined;
 };
 
 module.exports = OptionsField;

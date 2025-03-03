@@ -213,8 +213,15 @@ Page.prototype.buildListOfAsyncFunctionsFields = function(){
 
     for ( var c = 0; c < this.fields.length; c++ ) {
         var field = this.fields[ c ];
-        if ( utils.isFunction( field.mayBeAsync ) && field.mayBeAsync() ){
-            asyncFields.push( field );
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            var temp = field.buildAsyncFieldList();
+
+            // temp can be a sigle field or an array of fields
+            if ( utils.isArray( temp ) ){
+                asyncFields = asyncFields.concat( temp );
+            } else if ( temp ) {
+                asyncFields.push( temp );
+            }
         }
     }
 

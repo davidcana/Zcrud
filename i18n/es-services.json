@@ -51,7 +51,10 @@
     "verifiedMembers_description": "La lista de miembros verificados",
     "department_filter_description": "¡Por favor, filtre los departamentos a mostrar!",
     "originalMembers_filter_description": "¡Por favor, filtre los miembros a mostrar!",
-    
+    "addresses_title": "Direcciones",
+    "addresses_description": "Una lista de direcciones",
+    "address_title": "Dirección",
+
     "_options": "",
     "homePhone_option": "Teléfono doméstico",
     "officePhone_option": "Teléfono del trabajo",

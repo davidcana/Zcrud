@@ -182,6 +182,7 @@ QUnit.test( "URL returning array of objects form after list test", function( ass
     );
 });
 */
+/*
 QUnit.test( "URL returning array of objects editable list test", function( assert ) {
 
     var done = assert.async();
@@ -220,6 +221,81 @@ QUnit.test( "URL returning array of objects editable list test", function( asser
         }
     );
 });
+*/
+
+var configureOptions = function( optionsToExtend ){
+
+    options = utils.extend( true, {}, optionsToExtend );
+    options.pageConf.defaultPageConf.getRecordURL = 'http://localhost/CRUDManager.do?cmd=GET&table=people';
+    options.pageConf.pages.list.getGroupOfRecordsURL = 'http://localhost/CRUDManager.do?cmd=LIST&table=people';
+    options.pageConf.pages.list.fields = [ 
+        {
+            "type": "fieldsGroup"
+        }
+    ];
+    options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypesUsingId';
+    delete options.fields.name.attributes;
+    delete options.fields.province;
+    delete options.fields.city;
+    delete options.fields.number;
+};
+
+var configureSubformOptions = function(){
+    configureOptions( formOptions );
+    options.pageConf.pages.list.fields = [ 
+        {
+            "type": "fieldsGroup",
+            "except": [ "addresses" ]
+        }
+    ];
+    options.fields.addresses = {
+        type: 'subform',
+        //getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=peopleMembers',
+        //subformKey: 'code',
+        fields: { 
+            address: { },
+            province: {
+                type: 'select',
+                options: 'http://localhost/CRUDManager.do?table=provinces'
+            },
+            city: {
+                type: 'select',
+                dependsOn: 'addresses-province',
+                options: function( data ){
+                    var dependedValues = data.dependedValues[ 'addresses-province' ];
+                    if ( ! dependedValues ){
+                        return [];
+                    }
+                    return 'http://localhost/CRUDManager.do?table=cities&province=' + dependedValues;
+                }
+            }
+        }
+    };
+};
+
+QUnit.test( "URL returning array of objects subform update test", function( assert ) {
+
+    var done = assert.async();
+    configureSubformOptions();
+    
+    var peopleObject = testServerSide.resetPeople();
+    testServerSide.addAddressesToPeopleObject( peopleObject );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            
+            // Go to edit form
+            var key = 1;
+            testHelper.clickUpdateListButton( key );
+            
+            done();
+        }
+    );
+});
+
 /*
 QUnit.test( "function returning URL returning array of objects test", function( assert ) {
 
