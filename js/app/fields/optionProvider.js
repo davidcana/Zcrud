@@ -37,8 +37,8 @@ var OptionProvider = function() {
             options: options,
             record: record
         };
-        //params.dependedValues = createDependedValuesUsingRecord( record, field );
-        params.dependedValues = {};
+        params.dependedValues = createDependedValuesUsingRecord( record, field );
+        //params.dependedValues = {};
 
         buildOptions( params, callback );
     };
