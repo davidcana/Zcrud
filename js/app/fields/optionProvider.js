@@ -65,7 +65,9 @@ var OptionProvider = function() {
             if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
                 // If user calls clearCache() or options are not found in the cache, download options
                 mustBuild = true;
-            } else {
+            } 
+            /*
+            else {
                 // Found on cache!
                 // If this method (getOptionsForField) is called to get option for a specific value (on funcParams.source == 'list')
                 // and this value is not in cached options, we need to re-download options to get the unfound (probably new) option.
@@ -76,7 +78,8 @@ var OptionProvider = function() {
                     }
                 }
             }
-            
+            */
+
             // Build options if needed
             if ( mustBuild ){
                 crudManager.getOptions(
@@ -255,7 +258,7 @@ var OptionProvider = function() {
             });
         }
     };
-    
+    /*
     // Find an option object by given value
     var findOptionByValue = function (options, value) {
         return findItemByProperty( options, 'value', value );
@@ -272,7 +275,7 @@ var OptionProvider = function() {
 
         return {};
     };
-    
+    */
     // Create an array of options from given object
     var buildOptionsArrayFromObject = function ( options ) {
         
