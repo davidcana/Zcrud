@@ -137,7 +137,8 @@ ListPage.prototype.clientAndServerSuccessFunction = function( data, dictionaryEx
     this.beforeProcessTemplate( data, dictionaryExtension );
 
     var self = this;
-    this.runAsync(
+    this.runRecordsAsync(
+        data.records,
         function(){
             self.processTemplate( root );
             self.afterProcessTemplate( self.get$form() );

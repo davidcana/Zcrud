@@ -683,12 +683,12 @@ Subform.prototype.getType = function(){
     return this.page.getType();
 };
 
-Subform.prototype.getAsync = function( callback ){
+Subform.prototype.getAsync = function( record, callback ){
 
     for ( var c = 0; c < this.fieldsArray.length; ++c ){
         var field = this.fieldsArray[ c ]
         if ( utils.isFunction( field.getAsync ) ){
-            field.getAsync( callback );
+            field.getAsync( record, callback );
         }
     }
 };

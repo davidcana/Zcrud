@@ -205,7 +205,8 @@ FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension,
     this.beforeProcessTemplate( recordToUse, dictionaryExtension, dataFromServer );
 
     var self = this;
-    this.runAsync(
+    this.run1RecordAsync(
+        recordToUse,
         function(){
             self.processTemplate( root );
             self.afterProcessTemplate( self.get$form() );

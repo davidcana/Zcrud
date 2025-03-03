@@ -262,11 +262,11 @@ var configureSubformOptions = function(){
                 type: 'select',
                 dependsOn: 'addresses-province',
                 options: function( data ){
-                    var dependedValues = data.dependedValues[ 'addresses-province' ];
-                    if ( ! dependedValues ){
+                    var province = data.dependedValues[ 'addresses-province' ] || data.record[ 'province' ];
+                    if ( ! province ){
                         return [];
                     }
-                    return 'http://localhost/CRUDManager.do?table=cities&province=' + dependedValues;
+                    return 'http://localhost/CRUDManager.do?table=cities&province=' + province;
                 }
             }
         }

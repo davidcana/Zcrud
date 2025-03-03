@@ -29,13 +29,13 @@ var OptionProvider = function() {
         return buildOptions( params );
     };
     
-    var asyncGetOptions = function( field, options, callback ){
+    var asyncGetOptions = function( record, field, options, callback ){
         
         var params = {
             field: field,
-            //value: record[ field.id ],
+            value: record[ field.id ],
             options: options,
-            //record: record
+            record: record
         };
         //params.dependedValues = createDependedValuesUsingRecord( record, field );
         params.dependedValues = {};
@@ -114,7 +114,7 @@ var OptionProvider = function() {
         }
 
         // Return undefined if must build optionsList
-        if ( mustBuild ){
+        if ( ! optionsList && mustBuild ){
             return undefined;
         }
         

@@ -198,13 +198,22 @@ Page.prototype.filterArrayOfRecordsFromServerData = function( serverDataArrayOfR
     }
 };
 
-Page.prototype.runAsync = function( callback ){
+Page.prototype.run1RecordAsync = function( record, callback ){
 
     // Get the list of getAsync functions
     var asyncFields = this.buildListOfAsyncFunctionsFields();
 
     // Run them; afterwards run the callback
-    this.runAsyncFunctions( asyncFields, callback );
+    this.run1RecordAsyncFunctions( record, asyncFields, callback );
+};
+
+Page.prototype.runRecordsAsync = function( records, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFields = this.buildListOfAsyncFunctionsFields();
+
+    // Run them; afterwards run the callback
+    this.run1RecordAsyncFunctions( {}, asyncFields, callback );
 };
 
 Page.prototype.buildListOfAsyncFunctionsFields = function(){
@@ -228,7 +237,7 @@ Page.prototype.buildListOfAsyncFunctionsFields = function(){
     return asyncFields;
 };
 
-Page.prototype.runAsyncFunctions = function( asyncFields, callback ){
+Page.prototype.run1RecordAsyncFunctions = function( record, asyncFields, callback ){
 
     // Get the first item and remove it from asyncFunctions
     var firstAsyncField = asyncFields.shift();
@@ -244,8 +253,9 @@ Page.prototype.runAsyncFunctions = function( asyncFields, callback ){
     // Run firstAsyncFunction and continue
     var self = this;
     firstAsyncField.getAsync(
+        record,
         function(){
-            self.runAsyncFunctions( asyncFields, callback );
+            self.run1RecordAsyncFunctions( record, asyncFields, callback );
         }
     );
 };
