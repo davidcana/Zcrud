@@ -210,10 +210,94 @@ Page.prototype.run1RecordAsync = function( record, callback ){
 Page.prototype.runRecordsAsync = function( records, callback ){
 
     // Get the list of getAsync functions
+    var asyncFieldsObject = this.buildObjectOfAsyncFunctionsFields();
+
+    // Build the list of fields to run later
+    var listOfAsyncFunctionsForRecords = this.buildListOfAsyncFunctionsForRecords( records, asyncFieldsObject );
+
+    // Run them; afterwards run the callback
+    this.runRecordsAsyncFunctions( listOfAsyncFunctionsForRecords, callback );
+};
+/*
+Page.prototype.runRecordsAsync = function( records, callback ){
+
+    // Get the list of getAsync functions
     var asyncFields = this.buildListOfAsyncFunctionsFields();
 
     // Run them; afterwards run the callback
     this.run1RecordAsyncFunctions( {}, asyncFields, callback );
+};
+*/
+
+Page.prototype.buildListOfAsyncFunctionsForRecords = function( records, asyncFieldsObject ){
+
+    var result = [];
+
+    // Non dependent
+    var nonDependent = asyncFieldsObject.nonDependent;
+    for ( var c = 0; c < nonDependent.length; c++ ) {
+        var field = nonDependent[ c ];
+        result.push(
+            {
+                record: {},
+                field: field
+            }
+        );
+
+    }
+
+    // Dependent
+    var dependent = asyncFieldsObject.dependent;
+    for ( var c = 0; c < dependent.length; c++ ) {
+        var field = dependent[ c ];
+        for ( var i = 0; i < records.length; i++ ) {
+            result.push(
+                {
+                    record: records[ i ],
+                    field: field
+                }
+            );
+        }
+    }
+
+    return result;
+};
+
+Page.prototype.buildObjectOfAsyncFunctionsFields = function(){
+
+    var dependent = [];
+    var nonDependent = [];
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+
+        var field = this.fields[ c ];
+
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+
+            // Get the async fields
+            var temp = field.buildAsyncFieldList();
+
+            // temp can be a sigle field or an array of fields
+            if ( utils.isArray( temp ) ){
+                for ( var i = 0; i < temp.length; i++ ) {
+                    this.addFieldToList( dependent, nonDependent, temp[ i ] );
+                }
+            } else if ( temp ) {
+                this.addFieldToList( dependent, nonDependent, temp );
+            }
+        }
+    }
+
+    return {
+        dependent: dependent,
+        nonDependent: nonDependent
+    };
+};
+
+Page.prototype.addFieldToList = function( dependent, nonDependent, field ){
+
+    var list = field.dependsOn? dependent: nonDependent;
+    list.push( field );
 };
 
 Page.prototype.buildListOfAsyncFunctionsFields = function(){
@@ -256,6 +340,31 @@ Page.prototype.run1RecordAsyncFunctions = function( record, asyncFields, callbac
         record,
         function(){
             self.run1RecordAsyncFunctions( record, asyncFields, callback );
+        }
+    );
+};
+
+Page.prototype.runRecordsAsyncFunctions = function( listOfAsyncFunctionsForRecords, callback ){
+
+    // Get the first item and remove it
+    var object = listOfAsyncFunctionsForRecords.shift();
+
+    // Run callback and exit if there is no more items
+    if ( ! object ){
+        if ( callback && utils.isFunction( callback ) ){
+            callback();
+        }
+        return;
+    }
+
+    // Run getAsync and continue
+    var field = object.field;
+    var record = object.record;
+    var self = this;
+    field.getAsync(
+        record,
+        function(){
+            self.runRecordsAsyncFunctions( listOfAsyncFunctionsForRecords, callback );
         }
     );
 };
