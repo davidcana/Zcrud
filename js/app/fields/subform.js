@@ -682,7 +682,7 @@ Subform.prototype.goToFirstPage = function(){
 Subform.prototype.getType = function(){
     return this.page.getType();
 };
-
+/*
 Subform.prototype.getAsync = function( record, callback ){
 
     for ( var c = 0; c < this.fieldsArray.length; ++c ){
@@ -692,22 +692,24 @@ Subform.prototype.getAsync = function( record, callback ){
         }
     }
 };
-/*
-Subform.prototype.buildAsyncFieldList = function(){
+*/
+Subform.prototype.builNonDependentAsyncFieldList = function(){
 
     var result = [];
 
     for ( var c = 0; c < this.fieldsArray.length; ++c ){
         var field = this.fieldsArray[ c ]
-        if ( utils.isFunction( field.buildAsyncFieldList ) ){
-            result.push( field.buildAsyncFieldList() );
+        if ( utils.isFunction( field.builNonDependentAsyncFieldList ) ){
+            result = result.concat(
+                field.builNonDependentAsyncFieldList()
+            );
         }
     }
 
     return result;
 };
-*/
-Subform.prototype.buildAsyncFieldList = function( record ){
+
+Subform.prototype.buildDependentAsyncFieldList = function( record ){
 
     var result = [];
     var subformRecords = this.getValueFromRecord( record );
@@ -717,9 +719,9 @@ Subform.prototype.buildAsyncFieldList = function( record ){
 
         for ( var c = 0; c < this.fieldsArray.length; ++c ){
             var field = this.fieldsArray[ c ]
-            if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            if ( utils.isFunction( field.buildDependentAsyncFieldList ) ){
                 result = result.concat(
-                    field.buildAsyncFieldList( subformRecord )
+                    field.buildDependentAsyncFieldList( subformRecord )
                 );
             }
         }
@@ -728,4 +730,23 @@ Subform.prototype.buildAsyncFieldList = function( record ){
     return result;
 };
 
+/*
+Subform.prototype.buildAsyncFieldList = function(){
+
+    var result = [];
+
+    for ( var c = 0; c < this.fieldsArray.length; ++c ){
+        var field = this.fieldsArray[ c ]
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            result = result.concat(
+                field.buildAsyncFieldList( subformRecord )
+            );
+        }
+    }
+
+    return result;
+};
+*/
+
 module.exports = Subform;
+

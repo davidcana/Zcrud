@@ -290,26 +290,24 @@ OptionsField.prototype.getOptionsFromRecord = function( record, options ){
 OptionsField.prototype.getAsync = function( record, callback ){
     optionProvider.asyncGetOptions( record, this, this.page.getOptions(), callback );
 };
-/*
-OptionsField.prototype.buildAsyncFieldList = function(){
-    var optionsSource = this.options;
-    return typeof optionsSource == 'string' || utils.isFunction( optionsSource )?
-        this:
-        undefined;
-};
-*/
-OptionsField.prototype.buildAsyncFieldList = function( record ){
-    var optionsSource = this.options;
-    if ( typeof optionsSource !== 'string' && ! utils.isFunction( optionsSource ) ){
-        return;
-    }
 
-    return [
-        {
-            record: this.dependsOn? record: {},
-            field: this
-        }
-    ];
+OptionsField.prototype.builNonDependentAsyncFieldList = function(){
+    var optionsSource = this.options;
+    return ( typeof optionsSource == 'string' || utils.isFunction( optionsSource ) && ! this.dependsOn )?
+        [ this ]:
+        [];
+};
+
+OptionsField.prototype.buildDependentAsyncFieldList = function( record ){
+    var optionsSource = this.options;
+    return ( typeof optionsSource == 'string' || utils.isFunction( optionsSource ) && this.dependsOn )?
+        [
+            {
+                record: this.dependsOn? record: {},
+                field: this
+            }
+        ]:
+        [];
 };
 
 module.exports = OptionsField;
