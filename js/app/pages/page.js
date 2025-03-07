@@ -201,12 +201,21 @@ Page.prototype.filterArrayOfRecordsFromServerData = function( serverDataArrayOfR
 Page.prototype.run1RecordAsync = function( record, callback ){
 
     // Get the list of getAsync functions
+    var asyncFields = this.buildListOfAsyncFunctionsFields( record );
+
+    // Run them; afterwards run the callback
+    this.runRecordsAsyncFunctions( asyncFields, callback );
+};
+/*
+Page.prototype.run1RecordAsync = function( record, callback ){
+
+    // Get the list of getAsync functions
     var asyncFields = this.buildListOfAsyncFunctionsFields();
 
     // Run them; afterwards run the callback
     this.run1RecordAsyncFunctions( record, asyncFields, callback );
 };
-
+*/
 Page.prototype.runRecordsAsync = function( records, callback ){
 
     // Get the list of getAsync functions
@@ -222,10 +231,13 @@ Page.prototype.runRecordsAsync = function( records, callback ){
 Page.prototype.runRecordsAsync = function( records, callback ){
 
     // Get the list of getAsync functions
-    var asyncFields = this.buildListOfAsyncFunctionsFields();
+    var asyncFieldsObject = this.buildObjectOfAsyncFunctionsFields();
+
+    // Build the list of fields to run later
+    var listOfAsyncFunctionsForRecords = this.buildListOfAsyncFunctionsForRecords( records, asyncFieldsObject );
 
     // Run them; afterwards run the callback
-    this.run1RecordAsyncFunctions( {}, asyncFields, callback );
+    this.runRecordsAsyncFunctions( listOfAsyncFunctionsForRecords, callback );
 };
 */
 
@@ -263,6 +275,25 @@ Page.prototype.buildListOfAsyncFunctionsForRecords = function( records, asyncFie
     return result;
 };
 
+Page.prototype.buildObjectOfAsyncFunctionsFields = function( record ){
+
+    var result = {
+        dependent: [],
+        nonDependent: []
+    };
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+
+        var field = this.fields[ c ];
+
+        if ( utils.isFunction( field.addAsyncFunctionsFields ) ){
+            field.addAsyncFunctionsFields( result, record );
+        }
+    }
+
+    return result;
+};
+/*
 Page.prototype.buildObjectOfAsyncFunctionsFields = function(){
 
     var dependent = [];
@@ -299,7 +330,8 @@ Page.prototype.addFieldToList = function( dependent, nonDependent, field ){
     var list = field.dependsOn? dependent: nonDependent;
     list.push( field );
 };
-
+*/
+/*
 Page.prototype.buildListOfAsyncFunctionsFields = function(){
 
     var asyncFields = [];
@@ -315,6 +347,23 @@ Page.prototype.buildListOfAsyncFunctionsFields = function(){
             } else if ( temp ) {
                 asyncFields.push( temp );
             }
+        }
+    }
+
+    return asyncFields;
+};
+*/
+
+Page.prototype.buildListOfAsyncFunctionsFields = function( record ){
+
+    var asyncFields = [];
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            asyncFields = asyncFields.concat(
+                field.buildAsyncFieldList( record )
+            );
         }
     }
 

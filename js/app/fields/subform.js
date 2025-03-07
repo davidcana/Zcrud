@@ -692,7 +692,7 @@ Subform.prototype.getAsync = function( record, callback ){
         }
     }
 };
-
+/*
 Subform.prototype.buildAsyncFieldList = function(){
 
     var result = [];
@@ -701,6 +701,27 @@ Subform.prototype.buildAsyncFieldList = function(){
         var field = this.fieldsArray[ c ]
         if ( utils.isFunction( field.buildAsyncFieldList ) ){
             result.push( field.buildAsyncFieldList() );
+        }
+    }
+
+    return result;
+};
+*/
+Subform.prototype.buildAsyncFieldList = function( record ){
+
+    var result = [];
+    var subformRecords = this.getValueFromRecord( record );
+
+    for ( var i = 0; i < subformRecords.length; i++ ) {
+        var subformRecord = subformRecords[ i ];
+
+        for ( var c = 0; c < this.fieldsArray.length; ++c ){
+            var field = this.fieldsArray[ c ]
+            if ( utils.isFunction( field.buildAsyncFieldList ) ){
+                result = result.concat(
+                    field.buildAsyncFieldList( subformRecord )
+                );
+            }
         }
     }
 
