@@ -51,7 +51,10 @@
     "verifiedMembers_description": "The list of verified members",
     "department_filter_description": "Please, filter the services to view!",
     "originalMembers_filter_description": "Please, filter the members to view!",
-    
+    "addresses_title": "Addresses",
+    "addresses_description": "A list of addresses",
+    "address_title": "Address",
+
     "_options": "",
     "homePhone_option": "Home phone",
     "officePhone_option": "Office phone",
