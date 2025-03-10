@@ -332,3 +332,5 @@ exports.getFormPage = function( formPageIdSource ){
     }
     return formPage;
 };
+
+exports.utils = utils;

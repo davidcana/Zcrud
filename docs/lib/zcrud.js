@@ -9039,6 +9039,8 @@ exports.getFormPage = function( formPageIdSource ){
     return formPage;
 };
 
+exports.utils = utils;
+
 },{"./context.js":27,"./defaultOptions.js":29,"./fields/fieldBuilder":34,"./normalizer.js":51,"./pages/formPage.js":52,"./pages/listPage.js":53,"./utils.js":58,"jquery":62,"zpt":136}],51:[function(_dereq_,module,exports){
 /* 
     normalizer singleton class

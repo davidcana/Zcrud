@@ -131,7 +131,7 @@ var zcrudServerSide = (function() {
                 id = newId;
             }
             
-            var newItem = utils.extend( true, {}, currentItem, modifiedItem );
+            var newItem = zcrud.utils.extend( true, {}, currentItem, modifiedItem );
             verifiedMembers[ id ] = newItem;  
         }
 
@@ -146,7 +146,7 @@ var zcrudServerSide = (function() {
                 continue;
             }
             
-            var newItemClone = utils.extend( true, {}, people[ id ], newItem );
+            var newItemClone = zcrud.utils.extend( true, {}, people[ id ], newItem );
             verifiedMembers[ id ] = newItemClone;
             
             var newRecordsToSend = dataToSend.subforms.verifiedMembers.newRecords;
@@ -278,7 +278,7 @@ var zcrudServerSide = (function() {
     };
     
     var cloneArray = function( arrayToClone ){
-        return utils.extend( true, [], arrayToClone );
+        return zcrud.utils.extend( true, [], arrayToClone );
     };
     
     var ajaxPeople = function( options, cmd, file, data, url ){
@@ -464,7 +464,7 @@ var zcrudServerSide = (function() {
 
             subformsListBatchUpdate( currentItem, modifiedItem, dataToSend, subformsData, id );
 
-            var extendedItem = utils.extend( true, {}, currentItem, modifiedItem );
+            var extendedItem = zcrud.utils.extend( true, {}, currentItem, modifiedItem );
 
             if ( newId && id !== newId ){
                 delete input[ id ];
@@ -488,7 +488,7 @@ var zcrudServerSide = (function() {
                 continue;
             }
 
-            var newItemClone = utils.extend( true, {}, newItem );
+            var newItemClone = zcrud.utils.extend( true, {}, newItem );
             if ( newItem.members ){
                 newItem.members = [];
             }
@@ -564,7 +564,7 @@ var zcrudServerSide = (function() {
                 continue;       
             }
 
-            utils.extend( true, currentItem, modifiedItem );
+            zcrud.utils.extend( true, currentItem, modifiedItem );
         }
 
         // Add all new items
@@ -633,7 +633,7 @@ var zcrudServerSide = (function() {
         dataToSend.message = '';
 
         // Build record
-        dataToSend.record = utils.extend( true, {}, input[ data.key ] );
+        dataToSend.record = zcrud.utils.extend( true, {}, input[ data.key ] );
         dataToSend.fieldsData = {};
         processSubformsInGet( data, subformsFields, dataToSend.record, dataToSend, subformsData, data.key );
 
