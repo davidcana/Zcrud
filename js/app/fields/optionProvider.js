@@ -47,7 +47,7 @@ var OptionProvider = function() {
 
         var optionsSource = params.field.options;
         var funcParams = params;
-        var mustBuild = false;
+        var mustGetOptionsFromCRUD = false;
 
         // Check if it is a function
         if ( utils.isFunction( optionsSource ) ) {
@@ -58,94 +58,84 @@ var OptionProvider = function() {
             optionsSource = optionsSource( funcParams );
         }
         
-        // Build options according to it's source type
+        // Get optionsList according to its source type
         var optionsList = undefined;
-        if ( typeof optionsSource == 'string' ) { // It is an URL to download options
-            var cacheKey = 'options_' + params.field.id + '_' + optionsSource; // Create an unique cache key
-            if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
-                // If user calls clearCache() or options are not found in the cache, download options
-                mustBuild = true;
-            } 
-            /*
-            else {
-                // Found on cache!
-                // If this method (getOptionsForField) is called to get option for a specific value (on funcParams.source == 'list')
-                // and this value is not in cached options, we need to re-download options to get the unfound (probably new) option.
-                if ( funcParams.value != undefined ) {
-                    var optionForValue = findOptionByValue( cache[ cacheKey ], funcParams.value );
-                    if ( optionForValue.displayText == undefined ) { //this value is not in cached options...
-                        mustBuild = true;
-                    }
-                }
-            }
-            */
+        if ( typeof optionsSource !== 'string' ) { // Check it is NOT an URL
 
-            // Build options if needed
-            if ( mustBuild ){
+            // It is NOT an URL, must build optionsList
+            optionsList = buildOptionsFromArrayOrObject( optionsSource, params.field );
+
+        } else {
+            // It is an URL, must download options
+
+            // Try to get values from cache
+            var cacheKey = 'options_' + params.field.id + '_' + optionsSource; // Create an unique cache key
+            optionsList = cache[ cacheKey ];
+
+            if ( ! optionsList ) {
+                // Options are not found in the cache, download options
+                mustGetOptionsFromCRUD = true;
+
+                // Download options
                 crudManager.getOptions(
                     params.field.id, 
                     optionsSource, 
                     params.options,
                     function( newValues ){
+
+                        // Build optionsList
                         optionsList = buildOptionsFromArrayOrObject(
                             newValues,
                             params.field
                         );
+                        // Add optionsList to cache
                         cache[ cacheKey ] = optionsList;
+
+                        // Sort values
                         sortFieldOptions(
                             cache[ cacheKey ],
                             params.field.optionsSorting
                         );
 
+                        // Add current value if needed
                         if ( params.field.addCurrentValueToOptions ){
                             optionsList = addCurrentValue( optionsList, params );
                         }
 
+                        // Run callback if needed
                         if ( callback ){
                             callback( optionsList );
                         }
+
                         return;
                     }
-                )
-                
-            } else {
-                optionsList = cache[ cacheKey ];
+                );
             }
-            
-        } else {
-            optionsList = buildOptionsFromArrayOrObject( optionsSource, params.field );
         }
 
         // Return undefined if must build optionsList
-        if ( ! optionsList && mustBuild ){
+        if ( ! optionsList && mustGetOptionsFromCRUD ){
             return undefined;
         }
         
+        // Add current value if needed
         if ( params.field.addCurrentValueToOptions ){
             optionsList = addCurrentValue( optionsList, params );
         }
         
+        // Run callback if needed
         if ( callback ){
             callback( optionsList );
             return;
         }
 
         return optionsList;
-        /*
-        return params.field.addCurrentValueToOptions? 
-            addCurrentValue( optionsList, params ): 
-            optionsList;
-        */
     };
     
     var buildFuncParams = function( funcParams ){
         
         var newFuncParams = {
-            _cacheCleared: false,
-            dependedValues: {},
-            clearCache: function () {
-                this._cacheCleared = true;
-            }
+            dependedValues: {}
         };
         
         for ( var i in funcParams ){
