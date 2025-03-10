@@ -100,7 +100,24 @@ var testCityOptions = function( assert, options, values1, values2 ) {
 };
 
 // Run tests
-/*
+QUnit.test( "function returning URL returning array of objects test", function( assert ) {
+
+    options = utils.extend( true, {}, formOptions );
+    options.fields.city.options = function( data ){
+        if ( ! data.dependedValues.province ){
+            return [];
+        }
+        return 'http://localhost/CRUDManager.do?table=cities&province=' + data.dependedValues.province;
+    };
+
+    testCityOptions( 
+        assert, 
+        options, 
+        [], 
+        [ 'Algeciras', 'Los Barrios', 'Tarifa' ]
+    );
+});
+
 QUnit.test( "array of objects form test", function( assert ) {
     
     options = utils.extend( true, {}, formOptions );
@@ -166,8 +183,7 @@ QUnit.test( "function test", function( assert ) {
         'Home phone/Office phone/Cell phone'
     );
 });
-*/
-/*
+
 QUnit.test( "URL returning array of objects form after list test", function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
@@ -181,8 +197,8 @@ QUnit.test( "URL returning array of objects form after list test", function( ass
         'Home phone/Office phone/Cell phone'
     );
 });
-*/
-/*
+
+
 QUnit.test( "URL returning array of objects editable list test", function( assert ) {
 
     var done = assert.async();
@@ -221,7 +237,6 @@ QUnit.test( "URL returning array of objects editable list test", function( asser
         }
     );
 });
-*/
 
 var configureOptions = function( optionsToExtend ){
 
@@ -273,48 +288,6 @@ var configureSubformOptions = function(){
     };
 };
 
-QUnit.test( "URL returning array of objects subform update test", function( assert ) {
-
-    var done = assert.async();
-    configureSubformOptions();
-    
-    var peopleObject = testServerSide.resetPeople();
-    testServerSide.addAddressesToPeopleObject( peopleObject );
-
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-            $( '#departmentsContainer' ).zcrud( 'renderList' );
-            
-            // Go to edit form
-            var key = 1;
-            testHelper.clickUpdateListButton( key );
-            
-            done();
-        }
-    );
-});
-
-/*
-QUnit.test( "function returning URL returning array of objects test", function( assert ) {
-
-    options = utils.extend( true, {}, formOptions );
-    options.fields.city.options = function( data ){
-        if ( ! data.dependedValues.province ){
-            return [];
-        }
-        return 'http://localhost/CRUDManager.do?table=cities&province=' + data.dependedValues.province;
-    };
-
-    testCityOptions( 
-        assert, 
-        options, 
-        [], 
-        [ 'Algeciras', 'Los Barrios', 'Tarifa' ]
-    );
-});
-
 QUnit.test( "function returning URL returning array of objects and adding current value test", function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
@@ -342,8 +315,7 @@ QUnit.test( "function returning URL returning array of objects and adding curren
         [ 'San Roque', 'Algeciras', 'Los Barrios', 'Tarifa' ]
     );
 });
-*/
-/*
+
 QUnit.test( "URL returning array of objects list test", function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
@@ -357,5 +329,41 @@ QUnit.test( "URL returning array of objects list test", function( assert ) {
         'Home phone/Office phone/Cell phone'
     );
 });
-*/
+
+QUnit.test( "URL returning array of objects subform update test", function( assert ) {
+
+    var done = assert.async();
+    configureSubformOptions();
+    
+    var peopleObject = testServerSide.resetPeople();
+    testServerSide.addAddressesToPeopleObject( peopleObject );
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            errorFunctionCounter = 0;
+
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            assert.equal( errorFunctionCounter, 0 );
+
+            // Go to edit form
+            var key = 1;
+            testHelper.clickUpdateListButton( key );
+            assert.equal( errorFunctionCounter, 0 );
+
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'addresses-city', testHelper.get$SubFormFieldRow( 'addresses', 0 ) ),
+                [ 'Algeciras', 'Los Barrios', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'addresses-city', testHelper.get$SubFormFieldRow( 'addresses', 1 ) ),
+                [ 'Algeciras', 'Los Barrios', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'addresses-city', testHelper.get$SubFormFieldRow( 'addresses', 2 ) ),
+                [ 'Estepona', 'Manilva', 'Marbella' ] );
+            done();
+        }
+    );
+});
+
 

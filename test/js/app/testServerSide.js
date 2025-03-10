@@ -346,10 +346,6 @@ module.exports = (function() {
 
         peopleObject[ 1 ][ "addresses" ] = [
             {
-                "address": "Plaza Alta 2",
-                "province": "Cádiz",
-                "city": "Algeciras"
-            },{
                 "address": "Calle Regino Martínez 3",
                 "province": "Cádiz",
                 "city": "Algeciras"
@@ -357,7 +353,11 @@ module.exports = (function() {
                 "address": "Calle Andalucía 113",
                 "province": "Cádiz",
                 "city": "Algeciras"
-            }
+            },{
+                "address": "Some address else",
+                "province": "Málaga",
+                "city": "Estepona"
+            },
         ];
     };
 
