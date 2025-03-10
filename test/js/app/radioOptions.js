@@ -233,6 +233,21 @@ QUnit.test( "URL returning array of objects editable list test", function( asser
                 editable: true
             });
 
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.get$row( 1 ) ),
+                [ 'Estepona', 'Marbella' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.get$row( 2 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.get$row( 3 ) ),
+                [ 'Estepona', 'Marbella' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.get$row( 4 ) ),
+                [ 'Algeciras', 'Tarifa' ] );
+            assert.deepEqual(
+                testHelper.getSelectOptions( 'city', testHelper.get$row( 5 ) ),
+                [ 'Estepona', 'Marbella' ] );
             done();
         }
     );
