@@ -502,6 +502,23 @@ module.exports = (function() {
     var lastBatchUpdateUrl = undefined;
     var jsonUpdatesArray = [];
     
+    var access = {};
+    var resetAccess = function(){
+        access = {};
+    };
+    var updateAccess = function( url ){
+        var counter = access[ url ];
+        if ( ! counter ){
+            access[ url ] = 1;
+            return;
+        }
+        access[ url ] = ++counter;
+    };
+    var getAccess = function( url ){
+        var counter = access[ url ];
+        return counter? counter: 0;
+    };
+
     var reset = function(){
     
         resetServices();
@@ -552,7 +569,7 @@ module.exports = (function() {
                 ajaxPhoneTypes( options, true );
                 break;
             case "cities":
-                ajaxCities( options, parameters );
+                ajaxCities( options, parameters, url );
                 break;
             case "members":
                 ajaxMembersFields( 'members', options, data );
@@ -576,7 +593,7 @@ module.exports = (function() {
                 ajaxPeopleMembersFields( 'members', options, data );
                 break;
             case "provinces":
-                ajaxProvinces(  options, parameters );
+                ajaxProvinces(  options, parameters, url );
                 break;
             default:
                 throw "Unknown table in ajax: " + table;
@@ -1227,22 +1244,25 @@ module.exports = (function() {
         });
     };
     
-    var ajaxCities = function( options, parameters ){
+    var ajaxCities = function( options, parameters, url ){
         
         options.success({
             result: 'OK',
             message: '',
             options: cities[ parameters.province ]? cities[ parameters.province ]: []
         });
+
+        updateAccess( url );
     };
     
-    var ajaxProvinces = function( options, parameters ){
+    var ajaxProvinces = function( options, parameters, url ){
         
         options.success({
             result: 'OK',
             message: '',
             options: provinces
         });
+        updateAccess( url );
     };
 
     var ajaxServices = function( options, cmd, file, data, url ){
@@ -1790,6 +1810,8 @@ module.exports = (function() {
         reset: reset,
         resetPeople: resetPeople,
         getPerson: getPerson,
-        addAddressesToPeopleObject: addAddressesToPeopleObject
+        addAddressesToPeopleObject: addAddressesToPeopleObject,
+        resetAccess: resetAccess,
+        getAccess: getAccess
     };
 })();

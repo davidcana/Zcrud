@@ -8,6 +8,7 @@ var utils = require( '../../../js/app/utils.js' );
 var context = require( '../../../js/app/context.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
+var OptionProvider = require( '../../../js/app/fields/optionProvider.js' );
 
 var formOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
@@ -349,6 +350,22 @@ QUnit.test( "URL returning array of objects subform update test", function( asse
 
     var done = assert.async();
     configureSubformOptions();
+
+    // Test access to server. Must be 0
+    OptionProvider.resetCache();
+    testServerSide.resetAccess();
+    assert.equal(
+        testServerSide.getAccess( 'http://localhost/CRUDManager.do?table=cities&province=Cádiz' ),
+        0
+    );
+    assert.equal(
+        testServerSide.getAccess( 'http://localhost/CRUDManager.do?table=cities&province=Málaga' ),
+        0
+    );
+    assert.equal(
+        testServerSide.getAccess( 'http://localhost/CRUDManager.do?table=provinces' ),
+        0
+    );
     
     var peopleObject = testServerSide.resetPeople();
     testServerSide.addAddressesToPeopleObject( peopleObject );
@@ -376,6 +393,21 @@ QUnit.test( "URL returning array of objects subform update test", function( asse
             assert.deepEqual(
                 testHelper.getSelectOptions( 'addresses-city', testHelper.get$SubFormFieldRow( 'addresses', 2 ) ),
                 [ 'Estepona', 'Manilva', 'Marbella' ] );
+
+            // Test access to server. Mut be 1 if caching is working
+            assert.equal(
+                testServerSide.getAccess( 'http://localhost/CRUDManager.do?table=cities&province=Cádiz' ),
+                1
+            );
+            assert.equal(
+                testServerSide.getAccess( 'http://localhost/CRUDManager.do?table=cities&province=Málaga' ),
+                1
+            );
+            assert.equal(
+                testServerSide.getAccess( 'http://localhost/CRUDManager.do?table=provinces' ),
+                1
+            );
+
             done();
         }
     );

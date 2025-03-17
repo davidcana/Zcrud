@@ -11,7 +11,10 @@ var utils = require( '../utils.js' );
 var OptionProvider = function() {
     
     var cache = {};
-    
+    var resetCache = function(){
+        cache = {};
+    };
+
     var getOptionsFromBlank = function( field, options ){
         return getOptionsFromRecord( [], field, options );
     };
@@ -320,7 +323,8 @@ var OptionProvider = function() {
         getOptionsFromBlank: getOptionsFromBlank,
         getOptionsFromRecord: getOptionsFromRecord,
         asyncGetOptions: asyncGetOptions,
-        createDependedValuesUsingForm: createDependedValuesUsingForm
+        createDependedValuesUsingForm: createDependedValuesUsingForm,
+        resetCache: resetCache
     };
 }();
 
