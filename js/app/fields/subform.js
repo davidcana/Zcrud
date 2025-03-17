@@ -504,8 +504,12 @@ Subform.prototype.update = function ( root, dictionaryExtension, callback ) {
 Subform.prototype.buildDataToSendForUpdate = function(){
     
     var data = this.buildDataToSend();
-    
-    data.key = this.page.getKeyValue();
+
+    // Add key only if needed
+    var key = this.page.getKeyValue()
+    if ( key ){
+        data.key = key;
+    }
 
     return data;
 };
