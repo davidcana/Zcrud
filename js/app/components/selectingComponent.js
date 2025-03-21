@@ -168,7 +168,7 @@ SelectingComponent.prototype.buildMappedArray = function( $tableRows ){
 
 SelectingComponent.prototype.buildJqueryWrapped = function( array ){
 
-    return $( array ).map ( function (){
+    return $( array ).map( function (){
         return this.toArray();
     });
 };

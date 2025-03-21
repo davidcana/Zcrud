@@ -462,7 +462,7 @@ module.exports = (function() {
         
         var records = [];
 
-        $( '.zcrud-data-row' ).map(
+        $( '.zcrud-data-row' ).each(
             function( index, element ) {
                 // Filter just the columns of class zcrud-column-data
                 var filteredCells = Array.from( this.cells ).filter( ( element ) => element.classList.contains( 'zcrud-column-data' ) );
