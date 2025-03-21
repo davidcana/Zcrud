@@ -212,7 +212,8 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 var fullName = $this.attr( 'name' );
                 //var fullName = $this.prop( 'name' );
                 var field = page.getFieldByName( fullName );
-                var $tr = $tr || $this.closest( 'tr' );
+                var $tr = $tr || $this.parents( 'tr' ).first();
+                //var $tr = $tr || $this.closest( 'tr' );
                 context.getHistory().putChange( 
                     $this, 
                     field.getValue( $this ), 
@@ -281,7 +282,8 @@ Subform.prototype.buildProcessTemplateParams = function( field, record, dictiona
 
 Subform.prototype.deleteRow = function( event ){
 
-    var $tr = $( event.target ).closest( 'tr' );
+    var $tr = $( event.target ).parents( 'tr' ).first();
+    //var $tr = $( event.target ).closest( 'tr' );
 
     context.getHistory().putDelete( 
         this.page.getId(), 

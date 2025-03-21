@@ -71,29 +71,41 @@ Change.prototype.updateCSS = function( fieldChanged, registerChanged ){
 
     if ( this.history.isFormMode() && ! this.subformName ){
         if ( fieldChanged ){
-            this.$this.closest( '.zcrud-field' ).addClass( 
-                this.history.getEditableOptions().modifiedFieldsClass );
+            this.$this.parents( '.zcrud-field' ).first().addClass(
+            //this.$this.closest( '.zcrud-field' ).addClass(
+                this.history.getEditableOptions().modifiedFieldsClass
+            );
         } else {
-            this.$this.closest( '.zcrud-field' ).removeClass( 
-                this.history.getEditableOptions().modifiedFieldsClass );   
+            this.$this.parents( '.zcrud-field' ).first().removeClass(
+            //this.$this.closest( '.zcrud-field' ).removeClass(
+                this.history.getEditableOptions().modifiedFieldsClass
+            );
         }
         return;    
     }
 
     if ( fieldChanged ){
-        this.$this.closest( 'td' ).addClass( 
-            this.history.getEditableOptions().modifiedFieldsClass );
+        this.$this.parents( 'td' ).first().addClass(
+        //this.$this.closest( 'td' ).addClass(
+            this.history.getEditableOptions().modifiedFieldsClass
+        );
     } else {
-        this.$this.closest( 'td' ).removeClass( 
-            this.history.getEditableOptions().modifiedFieldsClass );
+        this.$this.parents( 'td' ).first().removeClass(
+        //this.$this.closest( 'td' ).removeClass(
+            this.history.getEditableOptions().modifiedFieldsClass
+        );
     }
 
     if ( registerChanged ){
-        this.$this.closest( 'tr' ).addClass( 
-            this.history.getEditableOptions().modifiedRowsClass );
+        this.$this.parents( 'tr' ).first().addClass(
+        //this.$this.closest( 'tr' ).addClass(
+            this.history.getEditableOptions().modifiedRowsClass
+        );
     } else {
-        this.$this.closest( 'tr' ).removeClass( 
-            this.history.getEditableOptions().modifiedRowsClass );
+        this.$this.parents( 'tr' ).first().removeClass(
+        //this.$this.closest( 'tr' ).removeClass(
+            this.history.getEditableOptions().modifiedRowsClass
+        );
     }
 };
 

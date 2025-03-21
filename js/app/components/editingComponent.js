@@ -58,7 +58,8 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
                 var $this = $( this );
                 var field = instance.listPage.getFieldByName( $this.attr( 'name' ) );
                 //var field = instance.listPage.getFieldByName( $this.prop( 'name' ) );
-                var $tr = $this.closest( 'tr' );
+                var $tr = $this.parents( 'tr' ).first();
+                //var $tr = $this.closest( 'tr' );
                 context.getHistory().putChange( 
                     $this, 
                     field.getValue( $this ),
@@ -132,7 +133,8 @@ EditingComponent.prototype.buildProcessTemplateParams = function( field, record,
 
 EditingComponent.prototype.deleteRow = function( event ){
 
-    var $tr = $( event.target ).closest( 'tr' );
+    var $tr = $( event.target ).parents( 'tr' ).first();
+    //var $tr = $( event.target ).closest( 'tr' );
 
     context.getHistory().putDelete( 
         this.listPage.getId(), 

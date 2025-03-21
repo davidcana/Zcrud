@@ -447,7 +447,8 @@ Datetime.prototype.buildDaysInWeeks = function( referenceDate, selectedDate, day
 };
 
 Datetime.prototype.get$datePicker = function( event ){
-    return $( event.target ).closest( '.datepicker' );
+    return $( event.target ).parents( '.datepicker' ).first();
+    //return $( event.target ).closest( '.datepicker' );
 };
 
 Datetime.prototype.getSelectedDate = function( event, selectDay, $datePicker ){

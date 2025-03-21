@@ -119,8 +119,8 @@ module.exports = (function() {
             return;
         }
 
-        //return $( event.target ).parent().parent().attr( 'data-record-key' );
-        return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
+        return $( event.target ).parents( '.zcrud-data-row' ).first().attr( 'data-record-key' );
+        //return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
     };
     /*
     var getPostTemplates = function( fields ){
