@@ -234,19 +234,22 @@ SelectingComponent.prototype.refreshSelectAllCheckboxState = function () {
     var selectedRowCount = this.get$selectedRows().length;
 
     if ( selectedRowCount == 0 ) {
-        this.get$selectAllCheckbox()[0].indeterminate = false;
-        //this.get$selectAllCheckbox().prop( 'indeterminate', false );
-        this.get$selectAllCheckbox().attr( 'checked', false );
+        //this.get$selectAllCheckbox()[0].indeterminate = false;
+        this.get$selectAllCheckbox().prop( 'indeterminate', false );
+        //this.get$selectAllCheckbox().attr( 'checked', false );
+        this.get$selectAllCheckbox().prop( 'checked', false );
 
     } else if ( selectedRowCount == totalRowCount ) {
-        this.get$selectAllCheckbox()[0].indeterminate = false;
-        //this.get$selectAllCheckbox().prop( 'indeterminate', false );
-        this.get$selectAllCheckbox().attr( 'checked', true );
+        //this.get$selectAllCheckbox()[0].indeterminate = false;
+        this.get$selectAllCheckbox().prop( 'indeterminate', false );
+        //this.get$selectAllCheckbox().attr( 'checked', true );
+        this.get$selectAllCheckbox().prop( 'checked', true );
 
     } else {
-        this.get$selectAllCheckbox().attr( 'checked', false );
-        this.get$selectAllCheckbox()[0].indeterminate = true;
-        //this.get$selectAllCheckbox().prop( 'indeterminate', true );
+        //this.get$selectAllCheckbox()[0].indeterminate = true;
+        this.get$selectAllCheckbox().prop( 'indeterminate', true );
+        //this.get$selectAllCheckbox().attr( 'checked', false );
+        this.get$selectAllCheckbox().prop( 'checked', false );
     }
 };
 
