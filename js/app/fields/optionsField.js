@@ -170,7 +170,7 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
             var $radios = $radiosContainer.find( 'input[type="radio"].zcrud-active' );
             //var $radios = $radiosContainer.find( 'input:radio.zcrud-active' );
             if ( value ){
-                $radios.filter( '[value=' + value + ']' ).prop( 'checked', true );   
+                $radios.filter( '[value="' + value + '"]' ).prop( 'checked', true );
             } else {
                 $radios.prop( 'checked', false ); 
             }
