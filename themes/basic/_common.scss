@@ -351,7 +351,6 @@ div.zcrud-main-container {
         border-radius: 10px;
         font-weight: 600;
     }
-
     // Datetime picker
     .datetime {
         box-shadow: 0 5px 15px -5px;
@@ -544,3 +543,12 @@ div.zcrud-main-container {
     background-color: $busy-background-color;
     background-position: 8px;
 }
+
+// Standard form validation
+input:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+input:focus:invalid {
+    box-shadow: none;
+}
+

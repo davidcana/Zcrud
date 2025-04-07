@@ -8,16 +8,28 @@ module.exports = (function() {
     require( 'jquery-form-validator' );
     var context = require( './context.js' );
     var utils = require( './utils.js' );    
+    /*
+    required:
+        Specifies whether a form field needs to be filled in before the form can be submitted.
+    minlength and maxlength:
+        Specifies the minimum and maximum length of textual data (strings).
+    min, max, and step:
+        Specifies the minimum and maximum values of numerical input types, and the increment, or step, for values, starting from the minimum.
+    type:
+        Specifies whether the data needs to be a number, an email address, or some other specific preset type.
+    pattern:
+        Specifies a regular expression that defines a pattern the entered data needs to follow.
+    */
     
     var errorClass = 'error';
     var initialized = false;
     
     var force = ".historyField";
-    
+    /*
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
     };
-    
+    */
     var initFormValidation = function( id, $forms, options ){
         /*
         // Return if there is nothing to do
@@ -44,7 +56,7 @@ module.exports = (function() {
         $.validate( configurationOptionsToApply );
         */
     };
-    
+    /*
     var addAttributes = function( $forms, options ){
         
         var fieldValidationOptions = buildFieldOptions();
@@ -120,7 +132,17 @@ module.exports = (function() {
     var buildFieldOptions = function( options ){
         return {};
     };
-    
+    */
+
+    var formIsValid = function( options, eventData ){
+
+        var form = eventData.$form.el;
+        var result = form.checkValidity();
+        var report = form.reportValidity()
+
+        return result;
+    };
+
     return {
         initFormValidation: initFormValidation,
         formIsValid: formIsValid

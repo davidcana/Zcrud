@@ -8,6 +8,7 @@ var $ = zzDOM.zz;
 var testServerSide = require( './testServerSide' );
 var context = require( '../../../js/app/context.js' );
 var log4javascript = require( 'log4javascript' );
+const { validation } = require('../../../js/app/defaultOptions.js');
 
 var options = {
     
@@ -72,7 +73,13 @@ var options = {
             sorting: false
         },
         name: {
-            attributes:{
+            attributes: {
+                field: {
+                    required: '',
+                    minlength: 3,
+                    maxlength: 12,
+                    pattern: '[0-9a-zA-Z ]{3,12}'
+                },
                 rowHeader: {
                     style: 'width:90%'
                 }
@@ -144,9 +151,18 @@ var options = {
             type: 'checkbox'
         },
         number: {
+            attributes: {
+                field: {
+                    required: '',
+                    min: 1,
+                    max: 10,
+                    step: .1,
+                    type: 'number'
+                }
+            }
         }
     },
-
+    /*
     validation: {
         modules: 'security, date',
         rules: {
@@ -160,7 +176,7 @@ var options = {
             }
         }
     },
-    
+    */
     ajax: {
         ajaxFunction: testServerSide.ajax    
     },
