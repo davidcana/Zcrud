@@ -3,7 +3,6 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
 var context = require( '../../context.js' );
 var Button = require( '../button.js' );
 

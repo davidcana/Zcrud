@@ -3,7 +3,9 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var context = require( '../context.js' );
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
@@ -50,8 +52,9 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
         .find( '.zcrud-column-data input.historyField, .zcrud-column-data textarea.historyField, .zcrud-column-data select.historyField' )
         .on(
             'change',
-            function ( event, params ) {
-                var disableHistory = utils.getParam( params, 'disableHistory' );
+            function ( event ) {
+                //var disableHistory = utils.getParam( params, 'disableHistory' );
+                var disableHistory = utils.getParam( event.params, 'disableHistory' );
                 if ( disableHistory ){
                     return;
                 }
@@ -100,11 +103,13 @@ EditingComponent.prototype.bindEventsForFieldsAndAllRecords = function( fields, 
     var $rows = $( '#' + this.listPage.getThisOptions().tbodyId ).children().filter( '.zcrud-data-row' );
     for ( var i = 0; i < records.length; i++ ) {
         var record = records[ i ];
-        this.bindEventsForFieldsAnd1Record( 
-            fields, 
-            dictionary, 
-            record, 
-            $rows.filter( ":eq(" + i + ")" ) );
+        this.bindEventsForFieldsAnd1Record(
+            fields,
+            dictionary,
+            record,
+            $rows.list[ i ] );
+            //$rows.filter( ":nth-child(" + (1 + i) + ")" ) );
+            //$rows.filter( ":eq(" + i + ")" ) );
     }
 };
 

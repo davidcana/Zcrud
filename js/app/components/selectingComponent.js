@@ -3,7 +3,9 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var context = require( '../context.js' );
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
@@ -24,20 +26,22 @@ SelectingComponent.prototype.bindKeyboardEvents = function (){
     // Register to events to set shiftKeyDown value
     var instance = this;
     
-    $( document )
-        .keydown( 
+    $( document.body )
+        .on(
+            'keydown',
             function ( event ) {
-                switch ( event.which ) {
-                    case 16:
+                switch ( event.key ) {
+                    case 'Shift':
                         instance.shiftKeyDown = true;
                         break;
                 }
             }
     )
-        .keyup( 
+        .on(
+            'keyup',
             function ( event ) {
-                switch ( event.which ) {
-                    case 16:
+                switch ( event.key ) {
+                    case 'Shift':
                         instance.shiftKeyDown = false;
                         break;
                 }
@@ -58,15 +62,16 @@ SelectingComponent.prototype.bindSelectAllHeader = function(){
 
     var instance = this;
     this.get$selectAllCheckbox().on(
-        'click',  
+        'change',  
         function () {
             var allTableRows = instance.get$allTableRows();
             if ( allTableRows.length <= 0 ) {
                 instance.get$selectAllCheckbox().attr( 'checked', false );
                 return;
             }
-
-            if ( $( this ).is( ':checked' ) ) {
+            
+            //if ( $( this ).is( ':checked' ) ) {
+            if ( $( this ).checked() ) {
                 instance._selectRows( allTableRows );
             } else {
                 instance._deselectRows( allTableRows );
@@ -166,12 +171,22 @@ SelectingComponent.prototype.buildMappedArray = function( $tableRows ){
     }).get();
 };
 
+SelectingComponent.prototype.buildJqueryWrapped = function( arrayOf$items ){
+
+    var nodes = arrayOf$items.map( function ( x ){
+        return x.el;
+    });
+
+    return $( nodes );
+};
+/*
 SelectingComponent.prototype.buildJqueryWrapped = function( array ){
 
     return $( array ).map( function (){
         return this.toArray();
     });
 };
+*/
 
 // Look for a selected row (that is before given row index) to up and returns it's index 
 SelectingComponent.prototype.findFirstSelectedRowIndexBeforeIndex = function ( rowIndex, $tableRows ) {

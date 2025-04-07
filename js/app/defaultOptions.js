@@ -1,6 +1,5 @@
 "use strict";
 
-var $ = require( 'jquery' );
 var log4javascript = require( 'log4javascript' );
 var utils = require( './utils.js' );
 var requestHelper = require( './requestHelper.js' );

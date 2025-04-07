@@ -1,8 +1,9 @@
 "use strict";
 
-var $ = require( 'jquery' );
-var zcrud = require( '../../../js/app/main.js' );
-require( '../../../js/app/jqueryPlugin.js' );
+//var $ = require( 'zzdom' );
+//var zcrud = require( '../../../js/app/main.js' );
+var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+var $ = zzDOM.zz;
 var Qunit = require( 'qunit' );
 var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
@@ -105,7 +106,8 @@ QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
 
 QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert ) {
 
-    options = $.extend( true, {}, subformsTestOptions );
+    //options = $.extend( true, {}, subformsTestOptions );
+    options = utils.extend( true, {}, subformsTestOptions );
     options.fields.members.components.paging.gotoPageFieldType = 'combobox';
 
     // Setup services

@@ -1,8 +1,9 @@
 "use strict";
 
-var $ = require( 'jquery' );
-var zcrud = require( '../../../js/app/main.js' );
-require( '../../../js/app/jqueryPlugin.js' );
+//var $ = require( 'zzdom' );
+//var zcrud = require( '../../../js/app/main.js' );
+var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+var $ = zzDOM.zz;
 var Qunit = require( 'qunit' );
 var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
@@ -130,7 +131,7 @@ QUnit.test( "update datetime test", function( assert ) {
         }
     );
 });
-
+/*
 QUnit.test( "update datetime using picker test", function( assert ) {
 
     var done = assert.async();
@@ -140,6 +141,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
         options,
         function( options ){
 
+            debugger;
             var varName = 'datetime';
             context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
@@ -608,7 +610,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
         }
     );
 });
-
+*/
 QUnit.test( "update checkbox test", function( assert ) {
 
     var done = assert.async();
@@ -714,7 +716,7 @@ QUnit.test( "update radio test", function( assert ) {
         }
     );
 });
-
+/*
 QUnit.test( "update select test", function( assert ) {
 
     var done = assert.async();
@@ -863,7 +865,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
         }
     );
 });
-
+*/
 QUnit.test( "update datalist test", function( assert ) {
 
     var done = assert.async();

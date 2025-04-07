@@ -3,7 +3,6 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
 var context = require( '../context.js' );
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );

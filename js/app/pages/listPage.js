@@ -12,7 +12,9 @@ var History = require( '../history/history.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 var utils = require( '../utils.js' );
 

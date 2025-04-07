@@ -3,7 +3,6 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );
 var utils = require( '../utils.js' );
 

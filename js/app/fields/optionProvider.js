@@ -5,7 +5,6 @@
 
 var context = require( '../context.js' );
 var crudManager = require( '../crudManager.js' );
-var $ = require( 'jquery' );
 var utils = require( '../utils.js' );
 
 var OptionProvider = function() {

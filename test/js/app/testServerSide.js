@@ -4,7 +4,9 @@
 module.exports = (function() {
     "use strict";
     
-    var $ = require( 'jquery' );
+    //var $ = require( 'zzdom' );
+    var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+    var $ = zzDOM.zz;
     var utils = require( '../../../js/app/utils.js' );
     
     var defaultPeople = [

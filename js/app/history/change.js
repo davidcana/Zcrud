@@ -3,7 +3,9 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var context = require( '../../../js/app/context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
@@ -33,7 +35,7 @@ Change.prototype.constructor = Change;
 Change.prototype.setValue = function( value ){
 
     this.field.setValueToForm(  
-        value, 
+        value === undefined? null: value, 
         this.$this, 
         ! this.history.isFormMode(), 
         this.options );

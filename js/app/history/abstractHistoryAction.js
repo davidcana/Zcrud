@@ -3,7 +3,6 @@
 */
 "use strict";
 
-//var $ = require( 'jquery' );
 var pageUtils = require( '../pages/pageUtils.js' );
 
 var AbstractHistoryAction = function( historyToApply, recordIdToApply ){

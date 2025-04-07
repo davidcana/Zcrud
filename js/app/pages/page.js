@@ -3,7 +3,9 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
 var buttonUtils = require( '../buttons/buttonUtils.js' );

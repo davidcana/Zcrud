@@ -5,7 +5,6 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
 var pageUtils = require( '../pages/pageUtils.js' );
 var context = require( '../context.js' );
 var utils = require( '../utils.js' );

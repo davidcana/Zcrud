@@ -1,8 +1,9 @@
 "use strict";
 
-var $ = require( 'jquery' );
-var zcrud = require( '../../../js/app/main.js' );
-require( '../../../js/app/jqueryPlugin.js' );
+//var $ = require( 'zzdom' );
+//var zcrud = require( '../../../js/app/main.js' );
+var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+var $ = zzDOM.zz;
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var context = require( '../../../js/app/context.js' );

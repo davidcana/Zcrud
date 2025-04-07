@@ -3,7 +3,6 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
 var context = require( '../context.js' );
 
 var Component = function( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {

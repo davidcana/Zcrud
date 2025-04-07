@@ -3,7 +3,6 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
 var utils = require( '../utils.js' );
 
 var Field = function( properties ) {
@@ -23,7 +22,8 @@ Field.prototype.afterProcessTemplateForField = function( params, $selection ){
 };
 
 Field.prototype.throwEventsForSetValueToForm = function( $this ){
-    $this.keyup();
+    //$this.keyup();
+    $this.trigger( 'keyup' );
 };
 
 Field.prototype.setValueToForm = function( value, $this ){

@@ -4,7 +4,6 @@
 "use strict";
 
 var log4javascript = require( 'log4javascript' );
-//var $ = require( 'jquery' );
 
 module.exports = (function() {
 

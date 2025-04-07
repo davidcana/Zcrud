@@ -1,7 +1,6 @@
 /* 
     Main class of ZCrud
 */
-var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
 var context = require( './context.js' );
@@ -44,7 +43,7 @@ exports.init = function( userOptions, callback, failCallback ){
                 }
             },
             failCallback: function( msg ){
-                if ( failCallback && $.isFunction( failCallback ) ){
+                if ( failCallback && utils.isFunction( failCallback ) ){
                     failCallback( msg );
                 }
             }

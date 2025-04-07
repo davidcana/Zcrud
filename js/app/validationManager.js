@@ -19,7 +19,7 @@ module.exports = (function() {
     };
     
     var initFormValidation = function( id, $forms, options ){
-
+        /*
         // Return if there is nothing to do
         if ( ! validationOn( options ) ){
             return;
@@ -42,6 +42,7 @@ module.exports = (function() {
         };
         var configurationOptionsToApply = utils.extend( {}, defaultConfigurationOptions, options.validation.configuration );
         $.validate( configurationOptionsToApply );
+        */
     };
     
     var addAttributes = function( $forms, options ){

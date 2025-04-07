@@ -1,7 +1,7 @@
 /* 
     fieldListBuilder singleton class
 */
-var $ = require( 'jquery' );
+
 var context = require( '../context.js' );
 var normalizer = require( '../normalizer.js' );
 var Container = require( './container.js' );

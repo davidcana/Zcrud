@@ -7,7 +7,9 @@ var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
 var Page = require( './page.js' );
 var validationManager = require( '../validationManager.js' );
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 var crudManager = require( '../crudManager.js' );
 var History = require( '../history/history.js' );
@@ -433,8 +435,9 @@ FormPage.prototype.bindEvents = function( $form ) {
         //.not( "[name*='" + context.subformSeparator + "']" )  // Must exclude fields in subforms
         .on(
             'change',
-            function ( event, params ) {
-                var disableHistory = utils.getParam( params, 'disableHistory' );
+            function ( event ) {
+                //var disableHistory = utils.getParam( params, 'disableHistory' );
+                var disableHistory = utils.getParam( event.params, 'disableHistory' );
                 if ( disableHistory ){
                     return;
                 }

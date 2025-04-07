@@ -11,8 +11,8 @@ QUnit.testSuites([
     { name: "create all fields Test Suite", path: "./create-allFields.html" },
     { name: "update Test Suite", path: "./update.html" },
     { name: "update all fields Test Suite", path: "./update-allFields.html" },
-    { name: "editable list change Test Suite", path: "./editableList-change.html" },
-    { name: "editable list create Test Suite", path: "./editableList-create.html" },
+    { name: "editable list change Test Suite", path: "./editableList-change.html" },            ////
+    { name: "editable list create Test Suite", path: "./editableList-create.html" },            ////
     { name: "editable list delete Test Suite", path: "./editableList-delete.html" },
     { name: "editable list mixed Test Suite", path: "./editableList-mixed.html" },
     { name: "editable list update all fields Test Suite", path: "./editableList-update-allFields.html" },
@@ -23,9 +23,9 @@ QUnit.testSuites([
     { name: "subform mixed Test Suite", path: "./subform-mixed.html" },
     { name: "subform update all fields Test Suite", path: "./subform-update-allFields.html" },
     { name: "subform create all fields Test Suite", path: "./subform-create-allFields.html" },
-    { name: "form validation Test Suite", path: "./validation-forms.html" },
-    { name: "subform validation Test Suite", path: "./validation-subforms.html" },
-    { name: "editable list validation Test Suite", path: "./validation-editableLists.html" },
+    { name: "form validation Test Suite", path: "./validation-forms.html" },                    ////
+    { name: "subform validation Test Suite", path: "./validation-subforms.html" },              ////
+    { name: "editable list validation Test Suite", path: "./validation-editableLists.html" },   ////
     { name: "events Test Suite", path: "./events.html" },
     { name: "methods Test Suite", path: "./methods.html" },
     { name: "server side Test Suite", path: "./serverSide.html" },

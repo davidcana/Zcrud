@@ -7,7 +7,9 @@ var HistoryDelete = require( './delete.js' );
 var HistoryCleaner = require( './historyCleaner.js' );
 var crudManager = require( '../crudManager.js' );
 var context = require( '../context.js' );
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var utils = require( '../utils.js' );
 
 var History = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
@@ -235,7 +237,9 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             // Nothing to do
         }
         
-        return record? record[ name ]: undefined;
+        var temp = record? record[ name ]: undefined;
+        return temp !== undefined? temp:  '';
+        //return record? record[ name ]: undefined;
     };
     
     var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
@@ -354,7 +358,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         // Remove hidden trs
         if ( removeHidden ){
-            $list.find( 'tr.zcrud-data-row:hidden' ).remove();
+            $list.find( 'tr.zcrud-data-row.zcrud-hidden' ).remove();
+            //$list.find( 'tr.zcrud-data-row:hidden' ).remove();
         }
     };
     

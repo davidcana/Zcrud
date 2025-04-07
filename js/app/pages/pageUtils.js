@@ -3,18 +3,28 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 
 module.exports = (function() {
     
     var configureTemplate = function( options, templatePath ){
         
+        options.target.html(
+            `<div data-use-macro="${templatePath}"></div>`
+        );
+    };
+    /*
+    var configureTemplate = function( options, templatePath ){
+        
         var $containerDiv = $('<div />')
             .attr( 'data-use-macro', templatePath );
         options.target.html( $containerDiv );
     };
-    
+    */
+
     // Normalizes a number between given bounds or sets to a defaultValue if it is undefined
     var normalizeNumber = function ( number, min, max, defaultValue ) {
         

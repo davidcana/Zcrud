@@ -6,7 +6,9 @@
 var Field = require( './field.js' );
 var context = require( '../context.js' );
 var optionProvider = require( './optionProvider.js' );
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 var utils  = require( '../utils.js' );
 
@@ -153,7 +155,8 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
     switch( this.type ) {
         case 'checkboxes':  
             var $checkboxesContainer = $this.parents( '.zcrud-checkboxes-container' ).first();
-            var $checkboxes = $checkboxesContainer.find( 'input:checkbox.zcrud-active' );
+            var $checkboxes = $checkboxesContainer.find( "input[type='checkbox'].zcrud-active" );
+            //var $checkboxes = $checkboxesContainer.find( 'input:checkbox.zcrud-active' );
             $checkboxes.prop( 'checked', false ); 
             if ( value ){
                 for ( var i = 0; i < value.length; ++i ){
@@ -164,7 +167,8 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
             return;
         case 'radio':
             var $radiosContainer = $this.parents( '.zcrud-radio-container' ).first();
-            var $radios = $radiosContainer.find( 'input:radio.zcrud-active' );
+            var $radios = $radiosContainer.find( 'input[type="radio"].zcrud-active' );
+            //var $radios = $radiosContainer.find( 'input:radio.zcrud-active' );
             if ( value ){
                 $radios.filter( '[value=' + value + ']' ).prop( 'checked', true );   
             } else {

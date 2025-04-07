@@ -6,7 +6,9 @@
 var context = require( '../context.js' );
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 
 var PagingComponent = function( optionsToApply, thisOptionsToApply, parentToApply ) {
 
@@ -179,7 +181,8 @@ PagingComponent.prototype.bindEventsToGoToPage = function() {
     } else if ( this.thisOptions.gotoPageFieldType == 'textbox' ) {
         this.get$().find( '.' + this.thisOptions.goToPageFieldClass )
             .off() // Remove previous event handlers
-            .keypress( 
+            .on( 
+                'keypress',
                 function( event ) {
                     if ( event.which == 13 ) { // enter
                         event.preventDefault();

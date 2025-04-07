@@ -5,7 +5,9 @@
 
 var Field = require( './field.js' );
 var context = require( '../context.js' );
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 var validationManager = require( '../validationManager.js' );
 var ComponentsMap = require( '../components/componentsMap.js' );
@@ -203,8 +205,9 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
         //.off()
         .on(
             'change',
-            function ( event, params ) {
-                var disableHistory = utils.getParam( params, 'disableHistory' );
+            function ( event ) {
+                //var disableHistory = utils.getParam( params, 'disableHistory' );
+                var disableHistory = utils.getParam( event.params, 'disableHistory' );
                 if ( disableHistory ){
                     return;
                 }
@@ -251,7 +254,9 @@ Subform.prototype.bindEventsForFields = function( $subform, fields, dictionary, 
     var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
     for ( var i = 0; i < records.length; i++ ) {
         var record = records[ i ];
-        var $row = $rows.filter( ":eq(" + i + ")" );
+        var $row = $rows.list[ i ];
+        //var $row = $rows.filter( ":nth-child(" + (1 + i) + ")" );
+        //var $row = $rows.filter( ":eq(" + i + ")" );
         this.bindEventsForFieldsIn1Row( $row, fields, record, dictionary, params );
     }
 };
@@ -426,7 +431,7 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
         
         // Add deletion if needed
         if ( subformToDeleteFrom ){
-            var $tr = $selectedRows[ c ];
+            var $tr = $selectedRows.list[ c ];
             //var $tr = $( $selectedRows.get( c ) );
             composition.add( 
                 new HistoryDelete( 

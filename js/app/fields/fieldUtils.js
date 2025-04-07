@@ -4,7 +4,6 @@
 "use strict";
 
 var context = require( '../context.js' );
-var $ = require( 'jquery' );
 
 var FieldUtils = function() {
     

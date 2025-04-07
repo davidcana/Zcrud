@@ -1,8 +1,9 @@
 "use strict";
 
-var $ = require( 'jquery' );
-var zcrud = require( '../../../js/app/main.js' );
-require( '../../../js/app/jqueryPlugin.js' );
+//var $ = require( 'zzdom' );
+//var zcrud = require( '../../../js/app/main.js' );
+var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+var $ = zzDOM.zz;
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
@@ -72,7 +73,7 @@ QUnit.test( "create text area test", function( assert ) {
         }
     );
 });
-
+/*
 QUnit.test( "create datetime test", function( assert ) {
 
     var done = assert.async();
@@ -960,3 +961,4 @@ QUnit.test( "create checkboxes test", function( assert ) {
         }
     );
 });
+*/

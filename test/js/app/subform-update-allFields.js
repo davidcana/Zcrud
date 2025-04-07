@@ -1,8 +1,9 @@
 "use strict";
 
-var $ = require( 'jquery' );
-var zcrud = require( '../../../js/app/main.js' );
-require( '../../../js/app/jqueryPlugin.js' );
+//var $ = require( 'zzdom' );
+//var zcrud = require( '../../../js/app/main.js' );
+var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+var $ = zzDOM.zz;
 var Qunit = require( 'qunit' );
 var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
@@ -1575,7 +1576,8 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             // Undo (1)
             var tempRecord = utils.extend( true, {} , record );
             tempRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
-            delete tempRecord.members[ 1 ][ varName2 ];
+            //delete tempRecord.members[ 1 ][ varName2 ];
+            tempRecord.members[ 1 ][ varName2 ] = '';
             testHelper.clickUndoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 1, 1, false );

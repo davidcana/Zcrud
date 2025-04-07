@@ -3,7 +3,6 @@
 */
 "use strict";
 
-var $ = require( 'jquery' );
 var zpt = require( 'zpt' );
 var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
@@ -57,7 +56,8 @@ Create.prototype.addRow = function(){
         notRemoveGeneratedTags: true
     });
     
-    this.$tr = this.$tbody.find( 'tr.zcrud-data-row:last' );
+    this.$tr = this.$tbody.find( 'tr.zcrud-data-row:last-child' );
+    //this.$tr = this.$tbody.find( 'tr.zcrud-data-row:last' );
 
     var recordIndex = this.$tr.attr( 'data-record-index' );
     if ( this.isSubform ){

@@ -4,7 +4,6 @@
 module.exports = (function() {
     "use strict";
     
-    var $ = require( 'jquery' );
     var utils = require( '../utils.js' );
 
     var defaultConstructor = undefined;

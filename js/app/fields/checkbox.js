@@ -14,11 +14,13 @@ Checkbox.prototype = new Field();
 Checkbox.prototype.constructor = Checkbox;
 
 Checkbox.prototype.getValue = function( $this ){
-    return $this.is( ":checked" );
+    return $this.checked();
+    //return $this.is( ":checked" );
 };
 
 Checkbox.prototype.getValueFromForm = function( $selection ){
-    return $selection.find( "[name='" + this.name + "']").is( ':checked' );
+    return $selection.find( "[name='" + this.name + "']").checked();
+    //return $selection.find( "[name='" + this.name + "']").is( ':checked' );
 }
 
 Checkbox.prototype.setValueToForm = function( value, $this ){

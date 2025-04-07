@@ -4,7 +4,6 @@
 module.exports = (function() {
     "use strict";
     
-    var $ = require( 'jquery' );
     var zpt = require( 'zpt' );
     var pageUtils = require( './pages/pageUtils.js' );
     

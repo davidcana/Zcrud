@@ -5,7 +5,9 @@
 
 var Field = require( './field.js' );
 var context = require( '../context.js' );
-var $ = require( 'jquery' );
+//var $ = require( 'zzdom' );
+var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 var DateFormatter = require( '../../../lib/php-date-formatter.js' );
 
@@ -69,8 +71,11 @@ Datetime.prototype.setValueToForm = function( value, $this ){
     throw 'Unknown type in Datetime: ' + this.type;
 };
 
-Datetime.prototype.setValueToFormForTime = function( value, $this ){
-    
+Datetime.prototype.setValueToFormForTime = function( _value, $this ){
+
+    // Set value to null instead of undefined so zzDOM sets the value properly
+    const value = _value === undefined? null: _value;
+
     $this
         .val( value )
         .attr( this.pickerValueAttr, value );
@@ -1010,7 +1015,8 @@ Datetime.prototype.toggle = function( event, $datetime, params ){
     var $picker = this.get$picker( $datetime );
 
     // If the picker is not visible update it if needed
-    if ( ! $picker.is( ":visible" ) ){
+    //if ( ! $picker.is( ":visible" ) ){
+    if ( ! $picker.isVisible() ){
         var $input = this.get$input( $datetime );
         var currentValue = $input.val();
         var pickerValue = $input.attr( this.pickerValueAttr );
