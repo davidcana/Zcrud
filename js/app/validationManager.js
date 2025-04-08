@@ -26,7 +26,7 @@ module.exports = (function() {
     
     var force = ".historyField";
 
-    var validityNames =[
+    var validityNames = [
         'badInput',
         'patternMismatch',
         'rangeOverflow',
@@ -38,6 +38,7 @@ module.exports = (function() {
         'valueMissing'
     ];
 
+    var $elements;
     /*
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
@@ -148,11 +149,14 @@ module.exports = (function() {
     };
     */
 
-    var initFormValidation = function( formId, $preselection, options ){
+    var initFormValidation = function( formId, $item, options ){
 
+        // Save $elements
+        $elements = $item.find( 'input.historyField, textarea.historyField, select.historyField' );
+
+        // Define change event listener
         var instance = this;
-        $preselection
-            .find( 'input.historyField, textarea.historyField, select.historyField' )
+        $elements
             .on(
                 'change',
                 function ( event ) {
@@ -161,23 +165,12 @@ module.exports = (function() {
                         return;
                     }
                     //var $this = $( this );
-                    instance.showErrors( this, options );
+                    instance.showErrorForField( this, options );
                 }
         );
-        /*
-        var allElements = $item.el.elements;
-
-        // Iterate over the form controls
-        for ( const element of allElements ) {
-        //for ( let i = 0; i < inputs.length; i++ ) {
-
-            if (inputs[i].nodeName === "INPUT" && inputs[i].type === "text") {
-
-            }
-        }
-        */
     };
-    var showErrors = function( el, options ){
+
+    var showErrorForField = function( el, options ){
 
         const validity = el.validity;
 
@@ -187,7 +180,6 @@ module.exports = (function() {
 
         const message = getErrorMessage(  options, validity );
         alert( message );
-        //alert( 'Error found in form!' );
     };
 
     /*
@@ -217,16 +209,28 @@ module.exports = (function() {
 
         var form = eventData.$form.el;
         var result = form.checkValidity();
-        var report = form.reportValidity()
 
+        if ( ! result ){
+            showErrorsForForm( options );
+        }
+        
+        var report = form.reportValidity()
+        
         return result;
+    };
+
+    var showErrorsForForm = function( options ){
+
+        var elements = $elements.get();
+
+        for ( const el of elements ) {
+            showErrorForField( el, options );
+        }
     };
 
     return {
         initFormValidation: initFormValidation,
         formIsValid: formIsValid,
-        showErrors: showErrors
-        //addAttributes: addAttributes
-        //setup: setup
+        showErrorForField: showErrorForField
     };
 })();
