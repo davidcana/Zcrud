@@ -123,6 +123,17 @@
     
     "invalidFormData": "There are errors in the form, form not send!",
     
+    "_standardValidation": "",
+    "validation_badInput": "Bad input. The browser is unable to convert that input.",
+    "validation_patternMismatch": "Pattern mismatch. The value does not match the specified pattern.",
+    "validation_rangeOverflow": "Range overflow. The value is greater than the maximum specified.",
+    "validation_rangeUnderflow": "Range underflow. The value is less than the minimum specified.",
+    "validation_stepMismatch": "Step mismatch. The value does not fit the rules determined by the step value.",
+    "validation_tooLong": "Too long. The value exceeds the specified maxlength.",
+    "validation_tooShort": "Too short. The value fails to meet the specified minlength.",
+    "validation_typeMismatch": "Type mismatch. The value is not in the required syntax.",
+    "validation_valueMissing": "Value missing. There is no value, but it is required.",
+    
     "_confirm": "",
     "confirmCancelTitle": "Confirm cancel",
     "confirmCancelText": "There are changes not saved!",

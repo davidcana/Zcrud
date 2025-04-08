@@ -4,8 +4,8 @@
 module.exports = (function() {
     "use strict";
     
-    var $ = require( 'jquery' );
-    require( 'jquery-form-validator' );
+    //var $ = require( 'jquery' );
+    //require( 'jquery-form-validator' );
     var context = require( './context.js' );
     var utils = require( './utils.js' );    
     /*
@@ -25,13 +25,27 @@ module.exports = (function() {
     var initialized = false;
     
     var force = ".historyField";
+
+    var validityNames =[
+        'badInput',
+        'patternMismatch',
+        'rangeOverflow',
+        'rangeUnderflow',
+        'stepMismatch',
+        'tooLong',
+        'tooShort',
+        'typeMismatch',
+        'valueMissing'
+    ];
+
     /*
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
     };
     */
+    /*
     var initFormValidation = function( id, $forms, options ){
-        /*
+        
         // Return if there is nothing to do
         if ( ! validationOn( options ) ){
             return;
@@ -54,8 +68,8 @@ module.exports = (function() {
         };
         var configurationOptionsToApply = utils.extend( {}, defaultConfigurationOptions, options.validation.configuration );
         $.validate( configurationOptionsToApply );
-        */
     };
+    */
     /*
     var addAttributes = function( $forms, options ){
         
@@ -134,6 +148,71 @@ module.exports = (function() {
     };
     */
 
+    var initFormValidation = function( formId, $preselection, options ){
+
+        var instance = this;
+        $preselection
+            .find( 'input.historyField, textarea.historyField, select.historyField' )
+            .on(
+                'change',
+                function ( event ) {
+                    var disableHistory = utils.getParam( event.params, 'disableHistory' );
+                    if ( disableHistory ){
+                        return;
+                    }
+                    //var $this = $( this );
+                    instance.showErrors( this, options );
+                }
+        );
+        /*
+        var allElements = $item.el.elements;
+
+        // Iterate over the form controls
+        for ( const element of allElements ) {
+        //for ( let i = 0; i < inputs.length; i++ ) {
+
+            if (inputs[i].nodeName === "INPUT" && inputs[i].type === "text") {
+
+            }
+        }
+        */
+    };
+    var showErrors = function( el, options ){
+
+        const validity = el.validity;
+
+        if ( validity.valid ) {
+            return;
+        }
+
+        const message = getErrorMessage(  options, validity );
+        alert( message );
+        //alert( 'Error found in form!' );
+    };
+
+    /*
+        Try to translate through the next list, stop when a i18n message is found:
+            'validation_' + options.entityId + '_' + id
+            'validation_' + options.entityId
+            'validation_' + id
+    */
+    var getErrorMessage = function( options, validity ){
+
+        for ( const id of validityNames ) {
+            if ( validity[ id ] ) {
+                return context.translateAlternatives(
+                    [
+                        'validation_' + options.entityId + '_' + id,
+                        'validation_' + options.entityId,
+                        'validation_' + id
+                    ]
+                );
+            }
+        }
+
+        return 'Unknown error found in form!';
+    };
+
     var formIsValid = function( options, eventData ){
 
         var form = eventData.$form.el;
@@ -145,7 +224,8 @@ module.exports = (function() {
 
     return {
         initFormValidation: initFormValidation,
-        formIsValid: formIsValid
+        formIsValid: formIsValid,
+        showErrors: showErrors
         //addAttributes: addAttributes
         //setup: setup
     };

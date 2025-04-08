@@ -27,7 +27,19 @@ module.exports = (function() {
     var translate = function( id, params, format, subformat ){
         return zpt.i18nHelper.tr( i18nArray, id, params, format || 'string', subformat );
     };
-    
+    var i18nExists = function( id ){ //TODO Reimplement this using i18n.exists
+        var translated = translate( id );
+        return translated !== 'I18n resource "' + id + '" not found!'
+    };
+    var translateAlternatives = function( ids, params, format, subformat ){
+        for ( const id of ids ) {
+            if ( i18nExists( id ) ){
+                return zpt.i18nHelper.tr( i18nArray, id, params, format || 'string', subformat );
+            }
+        }
+        return 'No i18n resource found: ' + ids;
+    };
+
     // Errors
     var showError = function ( options, throwException, message, mustTranslate, params, format, subformat ) {
         var translated = 
@@ -260,6 +272,7 @@ module.exports = (function() {
         get: get,
         setI18nArray: setI18nArray,
         translate: translate,
+        translateAlternatives: translateAlternatives,
         showError: showError,
         confirm: confirm,
         showMessage: showMessage,

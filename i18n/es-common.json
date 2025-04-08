@@ -123,6 +123,17 @@
     
     "invalidFormData": "Hay errores en el formulario. El formulario no ha sido enviado.",
 
+    "_standardValidation": "",
+    "validation_badInput": "Valor incorrecto. El navegador no es capaz de convertir ese valor.",
+    "validation_patternMismatch": "Expresión regular no coincidente. El valor no cumple el patrón especificado.",
+    "validation_rangeOverflow": "Valor demasiado alto. El valor es mayor que el máximo valor permitido.",
+    "validation_rangeUnderflow": "Valor demasiado bajo. El valor es menor que el mínimo valor permitido.",
+    "validation_stepMismatch": "Intervalo no permitido. El valor no cumple las reglas determinadas por el intervalo especificado.",
+    "validation_tooLong": "Valor demasiado largo. El valor excede de la máxima longitud permitida.",
+    "validation_tooShort": "Valor demasiado largo. El valor no llega a la mínima longitud requerida.",
+    "validation_typeMismatch": "Tipo no coincidente. El valor no tiene la sintaxis requerida.",
+    "validation_valueMissing": "Valor no introducido. No se ha introducido ningún valor, pero es necesario.",
+
     "_confirm": "",
     "confirmCancelTitle": "Confirmar cancelar",
     "confirmCancelText": "¡Hay cambios que no se han guardado!",
