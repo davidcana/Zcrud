@@ -178,22 +178,26 @@ module.exports = (function() {
             return;
         }
 
-        const message = getErrorMessage(  options, validity );
+        const message = getErrorMessage( el, options, validity );
         alert( message );
     };
 
     /*
         Try to translate through the next list, stop when a i18n message is found:
+            'validation_' + options.entityId + '_' + el.name + '_' + id,
+            'validation_' + options.entityId + '_' + el.name,
             'validation_' + options.entityId + '_' + id
             'validation_' + options.entityId
             'validation_' + id
     */
-    var getErrorMessage = function( options, validity ){
+    var getErrorMessage = function( el, options, validity ){
 
         for ( const id of validityNames ) {
             if ( validity[ id ] ) {
                 return context.translateAlternatives(
                     [
+                        'validation_' + options.entityId + '_' + el.name + '_' + id,
+                        'validation_' + options.entityId + '_' + el.name,
                         'validation_' + options.entityId + '_' + id,
                         'validation_' + options.entityId,
                         'validation_' + id
@@ -214,7 +218,7 @@ module.exports = (function() {
             showErrorsForForm( options );
         }
         
-        var report = form.reportValidity()
+        var report = form.reportValidity();
         
         return result;
     };
