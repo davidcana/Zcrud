@@ -142,9 +142,18 @@ module.exports = {
             type: 'checkbox'
         },
         number: {
+            attributes: {
+                field: {
+                    min: 1,
+                    max: 10,
+                    step: 1,
+                    type: 'number'
+                }
+            }
         }
     },
 
+    /*
     validation: {
         modules: 'security, date',
         rules: {
@@ -161,6 +170,7 @@ module.exports = {
             errorMessageClass: 'form-error-inline-absolute',
         }
     },
+    */
 
     ajax: {
         ajaxFunction: testServerSide.ajax    

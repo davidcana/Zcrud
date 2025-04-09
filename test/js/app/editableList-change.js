@@ -79,9 +79,14 @@ QUnit.test( "change with errors test", function( assert ) {
 
     var done = assert.async();
     
+    // Set number as required
+    //var errorOptions = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
+    var errorOptions = utils.extend( true, {}, options );
+    errorOptions.fields.number.attributes.field.required = '';
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
-        options,
+        errorOptions,
         function( options ){
 
             testServerSide.resetServices();
@@ -95,6 +100,7 @@ QUnit.test( "change with errors test", function( assert ) {
             var record =  {
                 "id": "" + key,
                 "name": "Service " + key
+                //"number": 3
             };
             testHelper.checkRecord( assert, key, record, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -111,11 +117,15 @@ QUnit.test( "change with errors test", function( assert ) {
             });
 
             // Edit record
-            var editedRecord =  {
+            var fillRecord =  {
                 "name": "Service 5 edited",
                 "number": "a"
             };
-            testHelper.fillEditableList( editedRecord, key );
+            var editedRecord =  {
+                "name": "Service 5 edited"
+                //"number": "a" // Number input does not allow to write "a"
+            };
+            testHelper.fillEditableList( fillRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkEditableListForm( assert, key, newRecord );
 
