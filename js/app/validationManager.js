@@ -7,7 +7,9 @@ module.exports = (function() {
     //var $ = require( 'jquery' );
     //require( 'jquery-form-validator' );
     var context = require( './context.js' );
-    var utils = require( './utils.js' );    
+    var utils = require( './utils.js' );
+    var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
+    var $ = zzDOM.zz;
     /*
     required:
         Specifies whether a form field needs to be filled in before the form can be submitted.
@@ -21,10 +23,9 @@ module.exports = (function() {
         Specifies a regular expression that defines a pattern the entered data needs to follow.
     */
     
-    var errorClass = 'error';
-    var initialized = false;
-    
-    var force = ".historyField";
+    //var errorClass = 'error';
+    //var initialized = false;
+    //var force = ".historyField";
 
     var validityNames = [
         'badInput',
@@ -37,8 +38,9 @@ module.exports = (function() {
         'typeMismatch',
         'valueMissing'
     ];
+    
+    const selector = 'input.historyField, textarea.historyField, select.historyField';
 
-    var $elements;
     /*
     var validationOn = function( options ){
         return options.validation && options.validation.rules;
@@ -151,12 +153,9 @@ module.exports = (function() {
 
     var initFormValidation = function( formId, $item, options ){
 
-        // Save $elements
-        $elements = $item.find( 'input.historyField, textarea.historyField, select.historyField' );
-
         // Define change event listener
         var instance = this;
-        $elements
+        $item.find( selector )
             .on(
                 'change',
                 function ( event ) {
@@ -174,12 +173,32 @@ module.exports = (function() {
 
         const validity = el.validity;
 
+        // Check if the for is valid
         if ( validity.valid ) {
+
+            // No validation error
+            
+            // Remove previous validation error message, if any
+            setValidationMessage( el, '' );
             return;
         }
 
+        // A validation error occured
+
+        // Get error message
         const message = getErrorMessage( el, options, validity );
-        alert( message );
+        //alert( message );
+
+        // Set validation error message
+        setValidationMessage( el, message );
+    };
+
+    var setValidationMessage = function( el, message ){
+
+        const $label = $( el ).parents( 'label' ).first();
+        const $valMessageEl = $label.find( '.zcrud-validationMessage' ).first();
+
+        $valMessageEl.text( message );
     };
 
     /*
@@ -215,7 +234,7 @@ module.exports = (function() {
         var result = form.checkValidity();
 
         if ( ! result ){
-            showErrorsForForm( options );
+            showErrorsForForm( eventData.$form, options );
         }
         
         var report = form.reportValidity();
@@ -223,9 +242,9 @@ module.exports = (function() {
         return result;
     };
 
-    var showErrorsForForm = function( options ){
+    var showErrorsForForm = function( $item, options ){
 
-        var elements = $elements.get();
+        var elements = $item.find( selector ).get();
 
         for ( const el of elements ) {
             showErrorForField( el, options );
