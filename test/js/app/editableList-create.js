@@ -103,10 +103,15 @@ QUnit.test( "create test", function( assert ) {
 QUnit.test( "create with errors test", function( assert ) {
     
     var done = assert.async();
-    
+
+    // Set number as required
+    //var errorOptions = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
+    var errorOptions = utils.extend( true, {}, options );
+    errorOptions.fields.number.attributes.field.required = '';
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
-        options,
+        errorOptions,
         function( options ){
             
             testServerSide.resetServices();

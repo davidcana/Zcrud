@@ -144,7 +144,7 @@ module.exports = {
         number: {
             attributes: {
                 field: {
-                    min: 1,
+                    min: 0,
                     max: 10,
                     step: 1,
                     type: 'number'
