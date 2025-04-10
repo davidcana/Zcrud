@@ -159,17 +159,19 @@ module.exports = (function() {
             .on(
                 'change',
                 function ( event ) {
+                    /*
                     var disableHistory = utils.getParam( event.params, 'disableHistory' );
                     if ( disableHistory ){
                         return;
                     }
+                    */
                     //var $this = $( this );
-                    instance.showErrorForField( this, options );
+                    instance.showErrorForField( this, options, true );
                 }
         );
     };
 
-    var showErrorForField = function( el, options ){
+    var showErrorForField = function( el, options, reportValidity ){
 
         const validity = el.validity;
 
@@ -191,6 +193,11 @@ module.exports = (function() {
 
         // Set validation error message
         setValidationMessage( el, message );
+
+        // Show validation error message using browser facility
+        if ( reportValidity ){
+            el.reportValidity();
+        }
     };
 
     var setValidationMessage = function( el, message ){

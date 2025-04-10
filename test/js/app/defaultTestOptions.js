@@ -91,6 +91,11 @@ module.exports = {
         },
         name: {
             attributes:{
+                field: {
+                    minlength: 3,
+                    maxlength: 20,
+                    pattern: '.{3,20}' // Must use pattern to make the tests work properly
+                },
                 rowHeader: {
                     style: 'width:90%'
                 }
@@ -147,6 +152,11 @@ module.exports = {
             type: 'checkbox'
         },
         number: {
+            attributes: {
+                field: {
+                    type: 'number'
+                }
+            }
         },
         hobbies: {
             type: 'checkboxes',

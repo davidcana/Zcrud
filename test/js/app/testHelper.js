@@ -1403,8 +1403,14 @@ module.exports = (function() {
     };
     
     var getNumberOfValidationErrors = function( customErrorClass ){
-        var errorClass = customErrorClass || 'error';
-        return $( '.' + errorClass ).length;
+        //var errorClass = customErrorClass || 'error';
+        var errorClass = customErrorClass || 'zcrud-validationMessage';
+        return $( '.' + errorClass )
+            .map(
+                function(){
+                    return this.textContent !== ''? this: undefined;
+                }
+            ).length;
     };
     /*
     var getDatetimePicker = function( index ){
