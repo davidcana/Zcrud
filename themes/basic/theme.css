@@ -439,4 +439,8 @@ input:invalid {
 input:focus:invalid {
   box-shadow: none; }
 
+span.zcrud-validationMessage {
+  color: red;
+  float: right; }
+
 /*# sourceMappingURL=theme.css.map */

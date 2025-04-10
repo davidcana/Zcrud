@@ -552,3 +552,8 @@ input:focus:invalid {
     box-shadow: none;
 }
 
+span.zcrud-validationMessage {
+    color: red;
+    float: right;
+}
+
