@@ -27,8 +27,6 @@
     "url": "git+https://github.com/davidcana/Zcrud.git"
   },
   "dependencies": {
-    "jquery": "^3.0.0",
-    "jquery-form-validator": "2.3.77",
     "sweetalert": "2.1.0",
     "zpt": "0.40.6"
   },
