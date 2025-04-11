@@ -6,8 +6,8 @@ var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
 var context = require( './context.js' );
 var zcrud = require( './main.js' );
     
-var getOptions = function( jqueryObject ){
-    return context.getOptions( jqueryObject )
+var getOptions = function( $item ){
+    return context.getOptions( $item )
 };
 
 zzDOM.SS.prototype.zcrud = function( action ){

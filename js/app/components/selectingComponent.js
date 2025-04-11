@@ -49,7 +49,7 @@ SelectingComponent.prototype.bindKeyboardEvents = function (){
     );
 };
 
-// Return a reference to the 'select/deselect all' checkbox (jQuery object)
+// Return a reference to the 'select/deselect all' checkbox ($item)
 SelectingComponent.prototype.get$selectAllCheckbox = function(){
     return this.parent.get$().find( '.zcrud-select-all-rows' );
 };
@@ -134,14 +134,14 @@ SelectingComponent.prototype.invertRowSelection = function ( $row ) {
             var beforeIndex = this.findFirstSelectedRowIndexBeforeIndex( rowIndex, $mappedArray ) + 1;
             if ( beforeIndex > 0 && beforeIndex < rowIndex ) {
                 this._selectRows( 
-                    this.buildJqueryWrapped(
+                    this.build$Wrapped(
                         $mappedArray.slice( beforeIndex, rowIndex + 1 ) ) );
             } else {
                 // Try to select row and below rows until first selected row
                 var afterIndex = this.findFirstSelectedRowIndexAfterIndex( rowIndex, $mappedArray ) - 1;
                 if ( afterIndex > rowIndex ) {
                     this._selectRows( 
-                        this.buildJqueryWrapped(
+                        this.build$Wrapped(
                             $mappedArray.slice( rowIndex, afterIndex + 1 ) ) );
                 } else {
                     // Just select this row
@@ -171,7 +171,7 @@ SelectingComponent.prototype.buildMappedArray = function( $tableRows ){
     }).get();
 };
 
-SelectingComponent.prototype.buildJqueryWrapped = function( arrayOf$items ){
+SelectingComponent.prototype.build$Wrapped = function( arrayOf$items ){
 
     var nodes = arrayOf$items.map( function ( x ){
         return x.el;
@@ -179,14 +179,6 @@ SelectingComponent.prototype.buildJqueryWrapped = function( arrayOf$items ){
 
     return $( nodes );
 };
-/*
-SelectingComponent.prototype.buildJqueryWrapped = function( array ){
-
-    return $( array ).map( function (){
-        return this.toArray();
-    });
-};
-*/
 
 // Look for a selected row (that is before given row index) to up and returns it's index 
 SelectingComponent.prototype.findFirstSelectedRowIndexBeforeIndex = function ( rowIndex, $tableRows ) {

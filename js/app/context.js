@@ -111,11 +111,11 @@ module.exports = (function() {
     };
     
     // Options
-    var putOptions = function( jqueryObject, options ){
-        put( 'options_' + getSelectorString( jqueryObject ), options );
+    var putOptions = function( $item, options ){
+        put( 'options_' + getSelectorString( $item ), options );
     };
-    var getOptions = function( jqueryObject ){
-        return get( 'options_' + getSelectorString( jqueryObject ) );
+    var getOptions = function( $item ){
+        return get( 'options_' + getSelectorString( $item ) );
     };
     /*
     var putOptions = function( id, options ){
@@ -133,9 +133,9 @@ module.exports = (function() {
         return get( 'page_' + id );
     };
 
-    var getSelectorString = function( $jqueryObject ){
+    var getSelectorString = function( $item ){
         
-        var selector = (typeof($jqueryObject.attr('id')) !== 'undefined' || $jqueryObject.attr('id') !== null) ? '#' + $jqueryObject.attr('id') :  '.' + $jqueryObject.attr('class');
+        var selector = (typeof($item.attr('id')) !== 'undefined' || $item.attr('id') !== null) ? '#' + $item.attr('id') :  '.' + $item.attr('class');
         return selector;
     };
     

@@ -1,9 +1,8 @@
 # ZCrud
 
-ZCrud is a javascript API (also works as jQuery plugin) used to create AJAX based CRUD tables without coding HTML or Javascript. First implmentations were based on [jTable](http://www.jtable.org) with some major changes:
+ZCrud is a javascript API (also works as zzDOM plugin) used to create AJAX based CRUD tables without coding HTML or Javascript. First implmentations were based on [jTable](http://www.jtable.org) with some major changes:
  
  * The heaviest change is to build all HTML code of forms using a template engine ([ZPT-JS](https://github.com/davidcana/ZPT-JS/wiki)). 
- * It does not depend on any javascript API (like jQueryUI), only on jQuery.
  * It does not create any dialog form, only simple HTML forms.
 
 Core features of ZCrud are:
@@ -18,7 +17,7 @@ Core features of ZCrud are:
     * Allows user to select rows. 
     * Makes it easy to customize already implemented form field types; also to add new form field types.
     * Makes it easy to use defined buttons (submit, cancel, ...) and to add custom.
-    * Built-in support of validation of forms using [jQuery Form Validator](http://www.formvalidator.net/). Exposes some events to enable custom validation without using it.
+    * Built-in support of validation of forms using [standard HTML form validation](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation). Exposes some events to enable custom validation without using it.
     * Undo/redo support. 
 * All tables and forms are created using templates.  It is also possible to use customized templates. The template engine is [ZPT-JS](https://github.com/davidcana/ZPT-JS). 
 * Pretty messages and confirm questions using [Sweetalert](https://sweetalert.js.org) (by default). It is easy to replace it by any other API or function.
@@ -210,16 +209,6 @@ var options = {
             type: 'checkboxes',
             translateOptions: true,
             options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
-        }
-    },
- 
-    validation: {
-        modules: 'security, date',
-        rules: {
-            '#zcrud-name': {
-                validation: 'length',
-                length: '3-12'
-            }
         }
     },
  

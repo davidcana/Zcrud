@@ -2,18 +2,16 @@
   "name": "zcrud",
   "version": "0.1.0-SNAPSHOT",
   "main": "./js/app/main.js",
-  "description": "A Javascript API and JQuery plugin to create AJAX based CRUD tables using ZPT-JS as template engine. ",
+  "description": "A Javascript API and zzDOM plugin to create AJAX based CRUD tables using ZPT-JS as template engine. ",
   "keywords": [
-    "jquery-plugin",
-    "ecosystem:jquery",
-    "ajax",
+    "crud",
+    "form",
     "table",
     "grid",
-    "crud",
     "zpt",
     "template",
-    "templates",
-    "forms"
+    "zzDOM",
+    "zzDOM-plugin"
   ],
   "homepage": "https://github.com/davidcana/Zcrud",
   "bugs": {
