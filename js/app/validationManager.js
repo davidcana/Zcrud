@@ -237,17 +237,25 @@ module.exports = (function() {
     };
 
     var formIsValid = function( options, eventData ){
+        
+        // Check using formSubmitting event: get eventResult
+        var eventResultValue = options.events.formSubmitting( eventData, options );
+        var eventResult = eventResultValue === undefined || eventResultValue == true;
 
+        // Check using standard HTML form validation: get standardValidationResult
         var form = eventData.$form.el;
-        var result = form.checkValidity();
+        var standardValidationResult = form? form.checkValidity(): true;
 
-        if ( ! result ){
-            showErrorsForForm( eventData.$form, options );
+        if ( form ){
+            if ( ! standardValidationResult ){
+                showErrorsForForm( eventData.$form, options );
+            }
+            
+            var report = form.reportValidity();
         }
-        
-        var report = form.reportValidity();
-        
-        return result;
+
+        // If both results are true the form is valid
+        return standardValidationResult && eventResult;
     };
 
     var showErrorsForForm = function( $item, options ){
