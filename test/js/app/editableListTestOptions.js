@@ -75,6 +75,13 @@ module.exports = {
             sorting: false
         },
         name: {
+            attributes:{
+                field: {
+                    minlength: 3,
+                    maxlength: 20,
+                    pattern: '.{3,20}' // Must use pattern to make the tests work properly
+                }
+            }
         },
         description: {
             type: 'textarea',
