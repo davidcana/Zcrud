@@ -78,6 +78,13 @@ module.exports = {
             sorting: false
         },
         name: {
+            attributes:{
+                field: {
+                    minlength: 3,
+                    maxlength: 20,
+                    pattern: '.{3,20}' // Must use pattern to make the tests work properly
+                }
+            }
         },
         description: {
             type: 'textarea',
@@ -145,28 +152,16 @@ module.exports = {
             type: 'checkbox'
         },
         number: {
+            attributes: {
+                field: {
+                    type: 'number'
+                }
+            }
         },
         hobbies: {
             type: 'checkboxes',
             translateOptions: true,
             options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
-        }
-    },
-
-    validation: {
-        modules: 'security, date',
-        rules: {
-            'name': {
-                validation: 'length',
-                length: '3-20'
-            },
-            'number': {
-                validation: 'number',
-                allowing: 'float'
-            }
-        },
-        configuration: {
-            errorMessageClass: 'form-error-inline-absolute',
         }
     },
 

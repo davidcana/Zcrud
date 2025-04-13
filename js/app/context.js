@@ -59,6 +59,7 @@ module.exports = (function() {
     };
     
     // Form validation language
+    /*
     var getFormValidationLanguage = function( lang ){
     
         var cacheId = lang + '-formValidationLanguage';
@@ -109,7 +110,8 @@ module.exports = (function() {
         
         return language;
     };
-    
+    */
+
     // Options
     var putOptions = function( $item, options ){
         put( 'options_' + getSelectorString( $item ), options );
@@ -276,7 +278,7 @@ module.exports = (function() {
         showError: showError,
         confirm: confirm,
         showMessage: showMessage,
-        getFormValidationLanguage: getFormValidationLanguage,
+        //getFormValidationLanguage: getFormValidationLanguage,
         putOptions: putOptions,
         getOptions: getOptions,
         putPage: putPage,

@@ -123,7 +123,15 @@ module.exports = {
             subformKey: 'code',
             fields: { 
                 code: { },
-                name: { },
+                name: {
+                    attributes:{
+                        field: {
+                            minlength: 3,
+                            maxlength: 20,
+                            pattern: '.{3,20}' // Must use pattern to make the tests work properly
+                        }
+                    }
+                },
                 description: {
                     type: 'textarea',
                     attributes: {
@@ -136,20 +144,6 @@ module.exports = {
         }
     },
 
-    validation: {
-        modules: 'security, date',
-        rules: {
-            "name": {
-                validation: 'length',
-                length: '3-20'
-            },
-            "members-name": {
-                validation: 'length',
-                length: '3-20'
-            }
-        }
-    },
-    
     ajax:{
         ajaxFunction: testServerSide.ajax    
     },

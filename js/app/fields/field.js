@@ -108,11 +108,7 @@ Field.prototype.dataFromServer = function(){
 Field.prototype.getId = function(){
     return this.id;
 };
-/*
-Field.prototype.getValidationMessageId = function(){
-    return this.page.id + '_' + this.id + '_validationMessage';
-};
-*/
+
 Field.prototype.getFields = function(){
     return undefined;
 };

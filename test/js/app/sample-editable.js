@@ -69,6 +69,13 @@ var options = {
             sorting: false
         },
         name: {
+            attributes:{
+                field: {
+                    minlength: 3,
+                    maxlength: 20,
+                    pattern: '.{3,20}' // Must use pattern to make the tests work properly
+                }
+            }
         },
         description: {
             type: 'textarea',
@@ -136,26 +143,14 @@ var options = {
             type: 'checkbox'
         },
         number: {
+            attributes: {
+                field: {
+                    type: 'number'
+                }
+            }
         }
     },
 
-    validation: {
-        modules: 'security, date',
-        rules: {
-            'name': {
-                validation: 'length',
-                length: '3-12'
-            },
-            'number': {
-                validation: 'number',
-                allowing: 'float'
-            }
-        },
-        configuration: {
-            errorMessageClass: 'form-error-inline-absolute',
-        }
-    },
-    
     ajax: {
         ajaxFunction: testServerSide.ajax    
     },

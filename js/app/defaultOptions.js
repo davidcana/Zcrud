@@ -7,12 +7,7 @@ var requestHelper = require( './requestHelper.js' );
 module.exports = {
 
     validation: {
-        modules: '',
-        rules: {},
-        configuration: {
-            errorMessageClass: 'form-error-inline-absolute', // form-error-fixed, form-error-inline-static and form-error-inline-absolute already exist
-            borderColorOnError: ''
-        }
+        userBrowserMessages: true
     },
     dictionary: {},
 

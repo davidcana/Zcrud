@@ -160,25 +160,6 @@ module.exports = {
         }
     },
 
-    /*
-    validation: {
-        modules: 'security, date',
-        rules: {
-            'name': {
-                validation: 'length',
-                length: '3-20'
-            },
-            'number': {
-                validation: 'number',
-                allowing: 'float'
-            }
-        },
-        configuration: {
-            errorMessageClass: 'form-error-inline-absolute',
-        }
-    },
-    */
-
     ajax: {
         ajaxFunction: testServerSide.ajax    
     },

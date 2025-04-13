@@ -103,6 +103,11 @@ var options = {
         },
         name: {
             attributes:{
+                field: {
+                    minlength: 3,
+                    maxlength: 20,
+                    pattern: '.{3,20}' // Must use pattern to make the tests work properly
+                },
                 rowHeader: {
                     style: 'width:90%'
                 }
@@ -162,16 +167,6 @@ var options = {
         }
     },
 
-    validation: {
-        modules: 'security, date',
-        rules: {
-            '#zcrud-name': {
-                validation: 'length',
-                length: '3-12'
-            }
-        }
-    },
-    
     ajax: {
         ajaxFunction: testServerSide.ajax    
     },

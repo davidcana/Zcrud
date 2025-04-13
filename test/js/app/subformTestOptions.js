@@ -169,25 +169,7 @@ module.exports = {
             }
         }
     },
-    /*
-    validation: {
-        modules: 'security, date',
-        rules: {
-            "name": {
-                validation: 'length',
-                length: '3-20'
-            },
-            "members-name": {
-                validation: 'length',
-                length: '3-20'
-            },
-            "number": {
-                validation: 'number',
-                allowing: 'float'
-            }
-        }
-    },
-    */
+
     ajax:{
         ajaxFunction: testServerSide.ajax    
     },

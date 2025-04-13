@@ -162,21 +162,7 @@ var options = {
             }
         }
     },
-    /*
-    validation: {
-        modules: 'security, date',
-        rules: {
-            '#zcrud-name': {
-                validation: 'length',
-                length: '3-12'
-            },
-            '#zcrud-number': {
-                validation: 'number',
-                allowing: 'float'
-            }
-        }
-    },
-    */
+
     ajax: {
         ajaxFunction: testServerSide.ajax    
     },

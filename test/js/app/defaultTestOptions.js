@@ -164,21 +164,7 @@ module.exports = {
             options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
         }
     },
-    /*
-    validation: {
-        modules: 'security, date',
-        rules: {
-            'name': {
-                validation: 'length',
-                length: '3-20'
-            },
-            'number': {
-                validation: 'number',
-                allowing: 'float'
-            }
-        }
-    },
-    */
+
     ajax:{
         ajaxFunction: testServerSide.ajax    
     },
