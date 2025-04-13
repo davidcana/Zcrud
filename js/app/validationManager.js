@@ -94,7 +94,7 @@ module.exports = (function() {
     var getErrorMessage = function( el, options, validity ){
 
         // Use browser validation message if configured
-        if ( options.validation.userBrowserMessages ){
+        if ( options.validation.useBrowserMessages ){
             return el.validationMessage;
         }
 
