@@ -63,17 +63,30 @@ module.exports = (function() {
 
         // A validation error occured
 
-        // Get error message
-        const message = getErrorMessage( el, options, validity );
-        //alert( message );
+        if ( options.validation.showBrowserMessageBubbles ){
+            // Show validation error message using browser facility
 
-        // Set validation error message
-        setValidationMessage( el, message );
+            const message = options.validation.useBrowserMessages?
+                false:
+                getErrorMessage( el, options, validity );
+            if ( message ){
+                el.setCustomValidity( message );
+            }
+            el.reportValidity();
+
+        } else {
+            // Show validation error message using zcrud-validationMessage HTML elements
+            
+            const message = getErrorMessage( el, options, validity );
+            setValidationMessage( el, message );
+        }
 
         // Show validation error message using browser facility
+        /*
         if ( reportValidity ){
             el.reportValidity();
         }
+        */
     };
 
     var setValidationMessage = function( el, message ){
@@ -129,7 +142,8 @@ module.exports = (function() {
                 showErrorsForForm( eventData.$form, options );
             }
             
-            var report = form.reportValidity();
+            
+            form.reportValidity();
         }
 
         // If both results are true the form is valid

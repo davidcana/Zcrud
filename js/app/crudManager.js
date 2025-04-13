@@ -154,16 +154,20 @@ module.exports = (function() {
                 utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions ) 
             );
         } else {
-            // Show custom or default error message
-            var message, translate;
-            if ( validationData.message ){
-                message = validationData.message;
-                translate = validationData.translate;
-            } else {
-                message = 'invalidFormData';
-                translate = true;
+            // Do not show any error message if browser messages must be shown, it dos not work properly (browser messages are not shown)
+            if ( ! options.validation.showBrowserMessageBubbles ){
+
+                // Show custom or default error message
+                var message, translate;
+                if ( validationData.message ){
+                    message = validationData.message;
+                    translate = validationData.translate;
+                } else {
+                    message = 'invalidFormData';
+                    translate = true;
+                }
+                context.showError( options, false, message, translate );
             }
-            context.showError( options, false, message, translate );
         }
     };
     

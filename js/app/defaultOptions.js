@@ -7,8 +7,10 @@ var requestHelper = require( './requestHelper.js' );
 module.exports = {
 
     validation: {
-        useBrowserMessages: true
+        showBrowserMessageBubbles: false,
+        useBrowserMessages: false,
     },
+
     dictionary: {},
 
     saveUserPreferences: true,
