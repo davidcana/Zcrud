@@ -87,29 +87,31 @@ module.exports = (function() {
 
     /*
         Try to translate through the next list, stop when a i18n message is found:
-            'validation_' + options.entityId + '_' + el.name + '_' + id,
-            'validation_' + options.entityId + '_' + el.name,
-            'validation_' + options.entityId + '_' + id
-            'validation_' + options.entityId
-            'validation_' + id
+            'validation_' + el.name + '_' + validityName,
+            'validation_' + el.name,
+            'validation_' + validityName
     */
     var getErrorMessage = function( el, options, validity ){
 
-        for ( const id of validityNames ) {
-            if ( validity[ id ] ) {
+        // Use browser validation message if configured
+        if ( options.validation.userBrowserMessages ){
+            return el.validationMessage;
+        }
+
+        // Use custom validation messages instead
+        for ( const validityName of validityNames ) {
+            if ( validity[ validityName ] ) {
                 return context.translateAlternatives(
                     [
-                        'validation_' + options.entityId + '_' + el.name + '_' + id,
-                        'validation_' + options.entityId + '_' + el.name,
-                        'validation_' + options.entityId + '_' + id,
-                        'validation_' + options.entityId,
-                        'validation_' + id
+                        'validation_' + el.name + '_' + validityName,
+                        'validation_' + el.name,
+                        'validation_' + validityName
                     ]
                 );
             }
         }
 
-        return 'Unknown error found in form!';
+        return 'No i18n error message found!';
     };
 
     var formIsValid = function( options, eventData ){
