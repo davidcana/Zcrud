@@ -66,16 +66,18 @@ module.exports = (function() {
             return utils.stringDateIsValid( value );
         }
         if ( type == 'datetime' ){
-            //return true;
             return utils.stringDatetimeIsValid( value );
         }
 
         throw 'ValidateManager can not manage that type: ' + type;
     };
 
-    var showErrorForField = function( el, options, reportValidity ){
+    var showErrorForField = function( el, options ){
 
         const validity = el.validity;
+  
+        // Force element as valid so the next checks work properly
+        el.setCustomValidity( '' );
 
         // Check if the for is valid
         const fieldValidationValue = fieldValidation( el, options );
@@ -86,6 +88,7 @@ module.exports = (function() {
             
             // Remove previous validation error message, if any
             setValidationMessage( el, '' );
+
             return;
         }
 
@@ -95,17 +98,16 @@ module.exports = (function() {
             // Show validation error message using browser facility
 
             const message = options.validation.useBrowserMessages?
-                false:
+                true:
                 getErrorMessage( el, options, validity, fieldValidationValue );
-            if ( message ){
-                el.setCustomValidity( message );
-            }
+            el.setCustomValidity( message );    // To force input:invalid in HTML
             el.reportValidity();
 
         } else {
             // Show validation error message using zcrud-validationMessage HTML elements
             
             const message = getErrorMessage( el, options, validity, fieldValidationValue );
+            el.setCustomValidity( message );    // To force input:invalid in HTML
             setValidationMessage( el, message );
         }
     };
@@ -170,7 +172,6 @@ module.exports = (function() {
             if ( ! standardValidationResult ){
                 showErrorsForForm( eventData.$form, options );
             }
-            
             
             form.reportValidity();
         }
