@@ -189,7 +189,13 @@ Datetime.prototype.getI18nFormat = function(){
     var formatI18nId = this.type + 'Format';
     return context.translate( formatI18nId );
 };
-
+/*
+Datetime.prototype.getI18nPattern = function(){
+    
+    var patternI18nId = this.type + 'Pattern';
+    return context.translate( patternI18nId );
+};
+*/
 Datetime.prototype.getValueFromForm = function( $selection ){
     
     return this.inline? 
@@ -1081,5 +1087,20 @@ Date.prototype.dateEquals = function ( otherDate ) {
         && this.getMonth() === otherDate.getMonth()
         && this.getDate() === otherDate.getDate();
 };
+/*
+Datetime.validateDatetime = function( value, type ){
+    //return !isNaN( new Date( value ) );
+    const dateInstance = new Date( value );
+    if ( ! isNaN( dateInstance ) ){
+        return false;
+    }
+    const dateFormatter = new DateFormatter();
+    
+    var formatI18nId = type + 'Format';
+    const i18nFormat = context.translate( formatI18nId );
+
+    const dateString = dateFormatter.formatDate( dateInstance, i18nFormat );
+};
+*/
 
 module.exports = Datetime;

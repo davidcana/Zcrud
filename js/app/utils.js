@@ -4,6 +4,7 @@
 "use strict";
 
 var log4javascript = require( 'log4javascript' );
+var context = require( './context.js' );
 
 module.exports = (function() {
 
@@ -155,6 +156,41 @@ module.exports = (function() {
         return isPlainObject( params )? params[ paramId ]: undefined;
     };
 
+    var stringDateIsValid = function( stringDate, del = '/' ){
+
+        // If the stringDate is empty is also valid
+        if ( ! stringDate ){
+            return true;
+        }
+
+        var dayIndex = parseInt( context.translate( 'dayIndex' ), 10 );
+        var monthIndex = parseInt( context.translate( 'monthIndex' ), 10 );
+        var yearIndex = parseInt( context.translate( 'yearIndex' ), 10 );
+
+        var dateArray = stringDate.split( del );
+        var day = dateArray[ dayIndex ];            // In spanish 0, in english 1
+        var month = dateArray[ monthIndex ] - 1;    // In spanish 1, in english 0
+        var year = dateArray[ yearIndex ];          // In spanish 2, in english 2
+
+        // Build a date instance
+        // If a parameter you specify is outside of the expected range, other parameters and the date information in the Date object are updated
+        // accordingly. For example, if you specify 15 for monthValue, the year is incremented by 1, and 3 is used for month.
+        var dateInstance = new Date( year, month, day );
+        
+        // Check the date is what is supposed to be
+        if ( dateInstance.getDate() != day ){
+            return false;
+        }
+        if ( dateInstance.getMonth() != month ){
+            return false;
+        }
+        if ( dateInstance.getFullYear() != year ){
+            return false;
+        }
+
+        return true;
+    };
+
     return {
         extend: extend,
         isFunction: isFunction,
@@ -163,6 +199,7 @@ module.exports = (function() {
         isEmptyObject: isEmptyObject,
         isString: isString,
         buildLoggingLevel: buildLoggingLevel,
-        getParam: getParam
+        getParam: getParam,
+        stringDateIsValid: stringDateIsValid
     };
 })();

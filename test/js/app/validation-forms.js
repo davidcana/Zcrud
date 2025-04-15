@@ -81,13 +81,13 @@ QUnit.test( "create validation test", function( assert ) {
     );
 });
 
-QUnit.test( "update validation test", function( assert ) {
+QUnit.test( "update validation test (text)", function( assert ) {
     
     testServerSide.resetServices();
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
     
-    $( '#departmentsContainer' ).zcrud( 
+    $( '#departmentsContainer' ).zcrud(
         'init',
         options,
         function( options ){
@@ -132,6 +132,204 @@ QUnit.test( "update validation test", function( assert ) {
             // Fix the form
             newRecord.name = "Service " + key + " edited";
             testHelper.setFormVal( newRecord, 'name' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+            
+            // Create record (no errors)
+            testHelper.clickFormSubmitButton();
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+
+            // Go to edit form again and check record
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update validation test (date)", function( assert ) {
+    
+    testServerSide.resetServices();
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
+
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "name": "Service " + key,
+                "description": "Service 2 description",
+                "date": "10/23/201A",    // Validation must fail here!
+                "time": "18:50",
+                "datetime": "10/23/2017 20:00",
+                "phoneType": "officePhone_option",
+                "province": "Cádiz",
+                "city": "Tarifa",
+                "browser": "Firefox",
+                "important": true,
+                "number": "3"
+            };
+
+            testHelper.fillForm( editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            
+            // Try to create record (1 error)
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
+            testHelper.checkForm( assert, newRecord );
+            
+            // Fix the form
+            newRecord.date = "10/23/2017";
+            testHelper.setFormVal( newRecord, 'date' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+            
+            // Create record (no errors)
+            testHelper.clickFormSubmitButton();
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+
+            // Go to edit form again and check record
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update validation test (time)", function( assert ) {
+    
+    testServerSide.resetServices();
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
+
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "name": "Service " + key,
+                "description": "Service 2 description",
+                "date": "10/23/2017",
+                "time": "18:5A",    // Validation must fail here!
+                "datetime": "10/23/2017 20:00",
+                "phoneType": "officePhone_option",
+                "province": "Cádiz",
+                "city": "Tarifa",
+                "browser": "Firefox",
+                "important": true,
+                "number": "3"
+            };
+
+            testHelper.fillForm( editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            
+            // Try to create record (1 error)
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
+            testHelper.checkForm( assert, newRecord );
+            
+            // Fix the form
+            newRecord.time = '18:22';
+            testHelper.setFormVal( newRecord, 'time' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+            
+            // Create record (no errors)
+            testHelper.clickFormSubmitButton();
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ) );
+
+            // Go to edit form again and check record
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update validation test (datetime)", function( assert ) {
+    
+    testServerSide.resetServices();
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
+
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "name": "Service " + key,
+                "description": "Service 2 description",
+                "date": "10/23/2017",
+                "time": "18:50",
+                "datetime": "10/23/201A 20:00",    // Validation must fail here!
+                "phoneType": "officePhone_option",
+                "province": "Cádiz",
+                "city": "Tarifa",
+                "browser": "Firefox",
+                "important": true,
+                "number": "3"
+            };
+
+            testHelper.fillForm( editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            
+            // Try to create record (1 error)
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
+            testHelper.checkForm( assert, newRecord );
+            
+            // Fix the form
+            newRecord.datetime = "10/23/2019 20:00";
+            testHelper.setFormVal( newRecord, 'datetime' );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
             // Create record (no errors)

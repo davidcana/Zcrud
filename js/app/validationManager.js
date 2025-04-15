@@ -7,6 +7,7 @@ module.exports = (function() {
     var context = require( './context.js' );
     var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
     var $ = zzDOM.zz;
+    var utils = require( './utils.js' );
     /*
     required:
         Specifies whether a form field needs to be filled in before the form can be submitted.
@@ -47,12 +48,39 @@ module.exports = (function() {
         );
     };
 
+    var fieldValidation = function( el, options ){
+
+        const $el = $( el );
+        const type = $el.attr( 'data-fieldValidation' );
+
+        if ( ! type ){
+            return true;
+        }
+
+        return validateField( type, $el.val() );
+    };
+
+    var validateField = function( type, value ){
+
+        if ( type == 'date' ){
+            return utils.stringDateIsValid( value );
+        }
+        if ( type == 'datetime' ){
+            return true;
+            //return utils.stringDateIsValid( value );
+        }
+
+        throw 'ValidateManager can not manage that type: ' + type;
+    };
+
     var showErrorForField = function( el, options, reportValidity ){
 
         const validity = el.validity;
 
         // Check if the for is valid
-        if ( validity.valid ) {
+        const fieldValidationValue = fieldValidation( el, options );
+        const isValid = validity.valid && fieldValidationValue == true;
+        if ( isValid ) {
 
             // No validation error
             
@@ -68,7 +96,7 @@ module.exports = (function() {
 
             const message = options.validation.useBrowserMessages?
                 false:
-                getErrorMessage( el, options, validity );
+                getErrorMessage( el, options, validity, fieldValidationValue );
             if ( message ){
                 el.setCustomValidity( message );
             }
@@ -77,16 +105,9 @@ module.exports = (function() {
         } else {
             // Show validation error message using zcrud-validationMessage HTML elements
             
-            const message = getErrorMessage( el, options, validity );
+            const message = getErrorMessage( el, options, validity, fieldValidationValue );
             setValidationMessage( el, message );
         }
-
-        // Show validation error message using browser facility
-        /*
-        if ( reportValidity ){
-            el.reportValidity();
-        }
-        */
     };
 
     var setValidationMessage = function( el, message ){
@@ -104,7 +125,7 @@ module.exports = (function() {
             'validation_' + el.name,
             'validation_' + validityName
     */
-    var getErrorMessage = function( el, options, validity ){
+    var getErrorMessage = function( el, options, validity, fieldValidationValue ){
 
         // Use browser validation message if configured
         if ( options.validation.useBrowserMessages ){
@@ -112,8 +133,16 @@ module.exports = (function() {
         }
 
         // Use custom validation messages instead
+        
+        // Clone validity
+        const validityClone = utils.extend( true, [], validity );
+        if ( ! fieldValidationValue ){
+            validityClone[ 'typeMismatch' ] = true;
+        }
+
+        // Iterate validityNames
         for ( const validityName of validityNames ) {
-            if ( validity[ validityName ] ) {
+            if ( validityClone[ validityName ] ) {
                 return context.translateAlternatives(
                     [
                         'validation_' + el.name + '_' + validityName,

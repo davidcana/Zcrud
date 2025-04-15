@@ -13,6 +13,8 @@
                                          value formattedValue;
                                          data-picker-value formattedValue;
                                          class cond: isNotHistoryField null 'historyField';
+                                         pattern '\d{1,2}/\d{1,2}/\d{4}';
+                                         data-fieldValidation 'date';
                                          field/attributes/field"
                        type="text">
                 <button type="button" class="toggle-picker"
@@ -41,6 +43,7 @@
                                          value ( value | '' );
                                          data-picker-value ( value | '' );
                                          class cond: isNotHistoryField null 'historyField';
+                                         pattern '\d{2}:\d{2}';
                                          field/attributes/field"
                        type="text">
                 <button type="button" class="toggle-picker"
@@ -71,6 +74,8 @@
                                          value formattedValue;
                                          data-picker-value formattedValue;
                                          class cond: isNotHistoryField null 'historyField';
+                                         pattern '\d{1,2}/\d{1,2}/\d{4} \d{2}:\d{2}';
+                                         data-fieldValidation 'datetime';
                                          field/attributes/field"
                        type="text">
                 <button type="button" class="toggle-picker"
