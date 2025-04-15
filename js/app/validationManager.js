@@ -66,8 +66,8 @@ module.exports = (function() {
             return utils.stringDateIsValid( value );
         }
         if ( type == 'datetime' ){
-            return true;
-            //return utils.stringDateIsValid( value );
+            //return true;
+            return utils.stringDatetimeIsValid( value );
         }
 
         throw 'ValidateManager can not manage that type: ' + type;

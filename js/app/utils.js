@@ -190,6 +190,21 @@ module.exports = (function() {
 
         return true;
     };
+    
+    var stringDatetimeIsValid = function( stringDatetime, del = '/' ){
+
+        // If the stringDatetime is empty is also valid
+        if ( ! stringDatetime ){
+            return true;
+        }
+        
+        var datetimeArray = stringDatetime.split( ' ' );
+        var stringDate = datetimeArray[ 0 ];
+        //var stringTime = datetimeArray[ 1 ];
+
+        // Check onkly stringDate, stringTime is checked using RE
+        return stringDateIsValid( stringDate, del );
+    };
 
     return {
         extend: extend,
@@ -200,6 +215,7 @@ module.exports = (function() {
         isString: isString,
         buildLoggingLevel: buildLoggingLevel,
         getParam: getParam,
-        stringDateIsValid: stringDateIsValid
+        stringDateIsValid: stringDateIsValid,
+        stringDatetimeIsValid: stringDatetimeIsValid
     };
 })();
