@@ -219,7 +219,7 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 //var $tr = $tr || $this.closest( 'tr' );
                 context.getHistory().putChange( 
                     $this, 
-                    field.getValue( $this ), 
+                    field.getValueForHistory( $this ), 
                     0,
                     $tr.attr( 'data-record-id' ),
                     page.getId(),

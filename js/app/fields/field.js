@@ -41,6 +41,10 @@ Field.prototype.getValue = function( $this ){
     return $this.val();
 };
 
+Field.prototype.getValueForHistory = function( $this ){
+    return this.getValue( $this );
+};
+
 Field.prototype.getValueFromForm = function( $selection ){
     return $selection.find( "[name='" + this.name + "']").val();
 };

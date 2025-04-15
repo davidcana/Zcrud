@@ -446,7 +446,7 @@ FormPage.prototype.bindEvents = function( $form ) {
                 //var field = instance.getFieldByName.call( instance, $this.prop( 'name' ) );
                 context.getHistory().putChange( 
                     $this, 
-                    field.getValue( $this ), 
+                    field.getValueForHistory( $this ), 
                     0,
                     '1',
                     instance.id,

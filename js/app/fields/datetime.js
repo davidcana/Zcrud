@@ -92,7 +92,7 @@ Datetime.prototype.setValueToFormForDatetime = function( value, $this, manageTim
     
     var formattedValue = this.formatToClient( value );
     $this
-        .val( formattedValue )
+        .val( formattedValue || value )  // Use string value if formattedValue is not a valid date
         .attr( this.pickerValueAttr, formattedValue );
 
     if ( this.inline ){
@@ -127,7 +127,13 @@ Datetime.prototype.updateTime = function( $datetime, timeObject ){
 };
 
 Datetime.prototype.parseDate = function( datetimeString ){
-    return this.dateFormatter.parseDate( datetimeString, this.getI18nFormat() );
+
+    try {
+        return this.dateFormatter.parseDate( datetimeString, this.getI18nFormat() );
+
+    } catch ( error ) {
+        return null;
+    }
 };
 
 Datetime.prototype.getValueFromString = function( stringValue ){
@@ -145,6 +151,11 @@ Datetime.prototype.getValueFromString = function( stringValue ){
 
 Datetime.prototype.getValue = function( $this ){
     return this.getValueFromString( $this.val() );
+};
+
+Datetime.prototype.getValueForHistory = function( $this ){
+    const value = this.getValue( $this );
+    return value? value: $this.val();
 };
 
 Datetime.prototype.afterProcessTemplateForField = function( params, $selection ){
@@ -949,9 +960,13 @@ Datetime.prototype.buildDatetimeInstance = function( $datetime ){
 
 Datetime.prototype.formatToClient = function( dateInstance ){
     
-    return dateInstance?
-        this.dateFormatter.formatDate( dateInstance, this.getI18nFormat() ):
-        '';
+    try {
+        return dateInstance?
+            this.dateFormatter.formatDate( dateInstance, this.getI18nFormat() ):
+            '';
+    } catch ( error ) {
+        return '';
+    }
 };
 
 Datetime.prototype.buildDatetimeValue = function( $datetime ){

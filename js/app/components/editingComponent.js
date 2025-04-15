@@ -65,7 +65,7 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
                 //var $tr = $this.closest( 'tr' );
                 context.getHistory().putChange( 
                     $this, 
-                    field.getValue( $this ),
+                    field.getValueForHistory( $this ),
                     $tr.attr( 'data-record-index' ),
                     $tr.attr( 'data-record-id' ),
                     instance.listPage.getId(),

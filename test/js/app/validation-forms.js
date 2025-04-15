@@ -510,7 +510,7 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
             testHelper.clickUndoButton();
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             testHelper.checkForm( assert, newRecord );
-            
+
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
             assert.equal( errorFunctionCounter, 0 );
@@ -519,6 +519,61 @@ QUnit.test( "update undo/redo validation test", function( assert ) {
             
             // Go to edit form again and check record
             testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( "update undo/redo validation test (date)", function( assert ) {
+    
+    testServerSide.resetServices();
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    $( '#departmentsContainer' ).zcrud(
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                "id": "" + key,
+                "name": "Service " + key
+            };
+            testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
+
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "date": "a",    // Validation must fail here!
+            };
+
+            testHelper.fillForm( editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            testHelper.checkForm( assert, newRecord );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            
+            // Try to create record (1 error)
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 1 );
+            errorFunctionCounter = 0;
+            testHelper.checkForm( assert, newRecord );
+            
+            // Fix the form undoing
+            testHelper.clickUndoButton();
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+            newRecord.date = '';
+            testHelper.checkForm( assert, newRecord );
+
+            // Force error again
+            testHelper.clickRedoButton();
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            newRecord.date = 'a';
             testHelper.checkForm( assert, newRecord );
 
             done();
