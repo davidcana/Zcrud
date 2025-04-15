@@ -200,6 +200,16 @@ QUnit.test( "update validation test (date)", function( assert ) {
             testHelper.setFormVal( newRecord, 'date' );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
+            // Force validation error
+            newRecord.date = "10/34/2017";
+            testHelper.setFormVal( newRecord, 'date' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            
+            // Fix the form again
+            newRecord.date = "11/23/2017";
+            testHelper.setFormVal( newRecord, 'date' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ) );
@@ -332,6 +342,16 @@ QUnit.test( "update validation test (datetime)", function( assert ) {
             testHelper.setFormVal( newRecord, 'datetime' );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
+            // Force validation error
+            newRecord.datetime = "10/38/2019 20:00";
+            testHelper.setFormVal( newRecord, 'datetime' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+
+            // Fix the form again
+            newRecord.datetime = "12/23/2019 20:00";
+            testHelper.setFormVal( newRecord, 'datetime' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+
             // Create record (no errors)
             testHelper.clickFormSubmitButton();
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( newRecord, options.fields ) );
