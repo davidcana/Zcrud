@@ -121,4 +121,12 @@ Field.prototype.goToFirstPage = function(){
     // Nothing to do
 };
 
+Field.prototype.getAttributesFor = function( fieldAttributes ){
+    return this.attributes[
+        fieldAttributes?
+        fieldAttributes:
+        'field'
+    ];
+};
+
 module.exports = Field;

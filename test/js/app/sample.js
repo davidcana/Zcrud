@@ -80,6 +80,9 @@ var options = {
                     maxlength: 12,
                     pattern: '[0-9a-zA-Z ]{3,12}'
                 },
+                filterField: {
+                    maxlength: 6
+                },
                 rowHeader: {
                     style: 'width:90%'
                 }

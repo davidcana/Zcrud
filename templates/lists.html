@@ -32,7 +32,8 @@
                     </div>
                 </div>
                 
-                <div data-use-macro="'table'">
+                <div data-use-macro="'table'"
+                     data-define="fieldAttributes 'field'">
                     The ZCrud table
                 </div>
 
@@ -153,7 +154,8 @@
         <div data-define-macro="filterPanel" 
              data-define="component instance/getComponent( 'filtering' );
                            thisOptions component/getThisOptions();
-                           record component/getInitialRecord()"
+                           record component/getInitialRecord();
+                           fieldAttributes 'filterField'"
              data-attributes="class cond: thisOptions/cssClass (string:${component/getClass()} ${thisOptions/cssClass}) component/getClass()"
              data-domain="i18nArray">
             <form>

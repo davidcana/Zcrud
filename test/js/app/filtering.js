@@ -56,6 +56,10 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
+            // Check maxlength in filterField is applied correctly
+            var nameMaxlength = $( 'input[name="name"]' ).attr( 'maxlength' );
+            assert.equal( nameMaxlength, 19 );
+
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({
                 action: { 
@@ -122,7 +126,7 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '>', '>>' ]
             });
-            
+
             done();
         }
     );
@@ -161,9 +165,13 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
         options,
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'renderList' );
-            
+
             // Go to edit form
             testHelper.clickUpdateListButton( serviceKey );
+            
+            // Check maxlength in filterField is applied correctly
+            var nameMaxlength = $( 'input[name="members-name"]' ).attr( 'maxlength' );
+            assert.equal( nameMaxlength, 19 );
             
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18, itemName ) );
             testHelper.pagingSubformTest({
@@ -271,6 +279,10 @@ QUnit.test( "filtering list (standard list of fields) test", function( assert ) 
         options,
         function( options ){
             $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Check maxlength in filterField is applied correctly
+            var nameMaxlength = $( 'input[name="name"]' ).attr( 'maxlength' );
+            assert.equal( nameMaxlength, 19 );
 
             var values = testHelper.buildCustomValuesList( 1, testHelper.buildValuesList( 10, 18 ) );
             testHelper.pagingTest({

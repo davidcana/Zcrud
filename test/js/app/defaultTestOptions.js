@@ -96,6 +96,9 @@ module.exports = {
                     maxlength: 20,
                     pattern: '.{3,20}' // Must use pattern to make the tests work properly
                 },
+                filterField: {
+                    maxlength: 19
+                },
                 rowHeader: {
                     style: 'width:90%'
                 }

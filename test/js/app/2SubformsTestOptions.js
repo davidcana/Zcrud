@@ -93,7 +93,13 @@ module.exports = {
             subformKey: 'code',
             fields: { 
                 code: { },
-                name: { },
+                name: {
+                    attributes:{
+                        filterField: {
+                            maxlength: 19
+                        }
+                    }
+                },
                 description: {
                     type: 'textarea',
                     sorting: false,
