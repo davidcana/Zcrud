@@ -5,7 +5,7 @@
         <title>Templates of date/time fields</title>
     </head>
     <body>                        
-        <div data-define-macro="date">
+        <div data-define-macro="date" data-omit-tag="">
             <div data-attributes="style cond: field/inline 'display: none;' null">
                 <input data-define="formattedValue field/formatToClient( value )"
                        data-attributes="id cond: renderIds field/elementId null;
@@ -35,7 +35,7 @@
             </div>
         </div>
         
-        <div data-define-macro="time">
+        <div data-define-macro="time" data-omit-tag="">
             
             <div data-attributes="style cond: field/inline 'display: none;' null">
                 <input data-attributes="id cond: renderIds field/elementId null;
@@ -66,7 +66,7 @@
             </div>
         </div>
         
-        <div data-define-macro="datetime">
+        <div data-define-macro="datetime" data-omit-tag="">
             <div data-attributes="style cond: field/inline 'display: none;' null">
                 <input data-define="formattedValue field/formatToClient( value )"
                        data-attributes="id cond: renderIds field/elementId null;
