@@ -441,6 +441,13 @@ input:focus:invalid {
 
 span.zcrud-validationMessage {
   color: red;
+  background-color: yellow; }
+
+div.zcrud-form-updatable span.zcrud-validationMessage {
   float: right; }
+
+table span.zcrud-validationMessage {
+  position: absolute;
+  margin-top: 1.75em; }
 
 /*# sourceMappingURL=theme.css.map */

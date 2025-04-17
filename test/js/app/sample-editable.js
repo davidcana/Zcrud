@@ -73,7 +73,7 @@ var options = {
                 field: {
                     minlength: 3,
                     maxlength: 20,
-                    pattern: '.{3,20}' // Must use pattern to make the tests work properly
+                    pattern: '[0-9a-zA-Z ]{3,12}' // Must use pattern to make the tests work properly
                 }
             }
         },
