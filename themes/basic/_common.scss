@@ -307,15 +307,16 @@ div.zcrud-main-container {
     }
     
     // Modified fields
-    td.zcrud-modified-field {
+    td.zcrud-modified-field,
+    tr.zcrud-modified-row td, div.zcrud-modified-field {
         background-image: url('#{$images-url}/square-dirty.gif');
         background-repeat: no-repeat;
         background-position: left top;
     }
 
-    tr.zcrud-modified-row td, div.zcrud-modified-field {
-        background-color: $modified-row-background-color;
-    }
+    //tr.zcrud-modified-row td, div.zcrud-modified-field {
+    //    background-color: $modified-row-background-color;
+    //}
     
     // Form validation
     .valid {}
@@ -553,8 +554,8 @@ input:focus:invalid {
 }
 
 span.zcrud-validationMessage {
-    color: red;
-    background-color: yellow;
+    color: white;
+    background-color: red;
 }
 
 div.zcrud-form-updatable span.zcrud-validationMessage {

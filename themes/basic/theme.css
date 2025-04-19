@@ -253,12 +253,11 @@ div.zcrud-main-container {
     border: 1px solid #ddd; }
     div.zcrud-main-container .zcrud-filter-panel .zcrud-label::after {
       content: ": "; }
-  div.zcrud-main-container td.zcrud-modified-field {
+  div.zcrud-main-container td.zcrud-modified-field,
+  div.zcrud-main-container tr.zcrud-modified-row td, div.zcrud-main-container div.zcrud-modified-field {
     background-image: url("./images/square-dirty.gif");
     background-repeat: no-repeat;
     background-position: left top; }
-  div.zcrud-main-container tr.zcrud-modified-row td, div.zcrud-main-container div.zcrud-modified-field {
-    background-color: #f0cac6; }
   div.zcrud-main-container .error {
     color: White;
     background-color: #ff3600; }
@@ -440,8 +439,8 @@ input:focus:invalid {
   box-shadow: none; }
 
 span.zcrud-validationMessage {
-  color: red;
-  background-color: yellow; }
+  color: white;
+  background-color: red; }
 
 div.zcrud-form-updatable span.zcrud-validationMessage {
   float: right; }
