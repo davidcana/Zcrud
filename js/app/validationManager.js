@@ -173,7 +173,10 @@ module.exports = (function() {
                 showErrorsForForm( eventData.$form, options );
             }
             
-            form.reportValidity();
+            // Show browser validation message if configured
+            if ( options.validation.useBrowserMessages ){
+                form.reportValidity();
+            }
         }
 
         // If both results are true the form is valid
