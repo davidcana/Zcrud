@@ -254,7 +254,7 @@ div.zcrud-main-container {
     div.zcrud-main-container .zcrud-filter-panel .zcrud-label::after {
       content: ": "; }
   div.zcrud-main-container td.zcrud-modified-field,
-  div.zcrud-main-container tr.zcrud-modified-row td, div.zcrud-main-container div.zcrud-modified-field {
+  div.zcrud-main-container div.zcrud-modified-field {
     background-image: url("./images/square-dirty.gif");
     background-repeat: no-repeat;
     background-position: left top; }
