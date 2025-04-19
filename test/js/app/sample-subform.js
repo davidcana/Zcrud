@@ -180,7 +180,7 @@ var defaultTestOptions = {
         isOn: true
     }
 };
-
+/*
 defaultTestOptions.fields.members.fields = { 
     code: { },
     name: {
@@ -213,60 +213,56 @@ defaultTestOptions.fields.members.fields = {
         inline: false
     }
 };
+*/
 
-var options = undefined;
+// Setup services
+testServerSide.resetServices();
+var key = 4;
+var record = {
+    "id": "" + key,
+    "name": "Service " + key,
+    "time": "20:30",
+    "datetime": "2017-03-10T20:00:00.000Z",
+    "date": "2017-03-14T00:00:00.000Z",
+    "members": [
+        {
+            "code": "1",
+            "name": "Bart Simpson",
+            "time": "20:00",
+            "datetime": "2017-09-10T20:00:00.000Z",
+            "date": "2017-09-10T00:00:00.000Z"
+        },
+        {
+            "code": "2",
+            "name": "Lisa Simpson",
+            "time": "14:00",
+            "datetime": "2018-07-02T14:00:00.000Z",
+            "date": "2018-07-02T00:00:00.000Z"
+        }
+    ]
+};
+testServerSide.setService( key, record );
 
 var errorFunctionCounter = 0;
-
 defaultTestOptions.errorFunction = function( message ){
     ++errorFunctionCounter;
 };
 
+var options = utils.extend( true, {}, defaultTestOptions );
 
-    options = utils.extend( true, {}, defaultTestOptions );
+$( '#departmentsContainer' ).zcrud( 
+    'init',
+    options,
+    function( options ){
+        
+        //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
+        //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
+        
+        //errorFunctionCounter = 0;
+        $( '#departmentsContainer' ).zcrud( 'renderList' );
+        
+        // Go to edit form
+        //testHelper.clickUpdateListButton( key );
 
-    $( '#departmentsContainer' ).zcrud( 
-        'init',
-        options,
-        function( options ){
-
-            // Setup services
-            testServerSide.resetServices();
-            var key = 4;
-            var record = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "time": "20:30",
-                "datetime": "2017-03-10T20:00:00.000Z",
-                "date": "2017-03-14T00:00:00.000Z",
-                "members": [
-                    {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "time": "20:00",
-                        "datetime": "2017-09-10T20:00:00.000Z",
-                        "date": "2017-09-10T00:00:00.000Z"
-                    },
-                    {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "time": "14:00",
-                        "datetime": "2018-07-02T14:00:00.000Z",
-                        "date": "2018-07-02T00:00:00.000Z"
-                    }
-                ]
-            };
-            testServerSide.setService( key, record );
-
-            //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
-            
-            errorFunctionCounter = 0;
-            $( '#departmentsContainer' ).zcrud( 'renderList' );
-            
-            // Go to edit form
-            testHelper.clickUpdateListButton( key );
-            
-
-        }
-    );
+    }
+);
