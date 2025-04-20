@@ -84,6 +84,7 @@
     "_calendar": "",
     "togglePickerTitle": "Abrir/cerrar selector",
     "goToCurrentMonth": "Ir al mes actual",
+    "noSelectedDate": "No ha seleccionado ninguna fecha.",
     
     "_validation": "",
     "errorTitle": "Error en el envío del formulario",

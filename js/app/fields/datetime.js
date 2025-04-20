@@ -941,8 +941,12 @@ Datetime.prototype.buildDatetimeInstance = function( $datetime ){
 
     if ( processDate ){
         var $selectedDate = this.get$selectedCell( $datetime );
-        if ( ! $selectedDate ){
-            context.showError( this.page.getOptions(), false, 'No selected items!' );
+        if ( ! $selectedDate.length ){
+            context.showError(
+                this.page.getOptions(),
+                false,
+                context.translate( 'noSelectedDate' )
+            );
             return undefined;
         } else {
             day = $selectedDate.attr( 'data-date' );
@@ -997,6 +1001,11 @@ Datetime.prototype.save = function( $datetime, hide ){
             break;
         default:
             throw 'Unknown type in Datetime: ' + this.type;
+    }
+
+    // Do nothing if the user did not select any date
+    if ( ! value ){
+        return;
     }
 
     // Set values and trigger event

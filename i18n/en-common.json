@@ -74,7 +74,7 @@
     "undefinedValueToShow": "(not set)",
     "true": "True",
     "false": "False",
-    
+
     "_buttons": "",
     "Add new record": "Add new record",
     "Undo": "Undo",
@@ -84,6 +84,7 @@
     "_calendar": "",
     "togglePickerTitle": "Open/close picker",
     "goToCurrentMonth": "Go to current month",
+    "noSelectedDate": "No selected date.",
     
     "_validation": "",
     "errorTitle": "Form submission failed!",
