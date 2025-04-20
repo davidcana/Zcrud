@@ -305,7 +305,7 @@ SelectingComponent.prototype.selectionOperationOnRecords = function( records, op
 
 // Get all selected rows
 SelectingComponent.prototype.get$selectedRows = function(){
-    return this.parent.get$().find( '.zcrud-row-selected:not(.zcrud-hidden)' );
+    return this.parent.get$().find( '.zcrud-row-selected:not(.zcrud-hide-marker)' );
 };
 SelectingComponent.prototype.getSelectedRows = SelectingComponent.prototype.get$selectedRows;
 

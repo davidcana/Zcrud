@@ -358,7 +358,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
 
         // Remove hidden trs
         if ( removeHidden ){
-            $list.find( 'tr.zcrud-data-row.zcrud-hidden' ).remove();
+            $list.find( 'tr.zcrud-data-row.zcrud-hide-marker' ).remove();
             //$list.find( 'tr.zcrud-data-row:hidden' ).remove();
         }
     };
@@ -389,12 +389,12 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     };
     
     var hideTr = function( $tr ){
-        $tr.addClass( 'zcrud-hidden' );
+        $tr.addClass( 'zcrud-hide-marker' );
         editableOptions.hideTr( $tr );
     };
     
     var showTr = function( $tr ){
-        $tr.removeClass( 'zcrud-hidden' );
+        $tr.removeClass( 'zcrud-hide-marker' );
         editableOptions.showTr( $tr );
     };
     
@@ -430,7 +430,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             var creationHistoryItems = historyItem.getCreationItems( subformId );
             for ( var d = 0; d < creationHistoryItems.length; ++d ){
                 var $tr = creationHistoryItems[ d ].get$Tr();
-                if ( ! $tr.hasClass( 'zcrud-hidden' ) ){
+                if ( ! $tr.hasClass( 'zcrud-hide-marker' ) ){
                     result.push( $tr );
                 }
             }

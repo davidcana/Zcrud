@@ -64,10 +64,10 @@ module.exports = (function() {
     };
     
     var countVisibleRows = function( options ){
-        return getCurrentList( options ).find( '.zcrud-data-row:not(.zcrud-hidden)' ).length;
+        return getCurrentList( options ).find( '.zcrud-data-row:not(.zcrud-hide-marker)' ).length;
     };
     var countVisibleSubformRows = function( subformName ){
-        return get$FormFieldByNameClass( subformName ).find( '.zcrud-data-row:not(.zcrud-hidden)' ).length;
+        return get$FormFieldByNameClass( subformName ).find( '.zcrud-data-row:not(.zcrud-hide-marker)' ).length;
     };
     
     var pagingInfo = function( options ){
@@ -1206,7 +1206,7 @@ module.exports = (function() {
         /*
         var result = [];
         $field
-            .find( ".zcrud-data-row:not(.zcrud-hidden)" )
+            .find( ".zcrud-data-row:not(.zcrud-hide-marker)" )
             .each( function() {
             
                 var $this = $( this );
@@ -1239,7 +1239,7 @@ module.exports = (function() {
 
         var result = [];
         $field
-            .find( ".zcrud-data-row:not(.zcrud-hidden)" )
+            .find( ".zcrud-data-row:not(.zcrud-hide-marker)" )
             .each( 
             function() {
                 var $this = $( this );
@@ -1284,7 +1284,7 @@ module.exports = (function() {
 
         var result = [];
         $field
-            .find( ".zcrud-data-row:not(.zcrud-hidden)" )
+            .find( ".zcrud-data-row:not(.zcrud-hide-marker)" )
             .each( function() {
 
             var $this = $( this );
@@ -1700,7 +1700,7 @@ module.exports = (function() {
         
         var result = [];
         
-        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hidden)' );
+        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hide-marker)' );
         $rows.each( function() {
             var $this = $( this );
             result.push( $this.attr( 'data-record-key' ) );
@@ -1715,7 +1715,7 @@ module.exports = (function() {
         keyFieldId = keyFieldId || 'code';
         var keyClassSelector = '.zcrud-column-data-' + keyFieldId;
         
-        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hidden)' );
+        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hide-marker)' );
         $rows.each( function() {
             var $this = $( this );
             var key = $this.find( keyClassSelector ).text().trim();
@@ -1731,7 +1731,7 @@ module.exports = (function() {
         keyFieldId = keyFieldId || 'code';
         var keyFieldName = subformId + '-' + keyFieldId;
         
-        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hidden)' );
+        var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hide-marker)' );
         $rows.each( function() {
             var $this = $( this );
             var key = $this.find( "[name='" + keyFieldName +"']" ).val();
