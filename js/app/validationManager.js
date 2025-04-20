@@ -87,7 +87,7 @@ module.exports = (function() {
             // No validation error
             
             // Remove previous validation error message, if any
-            setValidationMessage( el, '' );
+            clearValidationMessage( el, '' );
 
             return;
         }
@@ -108,17 +108,30 @@ module.exports = (function() {
             
             const message = getErrorMessage( el, options, validity, fieldValidationValue );
             el.setCustomValidity( message );    // To force input:invalid in HTML
-            setValidationMessage( el, message );
+            showValidationMessage( el, message );
         }
+    };
+
+    var clearValidationMessage = function( el ){
+
+        setValidationMessage( el, '' )
+            .addClass( 'zcrud-hidden' );
+    };
+    
+    var showValidationMessage = function( el, message ){
+
+        setValidationMessage( el, message )
+            .removeClass( 'zcrud-hidden' );
     };
 
     var setValidationMessage = function( el, message ){
 
-        //const $label = $( el ).parents( 'label' ).first();
         const $field = $( el ).parents( '.zcrud-like-field' ).first();
         const $valMessageEl = $field.find( '.zcrud-validationMessage' ).first();
 
         $valMessageEl.text( message );
+
+        return $valMessageEl;
     };
 
     /*

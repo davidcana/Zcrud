@@ -556,6 +556,8 @@ input:focus:invalid {
 span.zcrud-validationMessage {
     color: white;
     background-color: red;
+    padding: .25em .5em .25em .5em;
+    border-radius: 10px;
 }
 
 div.zcrud-form-updatable span.zcrud-validationMessage {
@@ -567,3 +569,7 @@ table span.zcrud-validationMessage {
     margin-top: 1.75em;
 }
 
+// Hide elements. Do not mix with zcrud-hidden-marker, a style used as a marker that is not defined in CSS files
+.zcrud-hidden {
+    display: none;
+}
