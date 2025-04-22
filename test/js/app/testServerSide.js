@@ -1508,6 +1508,9 @@ module.exports = (function() {
         for ( var id in modified ){
             var fieldId = removeChars( id, subformsRecordsSuffix );
             if ( subformsFields.indexOf( fieldId ) !== -1 ){
+                if ( current[ fieldId ] == undefined ){
+                    current[ fieldId ] = [];
+                }
                 subformFieldBatchUpdate( 
                     modified[ id ], 
                     current[ fieldId ], 

@@ -132,7 +132,8 @@ module.exports = (function() {
     
         for ( var c = 0; c < fields.length; c++ ) {
             var field = fields[ c ];
-            if ( field.type == 'subform' && record[ field.id ] && row[ field.id ] ){
+            if ( field.type == 'subform' && row[ field.id ] ){
+            //if ( field.type == 'subform' && record[ field.id ] && row[ field.id ] ){
                 var subform = build1Row( 
                     row[ field.id ], 
                     buildRecordsMap( 
@@ -162,14 +163,15 @@ module.exports = (function() {
         
         var recordsMap = {};
         
-        for ( var c = 0; c < recordsArray.length; c++ ) {
-            var record = recordsArray[ c ];
-            if ( record ){
-                var key = record[ keyField ];
-                recordsMap[ key ] = record;   
+        if ( recordsArray ){
+            for ( var c = 0; c < recordsArray.length; c++ ) {
+                var record = recordsArray[ c ];
+                if ( record ){
+                    var key = record[ keyField ];
+                    recordsMap[ key ] = record;
+                }
             }
         }
-        
         return recordsMap;
     };
     
