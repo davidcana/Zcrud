@@ -1847,6 +1847,7 @@ module.exports = (function() {
         getSubformPageNumber: getSubformPageNumber,
         getSubformLastRow: getSubformLastRow,
         fromObjectToArray: fromObjectToArray,
-        fillSubformRow: fillSubformRow
+        fillSubformRow: fillSubformRow,
+        getAllValues: getAllValues
     };
 })();

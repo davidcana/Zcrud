@@ -580,3 +580,44 @@ QUnit.test( "update undo/redo validation test (date)", function( assert ) {
         }
     );
 });
+
+QUnit.test( "update validation i18n error messages test", function( assert ) {
+    
+    testServerSide.resetServices();
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    // Configure validation
+    options.fields.name.attributes.field.pattern = '[0-9a-zA-Z ]{3,20}';
+    options.fields.number.attributes.field.required = '';
+
+    $( '#departmentsContainer' ).zcrud(
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            var key = 2;
+
+            // Go to edit form and edit record
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                "name": "Service 2:", // Validation must fail here!
+                "date": "10/34/2017"  // Validation must fail here!
+            };
+
+            testHelper.fillForm( editedRecord );
+            testHelper.clickFormSubmitButton();
+
+            // Validation errors: name, date and number (required)
+            assert.equal( testHelper.getNumberOfValidationErrors(), 3 );
+            var validationMessages = testHelper.getAllValues( '.zcrud-validationMessage' );
+            assert.deepEqual(
+                validationMessages,
+                'Type alphanumeric characters or spaces. Minimum 3, maximum 20./Please, type a valid date./Required field.'
+            );
+
+            done();
+        }
+    );
+});
