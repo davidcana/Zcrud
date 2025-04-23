@@ -1,6 +1,5 @@
 "use strict";
 
-var log4javascript = require( 'log4javascript' );
 var utils = require( './utils.js' );
 var requestHelper = require( './requestHelper.js' );
 
@@ -14,7 +13,6 @@ module.exports = {
     dictionary: {},
 
     saveUserPreferences: true,
-    //body: document.body,
     entityId: 'entity',
     
     defaultComponentsConfig: {
@@ -126,10 +124,13 @@ module.exports = {
                         cols: 80
                     }
                 }
+            },
+            number: {
+                templateType: 'input'
             }
         },
         getDefaultFieldTemplate: function( field ){
-            return field.type + '@templates/fields/basic.html';
+            return ( field.templateType || field.type ) + '@templates/fields/basic.html';
         }
     },
 
@@ -257,7 +258,6 @@ module.exports = {
     },
 
     ajax: {
-        //ajaxFunction: $.ajax,
         ajaxFunction: requestHelper.fetch,
         defaultFormAjaxOptions: {
             dataType   : 'json',
@@ -284,7 +284,6 @@ module.exports = {
     logging: {
         isOn: false,
         level: 'error'
-        //level: log4javascript.Level.ERROR
     },
 
     jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
