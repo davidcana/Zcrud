@@ -129,4 +129,8 @@ Field.prototype.getAttributesFor = function( fieldAttributes ){
     ];
 };
 
+Field.prototype.validate = function( value ){
+    return true;
+};
+
 module.exports = Field;

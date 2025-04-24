@@ -43,12 +43,22 @@ module.exports = (function() {
             .on(
                 'change',
                 function ( event ) {
-                    instance.showErrorForField( this, options, true );
+                    instance.showErrorForField(
+                        this,
+                        options.fields[ event.currentTarget.name ],
+                        options
+                    );
                 }
         );
     };
 
-    var fieldValidation = function( el, options ){
+    var fieldValidation = function( el, field ){
+
+        const $el = $( el );
+        return field? field.validate( $el.val() ): true;
+    };
+    /*
+    var fieldValidation = function( el, field ){
 
         const $el = $( el );
         const type = $el.attr( 'data-fieldValidation' );
@@ -71,8 +81,9 @@ module.exports = (function() {
 
         throw 'ValidateManager can not manage that type: ' + type;
     };
+    */
 
-    var showErrorForField = function( el, options ){
+    var showErrorForField = function( el, field, options ){
 
         const validity = el.validity;
   
@@ -80,7 +91,7 @@ module.exports = (function() {
         el.setCustomValidity( '' );
 
         // Check if the for is valid
-        const fieldValidationValue = fieldValidation( el, options );
+        const fieldValidationValue = fieldValidation( el, field );
         const isValid = validity.valid && fieldValidationValue == true;
         if ( isValid ) {
 
@@ -201,7 +212,11 @@ module.exports = (function() {
         var elements = $item.find( selector ).get();
 
         for ( const el of elements ) {
-            showErrorForField( el, options );
+            showErrorForField(
+                el,
+                options.fields[ el.name ],
+                options
+            );
         }
     };
 

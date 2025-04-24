@@ -94,10 +94,12 @@ var options = {
         },
         date: {
             type: 'date',
-            inline: false
+            minYear: 1973,
+            maxYear: 2035
         },
         time: {
-            type: 'time'
+            type: 'time',
+            maxHour: 23
         },
         datetime: {
             type: 'datetime'

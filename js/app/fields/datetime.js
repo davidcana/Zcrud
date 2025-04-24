@@ -10,6 +10,7 @@ var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 var DateFormatter = require( '../../../lib/php-date-formatter.js' );
+var utils = require( '../utils.js' );
 
 var Datetime = function( properties ) {
     Field.call( this, properties );
@@ -1095,6 +1096,32 @@ Datetime.prototype.updateDatetime = function( value, $datetime ){
             this.buildTimeObjectFromDateInstance( selectedDate );
         this.updateTime( $datetime, timeObject );
     }
+};
+
+Datetime.prototype.validate = function( value ){
+    
+    switch( this.type ) {
+        case 'date':
+            return this.validateDate( value );
+        case 'datetime':
+            return this.validateDatetime( value );
+        case 'time':
+            return this.validateTime( value );
+        default:
+            throw 'Unknown type in Datetime: ' + this.type;
+    }
+};
+
+Datetime.prototype.validateDate = function( value ){
+    return utils.stringDateIsValid( value );
+};
+
+Datetime.prototype.validateDatetime = function( value ){
+    return utils.stringDatetimeIsValid( value );
+};
+
+Datetime.prototype.validateTime = function( value ){
+    return true;
 };
 
 Date.prototype.countDaysInMonth = function () {
