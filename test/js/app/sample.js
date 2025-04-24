@@ -154,13 +154,13 @@ var options = {
             type: 'checkbox'
         },
         number: {
+            type: 'number',
             attributes: {
                 field: {
                     required: '',
                     min: 1,
                     max: 10,
-                    step: .1,
-                    type: 'number'
+                    step: .1
                 }
             }
         }

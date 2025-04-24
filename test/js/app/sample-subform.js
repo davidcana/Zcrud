@@ -130,11 +130,7 @@ var defaultTestOptions = {
             type: 'checkbox'
         },
         number: {
-            attributes: {
-                field: {
-                    type: 'number'
-                }
-            }
+            type: 'number'
         },
         members: {
             type: 'subform',

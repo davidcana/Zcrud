@@ -589,7 +589,11 @@ QUnit.test( "update validation i18n error messages test", function( assert ) {
     
     // Configure validation
     options.fields.name.attributes.field.pattern = '[0-9a-zA-Z ]{3,20}';
-    options.fields.number.attributes.field.required = '';
+    options.fields.number.attributes = {
+        field: {
+            required: ''
+        }
+    };
 
     $( '#departmentsContainer' ).zcrud(
         'init',

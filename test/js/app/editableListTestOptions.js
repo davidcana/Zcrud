@@ -149,12 +149,12 @@ module.exports = {
             type: 'checkbox'
         },
         number: {
+            type: 'number',
             attributes: {
                 field: {
                     min: 0,
                     max: 10,
-                    step: 1,
-                    type: 'number'
+                    step: 1
                 }
             }
         }

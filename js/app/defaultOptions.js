@@ -126,11 +126,11 @@ module.exports = {
                 }
             },
             number: {
-                templateType: 'input'
+                templateMacro: 'text'
             }
         },
         getDefaultFieldTemplate: function( field ){
-            return ( field.templateType || field.type ) + '@templates/fields/basic.html';
+            return ( field.templateMacro || field.type ) + '@templates/fields/basic.html';
         }
     },
 

@@ -143,11 +143,7 @@ var options = {
             type: 'checkbox'
         },
         number: {
-            attributes: {
-                field: {
-                    type: 'number'
-                }
-            }
+            type: 'number'
         }
     },
 

@@ -10,8 +10,8 @@
                                      name field/name;
                                      value ( value | '' );
                                      class cond: isNotHistoryField null 'historyField';
-                                     field/getAttributesFor(fieldAttributes)"
-                   type="text">
+                                     field/getAttributesFor(fieldAttributes);
+                                     type field/type">
         </div>
         
         <div data-define-macro="textarea" data-omit-tag="">
@@ -20,15 +20,6 @@
                                         class cond: isNotHistoryField null 'historyField';
                                         field/getAttributesFor(fieldAttributes)"
                       data-content="cond: value value ''">The textarea value.</textarea>
-        </div>
-        
-        <div data-define-macro="datetime" data-omit-tag="">
-            <input data-attributes="id cond: renderIds field/elementId null;
-                                     name field/name;
-                                     value value;
-                                     class cond: isNotHistoryField null 'historyField';
-                                     field/getAttributesFor(fieldAttributes)"
-                   type="text">
         </div>
             
         <div data-define-macro="select" data-omit-tag="">

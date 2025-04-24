@@ -152,11 +152,7 @@ module.exports = {
             type: 'checkbox'
         },
         number: {
-            attributes: {
-                field: {
-                    type: 'number'
-                }
-            }
+            type: 'number'
         },
         hobbies: {
             type: 'checkboxes',
