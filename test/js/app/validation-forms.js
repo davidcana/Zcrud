@@ -153,6 +153,10 @@ QUnit.test( "update validation test (date)", function( assert ) {
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
     
+    // Configure data validation
+    options.fields.date.minYear = 1973;
+    options.fields.date.maxYear = 2025;
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
@@ -200,8 +204,18 @@ QUnit.test( "update validation test (date)", function( assert ) {
             testHelper.setFormVal( newRecord, 'date' );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
-            // Force validation error
+            // Force validation error: invalid data
             newRecord.date = "10/34/2017";
+            testHelper.setFormVal( newRecord, 'date' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            
+            // Force validation error: maxDate
+            newRecord.date = "10/10/2027";
+            testHelper.setFormVal( newRecord, 'date' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+
+            // Force validation error: minDate
+            newRecord.date = "10/10/1972";
             testHelper.setFormVal( newRecord, 'date' );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             
@@ -228,7 +242,10 @@ QUnit.test( "update validation test (time)", function( assert ) {
     testServerSide.resetServices();
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
-    
+
+    // Configure data validation
+    options.fields.time.maxHour = 23;
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
@@ -271,6 +288,11 @@ QUnit.test( "update validation test (time)", function( assert ) {
             errorFunctionCounter = 0;
             testHelper.checkForm( assert, newRecord );
             
+            // Force error: maxHour
+            newRecord.time = '26:22';
+            testHelper.setFormVal( newRecord, 'time' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+
             // Fix the form
             newRecord.time = '18:22';
             testHelper.setFormVal( newRecord, 'time' );
@@ -294,7 +316,12 @@ QUnit.test( "update validation test (datetime)", function( assert ) {
     testServerSide.resetServices();
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
-    
+
+    // Configure data validation
+    options.fields.datetime.maxHour = 23;
+    options.fields.datetime.minYear = 1973;
+    options.fields.datetime.maxYear = 2025;
+
     $( '#departmentsContainer' ).zcrud( 
         'init',
         options,
@@ -337,6 +364,21 @@ QUnit.test( "update validation test (datetime)", function( assert ) {
             errorFunctionCounter = 0;
             testHelper.checkForm( assert, newRecord );
             
+            // Force error: maxHour
+            newRecord.datetime = '10/23/2019 26:22';
+            testHelper.setFormVal( newRecord, 'datetime' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+            
+            // Force validation error: maxDate
+            newRecord.datetime = "10/10/2027 12:10";
+            testHelper.setFormVal( newRecord, 'datetime' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+
+            // Force validation error: minDate
+            newRecord.datetime = "10/10/1972 12:10";
+            testHelper.setFormVal( newRecord, 'datetime' );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
+
             // Fix the form
             newRecord.datetime = "10/23/2019 20:00";
             testHelper.setFormVal( newRecord, 'datetime' );

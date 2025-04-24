@@ -102,7 +102,9 @@ var options = {
             maxHour: 23
         },
         datetime: {
-            type: 'datetime'
+            type: 'datetime',
+            minYear: 1973,
+            maxYear: 2035
         },
         phoneType: {
             type: 'radio',

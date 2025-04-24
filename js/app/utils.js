@@ -156,12 +156,7 @@ module.exports = (function() {
         return isPlainObject( params )? params[ paramId ]: undefined;
     };
 
-    var stringDateIsValid = function( stringDate, del = '/' ){
-
-        // If the stringDate is empty is also valid
-        if ( ! stringDate ){
-            return true;
-        }
+    var extractDateItems = function( stringDate, del = '/' ){
 
         var dayIndex = parseInt( context.translate( 'dayIndex' ), 10 );
         var monthIndex = parseInt( context.translate( 'monthIndex' ), 10 );
@@ -171,6 +166,35 @@ module.exports = (function() {
         var day = dateArray[ dayIndex ];            // In spanish 0, in english 1
         var month = dateArray[ monthIndex ] - 1;    // In spanish 1, in english 0
         var year = dateArray[ yearIndex ];          // In spanish 2, in english 2
+
+        return {
+            day: day,
+            month: month,
+            year: year
+        };
+    };
+
+    var stringDateIsValid = function( stringDate, del = '/' ){
+
+        // If the stringDate is empty is also valid
+        if ( ! stringDate ){
+            return true;
+        }
+        /*
+        var dayIndex = parseInt( context.translate( 'dayIndex' ), 10 );
+        var monthIndex = parseInt( context.translate( 'monthIndex' ), 10 );
+        var yearIndex = parseInt( context.translate( 'yearIndex' ), 10 );
+
+        var dateArray = stringDate.split( del );
+        var day = dateArray[ dayIndex ];            // In spanish 0, in english 1
+        var month = dateArray[ monthIndex ] - 1;    // In spanish 1, in english 0
+        var year = dateArray[ yearIndex ];          // In spanish 2, in english 2
+        */
+        // Get day, month and date from stringDate
+        var dateObject = extractDateItems( stringDate, del );
+        var day = dateObject.day;
+        var month = dateObject.month;
+        var year = dateObject.year;
 
         // Build a date instance
         // If a parameter you specify is outside of the expected range, other parameters and the date information in the Date object are updated
@@ -215,6 +239,7 @@ module.exports = (function() {
         isString: isString,
         buildLoggingLevel: buildLoggingLevel,
         getParam: getParam,
+        extractDateItems: extractDateItems,
         stringDateIsValid: stringDateIsValid,
         stringDatetimeIsValid: stringDatetimeIsValid
     };

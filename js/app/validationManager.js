@@ -162,8 +162,11 @@ module.exports = (function() {
         
         // Clone validity
         const validityClone = utils.extend( true, [], validity );
-        if ( ! fieldValidationValue ){
-            validityClone[ 'typeMismatch' ] = true;
+        //if ( ! fieldValidationValue ){
+        //    validityClone[ 'typeMismatch' ] = true;
+        //}
+        if ( utils.isString( fieldValidationValue ) ){
+            validityClone[ fieldValidationValue ] = true;
         }
 
         // Iterate validityNames

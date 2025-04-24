@@ -1113,15 +1113,76 @@ Datetime.prototype.validate = function( value ){
 };
 
 Datetime.prototype.validateDate = function( value ){
-    return utils.stringDateIsValid( value );
+    if ( ! utils.stringDateIsValid( value ) ){
+        return 'typeMismatch';
+    }
+
+    return this.validateDatePart( value );
+};
+
+Datetime.prototype.validateDatePart = function( value ){
+    const dateObject = utils.extractDateItems( value );
+    if ( dateObject.year > this.maxYear ){
+        return 'rangeOverflow';
+    }
+    if ( dateObject.year < this.minYear ){
+        return 'rangeUnderflow';
+    }
+
+    return true;
+};
+
+Datetime.prototype.validateTimePart = function( value ){
+
+    // Split datetime into date and time
+    var timeArray = value.split( ':' );
+    var hour = parseInt( timeArray[ 0 ], 10 );
+
+    if ( hour > this.maxHour ){
+        return 'rangeOverflow';
+    }
+
+    return true;
 };
 
 Datetime.prototype.validateDatetime = function( value ){
-    return utils.stringDatetimeIsValid( value );
+
+    // Validations must be ok if thre is no value
+    if ( ! value ){
+        return true;
+    }
+
+    // If the datetime value is not valid, return typeMismatch
+    if ( ! utils.stringDatetimeIsValid( value ) ){
+        return 'typeMismatch';
+    }
+
+    // Must check datePart and timePart
+
+    // Split datetime into date and time
+    var datetimeArray = value.split( ' ' );
+    var stringDate = datetimeArray[ 0 ];
+    var stringTime = datetimeArray[ 1 ];
+
+    // Validate date
+    var datePartValidation = this.validateDatePart( stringDate );
+    if ( utils.isString( datePartValidation ) ){
+        return datePartValidation;
+    }
+
+    // Validate time
+    var dateTimeValidation = this.validateTimePart( stringTime );
+    if ( utils.isString( dateTimeValidation ) ){
+        return dateTimeValidation;
+    }
+
+    return true;
 };
 
 Datetime.prototype.validateTime = function( value ){
-    return true;
+    return value?
+        this.validateTimePart( value ):
+        true;
 };
 
 Date.prototype.countDaysInMonth = function () {
