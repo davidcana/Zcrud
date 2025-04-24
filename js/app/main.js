@@ -1,6 +1,8 @@
 /* 
     Main class of ZCrud
 */
+'use strict';
+
 var zpt = require( 'zpt' );
 var log = zpt.logHelper;
 var context = require( './context.js' );

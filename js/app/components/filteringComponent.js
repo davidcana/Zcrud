@@ -3,9 +3,9 @@
 */
 'use strict';
 
-var context = require( '../context.js' );
+//var context = require( '../context.js' );
 var Component = require( './component.js' );
-var pageUtils = require( '../pages/pageUtils.js' );
+//var pageUtils = require( '../pages/pageUtils.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var utils = require( '../utils.js' );

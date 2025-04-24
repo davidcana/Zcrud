@@ -2,7 +2,7 @@
     fieldListBuilder singleton class
 */
 
-var context = require( '../context.js' );
+//var context = require( '../context.js' );
 var normalizer = require( '../normalizer.js' );
 var Container = require( './container.js' );
 var utils = require( '../utils.js' );

@@ -6,9 +6,9 @@
 //var $ = require( 'zzdom' );
 var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var $ = zzDOM.zz;
-var context = require( '../../../js/app/context.js' );
+//var context = require( '../../../js/app/context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
-var fieldUtils = require( '../fields/fieldUtils.js' );
+//var fieldUtils = require( '../fields/fieldUtils.js' );
 var utils = require( '../../../js/app/utils.js' );
 
 var Change = function( historyToApply, optionsToApply, recordIdToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {

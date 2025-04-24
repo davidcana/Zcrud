@@ -5,8 +5,8 @@
 var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
 var $ = zzDOM.zz;
 var testServerSide = require( './testServerSide' );
-var context = require( '../../../js/app/context.js' );
-var log4javascript = require( 'log4javascript' );
+//var context = require( '../../../js/app/context.js' );
+//var log4javascript = require( 'log4javascript' );
 
 var options = {
     

@@ -3,7 +3,7 @@
 */
 'use strict';
 
-var context = require( '../context.js' );
+//var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
 var Composition = function( historyToApply ) {

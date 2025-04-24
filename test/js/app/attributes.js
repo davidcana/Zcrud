@@ -6,7 +6,7 @@ var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
 var $ = zzDOM.zz;
 var Qunit = require( 'qunit' );
 var testHelper = require( './testHelper.js' );
-var context = require( '../../../js/app/context.js' );
+//var context = require( '../../../js/app/context.js' );
 var utils = require( '../../../js/app/utils.js' );
 
 var defaultTestOptions = require( './defaultTestOptions.js' );

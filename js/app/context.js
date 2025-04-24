@@ -1,11 +1,12 @@
 /* 
     context singleton class
 */
-module.exports = (function() {
-    'use strict';
+'use strict';
     
-    var zpt = require( 'zpt' );
-    var pageUtils = require( './pages/pageUtils.js' );
+var zpt = require( 'zpt' );
+//var pageUtils = require( './pages/pageUtils.js' );
+
+module.exports = (function() {
     
     //var zptParser = undefined;
     var subformSeparator = '-';

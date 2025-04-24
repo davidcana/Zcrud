@@ -9,7 +9,7 @@ var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
 var context = require( '../../../js/app/context.js' );
-var log4javascript = require( 'log4javascript' );
+//var log4javascript = require( 'log4javascript' );
 
 var defaultTestOptions = {
 

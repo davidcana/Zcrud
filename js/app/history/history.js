@@ -1,11 +1,13 @@
 /* 
     Class History 
 */
+'use strict';
+
 var HistoryChange = require( './change.js' );
 var HistoryCreate = require( './create.js' );
 var HistoryDelete = require( './delete.js' );
 var HistoryCleaner = require( './historyCleaner.js' );
-var crudManager = require( '../crudManager.js' );
+//var crudManager = require( '../crudManager.js' );
 var context = require( '../context.js' );
 //var $ = require( 'zzdom' );
 var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );

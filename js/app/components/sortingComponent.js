@@ -3,7 +3,7 @@
 */
 'use strict';
 
-var context = require( '../context.js' );
+//var context = require( '../context.js' );
 var Component = require( './component.js' );
 //var $ = require( 'zzdom' );
 var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );

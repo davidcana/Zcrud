@@ -6,10 +6,10 @@
 //var $ = require( 'zzdom' );
 var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var $ = zzDOM.zz;
-var context = require( '../context.js' );
+//var context = require( '../context.js' );
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
-var fieldUtils = require( '../fields/fieldUtils.js' );
+//var fieldUtils = require( '../fields/fieldUtils.js' );
 
 var SelectingComponent = function( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
 

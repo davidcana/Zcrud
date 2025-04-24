@@ -7,7 +7,7 @@ var $ = zzDOM.zz;
 var Qunit = require( 'qunit' );
 var utils = require( '../../../js/app/utils.js' );
 var testHelper = require( './testHelper.js' );
-var testServerSide = require( './testServerSide.js' );
+//var testServerSide = require( './testServerSide.js' );
 
 var formOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );

@@ -1,13 +1,14 @@
 /* 
     validationsManager singleton class
 */
-module.exports = (function() {
-    'use strict';
+'use strict';
     
-    var context = require( './context.js' );
-    var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
-    var $ = zzDOM.zz;
-    var utils = require( './utils.js' );
+var context = require( './context.js' );
+var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
+var $ = zzDOM.zz;
+var utils = require( './utils.js' );
+
+module.exports = (function() {
     /*
     required:
         Specifies whether a form field needs to be filled in before the form can be submitted.

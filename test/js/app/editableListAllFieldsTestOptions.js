@@ -2,7 +2,7 @@
 
 //var Qunit = require( 'qunit' );
 var testServerSide = require( './testServerSide' );
-var log4javascript = require( 'log4javascript' );
+//var log4javascript = require( 'log4javascript' );
 
 module.exports = {
 

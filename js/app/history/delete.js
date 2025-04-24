@@ -3,7 +3,7 @@
 */
 'use strict';
 
-var context = require( '../context.js' );
+//var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
 var Delete = function( historyToApply, recordIdToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply, subformRowIndexToApply ) {

@@ -5,10 +5,10 @@
 var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
 var $ = zzDOM.zz;
 var utils = require( '../../../js/app/utils.js' );
-var testHelper = require( './testHelper.js' );
+//var testHelper = require( './testHelper.js' );
 var testServerSide = require( './testServerSide.js' );
-var context = require( '../../../js/app/context.js' );
-var log4javascript = require( 'log4javascript' );
+//var context = require( '../../../js/app/context.js' );
+//var log4javascript = require( 'log4javascript' );
 
 var defaultTestOptions = {
 

@@ -1,13 +1,14 @@
 /* 
     testServerSide singleton class
 */
-module.exports = (function() {
-    'use strict';
+'use strict';
     
-    //var $ = require( 'zzdom' );
-    var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
-    var $ = zzDOM.zz;
-    var utils = require( '../../../js/app/utils.js' );
+//var $ = require( 'zzdom' );
+//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var $ = zzDOM.zz;
+var utils = require( '../../../js/app/utils.js' );
+
+module.exports = (function() {
     
     var defaultPeople = [
         {
