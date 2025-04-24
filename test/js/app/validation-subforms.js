@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -18,7 +18,7 @@ defaultTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create with subforms validation test", function( assert ) {
+QUnit.test( 'create with subforms validation test', function( assert ) {
 
     testServerSide.resetServices();
     
@@ -33,28 +33,28 @@ QUnit.test( "create with subforms validation test", function( assert ) {
             
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3",
-                "members": {
-                    "0": {
-                        "code": "0",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'date': '10/23/2017',
+                'time': '18:50',
+                'datetime': '10/23/2017 20:00',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3',
+                'members': {
+                    '0': {
+                        'code': '0',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
-                    "1": {
-                        "code": "1",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                    '1': {
+                        'code': '1',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 }
             };
@@ -74,7 +74,7 @@ QUnit.test( "create with subforms validation test", function( assert ) {
     );
 });
 
-QUnit.test( "update with updated subforms validation test", function( assert ) {
+QUnit.test( 'update with updated subforms validation test', function( assert ) {
 
     testServerSide.resetServices();
     
@@ -88,18 +88,18 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
             
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -113,14 +113,14 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
             //testHelper.clickCreateSubformRowButton( 'members' );
             //testHelper.fillForm( record );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "-",   // Validation must fail here!
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': '-',   // Validation must fail here!
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -136,13 +136,13 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
 
             // Fix the form
             var editedRecord2 = {
-                "members": {
-                    "1": {
-                        "name": "Lisa Simpson edited"
+                'members': {
+                    '1': {
+                        'name': 'Lisa Simpson edited'
                     }
                 }
             };
-            //editedRecord.members[ 1 ].name = "Lisa Simpson edited";
+            //editedRecord.members[ 1 ].name = 'Lisa Simpson edited';
             testHelper.fillSubform( editedRecord2, 'members' );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
@@ -151,18 +151,18 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             
             var newRecord = {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'members': [
                     {
-                        "code": "1",
-                        "description": "Description of Bart Simpson edited",
-                        "name": "Bart Simpson"
+                        'code': '1',
+                        'description': 'Description of Bart Simpson edited',
+                        'name': 'Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "description": "Description of Lisa Simpson edited",
-                        "name": "Lisa Simpson edited"
+                        'code': '2',
+                        'description': 'Description of Lisa Simpson edited',
+                        'name': 'Lisa Simpson edited'
                     }
                 ]
             };
@@ -177,7 +177,7 @@ QUnit.test( "update with updated subforms validation test", function( assert ) {
     );
 });
 
-QUnit.test( "update with added subforms validation test", function( assert ) {
+QUnit.test( 'update with added subforms validation test', function( assert ) {
 
     testServerSide.resetServices();
 
@@ -191,18 +191,18 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
 
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -214,17 +214,17 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
             testHelper.clickUpdateListButton( key );
 
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "2": {
-                        "code": "3",
-                        "name": "-",   // Validation must fail here!
-                        "description": "Description of Marge Simpson"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '2': {
+                        'code': '3',
+                        'name': '-',   // Validation must fail here!
+                        'description': 'Description of Marge Simpson'
                     },
-                    "3": {
-                        "code": "4",
-                        "name": "Homer Simpson", 
-                        "description": "Description of Homer Simpson"
+                    '3': {
+                        'code': '4',
+                        'name': 'Homer Simpson', 
+                        'description': 'Description of Homer Simpson'
                     }
                 }
             };
@@ -242,9 +242,9 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
             
             // Fix the form
             var editedRecord2 = {
-                "members": {
-                    "2": {
-                        "name": "Marge Simpson"
+                'members': {
+                    '2': {
+                        'name': 'Marge Simpson'
                     }
                 }
             };
@@ -256,28 +256,28 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
 
             var newRecord = {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     },
                     {
-                        "code": "4",
-                        "name": "Homer Simpson", 
-                        "description": "Description of Homer Simpson"
+                        'code': '4',
+                        'name': 'Homer Simpson', 
+                        'description': 'Description of Homer Simpson'
                     }
                 ]
             };
@@ -292,7 +292,7 @@ QUnit.test( "update with added subforms validation test", function( assert ) {
     );
 });
 
-QUnit.test( "update with updated subforms undo/redo 1 action validation test", function( assert ) {
+QUnit.test( 'update with updated subforms undo/redo 1 action validation test', function( assert ) {
 
     testServerSide.resetServices();
 
@@ -306,18 +306,18 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
 
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -328,10 +328,10 @@ QUnit.test( "update with updated subforms undo/redo 1 action validation test", f
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "1": {
-                        "name": "-",  // Validation must fail here!
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '1': {
+                        'name': '-',  // Validation must fail here!
                     }
                 }
             };

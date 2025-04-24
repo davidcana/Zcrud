@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -46,21 +46,21 @@ var options = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }
@@ -90,7 +90,7 @@ var options = {
         },
         description: {
             type: 'textarea'
-            //template: "descriptionTextarea"
+            //template: 'descriptionTextarea'
         },
         date: {
             type: 'date',

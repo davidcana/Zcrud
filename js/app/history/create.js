@@ -1,7 +1,7 @@
 /*
     Create class
 */
-"use strict";
+'use strict';
 
 var zpt = require( 'zpt' );
 var context = require( '../context.js' );

@@ -2,7 +2,7 @@
     context singleton class
 */
 module.exports = (function() {
-    "use strict";
+    'use strict';
     
     var zpt = require( 'zpt' );
     var pageUtils = require( './pages/pageUtils.js' );

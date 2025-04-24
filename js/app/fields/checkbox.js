@@ -1,7 +1,7 @@
 /*
     Checkbox class
 */
-"use strict";
+'use strict';
 
 var Field = require( './field.js' );
 var context = require( '../context.js' );
@@ -15,12 +15,12 @@ Checkbox.prototype.constructor = Checkbox;
 
 Checkbox.prototype.getValue = function( $this ){
     return $this.checked();
-    //return $this.is( ":checked" );
+    //return $this.is( ':checked' );
 };
 
 Checkbox.prototype.getValueFromForm = function( $selection ){
-    return $selection.find( "[name='" + this.name + "']").checked();
-    //return $selection.find( "[name='" + this.name + "']").is( ':checked' );
+    return $selection.find( '[name="' + this.name + '"]').checked();
+    //return $selection.find( '[name='' + this.name + '']' ).is( ':checked' );
 }
 
 Checkbox.prototype.setValueToForm = function( value, $this ){

@@ -1,7 +1,7 @@
 /* 
     Class ComponentsMap 
 */
-"use strict";
+'use strict';
 
 var context = require( '../context.js' );
 var utils = require( '../utils.js' );

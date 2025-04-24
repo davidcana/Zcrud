@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "delete test", function( assert ) {
+QUnit.test( 'delete test', function( assert ) {
 
     var done = assert.async();
     
@@ -38,8 +38,8 @@ QUnit.test( "delete test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -70,7 +70,7 @@ QUnit.test( "delete test", function( assert ) {
     );
 });
 
-QUnit.test( "delete 3 rows test", function( assert ) {
+QUnit.test( 'delete 3 rows test', function( assert ) {
 
     var done = assert.async();
     
@@ -105,7 +105,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
     );
 });
 
-QUnit.test( "delete undo/redo 1 action test", function( assert ) {
+QUnit.test( 'delete undo/redo 1 action test', function( assert ) {
 
     var done = assert.async();
     
@@ -123,8 +123,8 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -165,7 +165,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
     );
 });
 
-QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
+QUnit.test( 'delete undo/redo 3 actions test', function( assert ) {
 
     var done = assert.async();
     
@@ -183,20 +183,20 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             // Delete records
             var key1 = 3;
             var record1 =  {
-                "id": "" + key1,
-                "name": "Service " + key1
+                'id': '' + key1,
+                'name': 'Service ' + key1
             };
             testHelper.clickDeleteRowListButton( key1 );
             var key2 = 5;
             var record2 =  {
-                "id": "" + key2,
-                "name": "Service " + key2
+                'id': '' + key2,
+                'name': 'Service ' + key2
             };
             testHelper.clickDeleteRowListButton( key2 );
             var key3 = 7;
             var record3 =  {
-                "id": "" + key3,
-                "name": "Service " + key3
+                'id': '' + key3,
+                'name': 'Service ' + key3
             };
             testHelper.clickDeleteRowListButton( key3 );
 

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests        
-QUnit.test( "change test", function( assert ) {
+QUnit.test( 'change test', function( assert ) {
 
     var done = assert.async();
     
@@ -38,8 +38,8 @@ QUnit.test( "change test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -57,8 +57,8 @@ QUnit.test( "change test", function( assert ) {
             
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -75,7 +75,7 @@ QUnit.test( "change test", function( assert ) {
     );
 });
 
-QUnit.test( "change with errors test", function( assert ) {
+QUnit.test( 'change with errors test', function( assert ) {
 
     var done = assert.async();
     
@@ -98,9 +98,9 @@ QUnit.test( "change with errors test", function( assert ) {
             // Assert register with key 5 exists
             var key = 5;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
-                //"number": 3
+                'id': '' + key,
+                'name': 'Service ' + key
+                //'number': 3
             };
             testHelper.checkRecord( assert, key, record, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -118,12 +118,12 @@ QUnit.test( "change with errors test", function( assert ) {
 
             // Edit record
             var fillRecord =  {
-                "name": "Service 5 edited",
-                "number": "a"
+                'name': 'Service 5 edited',
+                'number': 'a'
             };
             var editedRecord =  {
-                "name": "Service 5 edited"
-                //"number": "a" // Number input does not allow to write "a"
+                'name': 'Service 5 edited'
+                //'number': 'a' // Number input does not allow to write 'a'
             };
             testHelper.fillEditableList( fillRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -140,7 +140,7 @@ QUnit.test( "change with errors test", function( assert ) {
     );
 });
 
-QUnit.test( "change undo/redo 1 action test", function( assert ) {
+QUnit.test( 'change undo/redo 1 action test', function( assert ) {
     
     var done = assert.async();
     
@@ -158,8 +158,8 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -177,7 +177,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
 
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited"
+                'name': 'Service 2 edited'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -207,7 +207,7 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
     );
 });
 
-QUnit.test( "change undo/redo 3 actions test", function( assert ) {
+QUnit.test( 'change undo/redo 3 actions test', function( assert ) {
     
     var done = assert.async();
     
@@ -225,8 +225,8 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
             // Assert register with key 2 exists
             var key1 = 2;
             var record1 =  {
-                "id": "" + key1,
-                "name": "Service " + key1
+                'id': '' + key1,
+                'name': 'Service ' + key1
             };
             testHelper.checkRecord( assert, key1, record1, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -244,7 +244,7 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
 
             // Edit record
             var editedRecord =  {
-                "name": "Service " + key1 + " edited"
+                'name': 'Service ' + key1 + ' edited'
             };
             testHelper.fillEditableList( editedRecord, key1 );
             var newRecord1 = utils.extend( true, {}, record1, editedRecord );
@@ -255,11 +255,11 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
             // Edit record (2)
             var key2 = 4;
             var record2 =  {
-                "id": "" + key2,
-                "name": "Service " + key2
+                'id': '' + key2,
+                'name': 'Service ' + key2
             };
             var editedRecord2 =  {
-                "name": "Service " + key2 + " edited"
+                'name': 'Service ' + key2 + ' edited'
             };
             testHelper.fillEditableList( editedRecord2, key2 );
             var newRecord2 = utils.extend( true, {}, record2, editedRecord2 );
@@ -270,11 +270,11 @@ QUnit.test( "change undo/redo 3 actions test", function( assert ) {
             // Edit record (3)
             var key3 = 7;
             var record3 =  {
-                "id": "" + key3,
-                "name": "Service " + key3
+                'id': '' + key3,
+                'name': 'Service ' + key3
             };
             var editedRecord3 =  {
-                "name": "Service " + key3 + " edited"
+                'name': 'Service ' + key3 + ' edited'
             };
             testHelper.fillEditableList( editedRecord3, key3 );
             var newRecord3 = utils.extend( true, {}, record3, editedRecord3 );

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -23,7 +23,7 @@ editableListTestOptions.errorFunction = errorFunction;
 
 // Run tests
 
-QUnit.test( "form create record with duplicated key test", function( assert ) {
+QUnit.test( 'form create record with duplicated key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -40,18 +40,18 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
             
             // Go to create form and try to create record
             testHelper.clickCreateListButton();
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " (error)",
-                "description": "Service " + key + " description (duplicated key)",
-                "province": "Cádiz"
+                'id': '' + key,
+                'name': 'Service ' + key + ' (error)',
+                'description': 'Service ' + key + ' description (duplicated key)',
+                'province': 'Cádiz'
             };
             testHelper.fillForm( newRecord );
             testHelper.checkForm( assert, newRecord );
@@ -68,7 +68,7 @@ QUnit.test( "form create record with duplicated key test", function( assert ) {
     );
 });
 
-QUnit.test( "form update record with no duplicated key test", function( assert ) {
+QUnit.test( 'form update record with no duplicated key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -85,8 +85,8 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
@@ -94,8 +94,8 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
             testHelper.clickUpdateListButton( key );
             var newKey = 999;
             var newRecord =  {
-                "id": "" + newKey,
-                "name": "Service " + newKey
+                'id': '' + newKey,
+                'name': 'Service ' + newKey
             };
             testHelper.checkNoRecord( assert, newKey );
             testHelper.fillForm( newRecord );
@@ -114,7 +114,7 @@ QUnit.test( "form update record with no duplicated key test", function( assert )
     );
 });
 
-QUnit.test( "form update record with duplicated key test", function( assert ) {
+QUnit.test( 'form update record with duplicated key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -131,8 +131,8 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
@@ -140,8 +140,8 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             var newKey = 3;
             var newRecord =  {
-                "id": "" + newKey,
-                "name": "Service " + newKey
+                'id': '' + newKey,
+                'name': 'Service ' + newKey
             };
             testHelper.fillForm( newRecord );
             testHelper.checkForm( assert, newRecord );
@@ -158,7 +158,7 @@ QUnit.test( "form update record with duplicated key test", function( assert ) {
     );
 });
 
-QUnit.test( "form delete non existing record test", function( assert ) {
+QUnit.test( 'form delete non existing record test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -175,8 +175,8 @@ QUnit.test( "form delete non existing record test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
@@ -198,7 +198,7 @@ QUnit.test( "form delete non existing record test", function( assert ) {
     );
 });
 
-QUnit.test( "editable list create record with duplicated key test", function( assert ) {
+QUnit.test( 'editable list create record with duplicated key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -219,16 +219,16 @@ QUnit.test( "editable list create record with duplicated key test", function( as
             // Assert record with key 1 exists
             var key = 1;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable, true );
 
             // Try to create
             testHelper.clickCreateRowListButton();
             var newRecord =  {
-                "id": "" + key,
-                "name": "Bad service"
+                'id': '' + key,
+                'name': 'Bad service'
             };
             testHelper.fillNewRowEditableList( newRecord );
 
@@ -244,7 +244,7 @@ QUnit.test( "editable list create record with duplicated key test", function( as
     );
 });
 
-QUnit.test( "editable list update record with no duplicated key test", function( assert ) {
+QUnit.test( 'editable list update record with no duplicated key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -265,16 +265,16 @@ QUnit.test( "editable list update record with no duplicated key test", function(
             // Assert register with key 4 exists
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable, true );
             
             // Update record
             var newKey = 999;
             var newRecord =  {
-                "id": "" + newKey,
-                "name": "Service " + newKey
+                'id': '' + newKey,
+                'name': 'Service ' + newKey
             };
             testHelper.checkNoRecord( assert, newKey );
             testHelper.fillEditableList( newRecord, key );
@@ -292,8 +292,8 @@ QUnit.test( "editable list update record with no duplicated key test", function(
                 assert: assert,
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 129',
-                ids:  "1/2/3/999/5/6/7/8/9/10",
-                names: "Service 1/Service 2/Service 3/Service 999/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10",
+                ids:  '1/2/3/999/5/6/7/8/9/10',
+                names: 'Service 1/Service 2/Service 3/Service 999/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
@@ -304,7 +304,7 @@ QUnit.test( "editable list update record with no duplicated key test", function(
     );
 });
 
-QUnit.test( "editable list update record with duplicated key test", function( assert ) {
+QUnit.test( 'editable list update record with duplicated key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -325,22 +325,22 @@ QUnit.test( "editable list update record with duplicated key test", function( as
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable, true );
 
             // Try to update
             var newKey = 3;
             var record2 =  {
-                "id": "" + newKey,
-                "name": "Service " + newKey
+                'id': '' + newKey,
+                'name': 'Service ' + newKey
             };
             testHelper.checkRecord( assert, newKey, record2, editable, true );
             
             var newRecord =  {
-                "id": "" + newKey,
-                "name": "Bad service"
+                'id': '' + newKey,
+                'name': 'Bad service'
             };
             testHelper.fillEditableList( newRecord, key );
             testHelper.checkEditableListForm( assert, key, newRecord );
@@ -358,7 +358,7 @@ QUnit.test( "editable list update record with duplicated key test", function( as
     );
 });
 
-QUnit.test( "editable list delete non existing record test", function( assert ) {
+QUnit.test( 'editable list delete non existing record test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -379,8 +379,8 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable, true );
 
@@ -401,7 +401,7 @@ QUnit.test( "editable list delete non existing record test", function( assert ) 
     );
 });
 
-QUnit.test( "form create record with undefined key test", function( assert ) {
+QUnit.test( 'form create record with undefined key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -419,8 +419,8 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
             // Go to create form and create record
             testHelper.clickCreateListButton();
             var newRecord =  {
-                "name": "Service (no key)",
-                "description": "Service with no key"
+                'name': 'Service (no key)',
+                'description': 'Service with no key'
             };
             testHelper.fillForm( newRecord );
             testHelper.checkForm( assert, newRecord );
@@ -432,7 +432,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
 
             var fullNewRecord = utils.extend( true, {}, newRecord );
             var key = 130;
-            fullNewRecord.id = "" + key;
+            fullNewRecord.id = '' + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
 
             testHelper.pagingTest({
@@ -443,8 +443,8 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
                 assert: assert,
                 visibleRows: 10,
                 pagingInfo: 'Showing 121-130 of 130',
-                ids:  "121/122/123/124/125/126/127/128/129/130",
-                names: "Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service (no key)",
+                ids:  '121/122/123/124/125/126/127/128/129/130',
+                names: 'Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service (no key)',
                 pageListNotActive: [ '13', '>', '>>' ],
                 pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ]
             });
@@ -454,7 +454,7 @@ QUnit.test( "form create record with undefined key test", function( assert ) {
     );
 });
 
-QUnit.test( "editable list create record with undefined key test", function( assert ) {
+QUnit.test( 'editable list create record with undefined key test', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -475,7 +475,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             // Assert record with key 1 exists
             var key = 130;
             var record =  {
-                "name": "Service with no key"
+                'name': 'Service with no key'
             };
             assert.deepEqual( testServerSide.getService( key ), undefined );
             
@@ -489,7 +489,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
             assert.equal( errorFunctionCounter, 0 );
             
             var fullNewRecord = utils.extend( true, {}, record );
-            fullNewRecord.id = "" + key;
+            fullNewRecord.id = '' + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
             testHelper.pagingTest({
@@ -497,8 +497,8 @@ QUnit.test( "editable list create record with undefined key test", function( ass
                 assert: assert,
                 visibleRows: 11,
                 pagingInfo: 'Showing 1-11 of 130',
-                ids:  "1/2/3/4/5/6/7/8/9/10/130",
-                names: "Service 1/Service 2/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service with no key",
+                ids:  '1/2/3/4/5/6/7/8/9/10/130',
+                names: 'Service 1/Service 2/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service with no key',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
@@ -514,7 +514,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
                 visibleRows: 10,
                 pagingInfo: 'Showing 121-130 of 130',
                 ids:  values[ 0 ],
-                names: "Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service with no key",
+                names: 'Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service with no key',
                 pageListNotActive: [ '13', '>', '>>' ],
                 pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ],
                 editable: editable
@@ -541,7 +541,7 @@ QUnit.test( "editable list create record with undefined key test", function( ass
     );
 });
 
-QUnit.test( "editable list create record with undefined key test and then update it", function( assert ) {
+QUnit.test( 'editable list create record with undefined key test and then update it', function( assert ) {
 
     var done = assert.async();
     errorFunctionCounter = 0;
@@ -562,7 +562,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             // Assert record with key 1 exists
             var key = 130;
             var record =  {
-                "name": "Service with no key"
+                'name': 'Service with no key'
             };
             assert.deepEqual( testServerSide.getService( key ), undefined );
             
@@ -576,12 +576,12 @@ QUnit.test( "editable list create record with undefined key test and then update
             assert.equal( errorFunctionCounter, 0 );
             
             var fullNewRecord = utils.extend( true, {}, record );
-            fullNewRecord.id = "" + key;
+            fullNewRecord.id = '' + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
             // Update it 
             record =  {
-                "name": "Service with key"
+                'name': 'Service with key'
             };
             testHelper.fillEditableList( record, key );
             assert.equal( errorFunctionCounter, 0 );
@@ -589,7 +589,7 @@ QUnit.test( "editable list create record with undefined key test and then update
             assert.equal( errorFunctionCounter, 0 );
             
             fullNewRecord = utils.extend( true, {}, record );
-            fullNewRecord.id = "" + key;
+            fullNewRecord.id = '' + key;
             assert.deepEqual( testServerSide.getService( key ), fullNewRecord );
             
             testHelper.pagingTest({
@@ -597,8 +597,8 @@ QUnit.test( "editable list create record with undefined key test and then update
                 assert: assert,
                 visibleRows: 11,
                 pagingInfo: 'Showing 1-11 of 130',
-                ids:  "1/2/3/4/5/6/7/8/9/10/130",
-                names: "Service 1/Service 2/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service with key",
+                ids:  '1/2/3/4/5/6/7/8/9/10/130',
+                names: 'Service 1/Service 2/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service with key',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
@@ -614,7 +614,7 @@ QUnit.test( "editable list create record with undefined key test and then update
                 visibleRows: 10,
                 pagingInfo: 'Showing 121-130 of 130',
                 ids:  values[ 0 ],
-                names: "Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service with key",
+                names: 'Service 121/Service 122/Service 123/Service 124/Service 125/Service 126/Service 127/Service 128/Service 129/Service with key',
                 pageListNotActive: [ '13', '>', '>>' ],
                 pageListActive: [ '<<', '<', '1', '9', '10', '11', '12' ],
                 editable: editable

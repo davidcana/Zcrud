@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -26,7 +26,7 @@ var discardConfirmFunction = function( confirmOptions, onFulfilled ){
 };
 
 // Run tests
-QUnit.test( "sorting list test", function( assert ) {
+QUnit.test( 'sorting list test', function( assert ) {
     
     // Build options
     thisTestOptions = {
@@ -87,7 +87,7 @@ QUnit.test( "sorting list test", function( assert ) {
     );
 });
 
-QUnit.test( "sorting subform test", function( assert ) {
+QUnit.test( 'sorting subform test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -159,7 +159,7 @@ QUnit.test( "sorting subform test", function( assert ) {
     );
 });
 
-QUnit.test( "sorting subform breaking paging: abort test", function( assert ) {
+QUnit.test( 'sorting subform breaking paging: abort test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -225,7 +225,7 @@ QUnit.test( "sorting subform breaking paging: abort test", function( assert ) {
             // Edit description of last row
             testHelper.fillSubformNewRow( 
                 {
-                    description: "Description of Member 107 edited"
+                    description: 'Description of Member 107 edited'
                 }, 
                 subformName );
             
@@ -252,7 +252,7 @@ QUnit.test( "sorting subform breaking paging: abort test", function( assert ) {
     );
 });
 
-QUnit.test( "sorting subform breaking paging: discard test", function( assert ) {
+QUnit.test( 'sorting subform breaking paging: discard test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -318,7 +318,7 @@ QUnit.test( "sorting subform breaking paging: discard test", function( assert ) 
             // Edit description of last row
             testHelper.fillSubformNewRow( 
                 {
-                    description: "Description of Member 107 edited"
+                    description: 'Description of Member 107 edited'
                 }, 
                 subformName );
 

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -51,21 +51,21 @@ var defaultTestOptions = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }
@@ -215,25 +215,25 @@ defaultTestOptions.fields.members.fields = {
 testServerSide.resetServices();
 var key = 4;
 var record = {
-    "id": "" + key,
-    "name": "Service " + key,
-    "time": "20:30",
-    "datetime": "2017-03-10T20:00:00.000Z",
-    "date": "2017-03-14T00:00:00.000Z",
-    "members": [
+    'id': '' + key,
+    'name': 'Service ' + key,
+    'time': '20:30',
+    'datetime': '2017-03-10T20:00:00.000Z',
+    'date': '2017-03-14T00:00:00.000Z',
+    'members': [
         {
-            "code": "1",
-            "name": "Bart Simpson",
-            "time": "20:00",
-            "datetime": "2017-09-10T20:00:00.000Z",
-            "date": "2017-09-10T00:00:00.000Z"
+            'code': '1',
+            'name': 'Bart Simpson',
+            'time': '20:00',
+            'datetime': '2017-09-10T20:00:00.000Z',
+            'date': '2017-09-10T00:00:00.000Z'
         },
         {
-            "code": "2",
-            "name": "Lisa Simpson",
-            "time": "14:00",
-            "datetime": "2018-07-02T14:00:00.000Z",
-            "date": "2018-07-02T00:00:00.000Z"
+            'code': '2',
+            'name': 'Lisa Simpson',
+            'time': '14:00',
+            'datetime': '2018-07-02T14:00:00.000Z',
+            'date': '2018-07-02T00:00:00.000Z'
         }
     ]
 };

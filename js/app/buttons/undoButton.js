@@ -1,7 +1,7 @@
 /*
     UndoButton class
 */
-"use strict";
+'use strict';
 
 var context = require( '../context.js' );
 var Button = require( './button.js' );

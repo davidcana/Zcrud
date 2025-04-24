@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ defaultTestOptions.errorFunction = function( message ){
 
 // Run tests
 
-QUnit.test( "subform create no previous items in subform test", function( assert ) {
+QUnit.test( 'subform create no previous items in subform test', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
@@ -33,8 +33,8 @@ QUnit.test( "subform create no previous items in subform test", function( assert
             // 
             var key = 3;
             var record = {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -44,18 +44,18 @@ QUnit.test( "subform create no previous items in subform test", function( assert
             
             // Add subform record 1
             var subformRecord1 = {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord1, 'members' );
             
             // Add subform record 2
             var subformRecord2 = {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
@@ -82,7 +82,7 @@ QUnit.test( "subform create no previous items in subform test", function( assert
     );
 });
 
-QUnit.test( "subform create with previous items in subform test", function( assert ) {
+QUnit.test( 'subform create with previous items in subform test', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
@@ -95,18 +95,18 @@ QUnit.test( "subform create with previous items in subform test", function( asse
             // 
             var key = 3;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -119,18 +119,18 @@ QUnit.test( "subform create with previous items in subform test", function( asse
             
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
             
             // Add subform record 4
             var subformRecord4 = {
-                "code": "4",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '4',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
@@ -156,7 +156,7 @@ QUnit.test( "subform create with previous items in subform test", function( asse
     );
 });
 
-QUnit.test( "subform create and form create test", function( assert ) {
+QUnit.test( 'subform create and form create test', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
@@ -172,9 +172,9 @@ QUnit.test( "subform create and form create test", function( assert ) {
             // 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": []
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': []
             };
             
             // Go to create form and create record
@@ -183,18 +183,18 @@ QUnit.test( "subform create and form create test", function( assert ) {
 
             // Add subform record 1
             var subformRecord1 = {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord1, 'members' );
             
             // Add subform record 2
             var subformRecord2 = {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             }
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
@@ -220,7 +220,7 @@ QUnit.test( "subform create and form create test", function( assert ) {
     );
 });
 
-QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
+QUnit.test( 'subform create undo/redo 1 action test', function( assert ) {
 
     options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
@@ -233,18 +233,18 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
             // 
             var key = 3;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -257,18 +257,18 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
 
             // Add subform record 4
             var subformRecord4 = {
-                "code": "4",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '4',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
@@ -308,7 +308,7 @@ QUnit.test( "subform create undo/redo 1 action test", function( assert ) {
     );
 });
 
-QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
+QUnit.test( 'subform create undo/redo 3 actions test', function( assert ) {
 
     options = utils.extend( true, {}, defaultTestOptions );
     var done = assert.async();
@@ -321,18 +321,18 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
             // 
             var key = 3;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -345,18 +345,18 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
 
             // Add subform record 4
             var subformRecord4 = {
-                "code": "4",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '4',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
@@ -420,7 +420,7 @@ QUnit.test( "subform create undo/redo 3 actions test", function( assert ) {
     );
 });
 
-QUnit.test( "subform create undo/redo 1 action with default values test", function( assert ) {
+QUnit.test( 'subform create undo/redo 1 action with default values test', function( assert ) {
     
     var defaultMember = {
         code: '',
@@ -452,18 +452,18 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
             // 
             var key = 3;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -476,8 +476,8 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             
@@ -516,34 +516,34 @@ QUnit.test( "subform create undo/redo 1 action with default values test", functi
     );
 });
 
-QUnit.test( "add records to subform test", function( assert ) {
+QUnit.test( 'add records to subform test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ]
     };
@@ -592,14 +592,14 @@ QUnit.test( "add records to subform test", function( assert ) {
 
     var newMembers = [
         {
-            "code": "5",
-            "name": "Ned Flanders",
-            "description": "Description of Ned Flanders"
+            'code': '5',
+            'name': 'Ned Flanders',
+            'description': 'Description of Ned Flanders'
         },
         {
-            "code": "6",
-            "name": "Montgomery Burns",
-            "description": "Description of Montgomery Burns"
+            'code': '6',
+            'name': 'Montgomery Burns',
+            'description': 'Description of Montgomery Burns'
         }
     ];
     
@@ -659,10 +659,10 @@ QUnit.test( "add records to subform test", function( assert ) {
     );
 });
 
-QUnit.test( "subform create with fields with default values test", function( assert ) {
+QUnit.test( 'subform create with fields with default values test', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
-    options.fields[ 'members' ].fields.description.defaultValue = "Default description";
+    options.fields[ 'members' ].fields.description.defaultValue = 'Default description';
     
     var done = assert.async();
 
@@ -674,18 +674,18 @@ QUnit.test( "subform create with fields with default values test", function( ass
             // 
             var key = 3;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -698,18 +698,18 @@ QUnit.test( "subform create with fields with default values test", function( ass
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                //"description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                //'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
 
             // Add subform record 4
             var subformRecord4 = {
-                "code": "4",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '4',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord4, 'members' );
@@ -738,19 +738,19 @@ QUnit.test( "subform create with fields with default values test", function( ass
     );
 });
 
-QUnit.test( "subform create with default value (2 rows, 0 changed) test", function( assert ) {
+QUnit.test( 'subform create with default value (2 rows, 0 changed) test', function( assert ) {
 
     options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
-            "code": "1",
-            "name": "Default Bart Simpson",
-            "description": "Default description of Bart Simpson"
+            'code': '1',
+            'name': 'Default Bart Simpson',
+            'description': 'Default description of Bart Simpson'
         },
         {
-            "code": "2",
-            "name": "Default Lisa Simpson",
-            "description": "Default description of Lisa Simpson"
+            'code': '2',
+            'name': 'Default Lisa Simpson',
+            'description': 'Default description of Lisa Simpson'
         }
     ];
 
@@ -764,8 +764,8 @@ QUnit.test( "subform create with default value (2 rows, 0 changed) test", functi
 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -795,19 +795,19 @@ QUnit.test( "subform create with default value (2 rows, 0 changed) test", functi
     );
 });
 
-QUnit.test( "subform create with default value (2 rows, 1 changed) test", function( assert ) {
+QUnit.test( 'subform create with default value (2 rows, 1 changed) test', function( assert ) {
 
     options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
-            "code": "1",
-            "name": "Default Bart Simpson",
-            "description": "Default description of Bart Simpson"
+            'code': '1',
+            'name': 'Default Bart Simpson',
+            'description': 'Default description of Bart Simpson'
         },
         {
-            "code": "2",
-            "name": "Default Lisa Simpson",
-            "description": "Default description of Lisa Simpson"
+            'code': '2',
+            'name': 'Default Lisa Simpson',
+            'description': 'Default description of Lisa Simpson'
         }
     ];
 
@@ -821,12 +821,12 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) test", functi
 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"  
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'  
                     }
                 ]
             };
@@ -841,8 +841,8 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) test", functi
             var editedRecord = utils.extend( true, {}, record );
             editedRecord.province = options.fields[ 'province' ].defaultValue;
             editedRecord.members = options.fields[ 'members' ].defaultValue;
-            editedRecord.members[ 0 ].name = "Bart Simpson";
-            editedRecord.members[ 0 ].description = "Description of Bart Simpson";
+            editedRecord.members[ 0 ].name = 'Bart Simpson';
+            editedRecord.members[ 0 ].description = 'Description of Bart Simpson';
             testHelper.checkForm( assert, editedRecord );
             
             // Submit and show the list again
@@ -860,22 +860,22 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) test", functi
     );
 });
 
-QUnit.test( "subform create with default value (2 rows, 1 changed) and default values test", function( assert ) {
+QUnit.test( 'subform create with default value (2 rows, 1 changed) and default values test', function( assert ) {
 
     options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
-            "code": "1",
-            "name": "Default Bart Simpson",
-            "description": "Default description of Bart Simpson"
+            'code': '1',
+            'name': 'Default Bart Simpson',
+            'description': 'Default description of Bart Simpson'
         },
         {
-            "code": "2",
-            "name": "Default Lisa Simpson",
-            "description": "Default description of Lisa Simpson"
+            'code': '2',
+            'name': 'Default Lisa Simpson',
+            'description': 'Default description of Lisa Simpson'
         }
     ];
-    options.fields[ 'members' ].fields.description.defaultValue = "Default description";
+    options.fields[ 'members' ].fields.description.defaultValue = 'Default description';
     
     testServerSide.resetServices();
     var done = assert.async();
@@ -887,12 +887,12 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) and default v
 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"  
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'  
                     }
                 ]
             };
@@ -905,8 +905,8 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) and default v
             
             // Add subform record 3
             var subformRecord = {
-                "code": "3",
-                "name": "Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord, 'members' );
@@ -915,8 +915,8 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) and default v
             var editedRecord = utils.extend( true, {}, record );
             editedRecord.province = options.fields[ 'province' ].defaultValue;
             editedRecord.members = options.fields[ 'members' ].defaultValue;
-            editedRecord.members[ 0 ].name = "Bart Simpson";
-            editedRecord.members[ 0 ].description = "Description of Bart Simpson";
+            editedRecord.members[ 0 ].name = 'Bart Simpson';
+            editedRecord.members[ 0 ].description = 'Description of Bart Simpson';
             editedRecord.members[ 2 ] = subformRecord;
             editedRecord.members[ 2 ].description = options.fields[ 'members' ].fields.description.defaultValue;
             testHelper.checkForm( assert, editedRecord );
@@ -936,19 +936,19 @@ QUnit.test( "subform create with default value (2 rows, 1 changed) and default v
     );
 });
 
-QUnit.test( "subform create with default value (2 rows, 0 changed, 1 deleted) test", function( assert ) {
+QUnit.test( 'subform create with default value (2 rows, 0 changed, 1 deleted) test', function( assert ) {
 
     options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
-            "code": "1",
-            "name": "Default Bart Simpson",
-            "description": "Default description of Bart Simpson"
+            'code': '1',
+            'name': 'Default Bart Simpson',
+            'description': 'Default description of Bart Simpson'
         },
         {
-            "code": "2",
-            "name": "Default Lisa Simpson",
-            "description": "Default description of Lisa Simpson"
+            'code': '2',
+            'name': 'Default Lisa Simpson',
+            'description': 'Default description of Lisa Simpson'
         }
     ];
 
@@ -962,8 +962,8 @@ QUnit.test( "subform create with default value (2 rows, 0 changed, 1 deleted) te
 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -997,19 +997,19 @@ QUnit.test( "subform create with default value (2 rows, 0 changed, 1 deleted) te
     );
 });
 
-QUnit.test( "subform create with default value (2 rows, 1 changed, 1 deleted) test", function( assert ) {
+QUnit.test( 'subform create with default value (2 rows, 1 changed, 1 deleted) test', function( assert ) {
 
     options = utils.extend( true, {}, defaultTestOptions );
     options.fields[ 'members' ].defaultValue = [
         {
-            "code": "1",
-            "name": "Default Bart Simpson",
-            "description": "Default description of Bart Simpson"
+            'code': '1',
+            'name': 'Default Bart Simpson',
+            'description': 'Default description of Bart Simpson'
         },
         {
-            "code": "2",
-            "name": "Default Lisa Simpson",
-            "description": "Default description of Lisa Simpson"
+            'code': '2',
+            'name': 'Default Lisa Simpson',
+            'description': 'Default description of Lisa Simpson'
         }
     ];
 
@@ -1023,12 +1023,12 @@ QUnit.test( "subform create with default value (2 rows, 1 changed, 1 deleted) te
 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"  
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'  
                     }
                 ]
             };

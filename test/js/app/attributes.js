@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -14,7 +14,7 @@ var thisTestOptions;
 var options;
 
 // Run tests
-QUnit.test( "field attributes test", function( assert ) {
+QUnit.test( 'field attributes test', function( assert ) {
     
     thisTestOptions = {
         fields: {
@@ -55,7 +55,7 @@ QUnit.test( "field attributes test", function( assert ) {
     );
 });
 
-QUnit.test( "rowHeader attributes test", function( assert ) {
+QUnit.test( 'rowHeader attributes test', function( assert ) {
 
     thisTestOptions = {
         fields: {

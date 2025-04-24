@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var Qunit = require( 'qunit' );
 var testServerSide = require( './testServerSide' );
@@ -51,21 +51,21 @@ module.exports = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }
@@ -88,7 +88,7 @@ module.exports = {
         },
         description: {
             type: 'textarea',
-            //template: "descriptionTextarea"
+            //template: 'descriptionTextarea'
         },
         date: {
             type: 'date',

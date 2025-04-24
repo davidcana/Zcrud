@@ -1,7 +1,7 @@
 /*
     ShowCreateFormButton class
 */
-"use strict";
+'use strict';
 
 var Button = require( '../button.js' );
 

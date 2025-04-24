@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var testServerSide = require( './testServerSide' );
 var log4javascript = require( 'log4javascript' );
@@ -21,7 +21,7 @@ module.exports = {
             customForm: {
                 fields: [ 
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ],
                 buttons: {

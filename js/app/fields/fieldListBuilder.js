@@ -8,7 +8,7 @@ var Container = require( './container.js' );
 var utils = require( '../utils.js' );
 
 module.exports = (function() {
-    "use strict";
+    'use strict';
     
     var getForList = function( listOptions, options, fields ){
 
@@ -156,7 +156,7 @@ module.exports = (function() {
             if ( started && ( except? -1 === except.indexOf( id ): true ) ){
 
                 // Is a fieldContainer?
-                if ( viewItem.type == "fieldContainer" ){
+                if ( viewItem.type == 'fieldContainer' ){
                     container = viewItem;
                     for ( var i = 0; i < container.fields.length; ++i ){
                         addField( 
@@ -198,7 +198,7 @@ module.exports = (function() {
             true, 
             container,
             {
-                type: "fieldContainer",
+                type: 'fieldContainer',
                 template: options.containers.types[ container.containerType ].template,
                 fields: []
             }
@@ -209,7 +209,7 @@ module.exports = (function() {
             true, 
             container,
             {
-                type: "fieldContainer",
+                type: 'fieldContainer',
                 template: options.containers.types[ container.containerType ].template,
                 fields: [],
                 options: options

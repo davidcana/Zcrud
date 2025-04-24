@@ -15,7 +15,7 @@ module.exports = function(grunt) {
             standalone: {
                 options: {
                     plugin: [
-                        [ "browserify-derequire" ]
+                        [ 'browserify-derequire' ]
                     ],
                     browserifyOptions: {
                         standalone: ''

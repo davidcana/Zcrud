@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 var zzDOM = require( '../../lib/zzDOM-closures-full.js' );

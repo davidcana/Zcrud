@@ -1,7 +1,7 @@
 /* 
     SelectingComponent class
 */
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
@@ -295,7 +295,7 @@ SelectingComponent.prototype.selectionOperationOnRecords = function( records, op
             selector += ', ';
         }
         var key = record[ this.options.key ];
-        selector += "[data-record-key='" + key + "']";
+        selector += '[data-record-key="' + key + '"]';
     }
 
     if ( selector ){

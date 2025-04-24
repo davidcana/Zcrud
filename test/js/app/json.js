@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -25,7 +25,7 @@ editableListTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( assert ) {
+QUnit.test( 'form update test (JSONBuilder: onlyChangesJSONBuilder)', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, subformTestOptions );
@@ -39,19 +39,19 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             // Set service with key 4
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Description " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Description ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -63,14 +63,14 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -78,19 +78,19 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             testHelper.fillForm( editedRecord );
             
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "description": "Description " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'description': 'Description ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson edited"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson edited'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                        'code': '2',
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 ]
             };
@@ -102,20 +102,20 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             // Check JSON
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
-                "4": {
-                    "name": "Service 4 edited",
-                    "membersZCrudRecords": {
-                        "existingRecords": {
-                            "1": {
-                                "description": "Description of Bart Simpson edited"
+                '4': {
+                    'name': 'Service 4 edited',
+                    'membersZCrudRecords': {
+                        'existingRecords': {
+                            '1': {
+                                'description': 'Description of Bart Simpson edited'
                             },
-                            "2": {
-                                "description": "Description of Lisa Simpson edited",
-                                "name": "Lisa Simpson edited"
+                            '2': {
+                                'description': 'Description of Lisa Simpson edited',
+                                'name': 'Lisa Simpson edited'
                             }
                         },
-                        "newRecords": [],
-                        "recordsToRemove": []
+                        'newRecords': [],
+                        'recordsToRemove': []
                     }
                 }
             };
@@ -138,7 +138,7 @@ QUnit.test( "form update test (JSONBuilder: onlyChangesJSONBuilder)", function( 
     );
 });
 
-QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert ) {
+QUnit.test( 'form update test (JSONBuilder: allJSONBuilder)', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, subformTestOptions );
@@ -152,19 +152,19 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
             // Set service with key 4
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Description " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Description ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -176,14 +176,14 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -191,19 +191,19 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
             testHelper.fillForm( editedRecord );
 
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "description": "Description " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'description': 'Description ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson edited"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson edited'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                        'code': '2',
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 ]
             };
@@ -215,25 +215,25 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
             // Check JSON
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
-                "4": {
-                    "id": "4",
-                    "name": "Service 4 edited",
-                    "description": "Description 4",
-                    "membersZCrudRecords": {
-                        "existingRecords": {
-                            "1": {
-                                "code": "1",
-                                "description": "Description of Bart Simpson edited",
-                                "name": "Bart Simpson"
+                '4': {
+                    'id': '4',
+                    'name': 'Service 4 edited',
+                    'description': 'Description 4',
+                    'membersZCrudRecords': {
+                        'existingRecords': {
+                            '1': {
+                                'code': '1',
+                                'description': 'Description of Bart Simpson edited',
+                                'name': 'Bart Simpson'
                             },
-                            "2": {
-                                "code": "2",
-                                "description": "Description of Lisa Simpson edited",
-                                "name": "Lisa Simpson edited"
+                            '2': {
+                                'code': '2',
+                                'description': 'Description of Lisa Simpson edited',
+                                'name': 'Lisa Simpson edited'
                             }
                         },
-                        "newRecords": [],
-                        "recordsToRemove": []
+                        'newRecords': [],
+                        'recordsToRemove': []
                     }
                 }
             };
@@ -256,7 +256,7 @@ QUnit.test( "form update test (JSONBuilder: allJSONBuilder)", function( assert )
     );
 });
 
-QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBuilder)", function( assert ) {
+QUnit.test( 'subform create and form create test (JSONBuilder: onlyChangesJSONBuilder)', function( assert ) {
 
     var done = assert.async();
     
@@ -276,9 +276,9 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
             // 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": []
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': []
             };
 
             // Go to create form and create record
@@ -287,18 +287,18 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
 
             // Add subform record 1
             var subformRecord1 = {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord1, 'members' );
 
             // Add subform record 2
             var subformRecord2 = {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             }
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
@@ -317,23 +317,23 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
-                    "id": "0",
-                    "name": "Service 0",
-                    "membersZCrudRecords": {
-                        "existingRecords": {},
-                        "newRecords": [
+                    'id': '0',
+                    'name': 'Service 0',
+                    'membersZCrudRecords': {
+                        'existingRecords': {},
+                        'newRecords': [
                             {
-                                "code": "1",
-                                "description": "Description of Bart Simpson",
-                                "name": "Bart Simpson"
+                                'code': '1',
+                                'description': 'Description of Bart Simpson',
+                                'name': 'Bart Simpson'
                             },
                             {
-                                "code": "2",
-                                "description": "Description of Lisa Simpson",
-                                "name": "Lisa Simpson"
+                                'code': '2',
+                                'description': 'Description of Lisa Simpson',
+                                'name': 'Lisa Simpson'
                             }
                         ],
-                        "recordsToRemove": []
+                        'recordsToRemove': []
                     }
                 }
             ];
@@ -355,7 +355,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: onlyChangesJSONBu
     );
 });
 
-QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)", function( assert ) {
+QUnit.test( 'subform create and form create test (JSONBuilder: allJSONBuilder)', function( assert ) {
 
     var done = assert.async();
     
@@ -375,9 +375,9 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
             // 
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": []
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': []
             };
 
             // Go to create form and create record
@@ -386,18 +386,18 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
 
             // Add subform record 1
             var subformRecord1 = {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord1, 'members' );
 
             // Add subform record 2
             var subformRecord2 = {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             }
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
@@ -416,23 +416,23 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
-                    "id": "0",
-                    "name": "Service 0",
-                    "membersZCrudRecords": {
-                        "existingRecords": {},
-                        "newRecords": [
+                    'id': '0',
+                    'name': 'Service 0',
+                    'membersZCrudRecords': {
+                        'existingRecords': {},
+                        'newRecords': [
                             {
-                                "code": "1",
-                                "description": "Description of Bart Simpson",
-                                "name": "Bart Simpson"
+                                'code': '1',
+                                'description': 'Description of Bart Simpson',
+                                'name': 'Bart Simpson'
                             },
                             {
-                                "code": "2",
-                                "description": "Description of Lisa Simpson",
-                                "name": "Lisa Simpson"
+                                'code': '2',
+                                'description': 'Description of Lisa Simpson',
+                                'name': 'Lisa Simpson'
                             }
                         ],
-                        "recordsToRemove": []
+                        'recordsToRemove': []
                     }
                 }
             ];
@@ -454,7 +454,7 @@ QUnit.test( "subform create and form create test (JSONBuilder: allJSONBuilder)",
     );
 });
 
-QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( assert ) {
+QUnit.test( 'form delete test (JSONBuilder: onlyChangesJSONBuilder)', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, subformTestOptions );
@@ -468,19 +468,19 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             // Set service with key 4
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Description " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Description ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -497,7 +497,7 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
-            var expectedRecordsToRemove = [ "4" ];
+            var expectedRecordsToRemove = [ '4' ];
 
             assert.deepEqual( jsonObject.existingRecords, expectedExistingRecords );
             assert.deepEqual( jsonObject.newRecords, expectedNewRecords );
@@ -511,7 +511,7 @@ QUnit.test( "form delete test (JSONBuilder: onlyChangesJSONBuilder)", function( 
     );
 });
 
-QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert ) {
+QUnit.test( 'form delete test (JSONBuilder: allJSONBuilder)', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, subformTestOptions );
@@ -525,19 +525,19 @@ QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert )
             // Set service with key 4
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Description " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Description ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -554,7 +554,7 @@ QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert )
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
-            var expectedRecordsToRemove = [ "4" ];
+            var expectedRecordsToRemove = [ '4' ];
 
             assert.deepEqual( jsonObject.existingRecords, expectedExistingRecords );
             assert.deepEqual( jsonObject.newRecords, expectedNewRecords );
@@ -568,7 +568,7 @@ QUnit.test( "form delete test (JSONBuilder: allJSONBuilder)", function( assert )
     );
 });
 
-QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list update (JSONBuilder: onlyChangesJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
     
@@ -589,15 +589,15 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -610,9 +610,9 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
             // Check JSON
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
-                "2": {
-                    "name": "Service 2 edited",
-                    "number": "3"
+                '2': {
+                    'name': 'Service 2 edited',
+                    'number': '3'
                 }
             };
             var expectedNewRecords = [];
@@ -627,7 +627,7 @@ QUnit.test( "editable list update (JSONBuilder: onlyChangesJSONBuilder) test", f
     );
 });
 
-QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list update (JSONBuilder: allJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, editableListTestOptions );
@@ -647,15 +647,15 @@ QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function(
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -668,10 +668,10 @@ QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function(
             // Check JSON
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
-                "2": {
-                    "id": "2",
-                    "name": "Service 2 edited",
-                    "number": "3"
+                '2': {
+                    'id': '2',
+                    'name': 'Service 2 edited',
+                    'number': '3'
                 }
             };
             var expectedNewRecords = [];
@@ -686,7 +686,7 @@ QUnit.test( "editable list update (JSONBuilder: allJSONBuilder) test", function(
     );
 });
 
-QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list create (JSONBuilder: onlyChangesJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
     
@@ -707,8 +707,8 @@ QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", f
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key );
 
@@ -724,8 +724,8 @@ QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", f
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
-                    "id": "0",
-                    "name": "Service 0"
+                    'id': '0',
+                    'name': 'Service 0'
                 }
             ];
             var expectedRecordsToRemove = [];
@@ -740,7 +740,7 @@ QUnit.test( "editable list create (JSONBuilder: onlyChangesJSONBuilder) test", f
     );
 });
 
-QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list create (JSONBuilder: allJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
 
@@ -761,8 +761,8 @@ QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function(
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key );
 
@@ -778,8 +778,8 @@ QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function(
             var expectedExistingRecords = {};
             var expectedNewRecords = [
                 {
-                    "id": "0",
-                    "name": "Service 0"
+                    'id': '0',
+                    'name': 'Service 0'
                 }
             ];
             var expectedRecordsToRemove = [];
@@ -793,7 +793,7 @@ QUnit.test( "editable list create (JSONBuilder: allJSONBuilder) test", function(
     );
 });
 
-QUnit.test( "editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
 
@@ -828,7 +828,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) t
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
-            var expectedRecordsToRemove = [ "3", "5", "7" ];
+            var expectedRecordsToRemove = [ '3', '5', '7' ];
 
             assert.deepEqual( jsonObject.existingRecords, expectedExistingRecords );
             assert.deepEqual( jsonObject.newRecords, expectedNewRecords );
@@ -839,7 +839,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: onlyChangesJSONBuilder) t
     );
 });
 
-QUnit.test( "editable list delete 3 rows (JSONBuilder: allJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list delete 3 rows (JSONBuilder: allJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
 
@@ -874,7 +874,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: allJSONBuilder) test", fu
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
-            var expectedRecordsToRemove = [ "3", "5", "7" ];
+            var expectedRecordsToRemove = [ '3', '5', '7' ];
 
             assert.deepEqual( jsonObject.existingRecords, expectedExistingRecords );
             assert.deepEqual( jsonObject.newRecords, expectedNewRecords );
@@ -885,7 +885,7 @@ QUnit.test( "editable list delete 3 rows (JSONBuilder: allJSONBuilder) test", fu
     );
 });
 
-QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list update and delete (JSONBuilder: onlyChangesJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
 
@@ -906,15 +906,15 @@ QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilde
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -932,7 +932,7 @@ QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilde
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {};
             var expectedNewRecords = [];
-            var expectedRecordsToRemove = [ "2" ];
+            var expectedRecordsToRemove = [ '2' ];
 
             assert.deepEqual( jsonObject.existingRecords, expectedExistingRecords );
             assert.deepEqual( jsonObject.newRecords, expectedNewRecords );
@@ -943,7 +943,7 @@ QUnit.test( "editable list update and delete (JSONBuilder: onlyChangesJSONBuilde
     );
 });
 
-QUnit.test( "editable list create, 2 changes and delete (JSONBuilder: onlyChangesJSONBuilder) test", function( assert ) {
+QUnit.test( 'editable list create, 2 changes and delete (JSONBuilder: onlyChangesJSONBuilder) test', function( assert ) {
 
     var done = assert.async();
 
@@ -964,8 +964,8 @@ QUnit.test( "editable list create, 2 changes and delete (JSONBuilder: onlyChange
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key );
 
@@ -988,7 +988,7 @@ QUnit.test( "editable list create, 2 changes and delete (JSONBuilder: onlyChange
     );
 });
 
-QUnit.test( "subform update and delete test", function( assert ) {
+QUnit.test( 'subform update and delete test', function( assert ) {
 
     var done = assert.async();
 
@@ -1004,18 +1004,18 @@ QUnit.test( "subform update and delete test", function( assert ) {
             // 
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -1026,14 +1026,14 @@ QUnit.test( "subform update and delete test", function( assert ) {
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -1041,18 +1041,18 @@ QUnit.test( "subform update and delete test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson edited"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson edited'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                        'code': '2',
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 ]
             };
@@ -1067,20 +1067,20 @@ QUnit.test( "subform update and delete test", function( assert ) {
             // Check JSON
             var jsonObject = testServerSide.getJSONUpdate( 0 );
             var expectedExistingRecords = {
-                "4": {
-                    "membersZCrudRecords": {
-                        "existingRecords": {
-                            "2": {
-                                "description": "Description of Lisa Simpson edited",
-                                "name": "Lisa Simpson edited"
+                '4': {
+                    'membersZCrudRecords': {
+                        'existingRecords': {
+                            '2': {
+                                'description': 'Description of Lisa Simpson edited',
+                                'name': 'Lisa Simpson edited'
                             }
                         },
-                        "newRecords": [],
-                        "recordsToRemove": [
-                            "1"
+                        'newRecords': [],
+                        'recordsToRemove': [
+                            '1'
                         ]
                     },
-                    "name": "Service 4 edited"
+                    'name': 'Service 4 edited'
                 }
             };
             var expectedNewRecords = [];
@@ -1103,7 +1103,7 @@ QUnit.test( "subform update and delete test", function( assert ) {
     );
 });
 
-QUnit.test( "subform create and delete test", function( assert ) {
+QUnit.test( 'subform create and delete test', function( assert ) {
 
     var done = assert.async();
 
@@ -1119,13 +1119,13 @@ QUnit.test( "subform create and delete test", function( assert ) {
             // 
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '1',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -1140,9 +1140,9 @@ QUnit.test( "subform create and delete test", function( assert ) {
             
             // Add subform record 1
             var subformRecord1 = {
-                "code": "2",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '2',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord1, 'members' );

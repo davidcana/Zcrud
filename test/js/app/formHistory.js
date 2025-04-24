@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -25,7 +25,7 @@ $( '#departmentsContainer' ).zcrud(
     function( options ){
         
         // Run tests
-        QUnit.test( "change undo/redo 1 action test (name)", function( assert ) {
+        QUnit.test( 'change undo/redo 1 action test (name)', function( assert ) {
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -37,8 +37,8 @@ $( '#departmentsContainer' ).zcrud(
             // Assert register with key 2 exists
             var key = 7;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
             
@@ -46,7 +46,7 @@ $( '#departmentsContainer' ).zcrud(
             
             // Edit record
             var editedRecord =  {
-                "name": "Service " + key + " edited"
+                'name': 'Service ' + key + ' edited'
             };
             testHelper.setFormVal( editedRecord, 'name' );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -72,7 +72,7 @@ $( '#departmentsContainer' ).zcrud(
             testHelper.checkRecord( assert, key, newRecord, editable );
         });
         
-        QUnit.test( "change undo/redo all actions test (name)", function( assert ) {
+        QUnit.test( 'change undo/redo all actions test (name)', function( assert ) {
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -84,8 +84,8 @@ $( '#departmentsContainer' ).zcrud(
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -103,17 +103,17 @@ $( '#departmentsContainer' ).zcrud(
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "description": "Service " + key + " description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3"
+                'name': 'Service ' + key + ' edited',
+                'description': 'Service ' + key + ' description',
+                'date': '10/23/2017',
+                'time': '18:50',
+                'datetime': '10/23/2017 20:00',
+                'phoneType': 'officePhone_option',
+                'province': 'Cádiz',
+                'city': 'Tarifa',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3'
             };
 
             testHelper.fillForm( editedRecord );

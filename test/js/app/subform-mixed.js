@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create/delete rows without changes test", function( assert ) {
+QUnit.test( 'create/delete rows without changes test', function( assert ) {
     
     var done = assert.async();
     
@@ -37,18 +37,18 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -90,7 +90,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
     );
 });
 
-QUnit.test( "Edit one row and delete another test", function( assert ) {
+QUnit.test( 'Edit one row and delete another test', function( assert ) {
 
     var done = assert.async();
 
@@ -103,18 +103,18 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -129,9 +129,9 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             
             // Edit row
             var editedRecord =  {
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     }
                 }
             };
@@ -144,9 +144,9 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             var newRecord = utils.extend( true, {} , record );
             newRecord.members = [];
             newRecord.members[ 0 ] = {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": editedRecord.members[ 0 ].description
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': editedRecord.members[ 0 ].description
             };
             testHelper.checkForm( assert, newRecord );
 
@@ -163,7 +163,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
     );
 });
 
-QUnit.test( "Edit one row and create another test", function( assert ) {
+QUnit.test( 'Edit one row and create another test', function( assert ) {
 
     var done = assert.async();
 
@@ -176,18 +176,18 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -202,9 +202,9 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
 
             // Edit row
             var editedRecord =  {
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     }
                 }
             };
@@ -212,9 +212,9 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
@@ -223,9 +223,9 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             var newRecord = utils.extend( true, {} , record );
             newRecord.members = [];
             newRecord.members[ 0 ] = {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": editedRecord.members[ 0 ].description
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': editedRecord.members[ 0 ].description
             };
             newRecord.members[ 1 ] = record.members[ 1 ];
             newRecord.members[ 2 ] = subformRecord3;
@@ -244,7 +244,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
     );
 });
 
-QUnit.test( "Create one row and delete another test", function( assert ) {
+QUnit.test( 'Create one row and delete another test', function( assert ) {
 
     var done = assert.async();
 
@@ -257,18 +257,18 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -283,9 +283,9 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
@@ -313,7 +313,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
     );
 });
 
-QUnit.test( "Edit one row, create another and delete another test", function( assert ) {
+QUnit.test( 'Edit one row, create another and delete another test', function( assert ) {
 
     var done = assert.async();
 
@@ -326,18 +326,18 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -352,9 +352,9 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
 
             // Edit row
             var editedRecord =  {
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     }
                 }
             };
@@ -362,9 +362,9 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
@@ -376,9 +376,9 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             var newRecord = utils.extend( true, {} , record );
             newRecord.members = [];
             newRecord.members[ 0 ] = {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": editedRecord.members[ 0 ].description
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': editedRecord.members[ 0 ].description
             };
             newRecord.members[ 1 ] = subformRecord3;
             testHelper.checkForm( assert, newRecord );

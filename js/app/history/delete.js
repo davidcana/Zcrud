@@ -1,7 +1,7 @@
 /*
     Delete class
 */
-"use strict";
+'use strict';
 
 var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );

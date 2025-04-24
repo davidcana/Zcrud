@@ -1,7 +1,7 @@
 /*
     buttonUtils singleton class
 */
-"use strict";
+'use strict';
 
 var utils = require( '../utils.js' );
 

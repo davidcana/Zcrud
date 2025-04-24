@@ -9,7 +9,7 @@ var context = require( '../../../js/app/context.js' );
 var utils = require( '../../../js/app/utils.js' );
 
 module.exports = (function() {
-    "use strict";
+    'use strict';
 
     var defaultOptionValue = '';
     
@@ -36,15 +36,15 @@ module.exports = (function() {
         //return get$Container().find( '.zcrud-form' );
     };
     var get$FormFieldByNameClass = function( name ){
-        return get$Form().find( ".zcrud-field-" + name );
+        return get$Form().find( '.zcrud-field-' + name );
     };
     var get$SubFormFieldByNameClass = function( subformName, fieldName, subformIndex ){
         return get$FormFieldByNameClass( subformName )
-            .find( "[data-record-index='" + subformIndex + "'] .zcrud-column-data-" + fieldName );
+            .find( '[data-record-index="' + subformIndex + '"] .zcrud-column-data-' + fieldName );
     };
     var get$SubFormFieldRow = function( subformName, subformIndex ){
         return get$FormFieldByNameClass( subformName )
-            .find( "[data-record-index='" + subformIndex + "']" );
+            .find( '[data-record-index="' + subformIndex + '"]' );
     };
     var get$SubformFiltering = function( subformName ){
         return get$FormFieldByNameClass( subformName )
@@ -326,33 +326,20 @@ module.exports = (function() {
         var $selection = get$Filtering();
         for ( var key in filter ){
             var filterItem = filter[ key ];
-            $selection.find( "[name='" + key +"']" ).val( filterItem );
+            $selection.find( '[name="' + key + '"]' ).val( filterItem );
         }
         $selection.find( '.zcrud-filter-submit-button' ).trigger( 'click' );
     };
-    /*
-    var filterPage = function( options, filter ){
 
-        var filterName = 'name';
-        get$Filtering().find( "[name='" + filterName +"']" ).val( filter );
-        get$Filtering().find( '.zcrud-filter-submit-button' ).trigger( 'click' );
-    };*/
     var filterSubformPage = function( subformName, filter ){
 
         var $selection = get$SubformFiltering( subformName );
         for ( var key in filter ){
             var filterItem = filter[ key ];
-            $selection.find( "[name='" + key +"']" ).val( filterItem );
+            $selection.find( '[name="' + key + '"]' ).val( filterItem );
         }
         $selection.find( '.zcrud-filter-submit-button' ).trigger( 'click' );
     };
-    /*
-    var filterSubformPage = function( subformName, filter ){
-
-        var filterName = 'name';
-        get$SubformFiltering( subformName ).find( "[name='" + filterName +"']" ).val( filter );
-        get$SubformFiltering( subformName ).find( '.zcrud-filter-submit-button' ).trigger( 'click' );
-    };*/
     
     var pagingSubformTest = function( testOptions ){
 
@@ -706,7 +693,7 @@ module.exports = (function() {
             return;
         }
         
-        return get$Tbody().find( "[data-record-key='" + key + "']" );
+        return get$Tbody().find( '[data-record-key="' + key + '"]' );
     };
     var getLastRow = function(){
         return get$Tbody().find( 'tr.zcrud-data-row:last-child' );
@@ -725,13 +712,13 @@ module.exports = (function() {
         assert.deepEqual( record, expectedRecord );
 
         // Check record from table
-        var row = get$Tbody().find( "[data-record-key='" + key + "']" );
+        var row = get$Tbody().find( '[data-record-key="' + key + '"]' );
         var id = editable?
-            strim( getFieldValue( row.find( "td.zcrud-column-data-id" ) ) ):
-            strim( row.find( "td.zcrud-column-data-id" ).text() );
+            strim( getFieldValue( row.find( 'td.zcrud-column-data-id' ) ) ):
+            strim( row.find( 'td.zcrud-column-data-id' ).text() );
         var name = editable?
-            strim( getFieldValue( row.find( "td.zcrud-column-data-name" ) ) ):
-            strim( row.find( "td.zcrud-column-data-name" ).text() );
+            strim( getFieldValue( row.find( 'td.zcrud-column-data-name' ) ) ):
+            strim( row.find( 'td.zcrud-column-data-name' ).text() );
         if ( ! noCheckId ){
             assert.equal( id, expectedRecord.id );
         }
@@ -759,7 +746,7 @@ module.exports = (function() {
         assert.equal( record, undefined );
 
         // Check record from table
-        var row = get$Tbody().find( "[data-record-key='" + key + "']" );
+        var row = get$Tbody().find( '[data-record-key="' + key + '"]' );
         assert.equal( row.length, 0 );
         
         // Check record from storage
@@ -772,7 +759,7 @@ module.exports = (function() {
     var clickListButton = function( key, cssClass ){
 
         clickRowButton(
-            get$Tbody().find( "[data-record-key='" + key + "']" ),
+            get$Tbody().find( '[data-record-key="' + key + '"]' ),
             cssClass
         );
     };
@@ -811,17 +798,17 @@ module.exports = (function() {
     };
     var clickUpdateSubformRowButton = function( subformName, subformIndex ){
         get$FormFieldByNameClass( subformName )
-            .find( "[data-record-index='" + subformIndex + "'] .zcrud-edit-command-button"  )
+            .find( '[data-record-index="' + subformIndex + '"] .zcrud-edit-command-button'  )
             .trigger( 'click' );
     };
     var clickDeleteFormSubformRowButton = function( subformName, subformIndex ){
         get$FormFieldByNameClass( subformName )
-            .find( "[data-record-index='" + subformIndex + "'] .zcrud-delete-command-button"  )
+            .find( '[data-record-index="' + subformIndex + '"] .zcrud-delete-command-button'  )
             .trigger( 'click' );
     };
     var clickDeleteSubformRowButton = function( subformName, subformIndex ){
         get$FormFieldByNameClass( subformName )
-            .find( "[data-record-index='" + subformIndex + "'] .zcrud-delete-row-command-button"  )
+            .find( '[data-record-index="' + subformIndex + '"] .zcrud-delete-row-command-button'  )
             .trigger( 'click' );
     };
     
@@ -833,7 +820,7 @@ module.exports = (function() {
     };
     /*
     var saveEnabled = function(){
-        return ! getSaveButton().prop( "disabled" );
+        return ! getSaveButton().prop( 'disabled' );
     };
     */
     
@@ -852,7 +839,7 @@ module.exports = (function() {
         click$button( get$undoButton(), times );
     };
     var getNumberOfUndoActions = function(){
-        return Number( get$undoButton().text().replace( /[^0-9]/g, "" ) );
+        return Number( get$undoButton().text().replace( /[^0-9]/g, '' ) );
     };
     
     var get$redoButton = function(){
@@ -862,7 +849,7 @@ module.exports = (function() {
         click$button( get$redoButton(), times );
     };
     var getNumberOfRedoActions = function(){
-        return Number( get$redoButton().text().replace( /[^0-9]/g, "" ) );
+        return Number( get$redoButton().text().replace( /[^0-9]/g, '' ) );
     };
     
     var fillForm = function( record ){
@@ -895,7 +882,7 @@ module.exports = (function() {
         for ( var index in subformRecords ){
             
             var subformRecord = subformRecords[ index ];
-            var $row = get$FormFieldByNameClass( name ).find( "[data-record-index='" + index + "']" );
+            var $row = get$FormFieldByNameClass( name ).find( '[data-record-index="' + index + '"]' );
             fillSubformRow( subformRecord, $row, name );
         }
     };
@@ -1030,7 +1017,7 @@ module.exports = (function() {
 
         var $element = $row || get$Form();
         //var $checkboxes = $element.find( '.zcrud-checkboxes-container-' + buildElementName( name, subformName ) + ' input:checkbox.zcrud-active' );
-        var $checkboxes = $element.find( ".zcrud-checkboxes-container-" + buildElementName( name, subformName ) + " input[type='checkbox'].zcrud-active" );
+        var $checkboxes = $element.find( '.zcrud-checkboxes-container-' + buildElementName( name, subformName ) + ' input[type="checkbox"].zcrud-active' );
         $checkboxes.prop( 'checked', false ); 
         if ( value ){
             for ( var i = 0; i < value.length; ++i ){
@@ -1049,8 +1036,8 @@ module.exports = (function() {
         }
         
         var $element = $row || get$Form();
-        //$element.find( "input:checkbox[name='" + buildElementName( name, subformName ) +"']" )
-        $element.find( "input[type='checkbox'][name='" + buildElementName( name, subformName ) +"']" )
+        //$element.find( 'input:checkbox[name='' + buildElementName( name, subformName ) +'']' )
+        $element.find( 'input[type="checkbox"][name="' + buildElementName( name, subformName ) +'"]' )
             .prop( 'checked', record[ name ] )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -1066,8 +1053,8 @@ module.exports = (function() {
         //var rowIndex = $row? $row.index() - 1: 0;
         var rowIndex = $row? $row.index() - 2: 0;
         var nameAttr = name + '[' + rowIndex + ']';
-        //$element.find( "input:radio[name='" + buildElementName( nameAttr, subformName ) +"']" ).filter( '[value=' + record[ name ] + ']' )
-        $element.find( "input[type='radio'][name='" + buildElementName( nameAttr, subformName ) +"']" ).filter( '[value=' + record[ name ] + ']' )
+        //$element.find( 'input:radio[name='' + buildElementName( nameAttr, subformName ) +'']' ).filter( '[value=' + record[ name ] + ']' )
+        $element.find( 'input[type="radio"][name="' + buildElementName( nameAttr, subformName ) +'"]' ).filter( '[value=' + record[ name ] + ']' )
             .prop( 'checked', true )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -1080,7 +1067,7 @@ module.exports = (function() {
         }
         
         var $element = $row || get$Form();
-        $element.find( "[name='" + buildElementName( name, subformName ) +"']" )
+        $element.find( '[name="' + buildElementName( name, subformName ) +'"]' )
             .val( record[ name ] )
             .trigger( 'change' )
             .trigger( 'blur' );
@@ -1093,7 +1080,7 @@ module.exports = (function() {
         }
         
         var $element = $row || get$Form();
-        $element.find( "[name='" + buildElementName( name, subformName ) +"']" )
+        $element.find( '[name="' + buildElementName( name, subformName ) +'"]' )
             .val( record[ name ] )
             .trigger( 'change' );
     };
@@ -1101,7 +1088,7 @@ module.exports = (function() {
     var getFormVal = function( name, $row, subformName ){
         
         var $element = $row || get$Form();
-        return $element.find( "[name='" + buildElementName( name, subformName ) +"']" ).val();
+        return $element.find( '[name="' + buildElementName( name, subformName ) +'"]' ).val();
     };
     
     var getFormCheckboxesVal = function( name, $row, subformName ){
@@ -1109,8 +1096,8 @@ module.exports = (function() {
         var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 2: 0;
         var nameAttr = name + '[' + rowIndex + ']';
-        //var $selected = $element.find( "input:checkbox[name='" + buildElementName( nameAttr, subformName ) +"']:checked" );
-        var $selected = $element.find( "input[type='checkbox'][name='" + buildElementName( nameAttr, subformName ) +"']:checked" );
+        //var $selected = $element.find( 'input:checkbox[name='' + buildElementName( nameAttr, subformName ) +'']:checked' );
+        var $selected = $element.find( 'input[type="checkbox"][name="' + buildElementName( nameAttr, subformName ) +'"]:checked' );
 
         if ( ! $selected ){
             return undefined;
@@ -1130,16 +1117,16 @@ module.exports = (function() {
         var $element = $row || get$Form();
         var rowIndex = $row? $row.index() - 2: 0;
         var nameAttr = name + '[' + rowIndex + ']';
-        var $selected = $element.find( "input[type='radio'][name='" + buildElementName( nameAttr, subformName ) +"']:checked" );
-        //var $selected = $element.find( "input:radio[name='" + buildElementName( nameAttr, subformName ) +"']:checked" );
+        var $selected = $element.find( 'input[type="radio"][name="' + buildElementName( nameAttr, subformName ) + '"]:checked' );
+        //var $selected = $element.find( 'input:radio[name='' + buildElementName( nameAttr, subformName ) +'']:checked' );
         return $selected? $selected.val(): undefined;
     };
     
     var getFormCheckboxVal = function( name, $row, subformName ){
 
         var $element = $row || get$Form();
-        //return $element.find( "input:checkbox[name='" + buildElementName( name, subformName ) +"']" ).prop( 'checked' );
-        return $element.find( "input[type='checkbox'][name='" + buildElementName( name, subformName ) +"']" ).prop( 'checked' );
+        //return $element.find( 'input:checkbox[name='' + buildElementName( name, subformName ) +'']' ).prop( 'checked' );
+        return $element.find( 'input[type="checkbox"][name="' + buildElementName( name, subformName ) + '"]' ).prop( 'checked' );
     };
 
     var buildElementName = function( name, subformName ){
@@ -1151,7 +1138,7 @@ module.exports = (function() {
         var result = [];
         var $element = $row || get$Form();
 
-        $element.find( "[name='" + name +"'] option" ).each( function() {
+        $element.find( '[name="' + name + '"] option' ).each( function() {
             var value = $( this ).val();
             if ( value && value.trim() !== defaultOptionValue ){
                 result.push( value );
@@ -1165,7 +1152,7 @@ module.exports = (function() {
         var result = [];
         var $element = $row || get$Form();
 
-        $element.find( "input[name='" + name +"']" ).each( function() {
+        $element.find( 'input[name="' + name + '"]' ).each( function() {
             var value = $( this ).val();
             if ( value && value.trim() !== defaultOptionValue ){
                 result.push( value );
@@ -1180,7 +1167,7 @@ module.exports = (function() {
         var $element = $row || get$Form();
         var c = 0;
         
-        $element.find( "input[name='" + name +"']" ).each( function() {
+        $element.find( 'input[name="' + name + '"]' ).each( function() {
             var value = $( this ).parent().text().trim();
             if ( value && value !== defaultOptionValue ){
                 if ( c++ > 0 ){
@@ -1196,7 +1183,7 @@ module.exports = (function() {
     var getSubformVal = function( name, $row ){
         
         var $element = $row || get$Form();
-        var $field = $element.find( ".zcrud-field-" + name );
+        var $field = $element.find( '.zcrud-field-' + name );
         
         if ( $field.length === 0 ){
             return undefined;
@@ -1206,7 +1193,7 @@ module.exports = (function() {
         /*
         var result = [];
         $field
-            .find( ".zcrud-data-row:not(.zcrud-hide-marker)" )
+            .find( '.zcrud-data-row:not(.zcrud-hide-marker)' )
             .each( function() {
             
                 var $this = $( this );
@@ -1239,7 +1226,7 @@ module.exports = (function() {
 
         var result = [];
         $field
-            .find( ".zcrud-data-row:not(.zcrud-hide-marker)" )
+            .find( '.zcrud-data-row:not(.zcrud-hide-marker)' )
             .each( 
             function() {
                 var $this = $( this );
@@ -1269,14 +1256,14 @@ module.exports = (function() {
     var getReadOnlyVal = function( name, $row ){
 
         var $element = $row || get$Form();
-        var text = $element.find( ".zcrud-column-data-" + name ).text();
+        var text = $element.find( '.zcrud-column-data-' + name ).text();
         return text? text.trim(): text;
     };
     
     var getReadOnlySubformVal = function( name, $row ){
 
         var $element = $row || get$Form();
-        var $field = $element.find( ".zcrud-field-" + name );
+        var $field = $element.find( '.zcrud-field-' + name );
 
         if ( $field.length === 0 ){
             return undefined;
@@ -1284,7 +1271,7 @@ module.exports = (function() {
 
         var result = [];
         $field
-            .find( ".zcrud-data-row:not(.zcrud-hide-marker)" )
+            .find( '.zcrud-data-row:not(.zcrud-hide-marker)' )
             .each( function() {
 
             var $this = $( this );
@@ -1415,7 +1402,7 @@ module.exports = (function() {
     /*
     var getDatetimePicker = function( index ){
         //return $( '.datepicker .active' );
-        return $( ".datetime:eq( " + index + " )" );
+        return $( '.datetime:eq( ' + index + ' )' );
     };
     */
     var togglePicker = function( $field ){
@@ -1447,7 +1434,7 @@ module.exports = (function() {
     };
     
     var setDatetimeDay = function( $field, day ){
-        $field.find( "td .date[data-date='" + day + "']"  ).trigger( 'click' );
+        $field.find( 'td .date[data-date="' + day + '"]'  ).trigger( 'click' );
     };
     
     var getDatetimeHours = function( $field ){
@@ -1519,7 +1506,7 @@ module.exports = (function() {
     var updateDatetimePickerInList = function( rowId, fieldName, field, stringValue ){
         
         updateDatetimePickerFrom$field( 
-            get$row( rowId ).find( ".zcrud-column-data-" + fieldName ), 
+            get$row( rowId ).find( '.zcrud-column-data-' + fieldName ), 
             field, 
             stringValue );
     };
@@ -1527,7 +1514,7 @@ module.exports = (function() {
     var updateLastRowDatetimePickerInList = function( fieldName, field, stringValue ){
 
         updateDatetimePickerFrom$field( 
-            getLastRow().find( ".zcrud-column-data-" + fieldName ), 
+            getLastRow().find( '.zcrud-column-data-' + fieldName ), 
             field, 
             stringValue );
     };
@@ -1566,7 +1553,7 @@ module.exports = (function() {
     };
     
     var clickDatetimePickerDay = function( day ){
-        $( "td.date[data-date='" + day + "']" ).trigger( 'click' );
+        $( 'td.date[data-date="' + day + '"]' ).trigger( 'click' );
     };
     
     var checkAllPropertiesInFirstInSecond = function( assert, first, second ){
@@ -1597,7 +1584,7 @@ module.exports = (function() {
     var isPrimitive = function ( arg ) {
         
         var type = typeof arg;
-        return arg == null || ( type != "object" && type != "function" );
+        return arg == null || ( type != 'object' && type != 'function' );
     }
     
     // Selecting
@@ -1618,7 +1605,7 @@ module.exports = (function() {
         var $tbody = get$Tbody();
         for ( var c = 0; c < arguments.length; c++ ){
             var id = arguments[ c ];
-            $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+            $tbody.find( '[data-record-key="' + id + '"] input.zcrud-select-row' ).trigger( 'click' );
         }
     };
     var readOnlySubformSelect = function(){
@@ -1630,7 +1617,7 @@ module.exports = (function() {
         // The remaining are the keys of the records to select
         for ( var c = 0; c < arguments.length - 1; c++ ){
             var id = arguments[ 1 + c ];
-            $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+            $tbody.find( '[data-record-key="' + id + '"] input.zcrud-select-row' ).trigger( 'click' );
         }
     };
     var subformSelect = function(){
@@ -1642,7 +1629,7 @@ module.exports = (function() {
         // Build keyFieldName
         var keyFieldId = 'code';
         var keyFieldName = subformId + '-' + keyFieldId;
-        var $fields = $tbody.find( "[name='" + keyFieldName +"']" );
+        var $fields = $tbody.find( '[name="' + keyFieldName +'"]' );
         
         // The remaining are the keys of the records to select
         for ( var c = 0; c < arguments.length - 1; c++ ){
@@ -1652,9 +1639,9 @@ module.exports = (function() {
                     return this.value == id;
                 }
             );
-            //var $field = $fields.find( "[value='" + id +"']" );
+            //var $field = $fields.find( '[value='' + id +'']' );
             var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
-            $tr.find( "input.zcrud-select-row" ).trigger( 'click' );
+            $tr.find( 'input.zcrud-select-row' ).trigger( 'click' );
         }
     };
     var subformSelectByText = function(){
@@ -1665,7 +1652,7 @@ module.exports = (function() {
 
         // Build keyFieldName
         var keyFieldId = 'code';
-        var $fields = $tbody.find( ".zcrud-column-data-" + keyFieldId );
+        var $fields = $tbody.find( '.zcrud-column-data-' + keyFieldId );
         
         // The remaining are the keys of the records to select
         for ( var c = 0; c < arguments.length - 1; c++ ){
@@ -1676,20 +1663,20 @@ module.exports = (function() {
                 }
             );
             var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
-            $tr.find( "input.zcrud-select-row" ).trigger( 'click' );
+            $tr.find( 'input.zcrud-select-row' ).trigger( 'click' );
         }
     };
     var listToggleSelect = function(){
-        //get$Container().find( "input.zcrud-select-all-rows" ).trigger( 'click' );
-        var $checkbox = get$Container().find( "input.zcrud-select-all-rows" );
+        //get$Container().find( 'input.zcrud-select-all-rows' ).trigger( 'click' );
+        var $checkbox = get$Container().find( 'input.zcrud-select-all-rows' );
         var checked = $checkbox.checked();
         $checkbox
             .checked( ! checked )
             .trigger( 'change' );
     };
     var subformToggleSelect = function( subformId ){
-        //get$Container().find( ".zcrud-field-" + subformId + " input.zcrud-select-all-rows" ).trigger( 'click' );
-        var $checkbox = get$Container().find( ".zcrud-field-" + subformId + " input.zcrud-select-all-rows" );
+        //get$Container().find( '.zcrud-field-' + subformId + ' input.zcrud-select-all-rows' ).trigger( 'click' );
+        var $checkbox = get$Container().find( '.zcrud-field-' + subformId + ' input.zcrud-select-all-rows' );
         var checked = $checkbox.checked();
         $checkbox
             .checked( ! checked )
@@ -1734,7 +1721,7 @@ module.exports = (function() {
         var $rows = get$Container().find( '.zcrud-field-' + subformId + ' tbody tr.zcrud-data-row:not(.zcrud-hide-marker)' );
         $rows.each( function() {
             var $this = $( this );
-            var key = $this.find( "[name='" + keyFieldName +"']" ).val();
+            var key = $this.find( '[name="' + keyFieldName + '"]' ).val();
             result.push( key );
         });
         

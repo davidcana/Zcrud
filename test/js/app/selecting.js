@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -53,7 +53,7 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 
 // Run tests
 
-QUnit.test( "list selecting test", function( assert ) {
+QUnit.test( 'list selecting test', function( assert ) {
     
     // Setup services
     testServerSide.resetServices();
@@ -101,16 +101,16 @@ QUnit.test( "list selecting test", function( assert ) {
                 testHelper.getSelectedFromList(), 
                 [ 
                     {
-                        "id": "3",
-                        "name": "Service 3"
+                        'id': '3',
+                        'name': 'Service 3'
                     },
                     {
-                        "id": "5",
-                        "name": "Service 5"
+                        'id': '5',
+                        'name': 'Service 5'
                     },
                     {
-                        "id": "7",
-                        "name": "Service 7"
+                        'id': '7',
+                        'name': 'Service 7'
                     }
                 ] );
 
@@ -124,16 +124,16 @@ QUnit.test( "list selecting test", function( assert ) {
                 testHelper.getSelectedFromList(), 
                 [ 
                     {
-                        "id": "3",
-                        "name": "Service 3"
+                        'id': '3',
+                        'name': 'Service 3'
                     },
                     {
-                        "id": "5",
-                        "name": "Service 5"
+                        'id': '5',
+                        'name': 'Service 5'
                     },
                     {
-                        "id": "7",
-                        "name": "Service 7"
+                        'id': '7',
+                        'name': 'Service 7'
                     }
                 ] );
 
@@ -144,24 +144,24 @@ QUnit.test( "list selecting test", function( assert ) {
                 testHelper.getSelectedFromList(), 
                 [ 
                     {
-                        "id": "3",
-                        "name": "Service 3"
+                        'id': '3',
+                        'name': 'Service 3'
                     },
                     {
-                        "id": "5",
-                        "name": "Service 5"
+                        'id': '5',
+                        'name': 'Service 5'
                     },
                     {
-                        "id": "7",
-                        "name": "Service 7"
+                        'id': '7',
+                        'name': 'Service 7'
                     },
                     {
-                        "id": "8",
-                        "name": "Service 8"
+                        'id': '8',
+                        'name': 'Service 8'
                     },
                     {
-                        "id": "9",
-                        "name": "Service 9"
+                        'id': '9',
+                        'name': 'Service 9'
                     }
                 ] );
             testHelper.keyUp( 'Shift' );
@@ -172,44 +172,44 @@ QUnit.test( "list selecting test", function( assert ) {
                 testHelper.getSelectedFromList(), 
                 [ 
                     {
-                        "id": "1",
-                        "name": "Service 1"
+                        'id': '1',
+                        'name': 'Service 1'
                     },
                     {
-                        "id": "2",
-                        "name": "Service 2"
+                        'id': '2',
+                        'name': 'Service 2'
                     },
                     {
-                        "id": "3",
-                        "name": "Service 3"
+                        'id': '3',
+                        'name': 'Service 3'
                     },
                     {
-                        "id": "4",
-                        "name": "Service 4"
+                        'id': '4',
+                        'name': 'Service 4'
                     },
                     {
-                        "id": "5",
-                        "name": "Service 5"
+                        'id': '5',
+                        'name': 'Service 5'
                     },
                     {
-                        "id": "6",
-                        "name": "Service 6"
+                        'id': '6',
+                        'name': 'Service 6'
                     },
                     {
-                        "id": "7",
-                        "name": "Service 7"
+                        'id': '7',
+                        'name': 'Service 7'
                     },
                     {
-                        "id": "8",
-                        "name": "Service 8"
+                        'id': '8',
+                        'name': 'Service 8'
                     },
                     {
-                        "id": "9",
-                        "name": "Service 9"
+                        'id': '9',
+                        'name': 'Service 9'
                     },
                     {
-                        "id": "10",
-                        "name": "Service 10"
+                        'id': '10',
+                        'name': 'Service 10'
                     }
                 ] );
 
@@ -223,44 +223,44 @@ QUnit.test( "list selecting test", function( assert ) {
                 testHelper.getSelectedFromList(), 
                 [ 
                     {
-                        "id": "1",
-                        "name": "Service 1"
+                        'id': '1',
+                        'name': 'Service 1'
                     },
                     {
-                        "id": "2",
-                        "name": "Service 2"
+                        'id': '2',
+                        'name': 'Service 2'
                     },
                     {
-                        "id": "3",
-                        "name": "Service 3"
+                        'id': '3',
+                        'name': 'Service 3'
                     },
                     {
-                        "id": "4",
-                        "name": "Service 4"
+                        'id': '4',
+                        'name': 'Service 4'
                     },
                     {
-                        "id": "5",
-                        "name": "Service 5"
+                        'id': '5',
+                        'name': 'Service 5'
                     },
                     {
-                        "id": "6",
-                        "name": "Service 6"
+                        'id': '6',
+                        'name': 'Service 6'
                     },
                     {
-                        "id": "7",
-                        "name": "Service 7"
+                        'id': '7',
+                        'name': 'Service 7'
                     },
                     {
-                        "id": "8",
-                        "name": "Service 8"
+                        'id': '8',
+                        'name': 'Service 8'
                     },
                     {
-                        "id": "9",
-                        "name": "Service 9"
+                        'id': '9',
+                        'name': 'Service 9'
                     },
                     {
-                        "id": "10",
-                        "name": "Service 10"
+                        'id': '10',
+                        'name': 'Service 10'
                     }
                 ] );
 
@@ -270,32 +270,32 @@ QUnit.test( "list selecting test", function( assert ) {
                 testHelper.getSelectedFromList(), 
                 [ 
                     {
-                        "id": "2",
-                        "name": "Service 2"
+                        'id': '2',
+                        'name': 'Service 2'
                     },
                     {
-                        "id": "3",
-                        "name": "Service 3"
+                        'id': '3',
+                        'name': 'Service 3'
                     },
                     {
-                        "id": "5",
-                        "name": "Service 5"
+                        'id': '5',
+                        'name': 'Service 5'
                     },
                     {
-                        "id": "6",
-                        "name": "Service 6"
+                        'id': '6',
+                        'name': 'Service 6'
                     },
                     {
-                        "id": "8",
-                        "name": "Service 8"
+                        'id': '8',
+                        'name': 'Service 8'
                     },
                     {
-                        "id": "9",
-                        "name": "Service 9"
+                        'id': '9',
+                        'name': 'Service 9'
                     },
                     {
-                        "id": "10",
-                        "name": "Service 10"
+                        'id': '10',
+                        'name': 'Service 10'
                     }
                 ] );
 
@@ -321,34 +321,34 @@ QUnit.test( "list selecting test", function( assert ) {
     );
 });
 
-QUnit.test( "subform selecting test", function( assert ) {
+QUnit.test( 'subform selecting test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ]
     };
@@ -427,14 +427,14 @@ QUnit.test( "subform selecting test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             
@@ -448,9 +448,9 @@ QUnit.test( "subform selecting test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     }
                 ]);
             
@@ -461,19 +461,19 @@ QUnit.test( "subform selecting test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ] );
             testHelper.keyUp( 'Shift' );
@@ -484,24 +484,24 @@ QUnit.test( "subform selecting test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     },
                     {
-                        "code": "4",
-                        "name": "Homer Simpson",
-                        "description": "Description of Homer Simpson"
+                        'code': '4',
+                        'name': 'Homer Simpson',
+                        'description': 'Description of Homer Simpson'
                     }
                 ] );
             
@@ -515,24 +515,24 @@ QUnit.test( "subform selecting test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     },
                     {
-                        "code": "4",
-                        "name": "Homer Simpson",
-                        "description": "Description of Homer Simpson"
+                        'code': '4',
+                        'name': 'Homer Simpson',
+                        'description': 'Description of Homer Simpson'
                     }
                 ] );
             
@@ -542,14 +542,14 @@ QUnit.test( "subform selecting test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ] );
             
@@ -560,41 +560,41 @@ QUnit.test( "subform selecting test", function( assert ) {
     );
 });
 
-QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
+QUnit.test( '2 subforms selecting and copy/paste test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ],
-        "externalMembers": [
+        'externalMembers': [
             {
-                "code": "5",
-                "name": "Ned Flanders",
-                "description": "Description of Ned Flanders"
+                'code': '5',
+                'name': 'Ned Flanders',
+                'description': 'Description of Ned Flanders'
             }
         ]
     };
@@ -684,14 +684,14 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -707,14 +707,14 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -725,23 +725,23 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'externalMembers' ), 
                 [ 
                     {
-                        "code": "5",
-                        "name": "Ned Flanders",
-                        "description": "Description of Ned Flanders"
+                        'code': '5',
+                        'name': 'Ned Flanders',
+                        'description': 'Description of Ned Flanders'
                     }
                 ]);
             assert.deepEqual( 
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             
@@ -794,46 +794,46 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
             // Check storage
             record.members = [
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 },
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 },
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
@@ -843,41 +843,41 @@ QUnit.test( "2 subforms selecting and copy/paste test", function( assert ) {
     );
 });
 
-QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
+QUnit.test( '2 subforms selecting and cut/paste test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ],
-        "externalMembers": [
+        'externalMembers': [
             {
-                "code": "5",
-                "name": "Ned Flanders",
-                "description": "Description of Ned Flanders"
+                'code': '5',
+                'name': 'Ned Flanders',
+                'description': 'Description of Ned Flanders'
             }
         ]
     };
@@ -967,14 +967,14 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -990,14 +990,14 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -1008,23 +1008,23 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'externalMembers' ), 
                 [ 
                     {
-                        "code": "5",
-                        "name": "Ned Flanders",
-                        "description": "Description of Ned Flanders"
+                        'code': '5',
+                        'name': 'Ned Flanders',
+                        'description': 'Description of Ned Flanders'
                     }
                 ]);
             assert.deepEqual( 
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
 
@@ -1094,31 +1094,31 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
             // Check storage
             record.members = [
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 },
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
@@ -1128,41 +1128,41 @@ QUnit.test( "2 subforms selecting and cut/paste test", function( assert ) {
     );
 });
 
-QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) test", function( assert ) {
+QUnit.test( '2 subforms (1 read only) selecting and copy/paste (saving 2 times) test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ],
-        "externalMembers": [
+        'externalMembers': [
             {
-                "code": "5",
-                "name": "Ned Flanders",
-                "description": "Description of Ned Flanders"
+                'code': '5',
+                'name': 'Ned Flanders',
+                'description': 'Description of Ned Flanders'
             }
         ]
     };
@@ -1255,14 +1255,14 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -1278,14 +1278,14 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -1296,23 +1296,23 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
                 testHelper.getSelectedFromSubform( 'externalMembers' ), 
                 [ 
                     {
-                        "code": "5",
-                        "name": "Ned Flanders",
-                        "description": "Description of Ned Flanders"
+                        'code': '5',
+                        'name': 'Ned Flanders',
+                        'description': 'Description of Ned Flanders'
                     }
                 ]);
             assert.deepEqual( 
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             
@@ -1365,46 +1365,46 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             // Check storage
             record.members = [
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 },
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 },
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
@@ -1451,51 +1451,51 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
             // Check storage second time
             record.members = [
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 },
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 },
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 },
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
@@ -1505,41 +1505,41 @@ QUnit.test( "2 subforms (1 read only) selecting and copy/paste (saving 2 times) 
     );
 });
 
-QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) test", function( assert ) {
+QUnit.test( '2 subforms (1 read only) selecting and cut/paste (saving 2 times) test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ],
-        "externalMembers": [
+        'externalMembers': [
             {
-                "code": "5",
-                "name": "Ned Flanders",
-                "description": "Description of Ned Flanders"
+                'code': '5',
+                'name': 'Ned Flanders',
+                'description': 'Description of Ned Flanders'
             }
         ]
     };
@@ -1630,14 +1630,14 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -1653,14 +1653,14 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -1671,23 +1671,23 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
                 testHelper.getSelectedFromSubform( 'externalMembers' ), 
                 [ 
                     {
-                        "code": "5",
-                        "name": "Ned Flanders",
-                        "description": "Description of Ned Flanders"
+                        'code': '5',
+                        'name': 'Ned Flanders',
+                        'description': 'Description of Ned Flanders'
                     }
                 ]);
             assert.deepEqual( 
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             
@@ -1727,31 +1727,31 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             // Check storage
             record.members = [
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 },
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
@@ -1771,31 +1771,31 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
             // Check storage a second time
             record.members = [
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 },
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 },
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
@@ -1805,41 +1805,41 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (saving 2 times) t
     );
 });
 
-QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same record twice) test", function( assert ) {
+QUnit.test( '2 subforms (1 read only) selecting and cut/paste (cuting the same record twice) test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ],
-        "externalMembers": [
+        'externalMembers': [
             {
-                "code": "5",
-                "name": "Ned Flanders",
-                "description": "Description of Ned Flanders"
+                'code': '5',
+                'name': 'Ned Flanders',
+                'description': 'Description of Ned Flanders'
             }
         ]
     };
@@ -1930,14 +1930,14 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -1991,31 +1991,31 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
             // Check storage
             record.members = [
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 },
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 },
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );
@@ -2025,41 +2025,41 @@ QUnit.test( "2 subforms (1 read only) selecting and cut/paste (cuting the same r
     );
 });
 
-QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting and cut/paste (cuting the same record twice) test", function( assert ) {
+QUnit.test( '2 subforms (1 read only and 1 with 2 read only fields) selecting and cut/paste (cuting the same record twice) test', function( assert ) {
 
     // Setup services
     testServerSide.resetServices();
     var key = 4;
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "members": [
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'members': [
             {
-                "code": "1",
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'code': '1',
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             },
             {
-                "code": "2",
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'code': '2',
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             },
             {
-                "code": "3",
-                "name": "Marge Simpson",
-                "description": "Description of Marge Simpson"
+                'code': '3',
+                'name': 'Marge Simpson',
+                'description': 'Description of Marge Simpson'
             },
             {
-                "code": "4",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '4',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             }
         ],
-        "externalMembers": [
+        'externalMembers': [
             {
-                "code": "5",
-                "name": "Ned Flanders",
-                "description": "Description of Ned Flanders"
+                'code': '5',
+                'name': 'Ned Flanders',
+                'description': 'Description of Ned Flanders'
             }
         ]
     };
@@ -2154,14 +2154,14 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
                 testHelper.getSelectedFromSubform( 'members' ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '3',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]);
             assert.equal( testHelper.getSelectedFromSubform( 'externalMembers' ).length, 0 );
@@ -2215,31 +2215,31 @@ QUnit.test( "2 subforms (1 read only and 1 with 2 read only fields) selecting an
             // Check storage
             record.members = [
                 {
-                    "code": "2",
-                    "name": "Lisa Simpson",
-                    "description": "Description of Lisa Simpson"
+                    'code': '2',
+                    'name': 'Lisa Simpson',
+                    'description': 'Description of Lisa Simpson'
                 },
                 {
-                    "code": "4",
-                    "name": "Homer Simpson",
-                    "description": "Description of Homer Simpson"
+                    'code': '4',
+                    'name': 'Homer Simpson',
+                    'description': 'Description of Homer Simpson'
                 },
                 {
-                    "code": "5",
-                    "name": "Ned Flanders",
-                    "description": "Description of Ned Flanders"
+                    'code': '5',
+                    'name': 'Ned Flanders',
+                    'description': 'Description of Ned Flanders'
                 },
                 {
-                    "code": "1",
-                    "name": "Bart Simpson",
-                    "description": "Description of Bart Simpson"
+                    'code': '1',
+                    'name': 'Bart Simpson',
+                    'description': 'Description of Bart Simpson'
                 }
             ];
             record.externalMembers = [
                 {
-                    "code": "3",
-                    "name": "Marge Simpson",
-                    "description": "Description of Marge Simpson"
+                    'code': '3',
+                    'name': 'Marge Simpson',
+                    'description': 'Description of Marge Simpson'
                 }
             ];
             assert.deepEqual( testServerSide.getService( key ), record );

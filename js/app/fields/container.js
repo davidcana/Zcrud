@@ -1,7 +1,7 @@
 /* 
     Container class
 */
-"use strict";
+'use strict';
 
 var buttonUtils = require( '../buttons/buttonUtils.js' );
 var utils = require( '../utils.js' );

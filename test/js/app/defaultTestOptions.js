@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var testServerSide = require( './testServerSide' );
 var log4javascript = require( 'log4javascript' );
@@ -47,37 +47,37 @@ module.exports = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": [ 
+                        'type': 'fieldsGroup',
+                        'source': [ 
                             'id',
                             'name',
                             'description' 
                         ],
-                        "container": {
-                            "id": "basicData",
-                            "containerType": "fieldSet"
+                        'container': {
+                            'id': 'basicData',
+                            'containerType': 'fieldSet'
                         }
                     },
                     {
-                        "type": "fieldsGroup",
-                        "source": "default",
-                        "start": "date"
+                        'type': 'fieldsGroup',
+                        'source': 'default',
+                        'start': 'date'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": "create"
+                        'type': 'fieldsGroup',
+                        'source': 'create'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": "create"
+                        'type': 'fieldsGroup',
+                        'source': 'create'
                     }
                 ]
             }
@@ -106,7 +106,7 @@ module.exports = {
         },
         description: {
             type: 'textarea',
-            //template: "descriptionTextarea"
+            //template: 'descriptionTextarea'
         },
         date: {
             type: 'date',

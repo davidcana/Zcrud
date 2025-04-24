@@ -2,7 +2,7 @@
     fieldBuilder singleton class
 */
 module.exports = (function() {
-    "use strict";
+    'use strict';
     
     var utils = require( '../utils.js' );
 

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -14,7 +14,7 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var options = undefined;
 
 // Run tests
-QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
+QUnit.test( 'paging test (combobox gotoPageFieldType)', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     options.pageConf.pages.list.components.paging.gotoPageFieldType = 'combobox';
@@ -49,7 +49,7 @@ QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     );
 });
 
-QUnit.test( "update test", function( assert ) {
+QUnit.test( 'update test', function( assert ) {
 
     var done = assert.async();
 
@@ -62,8 +62,8 @@ QUnit.test( "update test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -81,18 +81,18 @@ QUnit.test( "update test", function( assert ) {
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "description": "Service 2 description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3",
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'name': 'Service 2 edited',
+                'description': 'Service 2 description',
+                'date': '10/23/2017',
+                'time': '18:50',
+                'datetime': '10/23/2017 20:00',
+                'phoneType': 'officePhone_option',
+                'province': 'Cádiz',
+                'city': 'Tarifa',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3',
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
 
             testHelper.fillForm( editedRecord );
@@ -104,7 +104,7 @@ QUnit.test( "update test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             var valuesList = testHelper.buildValuesList( 1, 10 );
-            valuesList[ 1 ] = valuesList[ 1 ].replace( "/" + record.name + "/", "/" + editedRecord.name + "/" );
+            valuesList[ 1 ] = valuesList[ 1 ].replace( '/' + record.name + '/', '/' + editedRecord.name + '/' );
             values = testHelper.buildCustomValuesList( valuesList );
 
             testHelper.pagingTest({

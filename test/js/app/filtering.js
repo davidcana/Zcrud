@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -27,7 +27,7 @@ var discardConfirmFunction = function( confirmOptions, onFulfilled ){
 
 // Run tests
 
-QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
+QUnit.test( 'filtering list (compact list of fields) test', function( assert ) {
     
     thisTestOptions = {
         pageConf: {
@@ -64,7 +64,7 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
             testHelper.pagingTest({
                 action: { 
                     filter: {
-                        "name": 'Service 1' 
+                        'name': 'Service 1' 
                     }
                 },
                 options: options,
@@ -96,7 +96,7 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
             testHelper.pagingTest({
                 action: { 
                     filter: {
-                        "name": '' 
+                        'name': '' 
                     }
                 },
                 options: options,
@@ -113,8 +113,8 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
             testHelper.pagingTest({
                 action: { 
                     filter: {
-                        "id": '2',
-                        "name": 'Service 1' 
+                        'id': '2',
+                        'name': 'Service 1' 
                     }
                 },
                 options: options,
@@ -132,7 +132,7 @@ QUnit.test( "filtering list (compact list of fields) test", function( assert ) {
     );
 });
 
-QUnit.test( "filtering subform (compact list of fields) test", function( assert ) {
+QUnit.test( 'filtering subform (compact list of fields) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -178,7 +178,7 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": 'Member 1' 
+                        'members-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -212,7 +212,7 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": '' 
+                        'members-name': '' 
                     }
                 },
                 options: options,
@@ -230,8 +230,8 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-code": '2',
-                        "members-name": 'Member 1' 
+                        'members-code': '2',
+                        'members-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -249,7 +249,7 @@ QUnit.test( "filtering subform (compact list of fields) test", function( assert 
     );
 });
 
-QUnit.test( "filtering list (standard list of fields) test", function( assert ) {
+QUnit.test( 'filtering list (standard list of fields) test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -288,7 +288,7 @@ QUnit.test( "filtering list (standard list of fields) test", function( assert ) 
             testHelper.pagingTest({
                 action: { 
                     filter: {
-                        "name": 'Service 1' 
+                        'name': 'Service 1' 
                     }
                 },
                 options: options,
@@ -320,7 +320,7 @@ QUnit.test( "filtering list (standard list of fields) test", function( assert ) 
             testHelper.pagingTest({
                 action: { 
                     filter: {
-                        "name": '' 
+                        'name': '' 
                     }
                 },
                 options: options,
@@ -337,8 +337,8 @@ QUnit.test( "filtering list (standard list of fields) test", function( assert ) 
             testHelper.pagingTest({
                 action: { 
                     filter: {
-                        "id": '2',
-                        "name": 'Service 1' 
+                        'id': '2',
+                        'name': 'Service 1' 
                     }
                 },
                 options: options,
@@ -356,7 +356,7 @@ QUnit.test( "filtering list (standard list of fields) test", function( assert ) 
     );
 });
 
-QUnit.test( "filtering subform (standard list of fields) test", function( assert ) {
+QUnit.test( 'filtering subform (standard list of fields) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -400,7 +400,7 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": 'Member 1' 
+                        'members-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -434,7 +434,7 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": '' 
+                        'members-name': '' 
                     }
                 },
                 options: options,
@@ -452,8 +452,8 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-code": '2',
-                        "members-name": 'Member 1' 
+                        'members-code': '2',
+                        'members-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -471,7 +471,7 @@ QUnit.test( "filtering subform (standard list of fields) test", function( assert
     );
 });
 
-QUnit.test( "filtering subform breaking paging: abort (standard list of fields) test", function( assert ) {
+QUnit.test( 'filtering subform breaking paging: abort (standard list of fields) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -518,7 +518,7 @@ QUnit.test( "filtering subform breaking paging: abort (standard list of fields) 
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": 'Member 1' 
+                        'members-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -534,7 +534,7 @@ QUnit.test( "filtering subform breaking paging: abort (standard list of fields) 
             // Edit description of last row
             testHelper.fillSubformNewRow( 
                 {
-                    description: "Description of Member 18 edited"
+                    description: 'Description of Member 18 edited'
                 }, 
                 subformName );
             
@@ -544,7 +544,7 @@ QUnit.test( "filtering subform breaking paging: abort (standard list of fields) 
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": 'Member 2222222' 
+                        'members-name': 'Member 2222222' 
                     }
                 },
                 options: options,
@@ -563,7 +563,7 @@ QUnit.test( "filtering subform breaking paging: abort (standard list of fields) 
     );
 });
 
-QUnit.test( "filtering subform breaking paging: discard (standard list of fields) test", function( assert ) {
+QUnit.test( 'filtering subform breaking paging: discard (standard list of fields) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -610,7 +610,7 @@ QUnit.test( "filtering subform breaking paging: discard (standard list of fields
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": 'Member 1' 
+                        'members-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -626,7 +626,7 @@ QUnit.test( "filtering subform breaking paging: discard (standard list of fields
             // Edit description of last row
             testHelper.fillSubformNewRow( 
                 {
-                    description: "Description of Member 18 edited"
+                    description: 'Description of Member 18 edited'
                 }, 
                 subformName );
 
@@ -636,7 +636,7 @@ QUnit.test( "filtering subform breaking paging: discard (standard list of fields
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "members-name": 'Member 2222222' 
+                        'members-name': 'Member 2222222' 
                     }
                 },
                 options: options,

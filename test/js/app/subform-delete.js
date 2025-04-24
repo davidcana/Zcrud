@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "delete test", function( assert ) {
+QUnit.test( 'delete test', function( assert ) {
 
     var done = assert.async();
 
@@ -34,28 +34,28 @@ QUnit.test( "delete test", function( assert ) {
             // Update record in server
             var key = 6;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Homer Simpson",
-                        "description": "Description of Homer Simpson"
+                        'code': '3',
+                        'name': 'Homer Simpson',
+                        'description': 'Description of Homer Simpson'
                     },
                     {
-                        "code": "4",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '4',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]
             };
@@ -105,7 +105,7 @@ QUnit.test( "delete test", function( assert ) {
     );
 });
 
-QUnit.test( "delete 3 rows test", function( assert ) {
+QUnit.test( 'delete 3 rows test', function( assert ) {
 
     var done = assert.async();
 
@@ -119,28 +119,28 @@ QUnit.test( "delete 3 rows test", function( assert ) {
             // Update record in server
             var key = 6;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Homer Simpson",
-                        "description": "Description of Homer Simpson"
+                        'code': '3',
+                        'name': 'Homer Simpson',
+                        'description': 'Description of Homer Simpson'
                     },
                     {
-                        "code": "4",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '4',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]
             };
@@ -196,7 +196,7 @@ QUnit.test( "delete 3 rows test", function( assert ) {
     );
 });
 
-QUnit.test( "delete undo/redo 1 action test", function( assert ) {
+QUnit.test( 'delete undo/redo 1 action test', function( assert ) {
 
     var done = assert.async();
 
@@ -210,28 +210,28 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
             // Update record in server
             var key = 6;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Homer Simpson",
-                        "description": "Description of Homer Simpson"
+                        'code': '3',
+                        'name': 'Homer Simpson',
+                        'description': 'Description of Homer Simpson'
                     },
                     {
-                        "code": "4",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '4',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]
             };
@@ -291,7 +291,7 @@ QUnit.test( "delete undo/redo 1 action test", function( assert ) {
     );
 });
 
-QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
+QUnit.test( 'delete undo/redo 3 actions test', function( assert ) {
 
     var done = assert.async();
 
@@ -305,28 +305,28 @@ QUnit.test( "delete undo/redo 3 actions test", function( assert ) {
             // Update record in server
             var key = 6;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     },
                     {
-                        "code": "3",
-                        "name": "Homer Simpson",
-                        "description": "Description of Homer Simpson"
+                        'code': '3',
+                        'name': 'Homer Simpson',
+                        'description': 'Description of Homer Simpson'
                     },
                     {
-                        "code": "4",
-                        "name": "Marge Simpson",
-                        "description": "Description of Marge Simpson"
+                        'code': '4',
+                        'name': 'Marge Simpson',
+                        'description': 'Description of Marge Simpson'
                     }
                 ]
             };

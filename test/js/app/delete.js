@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -13,7 +13,7 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var subformTestOptions = require( './subformTestOptions.js' );
 
 // Run tests
-QUnit.test( "delete test", function( assert ) {
+QUnit.test( 'delete test', function( assert ) {
 
     var done = assert.async();
     var options = utils.extend( true, {}, defaultTestOptions );
@@ -30,8 +30,8 @@ QUnit.test( "delete test", function( assert ) {
             // Assert register with key 2 is OK
             var key = 2;
             var expectedRecord =  {
-                "name": "Service 2",
-                "id":"2"
+                'name': 'Service 2',
+                'id':'2'
             };
             testHelper.checkRecord( assert, key, expectedRecord );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -87,7 +87,7 @@ QUnit.test( "delete test", function( assert ) {
     );
 });
 
-QUnit.test( "delete with subform test", function( assert ) {
+QUnit.test( 'delete with subform test', function( assert ) {
 
     var done = assert.async();
     var options = utils.extend( true, {}, subformTestOptions );
@@ -102,17 +102,17 @@ QUnit.test( "delete with subform test", function( assert ) {
             // Assert register with key 2 is OK
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson'
                     }
                 ]
             };
@@ -131,7 +131,7 @@ QUnit.test( "delete with subform test", function( assert ) {
     );
 });
 
-QUnit.test( "english delete form test", function( assert ) {
+QUnit.test( 'english delete form test', function( assert ) {
 
     var done = assert.async();
     var options = utils.extend( true, {}, defaultTestOptions );
@@ -146,17 +146,17 @@ QUnit.test( "english delete form test", function( assert ) {
 
             var key = 2;
             var record =  {
-                "name": "Service " + key,
-                "id": "" + key,
-                "datetime": new Date( "2017-09-10T20:30:00.000" ),
-                "date": new Date( "2017-09-10T00:00:00.000" ),
-                "time": "18:50",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'name': 'Service ' + key,
+                'id': '' + key,
+                'datetime': new Date( '2017-09-10T20:30:00.000' ),
+                'date': new Date( '2017-09-10T00:00:00.000' ),
+                'time': '18:50',
+                'phoneType': 'officePhone_option',
+                'province': 'Cádiz',
+                'city': 'Tarifa',
+                'browser': 'Firefox',
+                'important': true,
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
             testServerSide.setService( key, record );
             
@@ -189,7 +189,7 @@ QUnit.test( "english delete form test", function( assert ) {
     );
 });
 
-QUnit.test( "spanish delete form test", function( assert ) {
+QUnit.test( 'spanish delete form test', function( assert ) {
 
     var done = assert.async();
     var options = utils.extend( true, {}, defaultTestOptions );
@@ -205,17 +205,17 @@ QUnit.test( "spanish delete form test", function( assert ) {
 
             var key = 2;
             var record =  {
-                "name": "Service " + key,
-                "id": "" + key,
-                "datetime": new Date( "2017-09-10T20:30:00.000" ),
-                "date": new Date( "2017-09-10T00:00:00.000" ),
-                "time": "18:50",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'name': 'Service ' + key,
+                'id': '' + key,
+                'datetime': new Date( '2017-09-10T20:30:00.000' ),
+                'date': new Date( '2017-09-10T00:00:00.000' ),
+                'time': '18:50',
+                'phoneType': 'officePhone_option',
+                'province': 'Cádiz',
+                'city': 'Tarifa',
+                'browser': 'Firefox',
+                'important': true,
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
             testServerSide.setService( key, record );
 

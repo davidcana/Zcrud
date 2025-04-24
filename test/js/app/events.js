@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -125,7 +125,7 @@ var checkSelectionChangedEvent = function( assert, data, $rows, record, options 
 };
 
 // Run tests
-QUnit.test( "events update form test", function( assert ) {
+QUnit.test( 'events update form test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     resetCounters();
@@ -142,8 +142,8 @@ QUnit.test( "events update form test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "name": "Service " + key,
-                "id": "" + key
+                'name': 'Service ' + key,
+                'id': '' + key
             };
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
 
@@ -171,17 +171,17 @@ QUnit.test( "events update form test", function( assert ) {
             
             // Edit record
             var editedServerRecord = {
-                "name": "Service " + key + " edited",
-                "description": "Service " + key + " description",
-                "date": new Date( '2017-10-02T00:00:00.000' ),
-                "time": "18:50",
-                "datetime": new Date( '2017-09-10T00:00:00.000' ),
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3"
+                'name': 'Service ' + key + ' edited',
+                'description': 'Service ' + key + ' description',
+                'date': new Date( '2017-10-02T00:00:00.000' ),
+                'time': '18:50',
+                'datetime': new Date( '2017-09-10T00:00:00.000' ),
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3'
             };
             var editedClientRecord = utils.extend( true, {}, editedServerRecord );
             editedClientRecord[ 'date' ] = options.fields[ 'date' ].formatToClient(
@@ -219,13 +219,13 @@ QUnit.test( "events update form test", function( assert ) {
                 $form, 
                 'update', 
                 {
-                    "command": "batchUpdate",
-                    "existingRecords": {
-                        "2": editedServerRecord
+                    'command': 'batchUpdate',
+                    'existingRecords': {
+                        '2': editedServerRecord
                     },
-                    "newRecords": [],
-                    "recordsToRemove": [],
-                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    'newRecords': [],
+                    'recordsToRemove': [],
+                    'url': 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
                 }, 
                 options );
             checkRecordEvent( 
@@ -234,9 +234,9 @@ QUnit.test( "events update form test", function( assert ) {
                 //serverRecord2, 
                 editedServerRecord,
                 {
-                    "message":"",
-                    "newRecords":[],
-                    "result":"OK"},  
+                    'message':'',
+                    'newRecords':[],
+                    'result':'OK'},  
                 options );
             checkOpenCloseEvent( 
                 assert, 
@@ -273,7 +273,7 @@ QUnit.test( "events update form test", function( assert ) {
     );
 });
 
-QUnit.test( "events create form test", function( assert ) {
+QUnit.test( 'events create form test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     resetCounters();
@@ -290,18 +290,18 @@ QUnit.test( "events create form test", function( assert ) {
             // Assert register with key 0 not exists
             var key = 0;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "date": new Date( '2017-10-02T00:00:00.000' ),
-                "time": "18:50",
-                "datetime": new Date( '2017-09-10T00:00:00.000' ),
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'date': new Date( '2017-10-02T00:00:00.000' ),
+                'time': '18:50',
+                'datetime': new Date( '2017-09-10T00:00:00.000' ),
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3'
             };
             var clientRecord = utils.extend( true, {}, serverRecord );
             clientRecord[ 'date' ] = options.fields[ 'date' ].formatToClient(
@@ -356,11 +356,11 @@ QUnit.test( "events create form test", function( assert ) {
                 $form, 
                 'create', 
                 {
-                    "command": "batchUpdate",
-                    "existingRecords": {},
-                    "newRecords": [ serverRecord2 ],
-                    "recordsToRemove": [],
-                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    'command': 'batchUpdate',
+                    'existingRecords': {},
+                    'newRecords': [ serverRecord2 ],
+                    'recordsToRemove': [],
+                    'url': 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
                 }, 
                 options );
             
@@ -369,11 +369,11 @@ QUnit.test( "events create form test", function( assert ) {
                 dataArray[2], 
                 serverRecord2, 
                 {
-                    "message":"",
-                    //"existingRecords": {},
-                    "newRecords": [ serverRecord2 ],
-                    //"recordsToRemove": [],
-                    "result":"OK"
+                    'message':'',
+                    //'existingRecords': {},
+                    'newRecords': [ serverRecord2 ],
+                    //'recordsToRemove': [],
+                    'result':'OK'
                 },  
                 options );
             
@@ -404,7 +404,7 @@ QUnit.test( "events create form test", function( assert ) {
     );
 });
 
-QUnit.test( "event delete form test", function( assert ) {
+QUnit.test( 'event delete form test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     resetCounters();
@@ -421,8 +421,8 @@ QUnit.test( "event delete form test", function( assert ) {
             // Assert register with key 2 is OK
             var key = 3;
             var expectedRecord =  {
-                "name": "Service " + key,
-                "id": "" + key
+                'name': 'Service ' + key,
+                'id': '' + key
             };
             testHelper.checkRecord( assert, key, expectedRecord );
 
@@ -507,11 +507,11 @@ QUnit.test( "event delete form test", function( assert ) {
                 $form, 
                 'delete', 
                 {
-                    "command": "batchUpdate",
-                    "existingRecords": {},
-                    "newRecords": [],
-                    "recordsToRemove": [ '' + key ],
-                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    'command': 'batchUpdate',
+                    'existingRecords': {},
+                    'newRecords': [],
+                    'recordsToRemove': [ '' + key ],
+                    'url': 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
                 }, 
                 options );
             
@@ -520,11 +520,11 @@ QUnit.test( "event delete form test", function( assert ) {
                 dataArray[4], 
                 expectedRecord, 
                 {
-                    "message":"",
-                    //"existingRecords": {},
-                    "newRecords": [],
-                    //"recordsToRemove": [ '' + key ],
-                    "result":"OK"
+                    'message':'',
+                    //'existingRecords': {},
+                    'newRecords': [],
+                    //'recordsToRemove': [ '' + key ],
+                    'result':'OK'
                 },  
                 options );
             
@@ -542,7 +542,7 @@ QUnit.test( "event delete form test", function( assert ) {
     );
 });
 
-QUnit.test( "event update editable list test", function( assert ) {
+QUnit.test( 'event update editable list test', function( assert ) {
 
     options = utils.extend( true, {}, editableListOptions );
     resetCounters();
@@ -562,15 +562,15 @@ QUnit.test( "event update editable list test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "number": "3"
+                'name': 'Service ' + key + ' edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -597,13 +597,13 @@ QUnit.test( "event update editable list test", function( assert ) {
                 $form, 
                 'list', 
                 {
-                    "command": "batchUpdate",
-                    "existingRecords": {
-                        "2": editedRecord
+                    'command': 'batchUpdate',
+                    'existingRecords': {
+                        '2': editedRecord
                     },
-                    "newRecords": [],
-                    "recordsToRemove": [],
-                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    'newRecords': [],
+                    'recordsToRemove': [],
+                    'url': 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
                 }, 
                 options );
             checkRecordEvent( 
@@ -611,13 +611,13 @@ QUnit.test( "event update editable list test", function( assert ) {
                 dataArray[1], 
                 newRecord, 
                 {
-                    "message":"",
-                    //"existingRecords":{
-                    //    "2": newRecord
+                    'message':'',
+                    //'existingRecords':{
+                    //    '2': newRecord
                     //},
-                    "newRecords":[],
-                    //"recordsToRemove":[],
-                    "result":"OK"},  
+                    'newRecords':[],
+                    //'recordsToRemove':[],
+                    'result':'OK'},  
                 options );
             
             testHelper.checkRecord( assert, key, newRecord, editable );
@@ -627,7 +627,7 @@ QUnit.test( "event update editable list test", function( assert ) {
     );
 });
 
-QUnit.test( "event create editable list test", function( assert ) {
+QUnit.test( 'event create editable list test', function( assert ) {
     
     options = utils.extend( true, {}, editableListOptions );
     resetCounters();
@@ -647,8 +647,8 @@ QUnit.test( "event create editable list test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key, newRecord, editable );
 
@@ -676,11 +676,11 @@ QUnit.test( "event create editable list test", function( assert ) {
                 $form, 
                 'list', 
                 {
-                    "command": "batchUpdate",
-                    "existingRecords": {},
-                    "newRecords": [ newRecord ],
-                    "recordsToRemove": [],
-                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    'command': 'batchUpdate',
+                    'existingRecords': {},
+                    'newRecords': [ newRecord ],
+                    'recordsToRemove': [],
+                    'url': 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
                 }, 
                 options );
             checkRecordEvent( 
@@ -688,11 +688,11 @@ QUnit.test( "event create editable list test", function( assert ) {
                 dataArray[1], 
                 newRecord, 
                 {
-                    "message":"",
-                    //"existingRecords":{},
-                    "newRecords":[ newRecord ],
-                    //"recordsToRemove":[],
-                    "result":"OK"},  
+                    'message':'',
+                    //'existingRecords':{},
+                    'newRecords':[ newRecord ],
+                    //'recordsToRemove':[],
+                    'result':'OK'},  
                 options );
             
             testHelper.checkRecord( assert, key, newRecord, editable, true );
@@ -702,7 +702,7 @@ QUnit.test( "event create editable list test", function( assert ) {
     );
 });
 
-QUnit.test( "event delete editable list test", function( assert ) {
+QUnit.test( 'event delete editable list test', function( assert ) {
     
     options = utils.extend( true, {}, editableListOptions );
     resetCounters();
@@ -722,8 +722,8 @@ QUnit.test( "event delete editable list test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
             
@@ -752,11 +752,11 @@ QUnit.test( "event delete editable list test", function( assert ) {
                 $form, 
                 'list', 
                 {
-                    "command": "batchUpdate",
-                    "existingRecords": {},
-                    "newRecords": [],
-                    "recordsToRemove": [ '' + key ],
-                    "url": "http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department"
+                    'command': 'batchUpdate',
+                    'existingRecords': {},
+                    'newRecords': [],
+                    'recordsToRemove': [ '' + key ],
+                    'url': 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
                 }, 
                 options );
             checkRecordEvent( 
@@ -764,11 +764,11 @@ QUnit.test( "event delete editable list test", function( assert ) {
                 dataArray[1], 
                 record, 
                 {
-                    "message":"",
-                    //"existingRecords":{},
-                    "newRecords": [],
-                    //"recordsToRemove": [ '' + key ],
-                    "result":"OK"},  
+                    'message':'',
+                    //'existingRecords':{},
+                    'newRecords': [],
+                    //'recordsToRemove': [ '' + key ],
+                    'result':'OK'},  
                 options );
             
             testHelper.checkNoRecord( assert, key );
@@ -778,7 +778,7 @@ QUnit.test( "event delete editable list test", function( assert ) {
     );
 });
 
-QUnit.test( "events update with failed validation form test", function( assert ) {
+QUnit.test( 'events update with failed validation form test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.events.formSubmitting = function ( data, event ) {
@@ -799,8 +799,8 @@ QUnit.test( "events update with failed validation form test", function( assert )
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, context.getFieldBuilder().filterValues( record, options.fields ) );
 
@@ -820,17 +820,17 @@ QUnit.test( "events update with failed validation form test", function( assert )
 
             // Try to edit record but 
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "description": "Service " + key + " description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3"
+                'name': 'Service ' + key + ' edited',
+                'description': 'Service ' + key + ' description',
+                'date': '10/23/2017',
+                'time': '18:50',
+                'datetime': '10/23/2017 20:00',
+                'phoneType': 'officePhone_option',
+                'province': 'Cádiz',
+                'city': 'Tarifa',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3'
             };
 
             testHelper.fillForm( editedRecord );
@@ -868,7 +868,7 @@ QUnit.test( "events update with failed validation form test", function( assert )
     );
 });
 
-QUnit.test( "selectionChanged event test", function( assert ) {
+QUnit.test( 'selectionChanged event test', function( assert ) {
 
     var thisTestOptions = {
         pageConf: {
@@ -906,7 +906,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
             var select = function(){
                 for ( var c = 0; c < arguments.length; c++ ){
                     var id = arguments[ c ];
-                    $tbody.find( "[data-record-key='" + id + "'] input.zcrud-select-row" ).trigger( 'click' );
+                    $tbody.find( '[data-record-key="' + id + '"] input.zcrud-select-row' ).trigger( 'click' );
                 }
             };
             
@@ -933,7 +933,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                 ]);
             assert.ok(
                 dataArray[0].$rows.is(
-                    $tbody.find( "tr[data-record-key='2']" )));
+                    $tbody.find( 'tr[data-record-key="2"]' )));
             assert.deepEqual( dataArray[0].options, options );
             
             // Select 3, 5 and 7
@@ -997,7 +997,7 @@ QUnit.test( "selectionChanged event test", function( assert ) {
                 ]);
             assert.ok(
                 dataArray[6].$rows.is(
-                    $tbody.find( "tr[data-record-key='5']" )));
+                    $tbody.find( 'tr[data-record-key="5"]' )));
             assert.deepEqual( dataArray[6].options, options );
                 
             done();

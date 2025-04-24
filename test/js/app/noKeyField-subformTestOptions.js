@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var testServerSide = require( './testServerSide' );
 var log4javascript = require( 'log4javascript' );
@@ -50,21 +50,21 @@ module.exports = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }

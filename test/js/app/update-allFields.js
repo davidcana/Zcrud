@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -21,7 +21,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "update text area test", function( assert ) {
+QUnit.test( 'update text area test', function( assert ) {
 
     var done = assert.async();
     
@@ -40,14 +40,14 @@ QUnit.test( "update text area test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             var editedRecord = {};
-            editedRecord[ varName ] = "Service " + key + " description";
+            editedRecord[ varName ] = 'Service ' + key + ' description';
             testHelper.fillForm( editedRecord );
             var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.clickUpdateListButton( key );
@@ -74,7 +74,7 @@ QUnit.test( "update text area test", function( assert ) {
     );
 });
 
-QUnit.test( "update datetime test", function( assert ) {
+QUnit.test( 'update datetime test', function( assert ) {
 
     var done = assert.async();
     
@@ -93,15 +93,15 @@ QUnit.test( "update datetime test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
             
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = new Date( "2017-09-10T20:00:00.000" );
+            editedRecord[ varName ] = new Date( '2017-09-10T20:00:00.000' );
             var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
@@ -132,7 +132,7 @@ QUnit.test( "update datetime test", function( assert ) {
     );
 });
 /*
-QUnit.test( "update datetime using picker test", function( assert ) {
+QUnit.test( 'update datetime using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -152,15 +152,15 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = new Date( "2017-09-10T20:00:00.000" );
+            editedRecord[ varName ] = new Date( '2017-09-10T20:00:00.000' );
             var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
@@ -196,7 +196,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update inline datetime using picker test", function( assert ) {
+QUnit.test( 'update inline datetime using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -216,15 +216,15 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = new Date( "2017-09-10T03:05:00.000" );
+            editedRecord[ varName ] = new Date( '2017-09-10T03:05:00.000' );
             var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
@@ -260,7 +260,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update date test", function( assert ) {
+QUnit.test( 'update date test', function( assert ) {
 
     var done = assert.async();
 
@@ -279,15 +279,15 @@ QUnit.test( "update date test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            editedRecord[ varName ] = new Date( '2017-09-10T00:00:00.000' );
             var clientRecord = utils.extend( true, {}, editedRecord );
             clientRecord[ varName ] = options.fields[ varName ].formatToClient(
                 clientRecord[ varName ] );
@@ -318,7 +318,7 @@ QUnit.test( "update date test", function( assert ) {
     );
 });
 
-QUnit.test( "update date using picker test", function( assert ) {
+QUnit.test( 'update date using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -337,15 +337,15 @@ QUnit.test( "update date using picker test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            editedRecord[ varName ] = new Date( '2017-09-10T00:00:00.000' );
             var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
@@ -381,7 +381,7 @@ QUnit.test( "update date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update inline date using picker test", function( assert ) {
+QUnit.test( 'update inline date using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -401,15 +401,15 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            editedRecord[ varName ] = new Date( '2017-09-10T00:00:00.000' );
             var varValue = options.fields[ varName ].formatToClient(
                 editedRecord[ varName ] );
             testHelper.updateDatetimePickerInForm( 
@@ -445,7 +445,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update time test", function( assert ) {
+QUnit.test( 'update time test', function( assert ) {
 
     var done = assert.async();
 
@@ -464,15 +464,15 @@ QUnit.test( "update time test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = "03:05";
+            editedRecord[ varName ] = '03:05';
             testHelper.fillForm( editedRecord );
             var newRecord = utils.extend( true, {}, record, editedRecord );
             testHelper.checkForm( assert, newRecord );
@@ -498,7 +498,7 @@ QUnit.test( "update time test", function( assert ) {
     );
 });
 
-QUnit.test( "update time using picker test", function( assert ) {
+QUnit.test( 'update time using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -517,15 +517,15 @@ QUnit.test( "update time using picker test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = "03:05";
+            editedRecord[ varName ] = '03:05';
             testHelper.updateDatetimePickerInForm( 
                 varName, 
                 options.fields[ varName ], 
@@ -554,7 +554,7 @@ QUnit.test( "update time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update inline time using picker test", function( assert ) {
+QUnit.test( 'update inline time using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -574,15 +574,15 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord = {};
-            editedRecord[ varName ] = "02:10";
+            editedRecord[ varName ] = '02:10';
             testHelper.updateDatetimePickerInForm( 
                 varName, 
                 options.fields[ varName ], 
@@ -611,7 +611,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
     );
 });
 */
-QUnit.test( "update checkbox test", function( assert ) {
+QUnit.test( 'update checkbox test', function( assert ) {
 
     var done = assert.async();
     
@@ -629,15 +629,15 @@ QUnit.test( "update checkbox test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "important": true
+                'important': true
             };
             testHelper.fillForm( editedRecord );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -664,7 +664,7 @@ QUnit.test( "update checkbox test", function( assert ) {
     );
 });
 
-QUnit.test( "update radio test", function( assert ) {
+QUnit.test( 'update radio test', function( assert ) {
 
     var done = assert.async();
     
@@ -682,15 +682,15 @@ QUnit.test( "update radio test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "phoneType": "officePhone_option"
+                'phoneType': 'officePhone_option'
             };
             testHelper.fillForm( editedRecord );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -717,7 +717,7 @@ QUnit.test( "update radio test", function( assert ) {
     );
 });
 /*
-QUnit.test( "update select test", function( assert ) {
+QUnit.test( 'update select test', function( assert ) {
 
     var done = assert.async();
     
@@ -735,8 +735,8 @@ QUnit.test( "update select test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
             
@@ -746,7 +746,7 @@ QUnit.test( "update select test", function( assert ) {
                 testHelper.getSelectOptions( 'province' ),
                 [ 'Cádiz', 'Málaga' ] );
             var editedRecord =  {
-                "province": "Málaga"
+                'province': 'Málaga'
             };
             testHelper.fillForm( editedRecord );
 
@@ -774,7 +774,7 @@ QUnit.test( "update select test", function( assert ) {
     );
 });
 
-QUnit.test( "update 2 linked select test", function( assert ) {
+QUnit.test( 'update 2 linked select test', function( assert ) {
 
     var done = assert.async();
     
@@ -792,8 +792,8 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
             
@@ -803,7 +803,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                 testHelper.getSelectOptions( 'city' ),
                 [ 'Algeciras', 'Estepona', 'Marbella', 'Tarifa' ] );
             var editedRecord =  {
-                "province": "Málaga"
+                'province': 'Málaga'
             };
             testHelper.fillForm( editedRecord );
 
@@ -811,7 +811,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testHelper.checkForm( assert, newRecord );
 
             var editedRecord2 =  {
-                "city": "Marbella"
+                'city': 'Marbella'
             };
             testHelper.fillForm( editedRecord2 );
             assert.deepEqual(
@@ -866,7 +866,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
     );
 });
 */
-QUnit.test( "update datalist test", function( assert ) {
+QUnit.test( 'update datalist test', function( assert ) {
 
     var done = assert.async();
     
@@ -884,15 +884,15 @@ QUnit.test( "update datalist test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "browser": "Firefox"
+                'browser': 'Firefox'
             };
             testHelper.fillForm( editedRecord );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -919,7 +919,7 @@ QUnit.test( "update datalist test", function( assert ) {
     );
 });
 
-QUnit.test( "update checkboxes test", function( assert ) {
+QUnit.test( 'update checkboxes test', function( assert ) {
 
     var done = assert.async();
 
@@ -937,15 +937,15 @@ QUnit.test( "update checkboxes test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record );
 
             // Edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
             testHelper.fillForm( editedRecord );
             var newRecord = utils.extend( true, {}, record, editedRecord );

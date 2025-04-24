@@ -1,7 +1,7 @@
 /*
     OptionsField class
 */
-"use strict";
+'use strict';
 
 var Field = require( './field.js' );
 var context = require( '../context.js' );
@@ -26,7 +26,7 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
     }
 
     var page = this.page;
-    var $thisDropdown = $selection.find( "[name='" + this.name + "']");
+    var $thisDropdown = $selection.find( '[name="' + this.name + '"]' );
 
     // Build dictionary
     var dictionary = {};
@@ -40,7 +40,7 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
         var dependsOnField = context.getField( page.getOptions().fields, dependsOn );
 
         // Find the depended combobox
-        var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']" );
+        var $dependsOnDropdown = $selection.find( '[name="' + dependsOnField.name + '"]' );
         
         // When depended combobox changes
         $dependsOnDropdown.on(
@@ -126,7 +126,7 @@ OptionsField.prototype.afterProcessTemplateForField = function( params, $selecti
 OptionsField.prototype.getValueFromSelectionAndField = function( $selection ){
     
     var $checkboxesContainer = $selection.parents( '.zcrud-checkboxes-container' ).first();
-    return $checkboxesContainer.find( "input[type='checkbox']:checked" ).map(
+    return $checkboxesContainer.find( 'input[type="checkbox"]:checked' ).map(
         function() {
             return $( this ).val();
         }
@@ -139,15 +139,15 @@ OptionsField.prototype.getValueFromForm = function( $selection ){
         case 'checkboxes':
             return this.getValueFromSelectionAndField( $selection );
         case 'radio':
-            var $selectedRadio = $selection.find( "input[type='radio'][name='" + this.name + "[0]']:checked" );
+            var $selectedRadio = $selection.find( 'input[type="radio"][name="' + this.name + '[0]"]:checked' );
             return $selectedRadio.length > 0? $selectedRadio.val(): undefined;
         case 'select':
-            return $selection.find( "select[name='" + this.name + "']").val();
+            return $selection.find( 'select[name="' + this.name + '"]' ).val();
         case 'datalist':
-            return $selection.find( "input[name='" + this.name + "']").val();
+            return $selection.find( 'input[name="' + this.name + '"]' ).val();
     }
 
-    throw "Unknown field type in optionsField: " + this.type;
+    throw 'Unknown field type in optionsField: ' + this.type;
 };
 
 OptionsField.prototype.setValueToForm = function( value, $this ){
@@ -155,7 +155,7 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
     switch( this.type ) {
         case 'checkboxes':  
             var $checkboxesContainer = $this.parents( '.zcrud-checkboxes-container' ).first();
-            var $checkboxes = $checkboxesContainer.find( "input[type='checkbox'].zcrud-active" );
+            var $checkboxes = $checkboxesContainer.find( 'input[type="checkbox"].zcrud-active' );
             //var $checkboxes = $checkboxesContainer.find( 'input:checkbox.zcrud-active' );
             $checkboxes.prop( 'checked', false ); 
             if ( value ){
@@ -190,7 +190,7 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
             return;
     }
 
-    throw "Unknown field type in optionsField: " + this.type;
+    throw 'Unknown field type in optionsField: ' + this.type;
 };
 
 OptionsField.prototype.getValue = function( $this ){
@@ -204,7 +204,7 @@ OptionsField.prototype.getValue = function( $this ){
             return $this.val();
     }
 
-    throw "Unknown field type in optionsField: " + this.type;
+    throw 'Unknown field type in optionsField: ' + this.type;
 };
 
 OptionsField.prototype.getViewValueFromRecord = function( record ){
@@ -266,7 +266,7 @@ OptionsField.prototype.getPostTemplate = function(){
             return 'datalist-definition@templates/fields/basic.html';
     }
 
-    throw "Unknown field type in optionsField: " + this.type;
+    throw 'Unknown field type in optionsField: ' + this.type;
 };
 
 OptionsField.prototype.mustHideLabel = function(){
@@ -280,7 +280,7 @@ OptionsField.prototype.mustHideLabel = function(){
             return false;
     }
 
-    throw "Unknown field type in optionsField: " + this.type;
+    throw 'Unknown field type in optionsField: ' + this.type;
 };
 
 OptionsField.prototype.getOptionsFromBlank = function( options ){

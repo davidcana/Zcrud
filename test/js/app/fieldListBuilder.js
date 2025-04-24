@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ var buildIdsArray = function( fieldsArray ){
     for ( var c = 0; c < fieldsArray.length; ++c ){
         var item = fieldsArray[ c ];
         
-        if ( item.type == "fieldContainer" ){
+        if ( item.type == 'fieldContainer' ){
             var container = result[ result.length - 1 ];
             if ( ! container || container.id != item.id ){
                 container = {
@@ -43,7 +43,7 @@ var buildIdsArray = function( fieldsArray ){
 };
 
 // Run tests
-QUnit.test( "Field list from general fields builder test", function( assert ) {
+QUnit.test( 'Field list from general fields builder test', function( assert ) {
     
     var done = assert.async();
     options = defaultTestOptions;
@@ -64,24 +64,24 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             items = [ 'name', 'description' ];
             expected = [
                 {
-                    "id": "name",
-                    "type": "text",
-                    "elementId": "zcrud-name",
-                    "attributes": {},
-                    "name": "name",
-                    "sorting": true,
-                    "template": "text@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'id': 'name',
+                    'type': 'text',
+                    'elementId': 'zcrud-name',
+                    'attributes': {},
+                    'name': 'name',
+                    'sorting': true,
+                    'template': 'text@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 },
                 {
-                    "id": "description",
-                    "type": "textarea",
-                    "attributes": {},
-                    "elementId": "zcrud-description",
-                    "name": "description",
-                    "sorting": true,
-                    "template": "textarea@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'id': 'description',
+                    'type': 'textarea',
+                    'attributes': {},
+                    'elementId': 'zcrud-description',
+                    'name': 'description',
+                    'sorting': true,
+                    'template': 'textarea@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 }
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
@@ -91,34 +91,34 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             // Fields only
             items = [ 
                 {
-                    "id": "name",
-                    "type": "text"
+                    'id': 'name',
+                    'type': 'text'
                 },
                 {
-                    "id": "description",
-                    "type": "textarea"
+                    'id': 'description',
+                    'type': 'textarea'
                 }
             ];
             expected = [
                 {
-                    "id": "name",
-                    "type": "text",
-                    "elementId": "zcrud-name",
-                    "attributes": {},
-                    "name": "name",
-                    "sorting": true,
-                    "template": "text@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'id': 'name',
+                    'type': 'text',
+                    'elementId': 'zcrud-name',
+                    'attributes': {},
+                    'name': 'name',
+                    'sorting': true,
+                    'template': 'text@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 },
                 {
-                    "id": "description",
-                    "type": "textarea",
-                    "attributes": {},
-                    "elementId": "zcrud-description",
-                    "name": "description",
-                    "sorting": true,
-                    "template": "textarea@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'id': 'description',
+                    'type': 'textarea',
+                    'attributes': {},
+                    'elementId': 'zcrud-description',
+                    'name': 'description',
+                    'sorting': true,
+                    'template': 'textarea@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 }
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
@@ -128,24 +128,24 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             // A fieldsGroup only (with all default fields)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "default"
+                    'type': 'fieldsGroup',
+                    'source': 'default'
                 }
             ];
             expected = [
-                "id",
-                "name",
-                "description",
-                "date",
-                "time",
-                "datetime",
-                "phoneType",
-                "province",
-                "city",
-                "browser",
-                "important",
-                "number",
-                "hobbies"
+                'id',
+                'name',
+                'description',
+                'date',
+                'time',
+                'datetime',
+                'phoneType',
+                'province',
+                'city',
+                'browser',
+                'important',
+                'number',
+                'hobbies'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -153,20 +153,20 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             // A fieldsGroup only (starting with datetime)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "default",
-                    "start": "datetime"
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'start': 'datetime'
                 }
             ];
             expected = [
-                "datetime",
-                "phoneType",
-                "province",
-                "city",
-                "browser",
-                "important",
-                "number",
-                "hobbies"
+                'datetime',
+                'phoneType',
+                'province',
+                'city',
+                'browser',
+                'important',
+                'number',
+                'hobbies'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -174,19 +174,19 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             // A fieldsGroup only (ending with phoneType)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "default",
-                    "end": "phoneType"
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'end': 'phoneType'
                 }
             ];
             expected = [
-                "id",
-                "name",
-                "description",
-                "date",
-                "time",
-                "datetime",
-                "phoneType"
+                'id',
+                'name',
+                'description',
+                'date',
+                'time',
+                'datetime',
+                'phoneType'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -194,21 +194,21 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             // A fieldsGroup only (starting with description and ending with browser)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "default",
-                    "start": "description",
-                    "end": "browser"
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'start': 'description',
+                    'end': 'browser'
                 }
             ];
             expected = [
-                "description",
-                "date",
-                "time",
-                "datetime",
-                "phoneType",
-                "province",
-                "city",
-                "browser"
+                'description',
+                'date',
+                'time',
+                'datetime',
+                'phoneType',
+                'province',
+                'city',
+                'browser'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -216,20 +216,20 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
             // A fieldsGroup only (starting with description and ending with browser except time and phoneType)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "default",
-                    "start": "description",
-                    "end": "browser",
-                    "except": [ "time", "phoneType" ]
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'start': 'description',
+                    'end': 'browser',
+                    'except': [ 'time', 'phoneType' ]
                 }
             ];
             expected = [
-                "description",
-                "date",
-                "datetime",
-                "province",
-                "city",
-                "browser"
+                'description',
+                'date',
+                'datetime',
+                'province',
+                'city',
+                'browser'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -239,7 +239,7 @@ QUnit.test( "Field list from general fields builder test", function( assert ) {
     );
 });
 
-QUnit.test( "Field list from page id builder test", function( assert ) {
+QUnit.test( 'Field list from page id builder test', function( assert ) {
 
     var done = assert.async();
     options = {
@@ -258,8 +258,8 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 create: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": "list"
+                            'type': 'fieldsGroup',
+                            'source': 'list'
                         },
                         'name2'
                     ],
@@ -267,8 +267,8 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 update: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": "list"
+                            'type': 'fieldsGroup',
+                            'source': 'list'
                         },
                         'name3'
                     ],
@@ -276,8 +276,8 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
                 delete: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": "update"
+                            'type': 'fieldsGroup',
+                            'source': 'update'
                         },
                         'name4'
                     ],
@@ -343,13 +343,13 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             // A fieldsGroup only (with all default fields)
             var items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "list"
+                    'type': 'fieldsGroup',
+                    'source': 'list'
                 }
             ];
             var expected = [
-                "id",
-                "name"
+                'id',
+                'name'
             ];
             var fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -357,13 +357,13 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             // A fieldsGroup only (with all default fields except name)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "list",
-                    "except": [ "name" ]
+                    'type': 'fieldsGroup',
+                    'source': 'list',
+                    'except': [ 'name' ]
                 }
             ];
             expected = [
-                "id"
+                'id'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -371,14 +371,14 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             // A fieldsGroup only already built
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "create"
+                    'type': 'fieldsGroup',
+                    'source': 'create'
                 }
             ];
             expected = [
-                "id",
-                "name",
-                "name2"
+                'id',
+                'name',
+                'name2'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -386,15 +386,15 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
             // A fieldsGroup only not built
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "delete"
+                    'type': 'fieldsGroup',
+                    'source': 'delete'
                 }
             ];
             expected = [
-                "id",
-                "name",
-                "name3",
-                "name4"
+                'id',
+                'name',
+                'name3',
+                'name4'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -404,7 +404,7 @@ QUnit.test( "Field list from page id builder test", function( assert ) {
     );
 });
 
-QUnit.test( "Field list from page id builder with circular references test", function( assert ) {
+QUnit.test( 'Field list from page id builder with circular references test', function( assert ) {
 
     var done = assert.async();
     options = {
@@ -423,24 +423,24 @@ QUnit.test( "Field list from page id builder with circular references test", fun
                 create: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": "create"
+                            'type': 'fieldsGroup',
+                            'source': 'create'
                         }
                     ],
                 }, 
                 update: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": "delete"
+                            'type': 'fieldsGroup',
+                            'source': 'delete'
                         }
                     ],
                 }, 
                 delete: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": "update"
+                            'type': 'fieldsGroup',
+                            'source': 'update'
                         }
                     ],
                 }
@@ -505,8 +505,8 @@ QUnit.test( "Field list from page id builder with circular references test", fun
             // A fieldsGroup only (circular reference)
             var items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "create"
+                    'type': 'fieldsGroup',
+                    'source': 'create'
                 }
             ];
             var errors = 0;
@@ -520,8 +520,8 @@ QUnit.test( "Field list from page id builder with circular references test", fun
             // A fieldsGroup only (circular reference)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "update"
+                    'type': 'fieldsGroup',
+                    'source': 'update'
                 }
             ];
             errors = 0;
@@ -537,7 +537,7 @@ QUnit.test( "Field list from page id builder with circular references test", fun
     );
 });
 
-QUnit.test( "Field list from general fields with fieldContainer builder test", function( assert ) {
+QUnit.test( 'Field list from general fields with fieldContainer builder test', function( assert ) {
     
     var done = assert.async();
     options = defaultTestOptions;
@@ -551,49 +551,49 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             // A fieldContainer only (with all default fields)
             var items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": [ 'name', 'description' ],
-                    "container": {
-                        "id": "intro",
-                        "containerType": "fieldSet",
-                        "template": "fieldSet@templates/containers/basic.html"
+                    'type': 'fieldsGroup',
+                    'source': [ 'name', 'description' ],
+                    'container': {
+                        'id': 'intro',
+                        'containerType': 'fieldSet',
+                        'template': 'fieldSet@templates/containers/basic.html'
                     }
                 }
             ];
             var expected = [
                 {
-                    "id": "name",
-                    "type": "text",
-                    "elementId": "zcrud-name",
-                    "attributes": {},
-                    "name": "name",
-                    "sorting": true,
-                    "template": "text@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'id': 'name',
+                    'type': 'text',
+                    'elementId': 'zcrud-name',
+                    'attributes': {},
+                    'name': 'name',
+                    'sorting': true,
+                    'template': 'text@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 },
                 {
-                    "id": "description",
-                    "type": "textarea",
-                    "attributes": {
-                        "field": {
-                            "cols": 80,
-                            "rows": 6
+                    'id': 'description',
+                    'type': 'textarea',
+                    'attributes': {
+                        'field': {
+                            'cols': 80,
+                            'rows': 6
                         }
                     },
-                    "elementId": "zcrud-description",
-                    "name": "description",
-                    "sorting": true,
-                    "template": "textarea@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'elementId': 'zcrud-description',
+                    'name': 'description',
+                    'sorting': true,
+                    'template': 'textarea@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 }
             ];
             var expectedView = [
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "containerType": "fieldSet",
-                    "template": "fieldSet@templates/containers/basic.html",
-                    "fields": expected
+                    'type': 'fieldContainer',
+                    'id': 'intro',
+                    'containerType': 'fieldSet',
+                    'template': 'fieldSet@templates/containers/basic.html',
+                    'fields': expected
                 }
             ];
             
@@ -606,64 +606,64 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             // A fieldContainer only (with fields only)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": [ 
+                    'type': 'fieldsGroup',
+                    'source': [ 
                         {
-                            "id": "name",
-                            "type": "text"
+                            'id': 'name',
+                            'type': 'text'
                         },
                         {
-                            "id": "description",
-                            "type": "textarea",
-                            "attributes": {
-                                "field": {
-                                    "cols": 80,
-                                    "rows": 6
+                            'id': 'description',
+                            'type': 'textarea',
+                            'attributes': {
+                                'field': {
+                                    'cols': 80,
+                                    'rows': 6
                                 }
                             }
                         }
                     ],
-                    "container": {
-                        "id": "intro",
-                        "containerType": "fieldSet",
-                        "template": "fieldSet@templates/containers/basic.html"
+                    'container': {
+                        'id': 'intro',
+                        'containerType': 'fieldSet',
+                        'template': 'fieldSet@templates/containers/basic.html'
                     }
                 }
             ];
             expected = [
                 {
-                    "id": "name",
-                    "type": "text",
-                    "elementId": "zcrud-name",
-                    "attributes": {},
-                    "name": "name",
-                    "sorting": true,
-                    "template": "text@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'id': 'name',
+                    'type': 'text',
+                    'elementId': 'zcrud-name',
+                    'attributes': {},
+                    'name': 'name',
+                    'sorting': true,
+                    'template': 'text@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 },
                 {
-                    "id": "description",
-                    "type": "textarea",
-                    "attributes": {
-                        "field": {
-                            "cols": 80,
-                            "rows": 6
+                    'id': 'description',
+                    'type': 'textarea',
+                    'attributes': {
+                        'field': {
+                            'cols': 80,
+                            'rows': 6
                         }
                     },
-                    "elementId": "zcrud-description",
-                    "name": "description",
-                    "sorting": true,
-                    "template": "textarea@templates/fields/basic.html",
-                    "viewTemplate": undefined
+                    'elementId': 'zcrud-description',
+                    'name': 'description',
+                    'sorting': true,
+                    'template': 'textarea@templates/fields/basic.html',
+                    'viewTemplate': undefined
                 }
             ];
             expectedView = [
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "containerType": "fieldSet",
-                    "template": "fieldSet@templates/containers/basic.html",
-                    "fields": expected
+                    'type': 'fieldContainer',
+                    'id': 'intro',
+                    'containerType': 'fieldSet',
+                    'template': 'fieldSet@templates/containers/basic.html',
+                    'fields': expected
                 }
             ];
             
@@ -676,33 +676,33 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             // A fieldContainer only (with a fieldsGroup only starting with description and ending with browser except time and phoneType)
             items = [ 
                 {
-                    "type": "fieldsGroup",
-                    "source": "default",
-                    "start": "description",
-                    "end": "browser",
-                    "except": [ "time", "phoneType" ],
-                    "container": {
-                        "id": "intro",
-                        "containerType": "fieldSet",
-                        "template": "fieldSet@templates/containers/basic.html"
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'start': 'description',
+                    'end': 'browser',
+                    'except': [ 'time', 'phoneType' ],
+                    'container': {
+                        'id': 'intro',
+                        'containerType': 'fieldSet',
+                        'template': 'fieldSet@templates/containers/basic.html'
                     }
                 }
             ];
             expected = [
-                "description",
-                "date",
-                "datetime",
-                "province",
-                "city",
-                "browser"
+                'description',
+                'date',
+                'datetime',
+                'province',
+                'city',
+                'browser'
             ];
             expectedView = [
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "containerType": "fieldSet",
-                    "template": "fieldSet@templates/containers/basic.html",
-                    "fields": expected
+                    'type': 'fieldContainer',
+                    'id': 'intro',
+                    'containerType': 'fieldSet',
+                    'template': 'fieldSet@templates/containers/basic.html',
+                    'fields': expected
                 }
             ];
             
@@ -718,41 +718,41 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
             items = [ 
                 'id',
                 {
-                    "type": "fieldsGroup",
-                    "source": "default",
-                    "start": "description",
-                    "end": "browser",
-                    "except": [ "time", "phoneType" ],
-                    "container": {
-                        "id": "intro",
-                        "containerType": "div",
-                        "template": "fieldSet@templates/containers/basic.html"
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'start': 'description',
+                    'end': 'browser',
+                    'except': [ 'time', 'phoneType' ],
+                    'container': {
+                        'id': 'intro',
+                        'containerType': 'div',
+                        'template': 'fieldSet@templates/containers/basic.html'
                     }
                 }
             ];
             expected = [
-                "id",
-                "description",
-                "date",
-                "datetime",
-                "province",
-                "city",
-                "browser"
+                'id',
+                'description',
+                'date',
+                'datetime',
+                'province',
+                'city',
+                'browser'
             ];
             expectedView = [
-                "id",
+                'id',
                 {
-                    "type": "fieldContainer",
-                    "id": "intro",
-                    "containerType": "div",
-                    "template": "div@templates/containers/basic.html",
-                    "fields": [
-                        "description",
-                        "date",
-                        "datetime",
-                        "province",
-                        "city",
-                        "browser"
+                    'type': 'fieldContainer',
+                    'id': 'intro',
+                    'containerType': 'div',
+                    'template': 'div@templates/containers/basic.html',
+                    'fields': [
+                        'description',
+                        'date',
+                        'datetime',
+                        'province',
+                        'city',
+                        'browser'
                     ]
                 }
             ];
@@ -770,7 +770,7 @@ QUnit.test( "Field list from general fields with fieldContainer builder test", f
     );
 });
 
-QUnit.test( "Field list from another view builder test", function( assert ) {
+QUnit.test( 'Field list from another view builder test', function( assert ) {
     
     var done = assert.async();
     var thisTestOptions = {
@@ -779,39 +779,39 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                 create: {
                     fields: [
                         {
-                            "type": "fieldsGroup"
+                            'type': 'fieldsGroup'
                         }
                     ]
                 }, 
                 update: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": [ 
+                            'type': 'fieldsGroup',
+                            'source': [ 
                                 'id',
                                 'name',
                                 'description' 
                             ],
-                            "container": {
-                                "id": "basicData",
-                                "containerType": "fieldSet"
+                            'container': {
+                                'id': 'basicData',
+                                'containerType': 'fieldSet'
                             }
                         },
                         {
-                            "type": "fieldsGroup",
-                            "source": "default",
-                            "start": "date",
-                            "end": "phoneType"
+                            'type': 'fieldsGroup',
+                            'source': 'default',
+                            'start': 'date',
+                            'end': 'phoneType'
                         },
                         {
-                            "type": "fieldsGroup",
-                            "source": [ 
+                            'type': 'fieldsGroup',
+                            'source': [ 
                                 'province',
                                 'city'
                             ],
-                            "container": {
-                                "id": "location",
-                                "containerType": "fieldSet"
+                            'container': {
+                                'id': 'location',
+                                'containerType': 'fieldSet'
                             }
                         },
                         'browser',
@@ -821,10 +821,10 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
                 delete: {
                     fields: [
                         {
-                            "type": "fieldsGroup",
-                            "source": "update",
-                            "except": [ 'time' ],
-                            "end": "location"
+                            'type': 'fieldsGroup',
+                            'source': 'update',
+                            'except': [ 'time' ],
+                            'end': 'location'
                         }
                     ]
                 }
@@ -841,40 +841,40 @@ QUnit.test( "Field list from another view builder test", function( assert ) {
 
             var expected = 	
                 [
-                    "id",
-                    "name",
-                    "description",
-                    "date",
-                    "datetime",
-                    "phoneType",
-                    "province",
-                    "city"
+                    'id',
+                    'name',
+                    'description',
+                    'date',
+                    'datetime',
+                    'phoneType',
+                    'province',
+                    'city'
                 ];
             var expectedView = 
                 [
                     {
-                        "fields": [
-                            "id",
-                            "name",
-                            "description"
+                        'fields': [
+                            'id',
+                            'name',
+                            'description'
                         ],
-                        "id": "basicData",
-                        "containerType": "fieldSet",
-                        "template": "fieldSet@templates/containers/basic.html",
-                        "type": "fieldContainer"
+                        'id': 'basicData',
+                        'containerType': 'fieldSet',
+                        'template': 'fieldSet@templates/containers/basic.html',
+                        'type': 'fieldContainer'
                     },
-                    "date",
-                    "datetime",
-                    "phoneType",
+                    'date',
+                    'datetime',
+                    'phoneType',
                     {
-                        "fields": [
-                            "province",
-                            "city"
+                        'fields': [
+                            'province',
+                            'city'
                         ],
-                        "id": "location",
-                        "containerType": "fieldSet",
-                        "template": "fieldSet@templates/containers/basic.html",
-                        "type": "fieldContainer"
+                        'id': 'location',
+                        'containerType': 'fieldSet',
+                        'template': 'fieldSet@templates/containers/basic.html',
+                        'type': 'fieldContainer'
                     }
                 ];
             var fullObjectFields = fieldListBuilder.getForPage( 'delete', options );

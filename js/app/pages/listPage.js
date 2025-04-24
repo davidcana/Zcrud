@@ -1,7 +1,7 @@
 /* 
     Class ListPage 
 */
-"use strict";
+'use strict';
 
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
@@ -233,7 +233,10 @@ ListPage.prototype.updateDictionary = function( newRecordsArray, dictionaryExten
 ListPage.prototype.processTemplate = function( root ){
 
     if ( ! root ){
-        pageUtils.configureTemplate( this.options, "'" + this.thisOptions.template + "'" );
+        pageUtils.configureTemplate(
+            this.options,
+            "'" + this.thisOptions.template + "'"
+        );
     } else {
         this.componentsMap.resetPage();
     }
@@ -393,7 +396,7 @@ ListPage.prototype.getRecordByKey = function( key, mustUpdateRecordFromSelection
     return record;
 };
 ListPage.prototype.getRowByKey = function( key ){
-    return this.get$().find( "[data-record-key='" + key + "']" );
+    return this.get$().find( '[data-record-key="' + key + '"]' );
 };
     
 ListPage.prototype.updateBottomPanel = function( dictionaryExtension ){

@@ -13,7 +13,7 @@ var $ = zzDOM.zz;
 var utils = require( '../utils.js' );
 
 var History = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
-    "use strict";
+    'use strict';
     
     var options = optionsToApply;
     var editableOptions = editableOptionsToApply;

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -31,7 +31,7 @@ var discardConfirmFunction = function( confirmOptions, onFulfilled ){
 };
 
 // Run tests
-QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
+QUnit.test( 'paging test (combobox gotoPageFieldType)', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     options.pageConf.pages.list.components.paging.gotoPageFieldType = 'combobox';
@@ -66,7 +66,7 @@ QUnit.test( "paging test (combobox gotoPageFieldType)", function( assert ) {
     );
 });
 
-QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
+QUnit.test( 'paging test (textbox gotoPageFieldType)', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     options.pageConf.pages.list.components.paging.gotoPageFieldType = 'textbox';
@@ -104,7 +104,7 @@ QUnit.test( "paging test (textbox gotoPageFieldType)", function( assert ) {
     );
 });
 
-QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert ) {
+QUnit.test( 'subform paging test (combobox gotoPageFieldType)', function( assert ) {
 
     //options = $.extend( true, {}, subformsTestOptions );
     options = utils.extend( true, {}, subformsTestOptions );
@@ -153,7 +153,7 @@ QUnit.test( "subform paging test (combobox gotoPageFieldType)", function( assert
     );
 });
 
-QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert ) {
+QUnit.test( 'subform paging test (textbox gotoPageFieldType)', function( assert ) {
 
     options = utils.extend( true, {}, subformsTestOptions );
     options.fields.members.components.paging.gotoPageFieldType = 'textbox';
@@ -204,7 +204,7 @@ QUnit.test( "subform paging test (textbox gotoPageFieldType)", function( assert 
     );
 });
 
-QUnit.test( "subform broken paging: abort test", function( assert ) {
+QUnit.test( 'subform broken paging: abort test', function( assert ) {
 
     options = utils.extend( true, {}, subformsTestOptions );
     options.fields.members.components.paging.gotoPageFieldType = 'combobox';
@@ -235,7 +235,7 @@ QUnit.test( "subform broken paging: abort test", function( assert ) {
             // Edit description of last row
             testHelper.fillSubformNewRow( 
                 {
-                    description: "Description of Member 10 edited"
+                    description: 'Description of Member 10 edited'
                 }, 
                 subformName );
             
@@ -255,7 +255,7 @@ QUnit.test( "subform broken paging: abort test", function( assert ) {
     );
 });
 
-QUnit.test( "subform broken paging: discard test", function( assert ) {
+QUnit.test( 'subform broken paging: discard test', function( assert ) {
 
     options = utils.extend( true, {}, subformsTestOptions );
     options.fields.members.components.paging.gotoPageFieldType = 'combobox';
@@ -286,7 +286,7 @@ QUnit.test( "subform broken paging: discard test", function( assert ) {
             // Edit description of last row
             testHelper.fillSubformNewRow( 
                 {
-                    description: "Description of Member 10 edited"
+                    description: 'Description of Member 10 edited'
                 }, 
                 subformName );
 
@@ -307,7 +307,7 @@ QUnit.test( "subform broken paging: discard test", function( assert ) {
 });
 
 
-QUnit.test( "editable list broken paging: discard test", function( assert ) {
+QUnit.test( 'editable list broken paging: discard test', function( assert ) {
 
     options = utils.extend( true, {}, editableListTestOptions );
     options.confirmFunction = discardConfirmFunction;
@@ -328,7 +328,7 @@ QUnit.test( "editable list broken paging: discard test", function( assert ) {
             // Edit description of last row
             testHelper.fillNewRowEditableList( 
                 {
-                    name: "Member 10b"
+                    name: 'Member 10b'
                 }
             );
 
@@ -348,7 +348,7 @@ QUnit.test( "editable list broken paging: discard test", function( assert ) {
     );
 });
 
-QUnit.test( "editable list broken paging: abort test", function( assert ) {
+QUnit.test( 'editable list broken paging: abort test', function( assert ) {
 
     options = utils.extend( true, {}, editableListTestOptions );
     options.confirmFunction = abortedConfirmFunction;
@@ -369,7 +369,7 @@ QUnit.test( "editable list broken paging: abort test", function( assert ) {
             // Edit description of last row
             testHelper.fillNewRowEditableList( 
                 {
-                    name: "Member 10b"
+                    name: 'Member 10b'
                 }
             );
             

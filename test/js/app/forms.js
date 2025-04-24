@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -32,7 +32,7 @@ var errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "form simple test", function( assert ) {
+QUnit.test( 'form simple test', function( assert ) {
 
     options = utils.extend( true, {}, formTestOptions );
     var numberOfOriginalMembers = 12;
@@ -56,18 +56,18 @@ QUnit.test( "form simple test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "2",
-                        "name": "Member 2",
-                        "description": "Description of Member 2",
-                        "important": false,
-                        "hobbies": []
+                        'code': '2',
+                        'name': 'Member 2',
+                        'description': 'Description of Member 2',
+                        'important': false,
+                        'hobbies': []
                     },
                     {
-                        "code": "3",
-                        "name": "Member 3",
-                        "description": "Description of Member 3",
-                        "important": false,
-                        "hobbies": []
+                        'code': '3',
+                        'name': 'Member 3',
+                        'description': 'Description of Member 3',
+                        'important': false,
+                        'hobbies': []
                     }
                 ]);
 
@@ -76,7 +76,7 @@ QUnit.test( "form simple test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 3 edited"
+                    'description': 'Description of Member 3 edited'
                 }, 
                 'verifiedMembers' );
             
@@ -84,19 +84,19 @@ QUnit.test( "form simple test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             var expectedVerifiedMembers = {
-                "2": {
-                    "code": "2",
-                    "name": "Member 2",
-                    "description": "Description of Member 2",
-                    "important": false,
-                    "hobbies": []
+                '2': {
+                    'code': '2',
+                    'name': 'Member 2',
+                    'description': 'Description of Member 2',
+                    'important': false,
+                    'hobbies': []
                 },
-                "3": {
-                    "code": "3",
-                    "name": "Member 3",
-                    "description": "Description of Member 3 edited",
-                    "important": false,
-                    "hobbies": []
+                '3': {
+                    'code': '3',
+                    'name': 'Member 3',
+                    'description': 'Description of Member 3 edited',
+                    'important': false,
+                    'hobbies': []
                 }
             };
             assert.deepEqual( 
@@ -110,12 +110,12 @@ QUnit.test( "form simple test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             expectedVerifiedMembers = {
-                "3": {
-                    "code": "3",
-                    "name": "Member 3",
-                    "description": "Description of Member 3 edited",
-                    "important": false,
-                    "hobbies": []
+                '3': {
+                    'code': '3',
+                    'name': 'Member 3',
+                    'description': 'Description of Member 3 edited',
+                    'important': false,
+                    'hobbies': []
                 }
             };
             assert.deepEqual( 
@@ -128,18 +128,18 @@ QUnit.test( "form simple test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "5",
-                        "name": "Member 5",
-                        "description": "Description of Member 5",
-                        "important": false,
-                        "hobbies": []
+                        'code': '5',
+                        'name': 'Member 5',
+                        'description': 'Description of Member 5',
+                        'important': false,
+                        'hobbies': []
                     },
                     {
-                        "code": "7",
-                        "name": "Member 7",
-                        "description": "Description of Member 7",
-                        "important": false,
-                        "hobbies": []
+                        'code': '7',
+                        'name': 'Member 7',
+                        'description': 'Description of Member 7',
+                        'important': false,
+                        'hobbies': []
                     }
                 ]);
             
@@ -147,7 +147,7 @@ QUnit.test( "form simple test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 7 edited"
+                    'description': 'Description of Member 7 edited'
                 }, 
                 'verifiedMembers' );
 
@@ -155,26 +155,26 @@ QUnit.test( "form simple test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             expectedVerifiedMembers = {
-                "3": {
-                    "code": "3",
-                    "name": "Member 3",
-                    "description": "Description of Member 3 edited",
-                    "hobbies": [],
-                    "important": false
+                '3': {
+                    'code': '3',
+                    'name': 'Member 3',
+                    'description': 'Description of Member 3 edited',
+                    'hobbies': [],
+                    'important': false
                 },
-                "5": {
-                    "code": "5",
-                    "name": "Member 5",
-                    "description": "Description of Member 5",
-                    "hobbies": [],
-                    "important": false
+                '5': {
+                    'code': '5',
+                    'name': 'Member 5',
+                    'description': 'Description of Member 5',
+                    'hobbies': [],
+                    'important': false
                 },
-                "7": {
-                    "code": "7",
-                    "name": "Member 7",
-                    "description": "Description of Member 7 edited",
-                    "hobbies": [],
-                    "important": false
+                '7': {
+                    'code': '7',
+                    'name': 'Member 7',
+                    'description': 'Description of Member 7 edited',
+                    'hobbies': [],
+                    'important': false
                 }
                 
             };
@@ -187,7 +187,7 @@ QUnit.test( "form simple test", function( assert ) {
     );
 });
 
-QUnit.test( "form undo/redo test", function( assert ) {
+QUnit.test( 'form undo/redo test', function( assert ) {
 
     options = utils.extend( true, {}, formTestOptions );
     var numberOfOriginalMembers = 12;
@@ -211,18 +211,18 @@ QUnit.test( "form undo/redo test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "2",
-                        "name": "Member 2",
-                        "description": "Description of Member 2",
-                        "important": false,
-                        "hobbies": []
+                        'code': '2',
+                        'name': 'Member 2',
+                        'description': 'Description of Member 2',
+                        'important': false,
+                        'hobbies': []
                     },
                     {
-                        "code": "3",
-                        "name": "Member 3",
-                        "description": "Description of Member 3",
-                        "important": false,
-                        "hobbies": []
+                        'code': '3',
+                        'name': 'Member 3',
+                        'description': 'Description of Member 3',
+                        'important': false,
+                        'hobbies': []
                     }
                 ]);
 
@@ -233,14 +233,14 @@ QUnit.test( "form undo/redo test", function( assert ) {
             // Check subform
             var expectedVerifiedMembers = [
                 {
-                    "code": "2",
-                    "name": "Member 2",
-                    "description": "Description of Member 2"
+                    'code': '2',
+                    'name': 'Member 2',
+                    'description': 'Description of Member 2'
                 },
                 {
-                    "code": "3",
-                    "name": "Member 3",
-                    "description": "Description of Member 3"
+                    'code': '3',
+                    'name': 'Member 3',
+                    'description': 'Description of Member 3'
                 }
             ];
             assert.deepEqual( 
@@ -249,13 +249,13 @@ QUnit.test( "form undo/redo test", function( assert ) {
             // Fill new row
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 3 edited"
+                    'description': 'Description of Member 3 edited'
                 }, 
                 'verifiedMembers' );
 
             // Check subform again
             var expectedVerifiedMembers2 = utils.extend( true, [], expectedVerifiedMembers );
-            expectedVerifiedMembers2[ 1 ].description = "Description of Member 3 edited";
+            expectedVerifiedMembers2[ 1 ].description = 'Description of Member 3 edited';
             assert.deepEqual( 
                 testHelper.getSubformVal( 'verifiedMembers' ), expectedVerifiedMembers2 );
             
@@ -291,18 +291,18 @@ QUnit.test( "form undo/redo test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "5",
-                        "name": "Member 5",
-                        "description": "Description of Member 5",
-                        "important": false,
-                        "hobbies": []
+                        'code': '5',
+                        'name': 'Member 5',
+                        'description': 'Description of Member 5',
+                        'important': false,
+                        'hobbies': []
                     },
                     {
-                        "code": "7",
-                        "name": "Member 7",
-                        "description": "Description of Member 7",
-                        "important": false,
-                        "hobbies": []
+                        'code': '7',
+                        'name': 'Member 7',
+                        'description': 'Description of Member 7',
+                        'important': false,
+                        'hobbies': []
                     }
                 ]);
 
@@ -310,24 +310,24 @@ QUnit.test( "form undo/redo test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 7 edited"
+                    'description': 'Description of Member 7 edited'
                 }, 
                 'verifiedMembers' );
             var expectedVerifiedMembers4 = [
                 {
-                    "code": "3",
-                    "name": "Member 3",
-                    "description": "Description of Member 3 edited"
+                    'code': '3',
+                    'name': 'Member 3',
+                    'description': 'Description of Member 3 edited'
                 },
                 {
-                    "code": "5",
-                    "name": "Member 5",
-                    "description": "Description of Member 5"
+                    'code': '5',
+                    'name': 'Member 5',
+                    'description': 'Description of Member 5'
                 },
                 {
-                    "code": "7",
-                    "name": "Member 7",
-                    "description": "Description of Member 7 edited"
+                    'code': '7',
+                    'name': 'Member 7',
+                    'description': 'Description of Member 7 edited'
                 }
             ];
             assert.deepEqual( 
@@ -347,26 +347,26 @@ QUnit.test( "form undo/redo test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             expectedVerifiedMembers = {
-                "3": {
-                    "code": "3",
-                    "name": "Member 3",
-                    "description": "Description of Member 3 edited",
-                    "important": false,
-                    "hobbies": []
+                '3': {
+                    'code': '3',
+                    'name': 'Member 3',
+                    'description': 'Description of Member 3 edited',
+                    'important': false,
+                    'hobbies': []
                 },
-                "5": {
-                    "code": "5",
-                    "name": "Member 5",
-                    "description": "Description of Member 5",
-                    "important": false,
-                    "hobbies": []
+                '5': {
+                    'code': '5',
+                    'name': 'Member 5',
+                    'description': 'Description of Member 5',
+                    'important': false,
+                    'hobbies': []
                 },
-                "7": {
-                    "code": "7",
-                    "name": "Member 7",
-                    "description": "Description of Member 7 edited",
-                    "important": false,
-                    "hobbies": []
+                '7': {
+                    'code': '7',
+                    'name': 'Member 7',
+                    'description': 'Description of Member 7 edited',
+                    'important': false,
+                    'hobbies': []
                 }
 
             };
@@ -379,7 +379,7 @@ QUnit.test( "form undo/redo test", function( assert ) {
     );
 });
 /*
-QUnit.test( "subform filtering test", function( assert ) {
+QUnit.test( 'subform filtering test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -415,7 +415,7 @@ QUnit.test( "subform filtering test", function( assert ) {
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "originalMembers-name": 'Member 1' 
+                        'originalMembers-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -437,18 +437,18 @@ QUnit.test( "subform filtering test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Member 1",
-                        "description": "Description of Member 1",
-                        "important": false,
-                        "hobbies": []
+                        'code': '1',
+                        'name': 'Member 1',
+                        'description': 'Description of Member 1',
+                        'important': false,
+                        'hobbies': []
                     },
                     {
-                        "code": "11",
-                        "name": "Member 11",
-                        "description": "Description of Member 11",
-                        "important": false,
-                        "hobbies": []
+                        'code': '11',
+                        'name': 'Member 11',
+                        'description': 'Description of Member 11',
+                        'important': false,
+                        'hobbies': []
                     }
                 ]);
             
@@ -457,7 +457,7 @@ QUnit.test( "subform filtering test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 11 edited"
+                    'description': 'Description of Member 11 edited'
                 }, 
                 'verifiedMembers' );
             
@@ -465,19 +465,19 @@ QUnit.test( "subform filtering test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             var expectedVerifiedMembers = {
-                "1": {
-                    "code": "1",
-                    "name": "Member 1",
-                    "description": "Description of Member 1",
-                    "hobbies": [],
-                    "important": false
+                '1': {
+                    'code': '1',
+                    'name': 'Member 1',
+                    'description': 'Description of Member 1',
+                    'hobbies': [],
+                    'important': false
                 },
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "hobbies": [],
-                    "important": false
+                '11': {
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'hobbies': [],
+                    'important': false
                 }
             };
             assert.deepEqual( 
@@ -491,12 +491,12 @@ QUnit.test( "subform filtering test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             expectedVerifiedMembers = {
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "hobbies": [],
-                    "important": false
+                '11': {
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'hobbies': [],
+                    'important': false
                 }
             };
             assert.deepEqual( 
@@ -509,18 +509,18 @@ QUnit.test( "subform filtering test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Member 1",
-                        "description": "Description of Member 1",
-                        "hobbies": [],
-                        "important": false,
+                        'code': '1',
+                        'name': 'Member 1',
+                        'description': 'Description of Member 1',
+                        'hobbies': [],
+                        'important': false,
                     },
                     {
-                        "code": "12",
-                        "name": "Member 12",
-                        "description": "Description of Member 12",
-                        "hobbies": [],
-                        "important": false
+                        'code': '12',
+                        'name': 'Member 12',
+                        'description': 'Description of Member 12',
+                        'hobbies': [],
+                        'important': false
                     }
                 ]);
             
@@ -528,7 +528,7 @@ QUnit.test( "subform filtering test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 12 edited"
+                    'description': 'Description of Member 12 edited'
                 }, 
                 'verifiedMembers' );
 
@@ -536,26 +536,26 @@ QUnit.test( "subform filtering test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             expectedVerifiedMembers = {
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "hobbies": [],
-                    "important": false
+                '11': {
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'hobbies': [],
+                    'important': false
                 },
-                "1": {
-                    "code": "1",
-                    "name": "Member 1",
-                    "description": "Description of Member 1",
-                    "hobbies": [],
-                    "important": false
+                '1': {
+                    'code': '1',
+                    'name': 'Member 1',
+                    'description': 'Description of Member 1',
+                    'hobbies': [],
+                    'important': false
                 },
-                "12": {
-                    "code": "12",
-                    "name": "Member 12",
-                    "description": "Description of Member 12 edited",
-                    "hobbies": [],
-                    "important": false
+                '12': {
+                    'code': '12',
+                    'name': 'Member 12',
+                    'description': 'Description of Member 12 edited',
+                    'hobbies': [],
+                    'important': false
                 }
 
             };
@@ -568,7 +568,7 @@ QUnit.test( "subform filtering test", function( assert ) {
     );
 });
 
-QUnit.test( "subform filtering starting void test", function( assert ) {
+QUnit.test( 'subform filtering starting void test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -621,7 +621,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
                 subformName: subformName,
                 action: { 
                     filter: {
-                        "originalMembers-name": 'Member 1' 
+                        'originalMembers-name': 'Member 1' 
                     }
                 },
                 options: options,
@@ -643,18 +643,18 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Member 1",
-                        "description": "Description of Member 1",
-                        "important": false,
-                        "hobbies": []
+                        'code': '1',
+                        'name': 'Member 1',
+                        'description': 'Description of Member 1',
+                        'important': false,
+                        'hobbies': []
                     },
                     {
-                        "code": "11",
-                        "name": "Member 11",
-                        "description": "Description of Member 11",
-                        "important": false,
-                        "hobbies": []
+                        'code': '11',
+                        'name': 'Member 11',
+                        'description': 'Description of Member 11',
+                        'important': false,
+                        'hobbies': []
                     }
                 ]);
 
@@ -663,7 +663,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 11 edited"
+                    'description': 'Description of Member 11 edited'
                 }, 
                 'verifiedMembers' );
             
@@ -671,19 +671,19 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             var expectedVerifiedMembers = {
-                "1": {
-                    "code": "1",
-                    "name": "Member 1",
-                    "description": "Description of Member 1",
-                    "important": false,
-                    "hobbies": []
+                '1': {
+                    'code': '1',
+                    'name': 'Member 1',
+                    'description': 'Description of Member 1',
+                    'important': false,
+                    'hobbies': []
                 },
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "important": false,
-                    "hobbies": []
+                '11': {
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'important': false,
+                    'hobbies': []
                 }
             };
             assert.deepEqual( 
@@ -697,12 +697,12 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             expectedVerifiedMembers = {
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "important": false,
-                    "hobbies": []
+                '11': {
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'important': false,
+                    'hobbies': []
                 }
             };
             assert.deepEqual( 
@@ -715,18 +715,18 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
                 testHelper.getSelectedFromSubform( 'originalMembers', true ), 
                 [ 
                     {
-                        "code": "1",
-                        "name": "Member 1",
-                        "description": "Description of Member 1",
-                        "important": false,
-                        "hobbies": []
+                        'code': '1',
+                        'name': 'Member 1',
+                        'description': 'Description of Member 1',
+                        'important': false,
+                        'hobbies': []
                     },
                     {
-                        "code": "12",
-                        "name": "Member 12",
-                        "description": "Description of Member 12",
-                        "important": false,
-                        "hobbies": []
+                        'code': '12',
+                        'name': 'Member 12',
+                        'description': 'Description of Member 12',
+                        'important': false,
+                        'hobbies': []
                     }
                 ]);
 
@@ -734,7 +734,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 12 edited"
+                    'description': 'Description of Member 12 edited'
                 }, 
                 'verifiedMembers' );
             
@@ -742,26 +742,26 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             expectedVerifiedMembers = {
-                "11": {
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "important": false,
-                    "hobbies": []
+                '11': {
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'important': false,
+                    'hobbies': []
                 },
-                "1": {
-                    "code": "1",
-                    "name": "Member 1",
-                    "description": "Description of Member 1",
-                    "important": false,
-                    "hobbies": []
+                '1': {
+                    'code': '1',
+                    'name': 'Member 1',
+                    'description': 'Description of Member 1',
+                    'important': false,
+                    'hobbies': []
                 },
-                "12": {
-                    "code": "12",
-                    "name": "Member 12",
-                    "description": "Description of Member 12 edited",
-                    "important": false,
-                    "hobbies": []
+                '12': {
+                    'code': '12',
+                    'name': 'Member 12',
+                    'description': 'Description of Member 12 edited',
+                    'important': false,
+                    'hobbies': []
                 }
 
             };
@@ -774,7 +774,7 @@ QUnit.test( "subform filtering starting void test", function( assert ) {
     );
 });
 */
-QUnit.test( "form after form test", function( assert ) {
+QUnit.test( 'form after form test', function( assert ) {
 
     options = utils.extend( true, {}, extendedFormTestOptions );
     var numberOfOriginalMembers = 12;
@@ -791,7 +791,7 @@ QUnit.test( "form after form test", function( assert ) {
             $( '#departmentsContainer' ).zcrud( 'renderForm' );
             
             // Check record 1 value
-            var key = "1";
+            var key = '1';
             var record = buildMemberRecord( key );
             assert.deepEqual( 
                 testServerSide.getOriginalMembersByCode( key ), 
@@ -800,11 +800,11 @@ QUnit.test( "form after form test", function( assert ) {
             // Click update button and update record
             testHelper.clickUpdateSubformRowButton( 'originalMembers', 0 );
             var editedRecord =  {
-                "name": "Member " + key + " edited",
-                "datetime": "07/03/2018 21:45",
-                "browser": "Firefox",
-                "important": true,
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'name': 'Member ' + key + ' edited',
+                'datetime': '07/03/2018 21:45',
+                'browser': 'Firefox',
+                'important': true,
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
             testHelper.fillForm( editedRecord );
             var newRecord = utils.extend( true, {}, editedRecord );
@@ -827,7 +827,7 @@ QUnit.test( "form after form test", function( assert ) {
             );
             
             // Check record 2 value
-            key = "2";
+            key = '2';
             record = buildMemberRecord( key );
             assert.deepEqual( 
                 testServerSide.getOriginalMembersByCode( key ), 
@@ -836,11 +836,11 @@ QUnit.test( "form after form test", function( assert ) {
             // Click update button and update record
             testHelper.clickUpdateSubformRowButton( 'originalMembers', 1 );
             editedRecord =  {
-                "name": "Member " + key + " edited",
-                "datetime": "07/02/2018 20:45",
-                "browser": "Chrome",
-                "important": false,
-                "hobbies": [ 'reading_option', 'cards_option' ]
+                'name': 'Member ' + key + ' edited',
+                'datetime': '07/02/2018 20:45',
+                'browser': 'Chrome',
+                'important': false,
+                'hobbies': [ 'reading_option', 'cards_option' ]
             };
             testHelper.fillForm( editedRecord );
             newRecord = utils.extend( true, {}, editedRecord );
@@ -863,7 +863,7 @@ QUnit.test( "form after form test", function( assert ) {
             );
             
             // Check record 3 value
-            key = "3";
+            key = '3';
             record = buildMemberRecord( key );
             assert.deepEqual( 
                 testServerSide.getOriginalMembers()[ 2 ], 
@@ -881,11 +881,11 @@ QUnit.test( "form after form test", function( assert ) {
             testHelper.clickCreateFormSubformRowButton( 'originalMembers' );
             key = 0;
             editedRecord =  {
-                "code": "" + key,
-                "name": "Member " + key,
-                "datetime": "07/01/2018 12:45",
-                "browser": "Chrome",
-                "hobbies": [ 'sports_option', 'cards_option' ]
+                'code': '' + key,
+                'name': 'Member ' + key,
+                'datetime': '07/01/2018 12:45',
+                'browser': 'Chrome',
+                'hobbies': [ 'sports_option', 'cards_option' ]
             };
             testHelper.fillForm( editedRecord );
             
@@ -908,7 +908,7 @@ QUnit.test( "form after form test", function( assert ) {
             $copyButton.trigger( 'click' );
             testHelper.fillSubformNewRow(
                 {
-                    "name": "Member 6 edited"
+                    'name': 'Member 6 edited'
                 }, 
                 'verifiedMembers' );
 
@@ -916,38 +916,38 @@ QUnit.test( "form after form test", function( assert ) {
             testHelper.clickFormSubmitButton();
             
             var expectedVerifiedMembers = {
-                "0": {
-                    "code": "0",
-                    "name": "Member 0",
-                    "datetime": "07/01/2018 12:45",
-                    "browser": "Chrome",
-                    "important": false,
-                    "hobbies": [ 'sports_option', 'cards_option' ]
+                '0': {
+                    'code': '0',
+                    'name': 'Member 0',
+                    'datetime': '07/01/2018 12:45',
+                    'browser': 'Chrome',
+                    'important': false,
+                    'hobbies': [ 'sports_option', 'cards_option' ]
                 },
-                "1": {
-                    "code": "1",
-                    "name": "Member 1 edited",
-                    "description": "Description of Member 1",
-                    "datetime": "07/03/2018 21:45",
-                    "browser": "Firefox",
-                    "important": true,
-                    "hobbies": [ 'reading_option', 'sports_option' ]
+                '1': {
+                    'code': '1',
+                    'name': 'Member 1 edited',
+                    'description': 'Description of Member 1',
+                    'datetime': '07/03/2018 21:45',
+                    'browser': 'Firefox',
+                    'important': true,
+                    'hobbies': [ 'reading_option', 'sports_option' ]
                 },
-                "2": {
-                    "code": "2",
-                    "name": "Member 2 edited",
-                    "description": "Description of Member 2",
-                    "datetime": "07/02/2018 20:45",
-                    "browser": "Chrome",
-                    "important": false,
-                    "hobbies": [ 'reading_option', 'cards_option' ]
+                '2': {
+                    'code': '2',
+                    'name': 'Member 2 edited',
+                    'description': 'Description of Member 2',
+                    'datetime': '07/02/2018 20:45',
+                    'browser': 'Chrome',
+                    'important': false,
+                    'hobbies': [ 'reading_option', 'cards_option' ]
                 },
-                "6": {
-                    "code": "6",
-                    "name": "Member 6 edited",
-                    "description": "Description of Member 6",
-                    "important": false,
-                    "hobbies": []
+                '6': {
+                    'code': '6',
+                    'name': 'Member 6 edited',
+                    'description': 'Description of Member 6',
+                    'important': false,
+                    'hobbies': []
                 }
             };
             
@@ -967,7 +967,7 @@ QUnit.test( "form after form test", function( assert ) {
     );
 });
 
-QUnit.test( "form filtering test", function( assert ) {
+QUnit.test( 'form filtering test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -1039,7 +1039,7 @@ QUnit.test( "form filtering test", function( assert ) {
             // Edit last row
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 11 edited"
+                    'description': 'Description of Member 11 edited'
                 }, 
                 'verifiedMembers' );
             
@@ -1047,21 +1047,21 @@ QUnit.test( "form filtering test", function( assert ) {
             testHelper.clickFormSubmitButton();
 
             var expectedVerifiedMembers = {
-                "1": {
-                    "filter": "1",
-                    "code": "1",
-                    "name": "Member 1",
-                    "description": "Description of Member 1",
-                    "hobbies": [],
-                    "important": false
+                '1': {
+                    'filter': '1',
+                    'code': '1',
+                    'name': 'Member 1',
+                    'description': 'Description of Member 1',
+                    'hobbies': [],
+                    'important': false
                 },
-                "11": {
-                    "filter": "1",
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "hobbies": [],
-                    "important": false
+                '11': {
+                    'filter': '1',
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'hobbies': [],
+                    'important': false
                 }
             };
             
@@ -1090,14 +1090,14 @@ QUnit.test( "form filtering test", function( assert ) {
             );
             
             // Edit last row
-            var editedDescription = "Description of Member 11 edited(2)";
+            var editedDescription = 'Description of Member 11 edited(2)';
             testHelper.fillSubformNewRow(
                 {
-                    "description": editedDescription
+                    'description': editedDescription
                 }, 
                 'verifiedMembers' 
             );
-            expectedVerifiedMembers[ "11" ].description = editedDescription;
+            expectedVerifiedMembers[ '11' ].description = editedDescription;
 
             // Submit and check storage
             testHelper.clickFormSubmitButton();
@@ -1152,7 +1152,7 @@ QUnit.test( "form filtering test", function( assert ) {
     );
 });
 
-QUnit.test( "form filtering with 2 subforms with paging test", function( assert ) {
+QUnit.test( 'form filtering with 2 subforms with paging test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -1237,7 +1237,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
             testHelper.clickFormSubmitButton();
             
             // Build expectedVerifiedMembers
-            var expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 18, "1" );
+            var expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 18, '1' );
 
             assert.deepEqual( 
                 testServerSide.getVerifiedMembers(), 
@@ -1258,7 +1258,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
             // Filter by name again
             $( '[name="originalMembers-name"]' ).val( '1' );
             $( '.zcrud-filter-submit-button' ).trigger( 'click' );
-            expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 13, "1" );
+            expectedVerifiedMembers = buildMapOfMemberRecords( 1, 10, 13, '1' );
             assert.deepEqual( 
                 verifiedMembersSubform.getRecords(), 
                 testHelper.fromObjectToArray( expectedVerifiedMembers  )
@@ -1349,7 +1349,7 @@ QUnit.test( "form filtering with 2 subforms with paging test", function( assert 
     );
 });
 
-QUnit.test( "form forcing filtering test with errors", function( assert ) {
+QUnit.test( 'form forcing filtering test with errors', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -1432,7 +1432,7 @@ QUnit.test( "form forcing filtering test with errors", function( assert ) {
     );
 });
 
-QUnit.test( "form forcing filtering test without errors", function( assert ) {
+QUnit.test( 'form forcing filtering test without errors', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -1507,7 +1507,7 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
             // Edit last row
             testHelper.fillSubformNewRow(
                 {
-                    "description": "Description of Member 11 edited"
+                    'description': 'Description of Member 11 edited'
                 }, 
                 'verifiedMembers' );
 
@@ -1517,21 +1517,21 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             
             var expectedVerifiedMembers = {
-                "1": {
-                    "filter": "1",
-                    "code": "1",
-                    "name": "Member 1",
-                    "description": "Description of Member 1",
-                    "hobbies": [],
-                    "important": false
+                '1': {
+                    'filter': '1',
+                    'code': '1',
+                    'name': 'Member 1',
+                    'description': 'Description of Member 1',
+                    'hobbies': [],
+                    'important': false
                 },
-                "11": {
-                    "filter": "1",
-                    "code": "11",
-                    "name": "Member 11",
-                    "description": "Description of Member 11 edited",
-                    "hobbies": [],
-                    "important": false
+                '11': {
+                    'filter': '1',
+                    'code': '11',
+                    'name': 'Member 11',
+                    'description': 'Description of Member 11 edited',
+                    'hobbies': [],
+                    'important': false
                 }
             };
             
@@ -1556,10 +1556,10 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
             );
             
             // Edit last row
-            var newDescription = "Description of Member 11 edited (2)";
+            var newDescription = 'Description of Member 11 edited (2)';
             testHelper.fillSubformNewRow(
                 {
-                    "description": newDescription
+                    'description': newDescription
                 }, 
                 'verifiedMembers' 
             );
@@ -1615,11 +1615,11 @@ QUnit.test( "form forcing filtering test without errors", function( assert ) {
 var buildMemberRecord = function( key, filter ){
     
     var member = {
-        "code": key,
-        "name": "Member " + key,
-        "description": "Description of Member " + key,
-        "hobbies": [],
-        "important": false
+        'code': key,
+        'name': 'Member ' + key,
+        'description': 'Description of Member ' + key,
+        'hobbies': [],
+        'important': false
     };
     
     if ( filter ){
@@ -1632,10 +1632,10 @@ var buildMemberRecord = function( key, filter ){
 var buildMapOfMemberRecords = function( firstKey, begin, end, filter ){
     
     var expectedVerifiedMembers = {};
-    var currentMember = buildMemberRecord( "" + firstKey, filter );
+    var currentMember = buildMemberRecord( '' + firstKey, filter );
     expectedVerifiedMembers[ currentMember.code ] = currentMember;
     for ( var i = begin; i <= end; ++i ){
-        currentMember = buildMemberRecord( "" + i, filter );
+        currentMember = buildMemberRecord( '' + i, filter );
         expectedVerifiedMembers[ currentMember.code ] = currentMember;
     }
     

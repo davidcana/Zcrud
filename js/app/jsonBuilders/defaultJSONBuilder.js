@@ -9,7 +9,7 @@ var context = require( '../context.js' );
 var utils = require( '../utils.js' );
 
 module.exports = (function() {
-    "use strict";
+    'use strict';
     
     var buildEmpty = function(){
         
@@ -373,7 +373,7 @@ module.exports = (function() {
                 );
                 return record;
             default:
-                throw "Unknown FormPage type: " + formType;
+                throw 'Unknown FormPage type: ' + formType;
         }
     };
     

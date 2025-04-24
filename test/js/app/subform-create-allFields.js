@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -56,21 +56,21 @@ var defaultTestOptions = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }
@@ -269,7 +269,7 @@ defaultTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create text area test", function( assert ) {
+QUnit.test( 'create text area test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -283,18 +283,18 @@ QUnit.test( "create text area test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -311,9 +311,9 @@ QUnit.test( "create text area test", function( assert ) {
             
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -388,7 +388,7 @@ QUnit.test( "create text area test", function( assert ) {
     );
 });
 
-QUnit.test( "create datetime test", function( assert ) {
+QUnit.test( 'create datetime test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -402,18 +402,18 @@ QUnit.test( "create datetime test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "datetime": new Date( "2017-09-10T20:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'datetime': new Date( '2017-09-10T20:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "datetime": new Date( "2018-07-02T14:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'datetime': new Date( '2018-07-02T14:00:00.000' )
                     }
                 ]
             };
@@ -430,9 +430,9 @@ QUnit.test( "create datetime test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "datetime": "10/02/2017 20:00"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'datetime': '10/02/2017 20:00'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -514,7 +514,7 @@ QUnit.test( "create datetime test", function( assert ) {
     );
 });
 
-QUnit.test( "create datetime using picker test", function( assert ) {
+QUnit.test( 'create datetime using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -528,18 +528,18 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "datetime": new Date( "2017-09-10T20:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'datetime': new Date( '2017-09-10T20:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "datetime": new Date( "2018-07-02T14:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'datetime': new Date( '2018-07-02T14:00:00.000' )
                     }
                 ]
             };
@@ -556,14 +556,14 @@ QUnit.test( "create datetime using picker test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
-            subformRecord3.datetime = "10/02/2017 20:10";
+            subformRecord3.datetime = '10/02/2017 20:10';
             testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
@@ -649,7 +649,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create inline datetime using picker test", function( assert ) {
+QUnit.test( 'create inline datetime using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -663,18 +663,18 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "datetime": new Date( "2017-09-10T20:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'datetime': new Date( '2017-09-10T20:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "datetime": new Date( "2018-07-02T14:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'datetime': new Date( '2018-07-02T14:00:00.000' )
                     }
                 ]
             };
@@ -692,8 +692,8 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             
@@ -701,7 +701,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
             
-            subformRecord3.datetime = "10/02/2017 02:10";
+            subformRecord3.datetime = '10/02/2017 02:10';
             testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
@@ -786,7 +786,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create date test", function( assert ) {
+QUnit.test( 'create date test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -800,18 +800,18 @@ QUnit.test( "create date test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "date": new Date( "2017-09-10T00:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'date': new Date( '2017-09-10T00:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "date": new Date( "2018-07-02T00:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'date': new Date( '2018-07-02T00:00:00.000' )
                     }
                 ]
             };
@@ -828,9 +828,9 @@ QUnit.test( "create date test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "date": "10/02/2017"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'date': '10/02/2017'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -912,7 +912,7 @@ QUnit.test( "create date test", function( assert ) {
     );
 });
 
-QUnit.test( "create date using picker test", function( assert ) {
+QUnit.test( 'create date using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -926,18 +926,18 @@ QUnit.test( "create date using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "date": new Date( "2017-09-10T00:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'date': new Date( '2017-09-10T00:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "date": new Date( "2018-07-02T00:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'date': new Date( '2018-07-02T00:00:00.000' )
                     }
                 ]
             };
@@ -954,14 +954,14 @@ QUnit.test( "create date using picker test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
-            subformRecord3[ varName ] = "10/02/2017";
+            subformRecord3[ varName ] = '10/02/2017';
             testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
@@ -1046,7 +1046,7 @@ QUnit.test( "create date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create inline date using picker test", function( assert ) {
+QUnit.test( 'create inline date using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1060,18 +1060,18 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "date": new Date( "2017-09-10T00:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'date': new Date( '2017-09-10T00:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "date": new Date( "2018-07-02T00:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'date': new Date( '2018-07-02T00:00:00.000' )
                     }
                 ]
             };
@@ -1089,8 +1089,8 @@ QUnit.test( "create inline date using picker test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson"
+                'code': '3',
+                'name': 'Homer Simpson'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
 
@@ -1098,7 +1098,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
 
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
-            subformRecord3[ varName ] = "10/02/2017";
+            subformRecord3[ varName ] = '10/02/2017';
             testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
@@ -1183,7 +1183,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create time test", function( assert ) {
+QUnit.test( 'create time test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1197,18 +1197,18 @@ QUnit.test( "create time test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "time": "21:00"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'time': '21:00'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "time": "14:00"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'time': '14:00'
                     }
                 ]
             };
@@ -1225,9 +1225,9 @@ QUnit.test( "create time test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "time": "02:05"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'time': '02:05'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -1302,7 +1302,7 @@ QUnit.test( "create time test", function( assert ) {
     );
 });
 
-QUnit.test( "create time using picker test", function( assert ) {
+QUnit.test( 'create time using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1316,18 +1316,18 @@ QUnit.test( "create time using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "time": "21:00"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'time': '21:00'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "time": "14:00"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'time': '14:00'
                     }
                 ]
             };
@@ -1344,15 +1344,15 @@ QUnit.test( "create time using picker test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson"
-                //"time": "02:05"
+                'code': '3',
+                'name': 'Homer Simpson'
+                //'time': '02:05'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
-            subformRecord3[ varName ] = "02:05";
+            subformRecord3[ varName ] = '02:05';
             testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
@@ -1430,7 +1430,7 @@ QUnit.test( "create time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create inline time using picker test", function( assert ) {
+QUnit.test( 'create inline time using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1444,18 +1444,18 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "time": "21:00"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'time': '21:00'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "time": "14:00"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'time': '14:00'
                     }
                 ]
             };
@@ -1473,15 +1473,15 @@ QUnit.test( "create inline time using picker test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson"
-                //"time": "02:05"
+                'code': '3',
+                'name': 'Homer Simpson'
+                //'time': '02:05'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
 
-            subformRecord3[ varName ] = "02:05";
+            subformRecord3[ varName ] = '02:05';
             testHelper.updateDatetimePickerInSubform( 
                 'members', 
                 varName, 
@@ -1559,7 +1559,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create checkbox test", function( assert ) {
+QUnit.test( 'create checkbox test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1573,18 +1573,18 @@ QUnit.test( "create checkbox test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "important": true
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'important': true
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "important": false
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'important': false
                     }
                 ]
             };
@@ -1601,9 +1601,9 @@ QUnit.test( "create checkbox test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "important": true
+                'code': '3',
+                'name': 'Homer Simpson',
+                'important': true
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -1678,7 +1678,7 @@ QUnit.test( "create checkbox test", function( assert ) {
     );
 });
 
-QUnit.test( "create radio test", function( assert ) {
+QUnit.test( 'create radio test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1692,18 +1692,18 @@ QUnit.test( "create radio test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "phoneType": "homePhone_option"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'phoneType': 'homePhone_option'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "phoneType": "officePhone_option"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'phoneType': 'officePhone_option'
                     }
                 ]
             };
@@ -1720,9 +1720,9 @@ QUnit.test( "create radio test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "phoneType": "cellPhone_option"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'phoneType': 'cellPhone_option'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -1797,7 +1797,7 @@ QUnit.test( "create radio test", function( assert ) {
     );
 });
 
-QUnit.test( "create select test", function( assert ) {
+QUnit.test( 'create select test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1811,18 +1811,18 @@ QUnit.test( "create select test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "province": "Cádiz"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'province': 'Cádiz'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "province": "Málaga"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'province': 'Málaga'
                     }
                 ]
             };
@@ -1839,9 +1839,9 @@ QUnit.test( "create select test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "province": "Cádiz"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'province': 'Cádiz'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -1916,7 +1916,7 @@ QUnit.test( "create select test", function( assert ) {
     );
 });
 
-QUnit.test( "create 2 linked select test", function( assert ) {
+QUnit.test( 'create 2 linked select test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1930,20 +1930,20 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "province": "Cádiz",
-                        "city": "Algeciras"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'province': 'Cádiz',
+                        'city': 'Algeciras'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "province": "Málaga",
-                        "city": "Marbella"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'province': 'Málaga',
+                        'city': 'Marbella'
                     }
                 ]
             };
@@ -1961,10 +1961,10 @@ QUnit.test( "create 2 linked select test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "province": "Cádiz",
-                "city": "Tarifa"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'province': 'Cádiz',
+                'city': 'Tarifa'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -2051,7 +2051,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
     );
 });
 
-QUnit.test( "create datalist test", function( assert ) {
+QUnit.test( 'create datalist test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -2065,18 +2065,18 @@ QUnit.test( "create datalist test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "browser": "Firefox"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'browser': 'Firefox'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "browser": "Internet Explorer"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'browser': 'Internet Explorer'
                     }
                 ]
             };
@@ -2093,9 +2093,9 @@ QUnit.test( "create datalist test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "browser": "Firefox"
+                'code': '3',
+                'name': 'Homer Simpson',
+                'browser': 'Firefox'
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );
@@ -2170,7 +2170,7 @@ QUnit.test( "create datalist test", function( assert ) {
     );
 });
 
-QUnit.test( "create checkboxes test", function( assert ) {
+QUnit.test( 'create checkboxes test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -2184,18 +2184,18 @@ QUnit.test( "create checkboxes test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "hobbies": [ 'reading_option', 'videogames_option' ]
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'hobbies': [ 'reading_option', 'videogames_option' ]
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "hobbies": [ 'reading_option', 'cards_option' ]
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'hobbies': [ 'reading_option', 'cards_option' ]
                     }
                 ]
             };
@@ -2212,9 +2212,9 @@ QUnit.test( "create checkboxes test", function( assert ) {
 
             // Add subform record 3
             var subformRecord3 = {
-                "code": "3",
-                "name": "Homer Simpson",
-                "hobbies": [ 'sports_option', 'cards_option' ]
+                'code': '3',
+                'name': 'Homer Simpson',
+                'hobbies': [ 'sports_option', 'cards_option' ]
             };
             var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
             testHelper.clickCreateSubformRowButton( 'members' );

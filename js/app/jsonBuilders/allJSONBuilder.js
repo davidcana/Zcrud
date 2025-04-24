@@ -4,7 +4,7 @@
 var defaultJSONBuilder = require( './defaultJSONBuilder.js' );
 
 module.exports = (function() {
-    "use strict";
+    'use strict';
     
     var sendOnlyModified = false;
         

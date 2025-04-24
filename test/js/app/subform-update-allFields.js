@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -56,21 +56,21 @@ var defaultTestOptions = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }
@@ -269,7 +269,7 @@ defaultTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "update text area test", function( assert ) {
+QUnit.test( 'update text area test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -283,18 +283,18 @@ QUnit.test( "update text area test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -309,9 +309,9 @@ QUnit.test( "update text area test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "description": "Description of Lisa Simpson edited"
+                'members': {
+                    '1': {
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -354,7 +354,7 @@ QUnit.test( "update text area test", function( assert ) {
     );
 });
 
-QUnit.test( "update datetime test", function( assert ) {
+QUnit.test( 'update datetime test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -368,18 +368,18 @@ QUnit.test( "update datetime test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "datetime": new Date( "2017-09-10T20:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'datetime': new Date( '2017-09-10T20:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "datetime": new Date( "2018-07-02T14:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'datetime': new Date( '2018-07-02T14:00:00.000' )
                     }
                 ]
             };
@@ -394,11 +394,11 @@ QUnit.test( "update datetime test", function( assert ) {
             testHelper.clickUpdateListButton( key );
             
             // Edit record
-            var varName = "datetime";
+            var varName = 'datetime';
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "datetime": "10/02/2017 20:00"
+                'members': {
+                    '1': {
+                        'datetime': '10/02/2017 20:00'
                     }
                 }
             };
@@ -449,7 +449,7 @@ QUnit.test( "update datetime test", function( assert ) {
 });
 
 
-QUnit.test( "update datetime using picker test", function( assert ) {
+QUnit.test( 'update datetime using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -463,18 +463,18 @@ QUnit.test( "update datetime using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "datetime": new Date( "2017-09-10T20:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'datetime': new Date( '2017-09-10T20:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "datetime": new Date( "2018-07-02T14:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'datetime': new Date( '2018-07-02T14:00:00.000' )
                     }
                 ]
             };
@@ -491,9 +491,9 @@ QUnit.test( "update datetime using picker test", function( assert ) {
 
             // Edit record
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "datetime": "10/02/2017 20:10"
+                'members': {
+                    '1': {
+                        'datetime': '10/02/2017 20:10'
                     }
                 }
             };
@@ -548,7 +548,7 @@ QUnit.test( "update datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update inline datetime using picker test", function( assert ) {
+QUnit.test( 'update inline datetime using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -562,18 +562,18 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "datetime": new Date( "2017-09-10T20:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'datetime': new Date( '2017-09-10T20:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "datetime": new Date( "2016-07-02T14:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'datetime': new Date( '2016-07-02T14:00:00.000' )
                     }
                 ]
             };
@@ -590,11 +590,11 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
             testHelper.clickUpdateListButton( key );
 
             // Edit record
-            var varName = "datetime";
+            var varName = 'datetime';
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "datetime": "09/02/2017 17:10"
+                'members': {
+                    '1': {
+                        'datetime': '09/02/2017 17:10'
                     }
                 }
             };
@@ -651,7 +651,7 @@ QUnit.test( "update inline datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update date test", function( assert ) {
+QUnit.test( 'update date test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -665,18 +665,18 @@ QUnit.test( "update date test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "date": new Date( "2017-09-10T00:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'date': new Date( '2017-09-10T00:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "date": new Date( "2018-07-02T00:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'date': new Date( '2018-07-02T00:00:00.000' )
                     }
                 ]
             };
@@ -691,11 +691,11 @@ QUnit.test( "update date test", function( assert ) {
             testHelper.clickUpdateListButton( key );
 
             // Edit record
-            var varName = "date";
+            var varName = 'date';
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "date": "10/02/2017"
+                'members': {
+                    '1': {
+                        'date': '10/02/2017'
                     }
                 }
             };
@@ -745,7 +745,7 @@ QUnit.test( "update date test", function( assert ) {
     );
 });
 
-QUnit.test( "update date using picker test", function( assert ) {
+QUnit.test( 'update date using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -759,24 +759,24 @@ QUnit.test( "update date using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "date": new Date( "2017-09-10T00:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'date': new Date( '2017-09-10T00:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "date": new Date( "2018-07-02T00:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'date': new Date( '2018-07-02T00:00:00.000' )
                     }
                 ]
             };
             testServerSide.setService( key, serverRecord );
 
-            var varName = "date";
+            var varName = 'date';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
@@ -787,9 +787,9 @@ QUnit.test( "update date using picker test", function( assert ) {
 
             // Edit record
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "date": "10/02/2017"
+                'members': {
+                    '1': {
+                        'date': '10/02/2017'
                     }
                 }
             };
@@ -845,7 +845,7 @@ QUnit.test( "update date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update inline date using picker test", function( assert ) {
+QUnit.test( 'update inline date using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -859,24 +859,24 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "date": new Date( "2017-09-10T00:00:00.000" )
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'date': new Date( '2017-09-10T00:00:00.000' )
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "date": new Date( "2018-07-02T00:00:00.000" )
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'date': new Date( '2018-07-02T00:00:00.000' )
                     }
                 ]
             };
             testServerSide.setService( key, serverRecord );
             
-            var varName = "date";
+            var varName = 'date';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].inline = true;
 
@@ -889,9 +889,9 @@ QUnit.test( "update inline date using picker test", function( assert ) {
             // Edit record
 
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "date": "09/02/2017"
+                'members': {
+                    '1': {
+                        'date': '09/02/2017'
                     }
                 }
             };
@@ -948,7 +948,7 @@ QUnit.test( "update inline date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update time test", function( assert ) {
+QUnit.test( 'update time test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -962,24 +962,24 @@ QUnit.test( "update time test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "time": "20:00"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'time': '20:00'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "time": "14:00"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'time': '14:00'
                     }
                 ]
             };
             testServerSide.setService( key, serverRecord );
 
-            var varName = "time";
+            var varName = 'time';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
@@ -990,9 +990,9 @@ QUnit.test( "update time test", function( assert ) {
 
             // Edit record
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "time": "18:00"
+                'members': {
+                    '1': {
+                        'time': '18:00'
                     }
                 }
             };
@@ -1042,7 +1042,7 @@ QUnit.test( "update time test", function( assert ) {
     );
 });
 
-QUnit.test( "update time using picker test", function( assert ) {
+QUnit.test( 'update time using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1056,24 +1056,24 @@ QUnit.test( "update time using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "time": "20:00"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'time': '20:00'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "time": "14:00"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'time': '14:00'
                     }
                 ]
             };
             testServerSide.setService( key, serverRecord );
             
-            var varName = "time";
+            var varName = 'time';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
@@ -1084,9 +1084,9 @@ QUnit.test( "update time using picker test", function( assert ) {
 
             // Edit record
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "time": "19:15"
+                'members': {
+                    '1': {
+                        'time': '19:15'
                     }
                 }
             };
@@ -1141,7 +1141,7 @@ QUnit.test( "update time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update inline time using picker test", function( assert ) {
+QUnit.test( 'update inline time using picker test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1155,24 +1155,24 @@ QUnit.test( "update inline time using picker test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var serverRecord = {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "time": "20:00"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'time': '20:00'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "time": "14:00"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'time': '14:00'
                     }
                 ]
             };
             testServerSide.setService( key, serverRecord );
 
-            var varName = "time";
+            var varName = 'time';
             context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].inline = true;
 
@@ -1184,9 +1184,9 @@ QUnit.test( "update inline time using picker test", function( assert ) {
 
             // Edit record
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "time": "13:05"
+                'members': {
+                    '1': {
+                        'time': '13:05'
                     }
                 }
             };
@@ -1243,7 +1243,7 @@ QUnit.test( "update inline time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "update checkbox test", function( assert ) {
+QUnit.test( 'update checkbox test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1257,18 +1257,18 @@ QUnit.test( "update checkbox test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "important": false
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'important': false
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "important": true
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'important': true
                     }
                 ]
             };
@@ -1283,9 +1283,9 @@ QUnit.test( "update checkbox test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "important": false
+                'members': {
+                    '1': {
+                        'important': false
                     }
                 }
             };
@@ -1328,7 +1328,7 @@ QUnit.test( "update checkbox test", function( assert ) {
     );
 });
 
-QUnit.test( "update radio test", function( assert ) {
+QUnit.test( 'update radio test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1342,18 +1342,18 @@ QUnit.test( "update radio test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "phoneType": "homePhone_option"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'phoneType': 'homePhone_option'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "phoneType": "officePhone_option"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'phoneType': 'officePhone_option'
                     }
                 ]
             };
@@ -1368,9 +1368,9 @@ QUnit.test( "update radio test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "phoneType": "cellPhone_option"
+                'members': {
+                    '1': {
+                        'phoneType': 'cellPhone_option'
                     }
                 }
             };
@@ -1413,7 +1413,7 @@ QUnit.test( "update radio test", function( assert ) {
     );
 });
 
-QUnit.test( "update select test", function( assert ) {
+QUnit.test( 'update select test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1427,18 +1427,18 @@ QUnit.test( "update select test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "province": "Cádiz"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'province': 'Cádiz'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "province": "Málaga"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'province': 'Málaga'
                     }
                 ]
             };
@@ -1453,9 +1453,9 @@ QUnit.test( "update select test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "province": "Cádiz"
+                'members': {
+                    '1': {
+                        'province': 'Cádiz'
                     }
                 }
             };
@@ -1498,7 +1498,7 @@ QUnit.test( "update select test", function( assert ) {
     );
 });
 
-QUnit.test( "update 2 linked select test", function( assert ) {
+QUnit.test( 'update 2 linked select test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1512,20 +1512,20 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "province": "Cádiz",
-                        "city": "Algeciras"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'province': 'Cádiz',
+                        'city': 'Algeciras'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "province": "Málaga",
-                        "city": "Marbella"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'province': 'Málaga',
+                        'city': 'Marbella'
                     }
                 ]
             };
@@ -1541,10 +1541,10 @@ QUnit.test( "update 2 linked select test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "province": "Cádiz",
-                        "city": "Tarifa"
+                'members': {
+                    '1': {
+                        'province': 'Cádiz',
+                        'city': 'Tarifa'
                     }
                 }
             };
@@ -1591,7 +1591,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
                 [ 'Estepona', 'Marbella' ] );
             
             // Redo (1)
-            tempRecord.members[ 1 ][ varName2 ] = "";
+            tempRecord.members[ 1 ][ varName2 ] = '';
             testHelper.clickRedoButton();
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 1, 1, false );
@@ -1630,7 +1630,7 @@ QUnit.test( "update 2 linked select test", function( assert ) {
     );
 });
 
-QUnit.test( "update datalist test", function( assert ) {
+QUnit.test( 'update datalist test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1644,18 +1644,18 @@ QUnit.test( "update datalist test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "browser": "Firefox"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'browser': 'Firefox'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "browser": "Internet Explorer"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'browser': 'Internet Explorer'
                     }
                 ]
             };
@@ -1670,9 +1670,9 @@ QUnit.test( "update datalist test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "browser": "Firefox"
+                'members': {
+                    '1': {
+                        'browser': 'Firefox'
                     }
                 }
             };
@@ -1715,7 +1715,7 @@ QUnit.test( "update datalist test", function( assert ) {
     );
 });
 
-QUnit.test( "update chackboxes test", function( assert ) {
+QUnit.test( 'update chackboxes test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, defaultTestOptions );
@@ -1729,18 +1729,18 @@ QUnit.test( "update chackboxes test", function( assert ) {
             testServerSide.resetServices();
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "hobbies": [ 'reading_option', 'videogames_option' ]
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'hobbies': [ 'reading_option', 'videogames_option' ]
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "hobbies": [ 'reading_option', 'cards_option' ]
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'hobbies': [ 'reading_option', 'cards_option' ]
                     }
                 ]
             };
@@ -1755,9 +1755,9 @@ QUnit.test( "update chackboxes test", function( assert ) {
             // Go to edit form
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "members": {
-                    "1": {
-                        "hobbies": [ 'sports_option', 'cards_option' ]
+                'members': {
+                    '1': {
+                        'hobbies': [ 'sports_option', 'cards_option' ]
                     }
                 }
             };

@@ -1,7 +1,7 @@
 /* 
     crudManager singleton class
 */
-"use strict";
+'use strict';
 
 var context = require( './context.js' );
 var validationManager = require( './validationManager.js' );

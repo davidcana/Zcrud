@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "subform change test", function( assert ) {
+QUnit.test( 'subform change test', function( assert ) {
 
     var done = assert.async();
     
@@ -32,18 +32,18 @@ QUnit.test( "subform change test", function( assert ) {
             // 
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -66,14 +66,14 @@ QUnit.test( "subform change test", function( assert ) {
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -81,18 +81,18 @@ QUnit.test( "subform change test", function( assert ) {
             testHelper.fillForm( editedRecord );
             
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson edited"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson edited'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                        'code': '2',
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 ]
             };
@@ -113,7 +113,7 @@ QUnit.test( "subform change test", function( assert ) {
     );
 });
 
-QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
+QUnit.test( 'subform change undo/redo 1 action test', function( assert ) {
 
     var done = assert.async();
 
@@ -125,18 +125,18 @@ QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
             // 
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -159,14 +159,14 @@ QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -174,18 +174,18 @@ QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson edited"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson edited'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                        'code': '2',
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 ]
             };
@@ -224,7 +224,7 @@ QUnit.test( "subform change undo/redo 1 action test", function( assert ) {
     );
 });
 
-QUnit.test( "subform change undo/redo 3 actions test", function( assert ) {
+QUnit.test( 'subform change undo/redo 3 actions test', function( assert ) {
 
     var done = assert.async();
 
@@ -236,18 +236,18 @@ QUnit.test( "subform change undo/redo 3 actions test", function( assert ) {
             // 
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -270,14 +270,14 @@ QUnit.test( "subform change undo/redo 3 actions test", function( assert ) {
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -285,18 +285,18 @@ QUnit.test( "subform change undo/redo 3 actions test", function( assert ) {
             testHelper.fillForm( editedRecord );
 
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson edited"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson edited'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                        'code': '2',
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 ]
             };

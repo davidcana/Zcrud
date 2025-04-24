@@ -3,7 +3,7 @@
     
     run: a function with the code to run
 */
-"use strict";
+'use strict';
 
 var pageUtils = require( '../pages/pageUtils.js' );
 var context = require( '../context.js' );

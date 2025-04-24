@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -44,7 +44,7 @@ var errorFunction = function( message ){
 
 // Run tests
 
-QUnit.test( "listToolbar (binding using listCreated method) test", function( assert ) {
+QUnit.test( 'listToolbar (binding using listCreated method) test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -118,7 +118,7 @@ QUnit.test( "listToolbar (binding using listCreated method) test", function( ass
     );
 });
 
-QUnit.test( "listToolbar (binding automatically) test", function( assert ) {
+QUnit.test( 'listToolbar (binding automatically) test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -188,7 +188,7 @@ QUnit.test( "listToolbar (binding automatically) test", function( assert ) {
     );
 });
 
-QUnit.test( "listByRow (binding using listCreated method) test", function( assert ) {
+QUnit.test( 'listByRow (binding using listCreated method) test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -262,7 +262,7 @@ QUnit.test( "listByRow (binding using listCreated method) test", function( asser
     );
 });
 
-QUnit.test( "listByRow (binding automatically) test", function( assert ) {
+QUnit.test( 'listByRow (binding automatically) test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -332,7 +332,7 @@ QUnit.test( "listByRow (binding automatically) test", function( assert ) {
     );
 });
 
-QUnit.test( "formToolbar (binding using listCreated method) test", function( assert ) {
+QUnit.test( 'formToolbar (binding using listCreated method) test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -412,7 +412,7 @@ QUnit.test( "formToolbar (binding using listCreated method) test", function( ass
     );
 });
 
-QUnit.test( "formToolbar (binding automatically) test", function( assert ) {
+QUnit.test( 'formToolbar (binding automatically) test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {
@@ -488,7 +488,7 @@ QUnit.test( "formToolbar (binding automatically) test", function( assert ) {
     );
 });
 
-QUnit.test( "subformToolbar (binding using listCreated method) test", function( assert ) {
+QUnit.test( 'subformToolbar (binding using listCreated method) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -546,18 +546,18 @@ QUnit.test( "subformToolbar (binding using listCreated method) test", function( 
             //
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -582,7 +582,7 @@ QUnit.test( "subformToolbar (binding using listCreated method) test", function( 
     );
 });
 
-QUnit.test( "subformToolbar (binding automatically) test", function( assert ) {
+QUnit.test( 'subformToolbar (binding automatically) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -636,18 +636,18 @@ QUnit.test( "subformToolbar (binding automatically) test", function( assert ) {
             //
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -672,7 +672,7 @@ QUnit.test( "subformToolbar (binding automatically) test", function( assert ) {
     );
 });
 
-QUnit.test( "subformByRow (binding using listCreated method) test", function( assert ) {
+QUnit.test( 'subformByRow (binding using listCreated method) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -730,18 +730,18 @@ QUnit.test( "subformByRow (binding using listCreated method) test", function( as
             //
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -766,7 +766,7 @@ QUnit.test( "subformByRow (binding using listCreated method) test", function( as
     );
 });
 
-QUnit.test( "subformByRow (binding automatically) test", function( assert ) {
+QUnit.test( 'subformByRow (binding automatically) test', function( assert ) {
 
     thisTestOptions = {
         fields: {
@@ -820,18 +820,18 @@ QUnit.test( "subformByRow (binding automatically) test", function( assert ) {
             //
             var key = 4;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -856,7 +856,7 @@ QUnit.test( "subformByRow (binding automatically) test", function( assert ) {
     );
 });
 
-QUnit.test( "unknown button in listToolbar test", function( assert ) {
+QUnit.test( 'unknown button in listToolbar test', function( assert ) {
 
     thisTestOptions = {
         pageConf: {

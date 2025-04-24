@@ -1,7 +1,7 @@
 /* 
     requestHelper singleton class
 */
-"use strict";
+'use strict';
 
 module.exports = (function() {
 

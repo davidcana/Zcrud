@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var testServerSide = require( './testServerSide' );
 var log4javascript = require( 'log4javascript' );
@@ -21,7 +21,7 @@ module.exports = {
             customForm: {
                 fields: [ 
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ],
                 buttons: {
@@ -54,8 +54,8 @@ module.exports = {
                 updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": "subform/originalMembers"
+                        'type': 'fieldsGroup',
+                        'source': 'subform/originalMembers'
                     }
                 ]
             },
@@ -64,8 +64,8 @@ module.exports = {
                 updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": "update"
+                        'type': 'fieldsGroup',
+                        'source': 'update'
                     }
                 ]
             },
@@ -75,8 +75,8 @@ module.exports = {
                 updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=originalMembers',
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": "update"
+                        'type': 'fieldsGroup',
+                        'source': 'update'
                     }
                 ]
             }

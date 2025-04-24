@@ -1,7 +1,7 @@
 /*
     Subform class
 */
-"use strict";
+'use strict';
 
 var Field = require( './field.js' );
 var context = require( '../context.js' );
@@ -255,8 +255,8 @@ Subform.prototype.bindEventsForFields = function( $subform, fields, dictionary, 
     for ( var i = 0; i < records.length; i++ ) {
         var record = records[ i ];
         var $row = $rows.list[ i ];
-        //var $row = $rows.filter( ":nth-child(" + (1 + i) + ")" );
-        //var $row = $rows.filter( ":eq(" + i + ")" );
+        //var $row = $rows.filter( ':nth-child(' + (1 + i) + ')' );
+        //var $row = $rows.filter( ':eq(' + i + ')' );
         this.bindEventsForFieldsIn1Row( $row, fields, record, dictionary, params );
     }
 };

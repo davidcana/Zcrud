@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var utils = require( './utils.js' );
 var requestHelper = require( './requestHelper.js' );
@@ -201,7 +201,7 @@ module.exports = {
         },
         pages: {
             list: {
-                template: "listDefaultTemplate@templates/lists.html",
+                template: 'listDefaultTemplate@templates/lists.html',
                 showStatus: true,
                 components: {
                     paging: {
@@ -214,28 +214,28 @@ module.exports = {
                 }
             }, 
             create: {
-                template: "formDefaultTemplate@templates/forms.html",
+                template: 'formDefaultTemplate@templates/forms.html',
                 components: {},
                 buttons: {
                     toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
                 }
             }, 
             update: {
-                template: "formDefaultTemplate@templates/forms.html",
+                template: 'formDefaultTemplate@templates/forms.html',
                 components: {},
                 buttons: {
                     toolbar: [ 'undo', 'redo', 'form_cancel', 'form_submit' ]
                 }
             }, 
             delete: {
-                template: "deleteDefaultTemplate@templates/forms.html",
+                template: 'deleteDefaultTemplate@templates/forms.html',
                 components: {},
                 buttons: {
                     toolbar: [ 'form_cancel', 'form_submit' ]
                 }
             },
             customForm: {
-                template: "formDefaultTemplate@templates/forms.html",
+                template: 'formDefaultTemplate@templates/forms.html',
                 showStatus: true,
                 components: {
                     paging: {
@@ -289,7 +289,7 @@ module.exports = {
     jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
     
     defaultErrorOptions: {
-        icon: "error",
+        icon: 'error',
         closeOnClickOutside: false,
         title: 'Oops...'
     },
@@ -301,10 +301,10 @@ module.exports = {
     },
     
     defaultConfirmOptions: {
-        icon: "warning",
+        icon: 'warning',
         dangerMode: true,
         closeOnClickOutside: false,
-        className: "confirm"
+        className: 'confirm'
     },
     confirmFunction: function( confirmOptions, onFulfilled ){
         var swal = require( 'sweetalert' );
@@ -313,9 +313,9 @@ module.exports = {
     },
     
     defaultShowMessageOptions: {
-        icon: "info",
+        icon: 'info',
         closeOnClickOutside: false,
-        className: "showMessage"
+        className: 'showMessage'
     },
     showMessageFunction: function( messageOptions ){
         var swal = require( 'sweetalert' );

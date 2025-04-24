@@ -2,7 +2,7 @@
     testServerSide singleton class
 */
 module.exports = (function() {
-    "use strict";
+    'use strict';
     
     //var $ = require( 'zzdom' );
     var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
@@ -11,318 +11,318 @@ module.exports = (function() {
     
     var defaultPeople = [
         {
-            "id": 1,
-            "name": "Ulysses Aguilar",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
-            "date": new Date( "2017-06-06" ).getTime(),
-            "datetime": new Date( "2014-11-23T22:10:04" ).getTime(),
-            "time": "04:40",
-            "phoneType": 1,
-            "browser": "Internet Explorer",
-            "important": false,
-            "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+            'id': 1,
+            'name': 'Ulysses Aguilar',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna',
+            'date': new Date( '2017-06-06' ).getTime(),
+            'datetime': new Date( '2014-11-23T22:10:04' ).getTime(),
+            'time': '04:40',
+            'phoneType': 1,
+            'browser': 'Internet Explorer',
+            'important': false,
+            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
         },
         {
-            "id": 2,
-            "name": "Mara Riggs",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
-            "date": new Date( "2013-04-07" ).getTime(),
-            "datetime": new Date( "2013-07-06T19:44:23" ).getTime(),
-            "time": "09:14",
-            "phoneType": 3,
-            "browser": "Internet Explorer",
-            "important": true,
-            "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ],
-            "members": [
+            'id': 2,
+            'name': 'Mara Riggs',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec',
+            'date': new Date( '2013-04-07' ).getTime(),
+            'datetime': new Date( '2013-07-06T19:44:23' ).getTime(),
+            'time': '09:14',
+            'phoneType': 3,
+            'browser': 'Internet Explorer',
+            'important': true,
+            'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
+            'members': [
                 {
-                    "code": 1,
-                    "name": "Leah Nguyen",
-                    "description": "Lorem",
-                    "date": new Date( "2012-10-11" ).getTime(),
-                    "datetime": new Date( "2019-06-19T07:57:41" ).getTime(),
-                    "time": "13:57",
-                    "phoneType": 2,
-                    "browser": "Chrome",
-                    "important": true,
-                    "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]  
+                    'code': 1,
+                    'name': 'Leah Nguyen',
+                    'description': 'Lorem',
+                    'date': new Date( '2012-10-11' ).getTime(),
+                    'datetime': new Date( '2019-06-19T07:57:41' ).getTime(),
+                    'time': '13:57',
+                    'phoneType': 2,
+                    'browser': 'Chrome',
+                    'important': true,
+                    'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ]  
                 },
                 {
-                    "code": 2,
-                    "name": "Victor Knight",
-                    "description": "Lorem ipsum",
-                    "date": new Date( "2019-02-21" ).getTime(),
-                    "datetime": new Date( "2017-08-04T22:40:04" ).getTime(),
-                    "time": "10:15",
-                    "phoneType": 3,
-                    "browser": "Opera",
-                    "important": false,
-                    "hobbies": [ 'videogames_option', 'cards_option' ]  
+                    'code': 2,
+                    'name': 'Victor Knight',
+                    'description': 'Lorem ipsum',
+                    'date': new Date( '2019-02-21' ).getTime(),
+                    'datetime': new Date( '2017-08-04T22:40:04' ).getTime(),
+                    'time': '10:15',
+                    'phoneType': 3,
+                    'browser': 'Opera',
+                    'important': false,
+                    'hobbies': [ 'videogames_option', 'cards_option' ]  
                 },
                 {
-                    "code": 3,
-                    "name": "Samson Bernard",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et",
-                    "date": new Date( "2018-04-05" ),
-                    "datetime": new Date( "2015-07-13T03:46:19" ),
-                    "time": "04:11",
-                    "phoneType": 1,
-                    "browser": "Safari",
-                    "important": "false",
-                    "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
+                    'code': 3,
+                    'name': 'Samson Bernard',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et',
+                    'date': new Date( '2018-04-05' ),
+                    'datetime': new Date( '2015-07-13T03:46:19' ),
+                    'time': '04:11',
+                    'phoneType': 1,
+                    'browser': 'Safari',
+                    'important': 'false',
+                    'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ]
                 },
                 {
-                    "code": 4,
-                    "name": "Wade Pierce",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.",
-                    "date": new Date( "2012-10-21" ),
-                    "datetime": new Date( "2013-12-19T12:01:49" ),
-                    "time": "23:25",
-                    "phoneType": 2,
-                    "browser": "Chrome",
-                    "important": "false",
-                    "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+                    'code': 4,
+                    'name': 'Wade Pierce',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.',
+                    'date': new Date( '2012-10-21' ),
+                    'datetime': new Date( '2013-12-19T12:01:49' ),
+                    'time': '23:25',
+                    'phoneType': 2,
+                    'browser': 'Chrome',
+                    'important': 'false',
+                    'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
                 },
                 {
-                    "code": 5,
-                    "name": "Seth Hatfield",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
-                    "date": new Date( "2017-09-28" ),
-                    "datetime": new Date( "2017-01-15T12:40:02" ),
-                    "time": "12:57",
-                    "phoneType": 2,
-                    "browser": "Chrome",
-                    "important": "false",
-                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                    'code': 5,
+                    'name': 'Seth Hatfield',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed',
+                    'date': new Date( '2017-09-28' ),
+                    'datetime': new Date( '2017-01-15T12:40:02' ),
+                    'time': '12:57',
+                    'phoneType': 2,
+                    'browser': 'Chrome',
+                    'important': 'false',
+                    'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
                 },
                 {
-                    "code": 6,
-                    "name": "Henry Moses",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
-                    "date": new Date( "2017-10-01" ),
-                    "datetime": new Date( "2018-07-16T14:35:35" ),
-                    "time": "08:39",
-                    "phoneType": 3,
-                    "browser": "Opera",
-                    "important": "false",
-                    "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+                    'code': 6,
+                    'name': 'Henry Moses',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec',
+                    'date': new Date( '2017-10-01' ),
+                    'datetime': new Date( '2018-07-16T14:35:35' ),
+                    'time': '08:39',
+                    'phoneType': 3,
+                    'browser': 'Opera',
+                    'important': 'false',
+                    'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ]
                 },
                 {
-                    "code": 7,
-                    "name": "Ivy Duncan",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
-                    "date": new Date( "2011-06-15" ),
-                    "datetime": new Date( "2019-02-07T13:51:38" ),
-                    "time": "06:30",
-                    "phoneType": 1,
-                    "browser": "Firefox",
-                    "important": "false",
-                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                    'code': 7,
+                    'name': 'Ivy Duncan',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut',
+                    'date': new Date( '2011-06-15' ),
+                    'datetime': new Date( '2019-02-07T13:51:38' ),
+                    'time': '06:30',
+                    'phoneType': 1,
+                    'browser': 'Firefox',
+                    'important': 'false',
+                    'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
                 },
                 {
-                    "code": 8,
-                    "name": "Tatum Edwards",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
-                    "date": new Date( "2015-09-11" ),
-                    "datetime": new Date( "2016-09-11T22:24:04" ),
-                    "time": "23:39",
-                    "phoneType": 2,
-                    "browser": "Safari",
-                    "important": "true",
-                    "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+                    'code': 8,
+                    'name': 'Tatum Edwards',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut',
+                    'date': new Date( '2015-09-11' ),
+                    'datetime': new Date( '2016-09-11T22:24:04' ),
+                    'time': '23:39',
+                    'phoneType': 2,
+                    'browser': 'Safari',
+                    'important': 'true',
+                    'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ]
                 },
                 {
-                    "code": 9,
-                    "name": "Hamish Jones",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
-                    "date": new Date( "2018-09-29" ),
-                    "datetime": new Date( "2016-07-01T00:15:37" ),
-                    "time": "09:19",
-                    "phoneType": 2,
-                    "browser": "Opera",
-                    "important": "true",
-                    "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+                    'code': 9,
+                    'name': 'Hamish Jones',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer',
+                    'date': new Date( '2018-09-29' ),
+                    'datetime': new Date( '2016-07-01T00:15:37' ),
+                    'time': '09:19',
+                    'phoneType': 2,
+                    'browser': 'Opera',
+                    'important': 'true',
+                    'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
                 },
                 {
-                    "code": 10,
-                    "name": "Amos Norton",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
-                    "date": new Date( "2013-12-05" ),
-                    "datetime": new Date( "2017-05-06T12:45:39" ),
-                    "time": "09:28",
-                    "phoneType": 2,
-                    "browser": "Opera",
-                    "important": "true",
-                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                    'code': 10,
+                    'name': 'Amos Norton',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec',
+                    'date': new Date( '2013-12-05' ),
+                    'datetime': new Date( '2017-05-06T12:45:39' ),
+                    'time': '09:28',
+                    'phoneType': 2,
+                    'browser': 'Opera',
+                    'important': 'true',
+                    'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
                 },
                 {
-                    "code": 11,
-                    "name": "Tiger Flynn",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
-                    "date": new Date( "2019-01-20" ),
-                    "datetime": new Date( "2013-06-22T22:12:30" ),
-                    "time": "08:54",
-                    "phoneType": 2,
-                    "browser": "Opera",
-                    "important": "true",
-                    "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+                    'code': 11,
+                    'name': 'Tiger Flynn',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec',
+                    'date': new Date( '2019-01-20' ),
+                    'datetime': new Date( '2013-06-22T22:12:30' ),
+                    'time': '08:54',
+                    'phoneType': 2,
+                    'browser': 'Opera',
+                    'important': 'true',
+                    'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ]
                 },
                 {
-                    "code": 12,
-                    "name": "Cheryl Martinez",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
-                    "date": new Date( "2011-11-13" ),
-                    "datetime": new Date( "2015-11-10T05:45:58" ),
-                    "time": "02:12",
-                    "phoneType": 1,
-                    "browser": "Chrome",
-                    "important": "false",
-                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                    'code': 12,
+                    'name': 'Cheryl Martinez',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna',
+                    'date': new Date( '2011-11-13' ),
+                    'datetime': new Date( '2015-11-10T05:45:58' ),
+                    'time': '02:12',
+                    'phoneType': 1,
+                    'browser': 'Chrome',
+                    'important': 'false',
+                    'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
                 },
                 {
-                    "code": 13,
-                    "name": "Stone Sanford",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
-                    "date": new Date( "2017-03-10" ),
-                    "datetime": new Date( "2014-07-26T07:16:53" ),
-                    "time": "23:25",
-                    "phoneType": 1,
-                    "browser": "Internet Explorer",
-                    "important": "false",
-                    "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+                    'code': 13,
+                    'name': 'Stone Sanford',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed',
+                    'date': new Date( '2017-03-10' ),
+                    'datetime': new Date( '2014-07-26T07:16:53' ),
+                    'time': '23:25',
+                    'phoneType': 1,
+                    'browser': 'Internet Explorer',
+                    'important': 'false',
+                    'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
                 },
                 {
-                    "code": 14,
-                    "name": "Merrill Thomas",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu",
-                    "date": new Date( "2019-09-26" ),
-                    "datetime": new Date( "2018-03-01T19:40:40" ),
-                    "time": "08:55",
-                    "phoneType": 1,
-                    "browser": "Safari",
-                    "important": "true",
-                    "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+                    'code': 14,
+                    'name': 'Merrill Thomas',
+                    'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu',
+                    'date': new Date( '2019-09-26' ),
+                    'datetime': new Date( '2018-03-01T19:40:40' ),
+                    'time': '08:55',
+                    'phoneType': 1,
+                    'browser': 'Safari',
+                    'important': 'true',
+                    'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
                 }
             ]
         },
         {
-            "id": 3,
-            "name": "Leah Nguyen",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna",
-            "date": new Date( "2012-10-11" ).getTime(),
-            "datetime": new Date( "2019-06-19T07:57:41" ).getTime(),
-            "time": "13:57",
-            "phoneType": 2,
-            "browser": "Chrome",
-            "important": true,
-            "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
+            'id': 3,
+            'name': 'Leah Nguyen',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna',
+            'date': new Date( '2012-10-11' ).getTime(),
+            'datetime': new Date( '2019-06-19T07:57:41' ).getTime(),
+            'time': '13:57',
+            'phoneType': 2,
+            'browser': 'Chrome',
+            'important': true,
+            'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ]
         },
         {
-            "id": 4,
-            "name": "Victor Knight",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing",
-            "date": new Date( "2019-02-21" ).getTime(),
-            "datetime": new Date( "2017-08-04T22:40:04" ).getTime(),
-            "time": "10:15",
-            "phoneType": 3,
-            "browser": "Opera",
-            "important": true,
-            "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'id': 4,
+            'name': 'Victor Knight',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing',
+            'date': new Date( '2019-02-21' ).getTime(),
+            'datetime': new Date( '2017-08-04T22:40:04' ).getTime(),
+            'time': '10:15',
+            'phoneType': 3,
+            'browser': 'Opera',
+            'important': true,
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
         },
         {
-            "id": 5,
-            "name": "Samson Bernard",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et",
-            "date": new Date( "2018-04-05" ).getTime(),
-            "datetime": new Date( "2015-07-13T03:46:19" ).getTime(),
-            "time": "04:11",
-            "phoneType": 1,
-            "browser": "Safari",
-            "important": false,
-            "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
+            'id': 5,
+            'name': 'Samson Bernard',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et',
+            'date': new Date( '2018-04-05' ).getTime(),
+            'datetime': new Date( '2015-07-13T03:46:19' ).getTime(),
+            'time': '04:11',
+            'phoneType': 1,
+            'browser': 'Safari',
+            'important': false,
+            'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ]
         },
         {
-            "id": 6,
-            "name": "Wade Pierce",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.",
-            "date": new Date( "2012-10-21" ).getTime(),
-            "datetime": new Date( "2013-12-19T12:01:49" ).getTime(),
-            "time": "23:25",
-            "phoneType": 2,
-            "browser": "Chrome",
-            "important": false,
-            "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+            'id': 6,
+            'name': 'Wade Pierce',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus.',
+            'date': new Date( '2012-10-21' ).getTime(),
+            'datetime': new Date( '2013-12-19T12:01:49' ).getTime(),
+            'time': '23:25',
+            'phoneType': 2,
+            'browser': 'Chrome',
+            'important': false,
+            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
         },
         {
-            "id": 7,
-            "name": "Seth Hatfield",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
-            "date": new Date( "2017-09-28" ).getTime(),
-            "datetime": new Date( "2017-01-15T12:40:02" ).getTime(),
-            "time": "12:57",
-            "phoneType": 2,
-            "browser": "Chrome",
-            "important": false,
-            "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'id': 7,
+            'name': 'Seth Hatfield',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed',
+            'date': new Date( '2017-09-28' ).getTime(),
+            'datetime': new Date( '2017-01-15T12:40:02' ).getTime(),
+            'time': '12:57',
+            'phoneType': 2,
+            'browser': 'Chrome',
+            'important': false,
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
         },
         {
-            "id": 8,
-            "name": "Henry Moses",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
-            "date": new Date( "2017-10-01" ).getTime(),
-            "datetime": new Date( "2018-07-16T14:35:35" ).getTime(),
-            "time": "08:39",
-            "phoneType": 3,
-            "browser": "Opera",
-            "important": false,
-            "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+            'id': 8,
+            'name': 'Henry Moses',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec',
+            'date': new Date( '2017-10-01' ).getTime(),
+            'datetime': new Date( '2018-07-16T14:35:35' ).getTime(),
+            'time': '08:39',
+            'phoneType': 3,
+            'browser': 'Opera',
+            'important': false,
+            'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ]
         },
         {
-            "id": 9,
-            "name": "Ivy Duncan",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
-            "date": new Date( "2011-06-15" ).getTime(),
-            "datetime": new Date( "2019-02-07T13:51:38" ).getTime(),
-            "time": "06:30",
-            "phoneType": 1,
-            "browser": "Firefox",
-            "important": false,
-            "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'id': 9,
+            'name': 'Ivy Duncan',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut',
+            'date': new Date( '2011-06-15' ).getTime(),
+            'datetime': new Date( '2019-02-07T13:51:38' ).getTime(),
+            'time': '06:30',
+            'phoneType': 1,
+            'browser': 'Firefox',
+            'important': false,
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
         },
         {
-            "id": 10,
-            "name": "Tatum Edwards",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut",
-            "date": new Date( "2015-09-11" ).getTime(),
-            "datetime": new Date( "2016-09-11T22:24:04" ).getTime(),
-            "time": "23:39",
-            "phoneType": 2,
-            "browser": "Safari",
-            "important": true,
-            "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
+            'id': 10,
+            'name': 'Tatum Edwards',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut',
+            'date': new Date( '2015-09-11' ).getTime(),
+            'datetime': new Date( '2016-09-11T22:24:04' ).getTime(),
+            'time': '23:39',
+            'phoneType': 2,
+            'browser': 'Safari',
+            'important': true,
+            'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ]
         },
         {
-            "id": 11,
-            "name": "Hamish Jones",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
-            "date": new Date( "2018-09-29" ).getTime(),
-            "datetime": new Date( "2016-07-01T00:15:37" ).getTime(),
-            "time": "09:19",
-            "phoneType": 2,
-            "browser": "Opera",
-            "important": "true", // Boolean as text
-            "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
+            'id': 11,
+            'name': 'Hamish Jones',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer',
+            'date': new Date( '2018-09-29' ).getTime(),
+            'datetime': new Date( '2016-07-01T00:15:37' ).getTime(),
+            'time': '09:19',
+            'phoneType': 2,
+            'browser': 'Opera',
+            'important': 'true', // Boolean as text
+            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
         },
         {
-            "id": 12,
-            "name": "Amos Norton",
-            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec",
-            "date": new Date( "2013-12-05" ).getTime(),
-            "datetime": new Date( "2017-05-06T12:45:39" ).getTime(),
-            "time": "09:28",
-            "phoneType": 2,
-            "browser": "Opera",
-            "important": "true", // Boolean as text
-            "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'id': 12,
+            'name': 'Amos Norton',
+            'description': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec',
+            'date': new Date( '2013-12-05' ).getTime(),
+            'datetime': new Date( '2017-05-06T12:45:39' ).getTime(),
+            'time': '09:28',
+            'phoneType': 2,
+            'browser': 'Opera',
+            'important': 'true', // Boolean as text
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
         }
     ];
     var people = {};
@@ -346,19 +346,19 @@ module.exports = (function() {
     
     var addAddressesToPeopleObject = function( peopleObject ){
 
-        peopleObject[ 1 ][ "addresses" ] = [
+        peopleObject[ 1 ][ 'addresses' ] = [
             {
-                "address": "Calle Regino Martínez 3",
-                "province": "Cádiz",
-                "city": "Algeciras"
+                'address': 'Calle Regino Martínez 3',
+                'province': 'Cádiz',
+                'city': 'Algeciras'
             },{
-                "address": "Calle Andalucía 113",
-                "province": "Cádiz",
-                "city": "Algeciras"
+                'address': 'Calle Andalucía 113',
+                'province': 'Cádiz',
+                'city': 'Algeciras'
             },{
-                "address": "Some address else",
-                "province": "Málaga",
-                "city": "Estepona"
+                'address': 'Some address else',
+                'province': 'Málaga',
+                'city': 'Estepona'
             },
         ];
     };
@@ -434,13 +434,13 @@ module.exports = (function() {
         }
         
         for ( var c = 0; c < numberOfItems; ++c ){
-            var sufix = "" + ( c + 1 );
-            var thisName = name + " " + sufix;
+            var sufix = '' + ( c + 1 );
+            var thisName = name + ' ' + sufix;
             thisArray.push(
                 {
-                    "code": sufix,
-                    "name": thisName,
-                    "description": "Description of " + thisName
+                    'code': sufix,
+                    'name': thisName,
+                    'description': 'Description of ' + thisName
                 }
             );
         }
@@ -457,15 +457,15 @@ module.exports = (function() {
         //members.verifiedMembersFiltering = {};
         
         for ( var c = 0; c < numberOfItems; ++c ){
-            var sufix = "" + ( c + 1 );
-            var thisName = name + " " + sufix;
+            var sufix = '' + ( c + 1 );
+            var thisName = name + ' ' + sufix;
             members.originalMembers.push( 
                 {
-                    "code": sufix,
-                    "name": thisName,
-                    "description": "Description of " + thisName,
-                    "important": false,
-                    "hobbies": []
+                    'code': sufix,
+                    'name': thisName,
+                    'description': 'Description of ' + thisName,
+                    'important': false,
+                    'hobbies': []
                 }
             );
         }
@@ -561,44 +561,44 @@ module.exports = (function() {
         
         // Run AJAX
         switch ( table ) {
-            case "department":
+            case 'department':
                 ajaxServices( options, cmd, file, data, url );
                 break;
-            case "phoneTypes":
+            case 'phoneTypes':
                 ajaxPhoneTypes( options, false );
                 break;
-            case "phoneTypesUsingId":
+            case 'phoneTypesUsingId':
                 ajaxPhoneTypes( options, true );
                 break;
-            case "cities":
+            case 'cities':
                 ajaxCities( options, parameters, url );
                 break;
-            case "members":
+            case 'members':
                 ajaxMembersFields( 'members', options, data );
                 break;
-            case "externalMembers":
+            case 'externalMembers':
                 ajaxMembersFields( 'externalMembers', options, data );
                 break;
-            case "memberCheck":
+            case 'memberCheck':
                 ajaxMembersCheck( options, cmd, file, data, url );
                 break;
-            case "originalMembers":
+            case 'originalMembers':
                 ajaxOriginalMembers( options, cmd, file, data, url );
                 break;
-            case "verifiedMembers":
+            case 'verifiedMembers':
                 ajaxVerifiedMembers( options, cmd, file, data, url );
                 break;
-            case "people":
+            case 'people':
                 ajaxPeople( options, cmd, file, data, url );
                 break;
-            case "peopleMembers":
+            case 'peopleMembers':
                 ajaxPeopleMembersFields( 'members', options, data );
                 break;
-            case "provinces":
+            case 'provinces':
                 ajaxProvinces(  options, parameters, url );
                 break;
             default:
-                throw "Unknown table in ajax: " + table;
+                throw 'Unknown table in ajax: ' + table;
         }
     };
     
@@ -607,23 +607,23 @@ module.exports = (function() {
         // Run command
         var dataToSend = undefined;
         switch ( cmd ) {
-            case "BATCH_UPDATE":
+            case 'BATCH_UPDATE':
                 dataToSend = ajaxMembersCheckBatchUpdate( file, data, url );
                 break;
-            case "BATCH_UPDATE_FILTERING":
+            case 'BATCH_UPDATE_FILTERING':
                 dataToSend = ajaxMembersCheckBatchUpdateFiltering( file, data, url );
                 break;
-            case "GET":
+            case 'GET':
                 dataToSend = ajaxMembersCheckGet( file, data, url );
                 break;
-            case "GET_FILTERING":
+            case 'GET_FILTERING':
                 dataToSend = ajaxMembersCheckGetFiltering( file, data, url );
                 break;
-            case "LIST":
+            case 'LIST':
                 dataToSend = ajaxMembersCheckList( file, data, url );
                 break;
             default:
-                throw "Unknown command in ajax: " + cmd;
+                throw 'Unknown command in ajax: ' + cmd;
         }
 
         options.success( dataToSend );
@@ -634,14 +634,14 @@ module.exports = (function() {
         // Run command
         var dataToSend = undefined;
         switch ( cmd ) {
-            case "BATCH_UPDATE":
+            case 'BATCH_UPDATE':
                 dataToSend = ajaxOriginalMembersBatchUpdate( file, data, url );
                 break;
-            case "GET":
+            case 'GET':
                 dataToSend = ajaxOriginalMembersGet( file, data, url );
                 break;
             default:
-                throw "Unknown command in ajax: " + cmd;
+                throw 'Unknown command in ajax: ' + cmd;
         }
 
         options.success( dataToSend );
@@ -652,11 +652,11 @@ module.exports = (function() {
         // Run command
         var dataToSend = undefined;
         switch ( cmd ) {
-            case "LIST":
+            case 'LIST':
                 dataToSend = ajaxVerifiedMembersCheckList( file, data, url );
                 break;
             default:
-                throw "Unknown command in ajax: " + cmd;
+                throw 'Unknown command in ajax: ' + cmd;
         }
 
         options.success( dataToSend );
@@ -1272,17 +1272,17 @@ module.exports = (function() {
         // Run command
         var dataToSend = undefined;
         switch ( cmd ) {
-            case "LIST":
+            case 'LIST':
                 dataToSend = ajaxServicesList( file, data, url );
                 break;
-            case "BATCH_UPDATE":
+            case 'BATCH_UPDATE':
                 dataToSend = ajaxServicesBatchUpdate( file, data, url );
                 break;
-            case "GET":
+            case 'GET':
                 dataToSend = ajaxServicesGet( file, data, url );
                 break;
             default:
-                throw "Unknown command in ajax: " + cmd;
+                throw 'Unknown command in ajax: ' + cmd;
         }
         
         options.success( dataToSend );
@@ -1572,7 +1572,7 @@ module.exports = (function() {
                 max = currentCode;
             }
         }
-        return "" + ( 1 + parseInt( max ) );
+        return '' + ( 1 + parseInt( max ) );
     };
     
     var removeSubformItem = function( current, rowId ){
@@ -1659,15 +1659,15 @@ module.exports = (function() {
     
     var parseQueryString = function( query ) {
         
-        var vars = query.split( "&" );
+        var vars = query.split( '&' );
         var query_string = {};
         for ( var i = 0; i < vars.length; i++ ) {
-            var pair = vars[ i ].split( "=" );
+            var pair = vars[ i ].split( '=' );
             // If first entry with this name
-            if ( typeof query_string[ pair[ 0 ] ] === "undefined" ) {
+            if ( typeof query_string[ pair[ 0 ] ] === 'undefined' ) {
                 query_string[ pair[ 0 ] ] = decodeURIComponent( pair[ 1 ] );
                 // If second entry with this name
-            } else if ( typeof query_string[ pair[ 0 ] ] === "string" ) {
+            } else if ( typeof query_string[ pair[ 0 ] ] === 'string' ) {
                 var arr = [ query_string[pair[ 0 ]], decodeURIComponent( pair[ 1 ] )];
                 query_string[ pair[ 0 ] ] = arr;
                 // If third or later entry with this name
@@ -1727,17 +1727,17 @@ module.exports = (function() {
         // Run command
         var dataToSend = undefined;
         switch ( cmd ) {
-            case "LIST":
+            case 'LIST':
                 dataToSend = ajaxPeopleList( file, data, url );
                 break;
-            /*case "BATCH_UPDATE":
+            /*case 'BATCH_UPDATE':
                 dataToSend = ajaxPeopleBatchUpdate( file, data, url );
                 break;*/
-            case "GET":
+            case 'GET':
                 dataToSend = ajaxPeopleGet( file, data, url );
                 break;
             default:
-                throw "Unknown command in ajax: " + cmd;
+                throw 'Unknown command in ajax: ' + cmd;
         }
 
         options.success( dataToSend );

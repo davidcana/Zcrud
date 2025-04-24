@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -21,7 +21,7 @@ defaultTestOptions.errorFunction = function( message ){
 var options = utils.extend( true, {}, defaultTestOptions, thisTestOptions );
 
 // Run tests
-QUnit.test( "create test", function( assert ) {
+QUnit.test( 'create test', function( assert ) {
 
     var done = assert.async();
 
@@ -39,9 +39,9 @@ QUnit.test( "create test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "-" // Validation must fail here!
-                //"name": "Service " + key
+                'id': '' + key,
+                'name': '-' // Validation must fail here!
+                //'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             testHelper.clickCreateRowListButton();
@@ -57,7 +57,7 @@ QUnit.test( "create test", function( assert ) {
             
             // Fix the error
             var editedRecord =  {
-                "name": "Service " + key
+                'name': 'Service ' + key
             };
             testHelper.fillNewRowEditableList( editedRecord );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
@@ -77,7 +77,7 @@ QUnit.test( "create test", function( assert ) {
     );
 });
 
-QUnit.test( "create undo/redo 1 action test", function( assert ) {
+QUnit.test( 'create undo/redo 1 action test', function( assert ) {
 
     var done = assert.async();
 
@@ -95,8 +95,8 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             testHelper.clickCreateRowListButton();
@@ -105,7 +105,7 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
 
             // Set an invalid name
             var badRecord = utils.extend( true, {}, newRecord );
-            badRecord.name = "" + key;
+            badRecord.name = '' + key;
             testHelper.fillNewRowEditableList( badRecord);
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             testHelper.checkEditableListLastRow( assert, badRecord );
@@ -143,7 +143,7 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
     );
 });
 
-QUnit.test( "change test", function( assert ) {
+QUnit.test( 'change test', function( assert ) {
 
     var done = assert.async();
 
@@ -161,14 +161,14 @@ QUnit.test( "change test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "-" // Validation must fail here!
+                'name': '-' // Validation must fail here!
             };
             testHelper.fillEditableList( editedRecord, key );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
@@ -185,7 +185,7 @@ QUnit.test( "change test", function( assert ) {
             
             // Fix the error
             editedRecord =  {
-                "name": "Service " + key + " edited"
+                'name': 'Service ' + key + ' edited'
             };
             testHelper.fillEditableList( editedRecord, key );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
@@ -207,7 +207,7 @@ QUnit.test( "change test", function( assert ) {
     );
 });
 
-QUnit.test( "change undo/redo 1 action test", function( assert ) {
+QUnit.test( 'change undo/redo 1 action test', function( assert ) {
 
     var done = assert.async();
 
@@ -225,21 +225,21 @@ QUnit.test( "change undo/redo 1 action test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service " + key + " edited"
+                'name': 'Service ' + key + ' edited'
             };
             testHelper.fillEditableList( editedRecord, key );
             assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
             
             // Set an invalid name
             var badRecord = utils.extend( true, {}, record, editedRecord );
-            badRecord.name = "" + key;
+            badRecord.name = '' + key;
             testHelper.fillEditableList( badRecord, key );
             assert.equal( testHelper.getNumberOfValidationErrors(), 1 );
             testHelper.checkEditableListForm( assert, key, badRecord );

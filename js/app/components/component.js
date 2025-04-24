@@ -1,7 +1,7 @@
 /* 
     Component class
 */
-"use strict";
+'use strict';
 
 var context = require( '../context.js' );
 
@@ -32,7 +32,7 @@ Component.prototype.processDirty = function( callback ){
                 cancel: context.translate( 'dirtyPagingCancel' ),
                 /*save: {
                         text: context.translate( 'dirtyPagingSave' ),
-                        value: "save",
+                        value: 'save',
                     },*/
                 discard: {
                     text: context.translate( 'dirtyPagingDiscard' ),

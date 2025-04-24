@@ -2,7 +2,7 @@
     validationsManager singleton class
 */
 module.exports = (function() {
-    "use strict";
+    'use strict';
     
     var context = require( './context.js' );
     var zzDOM = require( '../../lib/zzDOM-closures-full.js' );

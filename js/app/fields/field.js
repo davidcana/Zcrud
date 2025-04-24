@@ -1,7 +1,7 @@
 /* 
     Field class
 */
-"use strict";
+'use strict';
 
 var utils = require( '../utils.js' );
 
@@ -46,7 +46,7 @@ Field.prototype.getValueForHistory = function( $this ){
 };
 
 Field.prototype.getValueFromForm = function( $selection ){
-    return $selection.find( "[name='" + this.name + "']").val();
+    return $selection.find( '[name="' + this.name + '"]' ).val();
 };
 
 Field.prototype.getValueFromRecord = function( record ){

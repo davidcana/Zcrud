@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -21,7 +21,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create text area test", function( assert ) {
+QUnit.test( 'create text area test', function( assert ) {
 
     var done = assert.async();
     
@@ -40,11 +40,11 @@ QUnit.test( "create text area test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "Service " + key + " description";
+            record2[ varName ] = 'Service ' + key + ' description';
             testHelper.checkNoRecord( assert, key, record2 );
             
             // Go to create form and create record
@@ -74,7 +74,7 @@ QUnit.test( "create text area test", function( assert ) {
     );
 });
 /*
-QUnit.test( "create datetime test", function( assert ) {
+QUnit.test( 'create datetime test', function( assert ) {
 
     var done = assert.async();
 
@@ -93,11 +93,11 @@ QUnit.test( "create datetime test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T20:00:00.000" );
+            record2[ varName ] = new Date( '2017-09-10T20:00:00.000' );
             testHelper.checkNoRecord( assert, key, record2 );
             
             // Create record
@@ -129,7 +129,7 @@ QUnit.test( "create datetime test", function( assert ) {
     );
 });
 
-QUnit.test( "create datetime using picker test", function( assert ) {
+QUnit.test( 'create datetime using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -148,11 +148,11 @@ QUnit.test( "create datetime using picker test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T20:00:00.000Z" );
+            record2[ varName ] = new Date( '2017-09-10T20:00:00.000Z' );
             testHelper.checkNoRecord( assert, key, record2 );
             
             // Create record
@@ -189,7 +189,7 @@ QUnit.test( "create datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create inline datetime using picker test", function( assert ) {
+QUnit.test( 'create inline datetime using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -209,11 +209,11 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T03:10:00.000" );
+            record2[ varName ] = new Date( '2017-09-10T03:10:00.000' );
             testHelper.checkNoRecord( assert, key, record2 );
             
             // Create record
@@ -250,7 +250,7 @@ QUnit.test( "create inline datetime using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create date test", function( assert ) {
+QUnit.test( 'create date test', function( assert ) {
 
     var done = assert.async();
 
@@ -270,11 +270,11 @@ QUnit.test( "create date test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            record2[ varName ] = new Date( '2017-09-10T00:00:00.000' );
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -306,7 +306,7 @@ QUnit.test( "create date test", function( assert ) {
     );
 });
 
-QUnit.test( "create date using picker test", function( assert ) {
+QUnit.test( 'create date using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -326,11 +326,11 @@ QUnit.test( "create date using picker test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            record2[ varName ] = new Date( '2017-09-10T00:00:00.000' );
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -367,7 +367,7 @@ QUnit.test( "create date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create inline date using picker test", function( assert ) {
+QUnit.test( 'create inline date using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -387,11 +387,11 @@ QUnit.test( "create inline date using picker test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = new Date( "2017-09-10T00:00:00.000" );
+            record2[ varName ] = new Date( '2017-09-10T00:00:00.000' );
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -430,7 +430,7 @@ QUnit.test( "create inline date using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create time test", function( assert ) {
+QUnit.test( 'create time test', function( assert ) {
 
     var done = assert.async();
 
@@ -449,11 +449,11 @@ QUnit.test( "create time test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "03:05";
+            record2[ varName ] = '03:05';
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -483,7 +483,7 @@ QUnit.test( "create time test", function( assert ) {
     );
 });
 
-QUnit.test( "create time using picker test", function( assert ) {
+QUnit.test( 'create time using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -502,11 +502,11 @@ QUnit.test( "create time using picker test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "03:05";
+            record2[ varName ] = '03:05';
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -543,7 +543,7 @@ QUnit.test( "create time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create inline time using picker test", function( assert ) {
+QUnit.test( 'create inline time using picker test', function( assert ) {
 
     var done = assert.async();
 
@@ -563,11 +563,11 @@ QUnit.test( "create inline time using picker test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "03:05";
+            record2[ varName ] = '03:05';
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -604,7 +604,7 @@ QUnit.test( "create inline time using picker test", function( assert ) {
     );
 });
 
-QUnit.test( "create checkbox test", function( assert ) {
+QUnit.test( 'create checkbox test', function( assert ) {
 
     var done = assert.async();
 
@@ -623,8 +623,8 @@ QUnit.test( "create checkbox test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
             record2[ varName ] = true;
@@ -656,7 +656,7 @@ QUnit.test( "create checkbox test", function( assert ) {
     );
 });
 
-QUnit.test( "create radio test", function( assert ) {
+QUnit.test( 'create radio test', function( assert ) {
 
     var done = assert.async();
 
@@ -675,11 +675,11 @@ QUnit.test( "create radio test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "officePhone_option";
+            record2[ varName ] = 'officePhone_option';
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -708,7 +708,7 @@ QUnit.test( "create radio test", function( assert ) {
     );
 });
 
-QUnit.test( "create select test", function( assert ) {
+QUnit.test( 'create select test', function( assert ) {
 
     var done = assert.async();
 
@@ -728,11 +728,11 @@ QUnit.test( "create select test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "Málaga";
+            record2[ varName ] = 'Málaga';
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -764,7 +764,7 @@ QUnit.test( "create select test", function( assert ) {
     );
 });
 
-QUnit.test( "create 2 linked select test", function( assert ) {
+QUnit.test( 'create 2 linked select test', function( assert ) {
 
     var done = assert.async();
 
@@ -785,13 +785,13 @@ QUnit.test( "create 2 linked select test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "Málaga";
+            record2[ varName ] = 'Málaga';
             var record2Step2 = {};
-            record2Step2[ varName2 ] = "Marbella";
+            record2Step2[ varName2 ] = 'Marbella';
             var record3 = utils.extend( true, {}, record2, record2Step2 );
             testHelper.checkNoRecord( assert, key, record2 );
             
@@ -856,7 +856,7 @@ QUnit.test( "create 2 linked select test", function( assert ) {
     );
 });
 
-QUnit.test( "create datalist test", function( assert ) {
+QUnit.test( 'create datalist test', function( assert ) {
 
     var done = assert.async();
 
@@ -876,11 +876,11 @@ QUnit.test( "create datalist test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
-            record2[ varName ] = "Firefox";
+            record2[ varName ] = 'Firefox';
             testHelper.checkNoRecord( assert, key, record2 );
 
             // Create record
@@ -909,7 +909,7 @@ QUnit.test( "create datalist test", function( assert ) {
     );
 });
 
-QUnit.test( "create checkboxes test", function( assert ) {
+QUnit.test( 'create checkboxes test', function( assert ) {
 
     var done = assert.async();
 
@@ -929,8 +929,8 @@ QUnit.test( "create checkboxes test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             var record2 = utils.extend( true, {}, record );
             record2[ varName ] = [ 'reading_option', 'sports_option' ];

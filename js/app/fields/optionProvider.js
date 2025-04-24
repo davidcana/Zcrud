@@ -1,7 +1,7 @@
 /*
     OptionProvider singleton class
 */
-"use strict";
+'use strict';
 
 var context = require( '../context.js' );
 var crudManager = require( '../crudManager.js' );
@@ -311,7 +311,7 @@ var OptionProvider = function() {
         for ( var i = 0; i < field.dependsOn.length; i++ ) {
             var dependedFieldId = field.dependsOn[ i ];
             var dependedField = context.getField( params.options.fields, dependedFieldId );
-            dependedValues[ dependedFieldId ] = $selection.find( "[name='" + dependedField.name + "']").val();
+            dependedValues[ dependedFieldId ] = $selection.find( '[name="' + dependedField.name + '"]' ).val();
         }
         
         return dependedValues;

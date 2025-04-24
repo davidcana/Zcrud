@@ -1,7 +1,7 @@
 /* 
     AbstractHistoryAction class
 */
-"use strict";
+'use strict';
 
 var pageUtils = require( '../pages/pageUtils.js' );
 

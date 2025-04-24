@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -87,7 +87,7 @@ var testCityOptions = function( assert, options, values1, values2 ) {
             );
             
             var editedRecord =  {
-                "province": "Cádiz"
+                'province': 'Cádiz'
             };
             testHelper.fillForm( editedRecord );
             
@@ -102,7 +102,7 @@ var testCityOptions = function( assert, options, values1, values2 ) {
 };
 
 // Run tests
-QUnit.test( "function returning URL returning array of objects test", function( assert ) {
+QUnit.test( 'function returning URL returning array of objects test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.city.options = function( data ){
@@ -120,7 +120,7 @@ QUnit.test( "function returning URL returning array of objects test", function( 
     );
 });
 
-QUnit.test( "array of objects form test", function( assert ) {
+QUnit.test( 'array of objects form test', function( assert ) {
     
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = true;
@@ -138,7 +138,7 @@ QUnit.test( "array of objects form test", function( assert ) {
     );
 });
 
-QUnit.test( "simple array test", function( assert ) {
+QUnit.test( 'simple array test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = false;
@@ -152,7 +152,7 @@ QUnit.test( "simple array test", function( assert ) {
     );
 });
 
-QUnit.test( "object test", function( assert ) {
+QUnit.test( 'object test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = true;
@@ -170,7 +170,7 @@ QUnit.test( "object test", function( assert ) {
     );
 });
 
-QUnit.test( "function test", function( assert ) {
+QUnit.test( 'function test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = true;
@@ -186,7 +186,7 @@ QUnit.test( "function test", function( assert ) {
     );
 });
 
-QUnit.test( "URL returning array of objects form after list test", function( assert ) {
+QUnit.test( 'URL returning array of objects form after list test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = false;
@@ -201,7 +201,7 @@ QUnit.test( "URL returning array of objects form after list test", function( ass
 });
 
 
-QUnit.test( "URL returning array of objects editable list test", function( assert ) {
+QUnit.test( 'URL returning array of objects editable list test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, editableListAllFieldsTestOptions );
@@ -224,11 +224,11 @@ QUnit.test( "URL returning array of objects editable list test", function( asser
                 visibleRows: 5,
                 pagingInfo: 'Showing 1-5 of 129',
                 records: [
-                    "1|Service 1|Málaga|Estepona",
-                    "2|Service 2|Cádiz|Algeciras",
-                    "3|Service 3|Málaga|Marbella",
-                    "4|Service 4|Cádiz|Tarifa",
-                    "5|Service 5|Málaga|Estepona"
+                    '1|Service 1|Málaga|Estepona',
+                    '2|Service 2|Cádiz|Algeciras',
+                    '3|Service 3|Málaga|Marbella',
+                    '4|Service 4|Cádiz|Tarifa',
+                    '5|Service 5|Málaga|Estepona'
                 ],
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '26', '>', '>>' ],
@@ -262,7 +262,7 @@ var configureOptions = function( optionsToExtend ){
     options.pageConf.pages.list.getGroupOfRecordsURL = 'http://localhost/CRUDManager.do?cmd=LIST&table=people';
     options.pageConf.pages.list.fields = [ 
         {
-            "type": "fieldsGroup"
+            'type': 'fieldsGroup'
         }
     ];
     options.fields.phoneType.options = 'http://localhost/CRUDManager.do?table=phoneTypesUsingId';
@@ -276,8 +276,8 @@ var configureSubformOptions = function(){
     configureOptions( formOptions );
     options.pageConf.pages.list.fields = [ 
         {
-            "type": "fieldsGroup",
-            "except": [ "addresses" ]
+            'type': 'fieldsGroup',
+            'except': [ 'addresses' ]
         }
     ];
     options.fields.addresses = {
@@ -305,7 +305,7 @@ var configureSubformOptions = function(){
     };
 };
 
-QUnit.test( "function returning URL returning array of objects and adding current value test", function( assert ) {
+QUnit.test( 'function returning URL returning array of objects and adding current value test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.city.addCurrentValueToOptions = true;
@@ -319,9 +319,9 @@ QUnit.test( "function returning URL returning array of objects and adding curren
     // Setup services
     testServerSide.resetServices();
     var record =  {
-        "id": "" + key,
-        "name": "Service " + key,
-        "city": "San Roque"
+        'id': '' + key,
+        'name': 'Service ' + key,
+        'city': 'San Roque'
     };
     testServerSide.setService( key, record );
     
@@ -333,7 +333,7 @@ QUnit.test( "function returning URL returning array of objects and adding curren
     );
 });
 
-QUnit.test( "URL returning array of objects list test", function( assert ) {
+QUnit.test( 'URL returning array of objects list test', function( assert ) {
 
     options = utils.extend( true, {}, formOptions );
     options.fields.phoneType.translateOptions = false;
@@ -347,7 +347,7 @@ QUnit.test( "URL returning array of objects list test", function( assert ) {
     );
 });
 
-QUnit.test( "URL returning array of objects subform update test", function( assert ) {
+QUnit.test( 'URL returning array of objects subform update test', function( assert ) {
 
     var done = assert.async();
     configureSubformOptions();

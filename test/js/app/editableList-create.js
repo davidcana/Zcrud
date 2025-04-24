@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -19,7 +19,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create test", function( assert ) {
+QUnit.test( 'create test', function( assert ) {
     
     var done = assert.async();
     
@@ -37,8 +37,8 @@ QUnit.test( "create test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -100,7 +100,7 @@ QUnit.test( "create test", function( assert ) {
     );
 });
 
-QUnit.test( "create with errors test", function( assert ) {
+QUnit.test( 'create with errors test', function( assert ) {
     
     var done = assert.async();
 
@@ -123,9 +123,9 @@ QUnit.test( "create with errors test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "number": "a"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'number': 'a'
             };
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -155,7 +155,7 @@ QUnit.test( "create with errors test", function( assert ) {
     );
 });
 
-QUnit.test( "create undo/redo 1 action test", function( assert ) {
+QUnit.test( 'create undo/redo 1 action test', function( assert ) {
     
     var done = assert.async();
     
@@ -173,9 +173,9 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "number": "a"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'number': 'a'
             };
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -208,7 +208,7 @@ QUnit.test( "create undo/redo 1 action test", function( assert ) {
     );
 });
         
-QUnit.test( "create undo/redo 3 action test", function( assert ) {
+QUnit.test( 'create undo/redo 3 action test', function( assert ) {
     
     var done = assert.async();
     
@@ -226,9 +226,9 @@ QUnit.test( "create undo/redo 3 action test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "number": "a"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'number': 'a'
             };
             testHelper.checkNoRecord( assert, key, newRecord, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -286,7 +286,7 @@ QUnit.test( "create undo/redo 3 action test", function( assert ) {
     );
 });
 
-QUnit.test( "create with default values test", function( assert ) {
+QUnit.test( 'create with default values test', function( assert ) {
 
     var defaultRecord = {
         number: '0'
@@ -315,8 +315,8 @@ QUnit.test( "create with default values test", function( assert ) {
             // Assert register with key 0 doesn't exist
             var key = 0;
             var clientRecord =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key, clientRecord, editable );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );

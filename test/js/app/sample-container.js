@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -46,39 +46,39 @@ var options = {
             create: {
                 fields: [
                     {
-                        "type": "fieldsGroup"
+                        'type': 'fieldsGroup'
                     }
                 ]
             }, 
             update: {
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": [ 
+                        'type': 'fieldsGroup',
+                        'source': [ 
                             'id',
                             'name',
                             'description'
                         ],
-                        "container": {
-                            "id": "basicData",
-                            "containerType": "fieldSet"
+                        'container': {
+                            'id': 'basicData',
+                            'containerType': 'fieldSet'
                         }
                     },
                     {
-                        "type": "fieldsGroup",
-                        "source": "default",
-                        "start": "date",
-                        "end": "phoneType"
+                        'type': 'fieldsGroup',
+                        'source': 'default',
+                        'start': 'date',
+                        'end': 'phoneType'
                     },
                     {
-                        "type": "fieldsGroup",
-                        "source": [ 
+                        'type': 'fieldsGroup',
+                        'source': [ 
                             'province',
                             'city'
                         ],
-                        "container": {
-                            "id": "location",
-                            "containerType": "fieldSet"
+                        'container': {
+                            'id': 'location',
+                            'containerType': 'fieldSet'
                         }
                     },
                     'browser',
@@ -88,8 +88,8 @@ var options = {
             delete: {
                 fields: [
                     {
-                        "type": "fieldsGroup",
-                        "source": "update"
+                        'type': 'fieldsGroup',
+                        'source': 'update'
                     }
                 ]
             }

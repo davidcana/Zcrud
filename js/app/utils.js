@@ -1,7 +1,7 @@
 /* 
     utils singleton class
 */
-"use strict";
+'use strict';
 
 var log4javascript = require( 'log4javascript' );
 var context = require( './context.js' );
@@ -29,7 +29,7 @@ module.exports = (function() {
 
         // Use toString instead of jQuery.type to catch host objects
 
-        if ( !obj || toString.call( obj ) !== "[object Object]" ) {
+        if ( !obj || toString.call( obj ) !== '[object Object]' ) {
             return false;
         }
 
@@ -42,8 +42,8 @@ module.exports = (function() {
         }
 
         // Objects with prototype are plain iff they were constructed by a global Object function
-        Ctor = hasOwn.call( proto, "constructor" ) && proto.constructor;
-		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
+        Ctor = hasOwn.call( proto, 'constructor' ) && proto.constructor;
+		return typeof Ctor === 'function' && fnToString.call( Ctor ) === ObjectFunctionString;
     };
     var extend = function() {
         var options, name, src, copy, copyIsArray, clone,
@@ -53,7 +53,7 @@ module.exports = (function() {
             deep = false;
     
         // Handle a deep copy situation
-        if ( typeof target === "boolean" ) {
+        if ( typeof target === 'boolean' ) {
             deep = target;
     
             // Skip the boolean and the target
@@ -62,7 +62,7 @@ module.exports = (function() {
         }
     
         // Handle case when target is a string or something (possible in deep copy)
-        if ( typeof target !== "object" && typeof target !== "function" ) {
+        if ( typeof target !== 'object' && typeof target !== 'function' ) {
             target = {};
         }
     
@@ -83,7 +83,7 @@ module.exports = (function() {
     
                     // Prevent Object.prototype pollution
                     // Prevent never-ending loop
-                    if ( name === "__proto__" || target === copy ) {
+                    if ( name === '__proto__' || target === copy ) {
                         continue;
                     }
     
@@ -120,8 +120,8 @@ module.exports = (function() {
     var isFunction = function( x ) {
 
         // Support: Chrome <=57, Firefox <=52
-        // In some browsers, typeof returns "function" for HTML <object> elements
-        // (i.e., `typeof document.createElement( "object" ) === 'function'`).
+        // In some browsers, typeof returns 'function' for HTML <object> elements
+        // (i.e., `typeof document.createElement( 'object' ) === 'function'`).
         // We don't want to classify *any* DOM node as a function.
         return typeof x === 'function' && typeof x.nodeType !== 'number';
     };

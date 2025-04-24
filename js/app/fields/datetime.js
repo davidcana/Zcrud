@@ -1,7 +1,7 @@
 /*
     Datetime class
 */
-"use strict";
+'use strict';
 
 var Field = require( './field.js' );
 var context = require( '../context.js' );
@@ -217,7 +217,7 @@ Datetime.prototype.getValueFromForm = function( $selection ){
 
 Datetime.prototype.getValueFromFormForNotInline = function( $selection ){
     
-    var datetimeString = $selection.find( "[name='" + this.name + "']").val();
+    var datetimeString = $selection.find( '[name="' + this.name + '"]' ).val();
 
     if ( ! datetimeString || datetimeString.length == 0 || this.type == 'time' ){
         return datetimeString;
@@ -478,8 +478,8 @@ Datetime.prototype.getSelectedDate = function( event, selectDay, $datePicker ){
 
     $datePicker = $datePicker || this.get$datePicker( event );
 
-    var year = $datePicker.find( "[name='datepicker-year']" ).val();
-    var month = $datePicker.find( "[name='datepicker-month']" ).val();
+    var year = $datePicker.find( '[name="datepicker-year"]' ).val();
+    var month = $datePicker.find( '[name="datepicker-month"]' ).val();
     var day = selectDay? 1: 1;
 
     return new Date( year, month, day, 0, 0, 0 );
@@ -774,7 +774,7 @@ Datetime.prototype.bindDateEvents = function( params, $selection, $datetime ){
     );
 
     $datetime
-        .find( "[name='datepicker-month'], [name='datepicker-year']" )
+        .find( '[name="datepicker-month"], [name="datepicker-year"]' )
         .on(
             'change',
             function ( event ) {
@@ -985,7 +985,7 @@ Datetime.prototype.get$picker = function( $datetime ){
 };
 
 Datetime.prototype.get$input = function( $datetime ){
-    return $datetime.find( "[name='" + this.name + "']" );
+    return $datetime.find( '[name="' + this.name + '"]' );
 };
 
 Datetime.prototype.save = function( $datetime, hide ){
@@ -1046,7 +1046,7 @@ Datetime.prototype.toggle = function( event, $datetime, params ){
     var $picker = this.get$picker( $datetime );
 
     // If the picker is not visible update it if needed
-    //if ( ! $picker.is( ":visible" ) ){
+    //if ( ! $picker.is( ':visible' ) ){
     if ( ! $picker.isVisible() ){
         var $input = this.get$input( $datetime );
         var currentValue = $input.val();

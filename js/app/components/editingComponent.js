@@ -1,7 +1,7 @@
 /* 
     EditingComponent class
 */
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
@@ -108,8 +108,6 @@ EditingComponent.prototype.bindEventsForFieldsAndAllRecords = function( fields, 
             dictionary,
             record,
             $rows.list[ i ] );
-            //$rows.filter( ":nth-child(" + (1 + i) + ")" ) );
-            //$rows.filter( ":eq(" + i + ")" ) );
     }
 };
 
@@ -348,7 +346,7 @@ EditingComponent.prototype.updateKeys = function( $trArray, records ){
 
         // Update key value of field
         if ( field ){
-            $tr.find( "[name='" + field.id + "']").val( value );
+            $tr.find( '[name="' + field.id + '"]' ).val( value );
         }
 
         // Update key value in attribute of $tr

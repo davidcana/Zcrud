@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -14,7 +14,7 @@ var defaultTestOptions = require( './defaultTestOptions.js' );
 var options;
 
 // Run tests
-QUnit.test( "create test", function( assert ) {
+QUnit.test( 'create test', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     
@@ -30,19 +30,19 @@ QUnit.test( "create test", function( assert ) {
             // Assert register with key 0 not exists
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3",
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'date': '10/23/2017',
+                'time': '18:50',
+                'datetime': '10/23/2017 20:00',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3',
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
             testHelper.checkNoRecord( assert, key );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -100,7 +100,7 @@ QUnit.test( "create test", function( assert ) {
     );
 });
 
-QUnit.test( "create with default values test", function( assert ) {
+QUnit.test( 'create with default values test', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
     
@@ -116,18 +116,18 @@ QUnit.test( "create with default values test", function( assert ) {
             // Assert register with key 0 not exists
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "city": "Algeciras",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3",
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'date': '10/23/2017',
+                'time': '18:50',
+                'datetime': '10/23/2017 20:00',
+                'phoneType': 'officePhone_option',
+                'city': 'Algeciras',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3',
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
             var fullRecord = utils.extend( true, {}, record );
             fullRecord.province = 'Cádiz';

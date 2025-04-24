@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -19,7 +19,7 @@ editableListTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create form test", function( assert ) {
+QUnit.test( 'create form test', function( assert ) {
 
     var done = assert.async();
     var options = formTestOptions;
@@ -35,13 +35,13 @@ QUnit.test( "create form test", function( assert ) {
             // Assert register with key 130 not exists
             var key = 130;
             var record =  {
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true
             };
 
             // Check
@@ -79,7 +79,7 @@ QUnit.test( "create form test", function( assert ) {
             });
             
             var fullRecord = utils.extend( true, {}, record );
-            fullRecord.id = "" + key;
+            fullRecord.id = '' + key;
             testHelper.checkRecordInList( assert, key, fullRecord, false, true );
             assert.deepEqual( testServerSide.getService( key ), fullRecord );
             
@@ -88,7 +88,7 @@ QUnit.test( "create form test", function( assert ) {
     );
 });
 
-QUnit.test( "update form test", function( assert ) {
+QUnit.test( 'update form test', function( assert ) {
 
     var done = assert.async();
     var options = formTestOptions;
@@ -104,13 +104,13 @@ QUnit.test( "update form test", function( assert ) {
             // Assert register with key 2 not exists
             var key = 2;
             var record =  {
-                "name": "Service " + key + " edited",
-                "description": "Service " + key + " description edited",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true
+                'name': 'Service ' + key + ' edited',
+                'description': 'Service ' + key + ' description edited',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true
             };
 
             // Check
@@ -137,13 +137,13 @@ QUnit.test( "update form test", function( assert ) {
                 assert: assert,
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 129',
-                names: "Service 1/Service 2 edited/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10",
+                names: 'Service 1/Service 2 edited/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ]
             });
             
             var fullRecord = utils.extend( true, {}, record );
-            fullRecord.id = "" + key;
+            fullRecord.id = '' + key;
             testHelper.checkRecordInList( assert, key, fullRecord, false, true );
             assert.deepEqual( testServerSide.getService( key ), fullRecord );
             
@@ -152,7 +152,7 @@ QUnit.test( "update form test", function( assert ) {
     );
 });
 
-QUnit.test( "delete form test", function( assert ) {
+QUnit.test( 'delete form test', function( assert ) {
 
     var done = assert.async();
     var options = formTestOptions;
@@ -168,9 +168,9 @@ QUnit.test( "delete form test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description'
             };
             assert.deepEqual( testServerSide.getService( key ), record );
             
@@ -208,7 +208,7 @@ QUnit.test( "delete form test", function( assert ) {
     );
 });
 
-QUnit.test( "editable list create test", function( assert ) {
+QUnit.test( 'editable list create test', function( assert ) {
 
     var done = assert.async();
     var options = editableListTestOptions;
@@ -243,8 +243,8 @@ QUnit.test( "editable list create test", function( assert ) {
             
             testHelper.clickCreateRowListButton();
             var record =  {
-                "name": "Service " + key,
-                "description": "Service " + key + " description"
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description'
             };
             testHelper.fillNewRowEditableList( record );
             
@@ -253,7 +253,7 @@ QUnit.test( "editable list create test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             
             var fullRecord = utils.extend( true, {}, record );
-            fullRecord.id = "" + key;
+            fullRecord.id = '' + key;
             testHelper.checkRecord( assert, key, fullRecord, editable, true );
             
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 121, 130 ) );
@@ -291,7 +291,7 @@ QUnit.test( "editable list create test", function( assert ) {
     );
 });
 
-QUnit.test( "editable list update test", function( assert ) {
+QUnit.test( 'editable list update test', function( assert ) {
 
     var done = assert.async();
     var options = editableListTestOptions;
@@ -311,9 +311,9 @@ QUnit.test( "editable list update test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description'
             };
             testHelper.checkRecord( assert, key, record, editable, true );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -329,8 +329,8 @@ QUnit.test( "editable list update test", function( assert ) {
             });
             
             var editedRecord = {
-                "name": "Service " + key + " edited",
-                "description": "Service " + key + " description edited"
+                'name': 'Service ' + key + ' edited',
+                'description': 'Service ' + key + ' description edited'
             };
             testHelper.fillEditableList( editedRecord, key );
 
@@ -339,7 +339,7 @@ QUnit.test( "editable list update test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             
             var fullEditedRecord = utils.extend( true, {}, editedRecord );
-            fullEditedRecord.id = "" + key;
+            fullEditedRecord.id = '' + key;
             testHelper.checkRecord( assert, key, fullEditedRecord, editable, true );
 
             values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -359,7 +359,7 @@ QUnit.test( "editable list update test", function( assert ) {
     );
 });
 
-QUnit.test( "editable list delete test", function( assert ) {
+QUnit.test( 'editable list delete test', function( assert ) {
 
     var done = assert.async();
     var options = editableListTestOptions;
@@ -379,9 +379,9 @@ QUnit.test( "editable list delete test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description"
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description'
             };
             testHelper.checkRecord( assert, key, record, editable, true );
             var values = testHelper.buildCustomValuesList( testHelper.buildValuesList( 1, 10 ) );
@@ -422,7 +422,7 @@ QUnit.test( "editable list delete test", function( assert ) {
     );
 });
 
-QUnit.test( "create subform test", function( assert ) {
+QUnit.test( 'create subform test', function( assert ) {
 
     var done = assert.async();
     var options = subformTestOptions;
@@ -437,24 +437,24 @@ QUnit.test( "create subform test", function( assert ) {
             // Setup register
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -479,8 +479,8 @@ QUnit.test( "create subform test", function( assert ) {
             
             // Add subform record 3
             var subformRecord3 = {
-                "name": "Homer Simpson",
-                "description": "Description of Homer Simpson"
+                'name': 'Homer Simpson',
+                'description': 'Description of Homer Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord3, 'members' );
@@ -490,7 +490,7 @@ QUnit.test( "create subform test", function( assert ) {
             
             // Check storage
             var editedRecord = utils.extend( true, {}, record );
-            subformRecord3.code = "3";
+            subformRecord3.code = '3';
             editedRecord.members.push( subformRecord3 );
             assert.deepEqual( testServerSide.getService( key ), editedRecord );
             
@@ -508,7 +508,7 @@ QUnit.test( "create subform test", function( assert ) {
     );
 });
 
-QUnit.test( "update subform test", function( assert ) {
+QUnit.test( 'update subform test', function( assert ) {
 
     var done = assert.async();
     var options = subformTestOptions;
@@ -523,24 +523,24 @@ QUnit.test( "update subform test", function( assert ) {
             // Setup register
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -551,14 +551,14 @@ QUnit.test( "update subform test", function( assert ) {
             // Go to edit form and edit record
             testHelper.clickUpdateListButton( key );
             var editedRecord =  {
-                "name": "Service " + key + " edited",
-                "members": {
-                    "0": {
-                        "description": "Description of Bart Simpson edited"
+                'name': 'Service ' + key + ' edited',
+                'members': {
+                    '0': {
+                        'description': 'Description of Bart Simpson edited'
                     },
-                    "1": {
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                    '1': {
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 }
             };
@@ -570,24 +570,24 @@ QUnit.test( "update subform test", function( assert ) {
 
             // Check storage
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key + " edited",
-                "description": "Service " + key + " description",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key + ' edited',
+                'description': 'Service ' + key + ' description',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson edited"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson edited'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson edited",
-                        "description": "Description of Lisa Simpson edited"
+                        'code': '2',
+                        'name': 'Lisa Simpson edited',
+                        'description': 'Description of Lisa Simpson edited'
                     }
                 ]
             };
@@ -598,7 +598,7 @@ QUnit.test( "update subform test", function( assert ) {
     );
 });
 
-QUnit.test( "delete subform test", function( assert ) {
+QUnit.test( 'delete subform test', function( assert ) {
 
     var done = assert.async();
     var options = subformTestOptions;
@@ -613,24 +613,24 @@ QUnit.test( "delete subform test", function( assert ) {
             // Setup register
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'members': [
                     {
-                        "code": "1",
-                        "name": "Bart Simpson",
-                        "description": "Description of Bart Simpson"
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'description': 'Description of Bart Simpson'
                     },
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -650,19 +650,19 @@ QUnit.test( "delete subform test", function( assert ) {
 
             // Check storage
             var newRecord =  {
-                "id": "" + key,
-                "name": "Service " + key,
-                "description": "Service " + key + " description",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "members": [
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'description': 'Service ' + key + ' description',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'members': [
                     {
-                        "code": "2",
-                        "name": "Lisa Simpson",
-                        "description": "Description of Lisa Simpson"
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'description': 'Description of Lisa Simpson'
                     }
                 ]
             };
@@ -673,7 +673,7 @@ QUnit.test( "delete subform test", function( assert ) {
     );
 });
 
-QUnit.test( "create form and subform test", function( assert ) {
+QUnit.test( 'create form and subform test', function( assert ) {
 
     var done = assert.async();
     var options = subformTestOptions;
@@ -689,14 +689,14 @@ QUnit.test( "create form and subform test", function( assert ) {
 
             // Setup register
             var record =  {
-                "name": "Service no key",
-                "description": "Service description",
-                "phoneType": "officePhone_option",
-                "province": "Málaga",
-                "city": "Marbella",
-                "browser": "Firefox",
-                "important": true,
-                "members": []
+                'name': 'Service no key',
+                'description': 'Service description',
+                'phoneType': 'officePhone_option',
+                'province': 'Málaga',
+                'city': 'Marbella',
+                'browser': 'Firefox',
+                'important': true,
+                'members': []
             };
             
             // Check
@@ -717,16 +717,16 @@ QUnit.test( "create form and subform test", function( assert ) {
             
             // Add subform record 1
             var subformRecord1 = {
-                "name": "Bart Simpson",
-                "description": "Description of Bart Simpson"
+                'name': 'Bart Simpson',
+                'description': 'Description of Bart Simpson'
             };
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord1, 'members' );
 
             // Add subform record 2
             var subformRecord2 = {
-                "name": "Lisa Simpson",
-                "description": "Description of Lisa Simpson"
+                'name': 'Lisa Simpson',
+                'description': 'Description of Lisa Simpson'
             }
             testHelper.clickCreateSubformRowButton( 'members' );
             testHelper.fillSubformNewRow( subformRecord2, 'members' );
@@ -742,10 +742,10 @@ QUnit.test( "create form and subform test", function( assert ) {
             
             // Check storage
             var fullRecord = utils.extend( true, {}, editedRecord );
-            var key = "130";
+            var key = '130';
             fullRecord.id = key;
-            fullRecord.members[ 0 ].code = "1";
-            fullRecord.members[ 1 ].code = "2";
+            fullRecord.members[ 0 ].code = '1';
+            fullRecord.members[ 1 ].code = '2';
             assert.deepEqual( testServerSide.getService( key ), fullRecord );
             
             // Go to edit form again and check the form again

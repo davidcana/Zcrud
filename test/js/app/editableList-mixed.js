@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -20,7 +20,7 @@ options.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "create/delete rows without changes test", function( assert ) {
+QUnit.test( 'create/delete rows without changes test', function( assert ) {
     
     var done = assert.async();
     
@@ -81,7 +81,7 @@ QUnit.test( "create/delete rows without changes test", function( assert ) {
     );
 });
 
-QUnit.test( "Edit one row and delete another test", function( assert ) {
+QUnit.test( 'Edit one row and delete another test', function( assert ) {
 
     var done = assert.async();
 
@@ -99,15 +99,15 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -116,8 +116,8 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
             // Assert register with key 3 exists
             var key2 = 3;
             var record2 =  {
-                "id": "" + key2,
-                "name": "Service " + key2
+                'id': '' + key2,
+                'name': 'Service ' + key2
             };
             testHelper.checkRecord( assert, key2, record2, editable );
             
@@ -139,8 +139,8 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
                 assert: assert,
                 visibleRows: 9,
                 pagingInfo: 'Showing 1-9 of 128',
-                ids: "1/2/4/5/6/7/8/9/10",
-                names: "Service 1/Service 2 edited/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10",
+                ids: '1/2/4/5/6/7/8/9/10',
+                names: 'Service 1/Service 2 edited/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
@@ -151,7 +151,7 @@ QUnit.test( "Edit one row and delete another test", function( assert ) {
     );
 });
 
-QUnit.test( "Edit one row and create another test", function( assert ) {
+QUnit.test( 'Edit one row and create another test', function( assert ) {
 
     var done = assert.async();
 
@@ -169,15 +169,15 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -186,8 +186,8 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
             // Assert register with key 3 exists
             var key2 = 0;
             var record2 =  {
-                "id": "" + key2,
-                "name": "Service " + key2
+                'id': '' + key2,
+                'name': 'Service ' + key2
             };
             testHelper.checkNoRecord( assert, key2 );
 
@@ -210,8 +210,8 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
                 assert: assert,
                 visibleRows: 11,
                 pagingInfo: 'Showing 1-11 of 130',
-                ids: "1/2/3/4/5/6/7/8/9/10/0",
-                names: "Service 1/Service 2 edited/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0",
+                ids: '1/2/3/4/5/6/7/8/9/10/0',
+                names: 'Service 1/Service 2 edited/Service 3/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
@@ -222,7 +222,7 @@ QUnit.test( "Edit one row and create another test", function( assert ) {
     );
 });
 
-QUnit.test( "Create one row and delete another test", function( assert ) {
+QUnit.test( 'Create one row and delete another test', function( assert ) {
 
     var done = assert.async();
 
@@ -240,8 +240,8 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             // Assert register with key 3 exists
             var key = 0;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkNoRecord( assert, key );
 
@@ -252,8 +252,8 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
             // Assert register with key 3 exists
             var key2 = 3;
             var record2 =  {
-                "id": "" + key2,
-                "name": "Service " + key2
+                'id': '' + key2,
+                'name': 'Service ' + key2
             };
             testHelper.checkRecord( assert, key2, record2, editable );
 
@@ -275,8 +275,8 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
                 assert: assert,
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 129',
-                ids: "1/2/4/5/6/7/8/9/10/0",
-                names: "Service 1/Service 2/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0",
+                ids: '1/2/4/5/6/7/8/9/10/0',
+                names: 'Service 1/Service 2/Service 4/Service 5/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable
@@ -287,7 +287,7 @@ QUnit.test( "Create one row and delete another test", function( assert ) {
     );
 });
 
-QUnit.test( "Edit one row, create another and delete another test", function( assert ) {
+QUnit.test( 'Edit one row, create another and delete another test', function( assert ) {
 
     var done = assert.async();
 
@@ -305,15 +305,15 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             // Assert register with key 2 exists
             var key = 2;
             var record =  {
-                "id": "" + key,
-                "name": "Service " + key
+                'id': '' + key,
+                'name': 'Service ' + key
             };
             testHelper.checkRecord( assert, key, record, editable );
 
             // Edit record
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             var newRecord = utils.extend( true, {}, record, editedRecord );
@@ -322,8 +322,8 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             // Assert register with key 3 exists
             var key2 = 0;
             var record2 =  {
-                "id": "" + key2,
-                "name": "Service " + key2
+                'id': '' + key2,
+                'name': 'Service ' + key2
             };
             testHelper.checkNoRecord( assert, key2 );
 
@@ -334,8 +334,8 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
             // Assert register with key 3 exists
             var key3 = 5;
             var record3 =  {
-                "id": "" + key3,
-                "name": "Service " + key3
+                'id': '' + key3,
+                'name': 'Service ' + key3
             };
             testHelper.checkRecord( assert, key3, record3, editable );
 
@@ -358,8 +358,8 @@ QUnit.test( "Edit one row, create another and delete another test", function( as
                 assert: assert,
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 129',
-                ids: "1/2/3/4/6/7/8/9/10/0",
-                names: "Service 1/Service 2 edited/Service 3/Service 4/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0",
+                ids: '1/2/3/4/6/7/8/9/10/0',
+                names: 'Service 1/Service 2 edited/Service 3/Service 4/Service 6/Service 7/Service 8/Service 9/Service 10/Service 0',
                 pageListNotActive: [ '<<', '<', '1' ],
                 pageListActive: [ '2', '3', '4', '5', '13', '>', '>>' ],
                 editable: editable

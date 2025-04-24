@@ -1,7 +1,7 @@
 /* 
     Class FormPage
 */
-"use strict";
+'use strict';
 
 var context = require( '../context.js' );
 var pageUtils = require( './pageUtils.js' );
@@ -132,7 +132,7 @@ FormPage.prototype.configure = function(){
 
     switch ( this.type ) {
         case 'create':
-            this.title = "Create form";
+            this.title = 'Create form';
             this.submitFunction = this.submitCreate;
             this.eventFunction = this.options.events.recordAdded;
             this.successMessage = 'createSuccess';
@@ -142,19 +142,19 @@ FormPage.prototype.configure = function(){
             this.omitKey = true;
             break;
         case 'update':
-            this.title = "Edit form";
+            this.title = 'Edit form';
             this.submitFunction = this.submitUpdate;
             this.eventFunction = this.options.events.recordUpdated;
             this.successMessage = 'updateSuccess';
             break;
         case 'delete':
-            this.title = "Delete form";
+            this.title = 'Delete form';
             this.submitFunction = this.submitDelete;
             this.eventFunction = this.options.events.recordDeleted;
             this.successMessage = 'deleteSuccess';
             break;
         case 'customForm':
-            this.title = "Custom form";
+            this.title = 'Custom form';
             this.submitFunction = this.submitCustomForm;
             this.eventFunction = this.options.events.formBatchUpdated;
             this.successMessage = 'formListUpdateSuccess';
@@ -164,7 +164,7 @@ FormPage.prototype.configure = function(){
             this.forceKey = true;
             break; 
         default:
-            throw "Unknown FormPage type: " + this.type;
+            throw 'Unknown FormPage type: ' + this.type;
     }
 
     this.componentsMap = new ComponentsMap( 
@@ -359,7 +359,7 @@ FormPage.prototype.beforeProcessTemplate = function( recordToUse, dictionaryExte
     
     // Update record
     if ( ! recordToUse ){
-        throw "No record to show in form!";
+        throw 'No record to show in form!';
     }
     this.record = recordToUse;
     
@@ -476,7 +476,7 @@ FormPage.prototype.updateRecordFromJSON = function( jsonObject ) {
             // Nothing to do
             break;
         default:
-            throw "Unknown FormPage type in updateRecordFromJSON method: " + this.type;
+            throw 'Unknown FormPage type in updateRecordFromJSON method: ' + this.type;
     }
 };
 
@@ -621,7 +621,7 @@ FormPage.prototype.updateKeysForField = function( field, dataFromServerOfField )
         }
 
         // Update key value of field
-        $tr.find( "[name='" + key + "']").val( value );
+        $tr.find( '[name="' + key + '"]' ).val( value );
 
         // Update key value in attribute of $tr
         $tr.attr( 'data-record-key', value );

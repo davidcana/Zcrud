@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //var $ = require( 'zzdom' );
 //var zcrud = require( '../../../js/app/main.js' );
@@ -26,7 +26,7 @@ editableListTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-QUnit.test( "list error test", function( assert ) {
+QUnit.test( 'list error test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
@@ -48,7 +48,7 @@ QUnit.test( "list error test", function( assert ) {
     );
 });
 
-QUnit.test( "options error test", function( assert ) {
+QUnit.test( 'options error test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
@@ -76,7 +76,7 @@ QUnit.test( "options error test", function( assert ) {
     );
 });
 
-QUnit.test( "get error in update form page test", function( assert ) {
+QUnit.test( 'get error in update form page test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
@@ -102,7 +102,7 @@ QUnit.test( "get error in update form page test", function( assert ) {
     );
 });
 
-QUnit.test( "update error in update form page test", function( assert ) {
+QUnit.test( 'update error in update form page test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
@@ -126,18 +126,18 @@ QUnit.test( "update error in update form page test", function( assert ) {
             assert.equal( errorFunctionCounter, 0 );
             
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "description": "Service 2 description",
-                "date": "10/23/2017",
-                "time": "18:50",
-                "datetime": "10/23/2017 20:00",
-                "phoneType": "officePhone_option",
-                "province": "Cádiz",
-                "city": "Tarifa",
-                "browser": "Firefox",
-                "important": true,
-                "number": "3",
-                "hobbies": [ 'reading_option', 'sports_option' ]
+                'name': 'Service 2 edited',
+                'description': 'Service 2 description',
+                'date': '10/23/2017',
+                'time': '18:50',
+                'datetime': '10/23/2017 20:00',
+                'phoneType': 'officePhone_option',
+                'province': 'Cádiz',
+                'city': 'Tarifa',
+                'browser': 'Firefox',
+                'important': true,
+                'number': '3',
+                'hobbies': [ 'reading_option', 'sports_option' ]
             };
 
             testHelper.fillForm( editedRecord );
@@ -152,7 +152,7 @@ QUnit.test( "update error in update form page test", function( assert ) {
     );
 });
 
-QUnit.test( "get error in delete page test", function( assert ) {
+QUnit.test( 'get error in delete page test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
@@ -178,7 +178,7 @@ QUnit.test( "get error in delete page test", function( assert ) {
     );
 });
 
-QUnit.test( "delete error in delete form page test", function( assert ) {
+QUnit.test( 'delete error in delete form page test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
@@ -211,7 +211,7 @@ QUnit.test( "delete error in delete form page test", function( assert ) {
     );
 });
 
-QUnit.test( "update error in editable list test", function( assert ) {
+QUnit.test( 'update error in editable list test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, editableListTestOptions );
@@ -231,8 +231,8 @@ QUnit.test( "update error in editable list test", function( assert ) {
             // Edit record
             var key = 2;
             var editedRecord =  {
-                "name": "Service 2 edited",
-                "number": "3"
+                'name': 'Service 2 edited',
+                'number': '3'
             };
             testHelper.fillEditableList( editedRecord, key );
             
@@ -245,7 +245,7 @@ QUnit.test( "update error in editable list test", function( assert ) {
     );
 });
 
-QUnit.test( "i18n file not found error test", function( assert ) {
+QUnit.test( 'i18n file not found error test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
@@ -255,17 +255,17 @@ QUnit.test( "i18n file not found error test", function( assert ) {
         'init',
         options,
         function( options ){
-            assert.equal( 1, 0, "Error must be thrown!" );
+            assert.equal( 1, 0, 'Error must be thrown!' );
             done();
         },
         function( msg ){
-            assert.equal( msg, "Error trying to get /i18n/en-notFound.json: Not Found" );
+            assert.equal( msg, 'Error trying to get /i18n/en-notFound.json: Not Found' );
             done();
         }
     );
 });
 
-QUnit.test( "not found field in list error test", function( assert ) {
+QUnit.test( 'not found field in list error test', function( assert ) {
 
     var done = assert.async();
     options = utils.extend( true, {}, formOptions );
