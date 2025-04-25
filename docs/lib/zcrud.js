@@ -11662,12 +11662,14 @@ module.exports = (function() {
 /* Standalone version of ZCrud */
 
 //global.window.$ = require( 'jquery' );
+var zzDOM = _dereq_( '../../lib/zzDOM-closures-full.js' );
+global.window.$ = zzDOM.zz;
 global.window.zpt = _dereq_( 'zpt' );
 global.window.zcrud = _dereq_( './main.js' );
 _dereq_( './zzDOMPlugin.js' );
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./main.js":49,"./zzDOMPlugin.js":59,"zpt":135}],57:[function(_dereq_,module,exports){
+},{"../../lib/zzDOM-closures-full.js":61,"./main.js":49,"./zzDOMPlugin.js":59,"zpt":135}],57:[function(_dereq_,module,exports){
 /* 
     utils singleton class
 */
