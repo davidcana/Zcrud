@@ -15,7 +15,8 @@ var options = {
     
     pageConf: {
         defaultPageConf: {
-            updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department'
+            updateURL: 'http://localhost/CRUDManager.do?cmd=BATCH_UPDATE&table=department',
+            getRecordURL: 'http://localhost/CRUDManager.do?cmd=GET&table=department'
         },
         pages: {
             list: {
@@ -32,14 +33,7 @@ var options = {
                     },
                     filtering: {
                         isOn: true,
-                        fields: {
-                            name: 'name'
-                        }
-                    },
-                    selecting: {
-                        isOn: true,
-                        multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        fields: [ 'id', 'name' ]
                     }
                 }
             }, 
@@ -98,9 +92,7 @@ var options = {
     
     key : 'id',
     fields: {
-        id: {
-            sorting: false
-        },
+        id: {},
         name: {
             attributes:{
                 field: {

@@ -1,6 +1,7 @@
 /* 
     fieldListBuilder singleton class
 */
+'use strict';
 
 //var context = require( '../context.js' );
 var normalizer = require( '../normalizer.js' );
@@ -8,7 +9,6 @@ var Container = require( './container.js' );
 var utils = require( '../utils.js' );
 
 module.exports = (function() {
-    'use strict';
     
     var getForList = function( listOptions, options, fields ){
 
