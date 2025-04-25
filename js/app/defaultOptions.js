@@ -259,11 +259,11 @@ module.exports = {
 
     ajax: {
         ajaxFunction: requestHelper.fetch,
-        defaultFormAjaxOptions: {
-            dataType   : 'json',
-            contentType: 'application/json; charset=UTF-8',
-            type       : 'POST'
-        },
+        //defaultFormAjaxOptions: {
+        //    dataType   : 'json',
+        //    contentType: 'application/json; charset=UTF-8',
+        //    type       : 'POST'
+        //},
         ajaxPreFilter: function( data ){
             return data;
         },

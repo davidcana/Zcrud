@@ -96,9 +96,12 @@ module.exports = (function() {
             error  : errorFunction
         };
         
+        options.ajax.ajaxFunction( thisOptions );
+        /*
         options.ajax.ajaxFunction(
             utils.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions )
         );
+        */
     };
     
     /* 
@@ -150,9 +153,12 @@ module.exports = (function() {
         };
 
         if ( validationData === true ){
+            options.ajax.ajaxFunction( thisOptions );
+            /*
             options.ajax.ajaxFunction(
                 utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions ) 
             );
+            */
         } else {
             // Do not show any error message if browser messages must be shown, it dos not work properly (browser messages are not shown)
             if ( ! options.validation.showBrowserMessageBubbles ){
@@ -215,9 +221,12 @@ module.exports = (function() {
             error  : errorFunction
         };
 
+        options.ajax.ajaxFunction( thisOptions );
+        /*
         options.ajax.ajaxFunction(
             utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
         );
+        */
     };
 
     var getOptions = function ( fieldId, url, options, callback ) {
@@ -241,9 +250,12 @@ module.exports = (function() {
             }
         };
 
+        options.ajax.ajaxFunction( thisOptions );
+        /*
         options.ajax.ajaxFunction(
             utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
         );
+        */
 
         //return result;
     };
