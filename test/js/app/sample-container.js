@@ -66,6 +66,14 @@ var options = {
                     },
                     {
                         'type': 'fieldsGroup',
+                        'container': {
+                            'id': 'customTemplate1',
+                            'containerType': 'custom',
+                            'template': 'customTemplate1@/test/custom-template.html'
+                        }
+                    },
+                    {
+                        'type': 'fieldsGroup',
                         'source': [ 
                             'province',
                             'city'
@@ -158,6 +166,10 @@ var options = {
             type: 'checkbox'
         }
     },
+    
+    templates: {
+        declaredRemotePageUrls: [ '/test/custom-template.html' ]
+    },
 
     ajax: {
         ajaxFunction: testServerSide.ajax    
@@ -171,6 +183,18 @@ var options = {
         }
     },
     
+    events: {
+        formCreated: function ( data ) {
+            $( '#customButton1' ).on(
+                'click',
+                function ( e ) {
+                    e.preventDefault();
+                    alert( 'It works!' )
+                }
+            );
+        }
+    },
+
     logging: {
         isOn: true
     }

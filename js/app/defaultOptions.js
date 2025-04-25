@@ -141,7 +141,8 @@ module.exports = {
             },
             'div': {
                 template: 'div@templates/containers/basic.html'
-            }
+            },
+            'custom': {}
         }
     },
     

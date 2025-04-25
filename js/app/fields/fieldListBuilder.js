@@ -139,6 +139,15 @@ module.exports = (function() {
 
         var view = buildFieldsFromSource( source, options, pageIdArray );
 
+        // Must add a containerInstance to result.view if there are no fields to add
+        // Needed to support custom containerType with no fields
+        if ( ! view.length ){
+            const containerInstance = buildContainerInstance( container, options );
+            result.view.push( containerInstance );
+            return;
+        }
+
+        // There are fields to add!
         var started = ! start;
         var ended = false;
 
