@@ -65,6 +65,12 @@
     "cards_option": "Cartas",
     
     "_buttons": "",
-    "Copy original members": "Copiar miembros originales"
+    "Copy original members": "Copiar miembros originales",
     
+    "_validation": "",
+    "validation_name_patternMismatch": "Teclee caracteres alfanuméricos o espacios. Mínimo 3, máximo 20.",
+    "validation_name": "¡Este error no debería mostrarse!",
+    "validation_date": "Por favor, teclee una fecha válida.",
+    "validation_patternMismatch": "¡Este error no debería mostrarse!",
+    "validation_valueMissing": "Campo requerido."
 }

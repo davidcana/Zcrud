@@ -5,7 +5,7 @@
         <title>Templates of date/time fields</title>
     </head>
     <body>                        
-        <div data-define-macro="date">
+        <div data-define-macro="date" data-omit-tag="">
             <div data-attributes="style cond: field/inline 'display: none;' null">
                 <input data-define="formattedValue field/formatToClient( value )"
                        data-attributes="id cond: renderIds field/elementId null;
@@ -13,7 +13,9 @@
                                          value formattedValue;
                                          data-picker-value formattedValue;
                                          class cond: isNotHistoryField null 'historyField';
-                                         field/attributes/field"
+                                         pattern '\d{1,2}/\d{1,2}/\d{4}';
+                                         data-fieldValidation 'date';
+                                         field/getAttributesFor(fieldAttributes)"
                        type="text">
                 <button type="button" class="toggle-picker"
                         data-attributes="title tr:'togglePickerTitle'">...</button>
@@ -33,7 +35,7 @@
             </div>
         </div>
         
-        <div data-define-macro="time">
+        <div data-define-macro="time" data-omit-tag="">
             
             <div data-attributes="style cond: field/inline 'display: none;' null">
                 <input data-attributes="id cond: renderIds field/elementId null;
@@ -41,7 +43,8 @@
                                          value ( value | '' );
                                          data-picker-value ( value | '' );
                                          class cond: isNotHistoryField null 'historyField';
-                                         field/attributes/field"
+                                         pattern '\d{2}:\d{2}';
+                                         field/getAttributesFor(fieldAttributes)"
                        type="text">
                 <button type="button" class="toggle-picker"
                         data-define="timeInfo field/getTimeInfo( value );
@@ -63,7 +66,7 @@
             </div>
         </div>
         
-        <div data-define-macro="datetime">
+        <div data-define-macro="datetime" data-omit-tag="">
             <div data-attributes="style cond: field/inline 'display: none;' null">
                 <input data-define="formattedValue field/formatToClient( value )"
                        data-attributes="id cond: renderIds field/elementId null;
@@ -71,7 +74,9 @@
                                          value formattedValue;
                                          data-picker-value formattedValue;
                                          class cond: isNotHistoryField null 'historyField';
-                                         field/attributes/field"
+                                         pattern '\d{1,2}/\d{1,2}/\d{4} \d{2}:\d{2}';
+                                         data-fieldValidation 'datetime';
+                                         field/getAttributesFor(fieldAttributes)"
                        type="text">
                 <button type="button" class="toggle-picker"
                         data-attributes="title tr:'togglePickerTitle'">...</button>

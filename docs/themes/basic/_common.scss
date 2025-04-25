@@ -307,15 +307,16 @@ div.zcrud-main-container {
     }
     
     // Modified fields
-    td.zcrud-modified-field {
+    td.zcrud-modified-field,
+    div.zcrud-modified-field {
         background-image: url('#{$images-url}/square-dirty.gif');
         background-repeat: no-repeat;
         background-position: left top;
     }
 
-    tr.zcrud-modified-row td, div.zcrud-modified-field {
-        background-color: $modified-row-background-color;
-    }
+    //tr.zcrud-modified-row td, div.zcrud-modified-field {
+    //    background-color: $modified-row-background-color;
+    //}
     
     // Form validation
     .valid {}
@@ -351,7 +352,6 @@ div.zcrud-main-container {
         border-radius: 10px;
         font-weight: 600;
     }
-
     // Datetime picker
     .datetime {
         box-shadow: 0 5px 15px -5px;
@@ -543,4 +543,33 @@ div.zcrud-main-container {
     background: url('#{$images-url}/loading.gif') no-repeat;
     background-color: $busy-background-color;
     background-position: 8px;
+}
+
+// Standard form validation
+input:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+input:focus:invalid {
+    box-shadow: none;
+}
+
+span.zcrud-validationMessage {
+    color: white;
+    background-color: red;
+    padding: .25em .5em .25em .5em;
+    border-radius: 10px;
+}
+
+div.zcrud-form-updatable span.zcrud-validationMessage {
+    float: right;
+}
+
+table span.zcrud-validationMessage {
+    position: absolute;
+    margin-top: 1.75em;
+}
+
+// Hide elements. Do not mix with zcrud-hide-marker, a style used as a marker that is not defined in CSS files
+.zcrud-hidden {
+    display: none;
 }

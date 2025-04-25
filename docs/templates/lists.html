@@ -32,7 +32,8 @@
                     </div>
                 </div>
                 
-                <div data-use-macro="'table'">
+                <div data-use-macro="'table'"
+                     data-define="fieldAttributes 'field'">
                     The ZCrud table
                 </div>
 
@@ -130,7 +131,7 @@
                         <input class="zcrud-select-row" type="checkbox">
                     </td>
                     <td data-repeat="field instance/getFields()"
-                        data-attributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field-${field/name}"
+                        data-attributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field zcrud-like-field-${field/name}"
                         data-define="value record[ field/id ];
                                       fieldIsEditable and: editable (not: field/isReadOnly())">
                         <span data-condition="not: fieldIsEditable" 
@@ -138,6 +139,7 @@
                             Field value
                         </span>
                         <span data-condition="fieldIsEditable" data-use-macro="field/template"><!--empty--></span>
+                        <span data-condition="fieldIsEditable" data-attributes="class 'zcrud-validationMessage zcrud-hidden'"></span>
                     </td>
                     <td class="zcrud-command">
                         <span data-use-macro="'toolbar'"
@@ -152,7 +154,8 @@
         <div data-define-macro="filterPanel" 
              data-define="component instance/getComponent( 'filtering' );
                            thisOptions component/getThisOptions();
-                           record component/getInitialRecord()"
+                           record component/getInitialRecord();
+                           fieldAttributes 'filterField'"
              data-attributes="class cond: thisOptions/cssClass (string:${component/getClass()} ${thisOptions/cssClass}) component/getClass()"
              data-domain="i18nArray">
             <form>

@@ -29,6 +29,7 @@
                         <span data-use-macro="field/template">
                             The field
                         </span>
+                        <span data-attributes="class 'zcrud-validationMessage zcrud-hidden'"></span>
                     </label>
                 </span>
             </span>
@@ -48,7 +49,7 @@
                     <div data-define="field viewItem;
                                        id field/id; 
                                        value record[ id ]"
-                         data-attributes="class string:${spanFieldClass} ${spanFieldClass}-${id} zcrud-like-field-${field/name}">
+                         data-attributes="class string:${spanFieldClass} ${spanFieldClass}-${id} zcrud-like-field zcrud-like-field-${field/name}">
                         <label data-omit-tag="field/mustHideLabel()">
                             <span class="zcrud-field-label" data-content="field/title | tr:string:${id}_title">
                                 The label of this field.
@@ -59,6 +60,7 @@
                             <span data-use-macro="cond: (or: forceEditable (not: field/isReadOnly())) field/template field/viewTemplate">
                                 The field
                             </span>
+                            <span data-attributes="class 'zcrud-validationMessage zcrud-hidden'"></span>
                         </label>
                     </div>
                 </div>
