@@ -101,6 +101,10 @@
     "validation_typeMismatch": "Tipo no coincidente. El valor no tiene la sintaxis requerida.",
     "validation_valueMissing": "Valor no introducido. No se ha introducido ningún valor, pero es necesario.",
 
+    "_error": "",
+    "errorTitle": "Vaya...",
+    "errorNoOpToDo": "No se ha realizado ningún cambio.",
+
     "_confirm": "",
     "confirmCancelTitle": "Confirmar cancelar",
     "confirmCancelText": "¡Hay cambios que no se han guardado!",

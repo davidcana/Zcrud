@@ -484,7 +484,12 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
 
     // Return if there is no operation to do
     if ( ! jsonObject ){
-        context.showError( this.options, false, 'No operation to do!' );
+        context.showError(
+            this.options,
+            false,
+            context.translate( 'errorNoOpToDo' )
+            //'No operation to do!'
+        );
         return false;
     }
 

@@ -2,6 +2,7 @@
 
 var utils = require( './utils.js' );
 var requestHelper = require( './requestHelper.js' );
+const context = require( './context.js' );
 
 module.exports = {
 
@@ -292,11 +293,14 @@ module.exports = {
     defaultErrorOptions: {
         icon: 'error',
         closeOnClickOutside: false,
-        title: 'Oops...'
+        i18nTitle: 'errorTitle'
     },
     errorFunction: function( message ){
         var swal = require( 'sweetalert' );
         var thisOptions = utils.extend( true, {}, this.defaultErrorOptions );
+        if ( ! thisOptions.title ){
+            thisOptions.title = context.translate( this.defaultErrorOptions.i18nTitle );
+        }
         thisOptions.text = message;
         swal( thisOptions );
     },

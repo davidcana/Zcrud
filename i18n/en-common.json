@@ -100,6 +100,10 @@
     "validation_typeMismatch": "Type mismatch. The value is not in the required syntax.",
     "validation_valueMissing": "Value missing. There is no value, but it is required.",
     
+    "_error": "",
+    "errorTitle": "Oops...",
+    "errorNoOpToDo": "No operation to do!",
+
     "_confirm": "",
     "confirmCancelTitle": "Confirm cancel",
     "confirmCancelText": "There are changes not saved!",
