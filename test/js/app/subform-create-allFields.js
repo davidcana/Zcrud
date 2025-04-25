@@ -140,7 +140,7 @@ var defaultTestOptions = {
         },
         browser: {
             type: 'datalist',
-            options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+            options: [ 'Edge', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
             type: 'checkbox'
@@ -251,7 +251,7 @@ defaultTestOptions.fields.members.fields = {
     },
     browser: {
         type: 'datalist',
-        options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+        options: [ 'Edge', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
     },
     hobbies: {
         type: 'checkboxes',
@@ -2076,7 +2076,7 @@ QUnit.test( 'create datalist test', function( assert ) {
                     {
                         'code': '2',
                         'name': 'Lisa Simpson',
-                        'browser': 'Internet Explorer'
+                        'browser': 'Edge'
                     }
                 ]
             };

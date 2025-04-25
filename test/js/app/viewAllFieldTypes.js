@@ -126,7 +126,7 @@ var configureSubformOptions = function(){
             },
             browser: {
                 type: 'datalist',
-                options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+                options: [ 'Edge', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
             },
             important: {
                 type: 'checkbox'
@@ -163,7 +163,7 @@ var buildRecord1 = function(){
         'datetime': new Date( '2014-11-23T22:10:04' ).getTime(),
         'time': '04:40',
         'phoneType': 1,
-        'browser': 'Internet Explorer',
+        'browser': 'Edge',
         'important': false,
         'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
     };
@@ -179,7 +179,7 @@ var buildSubformRecord1 = function(){
         'datetime': new Date( '2013-07-06T19:44:23' ).getTime(),
         'time': '09:14',
         'phoneType': 3,
-        'browser': 'Internet Explorer',
+        'browser': 'Edge',
         'important': true,
         'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
         'members': [
@@ -236,8 +236,8 @@ QUnit.test( 'list test', function( assert ) {
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 12',
                 records: [
-                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|Home phone|Internet Explorer|False|Reading, Sports, Cards',
-                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|Cell phone|Internet Explorer|True|Videogames, Sports, Cards',
+                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|Home phone|Edge|False|Reading, Sports, Cards',
+                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|Cell phone|Edge|True|Videogames, Sports, Cards',
                     '3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|Office phone|Chrome|True|Reading, Videogames, Sports',
                     '4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|Cell phone|Opera|True|Reading, Videogames, Cards',
                     '5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|Home phone|Safari|False|Reading, Videogames, Sports',
@@ -276,8 +276,8 @@ QUnit.test( 'list test', function( assert ) {
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 12',
                 records: [
-                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|Home phone|Internet Explorer|False|Reading, Sports, Cards',
-                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|Cell phone|Internet Explorer|True|Videogames, Sports, Cards',
+                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|Home phone|Edge|False|Reading, Sports, Cards',
+                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|Cell phone|Edge|True|Videogames, Sports, Cards',
                     '3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|Office phone|Chrome|True|Reading, Videogames, Sports',
                     '4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|Cell phone|Opera|True|Reading, Videogames, Cards',
                     '5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|Home phone|Safari|False|Reading, Videogames, Sports',
@@ -319,8 +319,8 @@ QUnit.test( 'editable list test', function( assert ) {
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 12',
                 records: [
-                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Internet Explorer|false|[reading_option/sports_option/cards_option]',
-                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Internet Explorer|true|[videogames_option/sports_option/cards_option]',
+                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Edge|false|[reading_option/sports_option/cards_option]',
+                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Edge|true|[videogames_option/sports_option/cards_option]',
                     '3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|2|Chrome|true|[reading_option/videogames_option/sports_option]',
                     '4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|3|Opera|true|[reading_option/videogames_option/cards_option]',
                     '5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|1|Safari|false|[reading_option/videogames_option/sports_option]',
@@ -361,8 +361,8 @@ QUnit.test( 'editable list test', function( assert ) {
                 visibleRows: 10,
                 pagingInfo: 'Showing 1-10 of 12',
                 records: [
-                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Internet Explorer|false|[reading_option/sports_option/cards_option]',
-                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Internet Explorer|true|[videogames_option/sports_option/cards_option]',
+                    '1|Ulysses Aguilar|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|06/06/2017|04:40|11/23/2014 22:10|1|Edge|false|[reading_option/sports_option/cards_option]',
+                    '2|Mara Riggs|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec|04/07/2013|09:14|07/06/2013 19:44|3|Edge|true|[videogames_option/sports_option/cards_option]',
                     '3|Leah Nguyen|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna|10/11/2012|13:57|06/19/2019 07:57|2|Chrome|true|[reading_option/videogames_option/sports_option]',
                     '4|Victor Knight|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing|02/21/2019|10:15|08/04/2017 22:40|3|Opera|true|[reading_option/videogames_option/cards_option]',
                     '5|Samson Bernard|Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et|04/05/2018|04:11|07/13/2015 03:46|1|Safari|false|[reading_option/videogames_option/sports_option]',
@@ -474,7 +474,7 @@ QUnit.test( 'subform update test', function( assert ) {
                 datetime: '07/06/2013 19:44',
                 'time': '09:14',
                 'phoneType': '3',
-                'browser': 'Internet Explorer',
+                'browser': 'Edge',
                 'important': true,
                 'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
                 'members': [
@@ -653,7 +653,7 @@ QUnit.test( 'subform update test', function( assert ) {
                 datetime: '07/06/2013 19:44',
                 'time': '09:14',
                 'phoneType': '3',
-                'browser': 'Internet Explorer',
+                'browser': 'Edge',
                 'important': true,
                 'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
                 'members': [
@@ -690,7 +690,7 @@ QUnit.test( 'subform update test', function( assert ) {
                         'time': '02:12'
                     },
                     {
-                        'browser': 'Internet Explorer',
+                        'browser': 'Edge',
                         'code': '13',
                         'date': '03/10/2017',
                         'datetime': '07/26/2014 07:16',
@@ -755,7 +755,7 @@ QUnit.test( 'subform delete test', function( assert ) {
                 datetime: '07/06/2013 19:44',
                 'time': '09:14',
                 'phoneType': 'Cell phone',
-                'browser': 'Internet Explorer',
+                'browser': 'Edge',
                 'important': 'True',
                 'hobbies': 'Videogames, Sports, Cards',
                 members: [
@@ -896,7 +896,7 @@ QUnit.test( 'subform delete test', function( assert ) {
                 datetime: '07/06/2013 19:44',
                 'time': '09:14',
                 'phoneType': 'Cell phone',
-                'browser': 'Internet Explorer',
+                'browser': 'Edge',
                 'important': 'True',
                 'hobbies': 'Videogames, Sports, Cards',
                 'members': [
@@ -925,7 +925,7 @@ QUnit.test( 'subform delete test', function( assert ) {
                         'time': '02:12'
                     },
                     {
-                        'browser': 'Internet Explorer',
+                        'browser': 'Edge',
                         'code': '13',
                         'date': '03/10/2017',
                         'datetime': '07/26/2014 07:16',

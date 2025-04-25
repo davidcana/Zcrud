@@ -9,7 +9,7 @@ var people = [
         "phoneType": 1,
         "country": 4,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
@@ -23,7 +23,7 @@ var people = [
         "phoneType": 3,
         "country": 4,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
     },
@@ -205,7 +205,7 @@ var people = [
         "phoneType": 1,
         "country": 4,
         "city": 2,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
     },
@@ -289,7 +289,7 @@ var people = [
         "phoneType": 2,
         "country": 1,
         "city": 1,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
@@ -344,7 +344,7 @@ var people = [
         "phoneType": 3,
         "country": 4,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
     },
@@ -428,7 +428,7 @@ var people = [
         "phoneType": 3,
         "country": 5,
         "city": 2,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
     },
@@ -470,7 +470,7 @@ var people = [
         "phoneType": 3,
         "country": 3,
         "city": 1,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
@@ -596,7 +596,7 @@ var people = [
         "phoneType": 3,
         "country": 5,
         "city": 2,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
@@ -610,7 +610,7 @@ var people = [
         "phoneType": 3,
         "country": 1,
         "city": 2,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
     },
@@ -750,7 +750,7 @@ var people = [
         "phoneType": 1,
         "country": 1,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
@@ -764,7 +764,7 @@ var people = [
         "phoneType": 3,
         "country": 4,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
     },
@@ -778,7 +778,7 @@ var people = [
         "phoneType": 1,
         "country": 4,
         "city": 2,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
     },
@@ -792,7 +792,7 @@ var people = [
         "phoneType": 3,
         "country": 2,
         "city": 1,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
     },
@@ -806,7 +806,7 @@ var people = [
         "phoneType": 3,
         "country": 1,
         "city": 1,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
@@ -988,7 +988,7 @@ var people = [
         "phoneType": 2,
         "country": 2,
         "city": 2,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
     },
@@ -1058,7 +1058,7 @@ var people = [
         "phoneType": 1,
         "country": 3,
         "city": 1,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
     },
@@ -1156,7 +1156,7 @@ var people = [
         "phoneType": 1,
         "country": 3,
         "city": 2,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
     },
@@ -1394,7 +1394,7 @@ var people = [
         "phoneType": 1,
         "country": 1,
         "city": 1,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
     },
@@ -1408,7 +1408,7 @@ var people = [
         "phoneType": 3,
         "country": 3,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
     },
@@ -1450,7 +1450,7 @@ var people = [
         "phoneType": 1,
         "country": 2,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
     },
@@ -1618,7 +1618,7 @@ var people = [
         "phoneType": 1,
         "country": 3,
         "city": 1,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'reading_option', 'videogames_option', 'cards_option' ]
     },
@@ -1688,7 +1688,7 @@ var people = [
         "phoneType": 2,
         "country": 3,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'sports_option', 'cards_option' ]
     },
@@ -1730,7 +1730,7 @@ var people = [
         "phoneType": 1,
         "country": 2,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "false",
         "hobbies": [ 'reading_option', 'videogames_option', 'sports_option' ]
     },
@@ -1772,7 +1772,7 @@ var people = [
         "phoneType": 3,
         "country": 5,
         "city": 3,
-        "browser": "Internet Explorer",
+        "browser": "Edge",
         "important": "true",
         "hobbies": [ 'videogames_option', 'sports_option', 'cards_option' ]
     },

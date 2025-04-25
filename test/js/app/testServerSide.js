@@ -19,7 +19,7 @@ module.exports = (function() {
             'datetime': new Date( '2014-11-23T22:10:04' ).getTime(),
             'time': '04:40',
             'phoneType': 1,
-            'browser': 'Internet Explorer',
+            'browser': 'Edge',
             'important': false,
             'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
         },
@@ -31,7 +31,7 @@ module.exports = (function() {
             'datetime': new Date( '2013-07-06T19:44:23' ).getTime(),
             'time': '09:14',
             'phoneType': 3,
-            'browser': 'Internet Explorer',
+            'browser': 'Edge',
             'important': true,
             'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
             'members': [
@@ -187,7 +187,7 @@ module.exports = (function() {
                     'datetime': new Date( '2014-07-26T07:16:53' ),
                     'time': '23:25',
                     'phoneType': 1,
-                    'browser': 'Internet Explorer',
+                    'browser': 'Edge',
                     'important': 'false',
                     'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
                 },

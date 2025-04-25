@@ -147,7 +147,7 @@ var options = {
         },
         browser: {
             type: 'datalist',
-            options: [ 'Internet Explorer', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
+            options: [ 'Edge', 'Firefox', 'Chrome', 'Opera', 'Safari' ]
         },
         important: {
             type: 'checkbox'
