@@ -43,7 +43,13 @@ var options = {
         id: {
         },
         name: {
-            attributes:{
+            attributes: {
+                field: {
+                    required: '',
+                    minlength: 3,
+                    maxlength: 12,
+                    pattern: '[0-9a-zA-Z ]{3,12}'
+                },
                 rowHeader: {
                     style: 'width:30%'
                 }
@@ -150,16 +156,6 @@ var options = {
             type: 'checkboxes',
             translateOptions: true,
             options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
-        }
-    },
-
-    validation: {
-        modules: 'security, date',
-        rules: {
-            'name': {
-                validation: 'length',
-                length: '3-12'
-            }
         }
     },
     
