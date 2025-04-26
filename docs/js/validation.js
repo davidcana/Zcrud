@@ -47,8 +47,8 @@ var options = {
                 field: {
                     required: '',
                     minlength: 3,
-                    maxlength: 12,
-                    pattern: '[0-9a-zA-Z ]{3,12}'
+                    maxlength: 25,
+                    pattern: '[0-9a-zA-Z ]{3,25}'
                 },
                 rowHeader: {
                     style: 'width:30%'
