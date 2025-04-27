@@ -2,7 +2,7 @@
   "name": "zcrud",
   "version": "0.1.0-SNAPSHOT",
   "main": "./js/app/main.js",
-  "description": "A Javascript API and zzDOM plugin to create AJAX based CRUD tables using ZPT-JS as template engine. ",
+  "description": "A javascript API to make it easy to create HTML forms and list. It also manages CRUD tables without coding HTML or Javascript using ZPT-JS as template engine.",
   "keywords": [
     "crud",
     "form",

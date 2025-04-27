@@ -1,14 +1,14 @@
 # ZCrud
 
-ZCrud is a javascript API (also works as zzDOM plugin) used to create AJAX based CRUD tables without coding HTML or Javascript. First implmentations were based on [jTable](http://www.jtable.org) with some major changes:
+ZCrud is a javascript API to make it easy to create HTML forms and list. It also manages CRUD tables without coding HTML or Javascript. First implementations were based on [jTable](http://www.jtable.org) with some major changes:
  
  * The heaviest change is to build all HTML code of forms using a template engine ([ZPT-JS](https://github.com/davidcana/ZPT-JS/wiki)). 
  * It does not create any dialog form, only simple HTML forms.
 
 Core features of ZCrud are:
 
-* Automatically creates a main HTML table and loads records from server using AJAX. Supports server side sorting, paging and filtering using AJAX. The table can be editable directly too. 
-* Automatically creates some typical forms and sends and receives data from/to server using AJAX:
+* Automatically creates a main HTML table and loads records from server. Supports server side sorting, paging and filtering. The table can be editable directly too.
+* Automatically creates some typical forms and sends and receives data from/to server:
     * *create record* form.  
     * *edit record* form. 
     * *delete record* form. 
@@ -19,11 +19,12 @@ Core features of ZCrud are:
     * Makes it easy to use defined buttons (submit, cancel, ...) and to add custom.
     * Built-in support of validation of forms using [standard HTML form validation](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation). Exposes some events to enable custom validation without using it.
     * Undo/redo support. 
-* All tables and forms are created using templates.  It is also possible to use customized templates. The template engine is [ZPT-JS](https://github.com/davidcana/ZPT-JS). 
+* All tables and forms are created using templates. It is also possible to customize the templates. The template engine is [ZPT-JS](https://github.com/davidcana/ZPT-JS).
 * Pretty messages and confirm questions using [Sweetalert](https://sweetalert.js.org) (by default). It is easy to replace it by any other API or function.
 * Only client-side: any server side technology can work with ZCrud. 
 * Built-in support for english and spanish (full I18n and L10n support). Other languages can be added easily. 
 * All HTML code is valid (w3c compliant). It works on all common browsers. 
+* It also works as a [zzDOM plugin](https://github.com/davidcana/zzDOM).
 
 ## Installation
 
