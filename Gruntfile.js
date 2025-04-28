@@ -401,6 +401,15 @@ module.exports = function(grunt) {
                 },
                 src: 'test/js/app/viewAllFieldTypes.js',
                 dest: 'build/viewAllFieldTypes.js'
+            },
+            containers: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                src: 'test/js/app/containers.js',
+                dest: 'build/containers.js'
             }
         },
         compress: {
