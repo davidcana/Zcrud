@@ -445,11 +445,13 @@ span.zcrud-validationMessage {
   border-radius: 10px; }
 
 div.zcrud-form-updatable span.zcrud-validationMessage {
-  float: right; }
-
-table span.zcrud-validationMessage {
   position: absolute;
-  margin-top: 1.75em; }
+  margin-left: 1em; }
+
+table.zcrud span.zcrud-validationMessage,
+div.zcrud-subform-content table.zcrud span.zcrud-validationMessage {
+  position: absolute;
+  margin-left: .25em; }
 
 .zcrud-hidden {
   display: none; }
