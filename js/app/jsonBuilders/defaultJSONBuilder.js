@@ -4,9 +4,6 @@
 'use strict';
 
 var HistoryDelete = require( '../history/delete.js' );
-//var $ = require( 'zzdom' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var $ = zzDOM.zz;
 var context = require( '../context.js' );
 var utils = require( '../utils.js' );
 

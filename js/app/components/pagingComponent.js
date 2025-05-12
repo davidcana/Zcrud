@@ -7,7 +7,8 @@
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
 //var $ = require( 'zzdom' );
-var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
 
 var PagingComponent = function( optionsToApply, thisOptionsToApply, parentToApply ) {

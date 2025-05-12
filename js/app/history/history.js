@@ -9,8 +9,8 @@ var HistoryDelete = require( './delete.js' );
 var HistoryCleaner = require( './historyCleaner.js' );
 //var crudManager = require( '../crudManager.js' );
 var context = require( '../context.js' );
-//var $ = require( 'zzdom' );
-var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
 var utils = require( '../utils.js' );
 

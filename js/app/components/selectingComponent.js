@@ -4,7 +4,8 @@
 'use strict';
 
 //var $ = require( 'zzdom' );
-var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
 //var context = require( '../context.js' );
 var Component = require( './component.js' );

@@ -5,8 +5,8 @@
 
 var Field = require( './field.js' );
 var context = require( '../context.js' );
-//var $ = require( 'zzdom' );
-var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
 var zpt = require( 'zpt' );
 var DateFormatter = require( '../../../lib/php-date-formatter.js' );
