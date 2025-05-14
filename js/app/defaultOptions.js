@@ -128,6 +128,16 @@ module.exports = {
             },
             number: {
                 templateMacro: 'text'
+            },
+            password: {
+                templateMacro: 'text',
+                attributes: {
+                    field: {
+                        minlength: 8,
+                        maxlength: 12,
+                        pattern: '[0-9a-zA-Z ]{8,12}'
+                    }
+                }
             }
         },
         getDefaultFieldTemplate: function( field ){

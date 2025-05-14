@@ -167,6 +167,32 @@ var options = {
                     step: .1
                 }
             }
+        },
+        password: {
+            type: 'password',
+            attributes: {
+                field: {
+                    required: '',
+                    autocomplete: 'current-password'
+                }
+            }
+        },
+        newPassword: {
+            type: 'password',
+            attributes: {
+                field: {
+                    autocomplete: 'new-password'
+                }
+            }
+        },
+        repeatNewPassword: {
+            type: 'password',
+            attributes: {
+                field: {
+                    'data-equalTo': 'newPassword',
+                    autocomplete: 'new-password'
+                }
+            }
         }
     },
 

@@ -100,6 +100,8 @@
     "validation_typeMismatch": "Type mismatch. The value is not in the required syntax.",
     "validation_valueMissing": "Value missing. There is no value, but it is required.",
     
+    "validation_fieldsAreNotEqual": "Passwords are not equal!",
+
     "_error": "",
     "errorTitle": "Oops...",
     "errorNoOpToDo": "No operation to do!",
