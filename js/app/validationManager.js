@@ -45,13 +45,27 @@ module.exports = (function() {
             .on(
                 'change',
                 function ( event ) {
+                    // Get the field instance and check it
+                    var field = page.getField( event.currentTarget.name );
                     instance.showErrorForField(
                         this,
-                        page.getField( event.currentTarget.name ),
-                        //options.fields[ event.currentTarget.name ],
+                        field,
                         options,
                         page
                     );
+
+                    // Check the fields in fieldsToCheckOnChange property
+                    if ( field.fieldsToCheckOnChange ){
+                        for ( const fieldId of field.fieldsToCheckOnChange ) {
+                            field = page.getField( fieldId );
+                            instance.showErrorForField(
+                                field.get$Input().el,
+                                field,
+                                options,
+                                page
+                            );
+                        }
+                    }
                 }
         );
     };

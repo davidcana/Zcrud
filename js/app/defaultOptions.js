@@ -11,14 +11,18 @@ module.exports = {
         useBrowserMessages: false,
         customValidations: {
             mustBeEqualTo: function( mustBeEqualToFieldId, field, thisFieldValue, options, page ){
-                //var equalField = options.fields[ mustBeEqualToFieldId ];
+                // Get equalField
                 var equalField = page.getField( mustBeEqualToFieldId );
                 if ( ! equalField ){
                     alert( 'Not found field in mustBeEqualTo custom validation: ' + mustBeEqualToFieldId );
                     return false;
                 }
+
+                // Set the value of fieldsToCheckOnChange so mustBeEqualToFieldId is also checked
+                field.fieldsToCheckOnChange = [ mustBeEqualToFieldId ];
+
+                // Get equalFieldValue
                 var equalFieldValue = equalField.getValueFromForm( equalField.get$() );
-                //var thisFieldValue = field.getValue();
 
                 // If any of the values are empty do not check anything
                 if ( ! equalFieldValue || ! thisFieldValue ){

@@ -183,7 +183,8 @@ var options = {
                 field: {
                     autocomplete: 'new-password'
                 }
-            }
+            },
+            mustBeEqualTo: 'repeatNewPassword'
         },
         repeatNewPassword: {
             type: 'password',

@@ -61,6 +61,10 @@ Field.prototype.getValueFromSelection = function( $selection ){
     return $selection.find( '.zcrud-like-field-' + this.name ).text().trim();
 };
 
+Field.prototype.get$Input = function(){
+    return this.get$().find( '[name="' + this.name + '"]' );
+};
+
 Field.prototype.getTemplate = function( options ){
     return options.fieldsConfig.getDefaultFieldTemplate( this );
 };
