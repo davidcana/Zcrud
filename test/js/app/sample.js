@@ -189,10 +189,10 @@ var options = {
             type: 'password',
             attributes: {
                 field: {
-                    'data-equalTo': 'newPassword',
                     autocomplete: 'new-password'
                 }
-            }
+            },
+            mustBeEqualTo: 'newPassword'
         }
     },
 

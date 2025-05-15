@@ -37,7 +37,7 @@ module.exports = (function() {
     
     const selector = 'input.historyField, textarea.historyField, select.historyField';
 
-    var initFormValidation = function( formId, $item, options ){
+    var initFormValidation = function( formId, $item, options, page ){
 
         // Define change event listener
         var instance = this;
@@ -47,45 +47,68 @@ module.exports = (function() {
                 function ( event ) {
                     instance.showErrorForField(
                         this,
-                        options.fields[ event.currentTarget.name ],
-                        options
+                        page.getField( event.currentTarget.name ),
+                        //options.fields[ event.currentTarget.name ],
+                        options,
+                        page
                     );
                 }
         );
     };
 
-    var fieldValidation = function( el, field ){
+    /*
+    var fieldValidation = function( el, field, options ){
 
         const $el = $( el );
         return field? field.validate( $el.val() ): true;
     };
-    /*
-    var fieldValidation = function( el, field ){
+    */
+    var fieldValidation = function( el, field, options, page ){
 
-        const $el = $( el );
-        const type = $el.attr( 'data-fieldValidation' );
-
-        if ( ! type ){
+        if ( ! field ){
             return true;
         }
 
-        return validateField( type, $el.val() );
+        // Get value
+        const $el = $( el );
+        const value = $el.val();
+
+        // Check field validation
+        var fieldValidation = field.validate( value );
+        if ( utils.isString( fieldValidation ) ){
+            // A validation error happened
+            return fieldValidation;
+        }
+
+        // Check custom field validation
+        return customFieldValidation( el, field, value, options, page );
     };
 
-    var validateField = function( type, value ){
+    var customFieldValidation = function( el, field, value, options, page ){
+        
+        // Iterate customValidations
+        for ( const customValidation in options.validation.customValidations ) {
+            if ( field[ customValidation ] ){
+                var customValidationF = options.validation.customValidations[ customValidation ];
+                var result = customValidationF(
+                    field[ customValidation ],
+                    field,
+                    value,
+                    options,
+                    page
+                );
 
-        if ( type == 'date' ){
-            return utils.stringDateIsValid( value );
-        }
-        if ( type == 'datetime' ){
-            return utils.stringDatetimeIsValid( value );
+                // If result is a string a validation error happened
+                if ( utils.isString( result ) ){
+                    return result;
+                }
+            }
         }
 
-        throw 'ValidateManager can not manage that type: ' + type;
+        return true;
     };
-    */
 
-    var showErrorForField = function( el, field, options ){
+    var showErrorForField = function( el, field, options, page ){
 
         const validity = el.validity;
   
@@ -93,7 +116,7 @@ module.exports = (function() {
         el.setCustomValidity( '' );
 
         // Check if the for is valid
-        const fieldValidationValue = fieldValidation( el, field );
+        const fieldValidationValue = fieldValidation( el, field, options, page );
         const isValid = validity.valid && fieldValidationValue == true;
         if ( isValid ) {
 
@@ -187,7 +210,7 @@ module.exports = (function() {
         return 'No i18n error message found!';
     };
 
-    var formIsValid = function( options, eventData ){
+    var formIsValid = function( options, eventData, page ){
         
         // Check using formSubmitting event: get eventResult
         var eventResultValue = options.events.formSubmitting( eventData, options );
@@ -198,9 +221,9 @@ module.exports = (function() {
         var standardValidationResult = form? form.checkValidity(): true;
 
         if ( form ){
-            if ( ! standardValidationResult ){
-                showErrorsForForm( eventData.$form, options );
-            }
+            //if ( ! standardValidationResult ){
+                showErrorsForForm( eventData.$form, options, page );
+            //}
             
             // Show browser validation message if configured
             if ( options.validation.useBrowserMessages ){
@@ -212,15 +235,17 @@ module.exports = (function() {
         return standardValidationResult && eventResult;
     };
 
-    var showErrorsForForm = function( $item, options ){
+    var showErrorsForForm = function( $item, options, page ){
 
         var elements = $item.find( selector ).get();
 
         for ( const el of elements ) {
             showErrorForField(
                 el,
-                options.fields[ el.name ],
-                options
+                page.getField( el.name ),
+                //options.fields[ el.name ],
+                options,
+                page
             );
         }
     };

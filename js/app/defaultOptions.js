@@ -9,6 +9,26 @@ module.exports = {
     validation: {
         showBrowserMessageBubbles: false,
         useBrowserMessages: false,
+        customValidations: {
+            mustBeEqualTo: function( mustBeEqualToFieldId, field, thisFieldValue, options, page ){
+                //var equalField = options.fields[ mustBeEqualToFieldId ];
+                var equalField = page.getField( mustBeEqualToFieldId );
+                if ( ! equalField ){
+                    alert( 'Not found field in mustBeEqualTo custom validation: ' + mustBeEqualToFieldId );
+                    return false;
+                }
+                var equalFieldValue = equalField.getValueFromForm( equalField.get$() );
+                //var thisFieldValue = field.getValue();
+
+                // If any of the values are empty do not check anything
+                if ( ! equalFieldValue || ! thisFieldValue ){
+                    return true;
+                }
+
+                // If both values are equal return true; otherwise show badInput error
+                return equalFieldValue == thisFieldValue? true: 'badInput';
+            }
+        }
     },
 
     dictionary: {},

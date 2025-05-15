@@ -381,7 +381,12 @@ FormPage.prototype.beforeProcessTemplate = function( recordToUse, dictionaryExte
     
 FormPage.prototype.afterProcessTemplate = function( $form ){
 
-    validationManager.initFormValidation( this.id, $form, this.options );
+    validationManager.initFormValidation(
+        this.id,
+        $form,
+        this.options,
+        this
+    );
     this.bindEvents( $form );
 
     for ( var c = 0; c < this.fields.length; c++ ) {
@@ -545,7 +550,8 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
             formType: this.type,
             dataToSend: jsonObject,
             options: this.options
-        }
+        },
+        this
     );
 
     return jsonObject;

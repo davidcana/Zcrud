@@ -45,11 +45,11 @@ module.exports = (function() {
         }
     };
     
-    var authIsOK = function( data, options, eventData ){
+    var authIsOK = function( data, options, eventData, page ){
         
         return data.formValidationOff? 
             true: 
-            validationManager.formIsValid( options, eventData );
+            validationManager.formIsValid( options, eventData, page );
     };
     
     /* 
@@ -118,7 +118,7 @@ module.exports = (function() {
         - newRecords: the list of new records
         - recordsToRemove: the list of the ids of the records to remove
     */
-    var batchUpdate = function( data, options, eventData ){
+    var batchUpdate = function( data, options, eventData, page ){
         
         var dataToSend = data;
         dataToSend.command = 'batchUpdate';
@@ -131,7 +131,7 @@ module.exports = (function() {
             generalErrorFunction( data, options, dataFromServer );
         };
 
-        var validationData = authIsOK( data, options, eventData );
+        var validationData = authIsOK( data, options, eventData, page );
         
         if ( data.clientOnly ){
             if ( validationData === true ){

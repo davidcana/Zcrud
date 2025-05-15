@@ -172,7 +172,9 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
     validationManager.initFormValidation( 
         this.page.getId(), 
         $tr, 
-        this.page.getOptions() );
+        this.page.getOptions(),
+        this.page
+    );
     
     return createHistoryItem;
 };

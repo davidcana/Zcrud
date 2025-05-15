@@ -43,7 +43,9 @@ EditingComponent.prototype.bindEvents = function(){
     validationManager.initFormValidation( 
         formId, 
         $( '#' + formId ), 
-        this.options );
+        this.options,
+        this.parent
+    );
 };
 
 EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
@@ -170,7 +172,8 @@ EditingComponent.prototype.addNewRow = function( event ){
     validationManager.initFormValidation( 
         this.listPage.getThisOptions().formId, 
         $tr, 
-        this.options 
+        this.options,
+        this.parent
     );
 };
 
@@ -267,7 +270,8 @@ EditingComponent.prototype.doSubmit = function( event ){
             formType: 'list',
             dataToSend: newJSONObject,
             options: this.options
-        }
+        },
+        this.parent
     );
 
     return jsonObject;
