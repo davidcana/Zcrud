@@ -52,7 +52,6 @@ var copyMembers = function( fromFieldId, toFieldId, deleteFrom ){
 };
 
 // Run tests
-
 QUnit.test( 'list selecting test', function( assert ) {
     
     // Setup services

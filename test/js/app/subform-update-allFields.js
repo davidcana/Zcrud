@@ -448,7 +448,6 @@ QUnit.test( 'update datetime test', function( assert ) {
     );
 });
 
-
 QUnit.test( 'update datetime using picker test', function( assert ) {
 
     var done = assert.async();

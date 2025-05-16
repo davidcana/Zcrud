@@ -43,7 +43,6 @@ var errorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( 'listToolbar (binding using listCreated method) test', function( assert ) {
 
     thisTestOptions = {

@@ -73,7 +73,7 @@ QUnit.test( 'create text area test', function( assert ) {
         }
     );
 });
-/*
+
 QUnit.test( 'create datetime test', function( assert ) {
 
     var done = assert.async();
@@ -961,4 +961,4 @@ QUnit.test( 'create checkboxes test', function( assert ) {
         }
     );
 });
-*/
+

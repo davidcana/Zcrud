@@ -19,6 +19,12 @@ var incCustomButtonClickCounterFunction = function( message ){
     ++customButtonClickCounter;
 };
 
+var discardConfirmFunctionCounter = 0;
+var discardConfirmFunction = function( confirmOptions, onFulfilled ){
+    ++discardConfirmFunctionCounter;
+    onFulfilled( 'discard' );
+};
+
 // Run tests
 QUnit.test( 'form test', function( assert ) {
     
@@ -101,7 +107,7 @@ QUnit.test( 'form test', function( assert ) {
         }
     );
 });
-/*
+
 QUnit.test( 'subform test', function( assert ) {
 
     //options = $.extend( true, {}, subformsTestOptions );
@@ -191,4 +197,4 @@ QUnit.test( 'editable list test', function( assert ) {
         }
     );
 });
-*/
+

@@ -212,7 +212,6 @@ var buildSubformRecord1 = function(){
 };
 
 // Run tests
-
 QUnit.test( 'list test', function( assert ) {
 
     var done = assert.async();

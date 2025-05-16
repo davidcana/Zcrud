@@ -131,7 +131,7 @@ QUnit.test( 'update datetime test', function( assert ) {
         }
     );
 });
-/*
+
 QUnit.test( 'update datetime using picker test', function( assert ) {
 
     var done = assert.async();
@@ -610,7 +610,7 @@ QUnit.test( 'update inline time using picker test', function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( 'update checkbox test', function( assert ) {
 
     var done = assert.async();
@@ -716,7 +716,7 @@ QUnit.test( 'update radio test', function( assert ) {
         }
     );
 });
-/*
+
 QUnit.test( 'update select test', function( assert ) {
 
     var done = assert.async();
@@ -865,7 +865,7 @@ QUnit.test( 'update 2 linked select test', function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( 'update datalist test', function( assert ) {
 
     var done = assert.async();

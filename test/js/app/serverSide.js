@@ -22,7 +22,6 @@ formTestOptions.errorFunction = errorFunction;
 editableListTestOptions.errorFunction = errorFunction;
 
 // Run tests
-
 QUnit.test( 'form create record with duplicated key test', function( assert ) {
 
     var done = assert.async();

@@ -306,7 +306,6 @@ QUnit.test( 'subform broken paging: discard test', function( assert ) {
     );
 });
 
-
 QUnit.test( 'editable list broken paging: discard test', function( assert ) {
 
     options = utils.extend( true, {}, editableListTestOptions );

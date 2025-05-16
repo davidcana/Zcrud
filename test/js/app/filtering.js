@@ -26,7 +26,6 @@ var discardConfirmFunction = function( confirmOptions, onFulfilled ){
 };
 
 // Run tests
-
 QUnit.test( 'filtering list (compact list of fields) test', function( assert ) {
     
     thisTestOptions = {

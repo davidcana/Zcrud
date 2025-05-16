@@ -200,7 +200,6 @@ QUnit.test( 'URL returning array of objects form after list test', function( ass
     );
 });
 
-
 QUnit.test( 'URL returning array of objects editable list test', function( assert ) {
 
     var done = assert.async();
@@ -413,5 +412,4 @@ QUnit.test( 'URL returning array of objects subform update test', function( asse
         }
     );
 });
-
 

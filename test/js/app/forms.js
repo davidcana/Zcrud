@@ -378,7 +378,7 @@ QUnit.test( 'form undo/redo test', function( assert ) {
         }
     );
 });
-/*
+
 QUnit.test( 'subform filtering test', function( assert ) {
 
     thisTestOptions = {
@@ -773,7 +773,7 @@ QUnit.test( 'subform filtering starting void test', function( assert ) {
         }
     );
 });
-*/
+
 QUnit.test( 'form after form test', function( assert ) {
 
     options = utils.extend( true, {}, extendedFormTestOptions );

@@ -19,7 +19,6 @@ defaultTestOptions.errorFunction = function( message ){
 };
 
 // Run tests
-
 QUnit.test( 'subform create no previous items in subform test', function( assert ) {
     
     options = utils.extend( true, {}, defaultTestOptions );
