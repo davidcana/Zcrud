@@ -21,7 +21,8 @@ module.exports = (function() {
             'phoneType': 1,
             'browser': 'Edge',
             'important': false,
-            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
+            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ],
+            'password': 'mypassword1'
         },
         {
             'id': 2,
@@ -34,6 +35,7 @@ module.exports = (function() {
             'browser': 'Edge',
             'important': true,
             'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
+            'password': 'mypassword2',
             'members': [
                 {
                     'code': 1,
@@ -215,7 +217,8 @@ module.exports = (function() {
             'phoneType': 2,
             'browser': 'Chrome',
             'important': true,
-            'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ]
+            'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ],
+            'password': 'mypassword3'
         },
         {
             'id': 4,
@@ -227,7 +230,8 @@ module.exports = (function() {
             'phoneType': 3,
             'browser': 'Opera',
             'important': true,
-            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ],
+            'password': 'mypassword4'
         },
         {
             'id': 5,
@@ -239,7 +243,8 @@ module.exports = (function() {
             'phoneType': 1,
             'browser': 'Safari',
             'important': false,
-            'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ]
+            'hobbies': [ 'reading_option', 'videogames_option', 'sports_option' ],
+            'password': 'mypassword5'
         },
         {
             'id': 6,
@@ -251,7 +256,8 @@ module.exports = (function() {
             'phoneType': 2,
             'browser': 'Chrome',
             'important': false,
-            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
+            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ],
+            'password': 'mypassword6'
         },
         {
             'id': 7,
@@ -263,7 +269,8 @@ module.exports = (function() {
             'phoneType': 2,
             'browser': 'Chrome',
             'important': false,
-            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ],
+            'password': 'mypassword7'
         },
         {
             'id': 8,
@@ -275,7 +282,8 @@ module.exports = (function() {
             'phoneType': 3,
             'browser': 'Opera',
             'important': false,
-            'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ]
+            'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
+            'password': 'mypassword8'
         },
         {
             'id': 9,
@@ -287,7 +295,8 @@ module.exports = (function() {
             'phoneType': 1,
             'browser': 'Firefox',
             'important': false,
-            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ],
+            'password': 'mypassword9'
         },
         {
             'id': 10,
@@ -299,7 +308,8 @@ module.exports = (function() {
             'phoneType': 2,
             'browser': 'Safari',
             'important': true,
-            'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ]
+            'hobbies': [ 'videogames_option', 'sports_option', 'cards_option' ],
+            'password': 'mypassword10'
         },
         {
             'id': 11,
@@ -311,7 +321,8 @@ module.exports = (function() {
             'phoneType': 2,
             'browser': 'Opera',
             'important': 'true', // Boolean as text
-            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ]
+            'hobbies': [ 'reading_option', 'sports_option', 'cards_option' ],
+            'password': 'mypassword11'
         },
         {
             'id': 12,
@@ -323,7 +334,8 @@ module.exports = (function() {
             'phoneType': 2,
             'browser': 'Opera',
             'important': 'true', // Boolean as text
-            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ]
+            'hobbies': [ 'reading_option', 'videogames_option', 'cards_option' ],
+            'password': 'mypassword12'
         }
     ];
     var people = {};

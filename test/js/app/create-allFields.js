@@ -962,3 +962,56 @@ QUnit.test( 'create checkboxes test', function( assert ) {
     );
 });
 
+QUnit.test( 'create password test', function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud(
+        'init',
+        options,
+        function( options ){
+            
+            var varName = 'password';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testServerSide.resetServices();
+            errorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            
+            // Assert register with key 0 doesn't exist
+            var key = 0;
+            var record =  {
+                'id': '' + key,
+                'name': 'Service ' + key
+            };
+            var record2 = utils.extend( true, {}, record );
+            record2[ varName ] = 'newPassword';
+            testHelper.checkNoRecord( assert, key, record2 );
+            
+            // Go to create form and create record
+            testHelper.clickCreateListButton();
+            testHelper.fillForm( record2 );
+            testHelper.checkForm( assert, record2 );
+            testHelper.assertHistory( assert, 3, 0, false );
+            
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 2, 1, false );
+            
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, record2 );
+            testHelper.assertHistory( assert, 3, 0, true );
+            
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 0 );
+
+            assert.deepEqual( testServerSide.getService( key ), record2 );
+            
+            done();
+        }
+    );
+});
+

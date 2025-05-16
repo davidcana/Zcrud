@@ -161,6 +161,32 @@ module.exports = {
             type: 'checkboxes',
             translateOptions: true,
             options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
+        },
+        password: {
+            type: 'password',
+            attributes: {
+                field: {
+                    autocomplete: 'current-password'
+                }
+            }
+        },
+        newPassword: {
+            type: 'password',
+            attributes: {
+                field: {
+                    autocomplete: 'new-password'
+                }
+            },
+            mustBeEqualTo: 'repeatNewPassword'
+        },
+        repeatNewPassword: {
+            type: 'password',
+            attributes: {
+                field: {
+                    autocomplete: 'new-password'
+                }
+            },
+            mustBeEqualTo: 'newPassword'
         }
     },
 

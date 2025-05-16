@@ -867,7 +867,10 @@ module.exports = (function() {
         setFormVal( record, 'browser' );  
         setFormCheckboxVal( record, 'important' );  
         setFormVal( record, 'number' );
-        setFormCheckboxesVal( record, 'hobbies' );  
+        setFormCheckboxesVal( record, 'hobbies' ); 
+        setFormVal( record, 'password' );
+        setFormVal( record, 'newPassword' );
+        setFormVal( record, 'repeatNewPassword' );
         fillSubform( record, 'members' );
     };
 
