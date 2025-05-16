@@ -46,7 +46,7 @@ module.exports = (function() {
                 'change',
                 function ( event ) {
                     // Get the field instance and check it
-                    var field = page.getField( event.currentTarget.name );
+                    var field = page.getFieldByName( event.currentTarget.name );
                     instance.showErrorForField(
                         this,
                         field,
@@ -57,7 +57,7 @@ module.exports = (function() {
                     // Check the fields in fieldsToCheckOnChange property
                     if ( field.fieldsToCheckOnChange ){
                         for ( const fieldId of field.fieldsToCheckOnChange ) {
-                            field = page.getField( fieldId );
+                            field = page.getFieldByName( fieldId );
                             instance.showErrorForField(
                                 field.get$Input().el,
                                 field,
@@ -256,7 +256,7 @@ module.exports = (function() {
         for ( const el of elements ) {
             showErrorForField(
                 el,
-                page.getField( el.name ),
+                page.getFieldByName( el.name ),
                 //options.fields[ el.name ],
                 options,
                 page

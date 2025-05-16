@@ -85,12 +85,11 @@ FormPage.prototype.getTitle = function(){
 FormPage.prototype.getSubmitFunction = function(){
     return this.submitFunction;
 };
-    
 
 FormPage.prototype.getView = function(){
     return this.view;
 };
-    
+
 FormPage.prototype.getField = function( fieldId, parentId ){
     return parentId? this.fieldsMap[ parentId ].fields[ fieldId ]: this.fieldsMap[ fieldId ];
 };
