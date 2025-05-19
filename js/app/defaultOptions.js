@@ -112,6 +112,10 @@ module.exports = {
                 {
                     fieldTypes: [ 'subform' ],
                     constructor: require( './fields/subform.js' )
+                },
+                {
+                    fieldTypes: [ 'fileUpload' ],
+                    constructor: require( './fields/fileUpload.js' )
                 }
             ]
         },

@@ -230,6 +230,16 @@ module.exports = (function() {
         return stringDateIsValid( stringDate, del );
     };
 
+    var returnFileSize = function( number ){
+        if (number < 1e3) {
+            return `${number} bytes`;
+        } else if (number >= 1e3 && number < 1e6) {
+            return `${(number / 1e3).toFixed(1)} KB`;
+        } else {
+            return `${(number / 1e6).toFixed(1)} MB`;
+        }
+    };
+
     return {
         extend: extend,
         isFunction: isFunction,
@@ -241,6 +251,7 @@ module.exports = (function() {
         getParam: getParam,
         extractDateItems: extractDateItems,
         stringDateIsValid: stringDateIsValid,
-        stringDatetimeIsValid: stringDatetimeIsValid
+        stringDatetimeIsValid: stringDatetimeIsValid,
+        returnFileSize: returnFileSize
     };
 })();

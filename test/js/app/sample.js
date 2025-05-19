@@ -194,6 +194,14 @@ var options = {
                 }
             },
             mustBeEqualTo: 'newPassword'
+        },
+        file: {
+            type: 'fileUpload',
+            attributes: {
+                field: {
+                    accept: '.pdf'
+                }
+            }
         }
     },
 

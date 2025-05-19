@@ -38,6 +38,8 @@
     "newPassword_description": "Type your new password",
     "repeatNewPassword_title": "Repeat new password",
     "repeatNewPassword_description": "Type your new password again",
+    "file_title": "File",
+    "file_description": "Select your file to upload",
     "members_title": "Members",
     "members_description": "The members of the department",
     "members_filter_description": "Please, filter the members to view!",

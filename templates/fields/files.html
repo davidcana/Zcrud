@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Templates of file fields</title>
+    </head>
+    <body>
+        <div data-define-macro="fileUpload" data-omit-tag="">            
+            <div data-define="inlinePart cond: field/inline ' inline' ''"
+                 data-attributes="class string:fileUpload${inlinePart}">
+                <div>
+                    <div data-use-macro="'uploadPart'"><!--empty--></div>
+                    <div data-use-macro="'currentFilePart'"><!--empty--></div>
+                </div>
+            </div>
+        </div>
+        
+        <div data-define-macro="currentFilePart" data-omit-tag="">
+            <div class="currentFile">
+
+            </div>
+        </div>
+        
+        <div data-define-macro="uploadPart" data-omit-tag="">
+            <div class="upload"
+                 data-attributes="style cond: field/inline 'display: none;' null">
+                <input data-attributes="id cond: renderIds field/elementId null;
+                                         name field/name;
+                                         class cond: isNotHistoryField null 'historyField';
+                                         data-fieldValidation 'fileUpload';
+                                         field/getAttributesFor(fieldAttributes)"
+                       type="file">
+            </div>
+        </div>
+    </body>
+</html>
