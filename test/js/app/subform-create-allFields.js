@@ -257,6 +257,14 @@ defaultTestOptions.fields.members.fields = {
         type: 'checkboxes',
         translateOptions: true,
         options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
+    },
+    password: {
+        type: 'password',
+        attributes: {
+            field: {
+                autocomplete: 'current-password'
+            }
+        }
     }
 };
 
@@ -2271,6 +2279,125 @@ QUnit.test( 'create checkboxes test', function( assert ) {
             testHelper.clickRedoButton( 2 );
             testHelper.checkForm( assert, editedRecord );
             testHelper.assertHistory( assert, 5, 0, false );
+            
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), editedRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.checkForm( assert, editedRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( 'create password test', function( assert ) {
+
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
+            // Setup services
+            testServerSide.resetServices();
+            var key = 4;
+            var record =  {
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
+                    {
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'password': 'password1'
+                    },
+                    {
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'password': 'password2'
+                    }
+                ]
+            };
+            testServerSide.setService( key, record );
+            
+            var varName = 'password';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            
+            errorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            
+            // Add subform record 3
+            var subformRecord3 = {
+                'code': '3',
+                'name': 'Homer Simpson',
+                'password': 'password3'
+            };
+            var subformRecord3Clone = utils.extend( true, {}, subformRecord3 );
+            testHelper.clickCreateSubformRowButton( 'members' );
+            testHelper.fillSubformNewRow( subformRecord3Clone, 'members' );
+            
+            // Build edited record and check form
+            var editedRecord = utils.extend( true, {}, record );
+            editedRecord.members.push( subformRecord3Clone );
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, true );
+            
+            // Undo (1)
+            editedRecord.members[ 2 ][ varName ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
+            
+            // Undo (2)
+            editedRecord.members[ 2 ][ 'name' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
+            
+            // Undo (3)
+            editedRecord.members[ 2 ][ 'code' ] = '';
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+            
+            // Undo (4)
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 4, false );
+            
+            // Redo (1)
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 1, 3, false );
+            
+            // Redo (2)
+            editedRecord.members[ 2 ][ 'code' ] = subformRecord3[ 'code' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 2, 2, false );
+            
+            // Redo (3)
+            editedRecord.members[ 2 ][ 'name' ] = subformRecord3[ 'name' ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 3, 1, false );
+            
+            // Redo (4)
+            editedRecord.members[ 2 ][ varName ] = subformRecord3[ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, editedRecord );
+            testHelper.assertHistory( assert, 4, 0, false );
             
             // Submit and show the list again
             testHelper.clickFormSubmitButton();

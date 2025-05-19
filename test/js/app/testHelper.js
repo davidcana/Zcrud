@@ -905,6 +905,7 @@ module.exports = (function() {
         setFormCheckboxVal( subformRecord, 'important', $row, subformName );
         setFormVal( subformRecord, 'number', $row, subformName );
         setFormCheckboxesVal( subformRecord, 'hobbies', $row, subformName );
+        setFormVal( subformRecord, 'password', $row, subformName );
     };
     
     var fillSubformNewRow = function( subformRecord, subformName ){
@@ -1250,6 +1251,7 @@ module.exports = (function() {
                 putSubformVal( row, 'important', getFormCheckboxVal( 'important', $this, name ) );
                 putSubformVal( row, 'number', getFormVal( 'number', $this, name ) );
                 putSubformVal( row, 'hobbies', getFormCheckboxesVal( 'hobbies', $this, name ) );
+                putSubformVal( row, 'password', getFormVal( 'password', $this, name ) );
             }
         );
 
@@ -1328,6 +1330,7 @@ module.exports = (function() {
         setFormCheckboxVal( record, 'important', $row );
         setFormVal( record, 'number', $row );
         setFormCheckboxesVal( record, 'hobbies', $row );
+        setFormVal( record, 'password', $row );
     };
     
     var fillNewRowEditableList = function( record ){

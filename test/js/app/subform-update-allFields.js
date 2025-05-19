@@ -257,6 +257,14 @@ defaultTestOptions.fields.members.fields = {
         type: 'checkboxes',
         translateOptions: true,
         options: [ 'reading_option', 'videogames_option', 'sports_option', 'cards_option' ]
+    },
+    password: {
+        type: 'password',
+        attributes: {
+            field: {
+                autocomplete: 'current-password'
+            }
+        }
     }
 };
 
@@ -1782,6 +1790,91 @@ QUnit.test( 'update chackboxes test', function( assert ) {
             testHelper.checkForm( assert, tempRecord );
             testHelper.assertHistory( assert, 2, 0, false );
 
+            // Submit and show the list again
+            testHelper.clickFormSubmitButton();
+
+            // Check storage
+            assert.deepEqual( testServerSide.getService( key ), newRecord );
+
+            // Go to edit form again and check the form again
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickUpdateListButton( key );
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.checkForm( assert, newRecord );
+
+            done();
+        }
+    );
+});
+
+QUnit.test( 'update password test', function( assert ) {
+
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
+            // Setup services
+            testServerSide.resetServices();
+            var key = 4;
+            var record =  {
+                'id': '' + key,
+                'name': 'Service ' + key,
+                'members': [
+                    {
+                        'code': '1',
+                        'name': 'Bart Simpson',
+                        'password': 'password1'
+                    },
+                    {
+                        'code': '2',
+                        'name': 'Lisa Simpson',
+                        'password': 'password2'
+                    }
+                ]
+            };
+            testServerSide.setService( key, record );
+            
+            var varName = 'password';
+            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            
+            errorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+            
+            // Go to edit form
+            testHelper.clickUpdateListButton( key );
+            var editedRecord =  {
+                'members': {
+                    '1': {
+                        'password': 'newPassword'
+                    }
+                }
+            };
+            testHelper.fillForm( editedRecord );
+            
+            // Check form
+            var newRecord = utils.extend( true, {}, record );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            // Undo
+            var tempRecord = utils.extend( true, {} , newRecord );
+            tempRecord.members[ 1 ][ varName ] = record.members[ 1 ][ varName ];
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 0, 1, false );
+            
+            // Redo
+            tempRecord = utils.extend( true, {} , newRecord );
+            newRecord.members[ 1 ][ varName ] = editedRecord.members[ 1 ][ varName ];
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, tempRecord );
+            testHelper.assertHistory( assert, 1, 0, false );
+            
             // Submit and show the list again
             testHelper.clickFormSubmitButton();
 

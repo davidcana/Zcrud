@@ -971,3 +971,56 @@ QUnit.test( 'update checkboxes test', function( assert ) {
         }
     );
 });
+
+QUnit.test( 'update password test', function( assert ) {
+
+    var done = assert.async();
+    
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            
+            var varName = 'password';
+            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+
+            testServerSide.resetServices();
+            errorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                'id': '' + key,
+                'name': 'Service ' + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            var editedRecord = {};
+            editedRecord[ varName ] = 'newPassword';
+            testHelper.fillForm( editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            testHelper.clickUpdateListButton( key );
+            testHelper.fillForm( editedRecord );
+
+            // Undo
+            testHelper.clickUndoButton();
+            testHelper.checkForm( assert, record );
+            testHelper.assertHistory( assert, 0, 1, false );
+
+            // Redo
+            testHelper.clickRedoButton();
+            testHelper.checkForm( assert, newRecord );
+            testHelper.assertHistory( assert, 1, 0, true );
+
+            assert.equal( errorFunctionCounter, 0 );
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 0 );
+
+            testHelper.checkRecord( assert, key, newRecord );
+            
+            done();
+        }
+    );
+});
