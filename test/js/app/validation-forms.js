@@ -667,3 +667,96 @@ QUnit.test( 'update validation i18n error messages test', function( assert ) {
         }
     );
 });
+
+QUnit.test( 'update password/newPassword/repeatNewPassword validation test', function( assert ) {
+
+    testServerSide.resetServices();
+    var done = assert.async();
+    options = utils.extend( true, {}, defaultTestOptions );
+    
+    // Add 2 fields: newPassword and repeatNewPassword
+    options.fields.newPassword = {
+        type: 'password',
+        attributes: {
+            field: {
+                autocomplete: 'new-password'
+            }
+        },
+        mustBeEqualTo: 'repeatNewPassword'
+    };
+    options.fields.repeatNewPassword = {
+        type: 'password',
+        attributes: {
+            field: {
+                autocomplete: 'new-password'
+            }
+        },
+        mustBeEqualTo: 'newPassword'
+    };
+
+    $( '#departmentsContainer' ).zcrud(
+        'init',
+        options,
+        function( options ){
+            
+            context.updateFormVisibleFields( options, [ 'id', 'name', 'password', 'newPassword', 'repeatNewPassword' ] );
+
+            testServerSide.resetServices();
+            errorFunctionCounter = 0;
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // Assert register with key 2 exists
+            var key = 2;
+            var record =  {
+                'id': '' + key,
+                'name': 'Service ' + key
+            };
+            testHelper.checkRecord( assert, key, record );
+
+            // Edit record
+            var editedRecord = {
+                password: 'myPassword',
+                newPassword: 'newPassword',
+                repeatNewPassword: 'wrongPassword'
+            };
+            testHelper.fillForm( editedRecord );
+            var newRecord = utils.extend( true, {}, record, editedRecord );
+            testHelper.clickUpdateListButton( key );
+
+            // Check there is no validation errors; the fill form and check again there are 2 validation errors
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+            testHelper.fillForm( editedRecord );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 2 );
+
+            // Fix the password and check that there is no validation errors
+            editedRecord.repeatNewPassword = editedRecord.newPassword;
+            testHelper.fillForm({
+                repeatNewPassword: editedRecord.repeatNewPassword
+            });
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+            
+            // 2 errors again undoing
+            testHelper.clickUndoButton();
+            assert.equal( testHelper.getNumberOfValidationErrors(), 2 );
+            
+            // Fix the form redoing
+            testHelper.clickRedoButton();
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+
+            // Go to edit form again and check record
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, record );
+
+            // Update record (no errors)
+            testHelper.clickFormSubmitButton();
+            assert.equal( errorFunctionCounter, 0 );
+
+            // Go to edit form again and check record
+            testHelper.clickUpdateListButton( key );
+            testHelper.checkForm( assert, record );
+            assert.equal( testHelper.getNumberOfValidationErrors(), 0 );
+
+            done();
+        }
+    );
+});
