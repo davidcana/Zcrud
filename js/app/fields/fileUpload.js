@@ -67,7 +67,7 @@ FileUpload.prototype.readFile = function( $file ){
     reader.addEventListener( 'loadend', () => {
         // reader.result contains the contents of blob as a typed array
         fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
-        alert( `File name ${file.name}, file size ${utils.returnFileSize(file.size)} loaded successfully` );
+        //alert( `File name ${file.name}, file size ${utils.returnFileSize(file.size)} loaded successfully` );
     });
     reader.readAsArrayBuffer( file );
 };
