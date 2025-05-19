@@ -169,24 +169,6 @@ module.exports = {
                     autocomplete: 'current-password'
                 }
             }
-        },
-        newPassword: {
-            type: 'password',
-            attributes: {
-                field: {
-                    autocomplete: 'new-password'
-                }
-            },
-            mustBeEqualTo: 'repeatNewPassword'
-        },
-        repeatNewPassword: {
-            type: 'password',
-            attributes: {
-                field: {
-                    autocomplete: 'new-password'
-                }
-            },
-            mustBeEqualTo: 'newPassword'
         }
     },
 

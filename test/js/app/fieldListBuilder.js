@@ -146,9 +146,7 @@ QUnit.test( 'Field list from general fields builder test', function( assert ) {
                 'important',
                 'number',
                 'hobbies',
-                'password',
-                'newPassword',
-                'repeatNewPassword'
+                'password'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
@@ -170,9 +168,7 @@ QUnit.test( 'Field list from general fields builder test', function( assert ) {
                 'important',
                 'number',
                 'hobbies',
-                'password',
-                'newPassword',
-                'repeatNewPassword'
+                'password'
             ];
             fields = fieldListBuilder.build( items, options ).fieldsArray;
             assert.deepEqual( buildIdsArray( fields ), expected );
