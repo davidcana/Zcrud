@@ -112,29 +112,29 @@ FileUpload.prototype.getValueFromForm = function( $selection ){
     return files[ 0 ];
     */
 }
-
+/*
 FileUpload.prototype.setValueToForm = function( value, $this ){
     $this.prop( 'checked', value === undefined? false: value );
     //this.throwEventsForSetValueToForm( $this );
 };
-
+*/
+/*
 FileUpload.prototype.getValueFromRecord = function( record ){
-
-    var value = record[ this.id ];
-    return value === false || value === true? value: value == 'true';
+    return record[ this.id ];
 };
-
+*/
+/*
 FileUpload.prototype.getViewValueFromRecord = function( record ){
-
-    var value = this.getValueFromRecord( record );
-    return value? context.translate( 'true' ): context.translate( 'false' )
+    return record[ this.id ];
 };
-
+*/
+/*
 FileUpload.prototype.getValueFromSelection = function( $selection ){
     
     var stringValue = Field.prototype.getValueFromSelection.call( this, $selection ).toLowerCase();
     return stringValue == 'true';
 };
+*/
 
 //TODO Implement this!
 FileUpload.prototype.validate = function( value ){

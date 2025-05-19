@@ -74,6 +74,7 @@
     "undefinedValueToShow": "(no establecido)",
     "true": "Verdadero",
     "false": "Falso",
+    "noSavedFile": "No se ha guardado ningún fichero.",
     
     "_buttons": "",
     "Add new record": "Nuevo registro",

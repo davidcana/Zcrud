@@ -9,15 +9,16 @@
             <div data-define="inlinePart cond: field/inline ' inline' ''"
                  data-attributes="class string:fileUpload${inlinePart}">
                 <div>
-                    <div data-use-macro="'uploadPart'"><!--empty--></div>
                     <div data-use-macro="'currentFilePart'"><!--empty--></div>
+                    <div data-use-macro="'uploadPart'"><!--empty--></div>
                 </div>
             </div>
         </div>
         
         <div data-define-macro="currentFilePart" data-omit-tag="">
-            <div class="currentFile">
-
+            <div class="currentFile"
+                 data-define="fileName cond: value value/file/name (tr:'noSavedFile')">
+                <span data-content="fileName"></span>
             </div>
         </div>
         
