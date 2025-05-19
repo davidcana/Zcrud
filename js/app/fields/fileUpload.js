@@ -28,49 +28,14 @@ FileUpload.prototype.afterProcessTemplateForField = function( params, $selection
 };
 
 FileUpload.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( params, $selection ){
-    /*
-    var date = false;
-    var time = false;
-
-    switch ( this.type ) {
-        case 'date':
-            date = true;
-            break;
-        case 'datetime':
-            date = true;
-            time = true;
-            break;
-        case 'time':
-            time = true;
-            break;
-        default:
-            throw 'Unknown type in Datetime: ' + this.type;
-    }
-
-    this.buildDictionaryFromParams( params );
-    */
     this.bindEvents( params, $selection );
-};
-
-FileUpload.prototype.bindEvents = function( params, $selection ){
-    
-    this.bindCommonEvents( params, $selection );
-    /*
-    if ( dateEvents ){
-        this.bindDateEvents( params, $selection, $datetime );
-    }
-
-    if ( timeEvents ){
-        this.bindTimeEvents( params, $selection, $datetime );
-    }
-    */
 };
 
 FileUpload.prototype.get$file = function(){
     return this.get$().find( 'input[type="file"]' );
 };
 
-FileUpload.prototype.bindCommonEvents = function( params, $selection ){
+FileUpload.prototype.bindEvents = function( params, $selection ){
     
     var fileUploadInstance = this;
     const $file = this.get$file();
@@ -81,11 +46,48 @@ FileUpload.prototype.bindCommonEvents = function( params, $selection ){
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
-                fileUploadInstance.updateFileDescription( $file );
+                fileUploadInstance.readFile( $file );
             }
     );
 };
 
+FileUpload.prototype.readFile = function( $file ){
+
+    // Get the file instance
+    var file = $file.el.files[ 0 ];
+
+    // Update fullValue property
+    this.fullValue = {
+        file: this.filterFilePart( file )
+    };
+
+    // Instance a FileReader and read the file with it
+    const reader = new FileReader();
+    var fileUploadInstance = this;
+    reader.addEventListener( 'loadend', () => {
+        // reader.result contains the contents of blob as a typed array
+        fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
+        alert( `File name ${file.name}, file size ${utils.returnFileSize(file.size)} loaded successfully` );
+    });
+    reader.readAsArrayBuffer( file );
+};
+
+// Extract just the 4 standard information on selected files
+FileUpload.prototype.filterFilePart = function( file ){
+    return {
+        name: file.name,
+        lastModified: file.lastModified,
+        size: file.size,
+        type: file.type
+    };
+};
+
+//TODO Extract just the needed data from the ArrayBuffer
+FileUpload.prototype.filterContentsPart = function( contents ){
+    return contents;
+};
+
+/*
 FileUpload.prototype.updateFileDescription = function( $file ){
 
     var files = $file.el.files;
@@ -95,15 +97,20 @@ FileUpload.prototype.updateFileDescription = function( $file ){
         alert( fileDescription );
     }
 };
+*/
 
 FileUpload.prototype.getValue = function( $this ){
-   return $this.val();
+    return this.fullValue;
+    //return $this.val();
 };
 
 FileUpload.prototype.getValueFromForm = function( $selection ){
+    return this.fullValue;
+    /*
     const $file = this.get$file();
     var files = $file.el.files;
     return files[ 0 ];
+    */
 }
 
 FileUpload.prototype.setValueToForm = function( value, $this ){
