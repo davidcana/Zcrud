@@ -18,6 +18,8 @@ FileUpload.prototype.constructor = FileUpload;
 
 FileUpload.prototype.asyncValue = true;
 
+FileUpload.prototype.forceNullValueWhenNoPreviousItem = true;
+
 FileUpload.prototype.getTemplate = function(){
     return this.type + '@templates/fields/files.html';
 };
@@ -146,6 +148,10 @@ FileUpload.prototype.getValueFromForm = function( $selection ){
 FileUpload.prototype.setValueToForm = function( value, $this ){
     this.fullValue = value? value: undefined;
     this.updateNewFile( this.fullValue? this.fullValue.file: undefined );
+};
+
+FileUpload.prototype.getValueForHistory = function( $this ){
+    return this.fullValue;
 };
 
 //TODO Implement this!

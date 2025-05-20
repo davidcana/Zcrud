@@ -23,6 +23,8 @@ Field.prototype.runSetValueListeners = function(){
     this.setValueListeners = [];
 };
 
+Field.prototype.forceNullValueWhenNoPreviousItem = false;
+
 Field.prototype.setPage = function( pageToApply ){
     this.page = pageToApply;
 };

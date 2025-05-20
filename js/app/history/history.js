@@ -93,7 +93,9 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                 rowIndex, 
                 nameObject.name, 
                 nameObject.subformName, 
-                subformRowIndex ),
+                subformRowIndex,
+                field
+            ),
             $this,
             field,
             nameObject.subformName,
@@ -243,7 +245,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         return temp !== undefined? temp:  '';
         //return record? record[ name ]: undefined;
     };
-    
+
+    /*
     var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
 
         var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
@@ -251,7 +254,21 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                previousItem.getNewValue( rowIndex, name, subformName, subformRowIndex ): 
                getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
     };
-    
+    */
+    var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex, field ){
+
+        // If there is a previousItem in history, get the value from it
+        var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
+        if ( previousItem ){
+            return previousItem.getNewValue( rowIndex, name, subformName, subformRowIndex );
+        }
+
+        // There is no previousItem in history
+        return field.forceNullValueWhenNoPreviousItem?
+               null:
+               getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
+    };
+
     var getPreviousItem = function( rowIndex, name, subformName, subformRowIndex ){
 
         for ( var c = current - 1; c >= 0; --c ){
