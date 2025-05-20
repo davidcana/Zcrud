@@ -449,9 +449,8 @@ FormPage.prototype.bindEvents = function( $form ) {
                 var field = instance.getFieldByName.call( instance, $this.attr( 'name' ) );
                 //var field = instance.getFieldByName.call( instance, $this.prop( 'name' ) );
 
-                // 
-                if ( ! field.asyncValue ){
-                    //
+                // Create function to update history
+                const putChangeInHistoryFunction = function(){
                     context.getHistory().putChange( 
                         $this, 
                         field.getValueForHistory( $this ), 
@@ -460,20 +459,12 @@ FormPage.prototype.bindEvents = function( $form ) {
                         instance.id,
                         field
                     );
+                };
+                // Run that function now if the value of the field is not async; otherwise run it later (when the value is set)
+                if ( ! field.asyncValue ){
+                    putChangeInHistoryFunction();
                 } else {
-                    // 
-                    field.addSetValueListeners(
-                        function(){
-                            context.getHistory().putChange( 
-                                $this, 
-                                field.getValueForHistory( $this ), 
-                                0,
-                                '1',
-                                instance.id,
-                                field
-                            );
-                        }
-                    );
+                    field.addSetValueListeners( putChangeInHistoryFunction );
                 }
             }
         );
