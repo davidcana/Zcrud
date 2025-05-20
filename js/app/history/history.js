@@ -264,7 +264,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         }
 
         // There is no previousItem in history
-        return field.forceNullValueWhenNoPreviousItem?
+        return field && field.forceNullValueWhenNoPreviousItem?
                null:
                getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
     };
