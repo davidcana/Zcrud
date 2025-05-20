@@ -448,13 +448,33 @@ FormPage.prototype.bindEvents = function( $form ) {
                 var $this = $( this );
                 var field = instance.getFieldByName.call( instance, $this.attr( 'name' ) );
                 //var field = instance.getFieldByName.call( instance, $this.prop( 'name' ) );
-                context.getHistory().putChange( 
-                    $this, 
-                    field.getValueForHistory( $this ), 
-                    0,
-                    '1',
-                    instance.id,
-                    field );
+
+                // 
+                if ( ! field.asyncValue ){
+                    //
+                    context.getHistory().putChange( 
+                        $this, 
+                        field.getValueForHistory( $this ), 
+                        0,
+                        '1',
+                        instance.id,
+                        field
+                    );
+                } else {
+                    // 
+                    field.addSetValueListeners(
+                        function(){
+                            context.getHistory().putChange( 
+                                $this, 
+                                field.getValueForHistory( $this ), 
+                                0,
+                                '1',
+                                instance.id,
+                                field
+                            );
+                        }
+                    );
+                }
             }
         );
 

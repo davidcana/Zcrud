@@ -9,6 +9,20 @@ var Field = function( properties ) {
     utils.extend( true, this, properties );
 };
 
+Field.prototype.asyncValue = false;
+Field.prototype.setValueListeners = [];
+Field.prototype.addSetValueListeners = function( listener ){
+    this.setValueListeners.push( listener );
+};
+Field.prototype.runSetValueListeners = function(){
+    // Run each listener
+    for ( const listener of this.setValueListeners ) {
+        listener();
+    }
+    // Empty setValueListeners
+    this.setValueListeners = [];
+};
+
 Field.prototype.setPage = function( pageToApply ){
     this.page = pageToApply;
 };

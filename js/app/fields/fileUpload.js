@@ -14,6 +14,8 @@ var FileUpload = function( properties ) {
 FileUpload.prototype = new Field();
 FileUpload.prototype.constructor = FileUpload;
 
+FileUpload.prototype.asyncValue = true;
+
 FileUpload.prototype.getTemplate = function(){
     return this.type + '@templates/fields/files.html';
 };
@@ -68,6 +70,7 @@ FileUpload.prototype.readFile = function( $file ){
         // reader.result contains the contents of blob as a typed array
         fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
         //alert( `File name ${file.name}, file size ${utils.returnFileSize(file.size)} loaded successfully` );
+        this.runSetValueListeners();
     });
     reader.readAsArrayBuffer( file );
 };
