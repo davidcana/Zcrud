@@ -74,7 +74,10 @@
     "undefinedValueToShow": "(not set)",
     "true": "True",
     "false": "False",
-    "noSavedFile": "No saved file.",
+    "currentFile": "Current file",
+    "noCurrentFile": "No current file.",
+    "newFile": "New file",
+    "noNewFile": "No new file.",
 
     "_buttons": "",
     "Add new record": "Add new record",

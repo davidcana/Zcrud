@@ -230,7 +230,7 @@ module.exports = (function() {
         return stringDateIsValid( stringDate, del );
     };
 
-    var returnFileSize = function( number ){
+    var formatFileSize = function( number ){
         if (number < 1e3) {
             return `${number} bytes`;
         } else if (number >= 1e3 && number < 1e6) {
@@ -252,6 +252,6 @@ module.exports = (function() {
         extractDateItems: extractDateItems,
         stringDateIsValid: stringDateIsValid,
         stringDatetimeIsValid: stringDatetimeIsValid,
-        returnFileSize: returnFileSize
+        formatFileSize: formatFileSize
     };
 })();

@@ -35,7 +35,9 @@ module.exports = {
         }
     },
 
-    dictionary: {},
+    dictionary: {
+        u: utils
+    },
 
     saveUserPreferences: true,
     entityId: 'entity',

@@ -74,8 +74,11 @@
     "undefinedValueToShow": "(no establecido)",
     "true": "Verdadero",
     "false": "Falso",
-    "noSavedFile": "No se ha guardado ningún fichero.",
-    
+    "currentFile": "Fichero actual",
+    "noCurrentFile": "No hay ningún fichero actualmente.",
+    "newFile": "Fichero nuevo",
+    "noNewFile": "No ha seleccionado ningún fichero nuevo.",
+
     "_buttons": "",
     "Add new record": "Nuevo registro",
     "Undo": "Deshacer",

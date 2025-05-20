@@ -16,9 +16,17 @@
         </div>
         
         <div data-define-macro="currentFilePart" data-omit-tag="">
-            <div class="currentFile"
-                 data-define="fileName cond: value value/file/name (tr:'noSavedFile')">
-                <span data-content="fileName"></span>
+            <div class="currentFile">
+                <div data-content="tr:'currentFile'">Current file</div>
+                <div data-condition="value">
+                    <a data-attributes="href value/file/url">
+                       <span data-content="value/file/name"></span>
+                       (<span data-content="u/formatFileSize( value/file/size )"></span>)
+                    </a>
+                </div>
+                <div data-condition="not:value">
+                    <span data-content="tr:'noCurrentFile'"></span>
+                </div>
             </div>
         </div>
         
@@ -30,7 +38,18 @@
                                          class cond: isNotHistoryField null 'historyField';
                                          data-fieldValidation 'fileUpload';
                                          field/getAttributesFor(fieldAttributes)"
-                       type="file">
+                       type="file"
+                       style="display:none">
+                <div class="newFile" data-domain="i18nArray">
+                    <div data-content="tr:'newFile'">Current file</div>
+                    <div data-condition="newFile">
+                        <span data-content="newFile/name"></span>
+                        (<span data-content="u/formatFileSize( newFile/size )"></span>)
+                    </div>
+                    <div data-condition="not:newFile">
+                        <span data-content="tr:'noNewFile'"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

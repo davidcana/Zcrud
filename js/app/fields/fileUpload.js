@@ -7,6 +7,8 @@ var Field = require( './field.js' );
 var context = require( '../context.js' );
 var utils = require( '../utils.js' );
 
+var zpt = require( 'zpt' );
+
 var FileUpload = function( properties ) {
     Field.call( this, properties );
 };
@@ -69,10 +71,23 @@ FileUpload.prototype.readFile = function( $file ){
     reader.addEventListener( 'loadend', () => {
         // reader.result contains the contents of blob as a typed array
         fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
-        //alert( `File name ${file.name}, file size ${utils.returnFileSize(file.size)} loaded successfully` );
+        //alert( `File name ${file.name}, file size ${utils.formatFileSize(file.size)} loaded successfully` );
         this.runSetValueListeners();
+        this.updateNewFile( this.fullValue.file );
     });
     reader.readAsArrayBuffer( file );
+};
+
+FileUpload.prototype.updateNewFile = function( newFile ){
+    
+    var $thisNewFile = this.get$().find( '.newFile' );
+
+    zpt.run({
+        root: $thisNewFile.el,
+        dictionaryExtension: {
+            newFile: newFile
+        }
+    });
 };
 
 // Extract just the 4 standard information on selected files
@@ -96,7 +111,7 @@ FileUpload.prototype.updateFileDescription = function( $file ){
     var files = $file.el.files;
 
     for ( const file of files ) {
-        const fileDescription = `File name ${file.name}, file size ${utils.returnFileSize(file.size)}.`;
+        const fileDescription = `File name ${file.name}, file size ${utils.formatFileSize(file.size)}.`;
         alert( fileDescription );
     }
 };
