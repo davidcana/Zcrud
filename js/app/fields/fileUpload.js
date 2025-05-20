@@ -75,7 +75,13 @@ FileUpload.prototype.readFile = function( $file ){
         this.runSetValueListeners();
         this.updateNewFile( this.fullValue.file );
     });
-    reader.readAsArrayBuffer( file );
+
+    if ( file ){
+        reader.readAsArrayBuffer( file );
+    } else {
+        this.runSetValueListeners();
+        this.updateNewFile( undefined );
+    }
 };
 
 FileUpload.prototype.updateNewFile = function( newFile ){
@@ -92,11 +98,18 @@ FileUpload.prototype.updateNewFile = function( newFile ){
 
 // Extract just the 4 standard information on selected files
 FileUpload.prototype.filterFilePart = function( file ){
-    return {
+    return file?
+    {
         name: file.name,
         lastModified: file.lastModified,
         size: file.size,
         type: file.type
+    }:
+    {
+        name: undefined,
+        lastModified: undefined,
+        size: 0,
+        type: undefined
     };
 };
 
@@ -119,7 +132,6 @@ FileUpload.prototype.updateFileDescription = function( $file ){
 
 FileUpload.prototype.getValue = function( $this ){
     return this.fullValue;
-    //return $this.val();
 };
 
 FileUpload.prototype.getValueFromForm = function( $selection ){
@@ -130,29 +142,11 @@ FileUpload.prototype.getValueFromForm = function( $selection ){
     return files[ 0 ];
     */
 }
-/*
+
 FileUpload.prototype.setValueToForm = function( value, $this ){
-    $this.prop( 'checked', value === undefined? false: value );
-    //this.throwEventsForSetValueToForm( $this );
+    this.fullValue = value? value: undefined;
+    this.updateNewFile( this.fullValue? this.fullValue.file: undefined );
 };
-*/
-/*
-FileUpload.prototype.getValueFromRecord = function( record ){
-    return record[ this.id ];
-};
-*/
-/*
-FileUpload.prototype.getViewValueFromRecord = function( record ){
-    return record[ this.id ];
-};
-*/
-/*
-FileUpload.prototype.getValueFromSelection = function( $selection ){
-    
-    var stringValue = Field.prototype.getValueFromSelection.call( this, $selection ).toLowerCase();
-    return stringValue == 'true';
-};
-*/
 
 //TODO Implement this!
 FileUpload.prototype.validate = function( value ){

@@ -453,6 +453,9 @@ div.zcrud-subform-content table.zcrud span.zcrud-validationMessage {
   position: absolute;
   margin-left: .25em; }
 
+div.zcrud-field-file div.fileUpload {
+  cursor: pointer !important; }
+
 .zcrud-hidden {
   display: none; }
 

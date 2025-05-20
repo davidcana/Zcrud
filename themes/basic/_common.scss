@@ -574,6 +574,11 @@ div.zcrud-subform-content table.zcrud span.zcrud-validationMessage {
     margin-left: .25em;
 }
 
+// File upload fields
+div.zcrud-field-file div.fileUpload {
+   cursor: pointer !important; 
+}
+
 // Hide elements. Do not mix with zcrud-hide-marker, a style used as a marker that is not defined in CSS files
 .zcrud-hidden {
     display: none;
