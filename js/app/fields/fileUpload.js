@@ -4,8 +4,9 @@
 'use strict';
 
 var Field = require( './field.js' );
-var context = require( '../context.js' );
-var utils = require( '../utils.js' );
+//var context = require( '../context.js' );
+//var utils = require( '../utils.js' );
+var validationManager = require( '../validationManager.js' );
 
 var zpt = require( 'zpt' );
 
@@ -74,16 +75,27 @@ FileUpload.prototype.readFile = function( $file ){
         // reader.result contains the contents of blob as a typed array
         fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
         //alert( `File name ${file.name}, file size ${utils.formatFileSize(file.size)} loaded successfully` );
-        this.runSetValueListeners();
-        this.updateNewFile( this.fullValue.file );
+        this.afterSetValue( this.fullValue.file );
     });
 
     if ( file ){
         reader.readAsArrayBuffer( file );
     } else {
-        this.runSetValueListeners();
-        this.updateNewFile( undefined );
+        this.afterSetValue( undefined );
     }
+};
+
+FileUpload.prototype.afterSetValue = function( file ){
+    this.runSetValueListeners();
+    this.updateNewFile( file );
+
+    const page = this.getPage();
+    validationManager.showErrorForField(
+        this.get$Input().el,
+        this,
+        page.getOptions(),
+        page
+    );
 };
 
 FileUpload.prototype.updateNewFile = function( newFile ){
@@ -148,15 +160,46 @@ FileUpload.prototype.getValueFromForm = function( $selection ){
 FileUpload.prototype.setValueToForm = function( value, $this ){
     this.fullValue = value? value: undefined;
     this.updateNewFile( this.fullValue? this.fullValue.file: undefined );
+
+    const page = this.getPage();
+    validationManager.showErrorForField(
+        this.get$Input().el,
+        this,
+        page.getOptions(),
+        page
+    );
 };
 
 FileUpload.prototype.getValueForHistory = function( $this ){
     return this.fullValue;
 };
 
-//TODO Implement this!
-FileUpload.prototype.validate = function( value ){
-    return true;
+FileUpload.prototype.validate = function(){
+    if ( ! this.fullValue ){
+        return true;
+    }
+
+    // Check extension
+    if ( this.acceptedFileExtensions ){
+        let found = false;
+        for ( const extension of this.acceptedFileExtensions ) {
+            if ( this.fullValue.file.name.endsWith( extension ) ){
+                found = true;
+            }
+        }
+        if ( ! found ){
+            return 'badInput';
+        }
+    }
+
+    // Check maxFileSize and minFileSize
+    if ( this.fullValue.file.size > this.maxFileSize ){
+        return 'rangeOverflow';
+    }
+    if ( this.fullValue.file.size < this.minFileSize ){
+        return 'rangeUnderflow';
+    }
 };
 
 module.exports = FileUpload;
+

@@ -1,14 +1,8 @@
 'use strict';
 
-//var $ = require( 'zzdom' );
-//var zcrud = require( '../../../js/app/main.js' );
 var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
 var $ = zzDOM.zz;
-//var Qunit = require( 'qunit' );
 var testServerSide = require( './testServerSide' );
-//var context = require( '../../../js/app/context.js' );
-//var log4javascript = require( 'log4javascript' );
-//const { validation } = require('../../../js/app/defaultOptions.js');
 
 var options = {
     
@@ -201,7 +195,10 @@ var options = {
                 field: {
                     accept: '.pdf'
                 }
-            }
+            },
+            acceptedFileExtensions: [ '.pdf' ],
+            maxFileSize: 10 * 1024, // 10Kb
+            minFileSize: 1024       // 1Kb
         }
     },
 
