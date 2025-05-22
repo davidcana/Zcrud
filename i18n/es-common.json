@@ -106,6 +106,9 @@
     "validation_valueMissing": "Valor no introducido. No se ha introducido ningún valor, pero es necesario.",
 
     "validation_fieldsAreNotEqual": "¡Las contraseñas no coinciden!",
+    "validation_fileUpload_rangeOverflow": "Fichero demasiado grande.",
+    "validation_fileUpload_rangeUnderflow": "Fichero demasiado pequeño.",
+    "validation_fileUpload_badInput": "Tipo de fichero no permitido.",
 
     "_error": "",
     "errorTitle": "Vaya...",

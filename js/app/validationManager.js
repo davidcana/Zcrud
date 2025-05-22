@@ -149,14 +149,14 @@ module.exports = (function() {
 
             const message = options.validation.useBrowserMessages?
                 true:
-                getErrorMessage( el, options, validity, fieldValidationValue );
+                getErrorMessage( el, field, options, validity, fieldValidationValue );
             el.setCustomValidity( message );    // To force input:invalid in HTML
             el.reportValidity();
 
         } else {
             // Show validation error message using zcrud-validationMessage HTML elements
             
-            const message = getErrorMessage( el, options, validity, fieldValidationValue );
+            const message = getErrorMessage( el, field, options, validity, fieldValidationValue );
             el.setCustomValidity( message );    // To force input:invalid in HTML
             showValidationMessage( el, message );
         }
@@ -188,9 +188,11 @@ module.exports = (function() {
         Try to translate through the next list, stop when a i18n message is found:
             'validation_' + el.name + '_' + validityName,
             'validation_' + el.name,
+            'validation_' + field.type + '_' + validityName,
+            'validation_' + field.type,
             'validation_' + validityName
     */
-    var getErrorMessage = function( el, options, validity, fieldValidationValue ){
+    var getErrorMessage = function( el, field, options, validity, fieldValidationValue ){
 
         // Use browser validation message if configured
         if ( options.validation.useBrowserMessages ){
@@ -215,6 +217,8 @@ module.exports = (function() {
                     [
                         'validation_' + el.name + '_' + validityName,
                         'validation_' + el.name,
+                        'validation_' + field.type + '_' + validityName,
+                        'validation_' + field.type,
                         'validation_' + validityName
                     ]
                 );

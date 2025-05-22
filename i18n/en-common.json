@@ -105,6 +105,9 @@
     "validation_valueMissing": "Value missing. There is no value, but it is required.",
     
     "validation_fieldsAreNotEqual": "Passwords are not equal!",
+    "validation_fileUpload_rangeOverflow": "Too big file!",
+    "validation_fileUpload_rangeUnderflow": "Too small file!",
+    "validation_fileUpload_badInput": "Not allowed file extension!",
 
     "_error": "",
     "errorTitle": "Oops...",
