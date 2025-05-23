@@ -197,8 +197,8 @@ var options = {
                 }
             },
             acceptedFileExtensions: [ '.pdf' ],
-            maxFileSize: 10 * 1024, // 10Kb
-            minFileSize: 1024       // 1Kb
+            maxFileSize: 1024 * 1024, // 1Mb
+            minFileSize:   10 * 1024  // 10Kb
         }
     },
 
