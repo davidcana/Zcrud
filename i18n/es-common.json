@@ -78,6 +78,7 @@
     "noCurrentFile": "No hay ningún fichero actualmente.",
     "newFile": "Fichero nuevo",
     "noNewFile": "No ha seleccionado ningún fichero nuevo.",
+    "fileDragAndDropText": "Haz clic aquí y selecciona el fichero o arrástralo aquí.",
 
     "_buttons": "",
     "Add new record": "Nuevo registro",

@@ -579,9 +579,31 @@ div.zcrud-field-file {
     div.fileUpload {
         cursor: pointer !important; 
     }
-
+    div.subtitle {
+        font-size: 70%;
+        font-weight: bold;
+    }
+    div.fileName {
+        font-style: italic;
+    }
+    div.currentFile {
+        border: dashed orange;
+        margin-bottom: .5em;
+        padding-left : .5em;
+    }
+    div.newFile {
+        border: dashed orange;
+        padding-left : .5em;
+    }
+    div.dropText {
+        padding: 2em 0 1em 0;
+        font-size: 120%;
+    }
+    span.zcrud-validationMessage {
+        margin-top: -5em; 
+    }
     &.drag-over {
-        background-color: #e0b2b2;
+        background-color: #ecd864;
     }
 }
 

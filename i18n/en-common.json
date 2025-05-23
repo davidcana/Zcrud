@@ -78,6 +78,7 @@
     "noCurrentFile": "No current file.",
     "newFile": "New file",
     "noNewFile": "No new file.",
+    "fileDragAndDropText": "Click here and select your file or drag it here.",
 
     "_buttons": "",
     "Add new record": "Add new record",
