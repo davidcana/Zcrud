@@ -455,6 +455,8 @@ div.zcrud-subform-content table.zcrud span.zcrud-validationMessage {
 
 div.zcrud-field-file div.fileUpload {
   cursor: pointer !important; }
+div.zcrud-field-file.drag-over {
+  background-color: #e0b2b2; }
 
 .zcrud-hidden {
   display: none; }

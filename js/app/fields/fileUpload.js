@@ -47,13 +47,76 @@ FileUpload.prototype.bindEvents = function( params, $selection ){
     var fileUploadInstance = this;
     const $file = this.get$file();
 
+    // Change event
     $file
         .on(
             'change',  
             function ( event ) {
                 event.preventDefault();
                 event.stopPropagation();
+
                 fileUploadInstance.readFile( $file );
+            }
+    );
+
+    // Drag and drop events
+    const $drag = this.get$();
+    $drag
+        .on(
+            'dragover',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $drag.addClass( 'drag-over' );
+            }
+        )
+        .on(
+            'dragenter',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $drag.addClass( 'drag-over' );
+            }
+        )
+        .on(
+            'dragleave',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $drag.removeClass( 'drag-over' );
+            }
+        )
+        .on(
+            'dragend',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $drag.removeClass( 'drag-over' );
+            }
+        )
+        .on(
+            'drop',
+            function ( event ) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $drag.removeClass( 'drag-over' );
+
+                // Getting the list of dragged files
+                const files = event.dataTransfer.files;
+
+                // Checking if there are any files
+                if ( files.length ) {
+                    // Assigning the files to the hidden input
+                    $file.el.files = files;
+
+                    // Trigger change event to update history and process file
+                    $file.trigger( 'change' );
+                }
             }
     );
 };
