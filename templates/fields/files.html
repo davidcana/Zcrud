@@ -10,7 +10,7 @@
                  data-attributes="class string:fileUpload${inlinePart}">
                 <div>
                     <div data-use-macro="'currentFilePart'"><!--empty--></div>
-                    <div data-use-macro="'uploadPart'"><!--empty--></div>
+                    <div data-use-macro="'inputPart'"><!--empty--></div>
                     <div data-use-macro="'dropPart'"><!--empty--></div>
                 </div>
             </div>
@@ -31,8 +31,8 @@
             </div>
         </div>
         
-        <div data-define-macro="uploadPart" data-omit-tag="">
-            <div class="upload"
+        <div data-define-macro="inputPart" data-omit-tag="">
+            <div class="input"
                  data-attributes="style cond: field/inline 'display: none;' null">
                 <input data-attributes="id cond: renderIds field/elementId null;
                                          name field/name;
