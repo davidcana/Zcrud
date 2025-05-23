@@ -126,6 +126,32 @@ FileUpload.prototype.readFile = function( $file ){
     // Get the file instance
     var file = $file.el.files[ 0 ];
 
+    // Do nothing if there is no file: the user pressed cancel on select file dialog
+    if ( ! file ){
+        return;
+    }
+
+    // Update fullValue property
+    this.fullValue = {
+        file: this.filterFilePart( file )
+    };
+
+    // Instance a FileReader and read the file with it
+    const reader = new FileReader();
+    var fileUploadInstance = this;
+    reader.addEventListener( 'loadend', () => {
+        // reader.result contains the contents of blob as a typed array
+        fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
+        this.afterSetValue( this.fullValue.file );
+    });
+    reader.readAsArrayBuffer( file );
+};
+/*
+FileUpload.prototype.readFile = function( $file ){
+
+    // Get the file instance
+    var file = $file.el.files[ 0 ];
+
     // Update fullValue property
     this.fullValue = {
         file: this.filterFilePart( file )
@@ -147,6 +173,7 @@ FileUpload.prototype.readFile = function( $file ){
         this.afterSetValue( undefined );
     }
 };
+*/
 
 FileUpload.prototype.afterSetValue = function( file ){
     this.runSetValueListeners();
@@ -238,7 +265,7 @@ FileUpload.prototype.getValueForHistory = function( $this ){
 };
 
 FileUpload.prototype.validate = function(){
-    if ( ! this.fullValue ){
+    if ( ! this.fullValue || ! this.fullValue.file.size ){
         return true;
     }
 

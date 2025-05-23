@@ -34,11 +34,18 @@ Change.prototype.constructor = Change;
 
 Change.prototype.setValue = function( value ){
 
-    this.field.setValueToForm(  
-        value === undefined? null: value, 
-        this.$this, 
-        ! this.history.isFormMode(), 
-        this.options );
+    this.field.setValueToForm(
+        value === undefined? null: value,
+        this.$this
+    );
+    /*
+    this.field.setValueToForm(
+        value === undefined? null: value,
+        this.$this,
+        ! this.history.isFormMode(),
+        this.options
+    );
+    */
 };
 
 Change.prototype.undo = function(){
