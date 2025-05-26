@@ -6,7 +6,6 @@
 var context = require( './context.js' );
 var validationManager = require( './validationManager.js' );
 var pageUtils = require( './pages/pageUtils.js' );
-var utils = require( './utils.js' );
 
 module.exports = (function() {
     
@@ -97,11 +96,6 @@ module.exports = (function() {
         };
         
         options.ajax.ajaxFunction( thisOptions );
-        /*
-        options.ajax.ajaxFunction(
-            utils.extend( {}, options.ajax.defaultFormAjaxOptions, thisOptions )
-        );
-        */
     };
     
     /* 
@@ -154,11 +148,7 @@ module.exports = (function() {
 
         if ( validationData === true ){
             options.ajax.ajaxFunction( thisOptions );
-            /*
-            options.ajax.ajaxFunction(
-                utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions ) 
-            );
-            */
+
         } else {
             // Do not show any error message if browser messages must be shown, it dos not work properly (browser messages are not shown)
             if ( ! options.validation.showBrowserMessageBubbles ){
@@ -222,27 +212,18 @@ module.exports = (function() {
         };
 
         options.ajax.ajaxFunction( thisOptions );
-        /*
-        options.ajax.ajaxFunction(
-            utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
-        );
-        */
     };
 
     var getOptions = function ( fieldId, url, options, callback ) {
 
-        //var result = [];
-
         var thisOptions = {
             url    : url,
-            //async  : false,
             success: function ( data ) {
                 data = options.ajax.ajaxPostFilter( data );
                 if ( data.result != 'OK' ) {
                     throw 'Error downloading options:' + data.message;
                 }
 
-                //result = data.options;
                 callback( data.options );
             },
             error  : function () {
@@ -251,13 +232,6 @@ module.exports = (function() {
         };
 
         options.ajax.ajaxFunction( thisOptions );
-        /*
-        options.ajax.ajaxFunction(
-            utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
-        );
-        */
-
-        //return result;
     };
     
     return {

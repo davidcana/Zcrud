@@ -22,14 +22,13 @@ module.exports = (function() {
     var fnToString = hasOwn.toString;
     var ObjectFunctionString = fnToString.call( Object );
     var isPlainObject = function( obj ) {
-        //return typeof x === 'object' && ! Array.isArray( x ) && x !== null;
         var proto, Ctor;
 
         // Detect obvious negatives
 
         // Use toString instead of jQuery.type to catch host objects
 
-        if ( !obj || toString.call( obj ) !== '[object Object]' ) {
+        if ( ! obj || toString.call( obj ) !== '[object Object]' ) {
             return false;
         }
 
@@ -37,7 +36,7 @@ module.exports = (function() {
 
         // Objects with no prototype (e.g., `Object.create( null )`) are plain
 
-        if ( !proto ) {
+        if ( ! proto ) {
             return true;
         }
 
@@ -231,6 +230,7 @@ module.exports = (function() {
     };
 
     var formatFileSize = function( number ){
+        
         if (number < 1e3) {
             return `${number} bytes`;
         } else if (number >= 1e3 && number < 1e6) {

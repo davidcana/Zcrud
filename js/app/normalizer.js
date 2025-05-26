@@ -70,11 +70,6 @@ module.exports = (function() {
                 parent
             );
         }
-        /*
-        $.each( fields, function ( fieldId, field ) {
-            fieldInstances[ fieldId ] = buildFullFieldInstance( fieldId, field, options, parent );
-        });
-        */
 
         return fieldInstances;
     };
@@ -185,14 +180,6 @@ module.exports = (function() {
             var componentsConf = utils.extend( true, {}, defaultComponentsConfig, pageConf.components );
             pageConf.components = componentsConf;
         }
-        /*
-        $.each( options.pageConf.pages, function ( pageId, page ) {
-            var pageConf = utils.extend( true, {}, defaultPageConf, page );
-            options.pageConf.pages[ pageId ] = pageConf;
-            var componentsConf = utils.extend( true, {}, defaultComponentsConfig, pageConf.components );
-            pageConf.components = componentsConf;
-        });
-        */
     };
     
     return {

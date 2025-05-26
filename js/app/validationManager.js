@@ -70,13 +70,6 @@ module.exports = (function() {
         );
     };
 
-    /*
-    var fieldValidation = function( el, field, options ){
-
-        const $el = $( el );
-        return field? field.validate( $el.val() ): true;
-    };
-    */
     var fieldValidation = function( el, field, options, page ){
 
         if ( ! field ){
@@ -203,9 +196,6 @@ module.exports = (function() {
         
         // Clone validity
         const validityClone = utils.extend( true, [], validity );
-        //if ( ! fieldValidationValue ){
-        //    validityClone[ 'typeMismatch' ] = true;
-        //}
         if ( utils.isString( fieldValidationValue ) ){
             validityClone[ fieldValidationValue ] = true;
         }
