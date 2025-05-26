@@ -209,7 +209,7 @@ QUnit.test( 'editable list create record with duplicated key test', function( as
         function( options ){
 
             testServerSide.resetServices();
-            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+            testHelper.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -255,7 +255,7 @@ QUnit.test( 'editable list update record with no duplicated key test', function(
         function( options ){
 
             testServerSide.resetServices();
-            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+            testHelper.updateListVisibleFields( options, [ 'id', 'name' ] );
             
             $( '#departmentsContainer' ).zcrud( 'renderList' );
             
@@ -315,7 +315,7 @@ QUnit.test( 'editable list update record with duplicated key test', function( as
         function( options ){
 
             testServerSide.resetServices();
-            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+            testHelper.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -369,7 +369,7 @@ QUnit.test( 'editable list delete non existing record test', function( assert ) 
         function( options ){
 
             testServerSide.resetServices();
-            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+            testHelper.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -465,7 +465,7 @@ QUnit.test( 'editable list create record with undefined key test', function( ass
         function( options ){
 
             testServerSide.resetServices();
-            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+            testHelper.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 
@@ -552,7 +552,7 @@ QUnit.test( 'editable list create record with undefined key test and then update
         function( options ){
 
             testServerSide.resetServices();
-            context.updateListVisibleFields( options, [ 'id', 'name' ] );
+            testHelper.updateListVisibleFields( options, [ 'id', 'name' ] );
 
             $( '#departmentsContainer' ).zcrud( 'renderList' );
 

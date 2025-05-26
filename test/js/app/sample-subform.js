@@ -251,8 +251,8 @@ $( '#departmentsContainer' ).zcrud(
     options,
     function( options ){
         
-        //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
-        //context.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
+        //testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', 'time', 'datetime', 'date' ] );
+        //testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', 'date' ] );
         
         //errorFunctionCounter = 0;
         $( '#departmentsContainer' ).zcrud( 'renderList' );

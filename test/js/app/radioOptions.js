@@ -205,7 +205,7 @@ QUnit.test( 'URL returning array of objects editable list test', function( asser
     var done = assert.async();
     options = utils.extend( true, {}, editableListAllFieldsTestOptions );
     options.pageConf.pages.list.getRecordURL = 'http://localhost/CRUDManager.do?cmd=GET&table=department';
-    context.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
 
     $( '#departmentsContainer' ).zcrud(
         'init',

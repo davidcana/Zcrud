@@ -309,7 +309,7 @@ QUnit.test( 'create text area test', function( assert ) {
             testServerSide.setService( key, record );
             
             var varName = 'description';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -428,7 +428,7 @@ QUnit.test( 'create datetime test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'datetime';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -554,7 +554,7 @@ QUnit.test( 'create datetime using picker test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'datetime';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -689,7 +689,7 @@ QUnit.test( 'create inline datetime using picker test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'datetime';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].inline = true;
             
             errorFunctionCounter = 0;
@@ -826,7 +826,7 @@ QUnit.test( 'create date test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'date';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -952,7 +952,7 @@ QUnit.test( 'create date using picker test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'date';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1086,7 +1086,7 @@ QUnit.test( 'create inline date using picker test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'date';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].inline = true;
 
             errorFunctionCounter = 0;
@@ -1223,7 +1223,7 @@ QUnit.test( 'create time test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'time';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1342,7 +1342,7 @@ QUnit.test( 'create time using picker test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'time';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1470,7 +1470,7 @@ QUnit.test( 'create inline time using picker test', function( assert ) {
             testServerSide.setService( key, serverRecord );
 
             var varName = 'time';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             options.fields.members.fields[ varName ].inline = true;
             
             errorFunctionCounter = 0;
@@ -1599,7 +1599,7 @@ QUnit.test( 'create checkbox test', function( assert ) {
             testServerSide.setService( key, record );
 
             var varName = 'important';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1718,7 +1718,7 @@ QUnit.test( 'create radio test', function( assert ) {
             testServerSide.setService( key, record );
 
             var varName = 'phoneType';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1837,7 +1837,7 @@ QUnit.test( 'create select test', function( assert ) {
             testServerSide.setService( key, record );
 
             var varName = 'province';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -1959,7 +1959,7 @@ QUnit.test( 'create 2 linked select test', function( assert ) {
 
             var varName = 'province';
             var varName2 = 'city';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName, varName2 ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName, varName2 ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -2091,7 +2091,7 @@ QUnit.test( 'create datalist test', function( assert ) {
             testServerSide.setService( key, record );
 
             var varName = 'browser';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -2210,7 +2210,7 @@ QUnit.test( 'create checkboxes test', function( assert ) {
             testServerSide.setService( key, record );
 
             var varName = 'hobbies';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
 
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );
@@ -2329,7 +2329,7 @@ QUnit.test( 'create password test', function( assert ) {
             testServerSide.setService( key, record );
             
             var varName = 'password';
-            context.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
+            testHelper.updateSubformFields( options.fields.members, [ 'code', 'name', varName ] );
             
             errorFunctionCounter = 0;
             $( '#departmentsContainer' ).zcrud( 'renderList' );

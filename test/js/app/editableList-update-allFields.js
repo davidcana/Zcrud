@@ -25,7 +25,7 @@ QUnit.test( 'update text area test', function( assert ) {
 
     var done = assert.async();
     var varName = 'description';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -91,7 +91,7 @@ QUnit.test( 'update datetime test', function( assert ) {
 
     var done = assert.async();
     var varName = 'datetime';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -157,7 +157,7 @@ QUnit.test( 'update datetime using picker test', function( assert ) {
 
     var done = assert.async();
     var varName = 'datetime';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -228,7 +228,7 @@ QUnit.test( 'update inline datetime using picker test', function( assert ) {
 
     var done = assert.async();
     var varName = 'datetime';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -301,7 +301,7 @@ QUnit.test( 'update date test', function( assert ) {
 
     var done = assert.async();
     var varName = 'date';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -367,7 +367,7 @@ QUnit.test( 'update date using picker test', function( assert ) {
 
     var done = assert.async();
     var varName = 'date';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -438,7 +438,7 @@ QUnit.test( 'update inline date using picker test', function( assert ) {
 
     var done = assert.async();
     var varName = 'date';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -511,7 +511,7 @@ QUnit.test( 'update time test', function( assert ) {
 
     var done = assert.async();
     var varName = 'time';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -577,7 +577,7 @@ QUnit.test( 'update time using picker test', function( assert ) {
 
     var done = assert.async();
     var varName = 'time';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -647,7 +647,7 @@ QUnit.test( 'update inline time using picker test', function( assert ) {
 
     var done = assert.async();
     var varName = 'time';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -718,7 +718,7 @@ QUnit.test( 'update inline time using picker test', function( assert ) {
 QUnit.test( 'update checkbox test', function( assert ) {
 
     var done = assert.async();
-    context.updateListVisibleFields( options, [ 'id', 'name', 'important' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'important' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -784,7 +784,7 @@ QUnit.test( 'update checkbox test', function( assert ) {
 QUnit.test( 'update radio test', function( assert ) {
 
     var done = assert.async();
-    context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -850,7 +850,7 @@ QUnit.test( 'update radio test', function( assert ) {
 QUnit.test( 'update 2 radios test', function( assert ) {
 
     var done = assert.async();
-    context.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -943,7 +943,7 @@ QUnit.test( 'update 2 radios test', function( assert ) {
 QUnit.test( 'update select test', function( assert ) {
 
     var done = assert.async();
-    context.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'province' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1015,7 +1015,7 @@ QUnit.test( 'update select test', function( assert ) {
 QUnit.test( 'update 2 linked select test', function( assert ) {
 
     var done = assert.async();
-    context.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1120,7 +1120,7 @@ QUnit.test( 'update 2 linked select test', function( assert ) {
 QUnit.test( 'update datalist test', function( assert ) {
 
     var done = assert.async();
-    context.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'browser' ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1186,7 +1186,7 @@ QUnit.test( 'update datalist test', function( assert ) {
 QUnit.test( 'update hobbies test', function( assert ) {
 
     var done = assert.async();
-    context.updateListVisibleFields( options, [ 'id', 'name', 'hobbies' ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', 'hobbies' ] );
 
     $( '#departmentsContainer' ).zcrud( 
         'init',
@@ -1253,7 +1253,7 @@ QUnit.test( 'update password test', function( assert ) {
 
     var done = assert.async();
     var varName = 'password';
-    context.updateListVisibleFields( options, [ 'id', 'name', varName ] );
+    testHelper.updateListVisibleFields( options, [ 'id', 'name', varName ] );
     
     $( '#departmentsContainer' ).zcrud( 
         'init',

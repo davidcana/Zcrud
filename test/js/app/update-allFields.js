@@ -31,7 +31,7 @@ QUnit.test( 'update text area test', function( assert ) {
         function( options ){
             
             var varName = 'description';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -84,7 +84,7 @@ QUnit.test( 'update datetime test', function( assert ) {
         function( options ){
     
             var varName = 'datetime';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -143,7 +143,7 @@ QUnit.test( 'update datetime using picker test', function( assert ) {
 
             debugger;
             var varName = 'datetime';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -206,7 +206,7 @@ QUnit.test( 'update inline datetime using picker test', function( assert ) {
         function( options ){
 
             var varName = 'datetime';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].inline = true;
             
             testServerSide.resetServices();
@@ -270,7 +270,7 @@ QUnit.test( 'update date test', function( assert ) {
         function( options ){
 
             var varName = 'date';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -328,7 +328,7 @@ QUnit.test( 'update date using picker test', function( assert ) {
         function( options ){
 
             var varName = 'date';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -391,7 +391,7 @@ QUnit.test( 'update inline date using picker test', function( assert ) {
         function( options ){
 
             var varName = 'date';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].inline = true;
 
             testServerSide.resetServices();
@@ -455,7 +455,7 @@ QUnit.test( 'update time test', function( assert ) {
         function( options ){
 
             var varName = 'time';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -508,7 +508,7 @@ QUnit.test( 'update time using picker test', function( assert ) {
         function( options ){
 
             var varName = 'time';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -564,7 +564,7 @@ QUnit.test( 'update inline time using picker test', function( assert ) {
         function( options ){
 
             var varName = 'time';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
             options.fields[ varName ].inline = true;
             
             testServerSide.resetServices();
@@ -620,7 +620,7 @@ QUnit.test( 'update checkbox test', function( assert ) {
         options,
         function( options ){
     
-            context.updateFormVisibleFields( options, [ 'id', 'name', 'important' ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', 'important' ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -673,7 +673,7 @@ QUnit.test( 'update radio test', function( assert ) {
         options,
         function( options ){
     
-            context.updateFormVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', 'phoneType' ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -726,7 +726,7 @@ QUnit.test( 'update select test', function( assert ) {
         options,
         function( options ){
     
-            context.updateFormVisibleFields( options, [ 'id', 'name', 'province' ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', 'province' ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -783,7 +783,7 @@ QUnit.test( 'update 2 linked select test', function( assert ) {
         options,
         function( options ){
     
-            context.updateFormVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', 'province', 'city' ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -875,7 +875,7 @@ QUnit.test( 'update datalist test', function( assert ) {
         options,
         function( options ){
     
-            context.updateFormVisibleFields( options, [ 'id', 'name', 'browser' ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', 'browser' ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -928,7 +928,7 @@ QUnit.test( 'update checkboxes test', function( assert ) {
         options,
         function( options ){
 
-            context.updateFormVisibleFields( options, [ 'id', 'name', 'hobbies' ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', 'hobbies' ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
@@ -982,7 +982,7 @@ QUnit.test( 'update password test', function( assert ) {
         function( options ){
             
             var varName = 'password';
-            context.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', varName ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;

@@ -1752,7 +1752,27 @@ module.exports = (function() {
         
         return result;
     };
-    
+
+    // Update visible fields (for testing purposes)
+    var updateFormVisibleFields = function( options, fieldIdList ){
+        options.pageConf.pages.create.fields = fieldIdList;
+        options.pageConf.pages.update.fields = fieldIdList;
+        options.pageConf.pages.delete.fields = fieldIdList;
+    };
+    var updateListVisibleFields = function( options, fieldIdList ){
+        options.pageConf.pages.list.fields = fieldIdList;
+    };
+    var updateSubformFields = function( subformField, fieldIdList ){
+        
+        var fields = subformField.fields;
+        var temp = {};
+        for ( var c = 0; c < fieldIdList.length; ++c ){
+            var id = fieldIdList[ c ];
+            temp[ id ] = fields[ id ];
+        }  
+        subformField.fields = temp;
+    };
+
     return {
         countVisibleRows: countVisibleRows,
         countVisibleSubformRows: countVisibleSubformRows,
@@ -1841,6 +1861,9 @@ module.exports = (function() {
         getSubformLastRow: getSubformLastRow,
         fromObjectToArray: fromObjectToArray,
         fillSubformRow: fillSubformRow,
-        getAllValues: getAllValues
+        getAllValues: getAllValues,
+        updateFormVisibleFields: updateFormVisibleFields,
+        updateListVisibleFields: updateListVisibleFields,
+        updateSubformFields: updateSubformFields
     };
 })();

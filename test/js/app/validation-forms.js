@@ -699,7 +699,7 @@ QUnit.test( 'update password/newPassword/repeatNewPassword validation test', fun
         options,
         function( options ){
             
-            context.updateFormVisibleFields( options, [ 'id', 'name', 'password', 'newPassword', 'repeatNewPassword' ] );
+            testHelper.updateFormVisibleFields( options, [ 'id', 'name', 'password', 'newPassword', 'repeatNewPassword' ] );
 
             testServerSide.resetServices();
             errorFunctionCounter = 0;
