@@ -593,7 +593,6 @@ Datetime.prototype.updateDatePicker = function( referenceDate, selectedDate, $da
 
     // Refresh template
     zpt.run({
-    //context.getZPTParser().run({
         root: $datetime.find( '.datepicker' )[ 0 ],
         dictionaryExtension: this.dictionary
         //notRemoveGeneratedTags: false

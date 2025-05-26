@@ -210,7 +210,7 @@ EditingComponent.prototype.submit = function( event ){
 EditingComponent.prototype.doSubmit = function( event ){
 
     var instance = this;
-    var jsonObject = context.getJSONBuilder( this.options ).buildJSONForAll(
+    var jsonObject = this.options.jsonBuilder.buildJSONForAll(
         this.thisOptions.key || this.options.key, 
         this.listPage.getInstanceDictionaryExtension().records,
         this.listPage.getFields(),

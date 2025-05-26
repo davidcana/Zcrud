@@ -4,11 +4,9 @@
 'use strict';
     
 var zpt = require( 'zpt' );
-//var pageUtils = require( './pages/pageUtils.js' );
 
 module.exports = (function() {
     
-    //var zptParser = undefined;
     var subformSeparator = '-';
     
     // Cache
@@ -79,13 +77,13 @@ module.exports = (function() {
     };
 
     var getSelectorString = function( $item ){
-        
-        var selector = (typeof($item.attr('id')) !== 'undefined' || $item.attr('id') !== null) ? '#' + $item.attr('id') :  '.' + $item.attr('class');
+        var selector = ( typeof( $item.attr( 'id' ) ) !== 'undefined' || $item.attr( 'id' ) !== null )?
+            '#' + $item.attr( 'id' ):
+            '.' + $item.attr( 'class' );
         return selector;
     };
     
     var getListPage = function( listPageIdSource ){
-        
         try {
             var listPageId = typeof listPageIdSource === 'object'? listPageIdSource.pageConf.pages.list.id: listPageIdSource;
         } catch ( e ) {
@@ -97,7 +95,6 @@ module.exports = (function() {
     };    
     
     var getFormPage = function( formPageIdSource ){
-
         try {
             var formPageId = typeof formPageIdSource === 'object'? formPageIdSource.formId: formPageIdSource;
         } catch ( e ) {
@@ -110,7 +107,6 @@ module.exports = (function() {
     
     // Add to declaredRemotePageUrls all non repeated urls
     var declareRemotePageUrl = function( template, declaredRemotePageUrls ){
-
         if ( ! template ){
             return;
         }
@@ -124,34 +120,17 @@ module.exports = (function() {
         }
     };
     
-    // ZPT
-    /*
-    var getZPTParser = function(){
-        return zptParser;
-    };
-    var setZPTParser = function( zptParserToApply ){
-        zptParser = zptParserToApply;
-    };
-    */
-    
     // Fields
     var getField = function( fields, fullName ){
-
         var fieldData = getFieldData( fullName );
         return fieldData.subformName? fields[ fieldData.subformName ].fields[ fieldData.name ]: fields[ fieldData.name ];
     };
     var getFieldData = function( fullName ){
-
         var subformSeparatorIndex = fullName.indexOf( subformSeparator );
         return {
             subformName: subformSeparatorIndex === -1? null: fullName.substring( 0, subformSeparatorIndex ),
             name: subformSeparatorIndex === -1? fullName: fullName.substring( 1 + subformSeparatorIndex )
         };
-    };
-    
-    // JSONBuilder
-    var getJSONBuilder = function( options ){
-        return options.jsonBuilder;
     };
 
     // Field builder
@@ -201,7 +180,6 @@ module.exports = (function() {
         showError: showError,
         confirm: confirm,
         showMessage: showMessage,
-        //getFormValidationLanguage: getFormValidationLanguage,
         putOptions: putOptions,
         getOptions: getOptions,
         putPage: putPage,
@@ -210,12 +188,9 @@ module.exports = (function() {
         getListPage: getListPage,
         getFormPage: getFormPage,
         declareRemotePageUrl: declareRemotePageUrl,
-        //getZPTParser: getZPTParser,
-        //setZPTParser: setZPTParser,
         getField: getField,
         getFieldData: getFieldData,
         subformSeparator: subformSeparator,
-        getJSONBuilder: getJSONBuilder,
         setFieldBuilder: setFieldBuilder,
         getFieldBuilder: getFieldBuilder,
         setHistory: setHistory,

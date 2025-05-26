@@ -479,7 +479,7 @@ FormPage.prototype.updateRecordFromJSON = function( jsonObject ) {
         case 'create':
         case 'update':
         case 'customForm':
-            this.record = context.getJSONBuilder( this.options ).getRecordFromJSON( 
+            this.record = this.options.jsonBuilder.getRecordFromJSON( 
                 jsonObject, 
                 this.type, 
                 this.record, 
@@ -673,7 +673,7 @@ FormPage.prototype.doSubmitCustomForm = function( event, $form ){
     return this.saveCommon( 
         this.id, 
         event,
-        context.getJSONBuilder( this.options ).buildJSONForAll( 
+        this.options.jsonBuilder.buildJSONForAll( 
             this.getKey(),
             [ this.record ],
             this.fields,
@@ -701,7 +701,7 @@ FormPage.prototype.doSubmitCreate = function( event, $form ){
     return this.saveCommon( 
         this.id, 
         event,
-        context.getJSONBuilder( this.options ).buildJSONForAll( 
+        this.options.jsonBuilder.buildJSONForAll( 
             this.getKey(), 
             [ ],
             this.fields,
@@ -718,7 +718,7 @@ FormPage.prototype.addRecord = function( userData ){
 
     var event = undefined;
     var $form = this.get$form();
-    var jsonObject = context.getJSONBuilder( this.options ).buildJSONForAddRecordMethod( userData.record );
+    var jsonObject = this.options.jsonBuilder.buildJSONForAddRecordMethod( userData.record );
 
     this.addAllRecordMethodProperties( userData, jsonObject );
 
@@ -760,7 +760,7 @@ FormPage.prototype.doSubmitUpdate = function( event, $form ){
     return this.saveCommon( 
         this.id, 
         event,
-        context.getJSONBuilder( this.options ).buildJSONForAll(
+        this.options.jsonBuilder.buildJSONForAll(
             this.getKey(), 
             [ this.record ], 
             this.fields,
@@ -786,7 +786,7 @@ FormPage.prototype.updateRecord = function( userData ){
         return;
     }
 
-    var jsonObject = context.getJSONBuilder( this.options ).buildJSONForUpdateRecordMethod( 
+    var jsonObject = this.options.jsonBuilder.buildJSONForUpdateRecordMethod( 
         this.getKey(),
         this.userRecord,
         userData.record,
@@ -822,7 +822,7 @@ FormPage.prototype.doSubmitDelete = function( event, $form ){
     return this.saveCommon( 
         this.id, 
         event,
-        context.getJSONBuilder( this.options ).buildJSONForRemoving(
+        this.options.jsonBuilder.buildJSONForRemoving(
             [ this.getKeyValue() ] ),
         $form 
     );
@@ -832,7 +832,7 @@ FormPage.prototype.deleteRecord = function( userData ){
 
     var event = undefined;
     var $form = this.get$form();
-    var jsonObject = context.getJSONBuilder( this.options ).buildJSONForRemoving(
+    var jsonObject = this.options.jsonBuilder.buildJSONForRemoving(
         [ userData.key ] );
 
     this.addAllRecordMethodProperties( userData, jsonObject );
