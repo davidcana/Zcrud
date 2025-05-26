@@ -16,14 +16,6 @@ module.exports = (function() {
             `<div data-use-macro="${templatePath}"></div>`
         );
     };
-    /*
-    var configureTemplate = function( options, templatePath ){
-        
-        var $containerDiv = $('<div />')
-            .attr( 'data-use-macro', templatePath );
-        options.target.html( $containerDiv );
-    };
-    */
 
     // Normalizes a number between given bounds or sets to a defaultValue if it is undefined
     var normalizeNumber = function ( number, min, max, defaultValue ) {
@@ -66,7 +58,8 @@ module.exports = (function() {
         context.showError( 
             options, 
             false, 
-            request && request.responseText? request.responseText: 'Undefined error' );
+            request && request.responseText? request.responseText: 'Undefined error'
+        );
         
         if ( userErrorFunction ){
             userErrorFunction( 
@@ -87,7 +80,8 @@ module.exports = (function() {
             options, 
             false,
             dataFromServer && dataFromServer.message? dataFromServer.message: 'Undefined error', 
-            dataFromServer && dataFromServer.translateMessage );
+            dataFromServer && dataFromServer.translateMessage
+        );
 
         if ( userErrorFunction ){
             userErrorFunction( 
@@ -110,7 +104,7 @@ module.exports = (function() {
         var result = '';
         for ( var i = 0; i < len; i++ ) {
             var pos = Math.floor( Math.random() * charSet.length );
-            result += charSet.substring( pos, pos+1 );
+            result += charSet.substring( pos, pos + 1 );
         }
         return result;
     }
@@ -129,8 +123,8 @@ module.exports = (function() {
             return;
         }
 
-        return $( event.target ).parents( '.zcrud-data-row' ).first().attr( 'data-record-key' );
-        //return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
+        //return $( event.target ).parents( '.zcrud-data-row' ).first().attr( 'data-record-key' );
+        return $( event.target ).closest( '.zcrud-data-row' ).attr( 'data-record-key' );
     };
     /*
     var getPostTemplates = function( fields ){

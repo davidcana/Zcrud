@@ -170,14 +170,16 @@ FormPage.prototype.configure = function(){
         this.options, 
         this.thisOptions.components, 
         this, 
-        this );
+        this
+    );
 
     context.setHistory(
         new History( 
             this.options, 
             this.thisOptions,
             this, 
-            true ) 
+            true
+        )
     );
 };
 
@@ -440,14 +442,12 @@ FormPage.prototype.bindEvents = function( $form ) {
         .on(
             'change',
             function ( event ) {
-                //var disableHistory = utils.getParam( params, 'disableHistory' );
                 var disableHistory = utils.getParam( event.params, 'disableHistory' );
                 if ( disableHistory ){
                     return;
                 }
                 var $this = $( this );
                 var field = instance.getFieldByName.call( instance, $this.attr( 'name' ) );
-                //var field = instance.getFieldByName.call( instance, $this.prop( 'name' ) );
 
                 // Create function to update history
                 const putChangeInHistoryFunction = function(){
@@ -823,7 +823,8 @@ FormPage.prototype.doSubmitDelete = function( event, $form ){
         this.id, 
         event,
         this.options.jsonBuilder.buildJSONForRemoving(
-            [ this.getKeyValue() ] ),
+            [ this.getKeyValue() ]
+        ),
         $form 
     );
 };
@@ -833,7 +834,8 @@ FormPage.prototype.deleteRecord = function( userData ){
     var event = undefined;
     var $form = this.get$form();
     var jsonObject = this.options.jsonBuilder.buildJSONForRemoving(
-        [ userData.key ] );
+        [ userData.key ]
+    );
 
     this.addAllRecordMethodProperties( userData, jsonObject );
 

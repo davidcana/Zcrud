@@ -98,7 +98,8 @@ ListPage.prototype.showFromClientOnly = function ( dictionaryExtension, dataToSe
 
     this.clientAndServerSuccessFunction( 
         this.buildDataFromClient( dataToSendToServer, recordsDiff ),
-        dictionaryExtension );
+        dictionaryExtension
+    );
 };
     
 ListPage.prototype.getRecordsPaging = function( recordsArray, data ){
@@ -107,7 +108,8 @@ ListPage.prototype.getRecordsPaging = function( recordsArray, data ){
         var firstElementIndex = ( data.pageNumber - 1 ) * data.pageSize;
         return recordsArray.slice(
             firstElementIndex, 
-            firstElementIndex + data.pageSize ); 
+            firstElementIndex + data.pageSize
+        );
     }
 
     return recordsArray;
@@ -131,7 +133,8 @@ ListPage.prototype.showUsingRecords = function ( recordsToUse, dictionaryExtensi
         this.buildDataUsingRecords( recordsToUse ),
         dictionaryExtension, 
         root, 
-        callback );
+        callback
+    );
 };
 
 ListPage.prototype.clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
@@ -192,7 +195,8 @@ ListPage.prototype.showUsingServer = function( dictionaryExtension, root, callba
                     data, 
                     dictionaryExtension, 
                     root, 
-                    callback );
+                    callback
+                );
             },
             error: function( dataFromServer ){
                 context.showError( 
@@ -205,7 +209,8 @@ ListPage.prototype.showUsingServer = function( dictionaryExtension, root, callba
                 }
             }
         }, 
-        this.options );
+        this.options
+    );
 };
     
 ListPage.prototype.beforeProcessTemplate = function( data, dictionaryExtension ){
@@ -262,7 +267,8 @@ ListPage.prototype.triggerListCreatedEvent = function( $form ){
         {
             $form: $form,
             options: this.options
-        });
+        }
+    );
 };
     
 ListPage.prototype.bindButtonEvent = function( button ){
@@ -374,6 +380,7 @@ ListPage.prototype.updateRecords = function( newRecordsArray ){
         this.records[ record[ this.options.key ] ] = record;
     }
 };
+
 ListPage.prototype.buildRecordsArray = function(){
 
     var recordsArray = [];
@@ -395,6 +402,7 @@ ListPage.prototype.getRecordByKey = function( key, mustUpdateRecordFromSelection
 
     return record;
 };
+
 ListPage.prototype.getRowByKey = function( key ){
     return this.get$().find( '[data-record-key="' + key + '"]' );
 };
@@ -414,6 +422,7 @@ ListPage.prototype.updateBottomPanel = function( dictionaryExtension ){
 ListPage.prototype.getRecords = function(){
     return this.records;
 };
+
 ListPage.prototype.getRecordsArray = function(){
     return this.buildRecordsArray();
 };
@@ -461,7 +470,8 @@ ListPage.prototype.getIndexInDictionaryByKey = function( key ){
 };
     
 ListPage.prototype.isEditable = function(){
-    return this.getComponent( 'editing' )? true: false;
+    return !! this.getComponent( 'editing' );
+    //return this.getComponent( 'editing' )? true: false;
 };
 ListPage.prototype.isReadOnly = function(){
     return ! this.isEditable();
@@ -485,7 +495,8 @@ ListPage.prototype.getByRowButtons = function(){
             this.thisOptions.buttons.byRow, 
             'listRow', 
             this,
-            this.options );
+            this.options
+        );
     }
 
     return this.byRowButtons;
@@ -506,7 +517,7 @@ ListPage.prototype.update = function(){
     // Add pagingComponent to root
     var pagingComponent = this.getComponent( 'paging' );
     if ( pagingComponent ){
-        root.push( pagingComponent.get$()[0] );
+        root.push( pagingComponent.get$()[ 0 ] );
     }
 
     // Show list page
