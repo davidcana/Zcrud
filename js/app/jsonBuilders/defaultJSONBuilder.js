@@ -24,19 +24,7 @@ module.exports = (function() {
         data.recordsToRemove = recordsToRemove;
         return data;
     };
-    /*
-    var getFieldFromFieldsArray = function( fields, id ){
-        
-        for ( var c = 0; c < fields.length; c++ ) {
-            var field = fields[ c ];
-            if ( field.id == id ){
-                return field;
-            }
-        }
-        
-        return null;
-    };
-    */
+
     var filterSubforms = function( row, fields, options ){
         
         var result = utils.extend( true, {}, row );
@@ -222,31 +210,12 @@ module.exports = (function() {
                     var historyItem = history.instanceChange( 
                         newValue, 
                         0,
-                        field );
+                        field
+                    );
                     historyItem.doAction( actionsObject, records );
                 }
             }
         }
-        /*
-        $.each( editedRecord, function ( id, newValue ) {
-            
-            var currentValue = currentRecord[ id ];
-            if ( newValue != currentValue ){
-                var field = fieldsMap[ id ];
-                
-                if ( field.type == 'subform' ){
-                    buildSubform( actionsObject, records, field, currentValue, newValue, field.subformKey, history );
-                    
-                } else {
-                    var historyItem = history.instanceChange( 
-                        newValue, 
-                        0,
-                        field );
-                    historyItem.doAction( actionsObject, records );
-                }
-            }
-        });
-        */
         
         return buildJSONForAll( 
             sendOnlyModified,
@@ -307,7 +276,8 @@ module.exports = (function() {
                     0, 
                     key, 
                     undefined,
-                    field.name );
+                    field.name
+                );
                 historyItem.doAction( actionsObject, records );
             }
         }
@@ -325,7 +295,8 @@ module.exports = (function() {
                     0, 
                     fields[ id ], 
                     rowIndex, 
-                    undefined );
+                    undefined
+                );
                 historyItem.doAction( actionsObject, records );
                 idsDone[ id ] = true;
             }
@@ -346,7 +317,8 @@ module.exports = (function() {
                         0, 
                         fields[ id ], 
                         rowIndex, 
-                        newRow[ parentField.subformKey ] );
+                        newRow[ parentField.subformKey ]
+                    );
                     historyItem.doAction( actionsObject, records );
                     idsDone[ id ] = true;
                 }
