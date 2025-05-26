@@ -86,29 +86,6 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                         );
                     }
                 )
-                /*
-                dictionary.optionsListFromForm = optionProvider.buildOptions( params );
-                dictionary.record = params.record;
-                dictionary.value = params.record[ params.field.id ];
-                dictionary.field = params.field;
-                dictionary.type = params.field.type;
-                dictionary.value = params.value;
-
-                // Refresh template
-                zpt.run({
-                    root: $thisDropdown[ 0 ],
-                    dictionaryExtension: dictionary
-                });
-
-                // Trigger change event to refresh multi cascade dropdowns.
-                $thisDropdown.trigger(
-                    'change',
-                    //[ true ]
-                    {
-                        'disableHistory': true
-                    }
-                );
-                */
             }
         );
     }
@@ -156,7 +133,6 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
         case 'checkboxes':  
             var $checkboxesContainer = $this.parents( '.zcrud-checkboxes-container' ).first();
             var $checkboxes = $checkboxesContainer.find( 'input[type="checkbox"].zcrud-active' );
-            //var $checkboxes = $checkboxesContainer.find( 'input:checkbox.zcrud-active' );
             $checkboxes.prop( 'checked', false ); 
             if ( value ){
                 for ( var i = 0; i < value.length; ++i ){
@@ -168,7 +144,6 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
         case 'radio':
             var $radiosContainer = $this.parents( '.zcrud-radio-container' ).first();
             var $radios = $radiosContainer.find( 'input[type="radio"].zcrud-active' );
-            //var $radios = $radiosContainer.find( 'input:radio.zcrud-active' );
             if ( value ){
                 $radios.filter( '[value="' + value + '"]' ).prop( 'checked', true );
             } else {
@@ -181,7 +156,6 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
             $this.val( value );
             $this.trigger(
                 'change',
-                //[ true ]
                 {
                     'disableHistory': true
                 }

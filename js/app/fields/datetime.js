@@ -121,16 +121,18 @@ Datetime.prototype.setValueToFormForDatetime = function( value, $this, manageTim
 Datetime.prototype.updateTime = function( $datetime, timeObject ){
     
     var $timePicker = this.get$timePicker( $datetime );
-    this.get$hoursByTimePicker( $timePicker ).text( 
-        timeObject.hoursToShow );
-    this.get$minutesByTimePicker( $timePicker ).text( 
-        timeObject.minutesToShow );
+    this.get$hoursByTimePicker( $timePicker )
+        .text( timeObject.hoursToShow );
+    this.get$minutesByTimePicker( $timePicker )
+        .text( timeObject.minutesToShow );
 };
 
 Datetime.prototype.parseDate = function( datetimeString ){
 
     try {
-        return this.dateFormatter.parseDate( datetimeString, this.getI18nFormat() );
+        return this.dateFormatter.parseDate(
+            datetimeString, this.getI18nFormat()
+        );
 
     } catch ( error ) {
         return null;
@@ -229,7 +231,8 @@ Datetime.prototype.getValueFromFormForNotInline = function( $selection ){
 Datetime.prototype.getValueFromFormForInline = function( $selection ){
     
     return this.buildDatetimeInstance( 
-                this.get$datetime( $selection ) );
+        this.get$datetime( $selection )
+    );
 };
 
 Datetime.prototype.getValueFromRecord = function( record ){
@@ -283,12 +286,12 @@ Datetime.prototype.buildTimeObjectFromString = function( timeString ){
 
     if ( timeArray
         && timeArray.length == 2 
-        && ! isNaN( timeArray[0] ) && ! isNaN( timeArray[1] )
-        && timeArray[0] >= 0 && timeArray[1] >= 0 
-        && timeArray[0] <= this.maxHour && timeArray[1] <= 59 ){
+        && ! isNaN( timeArray[ 0 ] ) && ! isNaN( timeArray[ 1 ] )
+        && timeArray[ 0 ] >= 0 && timeArray[ 1 ] >= 0 
+        && timeArray[ 0 ] <= this.maxHour && timeArray[ 1 ] <= 59 ){
 
-        hours = timeArray[0];
-        minutes = timeArray[1];
+        hours = timeArray[ 0 ];
+        minutes = timeArray[ 1 ];
     }
 
     return this.buildTimeObjectFromHoursAndMinutes( hours, minutes );
@@ -336,7 +339,8 @@ Datetime.prototype.getDateInfoFromObject = function( referenceDate, selectedDate
         daysInWeeks: this.buildDaysInWeeks( 
             referenceDate, 
             selectedDate,
-            context.translate( 'dayOfWeekStart' ) )
+            context.translate( 'dayOfWeekStart' )
+        )
     };
 };
 
@@ -376,8 +380,11 @@ Datetime.prototype.getWeekDays = function(){
         // Sort the list of days in a week
         var dayOfWeekStart = context.translate( 'dayOfWeekStart' );
         if ( dayOfWeekStart != 0 ){
-            this.weekDays = this.weekDays.slice( dayOfWeekStart ).concat( 
-                this.weekDays.slice( 0, dayOfWeekStart ) );
+            this.weekDays = this.weekDays
+                .slice( dayOfWeekStart )
+                .concat( 
+                    this.weekDays.slice( 0, dayOfWeekStart )
+                );
         }
         this.weekInitDone = true;
     }
@@ -470,8 +477,8 @@ Datetime.prototype.buildDaysInWeeks = function( referenceDate, selectedDate, day
 };
 
 Datetime.prototype.get$datePicker = function( event ){
-    return $( event.target ).parents( '.datepicker' ).first();
-    //return $( event.target ).closest( '.datepicker' );
+    //return $( event.target ).parents( '.datepicker' ).first();
+    return $( event.target ).closest( '.datepicker' );
 };
 
 Datetime.prototype.getSelectedDate = function( event, selectDay, $datePicker ){
@@ -503,7 +510,8 @@ Datetime.prototype.goToPreviousMonth = function( event, $datetime, params ){
     this.goToDate( 
         thisDate, 
         $datetime, 
-        this.buildDictionaryFromParams( params ) );
+        this.buildDictionaryFromParams( params )
+    );
 };
 
 Datetime.prototype.goToNextMonth = function( event, $datetime, params ){
@@ -531,7 +539,8 @@ Datetime.prototype.goToPreviousYear = function( event, $datetime, params ){
     this.goToDate( 
         thisDate, 
         $datetime, 
-        this.buildDictionaryFromParams( params ) );
+        this.buildDictionaryFromParams( params )
+    );
 };
 
 Datetime.prototype.goToNextYear = function( event, $datetime, params ){
@@ -542,7 +551,8 @@ Datetime.prototype.goToNextYear = function( event, $datetime, params ){
     this.goToDate( 
         thisDate, 
         $datetime, 
-        this.buildDictionaryFromParams( params ) );
+        this.buildDictionaryFromParams( params )
+    );
 };
 
 Datetime.prototype.update = function( event, $datetime, params ){
@@ -551,7 +561,8 @@ Datetime.prototype.update = function( event, $datetime, params ){
     this.goToDate( 
         thisDate, 
         $datetime, 
-        this.buildDictionaryFromParams( params ) );
+        this.buildDictionaryFromParams( params )
+    );
 };
 
 Datetime.prototype.goToday = function( event, $datetime, params ){
@@ -559,7 +570,8 @@ Datetime.prototype.goToday = function( event, $datetime, params ){
     this.goToDate( 
         new Date(), 
         $datetime, 
-        this.buildDictionaryFromParams( params ) );
+        this.buildDictionaryFromParams( params )
+    );
 };
 
 Datetime.prototype.buildDictionaryFromParams = function( params ){
@@ -582,14 +594,16 @@ Datetime.prototype.goToDate = function( referenceDate, $datetime, dictionary ){
     this.updateDatePicker( 
         referenceDate, 
         selectedDate, 
-        $datetime );
+        $datetime
+    );
 };
 
 Datetime.prototype.updateDatePicker = function( referenceDate, selectedDate, $datetime ){
     
     this.dictionary.dateInfo = this.getDateInfoFromObject( 
         referenceDate? referenceDate: this.getSelectedYearAndMonthDate( undefined, $datetime ), 
-        selectedDate );
+        selectedDate
+    );
 
     // Refresh template
     zpt.run({
@@ -678,7 +692,10 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addHoursInterval( event, $datetime, -hoursStep, delay );
             }
-        ).on( 'mouseup', mouseupFunction );
+        ).on(
+            'mouseup',
+            mouseupFunction
+        );
 
     $datetime
         .find( '.prev-minute' )
@@ -689,7 +706,10 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addMinutesInterval( event, $datetime, -minutesStep, delay );
             }
-        ).on( 'mouseup', mouseupFunction );
+        ).on(
+            'mouseup',
+            mouseupFunction
+        );
 
     $datetime
         .find( '.next-hour' )
@@ -700,7 +720,10 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addHoursInterval( event, $datetime, hoursStep, delay );
             }
-        ).on( 'mouseup', mouseupFunction );
+        ).on(
+            'mouseup',
+            mouseupFunction
+        );
 
     $datetime
         .find( '.next-minute' )
@@ -711,7 +734,10 @@ Datetime.prototype.bindTimeEvents = function( params, $selection, $datetime ){
                 event.stopPropagation();
                 datetimeInstance.addMinutesInterval( event, $datetime, minutesStep, delay );
             }
-        ).on( 'mouseup', mouseupFunction );
+        ).on(
+            'mouseup',
+            mouseupFunction
+        );
 };
 
 Datetime.prototype.bindDateEvents = function( params, $selection, $datetime ){
@@ -818,7 +844,8 @@ Datetime.prototype.addHours = function( event, $datetime, valueToAdd ){
 
     // Update value
     $hours.text(
-        this.formatTimeNumber( currentValue, this.maxHour ) );
+        this.formatTimeNumber( currentValue, this.maxHour )
+    );
 
     // Save value if inline
     if ( this.inline ){
@@ -836,7 +863,8 @@ Datetime.prototype.addHoursInterval = function( event, $datetime, valueToAdd, de
         function(){
             datetimeInstance.addHours( event, $datetime, valueToAdd );
         }, 
-        delay );
+        delay
+    );
 };
 
 Datetime.prototype.addMinutesInterval = function( event, $datetime, valueToAdd, delay ){
@@ -849,7 +877,8 @@ Datetime.prototype.addMinutesInterval = function( event, $datetime, valueToAdd, 
         function(){
             datetimeInstance.addMinutes( event, $datetime, valueToAdd );
         }, 
-        delay );
+        delay
+    );
 };
 
 Datetime.prototype.addMinutes = function( event, $datetime, valueToAdd ){
@@ -870,7 +899,8 @@ Datetime.prototype.addMinutes = function( event, $datetime, valueToAdd ){
 
     // Update value
     $minutes.text( 
-        this.formatTimeNumber( currentValue, 59 ) );
+        this.formatTimeNumber( currentValue, 59 )
+    );
 
     // Save value if inline
     if ( this.inline ){
@@ -1084,13 +1114,14 @@ Datetime.prototype.updateDatetime = function( value, $datetime ){
         var selectedDate = 
             value? 
             this.parseDate( value ): 
-        undefined;
+            undefined;
         var referenceDate = this.getReferenceDate( selectedDate );
         this.updateDatePicker( referenceDate, selectedDate, $datetime );         
     }
 
     if ( time ){
-        var timeObject = this.type == 'time'? 
+        var timeObject =
+            this.type == 'time'? 
             this.buildTimeObjectFromString( value ):
             this.buildTimeObjectFromDateInstance( selectedDate );
         this.updateTime( $datetime, timeObject );
@@ -1185,7 +1216,11 @@ Datetime.prototype.validateTime = function( value ){
 };
 
 Date.prototype.countDaysInMonth = function () {
-    return new Date( this.getFullYear(), this.getMonth() + 1, 0 ).getDate();
+    return new Date(
+        this.getFullYear(),
+        this.getMonth() + 1,
+        0
+    ).getDate();
 };
 
 Date.prototype.dateEquals = function ( otherDate ) {

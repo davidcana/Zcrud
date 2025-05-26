@@ -3,8 +3,6 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
-
 var FieldUtils = function() {
     
     var buildRecord = function( fieldsArray, $selection ){
@@ -36,25 +34,7 @@ var FieldUtils = function() {
             }
         }
     };
-    /*
-    var buildRecordFromSelection = function( fieldsArray, $selection ){
 
-        var record = {};
-
-        for ( var c = 0; c < fieldsArray.length; c++ ) {
-            var field = fieldsArray[ c ];
-            var value = field.isReadOnly()?
-                field.getValueFromSelection( $selection ):
-            field.getValueFromForm( $selection );
-
-            if ( value != undefined && value != '' ){
-                record[ field.id ] = value;
-            }
-        }
-
-        return record;
-    };
-    */
     var buildDefaultValuesRecord = function( fieldsArray ){
 
         var defaultRecord = {};

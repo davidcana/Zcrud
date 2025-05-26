@@ -20,7 +20,8 @@ Container.prototype.getToolbarButtons = function(){
             this.buttons, 
             'containerToolbar', 
             this,
-            this.options );
+            this.options
+        );
         
         // Set the container of all buttons
         for ( var i = 0; i < this.toolbarButtons.length; ++i ){

@@ -59,14 +59,6 @@ module.exports = (function() {
 
         return newRecord;
     };
-    /*
-    var bindEvents = function( fields ){
-        
-        for ( var index in fields ){
-            var field = fields[ index ];
-
-        }
-    };*/
     
     var self = {
         createFieldInstance: createFieldInstance,

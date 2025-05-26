@@ -37,7 +37,12 @@ Checkbox.prototype.getValueFromRecord = function( record ){
 Checkbox.prototype.getViewValueFromRecord = function( record ){
 
     var value = this.getValueFromRecord( record );
-    return value? context.translate( 'true' ): context.translate( 'false' )
+    return context.translate(
+        value?
+        'true':
+        'false'
+    );
+    //return value? context.translate( 'true' ): context.translate( 'false' )
 };
 
 Checkbox.prototype.getValueFromSelection = function( $selection ){

@@ -3,7 +3,6 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
 var normalizer = require( '../normalizer.js' );
 var Container = require( './container.js' );
 var utils = require( '../utils.js' );
@@ -23,7 +22,8 @@ module.exports = (function() {
             function( field ){
                 field.buildFields();
             },
-            fields );
+            fields
+        );
 
         listOptions.fieldsCache = fieldsCache;
 
@@ -56,7 +56,8 @@ module.exports = (function() {
             pageIdArray, 
             function( field ){
                 field.buildFields();
-            } );
+            }
+        );
 
         pageOptions.fieldsCache = fieldsCache;
         setPageToFields( pageOptions.fieldsCache, page );
@@ -89,7 +90,8 @@ module.exports = (function() {
                 items[ c ], 
                 options, 
                 pageIdArray, 
-                functionToApplyToField );
+                functionToApplyToField
+            );
         }
     
         return result;
@@ -106,17 +108,35 @@ module.exports = (function() {
                 functionToApplyToField, 
                 containerType, 
                 containerId, 
-                container );
-            //addField( fields[ item ], result, options, functionToApplyToField, containerType, containerId, container );
+                container
+            );
             
         // Is fieldsGroup?
         } else if ( item.type == 'fieldsGroup' ){
-            buildFieldsFromFieldsGroup( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId, container );
+            buildFieldsFromFieldsGroup(
+                result,
+                fields,
+                item,
+                options,
+                pageIdArray,
+                functionToApplyToField,
+                containerType,
+                containerId,
+                container
+            );
 
         // Must be a field instance
         } else {
             var newField = normalizer.buildFullFieldInstance( item.id, item, options );
-            addField( newField, result, options, functionToApplyToField, containerType, containerId, container );
+            addField(
+                newField,
+                result,
+                options,
+                functionToApplyToField,
+                containerType,
+                containerId,
+                container
+            );
         }
     };
     
@@ -176,7 +196,8 @@ module.exports = (function() {
                             container.containerType, 
                             container.id,
                             container, 
-                            true );
+                            true
+                        );
                     }   
 
                 // Must be a field
@@ -190,7 +211,8 @@ module.exports = (function() {
                         functionToApplyToField,  
                         containerType, 
                         containerId,
-                        container );
+                        container
+                    );
                 }
             }
 
@@ -213,17 +235,6 @@ module.exports = (function() {
             }
         );
         container.options = options;
-        /*
-        utils.extend( 
-            true, 
-            container,
-            {
-                type: 'fieldContainer',
-                template: options.containers.types[ container.containerType ].template,
-                fields: [],
-                options: options
-            }
-        );*/
         
         return new Container( container );
     };
@@ -236,7 +247,6 @@ module.exports = (function() {
         if ( containerId ){ 
             var container = result.view[ result.view.length - 1 ];
             
-            //if ( newContainer ){
             if ( ! container || container.id != containerId ){
                 
                 container = buildContainerInstance( newContainer, options );
@@ -288,11 +298,6 @@ module.exports = (function() {
                 var field = options.fields[ fieldId ];
                 result.push( field );
             }
-            /*
-            $.each( options.fields, function ( fieldId, field ) {
-                result.push( field );
-            });
-            */
             return result;
         }
         
@@ -305,11 +310,6 @@ module.exports = (function() {
                 var field = options.fields[ subformId ].fields[ fieldId ];
                 result.push( field );
             }
-            /*
-            $.each( options.fields[ subformId ].fields, function ( fieldId, field ) {
-                result.push( field );
-            });
-            */
             return result;
         }
         
@@ -317,11 +317,6 @@ module.exports = (function() {
         result = getForPage( source, options, pageIdArray ).view;
         return result;
     };
-    
-    /*
-    var getSubformIdFromName = function( source ){
-        return source.startsWith( 'subform/' )? source.substring( 'subform/'.length ): undefined;
-    };*/
     
     var validateField = function( field, id ){
         
@@ -339,7 +334,8 @@ module.exports = (function() {
         if ( index === -1 ){
             return validateField( 
                 fields[ id ], 
-                id );
+                id
+            );
         }
         
         var subformId = id.substring( 0, index );
@@ -352,7 +348,8 @@ module.exports = (function() {
         
         return validateField( 
             subform.fields[ subformFieldId ], 
-            id );
+            id
+        );
     };
     
     var self = {

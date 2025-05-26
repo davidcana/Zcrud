@@ -161,7 +161,8 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
         thisDictionary,
         $( '#' + this.page.getId() + ' .zcrud-field-' + this.id + ' tbody'),
         newRecord,
-        this.id );
+        this.id
+    );
     var $tr = createHistoryItem.get$Tr(); 
 
     // Bind events
@@ -215,10 +216,9 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                 }
                 var $this = $( this );
                 var fullName = $this.attr( 'name' );
-                //var fullName = $this.prop( 'name' );
                 var field = page.getFieldByName( fullName );
-                var $tr = $tr || $this.parents( 'tr' ).first();
-                //var $tr = $tr || $this.closest( 'tr' );
+                //var $tr = $tr || $this.parents( 'tr' ).first();
+                var $tr = $tr || $this.closest( 'tr' );
                 context.getHistory().putChange( 
                     $this, 
                     field.getValueForHistory( $this ), 
@@ -227,19 +227,21 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
                     page.getId(),
                     field,
                     $tr.attr( 'data-record-index' ),
-                    $tr.attr( 'data-record-key' ) );
+                    $tr.attr( 'data-record-key' )
+                );
             }
         );
     
     this.bindButtonsEvent( this.getByRowButtons(), $selection, params );
 
     if ( $tr ){
-        this. bindEventsForFieldsIn1Row( 
+        this.bindEventsForFieldsIn1Row( 
             $tr, 
             this.fields, 
             [], 
             page.getDictionary(), 
-            params );
+            params
+        );
     } else {
         this.bindEventsForFields(
             $subform,
@@ -253,12 +255,12 @@ Subform.prototype.bindEventsInRows = function( params, $subform, $tr ){
 Subform.prototype.bindEventsForFields = function( $subform, fields, dictionary, params ){
     
     var records = params.value || [];
-    var $rows = $subform.find( 'tbody' ).children().filter( '.zcrud-data-row' );
+    var $rows = $subform.find( 'tbody' )
+        .children()
+        .filter( '.zcrud-data-row' );
     for ( var i = 0; i < records.length; i++ ) {
         var record = records[ i ];
         var $row = $rows.list[ i ];
-        //var $row = $rows.filter( ':nth-child(' + (1 + i) + ')' );
-        //var $row = $rows.filter( ':eq(' + i + ')' );
         this.bindEventsForFieldsIn1Row( $row, fields, record, dictionary, params );
     }
 };
@@ -289,8 +291,8 @@ Subform.prototype.buildProcessTemplateParams = function( field, record, dictiona
 
 Subform.prototype.deleteRow = function( event ){
 
-    var $tr = $( event.target ).parents( 'tr' ).first();
-    //var $tr = $( event.target ).closest( 'tr' );
+    //var $tr = $( event.target ).parents( 'tr' ).first();
+    var $tr = $( event.target ).closest( 'tr' );
 
     context.getHistory().putDelete( 
         this.page.getId(), 
@@ -323,16 +325,6 @@ Subform.prototype.buildFields = function(){
         subformInstance.fieldsMap[ subfieldId ] = subfield;
         subfield.setParentField( subformInstance );
     }
-    /*
-    $.each( 
-        this.fields, 
-        function ( subfieldId, subfield ) {
-            subformInstance.fieldsArray.push( subfield );
-            subformInstance.fieldsMap[ subfieldId ] = subfield;
-            subfield.setParentField( subformInstance );
-        }
-    );
-    */
 };
 
 Subform.prototype.getFields = function(){
@@ -400,7 +392,8 @@ Subform.prototype.addNewRowsFromSubform = function( fromSubformId, useSelection,
             undefined,
         useSelection? 
             selectingComponent.getSelectedRows(): 
-            undefined );
+            undefined
+    );
     
     if ( ! deleteFrom && useSelection && deselect ){
         selectingComponent.deselectAll();
@@ -433,8 +426,8 @@ Subform.prototype.addNewRows_common = function( records, subformToDeleteFrom, $s
         
         // Add deletion if needed
         if ( subformToDeleteFrom ){
-            var $tr = $selectedRows.list[ c ];
-            //var $tr = $( $selectedRows.get( c ) );
+            //var $tr = $selectedRows.list[ c ];
+            var $tr = $( $selectedRows.get( c ) );
             composition.add( 
                 new HistoryDelete( 
                     context.getHistory(), 
@@ -478,7 +471,9 @@ Subform.prototype.dataFromServer = function( data ){
     
     this.componentsMap.dataFromServer(
         {
-            totalNumberOfRecords: data.fieldsData && data.fieldsData[ this.id ]? data.fieldsData[ this.id ].totalNumberOfRecords: 0,
+            totalNumberOfRecords: data.fieldsData && data.fieldsData[ this.id ]?
+                data.fieldsData[ this.id ].totalNumberOfRecords:
+                0,
             records: data.record? data.record[ this.id ]: []
         }
     );
@@ -559,8 +554,8 @@ Subform.prototype.processTemplate = function( root, dictionaryExtension ){
     
     zpt.run({
         root: root || [ 
-            this.get$().find( 'tbody' )[0], 
-            this.getPagingComponent()? this.getPagingComponent().get$()[0]: undefined
+            this.get$().find( 'tbody' )[ 0 ], 
+            this.getPagingComponent()? this.getPagingComponent().get$()[ 0 ]: undefined
         ],
         dictionaryExtension: this.buildDictionaryForUpdate( dictionaryExtension )
     });
@@ -650,7 +645,8 @@ Subform.prototype.getToolbarButtons = function(){
             this.buttons.toolbar, 
             'subformToolbar', 
             this,
-            this.page.getOptions() );
+            this.page.getOptions()
+        );
     }
 
     return this.toolbarButtons;
@@ -663,7 +659,8 @@ Subform.prototype.getByRowButtons = function(){
             this.buttons.byRow, 
             'subformRow', 
             this,
-            this.page.getOptions() );
+            this.page.getOptions()
+        );
     }
 
     return this.byRowButtons;
@@ -681,7 +678,8 @@ Subform.prototype.removeChanges = function(){
     
     context.getHistory().removeSubformChanges( 
         this.page.getId(), 
-        this.id );
+        this.id
+    );
 };
 
 Subform.prototype.goToFirstPage = function(){
@@ -695,17 +693,7 @@ Subform.prototype.goToFirstPage = function(){
 Subform.prototype.getType = function(){
     return this.page.getType();
 };
-/*
-Subform.prototype.getAsync = function( record, callback ){
 
-    for ( var c = 0; c < this.fieldsArray.length; ++c ){
-        var field = this.fieldsArray[ c ]
-        if ( utils.isFunction( field.getAsync ) ){
-            field.getAsync( record, callback );
-        }
-    }
-};
-*/
 Subform.prototype.builNonDependentAsyncFieldList = function(){
 
     var result = [];
@@ -742,24 +730,6 @@ Subform.prototype.buildDependentAsyncFieldList = function( record ){
 
     return result;
 };
-
-/*
-Subform.prototype.buildAsyncFieldList = function(){
-
-    var result = [];
-
-    for ( var c = 0; c < this.fieldsArray.length; ++c ){
-        var field = this.fieldsArray[ c ]
-        if ( utils.isFunction( field.buildAsyncFieldList ) ){
-            result = result.concat(
-                field.buildAsyncFieldList( subformRecord )
-            );
-        }
-    }
-
-    return result;
-};
-*/
 
 module.exports = Subform;
 

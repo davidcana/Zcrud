@@ -4,8 +4,6 @@
 'use strict';
 
 var Field = require( './field.js' );
-//var context = require( '../context.js' );
-//var utils = require( '../utils.js' );
 var validationManager = require( '../validationManager.js' );
 
 var zpt = require( 'zpt' );
@@ -60,6 +58,7 @@ FileUpload.prototype.bindEvents = function( params, $selection ){
     );
 
     // Drag and drop events
+    //TODO Implement multievent support in on method
     const $drag = this.get$();
     $drag
         .on(
@@ -146,34 +145,6 @@ FileUpload.prototype.readFile = function( $file ){
     });
     reader.readAsArrayBuffer( file );
 };
-/*
-FileUpload.prototype.readFile = function( $file ){
-
-    // Get the file instance
-    var file = $file.el.files[ 0 ];
-
-    // Update fullValue property
-    this.fullValue = {
-        file: this.filterFilePart( file )
-    };
-
-    // Instance a FileReader and read the file with it
-    const reader = new FileReader();
-    var fileUploadInstance = this;
-    reader.addEventListener( 'loadend', () => {
-        // reader.result contains the contents of blob as a typed array
-        fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
-        //alert( `File name ${file.name}, file size ${utils.formatFileSize(file.size)} loaded successfully` );
-        this.afterSetValue( this.fullValue.file );
-    });
-
-    if ( file ){
-        reader.readAsArrayBuffer( file );
-    } else {
-        this.afterSetValue( undefined );
-    }
-};
-*/
 
 FileUpload.prototype.afterSetValue = function( file ){
     this.runSetValueListeners();
@@ -221,18 +192,6 @@ FileUpload.prototype.filterFilePart = function( file ){
 FileUpload.prototype.filterContentsPart = function( contents ){
     return contents;
 };
-
-/*
-FileUpload.prototype.updateFileDescription = function( $file ){
-
-    var files = $file.el.files;
-
-    for ( const file of files ) {
-        const fileDescription = `File name ${file.name}, file size ${utils.formatFileSize(file.size)}.`;
-        alert( fileDescription );
-    }
-};
-*/
 
 FileUpload.prototype.getValue = function( $this ){
     return this.fullValue;

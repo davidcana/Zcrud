@@ -38,7 +38,6 @@ Field.prototype.afterProcessTemplateForField = function( params, $selection ){
 };
 
 Field.prototype.throwEventsForSetValueToForm = function( $this ){
-    //$this.keyup();
     $this.trigger( 'keyup' );
     $this.trigger(
         'change',

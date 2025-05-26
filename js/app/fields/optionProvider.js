@@ -40,7 +40,6 @@ var OptionProvider = function() {
             record: record
         };
         params.dependedValues = createDependedValuesUsingRecord( record, field );
-        //params.dependedValues = {};
 
         buildOptions( params, callback );
     };
@@ -201,10 +200,6 @@ var OptionProvider = function() {
                 list.push( optionsArray[ i ] );
             } else { // Assumed as primitive type (int, string...)
                 list.push( buildItem( optionsArray[ i ] ) );
-                /*list.push({
-                    value: optionsArray[ i ],
-                    displayText: optionsArray[ i ]
-                });*/
             }
         }
 
@@ -219,7 +214,7 @@ var OptionProvider = function() {
         }
 
         var dataSelector = undefined;
-        if ( sorting.indexOf( 'value' ) == 0) {
+        if ( sorting.indexOf( 'value' ) == 0 ) {
             dataSelector = function ( option ) {
                 return option.value;
             };
@@ -277,11 +272,6 @@ var OptionProvider = function() {
             var propValue = options[ propName ];
             list.push( buildItem( propName, propValue ) );
         }
-        /*
-        $.each( options, function ( propName, propValue ) {
-            list.push( buildItem( propName, propValue ) );
-        });
-        */
        
         return list;
     };
