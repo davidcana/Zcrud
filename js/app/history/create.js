@@ -4,7 +4,6 @@
 'use strict';
 
 var zpt = require( 'zpt' );
-//var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 var utils = require( '../utils.js' );
 
@@ -93,7 +92,8 @@ Create.prototype.doAction = function( actionsObject, records ){
         this.subformRowIndex,
         undefined,
         this.record,
-        false );
+        false
+    );
 };
 
 Create.prototype.get$Tr = function(){

@@ -3,7 +3,6 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 
 var Composition = function( historyToApply ) {
@@ -68,10 +67,6 @@ Composition.prototype.redo = function(){
     this.runMethodForAll.apply( this, [ 'redo' ] );
 };
 
-/*
-Composition.prototype.getNewValue = function( name ){
-    return this.runMethodForAllUsingNotUndefined.apply( this, [ 'getNewValue', arguments ] );
-};*/
 Composition.prototype.getNewValue = function( rowIndexToGet, nameToGet, subformNameToGet, subformRowIndexToGet ){
     
     for ( var c = 0; c < this.items.length; ++c ){

@@ -6,9 +6,7 @@
 //var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
-//var context = require( '../../../js/app/context.js' );
 var AbstractHistoryAction = require( './abstractHistoryAction.js' );
-//var fieldUtils = require( '../fields/fieldUtils.js' );
 var utils = require( '../../../js/app/utils.js' );
 
 var Change = function( historyToApply, optionsToApply, recordIdToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
@@ -38,14 +36,6 @@ Change.prototype.setValue = function( value ){
         value === undefined? null: value,
         this.$this
     );
-    /*
-    this.field.setValueToForm(
-        value === undefined? null: value,
-        this.$this,
-        ! this.history.isFormMode(),
-        this.options
-    );
-    */
 };
 
 Change.prototype.undo = function(){
@@ -56,14 +46,17 @@ Change.prototype.undo = function(){
         this.rowIndex, 
         this.name, 
         this.subformName, 
-        this.subformRowIndex );
+        this.subformRowIndex
+    );
     
     this.updateCSS(
         previousItem? previousItem.isDirty(): false, 
         this.history.getPreviousRecordItem( 
             this.rowIndex, 
             this.subformName, 
-            this.subformRowIndex ) );
+            this.subformRowIndex
+        )
+    );
 };
 
 Change.prototype.redo = function(){
@@ -80,13 +73,13 @@ Change.prototype.updateCSS = function( fieldChanged, registerChanged ){
 
     if ( this.history.isFormMode() && ! this.subformName ){
         if ( fieldChanged ){
-            this.$this.parents( '.zcrud-field' ).first().addClass(
-            //this.$this.closest( '.zcrud-field' ).addClass(
+            //this.$this.parents( '.zcrud-field' ).first().addClass(
+            this.$this.closest( '.zcrud-field' ).addClass(
                 this.history.getEditableOptions().modifiedFieldsClass
             );
         } else {
-            this.$this.parents( '.zcrud-field' ).first().removeClass(
-            //this.$this.closest( '.zcrud-field' ).removeClass(
+            //this.$this.parents( '.zcrud-field' ).first().removeClass(
+            this.$this.closest( '.zcrud-field' ).removeClass(
                 this.history.getEditableOptions().modifiedFieldsClass
             );
         }
@@ -94,25 +87,25 @@ Change.prototype.updateCSS = function( fieldChanged, registerChanged ){
     }
 
     if ( fieldChanged ){
-        this.$this.parents( 'td' ).first().addClass(
-        //this.$this.closest( 'td' ).addClass(
+        //this.$this.parents( 'td' ).first().addClass(
+        this.$this.closest( 'td' ).addClass(
             this.history.getEditableOptions().modifiedFieldsClass
         );
     } else {
-        this.$this.parents( 'td' ).first().removeClass(
-        //this.$this.closest( 'td' ).removeClass(
+        //this.$this.parents( 'td' ).first().removeClass(
+        this.$this.closest( 'td' ).removeClass(
             this.history.getEditableOptions().modifiedFieldsClass
         );
     }
 
     if ( registerChanged ){
-        this.$this.parents( 'tr' ).first().addClass(
-        //this.$this.closest( 'tr' ).addClass(
+        //this.$this.parents( 'tr' ).first().addClass(
+        this.$this.closest( 'tr' ).addClass(
             this.history.getEditableOptions().modifiedRowsClass
         );
     } else {
-        this.$this.parents( 'tr' ).first().removeClass(
-        //this.$this.closest( 'tr' ).removeClass(
+        //this.$this.parents( 'tr' ).first().removeClass(
+        this.$this.closest( 'tr' ).removeClass(
             this.history.getEditableOptions().modifiedRowsClass
         );
     }
@@ -133,7 +126,8 @@ Change.prototype.doAction = function( actionsObject, records, defaultValue, fiel
         this.subformRowIndex, 
         this.subformRowKey,
         undefined,
-        true );
+        true
+    );
 
     //
     this.processDefaultValue( actionsObject, records, defaultValue, fieldsMap, row );
@@ -218,11 +212,7 @@ Change.prototype.copyProperties = function( from, to, excludeArrays ){
 Change.prototype.isNew = function( records ){
     return this.history.isNew( records, this.rowIndex );
 };
-/*
-Change.prototype.isNew = function( records ){
-    return ! records[ this.rowIndex ];
-};
-*/
+
 Change.prototype.saveEnabled = function(){
     return true;
 };

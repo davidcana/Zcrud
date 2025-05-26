@@ -3,11 +3,8 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
-
 var HistoryCleaner = function() {
     
-    //var history = historyToApply;
     var data = {};
     var offItems = {};
 
@@ -21,7 +18,6 @@ var HistoryCleaner = function() {
         
         data = {};
         
-        //var iterator = history.buildIterator();
         var historyItem = iterator.next();
         
         while ( historyItem ){
@@ -58,11 +54,7 @@ var HistoryCleaner = function() {
             
             if ( lastItemIsDelete ){
                 offBeforeDeleteItems( recordItems, firstItemIsCreate );
-            } 
-            /*
-            else if ( firstItemIsCreate ){
-                offChangeItems( recordItems );
-            }*/
+            }
         }
     };
     
@@ -80,20 +72,7 @@ var HistoryCleaner = function() {
             offItems[ item.getId() ] = true;
         }
     };
-    /*
-    var offChangeItems = function( recordItems ){
-        
-        var createItem = recordItems[ 0 ];
-        
-        // Update createItem and off the change
-        // Don't include first item in loop! (it is the create item)
-        for ( var c = 1; c < recordItems.length; c++ ){
-            var item = recordItems[ c ];
-            createItem.updateFromChange( item );
-            offItems[ item.getId() ] = true;
-        }
-    };
-    */
+
     var historyItemIsOn = function( historyItem ){
         return ! offItems[ historyItem.getId() ];
     };

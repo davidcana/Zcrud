@@ -7,7 +7,6 @@ var HistoryChange = require( './change.js' );
 var HistoryCreate = require( './create.js' );
 var HistoryDelete = require( './delete.js' );
 var HistoryCleaner = require( './historyCleaner.js' );
-//var crudManager = require( '../crudManager.js' );
 var context = require( '../context.js' );
 //var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var zzDOM = require( 'zzdom' );
@@ -57,7 +56,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                newValue === previousItem.getNewValue( rowIndex, name, subformName, subformRowIndex ):
                areEquivalent( 
                     newValue, 
-                    getValueFromRecord( rowIndex, name, subformName, subformRowIndex ) );
+                    getValueFromRecord( rowIndex, name, subformName, subformRowIndex)
+                );
     };
 
     var buildNameObject = function( field ){
@@ -100,7 +100,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             field,
             nameObject.subformName,
             subformRowIndex,
-            subformRowKey );
+            subformRowKey
+        );
         
         put( id, historyItem );
         
@@ -125,12 +126,14 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                 rowIndex, 
                 nameObject.name, 
                 nameObject.subformName, 
-                subformRowIndex ),
+                subformRowIndex
+            ),
             $this,
             field,
             nameObject.subformName,
             subformRowIndex,
-            subformRowKey );
+            subformRowKey
+        );
 
         return historyItem;
     };
@@ -142,7 +145,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             thisDictionary,
             $selection,
             record,
-            subformName );
+            subformName
+        );
 
         put( id, historyItem );
         
@@ -243,18 +247,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         
         var temp = record? record[ name ]: undefined;
         return temp !== undefined? temp:  '';
-        //return record? record[ name ]: undefined;
     };
 
-    /*
-    var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex ){
-
-        var previousItem = getPreviousItem( rowIndex, name, subformName, subformRowIndex );
-        return previousItem? 
-               previousItem.getNewValue( rowIndex, name, subformName, subformRowIndex ): 
-               getValueFromRecord( rowIndex, name, subformName, subformRowIndex  );
-    };
-    */
     var getPreviousValue = function( rowIndex, name, subformName, subformRowIndex, field ){
 
         // If there is a previousItem in history, get the value from it
@@ -296,6 +290,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     var isUndoEnabled = function(){
         return current > 0;
     };
+
     var undo = function( id ){
         
         var historyItem = isUndoEnabled()? items[ --current ]: undefined;
@@ -312,6 +307,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     var isRedoEnabled = function(){
         return current < items.length;
     };
+
     var redo = function( id ){
         
         var historyItem = isRedoEnabled()? items[ current++ ]: undefined;
@@ -353,8 +349,9 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         $buttton.text( 
             newNumber == 0?
             fixedPart:
-            fixedPart + ' (' + newNumber + ')');
-        //$buttton[0].disabled = newNumber == 0;
+            fixedPart + ' (' + newNumber + ')'
+        );
+
         $buttton.prop( 'disabled', newNumber == 0 );
     };
     
@@ -367,12 +364,6 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         updateButton( $list, '.zcrud-redo-command-button', getNumberOfRedo() );
         
         // Set disabled of save button
-        /*
-        var saveCommandButton = $list.find( '.zcrud-save-command-button' )[0];
-        if ( saveCommandButton ){
-            saveCommandButton.disabled = ! isSaveEnabled();
-        }
-        */
         $list.find( '.zcrud-save-command-button' ).prop( 'disabled', ! isSaveEnabled() );
 
         // Remove hidden trs
@@ -490,7 +481,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                     subformElementIsNew, 
                     subformName, 
                     subformRowIndex, 
-                    subformRowKey );
+                    subformRowKey
+                );
             }
         }
         
@@ -506,7 +498,8 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
                     subformName, 
                     rowIndex, 
                     subformRowIndex, 
-                    subformRowKey );
+                    subformRowKey
+                );
             } else {
                 map[ rowIndex ] = row;
             }
@@ -522,13 +515,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
     var getMap = function( actionsObject, records, rowIndex ){
         return isNew( records, rowIndex )? actionsObject.new: actionsObject.modified;
     };
-    /*
-    var getMap = function( actionsObject, records, rowIndex ){
 
-        var record = records[ rowIndex ];
-        return record? actionsObject.modified: actionsObject.new;
-    };
-    */
     var getSubformMapKey = function( exists ){
         return exists? 'modified': 'new';
     };
@@ -648,7 +635,6 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
         redo: redo,
         isUndoEnabled: isUndoEnabled,
         isRedoEnabled: isRedoEnabled,
-        //isSaveEnabled: isSaveEnabled,
         getNumberOfUndo: getNumberOfUndo,
         getNumberOfRedo: getNumberOfRedo,
         getModified: getModified,
@@ -688,12 +674,6 @@ History.updateRecordsMap = function( records, jsonObject, keyField ){
         var currentRecord = records[ id ];
         records[ id ] = utils.extend( true, {}, currentRecord, record );
     }
-    /*
-    $.each( jsonObject.existingRecords, function ( id, record ) {
-        var currentRecord = records[ id ];
-        records[ id ] = utils.extend( true, {}, currentRecord, record );
-    });
-    */
    
     for ( var c = 0; c < jsonObject.newRecords.length; ++c ){
         var currentRecord = jsonObject.newRecords[ c ];
