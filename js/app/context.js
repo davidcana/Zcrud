@@ -28,6 +28,7 @@ module.exports = (function() {
     var translate = function( id, params, format, subformat ){
         return zpt.i18nHelper.tr( i18nArray, id, params, format || 'string', subformat );
     };
+    /*
     var i18nExists = function( id ){ //TODO Reimplement this using i18n.exists
         var translated = translate( id );
         return translated !== 'I18n resource "' + id + '" not found!'
@@ -39,7 +40,9 @@ module.exports = (function() {
             }
         }
         return 'No i18n resource found: ' + ids;
+
     };
+    */
 
     // Errors
     var showError = function ( options, throwException, message, mustTranslate, params, format, subformat ) {
@@ -58,60 +61,6 @@ module.exports = (function() {
     var showMessage = function ( options, messageOptions ) {
         options.showMessageFunction( messageOptions );
     };
-    
-    // Form validation language
-    /*
-    var getFormValidationLanguage = function( lang ){
-    
-        var cacheId = lang + '-formValidationLanguage';
-        var language = get( cacheId );
-        if ( ! language ){
-            language = {
-                errorTitle: translate( 'errorTitle' ),
-                requiredFields: translate( 'requiredFields' ),
-                badTime: translate( 'badTime' ),
-                badEmail: translate( 'badEmail' ),
-                badTelephone: translate( 'badTelephone' ),
-                badSecurityAnswer: translate( 'badSecurityAnswer' ),
-                badDate: translate( 'badDate' ),
-                lengthBadStart: translate( 'lengthBadStart' ),
-                lengthBadEnd: translate( 'lengthBadEnd' ),
-                lengthTooLongStart: translate( 'lengthTooLongStart' ),
-                lengthTooShortStart: translate( 'lengthTooShortStart' ),
-                notConfirmed: translate( 'notConfirmed' ),
-                badDomain: translate( 'badDomain' ),
-                badUrl: translate( 'badUrl' ),
-                badCustomVal: translate( 'badCustomVal' ),
-                andSpaces: translate( 'andSpaces' ),
-                badInt: translate( 'badInt' ),
-                badSecurityNumber: translate( 'badSecurityNumber' ),
-                badUKVatAnswer: translate( 'badUKVatAnswer' ),
-                badStrength: translate( 'badStrength' ),
-                badNumberOfSelectedOptionsStart: translate( 'badNumberOfSelectedOptionsStart' ),
-                badNumberOfSelectedOptionsEnd: translate( 'badNumberOfSelectedOptionsEnd' ),
-                badAlphaNumeric: translate( 'badAlphaNumeric' ),
-                badAlphaNumericExtra: translate( 'badAlphaNumericExtra' ),
-                wrongFileSize: translate( 'wrongFileSize' ),
-                wrongFileType: translate( 'wrongFileType' ),
-                groupCheckedRangeStart: translate( 'groupCheckedRangeStart' ),
-                groupCheckedTooFewStart: translate( 'groupCheckedTooFewStart' ),
-                groupCheckedTooManyStart: translate( 'groupCheckedTooManyStart' ),
-                groupCheckedEnd: translate( 'groupCheckedEnd' ),
-                badCreditCard: translate( 'badCreditCard' ),
-                badCVV: translate( 'badCVV' ),
-                wrongFileDim : translate( 'wrongFileDim' ),
-                imageTooTall : translate( 'imageTooTall' ),
-                imageTooWide : translate( 'imageTooWide' ),                                                                                     imageTooSmall : translate( 'imageTooSmall' ),
-                min : translate( 'min' ),
-                max : translate( 'max' ),
-                imageRatioNotAccepted : translate( 'imageRatioNotAccepted' )
-            };
-            put( cacheId, language );
-        }
-        
-        return language;
-    };
-    */
 
     // Options
     var putOptions = function( $item, options ){
@@ -120,13 +69,6 @@ module.exports = (function() {
     var getOptions = function( $item ){
         return get( 'options_' + getSelectorString( $item ) );
     };
-    /*
-    var putOptions = function( id, options ){
-        put( 'options_' + id, options );
-    };
-    var getOptions = function( id ){
-        return get( 'options_' + id );
-    };*/
     
     // Pages
     var putPage = function( id, page ){
@@ -275,7 +217,7 @@ module.exports = (function() {
         get: get,
         setI18nArray: setI18nArray,
         translate: translate,
-        translateAlternatives: translateAlternatives,
+        //translateAlternatives: translateAlternatives,
         showError: showError,
         confirm: confirm,
         showMessage: showMessage,

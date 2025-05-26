@@ -213,7 +213,7 @@ module.exports = (function() {
         // Iterate validityNames
         for ( const validityName of validityNames ) {
             if ( validityClone[ validityName ] ) {
-                return context.translateAlternatives(
+                return context.translate(
                     [
                         'validation_' + el.name + '_' + validityName,
                         'validation_' + el.name,
