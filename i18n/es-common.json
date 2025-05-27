@@ -79,6 +79,7 @@
     "newFile": "Fichero nuevo",
     "noNewFile": "No ha seleccionado ningún fichero nuevo.",
     "fileDragAndDropText": "Haz clic aquí y selecciona el fichero o arrástralo aquí.",
+    "selectAtLeastOneItem": "Por favor, selecciona al menos un elemento.",
 
     "_buttons": "",
     "Add new record": "Nuevo registro",

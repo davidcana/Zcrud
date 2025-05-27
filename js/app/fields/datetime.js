@@ -975,7 +975,8 @@ Datetime.prototype.buildDatetimeInstance = function( $datetime ){
             context.showError(
                 this.page.getOptions(),
                 false,
-                context.translate( 'noSelectedDate' )
+                'noSelectedDate',
+                true
             );
             return undefined;
         } else {

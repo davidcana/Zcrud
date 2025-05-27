@@ -502,7 +502,8 @@ FormPage.prototype.saveCommon = function( elementId, event, jsonObject, $form ){
         context.showError(
             this.options,
             false,
-            context.translate( 'errorNoOpToDo' ) //'No operation to do!'
+            'errorNoOpToDo', //'No operation to do!'
+            true
         );
         return false;
     }
