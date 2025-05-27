@@ -147,13 +147,7 @@ exports.destroy = function( options ){
 exports.showCreateForm = function( listPageIdSource ){
     
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        //alert( 'No list found using that source:' + listPageIdSource );
-        context.showError( 
-            options, 
-            false, 
-            'No list found using that source:' + listPageIdSource
-        );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     listPage.showCreateForm();
@@ -162,8 +156,7 @@ exports.showCreateForm = function( listPageIdSource ){
 exports.showUpdateForm = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     listPage.showEditForm( undefined, key );
@@ -172,8 +165,7 @@ exports.showUpdateForm = function( listPageIdSource, key ){
 exports.showDeleteForm = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     listPage.showDeleteForm( undefined, key );
@@ -182,8 +174,7 @@ exports.showDeleteForm = function( listPageIdSource, key ){
 exports.getRecordByKey = function( listPageIdSource, key ){
     
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     return listPage.getRecordByKey( key );
@@ -192,8 +183,7 @@ exports.getRecordByKey = function( listPageIdSource, key ){
 exports.getRecords = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     return listPage.getRecordsArray();
@@ -202,8 +192,7 @@ exports.getRecords = function( listPageIdSource ){
 exports.getRowByKey = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     return listPage.getRowByKey( key );
@@ -212,8 +201,7 @@ exports.getRowByKey = function( listPageIdSource, key ){
 exports.selectRecords = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     listPage.getSecureComponent( 'selecting' ).selectRecords( rows );
@@ -222,8 +210,7 @@ exports.selectRecords = function( listPageIdSource, rows ){
 exports.deselectRecords = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     listPage.getSecureComponent( 'selecting' ).deselectRecords( rows );
@@ -232,8 +219,7 @@ exports.deselectRecords = function( listPageIdSource, rows ){
 exports.selectRows = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     listPage.getSecureComponent( 'selecting' ).selectRows( rows );
@@ -242,8 +228,7 @@ exports.selectRows = function( listPageIdSource, rows ){
 exports.deselectRows = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     listPage.getSecureComponent( 'selecting' ).deselectRows( rows );
@@ -252,8 +237,7 @@ exports.deselectRows = function( listPageIdSource, rows ){
 exports.getSelectedRows = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     return listPage.getSecureComponent( 'selecting' ).getSelectedRows();
@@ -262,8 +246,7 @@ exports.getSelectedRows = function( listPageIdSource ){
 exports.getSelectedRecords = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     return listPage.getSecureComponent( 'selecting' ).getSelectedRecords();
@@ -282,8 +265,7 @@ var recordOperationCommon = function( listPageIdSource, data, checkRecord, check
     }
     
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return false;
     }
     
@@ -317,8 +299,7 @@ exports.deleteRecord = function( listPageIdSource, data ){
 exports.getListPage = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
-    if ( ! listPage ){
-        alert( 'No list found using that source:' + listPageIdSource );
+    if ( ! checkListPage( listPage, listPageIdSource ) ){
         return;
     }
     return listPage;
@@ -327,11 +308,36 @@ exports.getListPage = function( listPageIdSource ){
 exports.getFormPage = function( formPageIdSource ){
 
     var formPage = context.getFormPage( formPageIdSource );
-    if ( ! formPage ){
-        alert( 'No form found using that source:' + formPageIdSource );
+    if ( ! checkFormPage( formPage, formPageIdSource ) ){
         return;
     }
     return formPage;
+};
+
+var checkListPage = function( listPage, listPageIdSource ){
+    if ( ! listPage ){
+        //alert( 'No list found using that source:' + listPageIdSource );
+        context.showError( 
+            options, 
+            false, 
+            'No list found using that source:' + listPageIdSource
+        );
+        return false;
+    }
+    return true;
+};
+
+var checkFormPage = function( formPage, formPageIdSource ){
+    if ( ! formPage ){
+        //alert( 'No form found using that source:' + formPageIdSource );
+        context.showError( 
+            options, 
+            false, 
+            'No form found using that source:' + formPageIdSource
+        );
+        return false;
+    }
+    return true;
 };
 
 exports.utils = utils;
