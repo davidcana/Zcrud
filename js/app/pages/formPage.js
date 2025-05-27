@@ -383,9 +383,7 @@ FormPage.prototype.beforeProcessTemplate = function( recordToUse, dictionaryExte
 FormPage.prototype.afterProcessTemplate = function( $form ){
 
     validationManager.initFormValidation(
-        this.id,
         $form,
-        this.options,
         this
     );
     this.bindEvents( $form );

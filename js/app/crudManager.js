@@ -48,7 +48,7 @@ module.exports = (function() {
         
         return data.formValidationOff? 
             true: 
-            validationManager.formIsValid( options, eventData, page );
+            validationManager.formIsValid( eventData, page );
     };
     
     /* 

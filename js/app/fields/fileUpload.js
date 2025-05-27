@@ -154,7 +154,6 @@ FileUpload.prototype.afterSetValue = function( file ){
     validationManager.showErrorForField(
         this.get$Input().el,
         this,
-        page.getOptions(),
         page
     );
 };
@@ -214,7 +213,6 @@ FileUpload.prototype.setValueToForm = function( value, $this ){
     validationManager.showErrorForField(
         this.get$Input().el,
         this,
-        page.getOptions(),
         page
     );
 };

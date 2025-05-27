@@ -37,7 +37,7 @@ module.exports = (function() {
     
     const selector = 'input.historyField, textarea.historyField, select.historyField';
 
-    var initFormValidation = function( formId, $item, options, page ){
+    var initFormValidation = function( $item, page ){
 
         // Define change event listener
         var instance = this;
@@ -50,7 +50,6 @@ module.exports = (function() {
                     instance.showErrorForField(
                         this,
                         field,
-                        options,
                         page
                     );
 
@@ -61,7 +60,6 @@ module.exports = (function() {
                             instance.showErrorForField(
                                 field.get$Input().el,
                                 field,
-                                options,
                                 page
                             );
                         }
@@ -70,15 +68,14 @@ module.exports = (function() {
         );
     };
 
-    var fieldValidation = function( el, field, options, page ){
+    var fieldValidation = function( el, field, page ){
 
         if ( ! field ){
             return true;
         }
 
         // Get value
-        const $el = $( el );
-        const value = $el.val();
+        const value = $( el ).val();
 
         // Check field validation
         var fieldValidation = field.validate( value );
@@ -88,11 +85,13 @@ module.exports = (function() {
         }
 
         // Check custom field validation
-        return customFieldValidation( el, field, value, options, page );
+        return customFieldValidation( field, value, page );
     };
 
-    var customFieldValidation = function( el, field, value, options, page ){
-        
+    var customFieldValidation = function( field, value, page ){
+
+        const options = page.getOptions();
+
         // Iterate customValidations
         for ( const customValidation in options.validation.customValidations ) {
             if ( field[ customValidation ] ){
@@ -101,7 +100,6 @@ module.exports = (function() {
                     field[ customValidation ],
                     field,
                     value,
-                    options,
                     page
                 );
 
@@ -115,15 +113,16 @@ module.exports = (function() {
         return true;
     };
 
-    var showErrorForField = function( el, field, options, page ){
+    var showErrorForField = function( el, field, page ){
 
+        const options = page.getOptions();
         const validity = el.validity;
   
         // Force element as valid so the next checks work properly
         el.setCustomValidity( '' );
 
         // Check if the for is valid
-        const fieldValidationValue = fieldValidation( el, field, options, page );
+        const fieldValidationValue = fieldValidation( el, field, page );
         const isValid = validity.valid && fieldValidationValue == true;
         if ( isValid ) {
 
@@ -219,8 +218,10 @@ module.exports = (function() {
         return 'No i18n error message found!';
     };
 
-    var formIsValid = function( options, eventData, page ){
+    var formIsValid = function( eventData, page ){
         
+        const options = page.getOptions();
+
         // Check using formSubmitting event: get eventResult
         var eventResultValue = options.events.formSubmitting( eventData, options );
         var eventResult = eventResultValue === undefined || eventResultValue == true;
@@ -231,7 +232,7 @@ module.exports = (function() {
 
         if ( form ){
             //if ( ! standardValidationResult ){
-                showErrorsForForm( eventData.$form, options, page );
+                showErrorsForForm( eventData.$form, page );
             //}
             
             // Show browser validation message if configured
@@ -244,7 +245,7 @@ module.exports = (function() {
         return standardValidationResult && eventResult;
     };
 
-    var showErrorsForForm = function( $item, options, page ){
+    var showErrorsForForm = function( $item, page ){
 
         var elements = $item.find( selector ).get();
 
@@ -252,8 +253,6 @@ module.exports = (function() {
             showErrorForField(
                 el,
                 page.getFieldByName( el.name ),
-                //options.fields[ el.name ],
-                options,
                 page
             );
         }

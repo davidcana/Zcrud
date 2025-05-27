@@ -170,10 +170,8 @@ Subform.prototype.buildHistoryItemForNewRow = function( params ){
     this.componentsMap.bindEventsIn1Row( $tr );
     
     // Configure form validation
-    validationManager.initFormValidation( 
-        this.page.getId(), 
-        $tr, 
-        this.page.getOptions(),
+    validationManager.initFormValidation(
+        $tr,
         this.page
     );
     

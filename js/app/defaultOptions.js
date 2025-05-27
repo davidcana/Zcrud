@@ -10,7 +10,7 @@ module.exports = {
         showBrowserMessageBubbles: false,
         useBrowserMessages: false,
         customValidations: {
-            mustBeEqualTo: function( mustBeEqualToFieldId, field, thisFieldValue, options, page ){
+            mustBeEqualTo: function( mustBeEqualToFieldId, field, thisFieldValue, page ){
                 // Get equalField
                 var equalField = page.getField( mustBeEqualToFieldId );
                 if ( ! equalField ){

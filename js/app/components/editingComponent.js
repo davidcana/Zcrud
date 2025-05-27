@@ -26,7 +26,9 @@ var EditingComponent = function( optionsToApply, thisOptionsToApply, listPageToA
         new History( 
             this.options, 
             this.thisOptions, 
-            this.listPage ) );
+            this.listPage
+        )
+    );
 };
 Component.doSuperClassOf( EditingComponent );
 
@@ -39,10 +41,8 @@ EditingComponent.prototype.bindEvents = function(){
 
     // Setup validation
     var formId = this.listPage.getThisOptions().formId;
-    validationManager.initFormValidation( 
-        formId, 
-        $( '#' + formId ), 
-        this.options,
+    validationManager.initFormValidation(
+        $( '#' + formId ),
         this.parent
     );
 };
@@ -170,10 +170,8 @@ EditingComponent.prototype.addNewRow = function( event ){
 
     // Bind events
     this.bindEventsInRows( $tr, newRecord );
-    validationManager.initFormValidation( 
-        this.listPage.getThisOptions().formId, 
-        $tr, 
-        this.options,
+    validationManager.initFormValidation(
+        $tr,
         this.parent
     );
 };
