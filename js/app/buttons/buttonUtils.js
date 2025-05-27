@@ -37,7 +37,8 @@ var ButtonUtils = function() {
                 sourceItem.type || 'generic', 
                 sourceItem, 
                 parent, 
-                options );
+                options
+            );
         } else {
             button = buildButton( sourceItem, {}, parent, options );
         }

@@ -47,12 +47,14 @@ CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThi
         this.source, 
         this.onlySelected, 
         this.removeFromSource,
-        this.deselect );
+        this.deselect
+    );
     if ( selectedRecords.length == 0 ){
         context.showError( 
             formPage.getOptions(), 
             false, 
-            'Please, select at least one item!' );
+            'Please, select at least one item!'
+        );
     }
 };
 
