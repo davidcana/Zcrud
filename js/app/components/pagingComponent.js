@@ -3,10 +3,8 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
-//var $ = require( 'zzdom' );
 //var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
@@ -53,12 +51,7 @@ PagingComponent.prototype.loadSettings = function(){
 
     var localStoragePageSize = this.localStorage.getItem( this.pageSizeLocalStorageId );
     if ( localStoragePageSize ) {
-        this.pageSize = pageUtils.normalizeNumber( 
-            localStoragePageSize, 
-            1, 
-            1000000, 
-            this.thisOptions.defaultPageSize
-        );
+        this.pageSize = pageUtils.normalizeNumber( localStoragePageSize, 1, 1000000, this.thisOptions.defaultPageSize );
     }
 };
 
@@ -79,7 +72,8 @@ PagingComponent.prototype.bindEventsToPageSizeChangeCombobox = function(){
 
     // Change page size on combobox change
     var instance = this;
-    this.get$().find( '.' + this.thisOptions.pageSizeChangeFieldClass )
+    this.get$()
+        .find( '.' + this.thisOptions.pageSizeChangeFieldClass )
         .off() // Remove previous event handlers
         .on(
             'change',
@@ -98,11 +92,9 @@ PagingComponent.prototype.updateParent = function(){
         return;
     }
 
-    this.parent.show( 
-        {
-            root: [ $( '#' + this.parent.getThisOptions().tbodyId )[0], this.get$()[0] ] 
-        }
-    );
+    this.parent.show( {
+        root: [ $( '#' + this.parent.getThisOptions().tbodyId )[ 0 ], this.get$()[ 0 ] ] 
+    });
 };
 
 // Change current page to given value
@@ -168,7 +160,8 @@ PagingComponent.prototype.bindEventsToGoToPage = function() {
 
     // Goto page input
     if ( this.thisOptions.gotoPageFieldType == 'combobox' ) {
-        this.get$().find( '.' + this.thisOptions.goToPageFieldClass )
+        this.get$()
+            .find( '.' + this.thisOptions.goToPageFieldClass )
             .off() // Remove previous event handlers
             .on(
                 'change',
@@ -180,7 +173,8 @@ PagingComponent.prototype.bindEventsToGoToPage = function() {
         return;
 
     } else if ( this.thisOptions.gotoPageFieldType == 'textbox' ) {
-        this.get$().find( '.' + this.thisOptions.goToPageFieldClass )
+        this.get$()
+            .find( '.' + this.thisOptions.goToPageFieldClass )
             .off() // Remove previous event handlers
             .on( 
                 'keypress',
@@ -188,15 +182,20 @@ PagingComponent.prototype.bindEventsToGoToPage = function() {
                     if ( event.which == 13 ) { // enter
                         event.preventDefault();
                         instance.changePage(
-                            parseInt( $( this ).val() ) );
+                            parseInt( $( this ).val() )
+                        );
                     } else if ( event.which == 43 ) { // +
                         event.preventDefault();
                         instance.changePage( instance.pageNumber + 1 );
-                        instance.get$().find( '.' + instance.thisOptions.goToPageFieldClass ).trigger( 'focus' );
+                        instance.get$()
+                            .find( '.' + instance.thisOptions.goToPageFieldClass )
+                            .trigger( 'focus' );
                     } else if ( event.which == 45 ) { // -
                         event.preventDefault();
                         instance.changePage( instance.pageNumber - 1 );
-                        instance.get$().find( '.' + instance.thisOptions.goToPageFieldClass ).trigger( 'focus' );
+                        instance.get$()
+                            .find( '.' + instance.thisOptions.goToPageFieldClass )
+                            .trigger( 'focus' );
                     } else {
                         // Allow only digits
                         var isValid =
@@ -234,7 +233,6 @@ PagingComponent.prototype.bindEventsToPageNumberButtons = function () {
                 if ( ! $this.hasClass( '.zcrud-page-number-disabled' ) ){
                     instance.changePage( $this.attr( 'data-page' ) );
                 }
-                //instance.changePage( $( this )[ 0 ].getAttribute( 'data-page' ) );
             }
         );
 };
@@ -286,41 +284,48 @@ PagingComponent.prototype.buildPageListInfo = function( numberOfPages ){
         info.block2OfPages = this.builPageList( 
             block2NumberOfPages, 
             1, 
-            1);
+            1
+        );
         var block3NumberOfPages = pageUtils.normalizeNumber( this.thisOptions.block3NumberOfPages, 0, 100, 2 );
         info.block3OfPages = this.builPageList( 
             block3NumberOfPages,
             1, 
-            numberOfPages - block3NumberOfPages + 1 );
+            numberOfPages - block3NumberOfPages + 1
+        );
 
     // At last pages
     } else if ( this.pageNumber > ( 1 + numberOfPages - maxNumberOfAllShownPages ) ){
         info.block1OfPages = this.builPageList( 
             pageUtils.normalizeNumber( this.thisOptions.block1NumberOfPages, 0, 100, 2 ), 
             1, 
-            1 );
+            1
+        );
         block2NumberOfPages = pageUtils.normalizeNumber( this.thisOptions.block2NumberOfPages, 2, 100, 3 );
         info.block2OfPages = this.builPageList( 
             block2NumberOfPages, 
             1, 
-            numberOfPages - block2NumberOfPages + 1 );
+            numberOfPages - block2NumberOfPages + 1
+        );
 
     // Intermediate
     } else {
         info.block1OfPages = this.builPageList( 
             pageUtils.normalizeNumber( this.thisOptions.block1NumberOfPages, 0, 100, 2 ), 
             1, 
-            1 );
+            1
+        );
         block2NumberOfPages = pageUtils.normalizeNumber( this.thisOptions.block2NumberOfPages, 3, 100, 3 );
         info.block2OfPages = this.builPageList( 
             block2NumberOfPages, 
             1, 
-            Math.floor( this.pageNumber - block2NumberOfPages / 2 + 1 ) );
+            Math.floor( this.pageNumber - block2NumberOfPages / 2 + 1 )
+        );
         block3NumberOfPages = pageUtils.normalizeNumber( this.thisOptions.block3NumberOfPages, 0, 100, 2 );
         info.block3OfPages = this.builPageList( 
             block3NumberOfPages,
             1, 
-            numberOfPages - block3NumberOfPages + 1 );
+            numberOfPages - block3NumberOfPages + 1
+        );
     }
 
     this.mixBlocksOfPages( info );
@@ -363,9 +368,13 @@ PagingComponent.prototype.mix2BlocksOfPages = function( block1, block2 ){
     }
 
     // Blocks overlap: mix them
-    return block1.concat( block2.filter( function ( item ) {
-        return block1.indexOf( item ) < 0;
-    }));
+    return block1.concat( 
+        block2.filter(
+            function ( item ) {
+                return block1.indexOf( item ) < 0;
+            }
+        )
+    );
 };
 
 PagingComponent.prototype.buildInfo = function(){

@@ -3,9 +3,7 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
 var Component = require( './component.js' );
-//var pageUtils = require( '../pages/pageUtils.js' );
 var fieldUtils = require( '../fields/fieldUtils.js' );
 var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
 var utils = require( '../utils.js' );
@@ -79,9 +77,9 @@ FilteringComponent.prototype.updateParent = function(){
     if ( this.parent.type == 'subform' ){
         this.parent.update(
             [
-                this.parent.get$().find( 'thead' )[0],
-                this.parent.get$().find( 'tbody' )[0],
-                this.parent.getPagingComponent().get$()[0]
+                this.parent.get$().find( 'thead' )[ 0 ],
+                this.parent.get$().find( 'tbody' )[ 0 ],
+                this.parent.getPagingComponent().get$()[ 0 ]
             ]
         );
         return;
@@ -108,7 +106,8 @@ FilteringComponent.prototype.buildFields = function(){
     var fieldsCache = fieldListBuilder.getForList( 
         this.thisOptions, 
         this.options, 
-        this.parent.getFieldsSource() );
+        this.parent.getFieldsSource()
+    );
     return fieldsCache.fieldsArray;
 };
 

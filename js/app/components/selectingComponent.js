@@ -3,14 +3,11 @@
 */
 'use strict';
 
-//var $ = require( 'zzdom' );
 //var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
-//var context = require( '../context.js' );
 var Component = require( './component.js' );
 var pageUtils = require( '../pages/pageUtils.js' );
-//var fieldUtils = require( '../fields/fieldUtils.js' );
 
 var SelectingComponent = function( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
 
@@ -62,25 +59,26 @@ SelectingComponent.prototype.get$allTableRows = function(){
 SelectingComponent.prototype.bindSelectAllHeader = function(){
 
     var instance = this;
-    this.get$selectAllCheckbox().on(
-        'change',  
-        function () {
-            var allTableRows = instance.get$allTableRows();
-            if ( allTableRows.length <= 0 ) {
-                instance.get$selectAllCheckbox().attr( 'checked', false );
-                return;
-            }
-            
-            //if ( $( this ).is( ':checked' ) ) {
-            if ( $( this ).checked() ) {
-                instance._selectRows( allTableRows );
-            } else {
-                instance._deselectRows( allTableRows );
-            }
+    this.get$selectAllCheckbox()
+        .on(
+            'change',  
+            function(){
+                var allTableRows = instance.get$allTableRows();
+                if ( allTableRows.length <= 0 ) {
+                    instance.get$selectAllCheckbox().attr( 'checked', false );
+                    return;
+                }
+                
+                //if ( $( this ).is( ':checked' ) ) {
+                if ( $( this ).checked() ) {
+                    instance._selectRows( allTableRows );
+                } else {
+                    instance._deselectRows( allTableRows );
+                }
 
-            instance.onSelectionChanged();
-        }
-    );
+                instance.onSelectionChanged();
+            }
+        );
 };
 
 SelectingComponent.prototype.bindRowsEvents = function( $selection ){
@@ -99,12 +97,13 @@ SelectingComponent.prototype.bindRowsEvents = function( $selection ){
 
     // Select/deselect checkbox column
     if ( ! this.modeOnRowClickOn && this.modeCheckBoxOn ) {
-        $selection.find( '.zcrud-select-row' ).on(
-            'click',  
-            function () {
-                instance.invertRowSelection( $( this ).parents( 'tr' ) );
-            }
-        );
+        $selection.find( '.zcrud-select-row' )
+            .on(
+                'click',  
+                function () {
+                    instance.invertRowSelection( $( this ).parents( 'tr' ) );
+                }
+            );
     }
 };
 
@@ -136,14 +135,18 @@ SelectingComponent.prototype.invertRowSelection = function ( $row ) {
             if ( beforeIndex > 0 && beforeIndex < rowIndex ) {
                 this._selectRows( 
                     this.build$Wrapped(
-                        $mappedArray.slice( beforeIndex, rowIndex + 1 ) ) );
+                        $mappedArray.slice( beforeIndex, rowIndex + 1 )
+                    )
+                );
             } else {
                 // Try to select row and below rows until first selected row
                 var afterIndex = this.findFirstSelectedRowIndexAfterIndex( rowIndex, $mappedArray ) - 1;
                 if ( afterIndex > rowIndex ) {
                     this._selectRows( 
                         this.build$Wrapped(
-                            $mappedArray.slice( rowIndex, afterIndex + 1 ) ) );
+                            $mappedArray.slice( rowIndex, afterIndex + 1 )
+                        )
+                    );
                 } else {
                     // Just select this row
                     this._selectRows( $row );
@@ -160,23 +163,31 @@ SelectingComponent.prototype.invertRowSelection = function ( $row ) {
 // Find index of a row in table.
 SelectingComponent.prototype.findRowIndex = function ( $row, $tableRows ) {
 
-    return pageUtils.findIndexInArray( $row, $tableRows, function ( $row1, $row2 ) {
-        return $row1.html() === $row2.html();
-    });
+    return pageUtils.findIndexInArray(
+        $row,
+        $tableRows,
+        function ( $row1, $row2 ){
+            return $row1.html() === $row2.html();
+        }
+    );
 };
 
 SelectingComponent.prototype.buildMappedArray = function( $tableRows ){
 
-    return $tableRows.map( function( index, element ) {
-        return $( this );
-    }).get();
+    return $tableRows.map(
+        function( index, element ) {
+            return $( this );
+        }
+    ).get();
 };
 
 SelectingComponent.prototype.build$Wrapped = function( arrayOf$items ){
 
-    var nodes = arrayOf$items.map( function ( x ){
-        return x.el;
-    });
+    var nodes = arrayOf$items.map(
+        function ( x ){
+            return x.el;
+        }
+    );
 
     return $( nodes );
 };
@@ -244,19 +255,16 @@ SelectingComponent.prototype.refreshSelectAllCheckboxState = function () {
     if ( selectedRowCount == 0 ) {
         //this.get$selectAllCheckbox()[0].indeterminate = false;
         this.get$selectAllCheckbox().prop( 'indeterminate', false );
-        //this.get$selectAllCheckbox().attr( 'checked', false );
         this.get$selectAllCheckbox().prop( 'checked', false );
 
     } else if ( selectedRowCount == totalRowCount ) {
         //this.get$selectAllCheckbox()[0].indeterminate = false;
         this.get$selectAllCheckbox().prop( 'indeterminate', false );
-        //this.get$selectAllCheckbox().attr( 'checked', true );
         this.get$selectAllCheckbox().prop( 'checked', true );
 
     } else {
         //this.get$selectAllCheckbox()[0].indeterminate = true;
         this.get$selectAllCheckbox().prop( 'indeterminate', true );
-        //this.get$selectAllCheckbox().attr( 'checked', false );
         this.get$selectAllCheckbox().prop( 'checked', false );
     }
 };
@@ -352,7 +360,8 @@ SelectingComponent.prototype.onSelectionChanged = function () {
 
 SelectingComponent.prototype.resetPage = function(){
 
-    this.get$selectAllCheckbox().prop( 'indeterminate', false )
+    this.get$selectAllCheckbox()
+        .prop( 'indeterminate', false )
         .attr( 'checked', false );
 };
 

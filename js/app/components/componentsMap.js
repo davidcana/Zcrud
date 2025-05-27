@@ -3,7 +3,6 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
 var utils = require( '../utils.js' );
 
 var ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {

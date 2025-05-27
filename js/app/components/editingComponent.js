@@ -3,7 +3,6 @@
 */
 'use strict';
 
-//var $ = require( 'zzdom' );
 //var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var zzDOM = require( 'zzdom' );
 var $ = zzDOM.zz;
@@ -56,23 +55,22 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
         .on(
             'change',
             function ( event ) {
-                //var disableHistory = utils.getParam( params, 'disableHistory' );
                 var disableHistory = utils.getParam( event.params, 'disableHistory' );
                 if ( disableHistory ){
                     return;
                 }
                 var $this = $( this );
                 var field = instance.listPage.getFieldByName( $this.attr( 'name' ) );
-                //var field = instance.listPage.getFieldByName( $this.prop( 'name' ) );
-                var $tr = $this.parents( 'tr' ).first();
-                //var $tr = $this.closest( 'tr' );
+                //var $tr = $this.parents( 'tr' ).first();
+                var $tr = $this.closest( 'tr' );
                 context.getHistory().putChange( 
                     $this, 
                     field.getValueForHistory( $this ),
                     $tr.attr( 'data-record-index' ),
                     $tr.attr( 'data-record-id' ),
                     instance.listPage.getId(),
-                    field );
+                    field
+                );
                 if ( instance.autoSubmitMode ){
                     instance.submit.call( instance, event );
                 }
@@ -103,14 +101,18 @@ EditingComponent.prototype.bindEventsInRows = function( $preselection, record ){
 
 EditingComponent.prototype.bindEventsForFieldsAndAllRecords = function( fields, dictionary, records ){
 
-    var $rows = $( '#' + this.listPage.getThisOptions().tbodyId ).children().filter( '.zcrud-data-row' );
+    var $rows = $( '#' + this.listPage.getThisOptions().tbodyId )
+        .children()
+        .filter( '.zcrud-data-row' );
+    
     for ( var i = 0; i < records.length; i++ ) {
         var record = records[ i ];
         this.bindEventsForFieldsAnd1Record(
             fields,
             dictionary,
             record,
-            $rows.list[ i ] );
+            $rows.list[ i ]
+        );
     }
 };
 
@@ -139,15 +141,16 @@ EditingComponent.prototype.buildProcessTemplateParams = function( field, record,
 
 EditingComponent.prototype.deleteRow = function( event ){
 
-    var $tr = $( event.target ).parents( 'tr' ).first();
-    //var $tr = $( event.target ).closest( 'tr' );
+    //var $tr = $( event.target ).parents( 'tr' ).first();
+    var $tr = $( event.target ).closest( 'tr' );
 
     context.getHistory().putDelete( 
         this.listPage.getId(), 
         $tr.attr( 'data-record-id' ),
         $tr.attr( 'data-record-index' ), 
         $tr.attr( 'data-record-key' ), 
-        $tr );
+        $tr
+    );
 
     if ( this.autoSubmitMode ){
         this.submit( event );
@@ -298,7 +301,8 @@ EditingComponent.prototype.updateRecords = function( jsonObjectToSend, dataFromS
         this.triggerEvent( 
             this.options.events.recordUpdated, 
             records[ key ], 
-            dataFromServer );
+            dataFromServer
+        );
     }
 
     // Add all new records using dataFromServer
@@ -310,7 +314,8 @@ EditingComponent.prototype.updateRecords = function( jsonObjectToSend, dataFromS
         this.triggerEvent( 
             this.options.events.recordAdded, 
             newRecord, 
-            dataFromServer );
+            dataFromServer
+        );
     }
 
     // Remove all records to remove
@@ -322,7 +327,8 @@ EditingComponent.prototype.updateRecords = function( jsonObjectToSend, dataFromS
         this.triggerEvent( 
             this.options.events.recordDeleted, 
             deletedRecord, 
-            dataFromServer );
+            dataFromServer
+        );
     }
 
     return delta;
@@ -343,7 +349,8 @@ EditingComponent.prototype.updateKeys = function( $trArray, records ){
         context.showError( 
             this.options, 
             true, 
-            'Error trying to update keys: $trArray and records length does not match!' );
+            'Error trying to update keys: $trArray and records length does not match!'
+        );
         return;    
     }
 

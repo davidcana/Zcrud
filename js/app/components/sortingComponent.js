@@ -3,7 +3,6 @@
 */
 'use strict';
 
-//var context = require( '../context.js' );
 var Component = require( './component.js' );
 //var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
 var zzDOM = require( 'zzdom' );
@@ -62,7 +61,8 @@ SortingComponent.prototype.bindEvents = function(){
                 e.preventDefault();
                 instance.changeSort( 
                     $( this ).attr( 'data-sort-field-id' ),
-                    $( this ).attr( 'data-sort-type' ) );
+                    $( this ).attr( 'data-sort-type' )
+                );
             }
     );
 };
@@ -98,9 +98,9 @@ SortingComponent.prototype.updateParent = function(){
     if ( this.parent.type == 'subform' ){
         this.parent.update(
             [
-                this.parent.get$().find( 'thead' )[0],
-                this.parent.get$().find( 'tbody' )[0],
-                this.parent.getPagingComponent().get$()[0]
+                this.parent.get$().find( 'thead' )[ 0 ],
+                this.parent.get$().find( 'tbody' )[ 0 ],
+                this.parent.getPagingComponent().get$()[ 0 ]
             ]
         );
         return;
@@ -108,7 +108,7 @@ SortingComponent.prototype.updateParent = function(){
 
     this.parent.show( 
         {
-            root: [ $( '#' + this.parent.getThisOptions().tableId )[0] ] 
+            root: [ $( '#' + this.parent.getThisOptions().tableId )[ 0 ] ] 
         }
     );
 };
