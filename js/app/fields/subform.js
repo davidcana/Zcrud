@@ -291,7 +291,6 @@ Subform.prototype.buildProcessTemplateParams = function( field, record, dictiona
 
 Subform.prototype.deleteRow = function( event ){
 
-    //var $tr = $( event.target ).parents( 'tr' ).first();
     var $tr = $( event.target ).closest( 'tr' );
 
     context.getHistory().putDelete( 

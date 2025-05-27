@@ -83,7 +83,9 @@ Datetime.prototype.setValueToFormForTime = function( _value, $this ){
 
     if ( this.inline ){
         var $datetime = this.get$datetime( 
-            $this.parents( '.zcrud-data-entity' ).first() );
+            //$this.parents( '.zcrud-data-entity' ).first()
+            $this.closest( '.zcrud-data-entity' )
+        );
         var timeObject = this.buildTimeObjectFromString( value );
         this.updateTime( $datetime, timeObject );
     }
@@ -97,7 +99,10 @@ Datetime.prototype.setValueToFormForDatetime = function( value, $this, manageTim
         .attr( this.pickerValueAttr, formattedValue );
 
     if ( this.inline ){
-        var $datetime = this.get$datetime( $this.parents( '.zcrud-data-entity' ).first() );
+        var $datetime = this.get$datetime(
+            //$this.parents( '.zcrud-data-entity' ).first()
+            $this.closest( '.zcrud-data-entity' )
+        );
 
         // Update dictionary
         this.dictionary.field = this;
@@ -477,7 +482,6 @@ Datetime.prototype.buildDaysInWeeks = function( referenceDate, selectedDate, day
 };
 
 Datetime.prototype.get$datePicker = function( event ){
-    //return $( event.target ).parents( '.datepicker' ).first();
     return $( event.target ).closest( '.datepicker' );
 };
 

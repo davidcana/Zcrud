@@ -1645,8 +1645,8 @@ module.exports = (function() {
                     return this.value == id;
                 }
             );
-            //var $field = $fields.find( '[value='' + id +'']' );
-            var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
+            //var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
+            var $tr = $field.closest( 'tr.zcrud-data-row' );
             $tr.find( 'input.zcrud-select-row' ).trigger( 'click' );
         }
     };
@@ -1668,12 +1668,12 @@ module.exports = (function() {
                     return this.textContent.trim() == id;
                 }
             );
-            var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
+            //var $tr = $field.parents( 'tr.zcrud-data-row' ).first();
+            var $tr = $field.closest( 'tr.zcrud-data-row' );
             $tr.find( 'input.zcrud-select-row' ).trigger( 'click' );
         }
     };
     var listToggleSelect = function(){
-        //get$Container().find( 'input.zcrud-select-all-rows' ).trigger( 'click' );
         var $checkbox = get$Container().find( 'input.zcrud-select-all-rows' );
         var checked = $checkbox.checked();
         $checkbox
@@ -1681,7 +1681,6 @@ module.exports = (function() {
             .trigger( 'change' );
     };
     var subformToggleSelect = function( subformId ){
-        //get$Container().find( '.zcrud-field-' + subformId + ' input.zcrud-select-all-rows' ).trigger( 'click' );
         var $checkbox = get$Container().find( '.zcrud-field-' + subformId + ' input.zcrud-select-all-rows' );
         var checked = $checkbox.checked();
         $checkbox

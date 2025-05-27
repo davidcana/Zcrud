@@ -169,7 +169,8 @@ module.exports = (function() {
 
     var setValidationMessage = function( el, message ){
 
-        const $field = $( el ).parents( '.zcrud-like-field' ).first();
+        //const $field = $( el ).parents( '.zcrud-like-field' ).first();
+        const $field = $( el ).closest( '.zcrud-like-field' );
         const $valMessageEl = $field.find( '.zcrud-validationMessage' ).first();
 
         $valMessageEl.text( message );

@@ -102,7 +102,8 @@ OptionsField.prototype.afterProcessTemplateForField = function( params, $selecti
 
 OptionsField.prototype.getValueFromSelectionAndField = function( $selection ){
     
-    var $checkboxesContainer = $selection.parents( '.zcrud-checkboxes-container' ).first();
+    //var $checkboxesContainer = $selection.parents( '.zcrud-checkboxes-container' ).first();
+    var $checkboxesContainer = $selection.closest( '.zcrud-checkboxes-container' );
     return $checkboxesContainer.find( 'input[type="checkbox"]:checked' ).map(
         function() {
             return $( this ).val();
@@ -131,7 +132,8 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
     
     switch( this.type ) {
         case 'checkboxes':  
-            var $checkboxesContainer = $this.parents( '.zcrud-checkboxes-container' ).first();
+            //var $checkboxesContainer = $this.parents( '.zcrud-checkboxes-container' ).first();
+            var $checkboxesContainer = $this.closest( '.zcrud-checkboxes-container' );
             var $checkboxes = $checkboxesContainer.find( 'input[type="checkbox"].zcrud-active' );
             $checkboxes.prop( 'checked', false ); 
             if ( value ){
@@ -142,7 +144,8 @@ OptionsField.prototype.setValueToForm = function( value, $this ){
             this.throwEventsForSetValueToForm( $this );
             return;
         case 'radio':
-            var $radiosContainer = $this.parents( '.zcrud-radio-container' ).first();
+            //var $radiosContainer = $this.parents( '.zcrud-radio-container' ).first();
+            var $radiosContainer = $this.closest( '.zcrud-radio-container' );
             var $radios = $radiosContainer.find( 'input[type="radio"].zcrud-active' );
             if ( value ){
                 $radios.filter( '[value="' + value + '"]' ).prop( 'checked', true );

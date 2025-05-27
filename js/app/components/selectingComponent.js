@@ -90,7 +90,9 @@ SelectingComponent.prototype.bindRowsEvents = function( $selection ){
         $selection.on( 
             'click',  
             function () {
-                instance.invertRowSelection( $( this ) );
+                instance.invertRowSelection(
+                    $( this )
+                );
             }
         );
     }
@@ -101,7 +103,9 @@ SelectingComponent.prototype.bindRowsEvents = function( $selection ){
             .on(
                 'click',  
                 function () {
-                    instance.invertRowSelection( $( this ).parents( 'tr' ) );
+                    instance.invertRowSelection(
+                        $( this ).parents( 'tr' )
+                    );
                 }
             );
     }
