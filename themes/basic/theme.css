@@ -124,9 +124,9 @@ div.zcrud-main-container {
       div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row > td > .zcrud-delete-command-button:hover {
         opacity: 0.8; }
     div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(even) {
-      background-color: #e8eaef; }
-    div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(odd) {
       background-color: White; }
+    div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(odd) {
+      background-color: #e8eaef; }
     div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:hover {
       background-color: #ddd; }
   div.zcrud-main-container .zcrud-subform-content table.zcrud > thead th {
