@@ -44,11 +44,12 @@ Checkbox.prototype.getViewValueFromRecord = function( record ){
     );
     //return value? context.translate( 'true' ): context.translate( 'false' )
 };
-
+/*
 Checkbox.prototype.getValueFromSelection = function( $selection ){
     
     var stringValue = Field.prototype.getValueFromSelection.call( this, $selection ).toLowerCase();
     return stringValue == 'true';
 };
+*/
 
 module.exports = Checkbox;

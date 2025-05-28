@@ -71,11 +71,11 @@ Field.prototype.getValueFromRecord = function( record ){
 Field.prototype.getViewValueFromRecord = function( record ){
     return record[ this.id ];
 };
-
+/*
 Field.prototype.getValueFromSelection = function( $selection ){
     return $selection.find( '.zcrud-like-field-' + this.name ).text().trim();
 };
-
+*/
 Field.prototype.get$Input = function(){
     return this.get$().find( '[name="' + this.name + '"]' );
 };
