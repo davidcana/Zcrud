@@ -216,11 +216,11 @@ FileUpload.prototype.setValueToForm = function( value, $this ){
         page
     );
 };
-
+/*
 FileUpload.prototype.getValueForHistory = function( $this ){
     return this.fullValue;
 };
-
+*/
 FileUpload.prototype.validate = function(){
     if ( ! this.fullValue || ! this.fullValue.file.size ){
         return true;

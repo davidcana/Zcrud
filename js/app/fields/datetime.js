@@ -156,13 +156,18 @@ Datetime.prototype.getValueFromString = function( stringValue ){
 
     throw 'Unknown type in Datetime: ' + this.type;
 };
-
+/*
 Datetime.prototype.getValue = function( $this ){
     return this.getValueFromString( $this.val() );
 };
 
 Datetime.prototype.getValueForHistory = function( $this ){
     const value = this.getValue( $this );
+    return value? value: $this.val();
+};
+*/
+Datetime.prototype.getValue = function( $this ){
+    const value = this.getValueFromString( $this.val() );
     return value? value: $this.val();
 };
 

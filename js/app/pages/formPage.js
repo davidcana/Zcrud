@@ -451,7 +451,8 @@ FormPage.prototype.bindEvents = function( $form ) {
                 const putChangeInHistoryFunction = function(){
                     context.getHistory().putChange( 
                         $this, 
-                        field.getValueForHistory( $this ), 
+                        //field.getValueForHistory( $this ),
+                        field.getValue( $this ),
                         0,
                         '1',
                         instance.id,
