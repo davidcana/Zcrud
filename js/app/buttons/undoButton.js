@@ -30,7 +30,7 @@ UndoButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: 'Undo'
+            text: 'button_undo'
         }
     };
 };

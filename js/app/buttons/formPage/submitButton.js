@@ -26,7 +26,7 @@ SubmitButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: this.parent.getType() == 'delete'? 'Delete': 'Save' 
+            text: this.parent.getType() == 'delete'? 'button_delete': 'button_save'
         }
     }
 };

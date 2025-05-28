@@ -24,8 +24,9 @@ DeleteRowButton.prototype.getTextsBundle = function(){
 
     return {
         title: {
-            translate: false,
-            text: 'Delete record'
+            translate: true,
+            text: 'button_deleteRow'
+            //text: 'Delete record'
         },
         content: undefined
     };

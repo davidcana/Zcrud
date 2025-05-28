@@ -24,8 +24,9 @@ ShowDeleteFormButton.prototype.getTextsBundle = function(){
 
     return {
         title: {
-            translate: false,
-            text: 'Delete record'
+            translate: true,
+            text: 'button_showDeleteForm'
+            //text: 'Delete record'
         },
         content: undefined
     };

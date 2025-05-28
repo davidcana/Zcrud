@@ -27,7 +27,7 @@ CancelButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: 'Cancel'
+            text: 'button_cancel'
         }
     };
 };

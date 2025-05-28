@@ -26,7 +26,7 @@ ShowCreateFormButton.prototype.getTextsBundle = function(){
     return {
         title: {
             translate: true,
-            text: 'Add new record'
+            text: 'button_showCreateForm'
         },
         content: {
             translate: false,

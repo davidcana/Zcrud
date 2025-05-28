@@ -25,8 +25,9 @@ ShowEditFormButton.prototype.getTextsBundle = function(){
 
     return {
         title: {
-            translate: false,
-            text: 'Edit record'
+            translate: true,
+            text: "button_showEditForm"
+            //text: 'Edit record'
         },
         content: undefined
     };

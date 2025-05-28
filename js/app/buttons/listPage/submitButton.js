@@ -26,7 +26,7 @@ SubmitButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: 'Save'
+            text: 'button_save'
         }
     };
 };

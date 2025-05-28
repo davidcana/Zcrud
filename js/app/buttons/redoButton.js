@@ -30,7 +30,7 @@ RedoButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: 'Redo'
+            text: 'button_redo'
         }
     };
 };

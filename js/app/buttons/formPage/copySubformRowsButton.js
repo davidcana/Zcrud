@@ -27,7 +27,8 @@ CopySubformRowsButton.prototype.getTextsBundle = function(){
         title: undefined,
         content: {
             translate: true,
-            text: this.title || 'Copy rows'
+            text: this.title || 'button_copySubformRows'
+            //text: this.title || 'Copy rows'
         }
     };
 };
