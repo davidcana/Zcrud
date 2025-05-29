@@ -224,6 +224,26 @@ var options = {
     },
 
     events: {
+        listCreated: function ( data ) {
+            $( 'button.showSelectedRecords' ).on(
+                'click',
+                function ( event ) {
+                    const records = JSON.stringify(
+                        $( '#departmentsContainer' ).zcrud( 'getSelectedRecords' )
+                    );
+                    const options = context.getOptions(
+                        $( '#departmentsContainer' )
+                    );
+                    context.showMessage(
+                        options,
+                        {
+                            text: 'Selected records: ' + records
+                        }
+                    );
+                    //alert( text );
+                }
+            );
+        }
         /*
         formCreated: function ( options ) { 
             alert( 'Form created! ' );
@@ -257,22 +277,6 @@ $( '#departmentsContainer' ).zcrud(
     options,
     function( options ){
         $( '#departmentsContainer' ).zcrud( 'renderList' );
-        
-        $( 'button.showSelectedRecords' ).on(
-            'click',
-            function ( event ) {
-                const records = JSON.stringify(
-                    $( '#departmentsContainer' ).zcrud( 'getSelectedRecords' )
-                );
-                context.showMessage(
-                    options,
-                    {
-                        text: 'Selected records: ' + records
-                    }
-                );
-                //alert( text );
-            }
-        );
     }
 );
 

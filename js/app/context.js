@@ -61,6 +61,7 @@ module.exports = (function() {
     };
 
     // Options
+    //TODO Make putOptions and getOptions simpler: setOptions and getOptions with no params (saving just one instance of options)
     var putOptions = function( $item, options ){
         put( 'options_' + getSelectorString( $item ), options );
     };
