@@ -3,6 +3,7 @@
 var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
 var $ = zzDOM.zz;
 var testServerSide = require( './testServerSide' );
+var context = require( '../../../js/app/context.js' );
 
 var options = {
     
@@ -35,6 +36,22 @@ var options = {
                         multiple: true,
                         mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
                     }
+                },
+                buttons: {
+                    toolbar: [
+                        'list_showCreateForm',
+                        {
+                            type: 'generic',
+                            cssClass: 'showSelectedRecords',
+                            textsBundle: {
+                                title: undefined,
+                                content: {
+                                    translate: false,
+                                    text: 'Show selected records'
+                                }
+                            }
+                        }
+                    ]
                 }
             }, 
             create: {
@@ -240,36 +257,39 @@ $( '#departmentsContainer' ).zcrud(
     options,
     function( options ){
         $( '#departmentsContainer' ).zcrud( 'renderList' );
+        
+        $( 'button.showSelectedRecords' ).on(
+            'click',
+            function ( event ) {
+                const records = JSON.stringify(
+                    $( '#departmentsContainer' ).zcrud( 'getSelectedRecords' )
+                );
+                context.showMessage(
+                    options,
+                    {
+                        text: 'Selected records: ' + records
+                    }
+                );
+                //alert( text );
+            }
+        );
     }
 );
-/*
-zcrud.init( options, function( options ){
-    zcrud.renderList(
-        options,
-        {
-            name: 'Service 1'
-        });
-});*/
 
-$( '#customButton' ).on( 'click',  function ( event ) {
-    
-    alert( JSON.stringify(
-        $( '#departmentsContainer' ).zcrud( 'getSelectedRecords' ) ) );
-    
-    //$( '#departmentsContainer' ).zcrud( 'destroy' );
-    /*alert( JSON.stringify(
-        $( '#departmentsContainer' ).zcrud( 'getRecordByKey', 1 ) ) );
-            //zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );*/
-    //$( '#departmentsContainer' ).zcrud( 'showCreateForm' );
-    /*
-    $( '#departmentsContainer' ).zcrud( 
-        'updateRecord',
-        {
-            id: '1',
-            name: 'New service!'
-        });*/
-    /*
-    zcrud.deleteRecord( 
-        'zcrud-list-department', 1, event );*/
-    //$( '#departmentsContainer' ).zcrud( 'deleteRecord', 1, event );
-});
+//$( '#departmentsContainer' ).zcrud( 'destroy' );
+/*alert( JSON.stringify(
+    $( '#departmentsContainer' ).zcrud( 'getRecordByKey', 1 ) ) );
+        //zcrud.getRecordByKey( 'zcrud-list-department', 10 ) ) );*/
+//$( '#departmentsContainer' ).zcrud( 'showCreateForm' );
+/*
+$( '#departmentsContainer' ).zcrud(
+    'updateRecord',
+    {
+        id: '1',
+        name: 'New service!'
+    });*/
+/*
+zcrud.deleteRecord(
+    'zcrud-list-department', 1, event );*/
+//$( '#departmentsContainer' ).zcrud( 'deleteRecord', 1, event );
+
