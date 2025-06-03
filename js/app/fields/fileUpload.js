@@ -309,7 +309,10 @@ FileItem.prototype.getURL = function(){
         return;
     }
 
-    this.url = URL.createObjectURL( this.contents );
+    this.url = this.contents;
+    
+    return this.url;
+
     /*
     // Create a blob (file-like object)
     const blob = new Blob(
