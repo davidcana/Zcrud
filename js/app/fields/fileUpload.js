@@ -131,19 +131,18 @@ FileUpload.prototype.readFile = function( $file ){
     }
 
     // Update fullValue property
-    this.fullValue = {
-        file: this.filterFilePart( file )
-    };
+    this.fullValue = this.filterFilePart( file );
 
     // Instance a FileReader and read the file with it
     const reader = new FileReader();
     var fileUploadInstance = this;
     reader.addEventListener( 'loadend', () => {
         // reader.result contains the contents of blob as a typed array
-        fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result );
-        this.afterSetValue( this.fullValue.file );
+        fileUploadInstance.fullValue.contents = fileUploadInstance.filterContentsPart( reader.result, file );
+        this.afterSetValue( this.fullValue );
     });
-    reader.readAsArrayBuffer( file );
+    //reader.readAsArrayBuffer( file );
+    reader.readAsDataURL( file );
 };
 
 FileUpload.prototype.afterSetValue = function( file ){
@@ -171,6 +170,7 @@ FileUpload.prototype.updateNewFile = function( newFile ){
 };
 
 // Extract just the 4 standard information on selected files
+/*
 FileUpload.prototype.filterFilePart = function( file ){
     return file?
     {
@@ -186,11 +186,49 @@ FileUpload.prototype.filterFilePart = function( file ){
         type: undefined
     };
 };
+*/
+FileUpload.prototype.filterFilePart = function( file ){
 
-//TODO Extract just the needed data from the ArrayBuffer
-FileUpload.prototype.filterContentsPart = function( contents ){
+    return new FileItem(
+        file?
+        file:
+        {
+            size: 0
+        }
+    );
+};
+
+FileUpload.prototype.filterContentsPart = function( contents, file ){
     return contents;
 };
+
+//FileUpload.prototype.filterContentsPart = function( fileBits, file ){
+    //return String.fromCharCode.apply( null, new Uint8Array( fileBits ) );
+    
+    // The TextDecoder interface is documented at http://encoding.spec.whatwg.org/#interface-textdecoder
+    /*
+    var decoder = new TextDecoder( 'utf-8' );
+    return decoder.decode(
+        new DataView( fileBits )
+    );
+    */
+    /*
+    var enc = new TextDecoder( 'utf-8' );
+    return enc.decode(
+        new Uint8Array( fileBits )
+    );
+    */
+    /*
+    return new File(
+        new Uint8Array( fileBits ),
+        file.name,
+        {
+            type: file.type,
+            lastModified: file.lastModified
+        }
+    );
+    */
+//};
 
 FileUpload.prototype.getValue = function( $this ){
     return this.fullValue;
@@ -207,7 +245,8 @@ FileUpload.prototype.getValueFromForm = function( $selection ){
 
 FileUpload.prototype.setValueToForm = function( value, $this ){
     this.fullValue = value? value: undefined;
-    this.updateNewFile( this.fullValue? this.fullValue.file: undefined );
+    //this.updateNewFile( this.fullValue? this.fullValue.file: undefined );
+    this.updateNewFile( this.fullValue? this.fullValue: undefined );
 
     const page = this.getPage();
     validationManager.showErrorForField(
@@ -222,7 +261,8 @@ FileUpload.prototype.getValueForHistory = function( $this ){
 };
 */
 FileUpload.prototype.validate = function(){
-    if ( ! this.fullValue || ! this.fullValue.file.size ){
+    //if ( ! this.fullValue || ! this.fullValue.file.size ){
+    if ( ! this.fullValue || ! this.fullValue.size ){
         return true;
     }
 
@@ -230,7 +270,8 @@ FileUpload.prototype.validate = function(){
     if ( this.acceptedFileExtensions ){
         let found = false;
         for ( const extension of this.acceptedFileExtensions ) {
-            if ( this.fullValue.file.name.endsWith( extension ) ){
+            //if ( this.fullValue.file.name.endsWith( extension ) ){
+            if ( this.fullValue.name.endsWith( extension ) ){
                 found = true;
             }
         }
@@ -240,12 +281,50 @@ FileUpload.prototype.validate = function(){
     }
 
     // Check maxFileSize and minFileSize
-    if ( this.fullValue.file.size > this.maxFileSize ){
+    //if ( this.fullValue.file.size > this.maxFileSize ){
+    if ( this.fullValue.size > this.maxFileSize ){
         return 'rangeOverflow';
     }
-    if ( this.fullValue.file.size < this.minFileSize ){
+    //if ( this.fullValue.file.size < this.minFileSize ){
+    if ( this.fullValue.size < this.minFileSize ){
         return 'rangeUnderflow';
     }
+};
+
+var FileItem = function( properties ) {
+    this.name = properties.name;
+    this.lastModified = properties.lastModified;
+    this.size = properties.size;
+    this.type = properties.type;
+};
+FileItem.prototype.constructor = FileItem;
+
+FileItem.prototype.getURL = function(){
+    if ( this.url ){
+        return this.url;
+    }
+
+    // Return null if there is no contents
+    if ( ! this.contents ){
+        return;
+    }
+
+    this.url = URL.createObjectURL( this.contents );
+    /*
+    // Create a blob (file-like object)
+    const blob = new Blob(
+        [ this.contents ],
+        {
+            type: this.type
+        }
+    );
+
+    // Create an object URL from blob
+    this.url = URL.createObjectURL( blob );
+    return this.url;
+    */
+    //a.setAttribute('href', url) // Set "a" element link
+    //a.setAttribute('download', filename) // Set download filename
 };
 
 module.exports = FileUpload;

@@ -172,7 +172,6 @@ var options = {
             type: 'number',
             attributes: {
                 field: {
-                    required: '',
                     min: 1,
                     max: 10,
                     step: .1
@@ -183,7 +182,6 @@ var options = {
             type: 'password',
             attributes: {
                 field: {
-                    required: '',
                     autocomplete: 'current-password'
                 }
             }

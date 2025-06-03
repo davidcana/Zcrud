@@ -20,9 +20,10 @@
             <div class="currentFile">
                 <div class="subtitle" data-content="tr:'currentFile'">Current file</div>
                 <div class="fileName" data-condition="value">
-                    <a data-attributes="href value/file/url">
-                       <span data-content="value/file/name"></span>
-                       (<span data-content="u/formatFileSize( value/file/size )"></span>)
+                    <a data-attributes="href value/getURL();
+                                        download value/name">
+                       <span data-content="value/name"></span>
+                       (<span data-content="u/formatFileSize( value/size )"></span>)
                     </a>
                 </div>
                 <div class="fileName" data-condition="not:value">
