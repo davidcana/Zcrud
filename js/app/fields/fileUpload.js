@@ -170,7 +170,6 @@ FileUpload.prototype.updateNewFile = function( newFile ){
 };
 
 // Extract just the 4 standard information on selected files
-/*
 FileUpload.prototype.filterFilePart = function( file ){
     return file?
     {
@@ -186,7 +185,7 @@ FileUpload.prototype.filterFilePart = function( file ){
         type: undefined
     };
 };
-*/
+/*
 FileUpload.prototype.filterFilePart = function( file ){
 
     return new FileItem(
@@ -197,7 +196,7 @@ FileUpload.prototype.filterFilePart = function( file ){
         }
     );
 };
-
+*/
 FileUpload.prototype.filterContentsPart = function( contents, file ){
     return contents;
 };
@@ -289,45 +288,6 @@ FileUpload.prototype.validate = function(){
     if ( this.fullValue.size < this.minFileSize ){
         return 'rangeUnderflow';
     }
-};
-
-var FileItem = function( properties ) {
-    this.name = properties.name;
-    this.lastModified = properties.lastModified;
-    this.size = properties.size;
-    this.type = properties.type;
-};
-FileItem.prototype.constructor = FileItem;
-
-FileItem.prototype.getURL = function(){
-    if ( this.url ){
-        return this.url;
-    }
-
-    // Return null if there is no contents
-    if ( ! this.contents ){
-        return;
-    }
-
-    this.url = this.contents;
-    
-    return this.url;
-
-    /*
-    // Create a blob (file-like object)
-    const blob = new Blob(
-        [ this.contents ],
-        {
-            type: this.type
-        }
-    );
-
-    // Create an object URL from blob
-    this.url = URL.createObjectURL( blob );
-    return this.url;
-    */
-    //a.setAttribute('href', url) // Set "a" element link
-    //a.setAttribute('download', filename) // Set download filename
 };
 
 module.exports = FileUpload;
