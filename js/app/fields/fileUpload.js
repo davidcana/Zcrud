@@ -120,6 +120,10 @@ FileUpload.prototype.bindEvents = function( params, $selection ){
     );
 };
 
+FileUpload.prototype.getViewTemplate = function(){
+    return 'viewTemplate@templates/fields/files.html';
+};
+
 FileUpload.prototype.readFile = function( $file ){
 
     // Get the file instance

@@ -60,5 +60,18 @@
                 </div>
             </div>
         </div>
+
+        <span data-define-macro="viewTemplate" data-omit-tag="">
+            <span class="fileName" data-condition="value">
+                <a data-attributes="href value/contents | value/url;
+                                    download value/name">
+                    <span data-content="value/name"></span>
+                    (<span data-content="u/formatFileSize( value/size )"></span>)
+                </a>
+            </span>
+            <span class="fileName" data-condition="not:value">
+                <span data-content="tr:'noCurrentFile'"></span>
+            </span>
+        </span>
     </body>
 </html>

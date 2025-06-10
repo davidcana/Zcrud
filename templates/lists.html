@@ -134,10 +134,7 @@
                         data-attributes="class string:zcrud-column-data zcrud-column-data-${field/id} zcrud-like-field zcrud-like-field-${field/name}"
                         data-define="value record[ field/id ];
                                       fieldIsEditable and: editable (not: field/isReadOnly())">
-                        <span data-condition="not: fieldIsEditable" 
-                              data-content="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) field/getViewValueFromRecord( record )">
-                            Field value
-                        </span>
+                        <span data-condition="not: fieldIsEditable" data-use-macro="field/viewTemplate | 'defaultNotEditable'"><!--empty--></span>
                         <span data-condition="fieldIsEditable" data-use-macro="field/template"><!--empty--></span>
                         <span data-condition="fieldIsEditable" data-attributes="class 'zcrud-validationMessage zcrud-hidden'"></span>
                     </td>
@@ -151,6 +148,11 @@
             </tbody>
         </table>
         
+        <span data-define-macro="defaultNotEditable"
+              data-content="cond: ( eq: value undefined ) ( tr:'undefinedValueToShow' ) field/getViewValueFromRecord( record )">
+            Field value
+        </span>
+
         <div data-define-macro="filterPanel" 
              data-define="component instance/getComponent( 'filtering' );
                            thisOptions component/getThisOptions();

@@ -17,7 +17,7 @@ var options = {
         pages: {
             list: {
                 getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=department',
-                fields: [ 'id', 'name' ],
+                fields: [ 'id', 'name', 'file' ],
                 components: {
                     sorting: {
                         isOn: true,
@@ -34,7 +34,7 @@ var options = {
                     selecting: {
                         isOn: true,
                         multiple: true,
-                        mode: [ 'checkbox', 'onRowClick' ] // Options are checkbox and onRowClick
+                        mode: [ 'checkbox' ] // Options are checkbox and onRowClick
                     }
                 },
                 buttons: {
@@ -95,7 +95,7 @@ var options = {
                     maxlength: 6
                 },
                 rowHeader: {
-                    style: 'width:90%'
+                    style: 'width:60%'
                 }
             }
         },
