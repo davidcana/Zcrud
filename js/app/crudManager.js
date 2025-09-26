@@ -1,13 +1,16 @@
 /* 
     crudManager singleton class
 */
-'use strict';
 
-var context = require( './context.js' );
-var validationManager = require( './validationManager.js' );
-var pageUtils = require( './pages/pageUtils.js' );
+//var context = require( './context.js' );
+//var validationManager = require( './validationManager.js' );
+//var pageUtils = require( './pages/pageUtils.js' );
 
-module.exports = (function() {
+import { context } from './context.js';
+import { validationManager } from './validationManager.js';
+import { pageUtils } from './pages/pageUtils.js';
+
+export const crudManager = (function() {
     
     var generalSuccessFunction = function( data, options, dataFromServer ){
         

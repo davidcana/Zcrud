@@ -1,11 +1,12 @@
 /* 
     context singleton class
 */
-'use strict';
-    
-var zpt = require( 'zpt' );
 
-module.exports = (function() {
+//var zpt = require( 'zpt' );
+
+import { zpt } from '../../../node_modules/zpt/index.js';
+
+export const context = (function() {
     
     var subformSeparator = '-';
     

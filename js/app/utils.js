@@ -1,12 +1,13 @@
 /* 
     utils singleton class
 */
-'use strict';
 
-var log4javascript = require( 'log4javascript' );
-var context = require( './context.js' );
+//var log4javascript = require( 'log4javascript' );
+//var context = require( './context.js' );
+import log4javascript from '../../lib/log4javascript-esm.js';
+import { context } from './context.js';
 
-module.exports = (function() {
+export const utils = (function() {
 
     /* 
         Jquery's extend function

@@ -1,10 +1,50 @@
-'use strict';
 
-var utils = require( './utils.js' );
-var requestHelper = require( './requestHelper.js' );
-const context = require( './context.js' );
+import sweetalert from '../../lib/sweetalert-esm.js';
 
-module.exports = {
+//var utils = require( './utils.js' );
+//var requestHelper = require( './requestHelper.js' );
+//const context = require( './context.js' );
+import { utils } from './utils.js';
+import { requestHelper } from './requestHelper.js';
+import { context } from './context.js';
+
+// Components
+import { PagingComponent } from './components/pagingComponent.js';
+import { SortingComponent } from './components/sortingComponent.js';
+import { FilteringComponent } from './components/filteringComponent.js';
+import { SelectingComponent } from './components/selectingComponent.js';
+import { EditingComponent } from './components/editingComponent.js';
+
+// Fields
+import { Datetime } from './fields/datetime.js';
+import { OptionsField } from './fields/optionsField.js';
+import { Checkbox } from './fields/checkbox.js';
+import { Subform } from './fields/subform.js';
+import { FileUpload } from './fields/fileUpload.js';
+
+// Buttons
+import { GenericButton } from './buttons/genericButton.js';
+import { UndoButton } from './buttons/undoButton.js';
+import { RedoButton } from './buttons/redoButton.js';
+import { FormPageCancelButton } from './buttons/formPage/cancelButton.js';
+import { FormPageCopySubformRowsButton } from './buttons/formPage/copySubformRowsButton.js';
+import { FormPageSubmitButton } from './buttons/formPage/submitButton.js';
+import { ListPageAddNewRowButton } from './buttons/listPage/addNewRowButton.js';
+import { ListPageDeleteRowButton } from './buttons/listPage/deleteRowButton.js';
+import { ListPageShowCreateFormButton } from './buttons/listPage/showCreateFormButton.js';
+import { ListPageShowDeleteFormButton } from './buttons/listPage/showDeleteFormButton.js';
+import { ListPageShowEditFormButton } from './buttons/listPage/showEditFormButton.js';
+import { ListPageSubmitButton } from './buttons/listPage/submitButton.js';
+import { SubformAddNewRowButton } from './buttons/subform/addNewRowButton.js';
+import { SubformDeleteRowButton } from './buttons/subform/deleteRowButton.js';
+import { SubformShowCreateFormButton } from './buttons/subform/showCreateFormButton.js';
+import { SubformShowDeleteFormButton } from './buttons/subform/showDeleteFormButton.js';
+import { SubformShowEditFormButton } from './buttons/subform/showEditFormButton.js';
+
+// JSONBuilders
+import { OnlyChangesJSONBuilder } from './jsonBuilders/onlyChangesJSONBuilder.js';
+
+export const defaultOptions = {
 
     validation: {
         showBrowserMessageBubbles: false,
@@ -45,7 +85,8 @@ module.exports = {
     defaultComponentsConfig: {
         paging: {
             isOn: false,
-            constructorClass: require( './components/pagingComponent.js' ),
+            //constructorClass: require( './components/pagingComponent.js' ),
+            constructorClass: PagingComponent,
             defaultPageSize: 10,
             pageSizes: [10, 25, 50, 100, 250, 500],
             pageSizeChangeArea: true,
@@ -58,7 +99,8 @@ module.exports = {
         },
         sorting: {
             isOn: false,
-            constructorClass: require( './components/sortingComponent.js' ),
+            //constructorClass: require( './components/sortingComponent.js' ),
+            constructorClass: SortingComponent,
             loadFromLocalStorage: true,
             default: {
                 fieldId: undefined,
@@ -68,18 +110,21 @@ module.exports = {
         },
         filtering: {
             isOn: false,
-            constructorClass: require( './components/filteringComponent.js' ),
+            //constructorClass: require( './components/filteringComponent.js' ),
+            constructorClass: FilteringComponent,
             fieldsTemplate: 'compact-editable@templates/fieldLists.html'
         },
         selecting: {
             isOn: false,
-            constructorClass: require( './components/selectingComponent.js' ),
+            //constructorClass: require( './components/selectingComponent.js' ),
+            constructorClass: SelectingComponent,
             multiple: true,
             mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
         },
         editing: {
             isOn: false,
-            constructorClass: require( './components/editingComponent.js' ),
+            //constructorClass: require( './components/editingComponent.js' ),
+            constructorClass: EditingComponent,
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
             hideTr: function( $tr ){
@@ -101,23 +146,28 @@ module.exports = {
             mapping: [
                 {
                     fieldTypes: [ 'date', 'datetime', 'time' ],
-                    constructor: require( './fields/datetime.js' )
+                    //constructor: require( './fields/datetime.js' )
+                    constructor: Datetime
                 },
                 {
                     fieldTypes: [ 'datalist', 'select', 'radio', 'checkboxes' ],
-                    constructor: require( './fields/optionsField.js' )
+                    //constructor: require( './fields/optionsField.js' )
+                    constructor: OptionsField
                 },
                 {
                     fieldTypes: [ 'checkbox' ],
-                    constructor: require( './fields/checkbox.js' )
+                    //constructor: require( './fields/checkbox.js' )
+                    constructor: Checkbox
                 },
                 {
                     fieldTypes: [ 'subform' ],
-                    constructor: require( './fields/subform.js' )
+                    //constructor: require( './fields/subform.js' )
+                    constructor: Subform
                 },
                 {
                     fieldTypes: [ 'fileUpload' ],
-                    constructor: require( './fields/fileUpload.js' )
+                    //constructor: require( './fields/fileUpload.js' )
+                    constructor: FileUpload
                 }
             ]
         },
@@ -204,26 +254,43 @@ module.exports = {
     },
 
     buttons: {
-        generic: require( './buttons/genericButton.js' ),
-        undo: require( './buttons/undoButton.js' ),
-        redo: require( './buttons/redoButton.js' ),
+        //generic: require( './buttons/genericButton.js' ),
+        //undo: require( './buttons/undoButton.js' ),
+        //redo: require( './buttons/redoButton.js' ),
+        generic: GenericButton,
+        undo: UndoButton,
+        redo: RedoButton,
 
-        form_cancel: require( './buttons/formPage/cancelButton.js' ),
-        form_copySubformRows: require( './buttons/formPage/copySubformRowsButton.js' ),
-        form_submit: require( './buttons/formPage/submitButton.js' ),
-        
-        list_addNewRow: require( './buttons/listPage/addNewRowButton.js' ),
-        list_deleteRow: require( './buttons/listPage/deleteRowButton.js' ),
-        list_showCreateForm: require( './buttons/listPage/showCreateFormButton.js' ),
-        list_showDeleteForm: require( './buttons/listPage/showDeleteFormButton.js' ),
-        list_showEditForm: require( './buttons/listPage/showEditFormButton.js' ),
-        list_submit: require( './buttons/listPage/submitButton.js' ),
-        
-        subform_addNewRow: require( './buttons/subform/addNewRowButton.js' ),
-        subform_deleteRow: require( './buttons/subform/deleteRowButton.js' ),
-        subform_showCreateForm: require( './buttons/subform/showCreateFormButton.js' ),
-        subform_showDeleteForm: require( './buttons/subform/showDeleteFormButton.js' ),
-        subform_showEditForm: require( './buttons/subform/showEditFormButton.js' )
+        //form_cancel: require( './buttons/formPage/cancelButton.js' ),
+        //form_copySubformRows: require( './buttons/formPage/copySubformRowsButton.js' ),
+        //form_submit: require( './buttons/formPage/submitButton.js' ),
+        form_cancel: FormPageCancelButton,
+        form_copySubformRows: FormPageCopySubformRowsButton,
+        form_submit: FormPageSubmitButton,
+
+        //list_addNewRow: require( './buttons/listPage/addNewRowButton.js' ),
+        //list_deleteRow: require( './buttons/listPage/deleteRowButton.js' ),
+        //list_showCreateForm: require( './buttons/listPage/showCreateFormButton.js' ),
+        //list_showDeleteForm: require( './buttons/listPage/showDeleteFormButton.js' ),
+        //list_showEditForm: require( './buttons/listPage/showEditFormButton.js' ),
+        //list_submit: require( './buttons/listPage/submitButton.js' ),
+        list_addNewRow: ListPageAddNewRowButton,
+        list_deleteRow: ListPageDeleteRowButton,
+        list_showCreateForm: ListPageShowCreateFormButton,
+        list_showDeleteForm: ListPageShowDeleteFormButton,
+        list_showEditForm: ListPageShowEditFormButton,
+        list_submit: ListPageSubmitButton,
+
+        //subform_addNewRow: require( './buttons/subform/addNewRowButton.js' ),
+        //subform_deleteRow: require( './buttons/subform/deleteRowButton.js' ),
+        //subform_showCreateForm: require( './buttons/subform/showCreateFormButton.js' ),
+        //subform_showDeleteForm: require( './buttons/subform/showDeleteFormButton.js' ),
+        //subform_showEditForm: require( './buttons/subform/showEditFormButton.js' )
+        subform_addNewRow: SubformAddNewRowButton,
+        subform_deleteRow: SubformDeleteRowButton,
+        subform_showCreateForm: SubformShowCreateFormButton,
+        subform_showDeleteForm: SubformShowDeleteFormButton,
+        subform_showEditForm: SubformShowEditFormButton
     },
     
     pageConf: {
@@ -332,7 +399,8 @@ module.exports = {
         level: 'error'
     },
 
-    jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
+    //jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
+    jsonBuilder: OnlyChangesJSONBuilder,
     
     defaultErrorOptions: {
         icon: 'error',
@@ -340,7 +408,8 @@ module.exports = {
         i18nTitle: 'errorTitle'
     },
     errorFunction: function( message ){
-        var swal = require( 'sweetalert' );
+        //var swal = require( 'sweetalert' );
+        var swal = sweetalert;
         var thisOptions = utils.extend( true, {}, this.defaultErrorOptions );
         if ( ! thisOptions.title ){
             thisOptions.title = context.translate( this.defaultErrorOptions.i18nTitle );
@@ -356,7 +425,8 @@ module.exports = {
         className: 'confirm'
     },
     confirmFunction: function( confirmOptions, onFulfilled ){
-        var swal = require( 'sweetalert' );
+        //var swal = require( 'sweetalert' );
+        var swal = sweetalert;
         var thisOptions = utils.extend( true, {}, this.defaultConfirmOptions, confirmOptions );
         swal( thisOptions ).then( onFulfilled );
     },
@@ -367,7 +437,8 @@ module.exports = {
         className: 'showMessage'
     },
     showMessageFunction: function( messageOptions ){
-        var swal = require( 'sweetalert' );
+        //var swal = require( 'sweetalert' );
+        var swal = sweetalert;
         var thisOptions = utils.extend( true, {}, this.defaultShowMessageOptions, messageOptions );
         swal( thisOptions );
     },

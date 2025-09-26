@@ -1,21 +1,31 @@
 /* 
     Main class of ZCrud
 */
-'use strict';
 
-var zpt = require( 'zpt' );
+//var zpt = require( 'zpt' );
+//var context = require( './context.js' );
+//var ListPage = require( './pages/listPage.js' );
+//var FormPage = require( './pages/formPage.js' );
+//var normalizer = require( './normalizer.js' );
+//var fieldBuilder = require( './fields/fieldBuilder' );
+//var defaultOptions = require( './defaultOptions.js' );
+//var utils = require( './utils.js' );
+
+import { zpt } from '../../../node_modules/zpt/index.js';
 var log = zpt.logHelper;
-var context = require( './context.js' );
-var ListPage = require( './pages/listPage.js' );
-var FormPage = require( './pages/formPage.js' );
-var normalizer = require( './normalizer.js' );
-var fieldBuilder = require( './fields/fieldBuilder' );
-var defaultOptions = require( './defaultOptions.js' );
-var utils = require( './utils.js' );
+import { context } from './context.js';
+import { ListPage } from './pages/listPage.js';
+import { FormPage } from './pages/formPage.js';
+import { normalizer } from './normalizer.js';
+import { fieldBuilder } from './fields/fieldBuilder';
+import { defaultOptions } from './defaultOptions.js';
+import { utils } from './utils.js';
 
-exports.version = '0.2.0-SNAPSHOT';
+export const zcrud = {};
 
-exports.init = function( userOptions, callback, failCallback ){
+zcrud.version = '0.3.0-SNAPSHOT';
+
+zcrud.init = function( userOptions, callback, failCallback ){
     
     // Register in options.dictionary I18n instances
     var initI18n = function( dictionary ){
@@ -89,7 +99,7 @@ exports.init = function( userOptions, callback, failCallback ){
     return options;
 };
 
-exports.renderList = function( options, data, callback ){
+zcrud.renderList = function( options, data, callback ){
 
     try {
         log.info( 'Rendering list...' );
@@ -113,7 +123,7 @@ exports.renderList = function( options, data, callback ){
     }
 };
 
-exports.renderForm = function( options, data, callback ){
+zcrud.renderForm = function( options, data, callback ){
 
     try {
         log.info( 'Rendering form...' );
@@ -140,11 +150,11 @@ exports.renderForm = function( options, data, callback ){
     }
 };
 
-exports.destroy = function( options ){
+zcrud.destroy = function( options ){
     options.target.empty();
 };
 
-exports.showCreateForm = function( listPageIdSource ){
+zcrud.showCreateForm = function( listPageIdSource ){
     
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -153,7 +163,7 @@ exports.showCreateForm = function( listPageIdSource ){
     listPage.showCreateForm();
 };
 
-exports.showUpdateForm = function( listPageIdSource, key ){
+zcrud.showUpdateForm = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -162,7 +172,7 @@ exports.showUpdateForm = function( listPageIdSource, key ){
     listPage.showEditForm( undefined, key );
 };
 
-exports.showDeleteForm = function( listPageIdSource, key ){
+zcrud.showDeleteForm = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -171,7 +181,7 @@ exports.showDeleteForm = function( listPageIdSource, key ){
     listPage.showDeleteForm( undefined, key );
 };
 
-exports.getRecordByKey = function( listPageIdSource, key ){
+zcrud.getRecordByKey = function( listPageIdSource, key ){
     
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -180,7 +190,7 @@ exports.getRecordByKey = function( listPageIdSource, key ){
     return listPage.getRecordByKey( key );
 };
 
-exports.getRecords = function( listPageIdSource ){
+zcrud.getRecords = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -189,7 +199,7 @@ exports.getRecords = function( listPageIdSource ){
     return listPage.getRecordsArray();
 };
 
-exports.getRowByKey = function( listPageIdSource, key ){
+zcrud.getRowByKey = function( listPageIdSource, key ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -198,7 +208,7 @@ exports.getRowByKey = function( listPageIdSource, key ){
     return listPage.getRowByKey( key );
 };
 
-exports.selectRecords = function( listPageIdSource, rows ){
+zcrud.selectRecords = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -207,7 +217,7 @@ exports.selectRecords = function( listPageIdSource, rows ){
     listPage.getSecureComponent( 'selecting' ).selectRecords( rows );
 };
 
-exports.deselectRecords = function( listPageIdSource, rows ){
+zcrud.deselectRecords = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -216,7 +226,7 @@ exports.deselectRecords = function( listPageIdSource, rows ){
     listPage.getSecureComponent( 'selecting' ).deselectRecords( rows );
 };
 
-exports.selectRows = function( listPageIdSource, rows ){
+zcrud.selectRows = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -225,7 +235,7 @@ exports.selectRows = function( listPageIdSource, rows ){
     listPage.getSecureComponent( 'selecting' ).selectRows( rows );
 };
 
-exports.deselectRows = function( listPageIdSource, rows ){
+zcrud.deselectRows = function( listPageIdSource, rows ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -234,7 +244,7 @@ exports.deselectRows = function( listPageIdSource, rows ){
     listPage.getSecureComponent( 'selecting' ).deselectRows( rows );
 };
 
-exports.getSelectedRows = function( listPageIdSource ){
+zcrud.getSelectedRows = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -243,7 +253,7 @@ exports.getSelectedRows = function( listPageIdSource ){
     return listPage.getSecureComponent( 'selecting' ).getSelectedRows();
 };
 
-exports.getSelectedRecords = function( listPageIdSource ){
+zcrud.getSelectedRecords = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -272,7 +282,7 @@ var recordOperationCommon = function( listPageIdSource, data, checkRecord, check
     return listPage.instanceNewForm( type, data.key );
 };
 
-exports.addRecord = function( listPageIdSource, data ){
+zcrud.addRecord = function( listPageIdSource, data ){
     
     var formPage = recordOperationCommon( listPageIdSource, data, true, false, 'addRecord', 'create' );
     if ( formPage ){
@@ -280,7 +290,7 @@ exports.addRecord = function( listPageIdSource, data ){
     }
 };
 
-exports.updateRecord = function( listPageIdSource, data ){
+zcrud.updateRecord = function( listPageIdSource, data ){
     
     var formPage = recordOperationCommon( listPageIdSource, data, true, true, 'updateRecord', 'update' );
     if ( formPage ){
@@ -288,7 +298,7 @@ exports.updateRecord = function( listPageIdSource, data ){
     }
 };
 
-exports.deleteRecord = function( listPageIdSource, data ){
+zcrud.deleteRecord = function( listPageIdSource, data ){
 
     var formPage = recordOperationCommon( listPageIdSource, data, false, true, 'deleteRecord', 'delete' );
     if ( formPage ){
@@ -296,7 +306,7 @@ exports.deleteRecord = function( listPageIdSource, data ){
     }
 };
 
-exports.getListPage = function( listPageIdSource ){
+zcrud.getListPage = function( listPageIdSource ){
 
     var listPage = context.getListPage( listPageIdSource );
     if ( ! checkListPage( listPage, listPageIdSource ) ){
@@ -305,7 +315,7 @@ exports.getListPage = function( listPageIdSource ){
     return listPage;
 };
 
-exports.getFormPage = function( formPageIdSource ){
+zcrud.getFormPage = function( formPageIdSource ){
 
     var formPage = context.getFormPage( formPageIdSource );
     if ( ! checkFormPage( formPage, formPageIdSource ) ){
@@ -340,4 +350,4 @@ var checkFormPage = function( formPage, formPageIdSource ){
     return true;
 };
 
-exports.utils = utils;
+zcrud.utils = utils;

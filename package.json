@@ -1,8 +1,16 @@
 {
   "name": "zcrud",
-  "version": "0.1.0-SNAPSHOT",
-  "main": "./js/app/main.js",
+  "version": "0.3.0-SNAPSHOT",
   "description": "A javascript API to make it easy to create HTML forms and list. It also manages CRUD tables without coding HTML or Javascript using ZPT-JS as template engine.",
+  "type": "module",
+  "main": "index.cjs",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "keywords": [
     "crud",
     "form",
@@ -51,10 +59,13 @@
     "qunit-composite": "2.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "http-server": "http-server -p 9000",
     "web": "cd ./docs; http-server -p 9001",
     "beefy": "cd ./test/js/app; beefy *.js ../../../js/app/standalone.js:standalone.js",
-    "start": "npm-run-all -p -r beefy http-server"
+    "start": "npm-run-all -p -r beefy http-server",
+
+    "build-sweetalert-esm": "esbuild ./node_modules/sweetalert/dist/sweetalert.min.js --bundle --outfile=./lib/sweetalert-esm.js --format=esm",
+    "build-log4javascript-esm": "esbuild ./node_modules/log4javascript/log4javascript.js --bundle --outfile=./lib/log4javascript-esm.js --format=esm",
+    "build-all-deps-esm": "npm run build-sweetalert-esm && npm run build-log4javascript-esm"
   }
 }

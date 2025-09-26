@@ -1,10 +1,13 @@
-'use strict';
 
 //var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
-var context = require( './context.js' );
-var zcrud = require( './main.js' );
-    
+//var zzDOM = require( 'zzdom' );
+//var context = require( './context.js' );
+//var zcrud = require( './main.js' );
+
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
+import { context } from './context.js';
+import { zcrud } from './main.js';
+
 var getOptions = function( $item ){
     return context.getOptions( $item )
 };
@@ -81,4 +84,5 @@ zzDOM.MM.prototype.zcrud = function () {
     return zzDOM.MM.constructors.default( this, zzDOM.SS.prototype.zcrud, arguments );
 };
     
-module.exports = zzDOM;
+//module.exports = zzDOM;
+export { zzDOM };

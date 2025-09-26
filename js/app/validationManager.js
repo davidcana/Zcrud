@@ -1,15 +1,17 @@
 /* 
     validationsManager singleton class
 */
-'use strict';
     
-var context = require( './context.js' );
-//var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var context = require( './context.js' );
+////var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var utils = require( './utils.js' );
+import { context } from './context.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var utils = require( './utils.js' );
+import { utils } from './utils.js';
 
-module.exports = (function() {
+export const validationsManager = (function() {
     /*
     required:
         Specifies whether a form field needs to be filled in before the form can be submitted.

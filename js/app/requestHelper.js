@@ -1,9 +1,8 @@
 /* 
     requestHelper singleton class
 */
-'use strict';
 
-module.exports = (function() {
+export const requestHelper = (function() {
 
     /**
      * @param {string} url

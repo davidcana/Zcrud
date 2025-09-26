@@ -1,12 +1,13 @@
 /* 
     normalizer singleton class
 */
-'use strict';
 
-var context = require( './context.js' );
-var utils = require( './utils.js' );
+//var context = require( './context.js' );
+//var utils = require( './utils.js' );
+import { context } from './context.js';
+import { utils } from './utils.js';
 
-module.exports = (function() {
+export const normalizer = (function() {
 
     // Normalizes some options (sets default values)
     var run = function( options, userOptions ) {
