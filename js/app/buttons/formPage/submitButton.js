@@ -1,9 +1,9 @@
 /*
     SubmitButton class
 */
-'use strict';
 
-var Button = require( '../button.js' );
+//var Button = require( '../button.js' );
+import { Button }  from '../button.js';
 
 var SubmitButton = function( properties, parent ) {
     Button.call( this, properties, parent );
@@ -39,4 +39,4 @@ SubmitButton.prototype.run = function( event, formPage, $form ){
     formPage.getSubmitFunction().call( formPage, event, $form );
 };
 
-module.exports = SubmitButton;
+//module.exports = SubmitButton;

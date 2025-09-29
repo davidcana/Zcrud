@@ -1,11 +1,11 @@
 /*
     ShowCreateFormButton class
 */
-'use strict';
 
-var Button = require( '../button.js' );
+//var Button = require( '../button.js' );
+import { Button }  from '../button.js';
 
-var ShowCreateFormButton = function( properties, parent ) {
+export const ShowCreateFormButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( ShowCreateFormButton );
@@ -43,4 +43,4 @@ ShowCreateFormButton.prototype.run = function( event, subformInstance ){
     subformInstance.showCreateForm( event );
 };
 
-module.exports = ShowCreateFormButton;
+//module.exports = ShowCreateFormButton;

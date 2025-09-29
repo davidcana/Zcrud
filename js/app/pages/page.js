@@ -1,17 +1,23 @@
 /* 
     Page class
 */
-'use strict';
 
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var $ = zzDOM.zz;
+//var context = require( '../context.js' );
+//var pageUtils = require( './pageUtils.js' );
+//var buttonUtils = require( '../buttons/buttonUtils.js' );
+//var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { utils } from '../utils.js';
+import { pageUtils } from './pageUtils.js';
+import { Page } from './page.js';
+import { buttonUtils } from '../buttons/buttonUtils.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var context = require( '../context.js' );
-var pageUtils = require( './pageUtils.js' );
-var buttonUtils = require( '../buttons/buttonUtils.js' );
-var utils = require( '../utils.js' );
 
-var Page = function( optionsToApply, userDataToApply ) {
+export const Page = function( optionsToApply, userDataToApply ) {
     
     this.options = optionsToApply;
     
@@ -286,4 +292,4 @@ Page.doSuperClassOf = function( ChildClass ){
     ChildClass.prototype.constructor = ChildClass;
 };
 
-module.exports = Page;
+//module.exports = Page;

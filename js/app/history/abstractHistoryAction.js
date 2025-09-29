@@ -1,11 +1,11 @@
 /* 
     AbstractHistoryAction class
 */
-'use strict';
 
-var pageUtils = require( '../pages/pageUtils.js' );
+//var pageUtils = require( '../pages/pageUtils.js' );
+import { pageUtils } from '../pages/pageUtils.js';
 
-var AbstractHistoryAction = function( historyToApply, recordIdToApply ){
+export const AbstractHistoryAction = function( historyToApply, recordIdToApply ){
     
     this.history = historyToApply;
     this.recordId = recordIdToApply;
@@ -79,4 +79,4 @@ AbstractHistoryAction.prototype.isNew = function(){
 
 AbstractHistoryAction.prototype.type = 'AbstractHistoryAction';
 
-module.exports = AbstractHistoryAction;
+//module.exports = AbstractHistoryAction;

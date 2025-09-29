@@ -1,11 +1,11 @@
 /*
     AddNewRowButton class
 */
-'use strict';
 
-var Button = require( '../button.js' );
+//var Button = require( '../button.js' );
+import { Button }  from '../button.js';
 
-var AddNewRowButton = function( properties, parent ) {
+export const AddNewRowButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( AddNewRowButton );
@@ -42,4 +42,4 @@ AddNewRowButton.prototype.run = function( event, listPage ){
     listPage.getComponent( 'editing' ).addNewRow( event );
 };
 
-module.exports = AddNewRowButton;
+//module.exports = AddNewRowButton;

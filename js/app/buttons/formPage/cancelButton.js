@@ -1,11 +1,11 @@
 /*
     CancelButton class
 */
-'use strict';
 
-var Button = require( '../button.js' );
+//var Button = require( '../button.js' );
+import { Button }  from '../button.js';
 
-var CancelButton = function( properties, parent ) {
+export const CancelButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 
@@ -40,4 +40,4 @@ CancelButton.prototype.run = function( event, formPage, $form ){
     formPage.cancelForm( event, $form );
 };
 
-module.exports = CancelButton;
+//module.exports = CancelButton;

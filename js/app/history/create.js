@@ -1,13 +1,15 @@
 /*
     Create class
 */
-'use strict';
 
-var zpt = require( 'zpt' );
-var AbstractHistoryAction = require( './abstractHistoryAction.js' );
-var utils = require( '../utils.js' );
+//var zpt = require( 'zpt' );
+//var AbstractHistoryAction = require( './abstractHistoryAction.js' );
+//var utils = require( '../utils.js' );
+import { AbstractHistoryAction } from './abstractHistoryAction.js';
+import { utils } from '../utils.js';
+import { zpt } from '../../../node_modules/zpt/index.js';
 
-var Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, recordToApply, subformNameToApply ) {
+export const Create = function( historyToApply, thisDictionaryToApply, $tbodyToApply, recordToApply, subformNameToApply ) {
     
     AbstractHistoryAction.call( this, historyToApply );
     
@@ -120,4 +122,4 @@ Create.resetCSS = function(){};
 
 Create.prototype.type = 'create';
 
-module.exports = Create;
+//module.exports = Create;

@@ -1,12 +1,13 @@
 /*
     UndoButton class
 */
-'use strict';
 
-var context = require( '../context.js' );
-var Button = require( './button.js' );
+//var context = require( '../context.js' );
+//var Button = require( './button.js' );
+import { context } from '../context.js';
+import { Button }  from './button.js';
 
-var UndoButton = function( properties, parent ) {
+export const UndoButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( UndoButton );
@@ -43,4 +44,4 @@ UndoButton.prototype.run = function( event, page ){
     context.getHistory().undo( page.getId() );
 };
 
-module.exports = UndoButton;
+//module.exports = UndoButton;

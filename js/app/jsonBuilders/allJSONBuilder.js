@@ -1,11 +1,11 @@
 /* 
     Class allJSONBuilder
 */
-'use strict';
 
-var defaultJSONBuilder = require( './defaultJSONBuilder.js' );
+//var defaultJSONBuilder = require( './defaultJSONBuilder.js' );
+import { defaultJSONBuilder } from './defaultJSONBuilder.js';
 
-module.exports = (function() {
+export const allJSONBuilder = (function() {
     
     var sendOnlyModified = false;
         

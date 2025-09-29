@@ -1,12 +1,13 @@
 /* 
     Container class
 */
-'use strict';
 
-var buttonUtils = require( '../buttons/buttonUtils.js' );
-var utils = require( '../utils.js' );
+//var buttonUtils = require( '../buttons/buttonUtils.js' );
+//var utils = require( '../utils.js' );
+import { buttonUtils } from '../buttons/buttonUtils.js';
+import { utils } from '../utils.js';
 
-var Container = function( properties ) {
+export const Container = function( properties ) {
     utils.extend( this, properties );
     //utils.extend( true, this, properties );
 };
@@ -32,4 +33,4 @@ Container.prototype.getToolbarButtons = function(){
     return this.toolbarButtons;
 };
 
-module.exports = Container;
+//module.exports = Container;

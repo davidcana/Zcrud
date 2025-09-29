@@ -1,11 +1,11 @@
 /*
     buttonUtils singleton class
 */
-'use strict';
 
-var utils = require( '../utils.js' );
+//var utils = require( '../utils.js' );
+import { utils } from '../utils.js';
 
-var ButtonUtils = function() {
+export const ButtonUtils = function() {
     
     var getButtonList = function( source, type, parent, options ){
         
@@ -64,4 +64,4 @@ var ButtonUtils = function() {
     };
 }();
 
-module.exports = ButtonUtils;
+//module.exports = ButtonUtils;

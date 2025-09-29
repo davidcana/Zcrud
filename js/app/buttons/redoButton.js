@@ -1,12 +1,13 @@
 /*
     RedoButton class
 */
-'use strict';
 
-var context = require( '../context.js' );
-var Button = require( './button.js' );
+//var context = require( '../context.js' );
+//var Button = require( './button.js' );
+import { context } from '../context.js';
+import { Button }  from './button.js';
 
-var RedoButton = function( properties, parent ) {
+export const RedoButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( RedoButton );
@@ -43,4 +44,4 @@ RedoButton.prototype.run = function( event, page ){
     context.getHistory().redo( page.getId() );
 };
 
-module.exports = RedoButton;
+//module.exports = RedoButton;

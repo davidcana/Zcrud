@@ -33,24 +33,23 @@
     "url": "git+https://github.com/davidcana/Zcrud.git"
   },
   "dependencies": {
+    "php-date-formatter": "1.3.7",
     "sweetalert": "2.1.0",
     "zpt": "0.40.9",
     "zzdom": "0.5.1"
   },
   "devDependencies": {
-    "beefy": "2.1.8",
-    "browserify": "17.0.1",
-    "browserify-derequire": "1.1.1",
+    "esbuild": "0.25.5",
     "grunt": "1.6.1",
     "grunt-browserify": "6.0.0",
     "grunt-contrib-compress": "2.0.0",
     "grunt-contrib-concat": "2.1.0",
     "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-jshint": "3.0.0",
+    "grunt-contrib-nodeunit": "5.0.0",
     "grunt-contrib-qunit": "10.1.1",
     "grunt-contrib-sass": "1.0.0",
     "grunt-contrib-uglify": "5.2.1",
-    "grunt-contrib-nodeunit": "5.0.0",
     "grunt-contrib-watch": "1.1.0",
     "http-server": "14.1.1",
     "log4javascript": "1.4.16",
@@ -61,11 +60,11 @@
   "scripts": {
     "http-server": "http-server -p 9000",
     "web": "cd ./docs; http-server -p 9001",
-    "beefy": "cd ./test/js/app; beefy *.js ../../../js/app/standalone.js:standalone.js",
-    "start": "npm-run-all -p -r beefy http-server",
+    "start": "npm-run-all -p -r web http-server",
 
+    "build-php-date-formatter-esm": "esbuild ./node_modules/php-date-formatter/js/php-date-formatter.js --bundle --outfile=./lib/php-date-formatter-esm.js --format=esm",
     "build-sweetalert-esm": "esbuild ./node_modules/sweetalert/dist/sweetalert.min.js --bundle --outfile=./lib/sweetalert-esm.js --format=esm",
     "build-log4javascript-esm": "esbuild ./node_modules/log4javascript/log4javascript.js --bundle --outfile=./lib/log4javascript-esm.js --format=esm",
-    "build-all-deps-esm": "npm run build-sweetalert-esm && npm run build-log4javascript-esm"
+    "build-all-deps-esm": "npm run build-php-date-formatter-esm && npm run build-sweetalert-esm && npm run build-log4javascript-esm"
   }
 }

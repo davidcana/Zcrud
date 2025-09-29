@@ -1,12 +1,13 @@
 /*
     Checkbox class
 */
-'use strict';
 
-var Field = require( './field.js' );
-var context = require( '../context.js' );
+//var Field = require( './field.js' );
+//var context = require( '../context.js' );
+import { Field } from './field.js';
+import { context } from '../context.js';
 
-var Checkbox = function( properties ) {
+export const Checkbox = function( properties ) {
     Field.call( this, properties );
 };
 
@@ -52,4 +53,4 @@ Checkbox.prototype.getValueFromSelection = function( $selection ){
 };
 */
 
-module.exports = Checkbox;
+//module.exports = Checkbox;

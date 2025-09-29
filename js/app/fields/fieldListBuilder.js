@@ -1,13 +1,15 @@
 /* 
     fieldListBuilder singleton class
 */
-'use strict';
 
-var normalizer = require( '../normalizer.js' );
-var Container = require( './container.js' );
-var utils = require( '../utils.js' );
+//var normalizer = require( '../normalizer.js' );
+//var Container = require( './container.js' );
+//var utils = require( '../utils.js' );
+import { normalizer } from '../normalizer.js';
+import { Container } from './container.js';
+import { utils } from '../utils.js';
 
-module.exports = (function() {
+export const fieldListBuilder = (function() {
     
     var getForList = function( listOptions, options, fields ){
 

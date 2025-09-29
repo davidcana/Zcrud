@@ -1,11 +1,11 @@
 /*
     ShowEditFormButton class
 */
-'use strict';
 
-var Button = require( '../button.js' );
+//var Button = require( '../button.js' );
+import { Button }  from '../button.js';
 
-var ShowEditFormButton = function( properties, parent ) {
+export const ShowEditFormButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( ShowEditFormButton );
@@ -40,4 +40,4 @@ ShowEditFormButton.prototype.run = function( event, listPage ){
     listPage.showEditForm( event );
 };
 
-module.exports = ShowEditFormButton;
+//module.exports = ShowEditFormButton;

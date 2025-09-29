@@ -1,14 +1,15 @@
 /*
     FileUpload class
 */
-'use strict';
 
-var Field = require( './field.js' );
-var validationManager = require( '../validationManager.js' );
+//var Field = require( './field.js' );
+//var validationManager = require( '../validationManager.js' );
+//var zpt = require( 'zpt' );
+import { Field } from './field.js';
+import { validationManager } from '../validationManager.js';
+import { zpt } from '../../../node_modules/zpt/index.js';
 
-var zpt = require( 'zpt' );
-
-var FileUpload = function( properties ) {
+export const FileUpload = function( properties ) {
     Field.call( this, properties );
 };
 

@@ -1,11 +1,11 @@
 /* 
     Component class
 */
-'use strict';
 
-var context = require( '../context.js' );
+//var context = require( '../context.js' );
+import { context } from '../context.js';
 
-var Component = function( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
+export const Component = function( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
     
     this.options = optionsToApply;
     this.thisOptions = thisOptionsToApply;
@@ -81,4 +81,4 @@ Component.doSuperClassOf = function( ChildClass ){
     ChildClass.prototype.constructor = ChildClass;
 };
 
-module.exports = Component;
+//module.exports = Component;

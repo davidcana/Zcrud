@@ -1,20 +1,25 @@
 /* 
     Class History 
 */
-'use strict';
 
-var HistoryChange = require( './change.js' );
-var HistoryCreate = require( './create.js' );
-var HistoryDelete = require( './delete.js' );
-var HistoryCleaner = require( './historyCleaner.js' );
-var context = require( '../context.js' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var HistoryChange = require( './change.js' );
+//var HistoryCreate = require( './create.js' );
+//var HistoryDelete = require( './delete.js' );
+//var HistoryCleaner = require( './historyCleaner.js' );
+//var context = require( '../context.js' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { utils } from '../utils.js';
+import { HistoryChange } from './change.js';
+import { HistoryCreate } from './create.js';
+import { HistoryDelete } from './delete.js';
+import { HistoryCleaner } from './historyCleaner.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var utils = require( '../utils.js' );
 
-var History = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
-    'use strict';
+export const History = function( optionsToApply, editableOptionsToApply, dictionaryProviderToApply, formModeToApply ) {
     
     var options = optionsToApply;
     var editableOptions = editableOptionsToApply;
@@ -690,4 +695,4 @@ History.updateRecordsMap = function( records, jsonObject, keyField ){
     return diff;
 };
 
-module.exports = History;
+//module.exports = History;

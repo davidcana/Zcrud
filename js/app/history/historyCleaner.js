@@ -1,9 +1,8 @@
 /*
     HistoryCleaner class
 */
-'use strict';
 
-var HistoryCleaner = function() {
+export const HistoryCleaner = function() {
     
     var data = {};
     var offItems = {};
@@ -83,4 +82,4 @@ var HistoryCleaner = function() {
     };
 };
 
-module.exports = HistoryCleaner;
+//module.exports = HistoryCleaner;

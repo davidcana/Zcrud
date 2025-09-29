@@ -1,11 +1,11 @@
 /*
     DeleteRowButton class
 */
-'use strict';
 
-var Button = require( '../button.js' );
+//var Button = require( '../button.js' );
+import { Button }  from '../button.js';
 
-var DeleteRowButton = function( properties, parent ) {
+export const DeleteRowButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( DeleteRowButton );
@@ -41,4 +41,4 @@ DeleteRowButton.prototype.run = function( event, subformInstance ){
     subformInstance.deleteRow( event );
 };
 
-module.exports = DeleteRowButton;
+//module.exports = DeleteRowButton;

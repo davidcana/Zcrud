@@ -1,11 +1,11 @@
 /* 
     fieldBuilder singleton class
 */
-'use strict';
-    
-var utils = require( '../utils.js' );
+  
+//var utils = require( '../utils.js' );
+import { utils } from '../utils.js';
 
-module.exports = (function() {
+export const fieldBuilder = (function() {
 
     var defaultConstructor = undefined;
     var constructors = {};

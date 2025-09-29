@@ -1,9 +1,8 @@
 /*
     fieldUtils singleton class
 */
-'use strict';
 
-var FieldUtils = function() {
+export const FieldUtils = function() {
     
     var buildRecord = function( fieldsArray, $selection ){
 
@@ -71,4 +70,4 @@ var FieldUtils = function() {
     };
 }();
 
-module.exports = FieldUtils;
+//module.exports = FieldUtils;

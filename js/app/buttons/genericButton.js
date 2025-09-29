@@ -1,11 +1,11 @@
 /*
     GenericButton class
 */
-'use strict';
 
-var Button = require( './button.js' );
+//var Button = require( './button.js' );
+import { Button }  from './button.js';
 
-var GenericButton = function( properties, parent ) {
+export const GenericButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( GenericButton );
@@ -14,4 +14,4 @@ Button.prototype.isBindable = function(){
     return true;
 };
 
-module.exports = GenericButton;
+//module.exports = GenericButton;

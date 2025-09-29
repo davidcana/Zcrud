@@ -1,11 +1,11 @@
 /* 
     Field class
 */
-'use strict';
 
-var utils = require( '../utils.js' );
+//var utils = require( '../utils.js' );
+import { utils } from '../utils.js';
 
-var Field = function( properties ) {
+export const Field = function( properties ) {
     utils.extend( true, this, properties );
 };
 
@@ -152,4 +152,4 @@ Field.prototype.validate = function( value ){
     return true;
 };
 
-module.exports = Field;
+//module.exports = Field;

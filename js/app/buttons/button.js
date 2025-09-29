@@ -3,13 +3,15 @@
     
     run: a function with the code to run
 */
-'use strict';
 
-var pageUtils = require( '../pages/pageUtils.js' );
-var context = require( '../context.js' );
-var utils = require( '../utils.js' );
+//var pageUtils = require( '../pages/pageUtils.js' );
+//var context = require( '../context.js' );
+//var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { utils } from '../utils.js';
+import { pageUtils } from '../pages/pageUtils.js';
 
-var Button = function( properties, parentToSet ) {
+export const Button = function( properties, parentToSet ) {
     
     if ( properties ){
         utils.extend( true, this, properties );
@@ -77,4 +79,4 @@ Button.prototype.checkComponents = function(){
     return false;
 };
 
-module.exports = Button;
+//module.exports = Button;

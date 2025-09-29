@@ -1,24 +1,36 @@
 /* 
     Class FormPage
 */
-'use strict';
 
-var context = require( '../context.js' );
-var pageUtils = require( './pageUtils.js' );
-var Page = require( './page.js' );
-var validationManager = require( '../validationManager.js' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var context = require( '../context.js' );
+//var pageUtils = require( './pageUtils.js' );
+//var Page = require( './page.js' );
+//var validationManager = require( '../validationManager.js' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var $ = zzDOM.zz;
+//var zpt = require( 'zpt' );
+//var crudManager = require( '../crudManager.js' );
+//var History = require( '../history/history.js' );
+//var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
+//var fieldUtils = require( '../fields/fieldUtils.js' );
+//var ComponentsMap = require( '../components/componentsMap.js' );
+//var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { utils } from '../utils.js';
+import { pageUtils } from './pageUtils.js';
+import { Page } from './page.js';
+import { validationManager } from '../validationManager.js';
+import { crudManager } from '../crudManager.js';
+import { History } from '../history/history.js';
+import { fieldListBuilder } from '../fields/fieldListBuilder.js';
+import { fieldUtils } from '../fields/fieldUtils.js';
+import { ComponentsMap } from '../components/componentsMap.js';
+import { zpt } from '../../../node_modules/zpt/index.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var zpt = require( 'zpt' );
-var crudManager = require( '../crudManager.js' );
-var History = require( '../history/history.js' );
-var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
-var fieldUtils = require( '../fields/fieldUtils.js' );
-var ComponentsMap = require( '../components/componentsMap.js' );
-var utils = require( '../utils.js' );
 
-var FormPage = function ( optionsToApply, userDataToApply ) {
+export const FormPage = function ( optionsToApply, userDataToApply ) {
     
     Page.call( this, optionsToApply, userDataToApply );
     
@@ -945,4 +957,4 @@ FormPage.prototype.goToFirstPage = function(){
     }
 };
 
-module.exports = FormPage;
+//module.exports = FormPage;

@@ -1,13 +1,15 @@
 /*
     OptionProvider singleton class
 */
-'use strict';
 
-var context = require( '../context.js' );
-var crudManager = require( '../crudManager.js' );
-var utils = require( '../utils.js' );
+//var context = require( '../context.js' );
+//var crudManager = require( '../crudManager.js' );
+//var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { crudManager } from '../crudManager.js';
+import { utils } from '../utils.js';
 
-var OptionProvider = function() {
+export const OptionProvider = function() {
     
     var cache = {};
     var resetCache = function(){
@@ -317,4 +319,4 @@ var OptionProvider = function() {
     };
 }();
 
-module.exports = OptionProvider;
+//module.exports = OptionProvider;

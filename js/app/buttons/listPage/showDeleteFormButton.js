@@ -1,11 +1,11 @@
 /*
     ShowDeleteFormButton class
 */
-'use strict';
 
-var Button = require( '../button.js' );
+//var Button = require( '../button.js' );
+import { Button }  from '../button.js';
 
-var ShowDeleteFormButton = function( properties, parent ) {
+export const ShowDeleteFormButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( ShowDeleteFormButton );
@@ -40,4 +40,4 @@ ShowDeleteFormButton.prototype.run = function( event, listPage ){
     listPage.showDeleteForm( event );
 };
 
-module.exports = ShowDeleteFormButton;
+//module.exports = ShowDeleteFormButton;

@@ -1,12 +1,13 @@
 /*
     CopySubformRowsButton class
 */
-'use strict';
 
-var context = require( '../../context.js' );
-var Button = require( '../button.js' );
+//var context = require( '../../context.js' );
+//var Button = require( '../button.js' );
+import { context } from '../../context.js';
+import { Button }  from '../button.js';
 
-var CopySubformRowsButton = function( properties, parent ) {
+export const CopySubformRowsButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( CopySubformRowsButton );
@@ -60,4 +61,4 @@ CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThi
     }
 };
 
-module.exports = CopySubformRowsButton;
+//module.exports = CopySubformRowsButton;

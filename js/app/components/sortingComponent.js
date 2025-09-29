@@ -1,14 +1,15 @@
 /* 
     SortingComponent class
 */
-'use strict';
 
-var Component = require( './component.js' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var Component = require( './component.js' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+import { Component } from './component.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
 
-var SortingComponent = function( optionsToApply, thisOptionsToApply, parentToApply ) {
+export const SortingComponent = function( optionsToApply, thisOptionsToApply, parentToApply ) {
 
     Component.call( this, optionsToApply, thisOptionsToApply, parentToApply );
     
@@ -136,4 +137,4 @@ SortingComponent.prototype.getTypeForFieldId = function( fieldId ){
     return fieldId !== this.sortFieldId? null: this.sortType;
 };
 
-module.exports = SortingComponent;
+//module.exports = SortingComponent;

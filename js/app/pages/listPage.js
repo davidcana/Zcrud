@@ -1,24 +1,36 @@
 /* 
     Class ListPage 
 */
-'use strict';
 
-var context = require( '../context.js' );
-var pageUtils = require( './pageUtils.js' );
-var Page = require( './page.js' );
-var FormPage = require( './formPage.js' );
-var crudManager = require( '../crudManager.js' );
-var History = require( '../history/history.js' );
-var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
-var ComponentsMap = require( '../components/componentsMap.js' );
-var buttonUtils = require( '../buttons/buttonUtils.js' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var context = require( '../context.js' );
+//var pageUtils = require( './pageUtils.js' );
+//var Page = require( './page.js' );
+//var FormPage = require( './formPage.js' );
+//var crudManager = require( '../crudManager.js' );
+//var History = require( '../history/history.js' );
+//var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
+//var ComponentsMap = require( '../components/componentsMap.js' );
+//var buttonUtils = require( '../buttons/buttonUtils.js' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var $ = zzDOM.zz;
+//var zpt = require( 'zpt' );
+//var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { utils } from '../utils.js';
+import { pageUtils } from './pageUtils.js';
+import { Page } from './page.js';
+import { FormPage } from './formPage.js';
+import { crudManager } from '../crudManager.js';
+import { History } from '../history/history.js';
+import { fieldListBuilder } from '../fields/fieldListBuilder.js';
+import { ComponentsMap } from '../components/componentsMap.js';
+import { buttonUtils } from '../buttons/buttonUtils.js';
+import { zpt } from '../../../node_modules/zpt/index.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var zpt = require( 'zpt' );
-var utils = require( '../utils.js' );
 
-var ListPage = function ( optionsToApply, userDataToApply ) {
+export const ListPage = function ( optionsToApply, userDataToApply ) {
     
     Page.call( this, optionsToApply, userDataToApply );
     
@@ -540,4 +552,4 @@ ListPage.prototype.getType = function(){
     return 'list';
 };
 
-module.exports = ListPage;
+//module.exports = ListPage;

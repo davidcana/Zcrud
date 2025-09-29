@@ -1,18 +1,24 @@
 /*
     OptionsField class
 */
-'use strict';
 
-var Field = require( './field.js' );
-var context = require( '../context.js' );
-var optionProvider = require( './optionProvider.js' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var Field = require( './field.js' );
+//var context = require( '../context.js' );
+//var optionProvider = require( './optionProvider.js' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var $ = zzDOM.zz;
+//var zpt = require( 'zpt' );
+//var utils  = require( '../utils.js' );
+import { Field } from './field.js';
+import { context } from '../context.js';
+import { optionProvider } from './optionProvider.js';
+import { utils } from '../utils.js';
+import { zpt } from '../../../node_modules/zpt/index.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var zpt = require( 'zpt' );
-var utils  = require( '../utils.js' );
 
-var OptionsField = function( properties ) {
+export const OptionsField = function( properties ) {
     Field.call( this, properties );
 };
 
@@ -291,4 +297,4 @@ OptionsField.prototype.buildDependentAsyncFieldList = function( record ){
         [];
 };
 
-module.exports = OptionsField;
+//module.exports = OptionsField;

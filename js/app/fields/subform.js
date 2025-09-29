@@ -1,27 +1,42 @@
 /*
     Subform class
 */
-'use strict';
 
-var Field = require( './field.js' );
-var context = require( '../context.js' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var Field = require( './field.js' );
+//var context = require( '../context.js' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var $ = zzDOM.zz;
+//var zpt = require( 'zpt' );
+//var validationManager = require( '../validationManager.js' );
+//var ComponentsMap = require( '../components/componentsMap.js' );
+//var fieldUtils = require( './fieldUtils.js' );
+//var HistoryCreate = require( '../history/create.js' );
+//var HistoryDelete = require( '../history/delete.js' );
+//var HistoryComposition = require( '../history/composition.js' );
+//var crudManager = require( '../crudManager.js' );
+//var pageUtils = require( '../pages/pageUtils.js' );
+//var FormPage = require( '../pages/formPage.js' );
+//var buttonUtils = require( '../buttons/buttonUtils.js' );
+//var utils = require( '../utils.js' );
+import { Field } from './field.js';
+import { context } from '../context.js';
+import { utils } from '../utils.js';
+import { validationManager } from '../validationManager.js';
+import { ComponentsMap } from '../components/componentsMap.js';
+import { fieldUtils } from './fieldUtils.js';
+import { HistoryCreate } from '../history/create.js';
+import { HistoryDelete } from '../history/delete.js';
+import { HistoryComposition } from '../history/composition.js';
+import { crudManager } from '../crudManager.js';
+import { pageUtils } from '../pages/pageUtils.js';
+import { FormPage } from '../pages/formPage.js';
+import { buttonUtils } from '../buttons/buttonUtils.js';
+import { zpt } from '../../../node_modules/zpt/index.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var zpt = require( 'zpt' );
-var validationManager = require( '../validationManager.js' );
-var ComponentsMap = require( '../components/componentsMap.js' );
-var fieldUtils = require( './fieldUtils.js' );
-var HistoryCreate = require( '../history/create.js' );
-var HistoryDelete = require( '../history/delete.js' );
-var HistoryComposition = require( '../history/composition.js' );
-var crudManager = require( '../crudManager.js' );
-var pageUtils = require( '../pages/pageUtils.js' );
-var FormPage = require( '../pages/formPage.js' );
-var buttonUtils = require( '../buttons/buttonUtils.js' );
-var utils = require( '../utils.js' );
 
-var Subform = function( properties ) {
+export const Subform = function( properties ) {
     Field.call( this, properties );
     
     this.fieldsArray = [];
@@ -729,5 +744,5 @@ Subform.prototype.buildDependentAsyncFieldList = function( record ){
     return result;
 };
 
-module.exports = Subform;
+//module.exports = Subform;
 

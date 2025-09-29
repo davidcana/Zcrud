@@ -1,21 +1,29 @@
 /* 
     EditingComponent class
 */
-'use strict';
 
 //var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+//var zzDOM = require( 'zzdom' );
+//var context = require( '../context.js' );
+//var Component = require( './component.js' );
+//var pageUtils = require( '../pages/pageUtils.js' );
+//var History = require( '../history/history.js' );
+//var crudManager = require( '../crudManager.js' );
+//var validationManager = require( '../validationManager.js' );
+//var fieldUtils = require( '../fields/fieldUtils.js' );
+//var utils = require( '../utils.js' );
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var context = require( '../context.js' );
-var Component = require( './component.js' );
-var pageUtils = require( '../pages/pageUtils.js' );
-var History = require( '../history/history.js' );
-var crudManager = require( '../crudManager.js' );
-var validationManager = require( '../validationManager.js' );
-var fieldUtils = require( '../fields/fieldUtils.js' );
-var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { Component } from './component.js';
+import { pageUtils } from '../pages/pageUtils.js';
+import { History } from '../history/history.js';
+import { crudManager } from '../crudManager.js';
+import { validationManager } from '../validationManager.js';
+import { fieldUtils } from '../fields/fieldUtils.js';
+import { utils } from '../utils.js';
 
-var EditingComponent = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
+export const EditingComponent = function( optionsToApply, thisOptionsToApply, listPageToApply ) {
     
     Component.call( this, optionsToApply, thisOptionsToApply, listPageToApply );
     
@@ -372,4 +380,4 @@ EditingComponent.prototype.removeChanges = function(){
     context.getHistory().reset( this.listPage.getId() );
 };
 
-module.exports = EditingComponent;
+//module.exports = EditingComponent;

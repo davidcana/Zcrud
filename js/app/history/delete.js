@@ -1,11 +1,11 @@
 /*
     Delete class
 */
-'use strict';
 
-var AbstractHistoryAction = require( './abstractHistoryAction.js' );
+//var AbstractHistoryAction = require( './abstractHistoryAction.js' );
+import { AbstractHistoryAction } from './abstractHistoryAction.js';
 
-var Delete = function( historyToApply, recordIdToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply, subformRowIndexToApply ) {
+export const Delete = function( historyToApply, recordIdToApply, rowIndexToApply, keyToApply, $trToApply, subformNameToApply, subformRowIndexToApply ) {
     
     AbstractHistoryAction.call( this, historyToApply, recordIdToApply );
     
@@ -104,4 +104,4 @@ Delete.resetCSS = function(){};
 
 Delete.prototype.type = 'delete';
 
-module.exports = Delete;
+//module.exports = Delete;

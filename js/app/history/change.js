@@ -1,15 +1,18 @@
 /*
     Change class
 */
-'use strict';
 
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-var zzDOM = require( 'zzdom' );
+////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
+//var zzDOM = require( 'zzdom' );
+//var $ = zzDOM.zz;
+//var AbstractHistoryAction = require( './abstractHistoryAction.js' );
+//var utils = require( '../../../js/app/utils.js' );
+import { AbstractHistoryAction } from './abstractHistoryAction.js';
+import { utils } from '../utils.js';
+import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
-var AbstractHistoryAction = require( './abstractHistoryAction.js' );
-var utils = require( '../../../js/app/utils.js' );
 
-var Change = function( historyToApply, optionsToApply, recordIdToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
+export const Change = function( historyToApply, optionsToApply, recordIdToApply, rowIndexToApply, nameToApply, newValueToApply, previousValueToApply, $thisToApply, fieldToApply, subformNameToApply, subformRowIndexToApply, subformRowKeyToApply ) {
     
     AbstractHistoryAction.call( this, historyToApply, recordIdToApply );
     
@@ -241,4 +244,4 @@ Change.resetCSS = function( $list, editableOptions ){
 
 Change.prototype.type = 'change';
 
-module.exports = Change;
+//module.exports = Change;

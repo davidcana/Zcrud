@@ -1,13 +1,15 @@
 /* 
     Class defaultJSONBuilder 
 */
-'use strict';
 
-var HistoryDelete = require( '../history/delete.js' );
-var context = require( '../context.js' );
-var utils = require( '../utils.js' );
+//var HistoryDelete = require( '../history/delete.js' );
+//var context = require( '../context.js' );
+//var utils = require( '../utils.js' );
+import { context } from '../context.js';
+import { utils } from '../utils.js';
+import { HistoryDelete } from '../history/delete.js';
 
-module.exports = (function() {
+export const defaultJSONBuilder = (function() {
     
     var buildEmpty = function(){
         
