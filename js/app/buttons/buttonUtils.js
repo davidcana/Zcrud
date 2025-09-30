@@ -5,7 +5,7 @@
 //var utils = require( '../utils.js' );
 import { utils } from '../utils.js';
 
-export const ButtonUtils = function() {
+export const buttonUtils = function() {
     
     var getButtonList = function( source, type, parent, options ){
         

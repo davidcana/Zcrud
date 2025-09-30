@@ -9,7 +9,7 @@ import { context } from '../context.js';
 import { crudManager } from '../crudManager.js';
 import { utils } from '../utils.js';
 
-export const OptionProvider = function() {
+export const optionProvider = function() {
     
     var cache = {};
     var resetCache = function(){

@@ -35,8 +35,8 @@
   "dependencies": {
     "php-date-formatter": "1.3.7",
     "sweetalert": "2.1.0",
-    "zpt": "0.40.9",
-    "zzdom": "0.5.1"
+    "zpt": "0.40.10",
+    "zzdom": "0.6.0"
   },
   "devDependencies": {
     "esbuild": "0.25.5",
@@ -58,8 +58,8 @@
     "qunit-composite": "2.0.0"
   },
   "scripts": {
-    "http-server": "http-server -p 9000",
-    "web": "cd ./docs; http-server -p 9001",
+    "http-server": "http-server -p 9000 -c-1",
+    "web": "cd ./docs; http-server -p 9001 -c-1",
     "start": "npm-run-all -p -r web http-server",
 
     "build-php-date-formatter-esm": "esbuild ./node_modules/php-date-formatter/js/php-date-formatter.js --bundle --outfile=./lib/php-date-formatter-esm.js --format=esm",

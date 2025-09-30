@@ -1,9 +1,12 @@
-'use strict';
 
-var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var $ = zzDOM.zz;
+//var testServerSide = require( './testServerSide' );
+//var context = require( '../../../js/app/context.js' );
+import { testServerSide } from './testServerSide.js';
+import { context } from '../../../js/app/context.js';
+import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;
-var testServerSide = require( './testServerSide' );
-var context = require( '../../../js/app/context.js' );
 
 var options = {
     

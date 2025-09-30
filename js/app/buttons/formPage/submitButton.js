@@ -5,7 +5,7 @@
 //var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
-var SubmitButton = function( properties, parent ) {
+export const SubmitButton = function( properties, parent ) {
     Button.call( this, properties, parent );
 };
 Button.doSuperClassOf( SubmitButton );

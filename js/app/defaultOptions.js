@@ -16,6 +16,7 @@ import { SelectingComponent } from './components/selectingComponent.js';
 import { EditingComponent } from './components/editingComponent.js';
 
 // Fields
+import { Field } from './fields/field.js';
 import { Datetime } from './fields/datetime.js';
 import { OptionsField } from './fields/optionsField.js';
 import { Checkbox } from './fields/checkbox.js';
@@ -26,23 +27,23 @@ import { FileUpload } from './fields/fileUpload.js';
 import { GenericButton } from './buttons/genericButton.js';
 import { UndoButton } from './buttons/undoButton.js';
 import { RedoButton } from './buttons/redoButton.js';
-import { FormPageCancelButton } from './buttons/formPage/cancelButton.js';
-import { FormPageCopySubformRowsButton } from './buttons/formPage/copySubformRowsButton.js';
-import { FormPageSubmitButton } from './buttons/formPage/submitButton.js';
-import { ListPageAddNewRowButton } from './buttons/listPage/addNewRowButton.js';
-import { ListPageDeleteRowButton } from './buttons/listPage/deleteRowButton.js';
-import { ListPageShowCreateFormButton } from './buttons/listPage/showCreateFormButton.js';
-import { ListPageShowDeleteFormButton } from './buttons/listPage/showDeleteFormButton.js';
-import { ListPageShowEditFormButton } from './buttons/listPage/showEditFormButton.js';
-import { ListPageSubmitButton } from './buttons/listPage/submitButton.js';
-import { SubformAddNewRowButton } from './buttons/subform/addNewRowButton.js';
-import { SubformDeleteRowButton } from './buttons/subform/deleteRowButton.js';
-import { SubformShowCreateFormButton } from './buttons/subform/showCreateFormButton.js';
-import { SubformShowDeleteFormButton } from './buttons/subform/showDeleteFormButton.js';
-import { SubformShowEditFormButton } from './buttons/subform/showEditFormButton.js';
+import { CancelButton as FormPageCancelButton } from './buttons/formPage/cancelButton.js';
+import { CopySubformRowsButton as FormPageCopySubformRowsButton } from './buttons/formPage/copySubformRowsButton.js';
+import { SubmitButton as FormPageSubmitButton } from './buttons/formPage/submitButton.js';
+import { AddNewRowButton as ListPageAddNewRowButton } from './buttons/listPage/addNewRowButton.js';
+import { DeleteRowButton as ListPageDeleteRowButton } from './buttons/listPage/deleteRowButton.js';
+import { ShowCreateFormButton as ListPageShowCreateFormButton } from './buttons/listPage/showCreateFormButton.js';
+import { ShowDeleteFormButton as ListPageShowDeleteFormButton } from './buttons/listPage/showDeleteFormButton.js';
+import { ShowEditFormButton  as ListPageShowEditFormButton} from './buttons/listPage/showEditFormButton.js';
+import { SubmitButton as ListPageSubmitButton} from './buttons/listPage/submitButton.js';
+import { AddNewRowButton as SubformAddNewRowButton } from './buttons/subform/addNewRowButton.js';
+import { DeleteRowButton as SubformDeleteRowButton } from './buttons/subform/deleteRowButton.js';
+import { ShowCreateFormButton as SubformShowCreateFormButton} from './buttons/subform/showCreateFormButton.js';
+import { ShowDeleteFormButton as SubformShowDeleteFormButton } from './buttons/subform/showDeleteFormButton.js';
+import { ShowEditFormButton as SubformShowEditFormButton} from './buttons/subform/showEditFormButton.js';
 
 // JSONBuilders
-import { OnlyChangesJSONBuilder } from './jsonBuilders/onlyChangesJSONBuilder.js';
+import { onlyChangesJSONBuilder } from './jsonBuilders/onlyChangesJSONBuilder.js';
 
 export const defaultOptions = {
 
@@ -142,7 +143,8 @@ export const defaultOptions = {
     fields: {},
     fieldsConfig: {
         constructors: {
-            default: require( './fields/field.js' ),
+            //default: require( './fields/field.js' ),
+            default: Field,
             mapping: [
                 {
                     fieldTypes: [ 'date', 'datetime', 'time' ],
@@ -400,7 +402,7 @@ export const defaultOptions = {
     },
 
     //jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
-    jsonBuilder: OnlyChangesJSONBuilder,
+    jsonBuilder: onlyChangesJSONBuilder,
     
     defaultErrorOptions: {
         icon: 'error',

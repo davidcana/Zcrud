@@ -295,5 +295,5 @@ FileUpload.prototype.validate = function(){
     }
 };
 
-module.exports = FileUpload;
+//module.exports = FileUpload;
 

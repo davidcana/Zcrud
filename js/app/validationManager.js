@@ -1,5 +1,5 @@
 /* 
-    validationsManager singleton class
+    validationManager singleton class
 */
     
 //var context = require( './context.js' );
@@ -11,7 +11,7 @@ import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
 import { utils } from './utils.js';
 
-export const validationsManager = (function() {
+export const validationManager = (function() {
     /*
     required:
         Specifies whether a form field needs to be filled in before the form can be submitted.

@@ -17,7 +17,7 @@ import { context } from './context.js';
 import { ListPage } from './pages/listPage.js';
 import { FormPage } from './pages/formPage.js';
 import { normalizer } from './normalizer.js';
-import { fieldBuilder } from './fields/fieldBuilder';
+import { fieldBuilder } from './fields/fieldBuilder.js';
 import { defaultOptions } from './defaultOptions.js';
 import { utils } from './utils.js';
 
@@ -80,7 +80,7 @@ zcrud.init = function( userOptions, callback, failCallback ){
     
     // Configure logging
     zpt.context.getConf().loggingOn = options.logging.isOn;
-    zpt.context.getConf().loggingLevel = utils.buildLoggingLevel( options.logging.level );
+    //zpt.context.getConf().loggingLevel = utils.buildLoggingLevel( options.logging.level );
 
     log.info( 'Initializing ZCrud...' );
     

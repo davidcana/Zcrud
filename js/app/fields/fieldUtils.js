@@ -2,7 +2,7 @@
     fieldUtils singleton class
 */
 
-export const FieldUtils = function() {
+export const fieldUtils = function() {
     
     var buildRecord = function( fieldsArray, $selection ){
 

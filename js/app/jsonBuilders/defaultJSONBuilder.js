@@ -7,7 +7,7 @@
 //var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
-import { HistoryDelete } from '../history/delete.js';
+import { Delete as HistoryDelete } from '../history/delete.js';
 
 export const defaultJSONBuilder = (function() {
     

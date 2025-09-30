@@ -12,9 +12,9 @@
 //var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
-import { HistoryChange } from './change.js';
-import { HistoryCreate } from './create.js';
-import { HistoryDelete } from './delete.js';
+import { Change as HistoryChange } from './change.js';
+import { Create as HistoryCreate } from './create.js';
+import { Delete as HistoryDelete } from './delete.js';
 import { HistoryCleaner } from './historyCleaner.js';
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
