@@ -1,9 +1,8 @@
-'use strict';
 
-var testServerSide = require( './testServerSide' );
-//var log4javascript = require( 'log4javascript' );
+//var testServerSide = require( './testServerSide' );
+import { testServerSide } from './testServerSide.js';
 
-module.exports = {
+export const editableSubformAsListExtendedTestOptions = {
 
     entityId: 'department',
     saveUserPreferences: false,

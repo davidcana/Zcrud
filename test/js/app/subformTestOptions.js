@@ -1,10 +1,8 @@
-'use strict';
 
-//var Qunit = require( 'qunit' );
-var testServerSide = require( './testServerSide' );
-//var log4javascript = require( 'log4javascript' );
+//var testServerSide = require( './testServerSide' );
+import { testServerSide } from './testServerSide.js';
 
-module.exports = {
+export const subformTestOptions = {
 
     entityId: 'department',
     saveUserPreferences: false,

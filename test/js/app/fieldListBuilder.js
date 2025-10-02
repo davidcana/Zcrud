@@ -1,16 +1,24 @@
-'use strict';
 
-//var $ = require( 'zzdom' );
-//var zcrud = require( '../../../js/app/main.js' );
-var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var $ = zzDOM.zz;
+//var Qunit = require( 'qunit' );
+//var utils = require( '../../../js/app/utils.js' );
+//var testServerSide = require( './testServerSide.js' );
+//var testHelper = require( './testHelper.js' );
+//var fieldListBuilder = require( '../../../js/app/fields/fieldListBuilder.js' );
+//var defaultTestOptions = require( './defaultTestOptions.js' );
+
+import { utils } from '../../../js/app/utils.js';
+import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;
-var Qunit = require( 'qunit' );
-var utils = require( '../../../js/app/utils.js' );
-var testServerSide = require( './testServerSide.js' );
-var testHelper = require( './testHelper.js' );
-var fieldListBuilder = require( '../../../js/app/fields/fieldListBuilder.js' );
 
-var defaultTestOptions = require( './defaultTestOptions.js' );
+import { fieldListBuilder } from '../../../js/app/fields/fieldListBuilder.js';
+
+import { testHelper } from './testHelper.js';
+import { testServerSide } from './testServerSide.js';
+
+import { defaultTestOptions } from './defaultTestOptions.js';
+
 var options = undefined;
 
 var buildIdsArray = function( fieldsArray ){

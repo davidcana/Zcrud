@@ -1,15 +1,21 @@
-'use strict';
 
-//var $ = require( 'zzdom' );
-//var zcrud = require( '../../../js/app/main.js' );
-var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var $ = zzDOM.zz;
+//var Qunit = require( 'qunit' );
+//var utils = require( '../../../js/app/utils.js' );
+//var testHelper = require( './testHelper.js' );
+//var testServerSide = require( './testServerSide' );
+//var defaultTestOptions = require( './subformTestOptions.js' );
+
+import { utils } from '../../../js/app/utils.js';
+import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;
-var Qunit = require( 'qunit' );
-var utils = require( '../../../js/app/utils.js' );
-var testHelper = require( './testHelper.js' );
-var testServerSide = require( './testServerSide' );
 
-var defaultTestOptions = require( './subformTestOptions.js' );
+import { testHelper } from './testHelper.js';
+import { testServerSide } from './testServerSide.js';
+
+import { subformTestOptions as defaultTestOptions } from './subformTestOptions.js';
+
 var options = undefined;
 
 var errorFunctionCounter = 0;

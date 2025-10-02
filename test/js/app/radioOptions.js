@@ -1,20 +1,32 @@
-'use strict';
 
-//var $ = require( 'zzdom' );
-//var zcrud = require( '../../../js/app/main.js' );
-var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var $ = zzDOM.zz;
+//var Qunit = require( 'qunit' );
+//var utils = require( '../../../js/app/utils.js' );
+//var context = require( '../../../js/app/context.js' );
+//var testHelper = require( './testHelper.js' );
+//var testServerSide = require( './testServerSide.js' );
+//var OptionProvider = require( '../../../js/app/fields/optionProvider.js' );
+
+//var formOptions = require( './defaultTestOptions.js' );
+//var subformTestOptions = require( './subformTestOptions.js' );
+//var editableListTestOptions = require( './editableListTestOptions.js' );
+//var editableListAllFieldsTestOptions= require( './editableListAllFieldsTestOptions.js' );
+
+import { utils } from '../../../js/app/utils.js';
+import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;
-var Qunit = require( 'qunit' );
-var utils = require( '../../../js/app/utils.js' );
-var context = require( '../../../js/app/context.js' );
-var testHelper = require( './testHelper.js' );
-var testServerSide = require( './testServerSide.js' );
-var OptionProvider = require( '../../../js/app/fields/optionProvider.js' );
 
-var formOptions = require( './defaultTestOptions.js' );
-var subformTestOptions = require( './subformTestOptions.js' );
-var editableListTestOptions = require( './editableListTestOptions.js' );
-var editableListAllFieldsTestOptions= require( './editableListAllFieldsTestOptions.js' );
+import { testHelper } from './testHelper.js';
+import { testServerSide } from './testServerSide.js';
+
+import { optionProvider } from '../../../js/app/fields/optionProvider.js';
+
+import { defaultTestOptions as formOptions } from './defaultTestOptions.js';
+import { subformTestOptions } from './subformTestOptions.js';
+import { editableListTestOptions } from './editableListTestOptions.js';
+import { editableListAllFieldsTestOptions } from './editableListAllFieldsTestOptions.js';
+
 var options = undefined;
 
 var errorFunctionCounter = 0;
@@ -352,7 +364,7 @@ QUnit.test( 'URL returning array of objects subform update test', function( asse
     configureSubformOptions();
 
     // Test access to server. Must be 0
-    OptionProvider.resetCache();
+    optionProvider.resetCache();
     testServerSide.resetAccess();
     assert.equal(
         testServerSide.getAccess( 'http://localhost/CRUDManager.do?table=cities&province=Cádiz' ),

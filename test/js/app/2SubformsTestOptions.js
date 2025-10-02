@@ -1,8 +1,9 @@
-'use strict';
 
-var testServerSide = require( './testServerSide' );
 
-module.exports = {
+//var testServerSide = require( './testServerSide' );
+import { testServerSide } from './testServerSide.js';
+
+export const twoSubformsTestOptions = {
 
     entityId: 'department',
     saveUserPreferences: false,

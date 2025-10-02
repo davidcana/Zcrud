@@ -1,20 +1,29 @@
-'use strict';
 
-//var $ = require( 'zzdom' );
-//var zcrud = require( '../../../js/app/main.js' );
-var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
+//var $ = zzDOM.zz;
+//var Qunit = require( 'qunit' );
+//var utils = require( '../../../js/app/utils.js' );
+//var testHelper = require( './testHelper.js' );
+//var testServerSide = require( './testServerSide.js' );
+//var subformTestOptions = require( './subformTestOptions.js' );
+//var editableListTestOptions = require( './editableListTestOptions.js' );
+//var onlyChangesJSONBuilder = require( '../../../js/app/jsonBuilders/onlyChangesJSONBuilder.js' );
+//var allJSONBuilder = require( '../../../js/app/jsonBuilders/allJSONBuilder.js' );
+
+import { utils } from '../../../js/app/utils.js';
+import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;
-var Qunit = require( 'qunit' );
-var utils = require( '../../../js/app/utils.js' );
-var testHelper = require( './testHelper.js' );
-var testServerSide = require( './testServerSide.js' );
 
-var subformTestOptions = require( './subformTestOptions.js' );
-var editableListTestOptions = require( './editableListTestOptions.js' );
+import { testHelper } from './testHelper.js';
+import { testServerSide } from './testServerSide.js';
+
+import { subformTestOptions } from './subformTestOptions.js';
+import { editableListTestOptions } from './editableListTestOptions.js';
+
+import { onlyChangesJSONBuilder } from '../../../js/app/jsonBuilders/onlyChangesJSONBuilder.js';
+import { allJSONBuilder } from '../../../js/app/jsonBuilders/allJSONBuilder.js';
+
 var options = undefined;
-
-var onlyChangesJSONBuilder = require( '../../../js/app/jsonBuilders/onlyChangesJSONBuilder.js' );
-var allJSONBuilder = require( '../../../js/app/jsonBuilders/allJSONBuilder.js' );
 
 var errorFunctionCounter = 0;
 subformTestOptions.errorFunction = function( message ){
