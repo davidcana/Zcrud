@@ -2,7 +2,6 @@
     CancelButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const CancelButton = function( properties, parent ) {
@@ -40,4 +39,3 @@ CancelButton.prototype.run = function( event, formPage, $form ){
     formPage.cancelForm( event, $form );
 };
 
-//module.exports = CancelButton;

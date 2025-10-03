@@ -2,15 +2,6 @@
     Main class of ZCrud
 */
 
-//var zpt = require( 'zpt' );
-//var context = require( './context.js' );
-//var ListPage = require( './pages/listPage.js' );
-//var FormPage = require( './pages/formPage.js' );
-//var normalizer = require( './normalizer.js' );
-//var fieldBuilder = require( './fields/fieldBuilder' );
-//var defaultOptions = require( './defaultOptions.js' );
-//var utils = require( './utils.js' );
-
 import { zpt } from '../../../node_modules/zpt/index.js';
 var log = zpt.logHelper;
 import { context } from './context.js';

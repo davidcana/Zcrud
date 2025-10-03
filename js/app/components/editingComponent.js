@@ -2,16 +2,6 @@
     EditingComponent class
 */
 
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var context = require( '../context.js' );
-//var Component = require( './component.js' );
-//var pageUtils = require( '../pages/pageUtils.js' );
-//var History = require( '../history/history.js' );
-//var crudManager = require( '../crudManager.js' );
-//var validationManager = require( '../validationManager.js' );
-//var fieldUtils = require( '../fields/fieldUtils.js' );
-//var utils = require( '../utils.js' );
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
 import { context } from '../context.js';
@@ -379,5 +369,3 @@ EditingComponent.prototype.updateKeys = function( $trArray, records ){
 EditingComponent.prototype.removeChanges = function(){
     context.getHistory().reset( this.listPage.getId() );
 };
-
-//module.exports = EditingComponent;

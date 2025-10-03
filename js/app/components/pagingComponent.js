@@ -2,10 +2,6 @@
     PagingComponent class
 */
 
-//var Component = require( './component.js' );
-//var pageUtils = require( '../pages/pageUtils.js' );
-//var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
 import { Component } from './component.js';
 import { pageUtils } from '../pages/pageUtils.js';
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
@@ -464,4 +460,3 @@ PagingComponent.prototype.get$ = function(){
     return this.parent.get$().find( '.' + this.cssClass );
 };
 
-//module.exports = PagingComponent;

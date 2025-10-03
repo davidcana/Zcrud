@@ -2,7 +2,6 @@
     DeleteRowButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const DeleteRowButton = function( properties, parent ) {
@@ -41,4 +40,3 @@ DeleteRowButton.prototype.run = function( event, subformInstance ){
     subformInstance.deleteRow( event );
 };
 
-//module.exports = DeleteRowButton;

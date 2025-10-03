@@ -2,14 +2,6 @@
     Class History 
 */
 
-//var HistoryChange = require( './change.js' );
-//var HistoryCreate = require( './create.js' );
-//var HistoryDelete = require( './delete.js' );
-//var HistoryCleaner = require( './historyCleaner.js' );
-//var context = require( '../context.js' );
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
 import { Change as HistoryChange } from './change.js';
@@ -695,4 +687,3 @@ History.updateRecordsMap = function( records, jsonObject, keyField ){
     return diff;
 };
 
-//module.exports = History;

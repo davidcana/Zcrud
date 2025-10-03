@@ -2,7 +2,6 @@
     ShowEditFormButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const ShowEditFormButton = function( properties, parent ) {
@@ -41,4 +40,3 @@ ShowEditFormButton.prototype.run = function( event, subformInstance ){
     subformInstance.showNewFormUsingRecordFromServer( 'update', event );
 };
 
-//module.exports = ShowEditFormButton;

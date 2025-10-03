@@ -2,8 +2,6 @@
     UndoButton class
 */
 
-//var context = require( '../context.js' );
-//var Button = require( './button.js' );
 import { context } from '../context.js';
 import { Button }  from './button.js';
 
@@ -44,4 +42,3 @@ UndoButton.prototype.run = function( event, page ){
     context.getHistory().undo( page.getId() );
 };
 
-//module.exports = UndoButton;

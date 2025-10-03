@@ -2,7 +2,6 @@
     AbstractHistoryAction class
 */
 
-//var pageUtils = require( '../pages/pageUtils.js' );
 import { pageUtils } from '../pages/pageUtils.js';
 
 export const AbstractHistoryAction = function( historyToApply, recordIdToApply ){
@@ -79,4 +78,3 @@ AbstractHistoryAction.prototype.isNew = function(){
 
 AbstractHistoryAction.prototype.type = 'AbstractHistoryAction';
 
-//module.exports = AbstractHistoryAction;

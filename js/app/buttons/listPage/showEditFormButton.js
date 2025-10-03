@@ -2,7 +2,6 @@
     ShowEditFormButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const ShowEditFormButton = function( properties, parent ) {
@@ -40,4 +39,3 @@ ShowEditFormButton.prototype.run = function( event, listPage ){
     listPage.showEditForm( event );
 };
 
-//module.exports = ShowEditFormButton;

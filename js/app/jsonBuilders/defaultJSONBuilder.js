@@ -2,9 +2,6 @@
     Class defaultJSONBuilder 
 */
 
-//var HistoryDelete = require( '../history/delete.js' );
-//var context = require( '../context.js' );
-//var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
 import { Delete as HistoryDelete } from '../history/delete.js';

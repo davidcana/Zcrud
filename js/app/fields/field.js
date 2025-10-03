@@ -2,7 +2,6 @@
     Field class
 */
 
-//var utils = require( '../utils.js' );
 import { utils } from '../utils.js';
 
 export const Field = function( properties ) {
@@ -152,4 +151,3 @@ Field.prototype.validate = function( value ){
     return true;
 };
 
-//module.exports = Field;

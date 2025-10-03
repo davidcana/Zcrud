@@ -2,8 +2,6 @@
     Container class
 */
 
-//var buttonUtils = require( '../buttons/buttonUtils.js' );
-//var utils = require( '../utils.js' );
 import { buttonUtils } from '../buttons/buttonUtils.js';
 import { utils } from '../utils.js';
 
@@ -33,4 +31,3 @@ Container.prototype.getToolbarButtons = function(){
     return this.toolbarButtons;
 };
 
-//module.exports = Container;

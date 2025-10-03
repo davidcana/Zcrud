@@ -70,4 +70,3 @@ export const fieldUtils = function() {
     };
 }();
 
-//module.exports = FieldUtils;

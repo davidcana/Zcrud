@@ -2,20 +2,6 @@
     Class ListPage 
 */
 
-//var context = require( '../context.js' );
-//var pageUtils = require( './pageUtils.js' );
-//var Page = require( './page.js' );
-//var FormPage = require( './formPage.js' );
-//var crudManager = require( '../crudManager.js' );
-//var History = require( '../history/history.js' );
-//var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
-//var ComponentsMap = require( '../components/componentsMap.js' );
-//var buttonUtils = require( '../buttons/buttonUtils.js' );
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var $ = zzDOM.zz;
-//var zpt = require( 'zpt' );
-//var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
 import { pageUtils } from './pageUtils.js';
@@ -552,4 +538,3 @@ ListPage.prototype.getType = function(){
     return 'list';
 };
 
-//module.exports = ListPage;

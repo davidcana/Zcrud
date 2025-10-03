@@ -2,20 +2,6 @@
     Class FormPage
 */
 
-//var context = require( '../context.js' );
-//var pageUtils = require( './pageUtils.js' );
-//var Page = require( './page.js' );
-//var validationManager = require( '../validationManager.js' );
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var $ = zzDOM.zz;
-//var zpt = require( 'zpt' );
-//var crudManager = require( '../crudManager.js' );
-//var History = require( '../history/history.js' );
-//var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
-//var fieldUtils = require( '../fields/fieldUtils.js' );
-//var ComponentsMap = require( '../components/componentsMap.js' );
-//var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
 import { pageUtils } from './pageUtils.js';
@@ -957,4 +943,3 @@ FormPage.prototype.goToFirstPage = function(){
     }
 };
 
-//module.exports = FormPage;

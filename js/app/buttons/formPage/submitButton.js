@@ -2,7 +2,6 @@
     SubmitButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const SubmitButton = function( properties, parent ) {
@@ -39,4 +38,3 @@ SubmitButton.prototype.run = function( event, formPage, $form ){
     formPage.getSubmitFunction().call( formPage, event, $form );
 };
 
-//module.exports = SubmitButton;

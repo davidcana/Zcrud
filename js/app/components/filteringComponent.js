@@ -2,10 +2,6 @@
     FilteringComponent class
 */
 
-//var Component = require( './component.js' );
-//var fieldUtils = require( '../fields/fieldUtils.js' );
-//var fieldListBuilder = require( '../fields/fieldListBuilder.js' );
-//var utils = require( '../utils.js' );
 import { Component } from './component.js';
 import { fieldUtils } from '../fields/fieldUtils.js';
 import { fieldListBuilder } from '../fields/fieldListBuilder.js';
@@ -152,4 +148,3 @@ FilteringComponent.prototype.validate = function(){
         };
 };
 
-//module.exports = FilteringComponent;

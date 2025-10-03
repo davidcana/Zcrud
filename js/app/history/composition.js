@@ -2,7 +2,6 @@
     Composition class
 */
 
-//var AbstractHistoryAction = require( './abstractHistoryAction.js' );
 import { AbstractHistoryAction } from './abstractHistoryAction.js';
 
 export const Composition = function( historyToApply ) {
@@ -129,4 +128,3 @@ Composition.prototype.getCreationItems = function( subformId ){
 
 Composition.prototype.type = 'composition';
 
-//module.exports = Composition;

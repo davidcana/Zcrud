@@ -2,7 +2,6 @@
     AddNewRowButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const AddNewRowButton = function( properties, parent ) {
@@ -42,4 +41,3 @@ AddNewRowButton.prototype.run = function( event, listPage ){
     listPage.getComponent( 'editing' ).addNewRow( event );
 };
 
-//module.exports = AddNewRowButton;

@@ -1,7 +1,4 @@
 
-//var utils = require( '../../../js/app/utils.js' );
-//var testServerSide = require( './testServerSide.js' );
-//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
 import { utils } from '../../../js/app/utils.js';
 import { testServerSide } from './testServerSide.js';
 import { zzDOM } from '../../../js/app/zzDOMPlugin.js';

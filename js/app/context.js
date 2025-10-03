@@ -2,7 +2,6 @@
     context singleton class
 */
 
-//var zpt = require( 'zpt' );
 
 import { zpt } from '../../../node_modules/zpt/index.js';
 

@@ -1,12 +1,7 @@
 /* 
     SelectingComponent class
 */
-'use strict';
 
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var Component = require( './component.js' );
-//var pageUtils = require( '../pages/pageUtils.js' );
 import { Component } from './component.js';
 import { pageUtils } from '../pages/pageUtils.js';
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
@@ -372,4 +367,3 @@ SelectingComponent.prototype.resetPage = function(){
         .attr( 'checked', false );
 };
 
-//module.exports = SelectingComponent;

@@ -2,7 +2,6 @@
     AddNewRowButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const AddNewRowButton = function( properties, parent ) {
@@ -47,4 +46,3 @@ AddNewRowButton.prototype.run = function( event, subformInstance, params ){
     subformInstance.addNewRow( params );
 };
 
-//module.exports = AddNewRowButton;

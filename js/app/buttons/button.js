@@ -4,9 +4,6 @@
     run: a function with the code to run
 */
 
-//var pageUtils = require( '../pages/pageUtils.js' );
-//var context = require( '../context.js' );
-//var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
 import { pageUtils } from '../pages/pageUtils.js';
@@ -79,4 +76,3 @@ Button.prototype.checkComponents = function(){
     return false;
 };
 
-//module.exports = Button;

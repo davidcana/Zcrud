@@ -2,8 +2,6 @@
     normalizer singleton class
 */
 
-//var context = require( './context.js' );
-//var utils = require( './utils.js' );
 import { context } from './context.js';
 import { utils } from './utils.js';
 

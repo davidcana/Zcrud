@@ -2,7 +2,6 @@
     ShowCreateFormButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const ShowCreateFormButton = function( properties, parent ) {
@@ -42,4 +41,3 @@ ShowCreateFormButton.prototype.run = function( event, listPage ){
     listPage.showCreateForm( event );
 };
 
-//module.exports = ShowCreateFormButton;

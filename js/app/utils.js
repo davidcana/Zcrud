@@ -2,8 +2,6 @@
     utils singleton class
 */
 
-//var log4javascript = require( 'log4javascript' );
-//var context = require( './context.js' );
 import log4javascript from '../../lib/log4javascript-esm.js';
 import { context } from './context.js';
 

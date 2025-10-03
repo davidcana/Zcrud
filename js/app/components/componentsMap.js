@@ -2,7 +2,6 @@
     Class ComponentsMap 
 */
 
-//var utils = require( '../utils.js' );
 import { utils } from '../utils.js';
 
 export const ComponentsMap = function ( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
@@ -124,4 +123,3 @@ export const ComponentsMap = function ( optionsToApply, thisOptionsToApply, pare
     return self;
 };
 
-//module.exports = ComponentsMap;

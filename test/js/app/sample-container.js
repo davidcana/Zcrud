@@ -1,5 +1,4 @@
-//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
-//var testServerSide = require( './testServerSide' );
+
 import { testServerSide } from './testServerSide.js';
 import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;

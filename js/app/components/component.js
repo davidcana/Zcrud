@@ -2,7 +2,6 @@
     Component class
 */
 
-//var context = require( '../context.js' );
 import { context } from '../context.js';
 
 export const Component = function( optionsToApply, thisOptionsToApply, parentToApply, pageToApply ) {
@@ -81,4 +80,3 @@ Component.doSuperClassOf = function( ChildClass ){
     ChildClass.prototype.constructor = ChildClass;
 };
 
-//module.exports = Component;

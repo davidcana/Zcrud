@@ -2,8 +2,6 @@
     Checkbox class
 */
 
-//var Field = require( './field.js' );
-//var context = require( '../context.js' );
 import { Field } from './field.js';
 import { context } from '../context.js';
 
@@ -53,4 +51,3 @@ Checkbox.prototype.getValueFromSelection = function( $selection ){
 };
 */
 
-//module.exports = Checkbox;

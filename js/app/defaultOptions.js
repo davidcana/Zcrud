@@ -1,9 +1,6 @@
 
 import sweetalert from '../../lib/sweetalert-esm.js';
 
-//var utils = require( './utils.js' );
-//var requestHelper = require( './requestHelper.js' );
-//const context = require( './context.js' );
 import { utils } from './utils.js';
 import { requestHelper } from './requestHelper.js';
 import { context } from './context.js';
@@ -86,7 +83,6 @@ export const defaultOptions = {
     defaultComponentsConfig: {
         paging: {
             isOn: false,
-            //constructorClass: require( './components/pagingComponent.js' ),
             constructorClass: PagingComponent,
             defaultPageSize: 10,
             pageSizes: [10, 25, 50, 100, 250, 500],
@@ -100,7 +96,6 @@ export const defaultOptions = {
         },
         sorting: {
             isOn: false,
-            //constructorClass: require( './components/sortingComponent.js' ),
             constructorClass: SortingComponent,
             loadFromLocalStorage: true,
             default: {
@@ -111,20 +106,17 @@ export const defaultOptions = {
         },
         filtering: {
             isOn: false,
-            //constructorClass: require( './components/filteringComponent.js' ),
             constructorClass: FilteringComponent,
             fieldsTemplate: 'compact-editable@templates/fieldLists.html'
         },
         selecting: {
             isOn: false,
-            //constructorClass: require( './components/selectingComponent.js' ),
             constructorClass: SelectingComponent,
             multiple: true,
             mode: [ 'checkbox', 'onRowClick' ] // possible values: 'checkbox' and 'onRowClick'
         },
         editing: {
             isOn: false,
-            //constructorClass: require( './components/editingComponent.js' ),
             constructorClass: EditingComponent,
             modifiedFieldsClass: 'zcrud-modified-field',
             modifiedRowsClass: 'zcrud-modified-row',
@@ -143,32 +135,26 @@ export const defaultOptions = {
     fields: {},
     fieldsConfig: {
         constructors: {
-            //default: require( './fields/field.js' ),
             default: Field,
             mapping: [
                 {
                     fieldTypes: [ 'date', 'datetime', 'time' ],
-                    //constructor: require( './fields/datetime.js' )
                     constructor: Datetime
                 },
                 {
                     fieldTypes: [ 'datalist', 'select', 'radio', 'checkboxes' ],
-                    //constructor: require( './fields/optionsField.js' )
                     constructor: OptionsField
                 },
                 {
                     fieldTypes: [ 'checkbox' ],
-                    //constructor: require( './fields/checkbox.js' )
                     constructor: Checkbox
                 },
                 {
                     fieldTypes: [ 'subform' ],
-                    //constructor: require( './fields/subform.js' )
                     constructor: Subform
                 },
                 {
                     fieldTypes: [ 'fileUpload' ],
-                    //constructor: require( './fields/fileUpload.js' )
                     constructor: FileUpload
                 }
             ]
@@ -256,26 +242,14 @@ export const defaultOptions = {
     },
 
     buttons: {
-        //generic: require( './buttons/genericButton.js' ),
-        //undo: require( './buttons/undoButton.js' ),
-        //redo: require( './buttons/redoButton.js' ),
         generic: GenericButton,
         undo: UndoButton,
         redo: RedoButton,
 
-        //form_cancel: require( './buttons/formPage/cancelButton.js' ),
-        //form_copySubformRows: require( './buttons/formPage/copySubformRowsButton.js' ),
-        //form_submit: require( './buttons/formPage/submitButton.js' ),
         form_cancel: FormPageCancelButton,
         form_copySubformRows: FormPageCopySubformRowsButton,
         form_submit: FormPageSubmitButton,
 
-        //list_addNewRow: require( './buttons/listPage/addNewRowButton.js' ),
-        //list_deleteRow: require( './buttons/listPage/deleteRowButton.js' ),
-        //list_showCreateForm: require( './buttons/listPage/showCreateFormButton.js' ),
-        //list_showDeleteForm: require( './buttons/listPage/showDeleteFormButton.js' ),
-        //list_showEditForm: require( './buttons/listPage/showEditFormButton.js' ),
-        //list_submit: require( './buttons/listPage/submitButton.js' ),
         list_addNewRow: ListPageAddNewRowButton,
         list_deleteRow: ListPageDeleteRowButton,
         list_showCreateForm: ListPageShowCreateFormButton,
@@ -283,11 +257,6 @@ export const defaultOptions = {
         list_showEditForm: ListPageShowEditFormButton,
         list_submit: ListPageSubmitButton,
 
-        //subform_addNewRow: require( './buttons/subform/addNewRowButton.js' ),
-        //subform_deleteRow: require( './buttons/subform/deleteRowButton.js' ),
-        //subform_showCreateForm: require( './buttons/subform/showCreateFormButton.js' ),
-        //subform_showDeleteForm: require( './buttons/subform/showDeleteFormButton.js' ),
-        //subform_showEditForm: require( './buttons/subform/showEditFormButton.js' )
         subform_addNewRow: SubformAddNewRowButton,
         subform_deleteRow: SubformDeleteRowButton,
         subform_showCreateForm: SubformShowCreateFormButton,
@@ -401,7 +370,6 @@ export const defaultOptions = {
         level: 'error'
     },
 
-    //jsonBuilder: require( './jsonBuilders/onlyChangesJSONBuilder.js' ),
     jsonBuilder: onlyChangesJSONBuilder,
     
     defaultErrorOptions: {
@@ -410,7 +378,6 @@ export const defaultOptions = {
         i18nTitle: 'errorTitle'
     },
     errorFunction: function( message ){
-        //var swal = require( 'sweetalert' );
         var swal = sweetalert;
         var thisOptions = utils.extend( true, {}, this.defaultErrorOptions );
         if ( ! thisOptions.title ){
@@ -427,7 +394,6 @@ export const defaultOptions = {
         className: 'confirm'
     },
     confirmFunction: function( confirmOptions, onFulfilled ){
-        //var swal = require( 'sweetalert' );
         var swal = sweetalert;
         var thisOptions = utils.extend( true, {}, this.defaultConfirmOptions, confirmOptions );
         swal( thisOptions ).then( onFulfilled );
@@ -439,7 +405,6 @@ export const defaultOptions = {
         className: 'showMessage'
     },
     showMessageFunction: function( messageOptions ){
-        //var swal = require( 'sweetalert' );
         var swal = sweetalert;
         var thisOptions = utils.extend( true, {}, this.defaultShowMessageOptions, messageOptions );
         swal( thisOptions );

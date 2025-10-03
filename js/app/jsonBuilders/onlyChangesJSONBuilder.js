@@ -2,7 +2,6 @@
     Class onlyChangesJSONBuilder
 */
 
-//var defaultJSONBuilder = require( './defaultJSONBuilder.js' );
 import { defaultJSONBuilder } from './defaultJSONBuilder.js';
 
 export const onlyChangesJSONBuilder = (function() {

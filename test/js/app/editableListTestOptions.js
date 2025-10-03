@@ -1,5 +1,4 @@
 
-//var testServerSide = require( './testServerSide' );
 import { testServerSide } from './testServerSide.js';
 
 export const editableListTestOptions = {

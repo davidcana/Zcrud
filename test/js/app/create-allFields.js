@@ -1,13 +1,4 @@
 
-//var zzDOM = require( '../../../js/app/zzDOMPlugin.js' );
-//var $ = zzDOM.zz;
-//var Qunit = require( 'qunit' );
-//var testHelper = require( './testHelper.js' );
-//var testServerSide = require( './testServerSide.js' );
-//var context = require( '../../../js/app/context.js' );
-//var utils = require( '../../../js/app/utils.js' );
-//var defaultTestOptions = require( './defaultTestOptions.js' );
-
 import { utils } from '../../../js/app/utils.js';
 import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;

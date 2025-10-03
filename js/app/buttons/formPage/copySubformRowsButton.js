@@ -2,8 +2,6 @@
     CopySubformRowsButton class
 */
 
-//var context = require( '../../context.js' );
-//var Button = require( '../button.js' );
 import { context } from '../../context.js';
 import { Button }  from '../button.js';
 
@@ -61,4 +59,3 @@ CopySubformRowsButton.prototype.run = function( event, formPage, $form, eventThi
     }
 };
 
-//module.exports = CopySubformRowsButton;

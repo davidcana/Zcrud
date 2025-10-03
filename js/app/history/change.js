@@ -2,11 +2,6 @@
     Change class
 */
 
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var $ = zzDOM.zz;
-//var AbstractHistoryAction = require( './abstractHistoryAction.js' );
-//var utils = require( '../../../js/app/utils.js' );
 import { AbstractHistoryAction } from './abstractHistoryAction.js';
 import { utils } from '../utils.js';
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
@@ -244,4 +239,3 @@ Change.resetCSS = function( $list, editableOptions ){
 
 Change.prototype.type = 'change';
 
-//module.exports = Change;

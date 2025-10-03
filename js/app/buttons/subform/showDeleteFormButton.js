@@ -2,7 +2,6 @@
     ShowDeleteFormButton class
 */
 
-//var Button = require( '../button.js' );
 import { Button }  from '../button.js';
 
 export const ShowDeleteFormButton = function( properties, parent ) {
@@ -41,4 +40,3 @@ ShowDeleteFormButton.prototype.run = function( event, subformInstance ){
     subformInstance.showNewFormUsingRecordFromServer( 'delete', event );
 };
 
-//module.exports = ShowDeleteFormButton;

@@ -2,13 +2,6 @@
     Page class
 */
 
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var $ = zzDOM.zz;
-//var context = require( '../context.js' );
-//var pageUtils = require( './pageUtils.js' );
-//var buttonUtils = require( '../buttons/buttonUtils.js' );
-//var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { utils } from '../utils.js';
 import { pageUtils } from './pageUtils.js';
@@ -291,4 +284,3 @@ Page.doSuperClassOf = function( ChildClass ){
     ChildClass.prototype.constructor = ChildClass;
 };
 
-//module.exports = Page;

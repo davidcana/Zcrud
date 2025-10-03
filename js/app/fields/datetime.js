@@ -2,13 +2,6 @@
     Datetime class
 */
 
-//var Field = require( './field.js' );
-//var context = require( '../context.js' );
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var zpt = require( 'zpt' );
-//var DateFormatter = require( '../../../lib/php-date-formatter.js' );
-//var utils = require( '../utils.js' );
 import { Field } from './field.js';
 import { context } from '../context.js';
 import { utils } from '../utils.js';
@@ -1264,4 +1257,3 @@ Datetime.validateDatetime = function( value, type ){
 };
 */
 
-//module.exports = Datetime;

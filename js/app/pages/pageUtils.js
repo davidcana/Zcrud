@@ -2,10 +2,6 @@
     pageUtils singleton class
 */
 
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var $ = zzDOM.zz;
-//var zpt = require( 'zpt' );
 import { zpt } from '../../../node_modules/zpt/index.js';
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;

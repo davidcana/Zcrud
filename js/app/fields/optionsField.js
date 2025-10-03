@@ -2,14 +2,6 @@
     OptionsField class
 */
 
-//var Field = require( './field.js' );
-//var context = require( '../context.js' );
-//var optionProvider = require( './optionProvider.js' );
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var $ = zzDOM.zz;
-//var zpt = require( 'zpt' );
-//var utils  = require( '../utils.js' );
 import { Field } from './field.js';
 import { context } from '../context.js';
 import { optionProvider } from './optionProvider.js';
@@ -297,4 +289,3 @@ OptionsField.prototype.buildDependentAsyncFieldList = function( record ){
         [];
 };
 
-//module.exports = OptionsField;

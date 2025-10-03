@@ -2,9 +2,6 @@
     fieldListBuilder singleton class
 */
 
-//var normalizer = require( '../normalizer.js' );
-//var Container = require( './container.js' );
-//var utils = require( '../utils.js' );
 import { normalizer } from '../normalizer.js';
 import { Container } from './container.js';
 import { utils } from '../utils.js';

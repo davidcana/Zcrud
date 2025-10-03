@@ -2,7 +2,6 @@
     buttonUtils singleton class
 */
 
-//var utils = require( '../utils.js' );
 import { utils } from '../utils.js';
 
 export const buttonUtils = function() {
@@ -64,4 +63,3 @@ export const buttonUtils = function() {
     };
 }();
 
-//module.exports = ButtonUtils;

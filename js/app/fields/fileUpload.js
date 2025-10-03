@@ -2,9 +2,6 @@
     FileUpload class
 */
 
-//var Field = require( './field.js' );
-//var validationManager = require( '../validationManager.js' );
-//var zpt = require( 'zpt' );
 import { Field } from './field.js';
 import { validationManager } from '../validationManager.js';
 import { zpt } from '../../../node_modules/zpt/index.js';
@@ -294,6 +291,4 @@ FileUpload.prototype.validate = function(){
         return 'rangeUnderflow';
     }
 };
-
-//module.exports = FileUpload;
 

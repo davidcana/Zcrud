@@ -2,10 +2,6 @@
     crudManager singleton class
 */
 
-//var context = require( './context.js' );
-//var validationManager = require( './validationManager.js' );
-//var pageUtils = require( './pages/pageUtils.js' );
-
 import { context } from './context.js';
 import { validationManager } from './validationManager.js';
 import { pageUtils } from './pages/pageUtils.js';

@@ -82,4 +82,3 @@ export const HistoryCleaner = function() {
     };
 };
 
-//module.exports = HistoryCleaner;

@@ -2,9 +2,6 @@
     SortingComponent class
 */
 
-//var Component = require( './component.js' );
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
 import { Component } from './component.js';
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
@@ -137,4 +134,3 @@ SortingComponent.prototype.getTypeForFieldId = function( fieldId ){
     return fieldId !== this.sortFieldId? null: this.sortType;
 };
 
-//module.exports = SortingComponent;

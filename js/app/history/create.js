@@ -2,9 +2,6 @@
     Create class
 */
 
-//var zpt = require( 'zpt' );
-//var AbstractHistoryAction = require( './abstractHistoryAction.js' );
-//var utils = require( '../utils.js' );
 import { AbstractHistoryAction } from './abstractHistoryAction.js';
 import { utils } from '../utils.js';
 import { zpt } from '../../../node_modules/zpt/index.js';
@@ -122,4 +119,3 @@ Create.resetCSS = function(){};
 
 Create.prototype.type = 'create';
 
-//module.exports = Create;

@@ -1,11 +1,7 @@
 /* 
     validationManager singleton class
 */
-    
-//var context = require( './context.js' );
-////var zzDOM = require( '../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var utils = require( './utils.js' );
+
 import { context } from './context.js';
 import { zzDOM } from '../../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;

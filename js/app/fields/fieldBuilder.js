@@ -2,7 +2,6 @@
     fieldBuilder singleton class
 */
   
-//var utils = require( '../utils.js' );
 import { utils } from '../utils.js';
 
 export const fieldBuilder = (function() {

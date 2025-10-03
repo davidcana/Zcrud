@@ -2,9 +2,6 @@
     OptionProvider singleton class
 */
 
-//var context = require( '../context.js' );
-//var crudManager = require( '../crudManager.js' );
-//var utils = require( '../utils.js' );
 import { context } from '../context.js';
 import { crudManager } from '../crudManager.js';
 import { utils } from '../utils.js';
@@ -319,4 +316,3 @@ export const optionProvider = function() {
     };
 }();
 
-//module.exports = OptionProvider;

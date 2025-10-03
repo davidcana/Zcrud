@@ -2,23 +2,6 @@
     Subform class
 */
 
-//var Field = require( './field.js' );
-//var context = require( '../context.js' );
-////var zzDOM = require( '../../../lib/zzDOM-closures-full.js' );
-//var zzDOM = require( 'zzdom' );
-//var $ = zzDOM.zz;
-//var zpt = require( 'zpt' );
-//var validationManager = require( '../validationManager.js' );
-//var ComponentsMap = require( '../components/componentsMap.js' );
-//var fieldUtils = require( './fieldUtils.js' );
-//var HistoryCreate = require( '../history/create.js' );
-//var HistoryDelete = require( '../history/delete.js' );
-//var HistoryComposition = require( '../history/composition.js' );
-//var crudManager = require( '../crudManager.js' );
-//var pageUtils = require( '../pages/pageUtils.js' );
-//var FormPage = require( '../pages/formPage.js' );
-//var buttonUtils = require( '../buttons/buttonUtils.js' );
-//var utils = require( '../utils.js' );
 import { Field } from './field.js';
 import { context } from '../context.js';
 import { utils } from '../utils.js';
@@ -743,6 +726,4 @@ Subform.prototype.buildDependentAsyncFieldList = function( record ){
 
     return result;
 };
-
-//module.exports = Subform;
 
