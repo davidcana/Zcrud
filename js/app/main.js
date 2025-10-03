@@ -2,7 +2,7 @@
     Main class of ZCrud
 */
 
-import { zpt } from '../../../node_modules/zpt/index.js';
+import { zpt } from '../../node_modules/zpt/index.js';
 var log = zpt.logHelper;
 import { context } from './context.js';
 import { ListPage } from './pages/listPage.js';

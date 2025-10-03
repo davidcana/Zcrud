@@ -1,4 +1,4 @@
 /* Declare exports */
-import { zcrud } from './src/app/main.js';
+import { zcrud } from './js/app/main.js';
 export { zcrud };
 

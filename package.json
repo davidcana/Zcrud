@@ -65,6 +65,17 @@
     "build-php-date-formatter-esm": "esbuild ./node_modules/php-date-formatter/js/php-date-formatter.js --bundle --outfile=./lib/php-date-formatter-esm.js --format=esm",
     "build-sweetalert-esm": "esbuild ./node_modules/sweetalert/dist/sweetalert.min.js --bundle --outfile=./lib/sweetalert-esm.js --format=esm",
     "build-log4javascript-esm": "esbuild ./node_modules/log4javascript/log4javascript.js --bundle --outfile=./lib/log4javascript-esm.js --format=esm",
-    "build-all-deps-esm": "npm run build-php-date-formatter-esm && npm run build-sweetalert-esm && npm run build-log4javascript-esm"
+    "build-all-deps-esm": "npm run build-php-date-formatter-esm && npm run build-sweetalert-esm && npm run build-log4javascript-esm",
+
+    "build-esm": "esbuild ./index.js --bundle --outfile=./dist/zcrud-esm.js --format=esm",
+    "build-esm-minify": "esbuild ./index.js --bundle --outfile=./dist/zcrud-esm.min.js --format=esm --minify",
+    "build-esm-gz": "gzip -fk ./dist/zcrud-esm.min.js",
+    "build-esm-all": "npm run build-esm && npm run build-esm-minify && npm run build-esm-gz",
+    "build-cjs": "esbuild ./index.js --bundle --outfile=./dist/zcrud-cjs.cjs --format=cjs",
+    "build-all": "npm run build-esm-all && npm run build-cjs",
+
+    "build": "npm run build-all-deps-esm && npm run build-all",
+
+    "init": "npm install && npm run build"
   }
 }

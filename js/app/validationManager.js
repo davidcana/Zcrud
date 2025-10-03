@@ -3,7 +3,7 @@
 */
 
 import { context } from './context.js';
-import { zzDOM } from '../../../node_modules/zzdom/index.js';
+import { zzDOM } from '../../node_modules/zzdom/index.js';
 var $ = zzDOM.zz;
 import { utils } from './utils.js';
 

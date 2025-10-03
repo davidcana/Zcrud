@@ -3,7 +3,7 @@
 */
 
 
-import { zpt } from '../../../node_modules/zpt/index.js';
+import { zpt } from '../../node_modules/zpt/index.js';
 
 export const context = (function() {
     
