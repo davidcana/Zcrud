@@ -124,9 +124,9 @@ div.zcrud-main-container {
       div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row > td > .zcrud-delete-command-button:hover {
         opacity: 0.8; }
     div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(even) {
-      background-color: #e8eaef; }
-    div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(odd) {
       background-color: White; }
+    div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(odd) {
+      background-color: #e8eaef; }
     div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:hover {
       background-color: #ddd; }
   div.zcrud-main-container .zcrud-subform-content table.zcrud > thead th {
@@ -445,11 +445,35 @@ span.zcrud-validationMessage {
   border-radius: 10px; }
 
 div.zcrud-form-updatable span.zcrud-validationMessage {
-  float: right; }
-
-table span.zcrud-validationMessage {
   position: absolute;
-  margin-top: 1.75em; }
+  margin-left: 1em; }
+
+table.zcrud span.zcrud-validationMessage,
+div.zcrud-subform-content table.zcrud span.zcrud-validationMessage {
+  position: absolute;
+  margin-left: .25em; }
+
+div.zcrud-field-file div.fileUpload {
+  cursor: pointer !important; }
+div.zcrud-field-file div.subtitle {
+  font-size: 70%;
+  font-weight: bold; }
+div.zcrud-field-file div.fileName {
+  font-style: italic; }
+div.zcrud-field-file div.currentFile {
+  border: dashed orange;
+  margin-bottom: .5em;
+  padding-left: .5em; }
+div.zcrud-field-file div.newFile {
+  border: dashed orange;
+  padding-left: .5em; }
+div.zcrud-field-file div.dropText {
+  padding: 2em 0 1em 0;
+  font-size: 120%; }
+div.zcrud-field-file span.zcrud-validationMessage {
+  margin-top: -5em; }
+div.zcrud-field-file.drag-over {
+  background-color: #ecd864; }
 
 .zcrud-hidden {
   display: none; }

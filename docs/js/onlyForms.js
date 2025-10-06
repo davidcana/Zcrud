@@ -1,4 +1,12 @@
 // Only forms
+
+import { zpt, $ } from '../lib/zcrud-esm.js';
+import { zcrudServerSide } from './zcrudServerSide.js'; 
+import { people, skills } from './data.js';
+
+zcrudServerSide.addPeople( people );
+zcrudServerSide.addSubformsData( 'skills', skills );
+
 var options = {
 
     entityId: 'people',
@@ -145,10 +153,6 @@ var options = {
     ajax: {
         ajaxFunction: zcrudServerSide.ajax
     },
-    /*
-    templates: {
-        declaredRemotePageUrls: [ 'templates/fieldLists.html', 'templates/lists.html' ]
-    },*/
     
     i18n: {
         language: 'en',
@@ -161,4 +165,25 @@ var options = {
 
 var callback = function( options ){
     $( '#container' ).zcrud( 'renderForm' );
-}
+};
+
+// This is needed to make the git pages work
+options.filesPathPrefix = location.pathname.startsWith( '/Zcrud' )? '/Zcrud': '';
+zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + '/';
+
+zpt.run(
+    {
+        command: 'preload',
+        root: [ 
+            document.getElementById( 'commonHeader' ), 
+            document.getElementById( 'commonFooter' )
+        ],
+        dictionary: {},
+        declaredRemotePageUrls: [ 'templates.html' ],
+        callback: function(){
+            zpt.run();
+            $( '#container' ).zcrud( 'init', options, callback );
+        }
+    }
+);
+

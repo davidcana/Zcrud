@@ -1,5 +1,5 @@
 
-import { zzDOM } from '../../../node_modules/zzdom/index.js';
+import { zzDOM } from '../../node_modules/zzdom/index.js';
 import { context } from './context.js';
 import { zcrud } from './main.js';
 

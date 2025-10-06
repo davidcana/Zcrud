@@ -41,16 +41,10 @@
   "devDependencies": {
     "esbuild": "0.25.5",
     "grunt": "1.6.1",
-    "grunt-browserify": "6.0.0",
     "grunt-contrib-compress": "2.0.0",
-    "grunt-contrib-concat": "2.1.0",
     "grunt-contrib-copy": "1.0.0",
-    "grunt-contrib-jshint": "3.0.0",
     "grunt-contrib-nodeunit": "5.0.0",
-    "grunt-contrib-qunit": "10.1.1",
     "grunt-contrib-sass": "1.0.0",
-    "grunt-contrib-uglify": "5.2.1",
-    "grunt-contrib-watch": "1.1.0",
     "http-server": "14.1.1",
     "log4javascript": "1.4.16",
     "npm-run-all": "4.1.5",
@@ -73,9 +67,13 @@
     "build-esm-all": "npm run build-esm && npm run build-esm-minify && npm run build-esm-gz",
     "build-cjs": "esbuild ./index.js --bundle --outfile=./dist/zcrud-cjs.cjs --format=cjs",
     "build-all": "npm run build-esm-all && npm run build-cjs",
-
+    
     "build": "npm run build-all-deps-esm && npm run build-all",
 
-    "init": "npm install && npm run build"
+    "docs-sass": "grunt sass",
+    "docs-copy": "grunt copy",
+    "docs-update": "npm run docs-sass && npm run docs-copy",
+
+    "init": "npm install && npm run build && npm run docs-update"
   }
 }

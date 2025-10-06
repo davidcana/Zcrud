@@ -65,18 +65,14 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            standalone: {
-                src: 'build/standalone.js',
-                dest: 'docs/lib/zcrud.js'
-            },
-            standaloneMin: {
-                src: 'build/standalone.min.js',
-                dest: 'docs/lib/zcrud.min.js'
+            zcrud: {
+                src: 'dist/zcrud-esm.js',
+                dest: 'docs/lib/zcrud-esm.js'
             },
             i18n: {
                 expand: true,
-                dest: 'docs/i18n',
                 cwd: 'i18n/',
+                dest: 'docs/i18n',
                 src: '**'
             },
             templates: {

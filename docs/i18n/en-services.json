@@ -32,6 +32,14 @@
     "important_description": "Is important?",
     "number_title": "Number",
     "number_description": "The number of the department",
+    "password_title": "Password",
+    "password_description": "Type your current password",
+    "newPassword_title": "New password",
+    "newPassword_description": "Type your new password",
+    "repeatNewPassword_title": "Repeat new password",
+    "repeatNewPassword_description": "Type your new password again",
+    "file_title": "File",
+    "file_description": "Select your file to upload",
     "members_title": "Members",
     "members_description": "The members of the department",
     "members_filter_description": "Please, filter the members to view!",
@@ -69,8 +77,8 @@
     
     "_validation": "",
     "validation_name_patternMismatch": "Type alphanumeric characters or spaces. Minimum 3, maximum 20.",
-    "validation_name": "This must not be shown!",
+    "validation_name": "Generic error for name.",
     "validation_date": "Please, type a valid date.",
-    "validation_patternMismatch": "This must not be shown!",
+    "validation_patternMismatch": "Generic error for pattern mismatch.",
     "validation_valueMissing": "Required field."
 }

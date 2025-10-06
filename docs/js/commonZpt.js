@@ -3,7 +3,7 @@
    - options
    - callback
 */
-
+// A borrar!!!!!
 // This is needed to make the git pages work
 options.filesPathPrefix = location.pathname.startsWith( '/Zcrud' )? '/Zcrud': '';
 zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + '/';

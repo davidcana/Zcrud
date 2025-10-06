@@ -32,6 +32,14 @@
     "important_description": "¿Es importante?",
     "number_title": "Número",
     "number_description": "El número del departamento",
+    "password_title": "Contraseña",
+    "password_description": "Teclee su contraseña actual",
+    "newPassword_title": "Nueva contraseña",
+    "newPassword_description": "Teclee su nueva contraseña",
+    "repeatNewPassword_title": "Repetir contraseña",
+    "repeatNewPassword_description": "Teclee su nueva contraseña otra vez",
+    "file_title": "Fichero",
+    "file_description": "Seleccione el archivo a subir",
     "members_title": "Miembros",
     "members_description": "Los miembros del departamento",
     "members_filter_description": "¡Por favor, filtre los miembros a mostrar!",
@@ -69,8 +77,8 @@
     
     "_validation": "",
     "validation_name_patternMismatch": "Teclee caracteres alfanuméricos o espacios. Mínimo 3, máximo 20.",
-    "validation_name": "¡Este error no debería mostrarse!",
+    "validation_name": "Error genérico para el nombre.",
     "validation_date": "Por favor, teclee una fecha válida.",
-    "validation_patternMismatch": "¡Este error no debería mostrarse!",
+    "validation_patternMismatch": "Error genérico para patrón de caracteres.",
     "validation_valueMissing": "Campo requerido."
 }

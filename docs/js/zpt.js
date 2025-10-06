@@ -1,3 +1,6 @@
+// Generic ZPT page
+import { zpt } from '../lib/zcrud-esm.js';
+
 // This is needed to make the git pages work
 zpt.context.getConf().externalMacroPrefixURL = location.pathname.startsWith( '/Zcrud' )? '/Zcrud/': '/';
 

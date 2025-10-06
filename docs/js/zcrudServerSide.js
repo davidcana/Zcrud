@@ -1,5 +1,7 @@
 /* ZcrudServerSide singleton class */
-var zcrudServerSide = (function() {
+import { zcrud } from '../lib/zcrud-esm.js';
+
+export const zcrudServerSide = (function() {
 
     var allowedSubformsFields = [ 'skills' ];
     var subformsRecordsSuffix = 'ZCrudRecords';

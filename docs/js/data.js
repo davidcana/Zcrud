@@ -1,4 +1,4 @@
-var people = [
+export const people = [
     {
         "id": 1,
         "name": "Ulysses Aguilar",
@@ -1806,7 +1806,7 @@ var people = [
     }
 ];
 
-var skills = [
+export const skills = [
     {
         "personId": 14,
         "code": 1,
@@ -3209,5 +3209,5 @@ var skills = [
     }
 ];
 
-zcrudServerSide.addPeople( people );
-zcrudServerSide.addSubformsData( 'skills', skills );
+//zcrudServerSide.addPeople( people );
+//zcrudServerSide.addSubformsData( 'skills', skills );
