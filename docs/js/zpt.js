@@ -1,21 +1,9 @@
 // Generic ZPT page
-import { zpt } from '../lib/zcrud-esm.js';
+import { docsUtils } from './docsUtils.js'; 
 
-// This is needed to make the git pages work
-zpt.context.getConf().externalMacroPrefixURL = location.pathname.startsWith( '/Zcrud' )? '/Zcrud/': '/';
+var options = null;
 
-// Invoke ZPT
-zpt.run(
-    {
-        command: 'preload',
-        root: [ 
-            document.getElementById( 'commonHeader' ), 
-            document.getElementById( 'commonFooter' )
-        ],
-        dictionary: {},
-        declaredRemotePageUrls: [ 'templates.html' ],
-        callback: function(){
-            zpt.run();
-        }
-    }
-);
+var callback = function( options ){};
+
+docsUtils.run( options, callback );
+

@@ -3209,5 +3209,3 @@ export const skills = [
     }
 ];
 
-//zcrudServerSide.addPeople( people );
-//zcrudServerSide.addSubformsData( 'skills', skills );

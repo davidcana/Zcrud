@@ -1,10 +1,7 @@
 // Editable lists
-import { zpt, $ } from '../lib/zcrud-esm.js';
+import { $ } from '../lib/zcrud-esm.js';
 import { zcrudServerSide } from './zcrudServerSide.js'; 
-import { people, skills } from './data.js';
-
-zcrudServerSide.addPeople( people );
-zcrudServerSide.addSubformsData( 'skills', skills );
+import { docsUtils } from './docsUtils.js'; 
 
 var options = {
 
@@ -197,22 +194,4 @@ var callback = function( options ){
     $( '#container' ).zcrud( 'renderList' );
 };
 
-// This is needed to make the git pages work
-options.filesPathPrefix = location.pathname.startsWith( '/Zcrud' )? '/Zcrud': '';
-zpt.context.getConf().externalMacroPrefixURL = options.filesPathPrefix + '/';
-
-zpt.run(
-    {
-        command: 'preload',
-        root: [ 
-            document.getElementById( 'commonHeader' ), 
-            document.getElementById( 'commonFooter' )
-        ],
-        dictionary: {},
-        declaredRemotePageUrls: [ 'templates.html' ],
-        callback: function(){
-            zpt.run();
-            $( '#container' ).zcrud( 'init', options, callback );
-        }
-    }
-);
+docsUtils.run( options, callback );
