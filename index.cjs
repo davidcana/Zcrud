@@ -1,2 +1,7 @@
-const zcrud = require( 'dist/zcrud-cjs.cjs' ).zcrud;
-module.exports = zcrud;
+/* Declare exports */
+const zcrudcjs = require( 'dist/zcrud-cjs.cjs' );
+
+exports.zzDOM = zcrudcjs.zzDOM;
+exports.$ = zcrudcjs.$;
+exports.zpt = zcrudcjs.zpt;
+exports.zcrud = zcrudcjs.zcrud;
