@@ -12,11 +12,24 @@ docsUtils.addData = function(){
     zcrudServerSide.addSubformsData( 'skills', skills );
 };
 
-// Configure options
-docsUtils.run = function( options, callback ){
+// Build an array with all the elements to parse
+docsUtils.buildRoot = function(){
 
-    docsUtils.addData();
+    let root = [
+        document.getElementById( 'commonHeader' ),
+        document.getElementById( 'commonFooter' )
+    ];
+    const updatableBodyPart = document.getElementsByClassName( 'updatableBodyPart' );
+    if ( updatableBodyPart.length ){
+        const newArray = [ ...updatableBodyPart ];
+        root = root.concat( newArray );
+    }
 
+    return root;
+};
+
+docsUtils.configureOptions = function( options ){
+    
     // This is needed to make the git pages work
     if ( options ){
         options.filesPathPrefix = location.pathname.startsWith( '/Zcrud' )? '/Zcrud': '';
@@ -24,17 +37,25 @@ docsUtils.run = function( options, callback ){
     } else {
         zpt.context.getConf().externalMacroPrefixURL = location.pathname.startsWith( '/Zcrud' )? '/Zcrud/': '/';
     }
+};
+
+// Configure options
+docsUtils.run = function( options, callback ){
+
+    // Add data from people, skills... to zcrudServerSide
+    docsUtils.addData();
+
+    // Configure some options: filesPathPrefix, externalMacroPrefixURL...
+    docsUtils.configureOptions( options );
 
     // Run ZPT
     zpt.run(
         {
             command: 'preload',
-            root: [ 
-                document.getElementById( 'commonHeader' ), 
-                document.getElementById( 'commonFooter' )
-            ],
+            root: docsUtils.buildRoot(),
             dictionary: {},
             declaredRemotePageUrls: [ 'templates.html' ],
+            maxFolderDictionaries: 5,
             callback: function(){
                 zpt.run();
                 if ( options ){
