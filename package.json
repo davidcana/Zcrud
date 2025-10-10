@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "esbuild": "0.25.5",
+    "genversion": "3.2.0",
     "grunt": "1.6.1",
     "grunt-contrib-compress": "2.0.0",
     "grunt-contrib-copy": "1.0.0",
@@ -51,6 +52,8 @@
     "qunit-composite": "2.0.0"
   },
   "scripts": {
+    "version": "rm js/app/version.js; genversion --esm --semi --template template.ejs js/app/version.js",
+
     "http-server": "http-server -p 9000 -c-1",
     "web": "cd ./docs; http-server -p 9001 -c-1",
     "start": "npm-run-all -p -r web http-server",
