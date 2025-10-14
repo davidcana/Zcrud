@@ -1,6 +1,6 @@
 // docsUtils
 
-import { zpt, $ } from '../lib/zcrud-esm.js';
+import { zcrud, zpt, $ } from '../lib/zcrud-esm.js';
 import { zcrudServerSide } from './zcrudServerSide.js'; 
 import { people, skills } from './data.js';
 
@@ -39,6 +39,13 @@ docsUtils.configureOptions = function( options ){
     }
 };
 
+// Build the dictionary
+docsUtils.buildDictionary = function(){
+    return {
+        zcrud: zcrud
+    }
+};
+
 // Configure options
 docsUtils.run = function( options, callback ){
 
@@ -53,7 +60,7 @@ docsUtils.run = function( options, callback ){
         {
             command: 'preload',
             root: docsUtils.buildRoot(),
-            dictionary: {},
+            dictionary: docsUtils.buildDictionary(),
             declaredRemotePageUrls: [ 'templates.html' ],
             maxFolderDictionaries: 5,
             callback: function(){

@@ -11,10 +11,13 @@ import { normalizer } from './normalizer.js';
 import { fieldBuilder } from './fields/fieldBuilder.js';
 import { defaultOptions } from './defaultOptions.js';
 import { utils } from './utils.js';
+import { version, date as dateVersion } from './version.js';
 
 export const zcrud = {};
 
-zcrud.version = '0.3.0-SNAPSHOT';
+//zcrud.version = '0.3.0-SNAPSHOT';
+zcrud.version = version;
+zcrud.date = dateVersion;
 
 zcrud.init = function( userOptions, callback, failCallback ){
     
