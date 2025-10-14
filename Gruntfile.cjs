@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                         {
                         cwd: 'docs/',
                         expand: true,
-                        src: ['**/*', '!**/*~', '!lib/zcrud.js', '!lib/zcrud.min.js', '!lib/zpt.min.js'],
+                        src: ['**/*', '!**/*~', '!lib/zcrud-esm.js'],
                         dest: 'docs'
                         },
                         {
