@@ -62,7 +62,6 @@ docsUtils.run = function( options, callback ){
             root: docsUtils.buildRoot(),
             dictionary: docsUtils.buildDictionary(),
             declaredRemotePageUrls: [ 'templates.html' ],
-            maxFolderDictionaries: 5,
             callback: function(){
                 zpt.run();
                 if ( options ){
