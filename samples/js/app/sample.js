@@ -1,5 +1,5 @@
 
-import { testServerSide } from './testServerSide.js';
+import { testServerSide } from '../../../test/js/app/testServerSide.js';
 import { context } from '../../../js/app/context.js';
 import { zzDOM } from '../../../js/app/zzDOMPlugin.js';
 var $ = zzDOM.zz;
