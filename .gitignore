@@ -10,6 +10,7 @@ dist/
 node_modules/
 .directory
 npm-debug.log
+*.bak
 
 # This project
 docs/lib/zcrud-esm.js
