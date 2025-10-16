@@ -1,6 +1,6 @@
 {
   "name": "zcrud",
-  "version": "0.3.0-SNAPSHOT",
+  "version": "0.3.0",
   "description": "A javascript API to make it easy to create HTML forms and list. It also manages CRUD tables without coding HTML or Javascript using ZPT-JS as template engine.",
   "type": "module",
   "main": "index.cjs",
