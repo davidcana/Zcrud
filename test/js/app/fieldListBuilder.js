@@ -891,3 +891,283 @@ QUnit.test( 'Field list from another view builder test', function( assert ) {
         }
     );
 });
+
+QUnit.test( 'Field list from general fields with composition/tabContainer builder test', function( assert ) {
+    
+    var done = assert.async();
+    options = defaultTestOptions;
+
+    $( '#departmentsContainer' ).zcrud( 
+        'init',
+        options,
+        function( options ){
+            $( '#departmentsContainer' ).zcrud( 'renderList' );
+
+            // A composition with 2 fieldsGroup instances
+            var items = [
+                {
+                    'type': 'composition',
+                    'container': {
+                        'containerType': 'tabContainer',
+                        //'template': 'tabContainer@templates/containers/basic.html'
+                    },
+                    'items': [
+                        {
+                            'type': 'fieldsGroup',
+                            'source': [ 'name', 'description' ],
+                            'container': {
+                                'id': 'main',
+                                'containerType': 'tabItem',
+                                //'template': 'tabItem@templates/containers/basic.html'
+                            }
+                        },
+                        {
+                            'type': 'fieldsGroup',
+                            'source': [ 'date', 'time', 'datetime' ],
+                            'container': {
+                                'id': 'dates',
+                                'containerType': 'tabItem',
+                                //'template': 'tabItem@templates/containers/basic.html'
+                            }
+                        }
+                    ]
+                }
+            ];
+            var expected = [
+                {
+                    'id': 'name',
+                    'type': 'text',
+                    'elementId': 'zcrud-name',
+                    'attributes': {},
+                    'name': 'name',
+                    'sorting': true,
+                    'template': 'text@templates/fields/basic.html',
+                    'viewTemplate': undefined
+                },
+                {
+                    'id': 'description',
+                    'type': 'textarea',
+                    'attributes': {
+                        'field': {
+                            'cols': 80,
+                            'rows': 6
+                        }
+                    },
+                    'elementId': 'zcrud-description',
+                    'name': 'description',
+                    'sorting': true,
+                    'template': 'textarea@templates/fields/basic.html',
+                    'viewTemplate': undefined
+                },
+                {
+                    'id': 'date',
+                    'type': 'date',
+                    'attributes': {},
+                    'elementId': 'zcrud-date',
+                    'name': 'date',
+                    'sorting': true,
+                    'template': 'date@templates/fields/datetime.html',
+                    'viewTemplate': undefined
+                },
+                {
+                    'id': 'time',
+                    'type': 'time',
+                    'attributes': {},
+                    'elementId': 'zcrud-time',
+                    'name': 'time',
+                    'sorting': true,
+                    'template': 'time@templates/fields/datetime.html',
+                    'viewTemplate': undefined
+                },
+                {
+                    'id': 'datetime',
+                    'type': 'datetime',
+                    'attributes': {},
+                    'elementId': 'zcrud-datetime',
+                    'name': 'datetime',
+                    'sorting': true,
+                    'template': 'datetime@templates/fields/datetime.html',
+                    'viewTemplate': undefined
+                }
+            ];
+            var expectedView = [
+                {
+                    'type': 'composition',
+                    'containerType': 'tabContainer',
+                    'template': 'tabContainer@templates/containers/basic.html',
+                    'fields': expected
+                }
+            ];
+            
+            var fullObjectFields = fieldListBuilder.build( items, options );
+            //assert.deepEqual( fullObjectFields.fieldsArray, expected );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expected, fullObjectFields.fieldsArray );
+            //assert.deepEqual( fullObjectFields.view, expectedView );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expectedView, fullObjectFields.view );
+            /*
+            // A fieldContainer only (with fields only)
+            items = [ 
+                {
+                    'type': 'fieldsGroup',
+                    'source': [ 
+                        {
+                            'id': 'name',
+                            'type': 'text'
+                        },
+                        {
+                            'id': 'description',
+                            'type': 'textarea',
+                            'attributes': {
+                                'field': {
+                                    'cols': 80,
+                                    'rows': 6
+                                }
+                            }
+                        }
+                    ],
+                    'container': {
+                        'id': 'intro',
+                        'containerType': 'fieldSet',
+                        'template': 'fieldSet@templates/containers/basic.html'
+                    }
+                }
+            ];
+            expected = [
+                {
+                    'id': 'name',
+                    'type': 'text',
+                    'elementId': 'zcrud-name',
+                    'attributes': {},
+                    'name': 'name',
+                    'sorting': true,
+                    'template': 'text@templates/fields/basic.html',
+                    'viewTemplate': undefined
+                },
+                {
+                    'id': 'description',
+                    'type': 'textarea',
+                    'attributes': {
+                        'field': {
+                            'cols': 80,
+                            'rows': 6
+                        }
+                    },
+                    'elementId': 'zcrud-description',
+                    'name': 'description',
+                    'sorting': true,
+                    'template': 'textarea@templates/fields/basic.html',
+                    'viewTemplate': undefined
+                }
+            ];
+            expectedView = [
+                {
+                    'type': 'fieldContainer',
+                    'id': 'intro',
+                    'containerType': 'fieldSet',
+                    'template': 'fieldSet@templates/containers/basic.html',
+                    'fields': expected
+                }
+            ];
+            
+            fullObjectFields = fieldListBuilder.build( items, options );
+            //assert.deepEqual( fullObjectFields.fieldsArray, expected );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expected, fullObjectFields.fieldsArray );
+            //assert.deepEqual( fullObjectFields.view, expectedView );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expectedView, fullObjectFields.view );
+            
+            // A fieldContainer only (with a fieldsGroup only starting with description and ending with browser except time and phoneType)
+            items = [ 
+                {
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'start': 'description',
+                    'end': 'browser',
+                    'except': [ 'time', 'phoneType' ],
+                    'container': {
+                        'id': 'intro',
+                        'containerType': 'fieldSet',
+                        'template': 'fieldSet@templates/containers/basic.html'
+                    }
+                }
+            ];
+            expected = [
+                'description',
+                'date',
+                'datetime',
+                'province',
+                'city',
+                'browser'
+            ];
+            expectedView = [
+                {
+                    'type': 'fieldContainer',
+                    'id': 'intro',
+                    'containerType': 'fieldSet',
+                    'template': 'fieldSet@templates/containers/basic.html',
+                    'fields': expected
+                }
+            ];
+            
+            fullObjectFields = fieldListBuilder.build( items, options );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.fieldsArray ), 
+                expected );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.view ), 
+                expectedView );
+            
+            // A string and a fieldContainer (with a fieldsGroup only starting with description and ending with browser except time and phoneType)
+            items = [ 
+                'id',
+                {
+                    'type': 'fieldsGroup',
+                    'source': 'default',
+                    'start': 'description',
+                    'end': 'browser',
+                    'except': [ 'time', 'phoneType' ],
+                    'container': {
+                        'id': 'intro',
+                        'containerType': 'div',
+                        'template': 'fieldSet@templates/containers/basic.html'
+                    }
+                }
+            ];
+            expected = [
+                'id',
+                'description',
+                'date',
+                'datetime',
+                'province',
+                'city',
+                'browser'
+            ];
+            expectedView = [
+                'id',
+                {
+                    'type': 'fieldContainer',
+                    'id': 'intro',
+                    'containerType': 'div',
+                    'template': 'div@templates/containers/basic.html',
+                    'fields': [
+                        'description',
+                        'date',
+                        'datetime',
+                        'province',
+                        'city',
+                        'browser'
+                    ]
+                }
+            ];
+            
+            fullObjectFields = fieldListBuilder.build( items, options );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.fieldsArray ), 
+                expected );
+            assert.deepEqual( 
+                buildIdsArray( fullObjectFields.view ), 
+                expectedView );
+            */
+            done();
+        }
+    );
+});

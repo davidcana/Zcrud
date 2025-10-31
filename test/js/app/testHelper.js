@@ -1569,13 +1569,17 @@ export const testHelper = (function() {
             
         } else if ( utils.isArray( first ) ){
             for ( var i = 0; i < first.length; ++i ){
-                checkAllPropertiesInFirstInSecond( assert, first[ i ], second[ i ] );
+                checkAllPropertiesInFirstInSecond(
+                    assert,
+                    first == null? null: first[ i ],
+                    second == null? null: second[ i ]
+                );
             }
             
         } else {
             for ( var propertyId in first ){
-                var propertyInFirst = first[ propertyId ];
-                var propertyInSecond = second[ propertyId ];
+                var propertyInFirst = first == null? null: first[ propertyId ];
+                var propertyInSecond = second == null? null: second[ propertyId ];
                 checkAllPropertiesInFirstInSecond( assert, propertyInFirst, propertyInSecond );
             }
             /*

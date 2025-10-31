@@ -225,7 +225,13 @@ export const defaultOptions = {
             'div': {
                 template: 'div@templates/containers/basic.html'
             },
-            'custom': {}
+            'custom': {},
+            'tabContainer': {
+                template: 'tabContainer@templates/containers/basic.html'
+            },
+            'tabItem': {
+                template: 'tabItem@templates/containers/basic.html'
+            }
         }
     },
     
