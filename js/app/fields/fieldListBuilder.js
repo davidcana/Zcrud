@@ -124,6 +124,20 @@ export const fieldListBuilder = (function() {
                 container
             );
 
+        // Is composition?
+        } else if ( item.type == 'composition' ){
+            buildFieldsFromComposition(
+                result,
+                fields,
+                item,
+                options,
+                pageIdArray,
+                functionToApplyToField,
+                containerType,
+                containerId,
+                container
+            );
+
         // Must be a field instance
         } else {
             var newField = normalizer.buildFullFieldInstance( item.id, item, options );
@@ -139,6 +153,54 @@ export const fieldListBuilder = (function() {
         }
     };
     
+    var buildFieldsFromComposition = function( result, fields, composition, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
+
+        // Init compositionView, init view property and add it to result.view
+        var compositionView = composition;
+        composition.view = compositionView;
+        result.view.push( compositionView );
+
+        // Init compositionResult with result.fieldsArray, result.fieldsMap and an empty list of views
+        var compositionResult = {
+            fieldsArray: result.fieldsArray,
+            fieldsMap: result.fieldsMap,
+            view: []
+        };
+
+        // Instance a new Container
+        composition.view = buildContainerInstance(
+            'composition',
+            composition.container,
+            options
+        );
+
+        // Remove fields from view, we shall use items instead
+        delete composition.view.fields;
+
+        // Set items in view
+        composition.view.items = composition.items;
+        /*
+            'type': 'composition',
+            'containerType': 'tabContainer',
+            'template': 'tabContainer@templates/containers/basic.html',
+            'itemsView': expected
+        };
+        */
+        //compositionResult.view;
+
+        // Iterate items
+        for ( const compositionItem of composition.items ) {
+            build1Pass(
+                compositionResult,
+                fields || options.fields,
+                compositionItem,
+                options,
+                pageIdArray,
+                functionToApplyToField
+            );
+        }
+    };
+
     var buildFieldsFromFieldsGroup = function( result, fields, item, options, pageIdArray, functionToApplyToField, containerType, containerId ) {
         
         var container;
@@ -161,7 +223,7 @@ export const fieldListBuilder = (function() {
         // Must add a containerInstance to result.view if there are no fields to add
         // Needed to support custom containerType with no fields
         if ( ! view.length ){
-            const containerInstance = buildContainerInstance( container, options );
+            const containerInstance = buildFieldContainerInstance( container, options );
             result.view.push( containerInstance );
             return;
         }
@@ -222,13 +284,18 @@ export const fieldListBuilder = (function() {
         
     };
     
-    var buildContainerInstance = function( container, options ){
+    var buildFieldContainerInstance = function( container, options ){
+        return buildContainerInstance( 'fieldContainer', container, options );
+    };
+
+    var buildContainerInstance = function( type, container, options ){
         
         utils.extend( 
             true, 
             container,
             {
-                type: 'fieldContainer',
+                //type: 'fieldContainer',
+                type: type,
                 template: options.containers.types[ container.containerType ].template,
                 fields: []
             }
@@ -248,7 +315,7 @@ export const fieldListBuilder = (function() {
             
             if ( ! container || container.id != containerId ){
                 
-                container = buildContainerInstance( newContainer, options );
+                container = buildFieldContainerInstance( newContainer, options );
                 
                 if ( ! container.template ){
                     throw 'Container with containerId "' + containerId + '" has got no template!';

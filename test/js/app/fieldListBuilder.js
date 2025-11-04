@@ -933,7 +933,7 @@ QUnit.test( 'Field list from general fields with composition/tabContainer builde
                     ]
                 }
             ];
-            var expected = [
+            var expectedFields = [
                 {
                     'id': 'name',
                     'type': 'text',
@@ -990,18 +990,62 @@ QUnit.test( 'Field list from general fields with composition/tabContainer builde
                     'viewTemplate': undefined
                 }
             ];
+            var expectedItems = [
+                {
+                    container: {
+                        containerType: 'tabItem',
+                        fields: [
+                            expectedFields[ 0 ],
+                            expectedFields[ 1 ]
+                        ],
+                        id: 'main',
+                        //options: {},
+                        template: 'tabItem@templates/containers/basic.html',
+                        type: 'fieldContainer'
+                    },
+                    source: [ 'name', 'description' ],
+                    type: 'fieldsGroup'
+                },
+                {
+                    container: {
+                        containerType: 'tabItem',
+                        fields: [
+                            expectedFields[ 2 ],
+                            expectedFields[ 3 ],
+                            expectedFields[ 4 ]
+                        ],
+                        id: 'dates',
+                        //options: {},
+                        template: 'tabItem@templates/containers/basic.html',
+                        type: 'fieldContainer'
+                    },
+                    source: [ 'date', 'time', 'datetime' ],
+                    type: 'fieldsGroup'
+                }
+            ];
             var expectedView = [
                 {
+                    'container': {
+                        containerType: 'tabContainer',
+                        fields: [],
+                        template: 'tabContainer@templates/containers/basic.html',
+                        type: 'composition'
+                    },
                     'type': 'composition',
-                    'containerType': 'tabContainer',
-                    'template': 'tabContainer@templates/containers/basic.html',
-                    'fields': expected
+                    'items': expectedItems,
+                    'view':  {
+                        containerType: 'tabContainer',
+                        items: expectedItems,
+                        //options: {},
+                        template: 'tabContainer@templates/containers/basic.html',
+                        type: 'composition'
+                    }
                 }
             ];
             
             var fullObjectFields = fieldListBuilder.build( items, options );
             //assert.deepEqual( fullObjectFields.fieldsArray, expected );
-            testHelper.checkAllPropertiesInFirstInSecond( assert, expected, fullObjectFields.fieldsArray );
+            testHelper.checkAllPropertiesInFirstInSecond( assert, expectedFields, fullObjectFields.fieldsArray );
             //assert.deepEqual( fullObjectFields.view, expectedView );
             testHelper.checkAllPropertiesInFirstInSecond( assert, expectedView, fullObjectFields.view );
             /*
