@@ -63,5 +63,53 @@
                 </button>
             </span>
         </span>
+
+        <div data-define-macro="tabContainer"
+             class="tabs"
+             data-define="tablistId string:tablist-${container/id};
+                          tabpanelId string:tabpanel-${container/id};
+                          tabId string:tab-${container/id}">
+            <h3 id="tablist-1" data-attributes="id tablistId">
+                Danish Composers
+            </h3>
+            <div role="tablist"
+                aria-labelledby="tablist-1" data-attributes="aria-labelledby tablistId"
+                class="automatic">
+
+                <button id="tab-1"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="tabpanel-1"
+                        data-attributes="id tabId;
+                                         aria-controls tabpanelId">
+                    <span class="focus">
+                        Maria Ahlefeldt
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <div data-define-macro="tabItem"
+             id="tabpanel-1"
+             role="tabpanel"
+             tabindex="0"
+             aria-labelledby="tab-1"
+             class="is-hidden"
+             data-attributes="id string:tabpanel-${container/id};
+                              aria-labelledby string:tab-${container/id}">
+             
+            <div data-define="viewItems container/fields">
+                <div class="zcrud-container-help"
+                     data-define="description container/description | tr:string:${container/id}_description"
+                     data-content="description"
+                     data-condition="description">
+                    The description of this container.
+                </div>
+                <div data-use-macro="viewItemsInFormExternalMacro">
+                    The fields
+                </div>
+            </div>
+        </div>
     </body>
 </html>
