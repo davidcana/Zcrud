@@ -62,6 +62,8 @@
     "addresses_title": "Direcciones",
     "addresses_description": "Una lista de direcciones",
     "address_title": "Dirección",
+    "main_title": "Principal",
+    "dates_title": "Fechas",
 
     "_options": "",
     "homePhone_option": "Teléfono doméstico",

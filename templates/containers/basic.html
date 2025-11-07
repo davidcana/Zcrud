@@ -66,8 +66,8 @@
 
         <div data-define-macro="tabContainer"
              class="tabs"
-             data-define="tablistId string:tablist-${container/id};
-                          tabId string:tab-${container/id}">
+             data-define="tablistId string:tablist-${composition/id};
+                          tabId string:tab-${composition/id}">
             <h3 id="tablist-1" data-attributes="id tablistId">
                 Danish Composers
             </h3>
@@ -75,15 +75,16 @@
                 aria-labelledby="tablist-1" data-attributes="aria-labelledby tablistId"
                 class="automatic">
 
-                <span data-repeat="item container/items">
+                <span data-repeat="item composition/items">
                     <button id="tab-1"
                             type="button"
                             role="tab"
                             aria-selected="true"
                             aria-controls="tabpanel-1"
+                            data-define="itemId item/container/id"
                             data-attributes="id tabId;
-                                            aria-controls string:tabpanel-${item/container/id}">
-                        <span class="focus" data-content="item/container/title | tr:string:${item/container/id}_title">
+                                            aria-controls string:tabpanel-${itemId}">
+                        <span class="focus" data-content="item/title | tr:string:${itemId}_title">
                             Maria Ahlefeldt
                         </span>
                     </button>

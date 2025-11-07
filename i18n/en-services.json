@@ -62,6 +62,8 @@
     "addresses_title": "Addresses",
     "addresses_description": "A list of addresses",
     "address_title": "Address",
+    "main_title": "Main",
+    "dates_title": "Dates",
 
     "_options": "",
     "homePhone_option": "Home phone",

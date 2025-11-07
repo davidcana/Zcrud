@@ -37,7 +37,9 @@
         
         <div data-define-macro="standard-editable">
             <div data-repeat="viewItem viewItems"
-                 data-define="isContainer (eq: viewItem/type 'fieldContainer')">
+                 data-define="isContainer (eq: viewItem/type 'fieldContainer');
+                              isComposition (eq: viewItem/type 'composition');
+                              isField not: or: isContainer isComposition">
                 <div data-condition="isContainer">
                     <div data-define="container viewItem">
                         <div data-use-macro="container/template">
@@ -45,7 +47,14 @@
                         </div>
                     </div>
                 </div>
-                <div data-condition="not: isContainer">
+                <div data-condition="isComposition">
+                    <div data-define="composition viewItem">
+                        <div data-use-macro="composition/container/template">
+                            The composition
+                        </div>
+                    </div>
+                </div>
+                <div data-condition="isField">
                     <div data-define="field viewItem;
                                        id field/id; 
                                        value record[ id ]"
