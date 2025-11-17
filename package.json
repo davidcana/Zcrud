@@ -44,38 +44,33 @@
     "grunt": "1.6.1",
     "grunt-contrib-compress": "2.0.0",
     "grunt-contrib-copy": "1.0.0",
-    "grunt-contrib-sass": "1.0.0",
+    "grunt-sass": "4.0.1",
     "http-server": "14.1.1",
     "log4javascript": "1.4.16",
     "npm-run-all": "4.1.5",
     "qunit": "2.11.2",
-    "qunit-composite": "2.0.0"
+    "qunit-composite": "2.0.0",
+    "sass": "1.94.0"
   },
   "scripts": {
     "version": "rm js/app/version.js; genversion --esm --semi --template template.ejs js/app/version.js",
-
     "http-server": "http-server -p 9000 -c-1",
     "web": "cd ./docs; http-server -p 9001 -c-1",
     "start": "npm-run-all -p -r web http-server",
-
     "build-php-date-formatter-esm": "esbuild ./node_modules/php-date-formatter/js/php-date-formatter.js --bundle --outfile=./lib/php-date-formatter-esm.js --format=esm",
     "build-sweetalert-esm": "esbuild ./node_modules/sweetalert/dist/sweetalert.min.js --bundle --outfile=./lib/sweetalert-esm.js --format=esm",
     "build-log4javascript-esm": "esbuild ./node_modules/log4javascript/log4javascript.js --bundle --outfile=./lib/log4javascript-esm.js --format=esm",
     "build-all-deps-esm": "npm run build-php-date-formatter-esm && npm run build-sweetalert-esm && npm run build-log4javascript-esm",
-
     "build-esm": "esbuild ./index.js --bundle --outfile=./dist/zcrud-esm.js --format=esm",
     "build-esm-minify": "esbuild ./index.js --bundle --outfile=./dist/zcrud-esm.min.js --format=esm --minify",
     "build-esm-gz": "gzip -fk ./dist/zcrud-esm.min.js",
     "build-esm-all": "npm run build-esm && npm run build-esm-minify && npm run build-esm-gz",
     "build-cjs": "esbuild ./index.js --bundle --outfile=./dist/zcrud-cjs.cjs --format=cjs",
     "build-all": "npm run build-esm-all && npm run build-cjs",
-    
     "build": "npm run build-all-deps-esm && npm run build-all",
-
     "docs-sass": "grunt sass",
     "docs-copy": "grunt copy",
     "docs-update": "npm run docs-sass && npm run docs-copy",
-
     "init": "npm install && npm run build && npm run docs-update"
   }
 }

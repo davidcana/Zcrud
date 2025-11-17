@@ -1,4 +1,7 @@
 module.exports = function(grunt) {
+    
+    const sass = require('sass');
+    //require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON( 'package.json' ),
@@ -85,6 +88,10 @@ module.exports = function(grunt) {
             }
         },
         sass: {
+            options: {
+                implementation: sass,
+                sourceMap: true
+            },
             dist: {
                 files: {
                     'themes/basic/theme.css': 'themes/basic/theme.scss',
@@ -96,5 +103,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-sass');
+    //grunt.registerTask('sass', ['sass']);
+    //grunt.loadNpmTasks('grunt-contrib-sass');
 };
