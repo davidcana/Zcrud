@@ -11,6 +11,7 @@ import { SortingComponent } from './components/sortingComponent.js';
 import { FilteringComponent } from './components/filteringComponent.js';
 import { SelectingComponent } from './components/selectingComponent.js';
 import { EditingComponent } from './components/editingComponent.js';
+import { TemplatingComponent } from './components/templatingComponent.js';
 
 // Fields
 import { Field } from './fields/field.js';
@@ -41,6 +42,9 @@ import { ShowEditFormButton as SubformShowEditFormButton} from './buttons/subfor
 
 // JSONBuilders
 import { onlyChangesJSONBuilder } from './jsonBuilders/onlyChangesJSONBuilder.js';
+
+// Misc
+import { TabsAutomatic } from './components/containers/tabsAutomatic.js';
 
 export const defaultOptions = {
 
@@ -128,6 +132,18 @@ export const defaultOptions = {
             },
             confirm: {
                 save: true
+            }
+        },
+        templating: {
+            isOn: true,
+            constructorClass: TemplatingComponent,
+            mapping: {
+                tabContainer: function(){
+                    var tablists = document.querySelectorAll( '[role=tablist].automatic' );
+                    for ( var i = 0; i < tablists.length; i++ ) {
+                        new TabsAutomatic( tablists[ i ] );
+                    }
+                }
             }
         }
     },

@@ -7,7 +7,7 @@
  *   Desc:   Tablist widget that implements ARIA Authoring Practices
  */
 
-'use strict';
+//'use strict';
 
 class TabsAutomatic {
   constructor(groupNode) {
@@ -127,10 +127,13 @@ class TabsAutomatic {
 }
 
 // Initialize tablist
-
+/*
 window.addEventListener('load', function () {
   var tablists = document.querySelectorAll('[role=tablist].automatic');
   for (var i = 0; i < tablists.length; i++) {
     new TabsAutomatic(tablists[i]);
   }
 });
+*/
+export { TabsAutomatic };
+
