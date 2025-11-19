@@ -126,6 +126,9 @@
 }
 
 /* 
+* ZCrud main SCSS file
+*/
+/* 
  * Based on jTable metro style theme - Blue
  * Created by Halil İbrahim Kalkan
  * A lot of changes by David Cana
@@ -152,14 +155,14 @@ div.zcrud-main-container .zcrud-header .zcrud-header-title .zcrud-title {
   font-size: 3em;
 }
 div.zcrud-main-container .zcrud-new-command-button, div.zcrud-main-container .zcrud-new-row-command-button {
-  /*background: url('../basic/images/add.png') no-repeat center;
+  /*background: url('./images/add.png') no-repeat center;
   background-size: 16px 16px;
   height: 30px;
   width: 30px;*/
   font-weight: 900 !important;
 }
 div.zcrud-main-container .zcrud-edit-command-button {
-  background: url("../basic/images/edit.png") no-repeat center;
+  background: url("./images/edit.png") no-repeat center;
   background-size: 16px 16px;
   height: 30px;
   width: 30px;
@@ -168,19 +171,19 @@ div.zcrud-main-container .zcrud-edit-command-button:hover {
   opacity: 0.8;
 }
 div.zcrud-main-container .zcrud-delete-command-button, div.zcrud-main-container .zcrud-delete-row-command-button {
-  background: url("../basic/images/delete.png") no-repeat center;
+  background: url("./images/delete.png") no-repeat center;
   background-size: 16px 16px;
   height: 30px;
   width: 30px;
 }
 div.zcrud-main-container table.zcrud {
   width: 100%;
-  border: 1px solid #1c78de;
+  border: 1px solid Darkcyan;
   border-collapse: collapse;
   border-spacing: 0;
 }
 div.zcrud-main-container table.zcrud > thead {
-  background-color: #1c78de;
+  background-color: Darkcyan;
 }
 div.zcrud-main-container table.zcrud > thead th {
   font-weight: 300;
@@ -202,14 +205,14 @@ div.zcrud-main-container table.zcrud > thead th.zcrud-column-header {
   margin-left: 4px;
 }
 div.zcrud-main-container table.zcrud > thead th.zcrud-column-header-sortable {
-  background: url("../basic/images/column-sortable.png") no-repeat left;
+  background: url("./images/column-sortable.png") no-repeat left;
   padding-left: 20px;
 }
 div.zcrud-main-container table.zcrud > thead th.zcrud-column-header-sorted-asc {
-  background: url("../basic/images/column-asc.png") no-repeat left;
+  background: url("./images/column-asc.png") no-repeat left;
 }
 div.zcrud-main-container table.zcrud > thead th.zcrud-column-header-sorted-desc {
-  background: url("../basic/images/column-desc.png") no-repeat left;
+  background: url("./images/column-desc.png") no-repeat left;
 }
 div.zcrud-main-container table.zcrud tbody tr > td {
   border: 1px solid #ddd;
@@ -229,10 +232,10 @@ div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row > td > .zcrud-delet
   opacity: 0.8;
 }
 div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(even) {
-  background-color: #e8eaef;
+  background-color: White;
 }
 div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:nth-child(odd) {
-  background-color: White;
+  background-color: #e8eaef;
 }
 div.zcrud-main-container table.zcrud tbody tr.zcrud-data-row:hover {
   background-color: #ddd;
@@ -249,10 +252,10 @@ div.zcrud-main-container th.zcrud-column-header-selecting input {
   cursor: pointer;
 }
 div.zcrud-main-container tr.zcrud-row-selected {
-  background-color: #94c5f2 !important;
+  background-color: #b2edcb !important;
 }
 div.zcrud-main-container .zcrud-bottom-panel {
-  background-color: #1c78de;
+  background-color: Darkcyan;
   color: White;
   min-height: 24px;
   border: 1px solid White;
@@ -271,7 +274,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list {
   margin: 0 0 0 1em;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
-  background-color: #2d89ef;
+  background-color: Darkcyan;
   color: White;
   margin: 1px;
   padding: 2px 5px;
@@ -279,8 +282,8 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number
   border-radius: 8px;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous:hover, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next:hover {
-  background-color: #4fabff;
-  color: White;
+  background-color: #cfec58;
+  color: Darkcyan;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled {
   opacity: 0.75;
@@ -288,7 +291,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number
   color: #ccc;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-disabled:hover {
-  background-color: #2d89ef;
+  background-color: Darkcyan;
   color: #ccc;
 }
 div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-space, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-first, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-last, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-previous, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-next, div.zcrud-main-container .zcrud-bottom-panel .zcrud-page-list .zcrud-page-number-active {
@@ -322,7 +325,7 @@ div.zcrud-main-container .zcrud-bottom-panel .zcrud-toolbar {
 }
 div.zcrud-main-container button,
 div.zcrud-main-container .zcrud-bottom-panel button {
-  color: #1c78de;
+  color: Darkcyan;
   background-color: White;
   font-size: 1.2em;
   border-radius: 5px;
@@ -332,7 +335,7 @@ div.zcrud-main-container .zcrud-bottom-panel button {
 }
 div.zcrud-main-container .zcrud-button-panel button {
   color: White;
-  background-color: #1c78de;
+  background-color: Darkcyan;
   font-size: 0.9em;
   padding: 0.5em 1em 0.5em 1em;
   margin: 0.2em;
@@ -397,7 +400,7 @@ div.zcrud-main-container .zcrud-filter-panel .zcrud-label::after {
 }
 div.zcrud-main-container td.zcrud-modified-field,
 div.zcrud-main-container div.zcrud-modified-field {
-  background-image: url("../basic/images/square-dirty.gif");
+  background-image: url("./images/square-dirty.gif");
   background-repeat: no-repeat;
   background-position: left top;
 }
@@ -561,12 +564,12 @@ div.zcrud-main-container .datetime .calendar td > div {
   padding-right: 0.5em;
 }
 div.zcrud-main-container .datetime .calendar td .today {
-  color: #2d89ef;
+  color: Darkcyan;
 }
 div.zcrud-main-container .datetime .calendar td .current {
-  background-color: #4fabff;
-  box-shadow: #4fabff 0 1px 3px 0 inset;
-  color: White;
+  background-color: #cfec58;
+  box-shadow: #cfec58 0 1px 3px 0 inset;
+  color: Darkcyan;
   font-weight: 700;
 }
 div.zcrud-main-container .datetime .calendar td .other-month {
@@ -574,12 +577,12 @@ div.zcrud-main-container .datetime .calendar td .other-month {
 }
 div.zcrud-main-container .datetime .calendar td:hover {
   color: White !important;
-  background-color: #94c5f2 !important;
+  background-color: #b2edcb !important;
   box-shadow: none !important;
 }
 div.zcrud-main-container .datetime button.save-button {
   color: White;
-  background-color: #1c78de;
+  background-color: Darkcyan;
   margin-top: 5px;
   width: 100%;
   font-weight: 300;
@@ -590,7 +593,7 @@ div.zcrud-main-container .wideConfirm {
 }
 .swal-button {
   color: White;
-  background-color: #1c78de;
+  background-color: Darkcyan;
 }
 
 #zcrud-busy-message {
@@ -602,8 +605,8 @@ div.zcrud-main-container .wideConfirm {
   border: 1px solid White;
   padding: 5px 5px 5px 58px;
   color: White;
-  background: url("../basic/images/loading.gif") no-repeat;
-  background-color: #1c78de;
+  background: url("./images/loading.gif") no-repeat;
+  background-color: Darkcyan;
   background-position: 8px;
 }
 

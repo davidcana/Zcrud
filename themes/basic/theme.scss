@@ -2,9 +2,9 @@
  * ZCrud main SCSS file
  */
 
-@import "base";
-@import "colors-physical";
-@import "colors-logical";
-@import "fonts";
-@import "tabs";
-@import "common";
+@use "base";
+@use "colors-physical";
+@use "colors-logical";
+@use "fonts";
+@use "tabs";
+@use "common";

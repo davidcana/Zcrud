@@ -1,3 +1,8 @@
+@use "base";
+@use "colors-logical";
+@use "colors-physical";
+@use "fonts";
+
 /* 
  * Based on jTable metro style theme - Blue
  * Created by Halil İbrahim Kalkan
@@ -6,13 +11,13 @@
 
 // Main container
 div.zcrud-main-container {
-    font-family: $font-stack;
+    font-family: fonts.$font-stack;
     font-weight: 300;
     font-size: 1em;
     line-height: 1.3;
     position: relative;
-    color: $color;
-    background-color: $background-color;
+    color: colors-physical.$color;
+    background-color: colors-physical.$background-color;
     
     button {
         &:hover, &:active, &:focus {
@@ -23,8 +28,8 @@ div.zcrud-main-container {
     // Header
     .zcrud-header {
         .zcrud-header-title {
-            background-color: $title-background-color;
-            color: $title-color;
+            background-color: colors-logical.$title-background-color;
+            color: colors-logical.$title-color;
             padding-left: .5em;
             // Title
             .zcrud-title {
@@ -36,14 +41,14 @@ div.zcrud-main-container {
     
     // Commands buttons
     .zcrud-new-command-button, .zcrud-new-row-command-button {
-        /*background: url('#{$images-url}/add.png') no-repeat center;
+        /*background: url('#{base.$images-url}/add.png') no-repeat center;
         background-size: 16px 16px;
         height: 30px;
         width: 30px;*/
         font-weight: 900 !important;
     }
     .zcrud-edit-command-button {
-        background: url('#{$images-url}/edit.png') no-repeat center;
+        background: url('#{base.$images-url}/edit.png') no-repeat center;
         background-size: 16px 16px;
         height: 30px;
         width: 30px;
@@ -52,7 +57,7 @@ div.zcrud-main-container {
         }
     }
     .zcrud-delete-command-button, .zcrud-delete-row-command-button {
-        background: url('#{$images-url}/delete.png') no-repeat center;
+        background: url('#{base.$images-url}/delete.png') no-repeat center;
         background-size: 16px 16px;
         height: 30px;
         width: 30px;
@@ -61,15 +66,15 @@ div.zcrud-main-container {
     // Table
     table.zcrud {
         width: 100%;
-        border: 1px solid $table-border-color;
+        border: 1px solid colors-logical.$table-border-color;
         border-collapse: collapse;
         border-spacing: 0;
         > thead {
-            background-color: $table-header-background-color;
+            background-color: colors-logical.$table-header-background-color;
             th {
                 font-weight: 300;
                 font-size: 1.5em;
-                color: $table-header-color;
+                color: colors-logical.$table-header-color;
                 padding-left: 5px;
                 vertical-align: middle;
                 text-align: left;
@@ -85,21 +90,21 @@ div.zcrud-main-container {
                     margin-left: 4px;
                 }
                 &.zcrud-column-header-sortable {
-                    background: url('#{$images-url}/column-sortable.png') no-repeat left;
+                    background: url('#{base.$images-url}/column-sortable.png') no-repeat left;
                     padding-left: 20px;
                 }
                 &.zcrud-column-header-sorted-asc {
-                    background: url('#{$images-url}/column-asc.png') no-repeat left;
+                    background: url('#{base.$images-url}/column-asc.png') no-repeat left;
                 }
                 &.zcrud-column-header-sorted-desc {
-                    background: url('#{$images-url}/column-desc.png') no-repeat left;
+                    background: url('#{base.$images-url}/column-desc.png') no-repeat left;
                 }
             }
         }
         tbody {
             tr {
                 > td {
-                    border: 1px solid $table-cell-border-color;
+                    border: 1px solid colors-logical.$table-cell-border-color;
                     padding-left: 5px;
                     &.zcrud-command {
                         text-align: center;
@@ -117,13 +122,13 @@ div.zcrud-main-container {
                         }
                     }
                     &:nth-child(even) {
-                        background-color: $data-row-even-background-color;
+                        background-color: colors-logical.$data-row-even-background-color;
                     }
                     &:nth-child(odd) {
-                        background-color: $data-row-odd-background-color;
+                        background-color: colors-logical.$data-row-odd-background-color;
                     }
                     &:hover {
-                        background-color: $data-row-hover-background-color;
+                        background-color: colors-logical.$data-row-hover-background-color;
                     }
                 }
             }
@@ -147,15 +152,15 @@ div.zcrud-main-container {
     
     // Selected rows
     tr.zcrud-row-selected {
-        background-color: $data-row-selected-background-color !important;
+        background-color: colors-logical.$data-row-selected-background-color !important;
     }
     
     // Bottom panel
     .zcrud-bottom-panel {
-        background-color: $bottom-panel-background-color;
-        color: $bottom-panel-color;
+        background-color: colors-logical.$bottom-panel-background-color;
+        color: colors-logical.$bottom-panel-color;
         min-height: 24px;
-        border: 1px solid $bottom-panel-border-color;
+        border: 1px solid colors-logical.$bottom-panel-border-color;
         border-top: none;
         text-align: left;
         position: relative;
@@ -169,24 +174,24 @@ div.zcrud-main-container {
             display: inline-block;
             margin: 0 0 0 1em;
             .zcrud-page-number, .zcrud-page-number-first, .zcrud-page-number-last, .zcrud-page-number-previous, .zcrud-page-number-next, .zcrud-page-number-active {
-                background-color: $paging-buttons-background-color;
-                color: $paging-buttons-color;
+                background-color: colors-logical.$paging-buttons-background-color;
+                color: colors-logical.$paging-buttons-color;
                 margin: 1px;
                 padding: 2px 5px;
                 font-size: 150%;
                 border-radius: 8px;
             }
             .zcrud-page-number:hover, .zcrud-page-number-first:hover, .zcrud-page-number-last:hover, .zcrud-page-number-previous:hover, .zcrud-page-number-next:hover {
-                background-color: $over2-em-background-color;
-                color: $over2-em-color;
+                background-color: colors-physical.$over2-em-background-color;
+                color: colors-physical.$over2-em-color;
             }
             .zcrud-page-number-disabled {
                 opacity: 0.75;
                 filter: alpha(opacity = 50);
-                color: $disabled-paging-buttons-color;
+                color: colors-logical.$disabled-paging-buttons-color;
                 &:hover {
-                    background-color: $over-em-background-color;
-                    color: $disabled-paging-buttons-color;
+                    background-color: colors-physical.$over-em-background-color;
+                    color: colors-logical.$disabled-paging-buttons-color;
                 }
             }
             .zcrud-page-number, .zcrud-page-number-space, .zcrud-page-number-first, .zcrud-page-number-last, .zcrud-page-number-previous, .zcrud-page-number-next, .zcrud-page-number-active {
@@ -224,8 +229,8 @@ div.zcrud-main-container {
     // Buttons
     button, 
     .zcrud-bottom-panel button {
-        color: $bottom-panel-buttons-color;
-        background-color: $bottom-panel-buttons-background-color;
+        color: colors-logical.$bottom-panel-buttons-color;
+        background-color: colors-logical.$bottom-panel-buttons-background-color;
         font-size: 1.2em;
         border-radius: 5px;
         font-weight: 600;
@@ -234,8 +239,8 @@ div.zcrud-main-container {
     }
     
     .zcrud-button-panel button {
-        color: $button-panel-buttons-color;
-        background-color: $button-panel-buttons-background-color;
+        color: colors-logical.$button-panel-buttons-color;
+        background-color: colors-logical.$button-panel-buttons-background-color;
         font-size: .9em;
         padding: 0.5em 1em 0.5em 1em;
         margin: 0.2em;
@@ -249,7 +254,7 @@ div.zcrud-main-container {
     
     .zcrud-button-panel button:disabled,
     .zcrud-bottom-panel button:disabled {
-        color: $disabled-buttons-color;
+        color: colors-logical.$disabled-buttons-color;
         cursor: not-allowed;
     }
 
@@ -263,7 +268,7 @@ div.zcrud-main-container {
                 padding: 0.5em;
             }
             fieldset {
-                border: 1px solid $fieldset-border-color;
+                border: 1px solid colors-logical.$fieldset-border-color;
                 line-height: 1.5em;
                 width: auto;
                 border-radius: 10px;
@@ -274,7 +279,7 @@ div.zcrud-main-container {
                 font-size: 90%;
             }
             .zcrud-subform-content {
-                border: 1px dotted $subform-border-color;
+                border: 1px dotted colors-logical.$subform-border-color;
                 padding: .5em;
             }
         }
@@ -285,7 +290,7 @@ div.zcrud-main-container {
         .zcrud-field-help, .zcrud-container-help {
             display: block;
             font-size: 90%;
-            color: $help-color;
+            color: colors-logical.$help-color;
             margin: 0 0 .25em 0;
         }
         .zcrud-field-label, .zcrud-label {
@@ -300,7 +305,7 @@ div.zcrud-main-container {
     // Filter panel
     .zcrud-filter-panel {
         padding: .5em;
-        border: 1px solid $filter-panel-border-color;
+        border: 1px solid colors-logical.$filter-panel-border-color;
         .zcrud-label::after {
             content: ": ";
         }
@@ -309,7 +314,7 @@ div.zcrud-main-container {
     // Modified fields
     td.zcrud-modified-field,
     div.zcrud-modified-field {
-        background-image: url('#{$images-url}/square-dirty.gif');
+        background-image: url('#{base.$images-url}/square-dirty.gif');
         background-repeat: no-repeat;
         background-position: left top;
     }
@@ -321,23 +326,23 @@ div.zcrud-main-container {
     // Form validation
     .valid {}
     .error {
-        color: $validation-error-color;
-        background-color: $validation-error-background-color;
+        color: colors-logical.$validation-error-color;
+        background-color: colors-logical.$validation-error-background-color;
     }
     .form-error-fixed {
         position: fixed;
         right: 1em;
         top: 1em;
         z-index: 1;
-        color: $validation-error-color;
-        background-color: $validation-error-background-color;
+        color: colors-logical.$validation-error-color;
+        background-color: colors-logical.$validation-error-background-color;
         padding: 0 1em 0 1em;
         border-radius: 10px;
         font-weight: 600;
     }
     .form-error-inline-static {
-        color: $validation-error-color;
-        background-color: $validation-error-background-color;
+        color: colors-logical.$validation-error-color;
+        background-color: colors-logical.$validation-error-background-color;
         padding: 0 1em 0 1em;
         border-radius: 10px;
         font-weight: 600;
@@ -346,8 +351,8 @@ div.zcrud-main-container {
         position: absolute;
         margin-top: .25em;
         z-index: 1;
-        color: $validation-error-color;
-        background-color: $validation-error-background-color;
+        color: colors-logical.$validation-error-color;
+        background-color: colors-logical.$validation-error-background-color;
         padding: 0 1em 0 1em;
         border-radius: 10px;
         font-weight: 600;
@@ -355,8 +360,8 @@ div.zcrud-main-container {
     // Datetime picker
     .datetime {
         box-shadow: 0 5px 15px -5px;
-        background-color: $datetime-background-color;
-        border: 1px solid $datetime-border-color;
+        background-color: colors-logical.$datetime-background-color;
+        border: 1px solid colors-logical.$datetime-border-color;
         padding: .5em;
         position: absolute;
         z-index: 9999;
@@ -457,7 +462,7 @@ div.zcrud-main-container {
             }
             th {
                 width: 14%;
-                border: 1px solid $datetime-th-border-color;
+                border: 1px solid colors-logical.$datetime-th-border-color;
                 font-size: .75em;
                 padding: 0;
                 border-collapse: collapse;
@@ -465,13 +470,13 @@ div.zcrud-main-container {
                 height: 2em;
                 font-weight: 700;
                 text-align: center;
-                color: $datetime-th-color;
+                color: colors-logical.$datetime-th-color;
             }
             td {
                 width: 14%;
-                border: 1px solid $datetime-td-border-color;
-                color: $datetime-td-color;
-                background-color: $datetime-background-color;
+                border: 1px solid colors-logical.$datetime-td-border-color;
+                color: colors-logical.$datetime-td-color;
+                background-color: colors-logical.$datetime-background-color;
                 font-size: .75em;
                 text-align: right;
                 padding: 0;
@@ -482,28 +487,28 @@ div.zcrud-main-container {
                     padding-right: .5em;
                 }
                 .today {
-                    color: $datetime-today-color;
+                    color: colors-logical.$datetime-today-color;
                 }
                 .current {
-                    background-color: $datetime-current-background-color;
-                    box-shadow: $datetime-current-background-color 0 1px 3px 0 inset;
-                    color: $datetime-current-color;
+                    background-color: colors-logical.$datetime-current-background-color;
+                    box-shadow: colors-logical.$datetime-current-background-color 0 1px 3px 0 inset;
+                    color: colors-logical.$datetime-current-color;
                     font-weight: 700;
                 }
                 .other-month {
                     opacity: 0.5;
                 }
                 &:hover {
-                    color: $datetime-td-hover-color !important;
-                    background-color: $datetime-td-hover-background-color !important;
+                    color: colors-logical.$datetime-td-hover-color !important;
+                    background-color: colors-logical.$datetime-td-hover-background-color !important;
                     box-shadow: none !important;
                 }
             }
         }
         
         button.save-button {
-            color: $button-panel-buttons-color;
-            background-color: $button-panel-buttons-background-color; 
+            color: colors-logical.$button-panel-buttons-color;
+            background-color: colors-logical.$button-panel-buttons-background-color; 
             margin-top: 5px;
             width: 100%;
             font-weight: 300;
@@ -522,8 +527,8 @@ div.zcrud-main-container {
 // Sweet alert
 .swal-overlay {}
 .swal-button {
-    color: $alert-buttons-color;
-    background-color: $alert-buttons-background-color;
+    color: colors-logical.$alert-buttons-color;
+    background-color: colors-logical.$alert-buttons-background-color;
 }
 .swal-footer {}
 .swal-text {}
@@ -534,14 +539,14 @@ div.zcrud-main-container {
 #zcrud-busy-message {
     cursor: wait;
     margin: .5em;
-    font-family: $font-stack;
+    font-family: fonts.$font-stack;
     font-weight: 300;
     font-size: 1.5em;
-    border: 1px solid $busy-border-color;
+    border: 1px solid colors-logical.$busy-border-color;
     padding: 5px 5px 5px 58px;
-    color: $busy-color;
-    background: url('#{$images-url}/loading.gif') no-repeat;
-    background-color: $busy-background-color;
+    color: colors-logical.$busy-color;
+    background: url('#{base.$images-url}/loading.gif') no-repeat;
+    background-color: colors-logical.$busy-background-color;
     background-position: 8px;
 }
 
