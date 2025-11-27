@@ -138,13 +138,14 @@
                           sectId string:sect-${container/id}">
             <h3>
                 <button type="button"
-                        aria-expanded="true"
+                        aria-expanded="false"
                         data-attributes="id accordionId;
                                          aria-controls sectId;
                                          class 'accordion-trigger'">
-                    <span data-attributes="class 'accordion-title'"
-                          data-content="item/title | tr:string:${container/id}_title">
-                        Personal Information
+                    <span data-attributes="class 'accordion-title'">
+                        <span data-content="item/title | tr:string:${container/id}_title">
+                            Personal Information
+                        </span>
                         <span data-attributes="class 'accordion-icon'""></span>
                     </span>
                 </button>
@@ -153,7 +154,8 @@
                  data-attributes="id sectId;
                                   aria-labelledby accordionId;
                                   class 'accordion-panel';
-                                  role 'region'">
+                                  role 'region';
+                                  hidden ''">
                 <div data-use-macro="viewItemsInFormExternalMacro">
                     The fields
                 </div>

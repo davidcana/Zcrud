@@ -45,6 +45,7 @@ import { onlyChangesJSONBuilder } from './jsonBuilders/onlyChangesJSONBuilder.js
 
 // Misc
 import { TabsAutomatic } from './components/containers/tabsAutomatic.js';
+import { Accordion } from './components/containers/accordion.js';
 
 export const defaultOptions = {
 
@@ -143,6 +144,12 @@ export const defaultOptions = {
                     for ( var i = 0; i < tablists.length; i++ ) {
                         new TabsAutomatic( tablists[ i ] );
                     }
+                },
+                accordionContainer: function(){
+                    const accordions = document.querySelectorAll( '.accordion h3' );
+                    accordions.forEach( ( accordionEl ) => {
+                        new Accordion( accordionEl );
+                    });
                 }
             }
         }
@@ -247,6 +254,12 @@ export const defaultOptions = {
             },
             'tabItem': {
                 template: 'tabItem@templates/containers/basic.html'
+            },
+            'accordionContainer': {
+                template: 'accordionContainer@templates/containers/basic.html'
+            },
+            'accordionItem': {
+                template: 'accordionItem@templates/containers/basic.html'
             }
         }
     },
