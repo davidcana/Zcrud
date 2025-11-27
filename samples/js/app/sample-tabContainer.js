@@ -43,6 +43,7 @@ var options = {
                     'id',
                     {
                         'type': 'composition',
+                        'id': 'tabContainer1',
                         'container': {
                             'containerType': 'tabContainer',
                             //'template': 'tabContainer@templates/containers/basic.html'

@@ -66,26 +66,28 @@
 
         <div data-define-macro="tabContainer"
              class="tabs"
-             data-define="tablistId string:tablist-${composition/id};
-                          tabId string:tab-${composition/id}">
-            <h3 id="tablist-1" data-attributes="id tablistId">
-                Danish Composers
+             data-define="tablistId string:tablist-${composition/id}">
+            <h3 data-attributes="id tablistId"
+                data-define="tabContainerTitle composition/title | tr:string:${tablistId}_title">
+                <span class="zcrud-tabContainer-title"
+                      data-content="description"
+                      data-condition="description">
+                    Tab container title
+                </span>
             </h3>
             <div role="tablist"
-                aria-labelledby="tablist-1" data-attributes="aria-labelledby tablistId"
+                data-attributes="aria-labelledby tablistId"
                 class="automatic">
 
                 <span data-repeat="item composition/items">
-                    <button id="tab-1"
-                            type="button"
+                    <button type="button"
                             aria-selected="true"
-                            aria-controls="tabpanel-1"
                             data-define="itemId item/container/id"
-                            data-attributes="id tabId;
+                            data-attributes="id string:tab-${itemId};
                                             role 'tab';
                                             aria-controls string:tabpanel-${itemId}">
                         <span class="focus" data-content="item/title | tr:string:${itemId}_title">
-                            Maria Ahlefeldt
+                            Item title
                         </span>
                     </button>
                 </span>
@@ -116,6 +118,42 @@
                      data-condition="description">
                     The description of this container.
                 </div>
+                <div data-use-macro="viewItemsInFormExternalMacro">
+                    The fields
+                </div>
+            </div>
+        </div>
+
+        <div data-define-macro="accordionContainer" class="accordion">
+            <div data-repeat="item composition/items">
+                <div data-define="container item/container"
+                        data-use-macro="container/template">
+                    The fields
+                </div>
+            </div>
+        </div>
+
+        <div data-define-macro="accordionItem"
+             data-define="accordionId string:accordion-${container/id};
+                          sectId string:sect-${container/id}">
+            <h3>
+                <button type="button"
+                        aria-expanded="true"
+                        data-attributes="id accordionId;
+                                         aria-controls sectId;
+                                         class 'accordion-trigger'">
+                    <span data-attributes="class 'accordion-title'"
+                          data-content="item/title | tr:string:${container/id}_title">
+                        Personal Information
+                        <span data-attributes="class 'accordion-icon'""></span>
+                    </span>
+                </button>
+            </h3>
+            <div data-define="viewItems container/fields"
+                 data-attributes="id sectId;
+                                  aria-labelledby accordionId;
+                                  class 'accordion-panel';
+                                  role 'region'">
                 <div data-use-macro="viewItemsInFormExternalMacro">
                     The fields
                 </div>
