@@ -45,8 +45,7 @@ var options = {
                         'type': 'composition',
                         'id': 'tabContainer1',
                         'container': {
-                            'containerType': 'tabContainer',
-                            //'template': 'tabContainer@templates/containers/basic.html'
+                            'containerType': 'tabContainer'
                         },
                         'items': [
                             {
@@ -54,8 +53,7 @@ var options = {
                                 'source': [ 'name', 'description' ],
                                 'container': {
                                     'id': 'main',
-                                    'containerType': 'tabItem',
-                                    //'template': 'tabItem@templates/containers/basic.html'
+                                    'containerType': 'tabItem'
                                 }
                             },
                             {
@@ -63,8 +61,7 @@ var options = {
                                 'source': [ 'date', 'time', 'datetime' ],
                                 'container': {
                                     'id': 'dates',
-                                    'containerType': 'tabItem',
-                                    //'template': 'tabItem@templates/containers/basic.html'
+                                    'containerType': 'tabItem'
                                 }
                             }
                         ]
